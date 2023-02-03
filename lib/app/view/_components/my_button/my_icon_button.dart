@@ -1,0 +1,85 @@
+import 'package:flutter/material.dart';
+import 'package:vemare/app/view/theme/button_style.dart';
+import 'package:vemare/app/view/theme/color.dart';
+
+class MyIconButton extends StatelessWidget {
+  MyIconButton({
+    Key? key,
+    required this.onPressed,
+    required this.text,
+    required this.icon,
+    this.customInset,
+    this.disabled = false,
+    this.variant = MyButtonVariant.containedPrimary,
+  }) : super(key: key);
+  String text;
+  Widget icon;
+  bool disabled;
+  VoidCallback onPressed;
+  MyButtonVariant variant;
+  EdgeInsets? customInset;
+
+  @override
+  Widget build(BuildContext context) {
+    VoidCallback? callback = onPressed;
+    var style = AppButtonStyle.getFromVariant(variant);
+    if (disabled) {
+      callback = null;
+      style = AppButtonStyle.getFromVariant(MyButtonVariant.disabled);
+    }
+    var iconColor = AppColor.primary;
+    switch (variant) {
+      case MyButtonVariant.containedPrimary:
+        iconColor = Colors.white;
+        break;
+      case MyButtonVariant.containedSecondary:
+        iconColor = AppColor.primary;
+        break;
+      case MyButtonVariant.containedCallToAction:
+        break;
+      case MyButtonVariant.outlinedBold:
+        break;
+      case MyButtonVariant.outlinedRegular:
+        iconColor = AppColor.primary;
+        break;
+      case MyButtonVariant.link:
+        iconColor = AppColor.black;
+        break;
+      case MyButtonVariant.lightLink:
+        iconColor = Colors.grey;
+        break;
+      case MyButtonVariant.disabled:
+        iconColor = Colors.grey;
+        break;
+    }
+
+    return TextButton(
+      onPressed: callback,
+      style: style.buttonStyle,
+      child: Padding(
+        padding: customInset ?? style.inset,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(width: 24, height: 24, child: icon),
+            Expanded(
+              child: Center(
+                child: Text(
+                  text,
+                  style: Theme.of(context)
+                      .textTheme
+                      .button
+                      ?.merge(style.textStyle),
+                ),
+              ),
+            ),
+            const SizedBox(
+              width: 24,
+              height: 24,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
