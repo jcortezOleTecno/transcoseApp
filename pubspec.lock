@@ -109,6 +109,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
+  nested_scroll_views:
+    dependency: "direct main"
+    description:
+      name: nested_scroll_views
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.6"
   path:
     dependency: transitive
     description:
@@ -199,5 +206,5 @@ packages:
     source: hosted
     version: "6.1.0"
 sdks:
-  dart: ">=2.18.0 <3.0.0"
-  flutter: ">=2.11.0-0.1.pre"
+  dart: ">=2.18.2 <3.0.0"
+  flutter: ">=3.3.3"

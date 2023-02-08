@@ -21,7 +21,7 @@ abstract class AppTextStyle {
     color: AppColor.black,
   );
   static const TextStyle linkStyle = TextStyle(
-    fontFamily: 'NunitoSans',
+    fontFamily: 'Nunito',
     fontSize: 18,
     fontWeight: FontWeight.bold,
     color: AppColor.blue,
@@ -38,16 +38,27 @@ abstract class AppTextStyle {
     color: AppColor.black,
   );
   static const TextStyle h1Style = TextStyle(
-    fontFamily: 'NunitoSans',
+    fontFamily: 'Nunito',
     fontSize: 32,
     fontWeight: FontWeight.bold,
     color: AppColor.black,
   );
   static const TextStyle h3Style = TextStyle(
     fontFamily: 'NunitoSans',
-    fontSize: 16,
-    fontWeight: FontWeight.w700,
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
     color: AppColor.black,
+  );
+  static const TextStyle menuStyle = TextStyle(
+    fontFamily: 'NunitoSans',
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    color: AppColor.white,
+  );
+  static const TextStyle homeStyle = TextStyle(
+    fontFamily: 'NunitoSans',
+    fontSize: 18,
+    color: AppColor.white,
   );
   static const TextStyle defaultStyle = TextStyle(
     fontFamily: 'NunitoSans',

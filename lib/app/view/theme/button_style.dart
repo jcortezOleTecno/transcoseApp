@@ -109,7 +109,8 @@ class OutlinedBoldButtonStyles extends MyButtonStyles {
       );
   @override
   ButtonStyle get buttonStyle => ElevatedButton.styleFrom(
-        foregroundColor: AppColor.black,
+        foregroundColor: AppColor.blue,
+        backgroundColor: AppColor.white,
         shape: semiRoundedShape.copyWith(
           side: const BorderSide(
             color: AppColor.blue,

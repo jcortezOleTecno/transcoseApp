@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 
@@ -59,24 +60,17 @@ class MyIconButton extends StatelessWidget {
       child: Padding(
         padding: customInset ?? style.inset,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(width: 24, height: 24, child: icon),
-            Expanded(
-              child: Center(
-                child: Text(
-                  text,
-                  style: Theme.of(context)
-                      .textTheme
-                      .button
-                      ?.merge(style.textStyle),
-                ),
+            Center(
+              child: Text(
+                text,
+                style:
+                    Theme.of(context).textTheme.button?.merge(style.textStyle),
               ),
             ),
-            const SizedBox(
-              width: 24,
-              height: 24,
-            ),
+            spacerM,
+            SizedBox(width: 24, height: 24, child: icon),
           ],
         ),
       ),

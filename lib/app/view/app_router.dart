@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vemare/app/view/home/home_page.dart';
 import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/register/register_page.dart';
 import 'package:vemare/app/view/splash/splash_page.dart';
@@ -22,6 +23,12 @@ abstract class AppRouter {
         return MaterialPageRoute<void>(
           settings: settings,
           builder: (_) => const RegisterPage(),
+        );
+      case HomePage.route:
+        final logged = settings.arguments as bool?;
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => HomePage(logged: logged!),
         );
 
       default:

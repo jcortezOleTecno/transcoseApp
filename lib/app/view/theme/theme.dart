@@ -18,13 +18,13 @@ abstract class AppTheme {
       floatingActionButtonTheme:
           const FloatingActionButtonThemeData(backgroundColor: AppColor.blue),
       appBarTheme: const AppBarTheme(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColor.blue,
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarBrightness: Brightness.light,
         ),
         elevation: 0,
         iconTheme: IconThemeData(
-          color: Colors.black,
+          color: Colors.white,
         ),
         titleTextStyle: AppTextStyle.inputStyle,
       ),

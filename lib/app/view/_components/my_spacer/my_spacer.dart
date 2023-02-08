@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vemare/app/view/theme/color.dart';
 
 class MySpacer extends StatelessWidget {
   final double? height;
@@ -44,3 +45,8 @@ const spacerXL = SizedBox(
 );
 
 const spacerExpanded = Expanded(child: spacerZero);
+
+const divider = Divider(
+  color: AppColor.white,
+  height: 0,
+);
