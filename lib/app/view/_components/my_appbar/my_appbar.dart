@@ -35,7 +35,7 @@ class _MyAppBarState extends State<MyAppBar> {
                   spacerM,
                   SvgPicture.asset(
                     'assets/icons/logo_splash.svg',
-                    width: 130,
+                    width: 120,
                   ),
                   const Spacer(),
                   _IconsAppbar(isOpenMenu, menuFunc: () {
@@ -88,27 +88,27 @@ class __IconsAppbarState extends State<_IconsAppbar> {
     return Row(
       children: [
         spacerM,
-        IconButton(
-          onPressed: () {},
-          icon: Image.asset(
+        InkWell(
+          onTap: () {},
+          child: Image.asset(
             'assets/icons/notificationOn.png',
             color: Colors.white,
             scale: 2,
           ),
         ),
         spacerM,
-        IconButton(
-          onPressed: () {},
-          icon: Image.asset(
+        InkWell(
+          onTap: () {},
+          child: Image.asset(
             'assets/icons/Bag.png',
             color: Colors.white,
             scale: 2,
           ),
         ),
         spacerM,
-        IconButton(
-          onPressed: widget.menuFunc,
-          icon: Visibility(
+        InkWell(
+          onTap: widget.menuFunc,
+          child: Visibility(
             visible: !widget.isOpenMenu,
             replacement: Image.asset(
               'assets/icons/Close.png',

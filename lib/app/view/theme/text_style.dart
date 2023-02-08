@@ -43,9 +43,21 @@ abstract class AppTextStyle {
     fontWeight: FontWeight.bold,
     color: AppColor.black,
   );
+  static const TextStyle h2Style = TextStyle(
+    fontFamily: 'Nunito',
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+    color: AppColor.black,
+  );
   static const TextStyle h3Style = TextStyle(
     fontFamily: 'NunitoSans',
-    fontSize: 18,
+    fontSize: 20,
+    fontWeight: FontWeight.w700,
+    color: AppColor.black,
+  );
+  static const TextStyle contentCard = TextStyle(
+    fontFamily: 'NunitoSans',
+    fontSize: 16,
     fontWeight: FontWeight.w500,
     color: AppColor.black,
   );

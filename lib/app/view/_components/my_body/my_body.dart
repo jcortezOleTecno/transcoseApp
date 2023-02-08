@@ -15,7 +15,7 @@ class MyBody extends StatelessWidget {
       children: [
         Column(
           children: [
-            const SizedBox(height: 80),
+            SizedBox(height: 80 + MediaQuery.of(context).viewPadding.vertical),
             Expanded(child: child),
           ],
         ),

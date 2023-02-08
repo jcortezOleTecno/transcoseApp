@@ -32,14 +32,18 @@ class _RegisterPageState extends State<RegisterPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const MySpacer(height: 80),
-              SvgPicture.asset('assets/icons/logo_login.svg'),
-              spacerL,
+              const MySpacer(height: 60),
+              SvgPicture.asset(
+                'assets/icons/logo_login.svg',
+                width: 125,
+              ),
+              spacerS,
               const Text(
                 'Crear una cuenta',
                 textAlign: TextAlign.center,
                 style: AppTextStyle.h1Style,
               ),
+              spacerM,
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: RadioGroup<String>.builder(

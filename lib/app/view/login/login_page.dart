@@ -30,15 +30,15 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const MySpacer(height: 80),
-              SvgPicture.asset('assets/icons/logo_login.svg'),
-              spacerL,
+              const MySpacer(height: 60),
+              SvgPicture.asset('assets/icons/logo_login.svg', width: 125),
+              spacerS,
               const Text(
                 'Iniciar sesión',
                 textAlign: TextAlign.center,
                 style: AppTextStyle.h1Style,
               ),
-              spacerL,
+              spacerM,
               const MyInput(
                   label: 'E-mail', hintText: 'Escribe tu correo electrónico'),
               spacerS,
@@ -72,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 text: 'Iniciar sesión',
               ),
-              spacerM,
+              spacerS,
               MyButton(
                 onPressed: () => Navigator.pushNamed(
                   context,
@@ -81,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                 text: 'Aún no tengo cuenta',
                 variant: MyButtonVariant.outlinedBold,
               ),
-              spacerM,
+              spacerS,
               TextButton.icon(
                 onPressed: () {
                   Navigator.pushNamed(

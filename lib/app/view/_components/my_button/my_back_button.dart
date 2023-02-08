@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:vemare/app/view/theme/text_style.dart';
 
 class MyBackButton extends StatelessWidget {
   const MyBackButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => Navigator.of(context).pop(),
-      child: Container(
-        width: 36,
-        height: 36,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(30),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextButton.icon(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        icon: Image.asset(
+          'assets/icons/arrow_back.png',
+          scale: 2,
         ),
-        child: const Icon(
-          Icons.arrow_back,
-          color: Colors.black,
+        label: const Text(
+          'Volver',
+          style: AppTextStyle.linkStyle,
         ),
       ),
     );

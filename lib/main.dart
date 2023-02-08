@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vemare/app/view/_components/no_scale_widget/no_scale_widget.dart';
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
       ),
     );
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Vemare',
+      debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
       navigatorKey: navigatorKey,
       initialRoute: AppRouter.initialPage,
@@ -37,6 +39,9 @@ class MyApp extends StatelessWidget {
       builder: (_, child) {
         return NoScaleTextWidget(child: child!);
       },
+      scrollBehavior: const MaterialScrollBehavior().copyWith(
+        dragDevices: PointerDeviceKind.values.toSet(),
+      ),
     );
   }
 }
