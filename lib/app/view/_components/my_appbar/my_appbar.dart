@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/promotions/promotions_page.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
@@ -149,7 +150,9 @@ class _Menu extends StatelessWidget {
                 title: 'Nuestros productos',
               ),
               _MenuItem(
-                onTap: () {},
+                onTap: () {
+                  // Navigator.pushNamed(context, PromotionsPage.route);
+                },
                 title: 'Promociones y Alquiler',
               ),
               _MenuItem(

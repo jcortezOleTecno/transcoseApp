@@ -25,8 +25,8 @@ class TypeOfVehiclePage extends StatelessWidget {
                 'Elige un tipo de vehículo para consultar los productos correspondientes.:'),
             spacerM,
             MyListile(
-                onTap: () =>
-                    Navigator.pushNamed(context, OurProductsPage.route),
+                onTap: () => Navigator.pushNamed(context, OurProductsPage.route,
+                    arguments: 'Turismo'),
                 padding: EdgeInsets.zero,
                 icon: CircleAvatar(
                   minRadius: 30,
@@ -36,15 +36,15 @@ class TypeOfVehiclePage extends StatelessWidget {
                 title: 'Turismo'),
             spacerM,
             MyListile(
-                onTap: () =>
-                    Navigator.pushNamed(context, OurProductsPage.route),
+                onTap: () => Navigator.pushNamed(context, OurProductsPage.route,
+                    arguments: 'Vehículo industrial'),
                 padding: EdgeInsets.zero,
                 icon: CircleAvatar(
                   minRadius: 30,
                   backgroundColor: AppColor.blue100,
                   child: Image.asset('assets/icons/Truck.png', scale: 2),
                 ),
-                title: 'Vehiculo industrial')
+                title: 'Vehículo industrial')
           ],
         ),
       )),

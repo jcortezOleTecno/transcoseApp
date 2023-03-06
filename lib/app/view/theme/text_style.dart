@@ -73,7 +73,5 @@ abstract class AppTextStyle {
     color: AppColor.white,
   );
   static const TextStyle defaultStyle = TextStyle(
-    fontFamily: 'NunitoSans',
-    fontWeight: FontWeight.w400,
-  );
+      fontFamily: 'NunitoSans', fontWeight: FontWeight.w400, fontSize: 16);
 }
