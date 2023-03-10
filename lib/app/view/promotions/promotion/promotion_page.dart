@@ -51,7 +51,7 @@ class _PromotionPageState extends State<PromotionPage> {
                         style: AppTextStyle.h1Style,
                       ),
                       spacerL,
-                      CustomDropdownButton2(
+                      MyCustomDropdownButton(
                         hint: 'Todos los recambios',
                         dropdownItems: items,
                         value: selectedValue,

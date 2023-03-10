@@ -2,7 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
-class CustomDropdownButton2 extends StatelessWidget {
+class MyCustomDropdownButton extends StatelessWidget {
   final String hint;
   final String? value;
   final List<String> dropdownItems;
@@ -29,7 +29,7 @@ class CustomDropdownButton2 extends StatelessWidget {
   final bool? scrollbarAlwaysShow;
   final Offset offset;
 
-  const CustomDropdownButton2({
+  const MyCustomDropdownButton({
     required this.hint,
     required this.value,
     required this.dropdownItems,

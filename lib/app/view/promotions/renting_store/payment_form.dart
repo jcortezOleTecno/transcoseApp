@@ -35,8 +35,10 @@ class PaymentPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      const Text(
-                        'Datos de envío',
+                      Text(
+                        !isCredit
+                            ? 'Datos de envío'
+                            : 'Comprueba que los datos son correctos',
                         style: AppTextStyle.h3Style,
                       ),
                       spacerM,

@@ -53,7 +53,7 @@ class _OurProductsPageState extends State<OurProductsPage> {
                       style: AppTextStyle.h1Style,
                     ),
                     spacerM,
-                    CustomDropdownButton2(
+                    MyCustomDropdownButton(
                       hint: 'Todos los productos',
                       dropdownItems: items,
                       value: selectedValue,

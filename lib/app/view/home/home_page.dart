@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nested_scroll_views/nested_scroll_views.dart';
+import 'package:vemare/app/data/services_data.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_cards/my_promotions_card.dart';
@@ -7,8 +8,12 @@ import 'package:vemare/app/view/_components/my_filter_image/my_filter_image.dart
 import 'package:vemare/app/view/_components/my_listile/my_listile.dart';
 import 'package:vemare/app/view/_components/my_cards/my_products_card.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/my_services/formations.dart';
+import 'package:vemare/app/view/my_services/service_general.dart';
+import 'package:vemare/app/view/my_services/services_page.dart';
 import 'package:vemare/app/view/our_products/product/product_page.dart';
 import 'package:vemare/app/view/our_products/type_of_vehicle_page.dart';
+import 'package:vemare/app/view/promotions/promotion/promotion_page.dart';
 import 'package:vemare/app/view/promotions/promotions_page.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
@@ -415,45 +420,60 @@ class _Servicios extends StatelessWidget {
         SizedBox(
           height: 225,
           child: PageView.builder(
-            itemCount: 3,
+            itemCount: service.length,
             controller: PageController(initialPage: 0, viewportFraction: 0.9),
-            itemBuilder: (context, index) => Card(
-              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-              clipBehavior: Clip.antiAlias,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              child: Stack(
-                fit: StackFit.expand,
-                children: [
-                  const Image(
-                    image: AssetImage('assets/imgs/formacionesIMG.png'),
-                    fit: BoxFit.cover,
-                  ),
-                  const MyFilterImage(),
-                  Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: Column(
-                      children: [
-                        const Spacer(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Programa Millennium',
-                              style: AppTextStyle.h2Style
-                                  .copyWith(color: AppColor.white),
-                            ),
-                            Image.asset(
-                              'assets/icons/arrow_next.png',
-                              color: AppColor.white,
-                              scale: 2,
-                            ),
-                          ],
-                        ),
-                      ],
+            itemBuilder: (context, index) => GestureDetector(
+              onTap: () {
+                if (service[index].name != 'Formaciones' &&
+                    service[index].name != 'Eventos') {
+                  Navigator.pushNamed(
+                    context,
+                    ServiceGeneralPage.route,
+                    arguments: service[index],
+                  );
+                }
+                if (service[index].name == 'Formaciones') {
+                  Navigator.pushNamed(context, FormationsPage.route);
+                }
+              },
+              child: Card(
+                margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                clipBehavior: Clip.antiAlias,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    Image(
+                      image: AssetImage(service[index].img),
+                      fit: BoxFit.cover,
                     ),
-                  )
-                ],
+                    const MyFilterImage(),
+                    Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Column(
+                        children: [
+                          const Spacer(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                service[index].name,
+                                style: AppTextStyle.h2Style
+                                    .copyWith(color: AppColor.white),
+                              ),
+                              Image.asset(
+                                'assets/icons/arrow_next.png',
+                                color: AppColor.white,
+                                scale: 2,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
@@ -461,7 +481,9 @@ class _Servicios extends StatelessWidget {
         spacerM,
         Center(
           child: TextButton.icon(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, ServicesPage.route);
+            },
             label: Image.asset(
               'assets/icons/arrow_next.png',
               scale: 2,
@@ -499,7 +521,18 @@ class _Promociones extends StatelessWidget {
           child: PageView.builder(
             itemCount: 3,
             controller: PageController(initialPage: 0, viewportFraction: 0.9),
-            itemBuilder: (context, index) => const PromotionsCard(),
+            itemBuilder: (context, index) => MySingleCard(
+              title: 'Máquinas Bosh',
+              content:
+                  'Sólo durante este mes consigue una botella de vino Rioja Reserva por cada motor de arranque o alternador de la marca.',
+              icon: Image.asset(
+                'assets/icons/star.png',
+                scale: 2,
+              ),
+              onTap: () {
+                Navigator.pushNamed(context, PromotionPage.route);
+              },
+            ),
           ),
         ),
         spacerM,

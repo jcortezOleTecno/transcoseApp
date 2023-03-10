@@ -8,6 +8,8 @@ import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/tap_to_hide_keyboard/tap_to_hide_keyboard.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
+import 'promotion/promotion_page.dart';
+
 class PromotionsPage extends StatefulWidget {
   const PromotionsPage({super.key});
 
@@ -39,7 +41,7 @@ class _PromotionsPageState extends State<PromotionsPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const MyBackButton(),
+                // const MyBackButton(),
                 const Image(
                   image: AssetImage('assets/imgs/promotions_img.png'),
                   width: double.infinity,
@@ -60,7 +62,7 @@ class _PromotionsPageState extends State<PromotionsPage> {
                         style: AppTextStyle.defaultStyle,
                       ),
                       spacerM,
-                      CustomDropdownButton2(
+                      MyCustomDropdownButton(
                         hint: 'Todas las promociones',
                         dropdownItems: items,
                         value: selectedValue,
@@ -77,8 +79,19 @@ class _PromotionsPageState extends State<PromotionsPage> {
                 ),
                 spacerXL,
                 ...List.generate(5, (i) {
-                  return const PromotionsCard(
-                    margin: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                  return MySingleCard(
+                    onTap: () {
+                      Navigator.pushNamed(context, PromotionPage.route);
+                    },
+                    title: 'Máquinas Bosh',
+                    content:
+                        'Sólo durante este mes consigue una botella de vino Rioja Reserva por cada motor de arranque o alternador de la marca.',
+                    icon: Image.asset(
+                      'assets/icons/star.png',
+                      scale: 2,
+                    ),
+                    margin:
+                        const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
                   );
                 })
               ],

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:vemare/app/view/home/home_page.dart';
 import 'package:vemare/app/view/login/login_page.dart';
+import 'package:vemare/app/view/my_services/formations.dart';
+import 'package:vemare/app/view/my_services/service_general.dart';
+import 'package:vemare/app/view/my_services/services_page.dart';
+import 'package:vemare/app/view/my_services/skillful_formation.dart';
 import 'package:vemare/app/view/our_products/detail_product/detail_product.dart';
 import 'package:vemare/app/view/our_products/our_productos_page.dart';
 import 'package:vemare/app/view/our_products/product/product_page.dart';
@@ -105,6 +109,27 @@ abstract class AppRouter {
         return MaterialPageRoute<void>(
           settings: settings,
           builder: (_) => PaymentPage(isCredit: isCredit!),
+        );
+      case ServicesPage.route:
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => ServicesPage(),
+        );
+      case ServiceGeneralPage.route:
+        final ServiceClass? service = settings.arguments as ServiceClass?;
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => ServiceGeneralPage(service: service!),
+        );
+      case FormationsPage.route:
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => const FormationsPage(),
+        );
+      case SkillFormationPage.route:
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => const SkillFormationPage(),
         );
 
       default:

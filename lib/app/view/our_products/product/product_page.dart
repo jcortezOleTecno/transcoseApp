@@ -90,7 +90,7 @@ class _ProductPageState extends State<ProductPage> {
                         ),
                       ),
                       spacerM,
-                      CustomDropdownButton2(
+                      MyCustomDropdownButton(
                         hint: 'Todos los productos',
                         dropdownItems: items,
                         value: selectedValue,
