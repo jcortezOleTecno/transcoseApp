@@ -1,0 +1,334 @@
+// coverage:ignore-file
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
+
+part of 'register_state.dart';
+
+// **************************************************************************
+// FreezedGenerator
+// **************************************************************************
+
+T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
+/// @nodoc
+mixin _$RegisterState {
+  String? get name => throw _privateConstructorUsedError;
+  String? get cif => throw _privateConstructorUsedError;
+  Email? get email => throw _privateConstructorUsedError;
+  String? get phone => throw _privateConstructorUsedError;
+  String? get responsibleName => throw _privateConstructorUsedError;
+  String? get responsibleLastName => throw _privateConstructorUsedError;
+  Password? get password => throw _privateConstructorUsedError;
+  Password? get confirmPassword => throw _privateConstructorUsedError;
+  String? get roleId => throw _privateConstructorUsedError;
+  String? get parentId => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $RegisterStateCopyWith<RegisterState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $RegisterStateCopyWith<$Res> {
+  factory $RegisterStateCopyWith(
+          RegisterState value, $Res Function(RegisterState) then) =
+      _$RegisterStateCopyWithImpl<$Res, RegisterState>;
+  @useResult
+  $Res call(
+      {String? name,
+      String? cif,
+      Email? email,
+      String? phone,
+      String? responsibleName,
+      String? responsibleLastName,
+      Password? password,
+      Password? confirmPassword,
+      String? roleId,
+      String? parentId});
+}
+
+/// @nodoc
+class _$RegisterStateCopyWithImpl<$Res, $Val extends RegisterState>
+    implements $RegisterStateCopyWith<$Res> {
+  _$RegisterStateCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = freezed,
+    Object? cif = freezed,
+    Object? email = freezed,
+    Object? phone = freezed,
+    Object? responsibleName = freezed,
+    Object? responsibleLastName = freezed,
+    Object? password = freezed,
+    Object? confirmPassword = freezed,
+    Object? roleId = freezed,
+    Object? parentId = freezed,
+  }) {
+    return _then(_value.copyWith(
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      cif: freezed == cif
+          ? _value.cif
+          : cif // ignore: cast_nullable_to_non_nullable
+              as String?,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as Email?,
+      phone: freezed == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String?,
+      responsibleName: freezed == responsibleName
+          ? _value.responsibleName
+          : responsibleName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      responsibleLastName: freezed == responsibleLastName
+          ? _value.responsibleLastName
+          : responsibleLastName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      password: freezed == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as Password?,
+      confirmPassword: freezed == confirmPassword
+          ? _value.confirmPassword
+          : confirmPassword // ignore: cast_nullable_to_non_nullable
+              as Password?,
+      roleId: freezed == roleId
+          ? _value.roleId
+          : roleId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      parentId: freezed == parentId
+          ? _value.parentId
+          : parentId // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_RegisterStateCopyWith<$Res>
+    implements $RegisterStateCopyWith<$Res> {
+  factory _$$_RegisterStateCopyWith(
+          _$_RegisterState value, $Res Function(_$_RegisterState) then) =
+      __$$_RegisterStateCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String? name,
+      String? cif,
+      Email? email,
+      String? phone,
+      String? responsibleName,
+      String? responsibleLastName,
+      Password? password,
+      Password? confirmPassword,
+      String? roleId,
+      String? parentId});
+}
+
+/// @nodoc
+class __$$_RegisterStateCopyWithImpl<$Res>
+    extends _$RegisterStateCopyWithImpl<$Res, _$_RegisterState>
+    implements _$$_RegisterStateCopyWith<$Res> {
+  __$$_RegisterStateCopyWithImpl(
+      _$_RegisterState _value, $Res Function(_$_RegisterState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = freezed,
+    Object? cif = freezed,
+    Object? email = freezed,
+    Object? phone = freezed,
+    Object? responsibleName = freezed,
+    Object? responsibleLastName = freezed,
+    Object? password = freezed,
+    Object? confirmPassword = freezed,
+    Object? roleId = freezed,
+    Object? parentId = freezed,
+  }) {
+    return _then(_$_RegisterState(
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      cif: freezed == cif
+          ? _value.cif
+          : cif // ignore: cast_nullable_to_non_nullable
+              as String?,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as Email?,
+      phone: freezed == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String?,
+      responsibleName: freezed == responsibleName
+          ? _value.responsibleName
+          : responsibleName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      responsibleLastName: freezed == responsibleLastName
+          ? _value.responsibleLastName
+          : responsibleLastName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      password: freezed == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as Password?,
+      confirmPassword: freezed == confirmPassword
+          ? _value.confirmPassword
+          : confirmPassword // ignore: cast_nullable_to_non_nullable
+              as Password?,
+      roleId: freezed == roleId
+          ? _value.roleId
+          : roleId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      parentId: freezed == parentId
+          ? _value.parentId
+          : parentId // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_RegisterState extends _RegisterState {
+  const _$_RegisterState(
+      {this.name,
+      this.cif,
+      this.email,
+      this.phone,
+      this.responsibleName,
+      this.responsibleLastName,
+      this.password,
+      this.confirmPassword,
+      this.roleId,
+      this.parentId})
+      : super._();
+
+  @override
+  final String? name;
+  @override
+  final String? cif;
+  @override
+  final Email? email;
+  @override
+  final String? phone;
+  @override
+  final String? responsibleName;
+  @override
+  final String? responsibleLastName;
+  @override
+  final Password? password;
+  @override
+  final Password? confirmPassword;
+  @override
+  final String? roleId;
+  @override
+  final String? parentId;
+
+  @override
+  String toString() {
+    return 'RegisterState(name: $name, cif: $cif, email: $email, phone: $phone, responsibleName: $responsibleName, responsibleLastName: $responsibleLastName, password: $password, confirmPassword: $confirmPassword, roleId: $roleId, parentId: $parentId)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_RegisterState &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.cif, cif) || other.cif == cif) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.phone, phone) || other.phone == phone) &&
+            (identical(other.responsibleName, responsibleName) ||
+                other.responsibleName == responsibleName) &&
+            (identical(other.responsibleLastName, responsibleLastName) ||
+                other.responsibleLastName == responsibleLastName) &&
+            (identical(other.password, password) ||
+                other.password == password) &&
+            (identical(other.confirmPassword, confirmPassword) ||
+                other.confirmPassword == confirmPassword) &&
+            (identical(other.roleId, roleId) || other.roleId == roleId) &&
+            (identical(other.parentId, parentId) ||
+                other.parentId == parentId));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      name,
+      cif,
+      email,
+      phone,
+      responsibleName,
+      responsibleLastName,
+      password,
+      confirmPassword,
+      roleId,
+      parentId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_RegisterStateCopyWith<_$_RegisterState> get copyWith =>
+      __$$_RegisterStateCopyWithImpl<_$_RegisterState>(this, _$identity);
+}
+
+abstract class _RegisterState extends RegisterState {
+  const factory _RegisterState(
+      {final String? name,
+      final String? cif,
+      final Email? email,
+      final String? phone,
+      final String? responsibleName,
+      final String? responsibleLastName,
+      final Password? password,
+      final Password? confirmPassword,
+      final String? roleId,
+      final String? parentId}) = _$_RegisterState;
+  const _RegisterState._() : super._();
+
+  @override
+  String? get name;
+  @override
+  String? get cif;
+  @override
+  Email? get email;
+  @override
+  String? get phone;
+  @override
+  String? get responsibleName;
+  @override
+  String? get responsibleLastName;
+  @override
+  Password? get password;
+  @override
+  Password? get confirmPassword;
+  @override
+  String? get roleId;
+  @override
+  String? get parentId;
+  @override
+  @JsonKey(ignore: true)
+  _$$_RegisterStateCopyWith<_$_RegisterState> get copyWith =>
+      throw _privateConstructorUsedError;
+}

@@ -34,7 +34,7 @@ abstract class AppRouter {
       case LoginPage.route:
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const LoginPage(),
+          builder: (_) => LoginPage.create(),
         );
       case RegisterPage.route:
         return MaterialPageRoute<void>(

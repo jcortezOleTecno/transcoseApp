@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/promotions/promotions_page.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
+import 'package:vemare/config/service_locator.dart';
 
 class MyAppBar extends StatefulWidget {
   const MyAppBar({
@@ -204,7 +207,14 @@ class _Menu extends StatelessWidget {
               ),
               divider,
               ListTile(
-                onTap: () {},
+                onTap: () async {
+                  await getIt.get<LocalDataRepository>()
+                    ..deleteUser()
+                    ..deleteAuthToken().then((_) {
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, LoginPage.route, (route) => false);
+                    });
+                },
                 title: const Text(
                   'Cerrar sesión',
                   style: AppTextStyle.menuStyle,
