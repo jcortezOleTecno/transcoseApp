@@ -23,9 +23,9 @@ class SkillFormationPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Electromecánica', style: AppTextStyle.h1Style),
+                    const Text('Electromecánica', style: AppTextStyle.h1Style),
                     spacerS,
-                    Text(
+                    const Text(
                         'Información resumida de lo que ofrecemos en este tipo de formación... Lorem ipsum dolor sit amet.',
                         style: AppTextStyle.defaultStyle),
                     spacerXL,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vemare/app/view/_components/my_appbar/my_appbar.dart';
+import 'package:vemare/app/view/menu/menu.dart';
 
 class MyBody extends StatelessWidget {
   const MyBody({
@@ -19,7 +19,7 @@ class MyBody extends StatelessWidget {
             Expanded(child: child),
           ],
         ),
-        const MyAppBar(),
+        MyMenu.create(),
       ],
     );
   }

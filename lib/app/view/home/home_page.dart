@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nested_scroll_views/nested_scroll_views.dart';
+import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/services_data.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
@@ -8,6 +10,8 @@ import 'package:vemare/app/view/_components/my_filter_image/my_filter_image.dart
 import 'package:vemare/app/view/_components/my_listile/my_listile.dart';
 import 'package:vemare/app/view/_components/my_cards/my_products_card.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/home/cubit/home_cubit.dart';
+import 'package:vemare/app/view/home/cubit/home_state.dart';
 import 'package:vemare/app/view/my_services/formations.dart';
 import 'package:vemare/app/view/my_services/service_general.dart';
 import 'package:vemare/app/view/my_services/services_page.dart';
@@ -19,12 +23,19 @@ import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/app/view/work_with_us/work_with_us_page.dart';
+import 'package:vemare/config/service_locator.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({this.logged = false, super.key});
-  final bool logged;
+  const HomePage._();
 
   static const route = '/home';
+
+  static Widget create() {
+    return BlocProvider(
+      create: (context) => HomeCubit(getIt.get<LocalDataRepository>()),
+      child: const HomePage._(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,44 +64,47 @@ class _PageA extends StatelessWidget {
       children: [
         const _Background(),
         Padding(
-          padding: const EdgeInsets.all(15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const MySpacer(height: 200),
-              const Text(
-                '¡Bienvenido, Marcos!',
-                style: AppTextStyle.homeStyle,
-              ),
-              spacerM,
-              Text(
-                'Grupo Vemare',
-                style: AppTextStyle.h1Style
-                    .copyWith(color: AppColor.white, fontSize: 58),
-              ),
-              spacerM,
-              const Text(
-                'Proveedores originales, productos multimarca de Calidad, equipamiento para el taller y servicios, con el soporte de la principal red de distribución de recambios de Europa, AD Parts.',
-                style: AppTextStyle.homeStyle,
-              ),
-              const Spacer(),
-              MyIconButton(
-                onPressed: () {},
-                text: 'Escribir un Whatsapp',
-                icon: const Icon(Icons.whatsapp),
-                variant: MyButtonVariant.outlinedBold,
-              ),
-              spacerM,
-              MyIconButton(
-                onPressed: () {},
-                text: 'Escribir un email',
-                icon: const Icon(Icons.mail_outline),
-                variant: MyButtonVariant.outlinedBold,
-              ),
-              spacerM,
-            ],
-          ),
-        )
+            padding: const EdgeInsets.all(15),
+            child: BlocBuilder<HomeCubit, HomeState>(
+              builder: (context, state) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const MySpacer(height: 200),
+                    Text(
+                      '¡Bienvenido${state.isLogged ? ', ${state.user?.responsibleName ?? ''}!' : '!'}',
+                      style: AppTextStyle.homeStyle,
+                    ),
+                    spacerM,
+                    Text(
+                      'Grupo Vemare',
+                      style: AppTextStyle.h1Style
+                          .copyWith(color: AppColor.white, fontSize: 58),
+                    ),
+                    spacerM,
+                    const Text(
+                      'Proveedores originales, productos multimarca de Calidad, equipamiento para el taller y servicios, con el soporte de la principal red de distribución de recambios de Europa, AD Parts.',
+                      style: AppTextStyle.homeStyle,
+                    ),
+                    const Spacer(),
+                    MyIconButton(
+                      onPressed: () {},
+                      text: 'Escribir un Whatsapp',
+                      icon: const Icon(Icons.whatsapp),
+                      variant: MyButtonVariant.outlinedBold,
+                    ),
+                    spacerM,
+                    MyIconButton(
+                      onPressed: () {},
+                      text: 'Escribir un email',
+                      icon: const Icon(Icons.mail_outline),
+                      variant: MyButtonVariant.outlinedBold,
+                    ),
+                    spacerM,
+                  ],
+                );
+              },
+            ))
       ],
     );
   }

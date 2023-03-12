@@ -28,7 +28,7 @@ class LocalDataRepository {
     return _localStorage.getString('@auth_token');
   }
 
-  void set authToken(String? token) {
+  set authToken(String? token) {
     _localStorage.setString('@auth_token', token!);
   }
 
@@ -48,7 +48,7 @@ class LocalDataRepository {
     return _localStorage.getString('@login_email');
   }
 
-  void set loginDataPassword(String? password) {
+  set loginDataPassword(String? password) {
     _localStorage.setString('@login_password', password!);
   }
 
@@ -68,11 +68,24 @@ class LocalDataRepository {
     return null;
   }
 
-  void set user(UserData? userData) {
+  set user(UserData? userData) {
     _localStorage.setString('@auth_user', jsonEncode(userData!.toJson()));
   }
 
   Future<void> deleteUser() async {
     await _localStorage.remove('@auth_user');
+  }
+
+  bool get isLogged => _localStorage.getBool('@isLogged') ?? false;
+
+  set isLogged(bool value) {
+    _localStorage.setBool('@isLogged', value);
+  }
+
+  Future<void> logOut() async {
+    _localStorage
+      ..setBool('@isLogged', false)
+      ..remove('@auth_user')
+      ..remove('@auth_token');
   }
 }

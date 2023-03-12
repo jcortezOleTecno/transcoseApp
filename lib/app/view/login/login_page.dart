@@ -18,7 +18,7 @@ import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage._({super.key});
+  const LoginPage._();
 
   static const String route = '/login';
 
@@ -28,7 +28,7 @@ class LoginPage extends StatelessWidget {
         getIt.get<AuthRepository>(),
         getIt.get<LocalDataRepository>(),
       ),
-      child: LoginPage._(),
+      child: const LoginPage._(),
     );
   }
 
@@ -40,7 +40,7 @@ class LoginPage extends StatelessWidget {
         body: BlocConsumer<LoginCubit, LoginState>(
           listener: (context, state) {
             if (state.status == FormStatus.done) {
-              Navigator.pushNamed(context, HomePage.route, arguments: true);
+              Navigator.pushReplacementNamed(context, HomePage.route);
             }
           },
           // buildWhen: (p, c) =>
@@ -75,7 +75,6 @@ class LoginPage extends StatelessWidget {
                   ),
                   Builder(
                     builder: (context) {
-                      print(state.initialEmail ?? 'nada');
                       return MyInput(
                         label: 'E-mail',
                         hintText: 'Escribe tu correo electrónico',
@@ -112,11 +111,7 @@ class LoginPage extends StatelessWidget {
                   ),
                   spacerS,
                   MyButton(
-                    onPressed: state.isComplete
-                        ? cubit.login
-                        : () {
-                            print('incomplete');
-                          },
+                    onPressed: state.isComplete ? cubit.login : () {},
                     text: 'Iniciar sesión',
                     isLoading: state.status == FormStatus.loading,
                   ),

@@ -29,7 +29,7 @@ class ServiceClass {
 }
 
 class ServicesPage extends StatefulWidget {
-  ServicesPage({super.key});
+  const ServicesPage({super.key});
 
   static const route = '/services_page';
 

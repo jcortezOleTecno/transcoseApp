@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vemare/app/view/about_us/about_us_page.dart';
 import 'package:vemare/app/view/home/home_page.dart';
 import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/my_services/formations.dart';
@@ -39,13 +40,12 @@ abstract class AppRouter {
       case RegisterPage.route:
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const RegisterPage(),
+          builder: (_) => RegisterPage.create(),
         );
       case HomePage.route:
-        final logged = settings.arguments as bool?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => HomePage(logged: logged!),
+          builder: (_) => HomePage.create(),
         );
       case WorkWithUsPage.route:
         return MaterialPageRoute<void>(
@@ -130,6 +130,11 @@ abstract class AppRouter {
         return MaterialPageRoute<void>(
           settings: settings,
           builder: (_) => const SkillFormationPage(),
+        );
+      case AboutUsPage.route:
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => const AboutUsPage(),
         );
 
       default:

@@ -94,11 +94,9 @@ class MyApi extends MyApiClient {
 }
 
 final allHeaders = {
-  'Accept': '*/*',
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS, HEAD',
-};
-
-const headerAcceptApplicationJson = {
   'Accept': 'application/json',
 };
+
+// const headerAcceptApplicationJson = {
+//   'Accept': 'application/json',
+// };

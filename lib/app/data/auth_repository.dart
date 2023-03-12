@@ -18,18 +18,27 @@ class AuthRepository {
   Future<void> login({required String email, required String password}) async {
     final body = <String, dynamic>{'email': email, 'password': password};
     print(body);
-    final dynamic res = await apiClient.postRequest('$BASE_API_URL/api/login',
-        body: body, customHeaders: headerAcceptApplicationJson);
+    final dynamic res =
+        await apiClient.postRequest('$BASE_API_URL/api/login', body: body);
     print(res);
     _localDataRepository.authToken = res["access_token"];
     final user = UserData.froJson(res['user']);
+    _localDataRepository.isLogged = true;
     _localDataRepository.user = user;
   }
 
-  Future<bool> forgotPassword({required String email}) async {
-    final dynamic res = await apiClient.postRequest(
-      '$BASE_API_URL/api/users/forgot-password?Email=$email',
-    );
-    return true;
+  Future<void> register(Map<String, dynamic> data) async {
+    print(data);
+    final dynamic res =
+        await apiClient.postRequest('$BASE_API_URL/api/register', body: data);
+    print(res);
   }
+
+  // Future<bool> forgotPassword({required String email}) async {
+  //   final dynamic res = await apiClient.postRequest(
+  //     '$BASE_API_URL/api/users/forgot-password?Email=$email',
+  //   );
+  //   return true;
+  // }
+
 }

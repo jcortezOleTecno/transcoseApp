@@ -16,6 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$RegisterState {
+  FormStatus get status => throw _privateConstructorUsedError;
+  bool get privacyPolicy => throw _privateConstructorUsedError;
+  bool get receiveInformation => throw _privateConstructorUsedError;
+  String? get msgError => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get cif => throw _privateConstructorUsedError;
   Email? get email => throw _privateConstructorUsedError;
@@ -39,7 +43,11 @@ abstract class $RegisterStateCopyWith<$Res> {
       _$RegisterStateCopyWithImpl<$Res, RegisterState>;
   @useResult
   $Res call(
-      {String? name,
+      {FormStatus status,
+      bool privacyPolicy,
+      bool receiveInformation,
+      String? msgError,
+      String? name,
       String? cif,
       Email? email,
       String? phone,
@@ -64,6 +72,10 @@ class _$RegisterStateCopyWithImpl<$Res, $Val extends RegisterState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? status = null,
+    Object? privacyPolicy = null,
+    Object? receiveInformation = null,
+    Object? msgError = freezed,
     Object? name = freezed,
     Object? cif = freezed,
     Object? email = freezed,
@@ -76,6 +88,22 @@ class _$RegisterStateCopyWithImpl<$Res, $Val extends RegisterState>
     Object? parentId = freezed,
   }) {
     return _then(_value.copyWith(
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as FormStatus,
+      privacyPolicy: null == privacyPolicy
+          ? _value.privacyPolicy
+          : privacyPolicy // ignore: cast_nullable_to_non_nullable
+              as bool,
+      receiveInformation: null == receiveInformation
+          ? _value.receiveInformation
+          : receiveInformation // ignore: cast_nullable_to_non_nullable
+              as bool,
+      msgError: freezed == msgError
+          ? _value.msgError
+          : msgError // ignore: cast_nullable_to_non_nullable
+              as String?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -129,7 +157,11 @@ abstract class _$$_RegisterStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? name,
+      {FormStatus status,
+      bool privacyPolicy,
+      bool receiveInformation,
+      String? msgError,
+      String? name,
       String? cif,
       Email? email,
       String? phone,
@@ -152,6 +184,10 @@ class __$$_RegisterStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? status = null,
+    Object? privacyPolicy = null,
+    Object? receiveInformation = null,
+    Object? msgError = freezed,
     Object? name = freezed,
     Object? cif = freezed,
     Object? email = freezed,
@@ -164,6 +200,22 @@ class __$$_RegisterStateCopyWithImpl<$Res>
     Object? parentId = freezed,
   }) {
     return _then(_$_RegisterState(
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as FormStatus,
+      privacyPolicy: null == privacyPolicy
+          ? _value.privacyPolicy
+          : privacyPolicy // ignore: cast_nullable_to_non_nullable
+              as bool,
+      receiveInformation: null == receiveInformation
+          ? _value.receiveInformation
+          : receiveInformation // ignore: cast_nullable_to_non_nullable
+              as bool,
+      msgError: freezed == msgError
+          ? _value.msgError
+          : msgError // ignore: cast_nullable_to_non_nullable
+              as String?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -212,7 +264,11 @@ class __$$_RegisterStateCopyWithImpl<$Res>
 
 class _$_RegisterState extends _RegisterState {
   const _$_RegisterState(
-      {this.name,
+      {this.status = FormStatus.editing,
+      this.privacyPolicy = false,
+      this.receiveInformation = false,
+      this.msgError,
+      this.name,
       this.cif,
       this.email,
       this.phone,
@@ -224,6 +280,17 @@ class _$_RegisterState extends _RegisterState {
       this.parentId})
       : super._();
 
+  @override
+  @JsonKey()
+  final FormStatus status;
+  @override
+  @JsonKey()
+  final bool privacyPolicy;
+  @override
+  @JsonKey()
+  final bool receiveInformation;
+  @override
+  final String? msgError;
   @override
   final String? name;
   @override
@@ -247,7 +314,7 @@ class _$_RegisterState extends _RegisterState {
 
   @override
   String toString() {
-    return 'RegisterState(name: $name, cif: $cif, email: $email, phone: $phone, responsibleName: $responsibleName, responsibleLastName: $responsibleLastName, password: $password, confirmPassword: $confirmPassword, roleId: $roleId, parentId: $parentId)';
+    return 'RegisterState(status: $status, privacyPolicy: $privacyPolicy, receiveInformation: $receiveInformation, msgError: $msgError, name: $name, cif: $cif, email: $email, phone: $phone, responsibleName: $responsibleName, responsibleLastName: $responsibleLastName, password: $password, confirmPassword: $confirmPassword, roleId: $roleId, parentId: $parentId)';
   }
 
   @override
@@ -255,6 +322,13 @@ class _$_RegisterState extends _RegisterState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_RegisterState &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.privacyPolicy, privacyPolicy) ||
+                other.privacyPolicy == privacyPolicy) &&
+            (identical(other.receiveInformation, receiveInformation) ||
+                other.receiveInformation == receiveInformation) &&
+            (identical(other.msgError, msgError) ||
+                other.msgError == msgError) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.cif, cif) || other.cif == cif) &&
             (identical(other.email, email) || other.email == email) &&
@@ -275,6 +349,10 @@ class _$_RegisterState extends _RegisterState {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      status,
+      privacyPolicy,
+      receiveInformation,
+      msgError,
       name,
       cif,
       email,
@@ -295,7 +373,11 @@ class _$_RegisterState extends _RegisterState {
 
 abstract class _RegisterState extends RegisterState {
   const factory _RegisterState(
-      {final String? name,
+      {final FormStatus status,
+      final bool privacyPolicy,
+      final bool receiveInformation,
+      final String? msgError,
+      final String? name,
       final String? cif,
       final Email? email,
       final String? phone,
@@ -307,6 +389,14 @@ abstract class _RegisterState extends RegisterState {
       final String? parentId}) = _$_RegisterState;
   const _RegisterState._() : super._();
 
+  @override
+  FormStatus get status;
+  @override
+  bool get privacyPolicy;
+  @override
+  bool get receiveInformation;
+  @override
+  String? get msgError;
   @override
   String? get name;
   @override
