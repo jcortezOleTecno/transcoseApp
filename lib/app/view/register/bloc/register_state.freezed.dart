@@ -19,6 +19,10 @@ mixin _$RegisterState {
   FormStatus get status => throw _privateConstructorUsedError;
   bool get privacyPolicy => throw _privateConstructorUsedError;
   bool get receiveInformation => throw _privateConstructorUsedError;
+  List<UserRol> get roles => throw _privateConstructorUsedError;
+  List<Enterprise> get enterprises => throw _privateConstructorUsedError;
+  Enterprise? get selectedEnterprise => throw _privateConstructorUsedError;
+  UserRol? get selectedRol => throw _privateConstructorUsedError;
   String? get msgError => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get cif => throw _privateConstructorUsedError;
@@ -46,6 +50,10 @@ abstract class $RegisterStateCopyWith<$Res> {
       {FormStatus status,
       bool privacyPolicy,
       bool receiveInformation,
+      List<UserRol> roles,
+      List<Enterprise> enterprises,
+      Enterprise? selectedEnterprise,
+      UserRol? selectedRol,
       String? msgError,
       String? name,
       String? cif,
@@ -75,6 +83,10 @@ class _$RegisterStateCopyWithImpl<$Res, $Val extends RegisterState>
     Object? status = null,
     Object? privacyPolicy = null,
     Object? receiveInformation = null,
+    Object? roles = null,
+    Object? enterprises = null,
+    Object? selectedEnterprise = freezed,
+    Object? selectedRol = freezed,
     Object? msgError = freezed,
     Object? name = freezed,
     Object? cif = freezed,
@@ -100,6 +112,22 @@ class _$RegisterStateCopyWithImpl<$Res, $Val extends RegisterState>
           ? _value.receiveInformation
           : receiveInformation // ignore: cast_nullable_to_non_nullable
               as bool,
+      roles: null == roles
+          ? _value.roles
+          : roles // ignore: cast_nullable_to_non_nullable
+              as List<UserRol>,
+      enterprises: null == enterprises
+          ? _value.enterprises
+          : enterprises // ignore: cast_nullable_to_non_nullable
+              as List<Enterprise>,
+      selectedEnterprise: freezed == selectedEnterprise
+          ? _value.selectedEnterprise
+          : selectedEnterprise // ignore: cast_nullable_to_non_nullable
+              as Enterprise?,
+      selectedRol: freezed == selectedRol
+          ? _value.selectedRol
+          : selectedRol // ignore: cast_nullable_to_non_nullable
+              as UserRol?,
       msgError: freezed == msgError
           ? _value.msgError
           : msgError // ignore: cast_nullable_to_non_nullable
@@ -160,6 +188,10 @@ abstract class _$$_RegisterStateCopyWith<$Res>
       {FormStatus status,
       bool privacyPolicy,
       bool receiveInformation,
+      List<UserRol> roles,
+      List<Enterprise> enterprises,
+      Enterprise? selectedEnterprise,
+      UserRol? selectedRol,
       String? msgError,
       String? name,
       String? cif,
@@ -187,6 +219,10 @@ class __$$_RegisterStateCopyWithImpl<$Res>
     Object? status = null,
     Object? privacyPolicy = null,
     Object? receiveInformation = null,
+    Object? roles = null,
+    Object? enterprises = null,
+    Object? selectedEnterprise = freezed,
+    Object? selectedRol = freezed,
     Object? msgError = freezed,
     Object? name = freezed,
     Object? cif = freezed,
@@ -212,6 +248,22 @@ class __$$_RegisterStateCopyWithImpl<$Res>
           ? _value.receiveInformation
           : receiveInformation // ignore: cast_nullable_to_non_nullable
               as bool,
+      roles: null == roles
+          ? _value._roles
+          : roles // ignore: cast_nullable_to_non_nullable
+              as List<UserRol>,
+      enterprises: null == enterprises
+          ? _value._enterprises
+          : enterprises // ignore: cast_nullable_to_non_nullable
+              as List<Enterprise>,
+      selectedEnterprise: freezed == selectedEnterprise
+          ? _value.selectedEnterprise
+          : selectedEnterprise // ignore: cast_nullable_to_non_nullable
+              as Enterprise?,
+      selectedRol: freezed == selectedRol
+          ? _value.selectedRol
+          : selectedRol // ignore: cast_nullable_to_non_nullable
+              as UserRol?,
       msgError: freezed == msgError
           ? _value.msgError
           : msgError // ignore: cast_nullable_to_non_nullable
@@ -267,6 +319,10 @@ class _$_RegisterState extends _RegisterState {
       {this.status = FormStatus.editing,
       this.privacyPolicy = false,
       this.receiveInformation = false,
+      final List<UserRol> roles = const <UserRol>[],
+      final List<Enterprise> enterprises = const <Enterprise>[],
+      this.selectedEnterprise,
+      this.selectedRol,
       this.msgError,
       this.name,
       this.cif,
@@ -278,7 +334,9 @@ class _$_RegisterState extends _RegisterState {
       this.confirmPassword,
       this.roleId,
       this.parentId})
-      : super._();
+      : _roles = roles,
+        _enterprises = enterprises,
+        super._();
 
   @override
   @JsonKey()
@@ -289,6 +347,28 @@ class _$_RegisterState extends _RegisterState {
   @override
   @JsonKey()
   final bool receiveInformation;
+  final List<UserRol> _roles;
+  @override
+  @JsonKey()
+  List<UserRol> get roles {
+    if (_roles is EqualUnmodifiableListView) return _roles;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_roles);
+  }
+
+  final List<Enterprise> _enterprises;
+  @override
+  @JsonKey()
+  List<Enterprise> get enterprises {
+    if (_enterprises is EqualUnmodifiableListView) return _enterprises;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_enterprises);
+  }
+
+  @override
+  final Enterprise? selectedEnterprise;
+  @override
+  final UserRol? selectedRol;
   @override
   final String? msgError;
   @override
@@ -314,7 +394,7 @@ class _$_RegisterState extends _RegisterState {
 
   @override
   String toString() {
-    return 'RegisterState(status: $status, privacyPolicy: $privacyPolicy, receiveInformation: $receiveInformation, msgError: $msgError, name: $name, cif: $cif, email: $email, phone: $phone, responsibleName: $responsibleName, responsibleLastName: $responsibleLastName, password: $password, confirmPassword: $confirmPassword, roleId: $roleId, parentId: $parentId)';
+    return 'RegisterState(status: $status, privacyPolicy: $privacyPolicy, receiveInformation: $receiveInformation, roles: $roles, enterprises: $enterprises, selectedEnterprise: $selectedEnterprise, selectedRol: $selectedRol, msgError: $msgError, name: $name, cif: $cif, email: $email, phone: $phone, responsibleName: $responsibleName, responsibleLastName: $responsibleLastName, password: $password, confirmPassword: $confirmPassword, roleId: $roleId, parentId: $parentId)';
   }
 
   @override
@@ -327,6 +407,13 @@ class _$_RegisterState extends _RegisterState {
                 other.privacyPolicy == privacyPolicy) &&
             (identical(other.receiveInformation, receiveInformation) ||
                 other.receiveInformation == receiveInformation) &&
+            const DeepCollectionEquality().equals(other._roles, _roles) &&
+            const DeepCollectionEquality()
+                .equals(other._enterprises, _enterprises) &&
+            (identical(other.selectedEnterprise, selectedEnterprise) ||
+                other.selectedEnterprise == selectedEnterprise) &&
+            (identical(other.selectedRol, selectedRol) ||
+                other.selectedRol == selectedRol) &&
             (identical(other.msgError, msgError) ||
                 other.msgError == msgError) &&
             (identical(other.name, name) || other.name == name) &&
@@ -352,6 +439,10 @@ class _$_RegisterState extends _RegisterState {
       status,
       privacyPolicy,
       receiveInformation,
+      const DeepCollectionEquality().hash(_roles),
+      const DeepCollectionEquality().hash(_enterprises),
+      selectedEnterprise,
+      selectedRol,
       msgError,
       name,
       cif,
@@ -376,6 +467,10 @@ abstract class _RegisterState extends RegisterState {
       {final FormStatus status,
       final bool privacyPolicy,
       final bool receiveInformation,
+      final List<UserRol> roles,
+      final List<Enterprise> enterprises,
+      final Enterprise? selectedEnterprise,
+      final UserRol? selectedRol,
       final String? msgError,
       final String? name,
       final String? cif,
@@ -395,6 +490,14 @@ abstract class _RegisterState extends RegisterState {
   bool get privacyPolicy;
   @override
   bool get receiveInformation;
+  @override
+  List<UserRol> get roles;
+  @override
+  List<Enterprise> get enterprises;
+  @override
+  Enterprise? get selectedEnterprise;
+  @override
+  UserRol? get selectedRol;
   @override
   String? get msgError;
   @override

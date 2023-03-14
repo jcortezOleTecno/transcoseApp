@@ -64,7 +64,19 @@ class _PromotionsPageState extends State<PromotionsPage> {
                       spacerM,
                       MyCustomDropdownButton(
                         hint: 'Todas las promociones',
-                        dropdownItems: items,
+                        dropdownItems: items
+                            .map((item) => DropdownMenuItem(
+                                  value: item,
+                                  child: Text(
+                                    item,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ))
+                            .toList(),
                         value: selectedValue,
                         onChanged: (value) {
                           setState(() {

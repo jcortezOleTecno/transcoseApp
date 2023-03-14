@@ -2,7 +2,9 @@ import 'package:vemare/app/data/_api.dart';
 import 'package:vemare/app/data/_api_classes.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
+import 'package:vemare/app/domain/model/enterprise.dart';
 import 'package:vemare/app/domain/model/user_data.dart';
+import 'package:vemare/app/domain/model/user_rol.dart';
 
 class AuthRepository {
   AuthRepository({
@@ -27,11 +29,34 @@ class AuthRepository {
     _localDataRepository.user = user;
   }
 
-  Future<void> register(Map<String, dynamic> data) async {
-    print(data);
-    final dynamic res =
-        await apiClient.postRequest('$BASE_API_URL/api/register', body: data);
+  Future<void> registerEnterprise(Map<String, dynamic> data) async {
+    final dynamic res = await apiClient.postRequest(
+      '$BASE_API_URL/api/register',
+      body: data,
+    );
     print(res);
+  }
+
+  Future<void> registerEmployee(Map<String, dynamic> data) async {
+    final dynamic res = await apiClient.postRequest(
+      '$BASE_API_URL/api/register-employee',
+      body: data,
+    );
+    print(res);
+  }
+
+  Future<List<UserRol>> getUserRoles() async {
+    final dynamic res =
+        await apiClient.getRequest('$BASE_API_URL/api/user/roles');
+
+    return (res['data'] as List<dynamic>).map(UserRol.fromJson).toList();
+  }
+
+  Future<List<Enterprise>> getEnterprise() async {
+    final dynamic res =
+        await apiClient.getRequest('$BASE_API_URL/api/user/enterprises');
+
+    return (res['data'] as List<dynamic>).map(Enterprise.fromJson).toList();
   }
 
   // Future<bool> forgotPassword({required String email}) async {

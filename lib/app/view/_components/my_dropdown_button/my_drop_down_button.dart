@@ -2,11 +2,11 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
-class MyCustomDropdownButton extends StatelessWidget {
+class MyCustomDropdownButton<T> extends StatelessWidget {
   final String hint;
-  final String? value;
-  final List<String> dropdownItems;
-  final ValueChanged<String?>? onChanged;
+  final T? value;
+  final List<DropdownMenuItem<T>>? dropdownItems;
+  final ValueChanged<T?>? onChanged;
   final DropdownButtonBuilder? selectedItemBuilder;
   final Alignment? hintAlignment;
   final Alignment? valueAlignment;
@@ -31,7 +31,7 @@ class MyCustomDropdownButton extends StatelessWidget {
 
   const MyCustomDropdownButton({
     required this.hint,
-    required this.value,
+    this.value,
     required this.dropdownItems,
     required this.onChanged,
     this.selectedItemBuilder,
@@ -63,7 +63,7 @@ class MyCustomDropdownButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonHideUnderline(
-      child: DropdownButton2(
+      child: DropdownButton2<T>(
         //To avoid long text overflowing.
         isExpanded: true,
         hint: Container(
@@ -77,12 +77,12 @@ class MyCustomDropdownButton extends StatelessWidget {
         ),
         value: value,
         items: dropdownItems
-            .map((item) => DropdownMenuItem<String>(
+        /*.map((item) => DropdownMenuItem<T>(
                   value: item,
                   child: Container(
                     alignment: valueAlignment,
                     child: Text(
-                      item,
+                      item.name,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       style: const TextStyle(
@@ -91,11 +91,12 @@ class MyCustomDropdownButton extends StatelessWidget {
                     ),
                   ),
                 ))
-            .toList(),
+            .toList()*/
+        ,
         onChanged: onChanged,
         selectedItemBuilder: selectedItemBuilder,
         buttonStyleData: ButtonStyleData(
-          height: buttonHeight ?? 40,
+          height: buttonHeight ?? 45,
           width: buttonWidth ?? 140,
           padding: buttonPadding ?? const EdgeInsets.only(left: 14, right: 14),
           decoration: buttonDecoration ??

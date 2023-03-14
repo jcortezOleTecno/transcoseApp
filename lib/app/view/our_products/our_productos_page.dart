@@ -55,7 +55,19 @@ class _OurProductsPageState extends State<OurProductsPage> {
                     spacerM,
                     MyCustomDropdownButton(
                       hint: 'Todos los productos',
-                      dropdownItems: items,
+                      dropdownItems: items
+                          .map((item) => DropdownMenuItem(
+                                value: item,
+                                child: Text(
+                                  item,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ))
+                          .toList(),
                       value: selectedValue,
                       onChanged: (value) {
                         setState(() {

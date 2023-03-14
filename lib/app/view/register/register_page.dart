@@ -3,8 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:group_radio_button/group_radio_button.dart';
 import 'package:vemare/app/data/auth_repository.dart';
+import 'package:vemare/app/domain/model/enterprise.dart';
+import 'package:vemare/app/domain/model/user_rol.dart';
 import 'package:vemare/app/domain/value_object/status.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
+import 'package:vemare/app/view/_components/my_dropdown_button/my_drop_down_button.dart';
 import 'package:vemare/app/view/_components/my_input/my_input.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/tap_to_hide_keyboard/tap_to_hide_keyboard.dart';
@@ -43,9 +46,12 @@ class _RegisterPageState extends State<RegisterPage> {
     return MyTapToHideKeyboard(
       child: BlocConsumer<RegisterCubit, RegisterState>(
         listener: (context, state) {
-          if (state.status == FormStatus.error) {
+          /*if (state.status == FormStatus.error) {
+          }*/
+          if (state.status == FormStatus.done) {
             ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.msgError ?? '')));
+                .showSnackBar(const SnackBar(content: Text('Cuenta Creada')));
+            Navigator.pop(context);
           }
         },
         builder: (context, state) {
@@ -88,21 +94,79 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     ),
                   ),
-                  spacerL,
-                  MyInput(
-                    label: 'Nombre de la empresa',
-                    hintText: 'Nombre de la empresa',
-                    required: true,
-                    hasError: state.status == FormStatus.error,
-                    onChanged: cubit.name,
+                  spacerM,
+                  Visibility(
+                    visible: state.status == FormStatus.error,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Text(
+                        state.msgError ??
+                            'El correo electrónico o la contraseña son incorrectos. Inténtalo de nuevo.',
+                        style: AppTextStyle.inputLabelStyle
+                            .copyWith(color: AppColor.error),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                   ),
+                  spacerL,
+                  isEmpresa
+                      ? MyInput(
+                          label: 'Nombre de la empresa',
+                          hintText: 'Nombre de la empresa',
+                          required: true,
+                          hasError: state.status == FormStatus.error,
+                          onChanged: cubit.name,
+                        )
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            const Text('Nombre de la empresa *',
+                                style: AppTextStyle.inputLabelStyle),
+                            MyCustomDropdownButton<Enterprise>(
+                              hint: 'Seleccione una empresa',
+                              value: state.selectedEnterprise,
+                              dropdownItems: state.enterprises
+                                  .map((item) => DropdownMenuItem(
+                                        value: item,
+                                        child: Text(
+                                          item.name,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                          style: AppTextStyle.inputStyle,
+                                        ),
+                                      ))
+                                  .toList(),
+                              onChanged: cubit.enterprise,
+                            ),
+                            spacerM,
+                          ],
+                        ),
                   spacerS,
                   Visibility(
                     visible: isEmpresa,
-                    replacement: const MyInput(
-                      label: 'Rol profesional',
-                      hintText: 'Selecciona una opción',
-                      required: true,
+                    replacement: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        const Text('Rol profesional *',
+                            style: AppTextStyle.inputLabelStyle),
+                        MyCustomDropdownButton<UserRol>(
+                          hint: 'Seleccione una opción',
+                          value: state.selectedRol,
+                          dropdownItems: state.roles
+                              .map((item) => DropdownMenuItem(
+                                    value: item,
+                                    child: Text(
+                                      item.name,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                      style: AppTextStyle.inputStyle,
+                                    ),
+                                  ))
+                              .toList(),
+                          onChanged: cubit.rol,
+                        ),
+                        spacerM,
+                      ],
                     ),
                     child: MyInput(
                       label: 'CIF',
@@ -191,8 +255,12 @@ class _RegisterPageState extends State<RegisterPage> {
                   MyButton(
                     text: 'Crear cuenta',
                     isLoading: state.status == FormStatus.loading,
-                    disabled: !state.isCompleted,
-                    onPressed: cubit.register,
+                    disabled: isEmpresa
+                        ? !state.isCompletedEnterprise
+                        : !state.isCompletedEmployee,
+                    onPressed: isEmpresa
+                        ? cubit.registerEnterprise
+                        : cubit.registerEmployee,
                   ),
                   spacerM,
                   MyButton(

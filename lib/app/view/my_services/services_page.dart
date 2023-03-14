@@ -127,7 +127,19 @@ class _ServicesPageState extends State<ServicesPage> {
                       buttonWidth: double.infinity,
                       buttonHeight: 45,
                       hint: 'Todos las categorias',
-                      dropdownItems: items,
+                      dropdownItems: items
+                          .map((item) => DropdownMenuItem(
+                                value: item,
+                                child: Text(
+                                  item,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ))
+                          .toList(),
                       value: selectedValue,
                       onChanged: (value) {
                         setState(() {
