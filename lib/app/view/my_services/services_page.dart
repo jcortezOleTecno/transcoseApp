@@ -62,7 +62,7 @@ class _ServicesPageState extends State<ServicesPage> {
                 child: Text('Servicios', style: AppTextStyle.h1Style),
               ),
               spacerM,
-              ...service
+              ...serviceData
                   .map((e) => _CardService(title: e.name, service: e))
                   .toList(),
               spacerS,

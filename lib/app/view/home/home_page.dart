@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nested_scroll_views/nested_scroll_views.dart';
+import 'package:vemare/app/data/notices_repository.dart';
+import 'package:vemare/app/data/products_repository.dart';
+import 'package:vemare/app/data/promotion_repository.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
-import 'package:vemare/app/data/services_data.dart';
+import 'package:vemare/app/data/services_repository.dart';
+import 'package:vemare/app/data/workshops_repository.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_cards/my_promotions_card.dart';
 import 'package:vemare/app/view/_components/my_filter_image/my_filter_image.dart';
 import 'package:vemare/app/view/_components/my_listile/my_listile.dart';
 import 'package:vemare/app/view/_components/my_cards/my_products_card.dart';
+import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/home/cubit/home_cubit.dart';
 import 'package:vemare/app/view/home/cubit/home_state.dart';
@@ -32,7 +37,14 @@ class HomePage extends StatelessWidget {
 
   static Widget create() {
     return BlocProvider(
-      create: (context) => HomeCubit(getIt.get<LocalDataRepository>()),
+      create: (context) => HomeCubit(
+        getIt.get<LocalDataRepository>(),
+        getIt.get<PromotionRepository>(),
+        getIt.get<ProductsRepository>(),
+        getIt.get<ServicesRepository>(),
+        getIt.get<WorkShopsRepository>(),
+        getIt.get<NoticesRepository>(),
+      ),
       child: const HomePage._(),
     );
   }
@@ -153,7 +165,7 @@ class _PageB extends StatelessWidget {
           const _Promociones(),
           const _Servicios(),
           spacerL,
-          const _AD360(),
+          const _LastService(),
           const _RedesTalleres(),
           spacerL,
           const _Noticias(),
@@ -198,58 +210,67 @@ class _Noticias extends StatelessWidget {
             style: AppTextStyle.h1Style,
           ),
         ),
-        SizedBox(
-          height: 220,
-          child: PageView.builder(
-            itemCount: 3,
-            controller: PageController(initialPage: 0, viewportFraction: 0.9),
-            itemBuilder: (context, index) => Card(
-              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-              clipBehavior: Clip.antiAlias,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              child: Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/imgs/Rectangle.png'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                child: Stack(
-                  children: [
-                    const MyFilterImage(),
-                    Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          const MySpacer(height: 80),
-                          Row(
+        BlocBuilder<HomeCubit, HomeState>(
+          builder: (context, state) {
+            if (state.loading) {
+              return const MyShimmer(height: 220);
+            }
+            return SizedBox(
+              height: 220,
+              child: PageView.builder(
+                itemCount: state.notices.length,
+                controller:
+                    PageController(initialPage: 0, viewportFraction: 0.9),
+                itemBuilder: (context, i) => Card(
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                  clipBehavior: Clip.antiAlias,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(state.notices[i].image!),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    child: Stack(
+                      children: [
+                        const MyFilterImage(),
+                        Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
+                              const MySpacer(height: 80),
+                              Row(
+                                children: [
+                                  Text(
+                                    state.notices[i].title ?? '',
+                                    style: AppTextStyle.h3Style.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColor.white),
+                                  ),
+                                ],
+                              ),
+                              spacerS,
                               Text(
-                                'Convención MIllennium 2022',
-                                style: AppTextStyle.h3Style.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColor.white),
+                                state.notices[i].description ?? '',
+                                maxLines: 4,
+                                overflow: TextOverflow.ellipsis,
+                                style: AppTextStyle.contentCard
+                                    .copyWith(color: Colors.white),
                               ),
                             ],
                           ),
-                          spacerS,
-                          Text(
-                            'Con inmensas ganas de volver junto a nuestros clientes nos citamos en Toledo para celebrar nuestra Convención.',
-                            maxLines: 4,
-                            overflow: TextOverflow.ellipsis,
-                            style: AppTextStyle.contentCard
-                                .copyWith(color: Colors.white),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
-            ),
-          ),
+            );
+          },
         ),
         Center(
           child: TextButton.icon(
@@ -325,91 +346,101 @@ class _RedesTalleres extends StatelessWidget {
             style: AppTextStyle.h1Style,
           ),
         ),
-        MyListile(
-          onTap: () {},
-          title: 'Expert Service Car',
-          icon: Image.asset(
-            'assets/imgs/logoTaller.png',
-            scale: 2,
-          ),
-        ),
-        MyListile(
-          onTap: () {},
-          title: 'Expert Service Car',
-          icon: Image.asset(
-            'assets/imgs/logoTaller.png',
-            scale: 2,
-          ),
-        ),
-        MyListile(
-          onTap: () {},
-          title: 'Expert Service Car',
-          icon: Image.asset(
-            'assets/imgs/logoTaller.png',
-            scale: 2,
-          ),
+        BlocBuilder<HomeCubit, HomeState>(
+          builder: (context, state) {
+            if (state.loading) {
+              return const Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: MyShimmer(
+                  borderRadius: 0,
+                  height: 86,
+                ),
+              );
+            }
+            return Column(
+                children: state.workshop
+                    .map(
+                      (e) => MyListile(
+                        icon: Image.network(e.image!, fit: BoxFit.cover),
+                        title: e.name ?? '',
+                        onTap: () {},
+                      ),
+                    )
+                    .toList());
+          },
         ),
       ],
     );
   }
 }
 
-class _AD360 extends StatelessWidget {
-  const _AD360({
+class _LastService extends StatelessWidget {
+  const _LastService({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.width * .80,
-      width: double.infinity,
-      child: Stack(fit: StackFit.expand, children: [
-        const Image(
-          image: AssetImage('assets/imgs/AD360IMG.png'),
-          fit: BoxFit.cover,
-        ),
-        const MyFilterImage(),
-        Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: [
-              const Spacer(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return BlocBuilder<HomeCubit, HomeState>(
+      builder: (context, state) {
+        if (state.loading) {
+          return MyShimmer(
+            margin: EdgeInsets.zero,
+            borderRadius: 0,
+            height: MediaQuery.of(context).size.width * .80,
+          );
+        }
+        return SizedBox(
+          height: MediaQuery.of(context).size.width * .80,
+          width: double.infinity,
+          child: Stack(fit: StackFit.expand, children: [
+            Image(
+              image: NetworkImage(state.services.last.image!),
+              fit: BoxFit.cover,
+            ),
+            const MyFilterImage(),
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
                 children: [
-                  Text(
-                    'AD 360°',
-                    style: AppTextStyle.linkStyle
-                        .copyWith(color: AppColor.white, fontSize: 22),
+                  const Spacer(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        state.services.last.title ?? '',
+                        style: AppTextStyle.linkStyle
+                            .copyWith(color: AppColor.white, fontSize: 22),
+                      ),
+                      Image.asset(
+                        'assets/icons/arrow_next.png',
+                        color: AppColor.white,
+                        scale: 2,
+                      ),
+                    ],
                   ),
-                  Image.asset(
-                    'assets/icons/arrow_next.png',
-                    color: AppColor.white,
-                    scale: 2,
-                  ),
+                  spacerXs,
+                  Expanded(
+                    child: Column(
+                      children: [
+                        SizedBox(
+                            child: Text(
+                          state.services.last.description ?? '',
+                          style: AppTextStyle.contentCard.copyWith(
+                            color: AppColor.white,
+                            fontSize: 18,
+                            height: 1.8,
+                          ),
+                        ))
+                      ],
+                    ),
+                  )
                 ],
               ),
-              spacerXs,
-              Expanded(
-                child: Column(
-                  children: [
-                    SizedBox(
-                        child: Text(
-                      'Accede a la plataforma de compra e información técnica del Grupo AD Parts. Solicita claves a tu comercial y benefíciate de esta gran herramienta.',
-                      style: AppTextStyle.contentCard.copyWith(
-                        color: AppColor.white,
-                        fontSize: 18,
-                        height: 1.8,
-                      ),
-                    ))
-                  ],
-                ),
-              )
-            ],
-          ),
-        )
-      ]),
+            )
+          ]),
+        );
+      },
     );
   }
 }
@@ -431,66 +462,78 @@ class _Servicios extends StatelessWidget {
             style: AppTextStyle.h1Style,
           ),
         ),
-        SizedBox(
-          height: 225,
-          child: PageView.builder(
-            itemCount: service.length,
-            controller: PageController(initialPage: 0, viewportFraction: 0.9),
-            itemBuilder: (context, index) => GestureDetector(
-              onTap: () {
-                if (service[index].name != 'Formaciones' &&
-                    service[index].name != 'Eventos') {
-                  Navigator.pushNamed(
-                    context,
-                    ServiceGeneralPage.route,
-                    arguments: service[index],
-                  );
-                }
-                if (service[index].name == 'Formaciones') {
-                  Navigator.pushNamed(context, FormationsPage.route);
-                }
-              },
-              child: Card(
-                margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                clipBehavior: Clip.antiAlias,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    Image(
-                      image: AssetImage(service[index].img),
-                      fit: BoxFit.cover,
-                    ),
-                    const MyFilterImage(),
-                    Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Column(
-                        children: [
-                          const Spacer(),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        BlocBuilder<HomeCubit, HomeState>(
+          builder: (context, state) {
+            if (state.loading) {
+              return const MyShimmer(height: 225);
+            }
+            return SizedBox(
+              height: 225,
+              child: PageView.builder(
+                itemCount: state.services.length,
+                controller:
+                    PageController(initialPage: 0, viewportFraction: 0.9),
+                itemBuilder: (context, i) => GestureDetector(
+                  onTap: () {
+                    if (state.services[i].title != 'Formaciones' &&
+                        state.services[i].title != 'Eventos') {
+                      Navigator.pushNamed(
+                        context,
+                        ServiceGeneralPage.route,
+                        arguments: state.services[i],
+                      );
+                    }
+                    if (state.services[i].title == 'Formaciones') {
+                      Navigator.pushNamed(context, FormationsPage.route);
+                    }
+                  },
+                  child: Card(
+                    margin:
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                    clipBehavior: Clip.antiAlias,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        Image(
+                          image: NetworkImage(state.services[i].image!),
+                          fit: BoxFit.cover,
+                        ),
+                        const MyFilterImage(),
+                        Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Column(
                             children: [
-                              Text(
-                                service[index].name,
-                                style: AppTextStyle.h2Style
-                                    .copyWith(color: AppColor.white),
-                              ),
-                              Image.asset(
-                                'assets/icons/arrow_next.png',
-                                color: AppColor.white,
-                                scale: 2,
+                              const Spacer(),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      state.services[i].title ?? '',
+                                      style: AppTextStyle.h2Style
+                                          .copyWith(color: AppColor.white),
+                                    ),
+                                  ),
+                                  Image.asset(
+                                    'assets/icons/arrow_next.png',
+                                    color: AppColor.white,
+                                    scale: 2,
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                        ],
-                      ),
-                    )
-                  ],
+                        )
+                      ],
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
+            );
+          },
         ),
         spacerM,
         Center(
@@ -530,24 +573,34 @@ class _Promociones extends StatelessWidget {
             style: AppTextStyle.h1Style,
           ),
         ),
-        SizedBox(
-          height: 148,
-          child: PageView.builder(
-            itemCount: 3,
-            controller: PageController(initialPage: 0, viewportFraction: 0.9),
-            itemBuilder: (context, index) => MySingleCard(
-              title: 'Máquinas Bosh',
-              content:
-                  'Sólo durante este mes consigue una botella de vino Rioja Reserva por cada motor de arranque o alternador de la marca.',
-              icon: Image.asset(
-                'assets/icons/star.png',
-                scale: 2,
+        BlocBuilder<HomeCubit, HomeState>(
+          builder: (context, state) {
+            if (state.loading) {
+              return const MyShimmer(
+                borderRadius: 4,
+                height: 148,
+              );
+            }
+            return SizedBox(
+              height: 148,
+              child: PageView.builder(
+                itemCount: state.promotions.length,
+                controller:
+                    PageController(initialPage: 0, viewportFraction: 0.9),
+                itemBuilder: (context, i) => MySingleCard(
+                  title: state.promotions[i].name ?? '',
+                  content: state.promotions[i].description ?? '',
+                  icon: Image.asset(
+                    'assets/icons/star.png',
+                    scale: 2,
+                  ),
+                  onTap: () {
+                    Navigator.pushNamed(context, PromotionPage.route);
+                  },
+                ),
               ),
-              onTap: () {
-                Navigator.pushNamed(context, PromotionPage.route);
-              },
-            ),
-          ),
+            );
+          },
         ),
         spacerM,
         Center(
@@ -589,18 +642,25 @@ class _ProductsVemare extends StatelessWidget {
         ),
         SizedBox(
           height: 150,
-          child: PageView.builder(
-            itemCount: 3,
-            controller: PageController(initialPage: 0, viewportFraction: 0.9),
-            itemBuilder: (context, index) => CardProducts(
-              onTap: () {
-                Navigator.pushNamed(context, ProductPage.route);
-              },
-              icon: Image.asset('assets/icons/Carrocería.png', scale: 2),
-              title: 'Carroceria',
-              content:
-                  'Profesionalidad y servicio unidos a nuestra completa gama de productos, garantizan un excelente resultado. ',
-            ),
+          child: BlocBuilder<HomeCubit, HomeState>(
+            builder: (context, state) {
+              if (state.loading) {
+                return const MyShimmer(borderRadius: 4);
+              }
+              return PageView.builder(
+                itemCount: state.products.length,
+                controller:
+                    PageController(initialPage: 0, viewportFraction: 0.9),
+                itemBuilder: (context, i) => CardProducts(
+                  onTap: () {
+                    Navigator.pushNamed(context, ProductPage.route);
+                  },
+                  icon: Image.network(state.products[i].image!),
+                  title: state.products[i].name ?? '',
+                  content: state.products[i].description ?? '',
+                ),
+              );
+            },
           ),
         ),
         spacerM,

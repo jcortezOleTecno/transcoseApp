@@ -27,7 +27,15 @@ class MyListile extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
-                icon,
+                Container(
+                  clipBehavior: Clip.antiAlias,
+                  height: 70,
+                  width: 70,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                  ),
+                  child: icon,
+                ),
                 spacerM,
                 Text(
                   title,

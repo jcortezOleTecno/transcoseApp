@@ -1,6 +1,6 @@
 import 'package:vemare/app/view/my_services/services_page.dart';
 
-final service = <ServiceClass>[
+final serviceData = <ServiceClass>[
   ServiceClass(
     name: 'Programa Millennium',
     img: 'assets/imgs/milenium.png',

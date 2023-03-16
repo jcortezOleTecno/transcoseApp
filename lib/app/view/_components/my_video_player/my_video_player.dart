@@ -1,6 +1,6 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
-import 'package:vemare/app/view/theme/color.dart';
+import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:video_player/video_player.dart';
 
 class MyVideoPlayer extends StatefulWidget {
@@ -26,7 +26,7 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
   }
 
   Future<void> _initializePlayer() async {
-    _videoPlayerController = VideoPlayerController.asset(widget.video);
+    _videoPlayerController = VideoPlayerController.network(widget.video);
 
     await _videoPlayerController.initialize();
     setState(() {
@@ -36,16 +36,16 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
 
   void _createChewieController() {
     _chewieController = ChewieController(
-        videoPlayerController: _videoPlayerController,
-        autoPlay: false,
-        looping: false,
-        hideControlsTimer: const Duration(seconds: 5),
-        showOptions: false);
+      videoPlayerController: _videoPlayerController,
+      autoPlay: false,
+      looping: false,
+      hideControlsTimer: const Duration(seconds: 5),
+      showOptions: false,
+    );
   }
 
   Future<void> toggleVideo() async {
     await _videoPlayerController.pause();
-
     await _initializePlayer();
   }
 
@@ -67,12 +67,11 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
                               controller: _chewieController!,
                             )
                           : Container()
-                      : const CircularProgressIndicator(
-                          color: AppColor.primary,
+                      : const MyShimmer(
+                          height: 250,
                         ),
                 ),
               ),
-              // widget.showMainPlayButton ? _buildPlayButton() : Container(),
             ],
           ),
         ));

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vemare/app/domain/model/services.dart';
 import 'package:vemare/app/view/about_us/about_us_page.dart';
 import 'package:vemare/app/view/home/home_page.dart';
 import 'package:vemare/app/view/login/login_page.dart';
@@ -116,7 +117,7 @@ abstract class AppRouter {
           builder: (_) => ServicesPage(),
         );
       case ServiceGeneralPage.route:
-        final ServiceClass? service = settings.arguments as ServiceClass?;
+        final Services? service = settings.arguments as Services?;
         return MaterialPageRoute<void>(
           settings: settings,
           builder: (_) => ServiceGeneralPage(service: service!),

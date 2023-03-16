@@ -17,6 +17,12 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$HomeState {
   bool get isLogged => throw _privateConstructorUsedError;
+  bool get loading => throw _privateConstructorUsedError;
+  List<Promotion> get promotions => throw _privateConstructorUsedError;
+  List<Product> get products => throw _privateConstructorUsedError;
+  List<Services> get services => throw _privateConstructorUsedError;
+  List<WorkShop> get workshop => throw _privateConstructorUsedError;
+  List<Notices> get notices => throw _privateConstructorUsedError;
   UserData? get user => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -29,7 +35,15 @@ abstract class $HomeStateCopyWith<$Res> {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) then) =
       _$HomeStateCopyWithImpl<$Res, HomeState>;
   @useResult
-  $Res call({bool isLogged, UserData? user});
+  $Res call(
+      {bool isLogged,
+      bool loading,
+      List<Promotion> promotions,
+      List<Product> products,
+      List<Services> services,
+      List<WorkShop> workshop,
+      List<Notices> notices,
+      UserData? user});
 }
 
 /// @nodoc
@@ -46,6 +60,12 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   @override
   $Res call({
     Object? isLogged = null,
+    Object? loading = null,
+    Object? promotions = null,
+    Object? products = null,
+    Object? services = null,
+    Object? workshop = null,
+    Object? notices = null,
     Object? user = freezed,
   }) {
     return _then(_value.copyWith(
@@ -53,6 +73,30 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.isLogged
           : isLogged // ignore: cast_nullable_to_non_nullable
               as bool,
+      loading: null == loading
+          ? _value.loading
+          : loading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      promotions: null == promotions
+          ? _value.promotions
+          : promotions // ignore: cast_nullable_to_non_nullable
+              as List<Promotion>,
+      products: null == products
+          ? _value.products
+          : products // ignore: cast_nullable_to_non_nullable
+              as List<Product>,
+      services: null == services
+          ? _value.services
+          : services // ignore: cast_nullable_to_non_nullable
+              as List<Services>,
+      workshop: null == workshop
+          ? _value.workshop
+          : workshop // ignore: cast_nullable_to_non_nullable
+              as List<WorkShop>,
+      notices: null == notices
+          ? _value.notices
+          : notices // ignore: cast_nullable_to_non_nullable
+              as List<Notices>,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -68,7 +112,15 @@ abstract class _$$_HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
       __$$_HomeStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isLogged, UserData? user});
+  $Res call(
+      {bool isLogged,
+      bool loading,
+      List<Promotion> promotions,
+      List<Product> products,
+      List<Services> services,
+      List<WorkShop> workshop,
+      List<Notices> notices,
+      UserData? user});
 }
 
 /// @nodoc
@@ -83,6 +135,12 @@ class __$$_HomeStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLogged = null,
+    Object? loading = null,
+    Object? promotions = null,
+    Object? products = null,
+    Object? services = null,
+    Object? workshop = null,
+    Object? notices = null,
     Object? user = freezed,
   }) {
     return _then(_$_HomeState(
@@ -90,6 +148,30 @@ class __$$_HomeStateCopyWithImpl<$Res>
           ? _value.isLogged
           : isLogged // ignore: cast_nullable_to_non_nullable
               as bool,
+      loading: null == loading
+          ? _value.loading
+          : loading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      promotions: null == promotions
+          ? _value._promotions
+          : promotions // ignore: cast_nullable_to_non_nullable
+              as List<Promotion>,
+      products: null == products
+          ? _value._products
+          : products // ignore: cast_nullable_to_non_nullable
+              as List<Product>,
+      services: null == services
+          ? _value._services
+          : services // ignore: cast_nullable_to_non_nullable
+              as List<Services>,
+      workshop: null == workshop
+          ? _value._workshop
+          : workshop // ignore: cast_nullable_to_non_nullable
+              as List<WorkShop>,
+      notices: null == notices
+          ? _value._notices
+          : notices // ignore: cast_nullable_to_non_nullable
+              as List<Notices>,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -101,17 +183,79 @@ class __$$_HomeStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_HomeState extends _HomeState {
-  const _$_HomeState({this.isLogged = false, this.user}) : super._();
+  const _$_HomeState(
+      {this.isLogged = false,
+      this.loading = false,
+      final List<Promotion> promotions = const <Promotion>[],
+      final List<Product> products = const <Product>[],
+      final List<Services> services = const <Services>[],
+      final List<WorkShop> workshop = const <WorkShop>[],
+      final List<Notices> notices = const <Notices>[],
+      this.user})
+      : _promotions = promotions,
+        _products = products,
+        _services = services,
+        _workshop = workshop,
+        _notices = notices,
+        super._();
 
   @override
   @JsonKey()
   final bool isLogged;
   @override
+  @JsonKey()
+  final bool loading;
+  final List<Promotion> _promotions;
+  @override
+  @JsonKey()
+  List<Promotion> get promotions {
+    if (_promotions is EqualUnmodifiableListView) return _promotions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_promotions);
+  }
+
+  final List<Product> _products;
+  @override
+  @JsonKey()
+  List<Product> get products {
+    if (_products is EqualUnmodifiableListView) return _products;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_products);
+  }
+
+  final List<Services> _services;
+  @override
+  @JsonKey()
+  List<Services> get services {
+    if (_services is EqualUnmodifiableListView) return _services;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_services);
+  }
+
+  final List<WorkShop> _workshop;
+  @override
+  @JsonKey()
+  List<WorkShop> get workshop {
+    if (_workshop is EqualUnmodifiableListView) return _workshop;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_workshop);
+  }
+
+  final List<Notices> _notices;
+  @override
+  @JsonKey()
+  List<Notices> get notices {
+    if (_notices is EqualUnmodifiableListView) return _notices;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_notices);
+  }
+
+  @override
   final UserData? user;
 
   @override
   String toString() {
-    return 'HomeState(isLogged: $isLogged, user: $user)';
+    return 'HomeState(isLogged: $isLogged, loading: $loading, promotions: $promotions, products: $products, services: $services, workshop: $workshop, notices: $notices, user: $user)';
   }
 
   @override
@@ -121,11 +265,27 @@ class _$_HomeState extends _HomeState {
             other is _$_HomeState &&
             (identical(other.isLogged, isLogged) ||
                 other.isLogged == isLogged) &&
+            (identical(other.loading, loading) || other.loading == loading) &&
+            const DeepCollectionEquality()
+                .equals(other._promotions, _promotions) &&
+            const DeepCollectionEquality().equals(other._products, _products) &&
+            const DeepCollectionEquality().equals(other._services, _services) &&
+            const DeepCollectionEquality().equals(other._workshop, _workshop) &&
+            const DeepCollectionEquality().equals(other._notices, _notices) &&
             (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLogged, user);
+  int get hashCode => Object.hash(
+      runtimeType,
+      isLogged,
+      loading,
+      const DeepCollectionEquality().hash(_promotions),
+      const DeepCollectionEquality().hash(_products),
+      const DeepCollectionEquality().hash(_services),
+      const DeepCollectionEquality().hash(_workshop),
+      const DeepCollectionEquality().hash(_notices),
+      user);
 
   @JsonKey(ignore: true)
   @override
@@ -135,12 +295,31 @@ class _$_HomeState extends _HomeState {
 }
 
 abstract class _HomeState extends HomeState {
-  const factory _HomeState({final bool isLogged, final UserData? user}) =
-      _$_HomeState;
+  const factory _HomeState(
+      {final bool isLogged,
+      final bool loading,
+      final List<Promotion> promotions,
+      final List<Product> products,
+      final List<Services> services,
+      final List<WorkShop> workshop,
+      final List<Notices> notices,
+      final UserData? user}) = _$_HomeState;
   const _HomeState._() : super._();
 
   @override
   bool get isLogged;
+  @override
+  bool get loading;
+  @override
+  List<Promotion> get promotions;
+  @override
+  List<Product> get products;
+  @override
+  List<Services> get services;
+  @override
+  List<WorkShop> get workshop;
+  @override
+  List<Notices> get notices;
   @override
   UserData? get user;
   @override
