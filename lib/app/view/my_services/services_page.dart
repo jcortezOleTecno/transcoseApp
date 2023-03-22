@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vemare/app/data/services_data.dart';
+import 'package:vemare/app/domain/model/services.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_dropdown_button/my_drop_down_button.dart';
@@ -7,7 +8,7 @@ import 'package:vemare/app/view/_components/my_filter_image/my_filter_image.dart
 import 'package:vemare/app/view/_components/my_input/my_input.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/tap_to_hide_keyboard/tap_to_hide_keyboard.dart';
-import 'package:vemare/app/view/my_services/formations.dart';
+import 'package:vemare/app/view/my_services/formations/formations.dart';
 import 'package:vemare/app/view/my_services/service_general.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';

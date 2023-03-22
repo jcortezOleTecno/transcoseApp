@@ -3,7 +3,7 @@ import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_cards/my_promotions_card.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
-import 'package:vemare/app/view/my_services/skillful_formation.dart';
+import 'package:vemare/app/view/my_services/formations/skillful_formation.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
 class FormationsPage extends StatelessWidget {

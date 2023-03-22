@@ -17,7 +17,7 @@ import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/home/cubit/home_cubit.dart';
 import 'package:vemare/app/view/home/cubit/home_state.dart';
-import 'package:vemare/app/view/my_services/formations.dart';
+import 'package:vemare/app/view/my_services/formations/formations.dart';
 import 'package:vemare/app/view/my_services/service_general.dart';
 import 'package:vemare/app/view/my_services/services_page.dart';
 import 'package:vemare/app/view/our_products/product/product_page.dart';
@@ -589,7 +589,7 @@ class _Promociones extends StatelessWidget {
                     PageController(initialPage: 0, viewportFraction: 0.9),
                 itemBuilder: (context, i) => MySingleCard(
                   title: state.promotions[i].name ?? '',
-                  content: state.promotions[i].description ?? '',
+                  content: state.promotions[i].subtitle ?? '',
                   icon: Image.asset(
                     'assets/icons/star.png',
                     scale: 2,
@@ -657,7 +657,7 @@ class _ProductsVemare extends StatelessWidget {
                   },
                   icon: Image.network(state.products[i].image!),
                   title: state.products[i].name ?? '',
-                  content: state.products[i].description ?? '',
+                  content: state.products[i].subtitle ?? '',
                 ),
               );
             },

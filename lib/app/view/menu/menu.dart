@@ -12,9 +12,12 @@ import 'package:vemare/app/view/home/home_page.dart';
 import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/menu/bloc/menu_cubit.dart';
 import 'package:vemare/app/view/menu/bloc/menu_state.dart';
+import 'package:vemare/app/view/personal_area/my_account/my_account_page.dart';
 import 'package:vemare/app/view/my_services/services_page.dart';
 import 'package:vemare/app/view/our_products/type_of_vehicle_page.dart';
+import 'package:vemare/app/view/personal_area/my_contracts/my_contracts_page.dart';
 import 'package:vemare/app/view/promotions/promotions_page.dart';
+import 'package:vemare/app/view/shopping_cart/shopping_cart.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
@@ -103,6 +106,7 @@ class _IconsAppbar extends StatefulWidget {
 class __IconsAppbarState extends State<_IconsAppbar> {
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<MenuCubit>();
     return Row(
       children: [
         spacerM,
@@ -116,7 +120,15 @@ class __IconsAppbarState extends State<_IconsAppbar> {
         ),
         spacerM,
         InkWell(
-          onTap: () {},
+          onTap: () {
+            if (ModalRoute.of(context)!.settings.name !=
+                ShoppingCartPage.route) {
+              Navigator.pushNamed(context, ShoppingCartPage.route);
+            }
+            if (cubit.state.isOpenMenu) {
+              cubit.toggleMenu();
+            }
+          },
           child: Image.asset(
             'assets/icons/Bag.png',
             color: Colors.white,
@@ -246,32 +258,50 @@ class _Menu extends StatelessWidget {
                         ),
                         children: [
                           _MenuItem(
-                            onTap: () {},
                             title: 'Mi cuenta',
+                            onTap: () {
+                              if (ModalRoute.of(context)!.settings.name !=
+                                  MyAccountPage.route) {
+                                Navigator.pushNamed(
+                                    context, MyAccountPage.route);
+                              }
+                              if (cubit.state.isOpenMenu) {
+                                cubit.toggleMenu();
+                              }
+                            },
                           ),
                           _MenuItem(
-                            onTap: () {},
-                            title: 'Mis contactos',
+                            title: 'Mis contratos',
+                            onTap: () {
+                              if (ModalRoute.of(context)!.settings.name !=
+                                  MyContractsPage.route) {
+                                Navigator.pushNamed(
+                                    context, MyContractsPage.route);
+                              }
+                              if (cubit.state.isOpenMenu) {
+                                cubit.toggleMenu();
+                              }
+                            },
                           ),
                           _MenuItem(
-                            onTap: () {},
                             title: 'Mi presupuestos',
+                            onTap: () {},
                           ),
                           _MenuItem(
-                            onTap: () {},
                             title: 'Mi pedidos',
+                            onTap: () {},
                           ),
                           _MenuItem(
-                            onTap: () {},
                             title: 'Mi formaciones y eventos',
+                            onTap: () {},
                           ),
                           _MenuItem(
-                            onTap: () {},
                             title: 'SAT',
+                            onTap: () {},
                           ),
                           _MenuItem(
-                            onTap: () {},
                             title: 'Modelo 347',
+                            onTap: () {},
                           ),
                         ],
                       ),
