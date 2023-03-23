@@ -15,7 +15,9 @@ import 'package:vemare/app/view/menu/bloc/menu_state.dart';
 import 'package:vemare/app/view/personal_area/my_account/my_account_page.dart';
 import 'package:vemare/app/view/my_services/services_page.dart';
 import 'package:vemare/app/view/our_products/type_of_vehicle_page.dart';
+import 'package:vemare/app/view/personal_area/my_budget/my_budget_page.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/my_contracts_page.dart';
+import 'package:vemare/app/view/personal_area/my_orders/my_orders_page.dart';
 import 'package:vemare/app/view/promotions/promotions_page.dart';
 import 'package:vemare/app/view/shopping_cart/shopping_cart.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
@@ -284,15 +286,33 @@ class _Menu extends StatelessWidget {
                             },
                           ),
                           _MenuItem(
-                            title: 'Mi presupuestos',
-                            onTap: () {},
+                            title: 'Mis presupuestos',
+                            onTap: () {
+                              if (ModalRoute.of(context)!.settings.name !=
+                                  MyBudgetPage.route) {
+                                Navigator.pushNamed(
+                                    context, MyBudgetPage.route);
+                              }
+                              if (cubit.state.isOpenMenu) {
+                                cubit.toggleMenu();
+                              }
+                            },
                           ),
                           _MenuItem(
-                            title: 'Mi pedidos',
-                            onTap: () {},
+                            title: 'Mis pedidos',
+                            onTap: () {
+                              if (ModalRoute.of(context)!.settings.name !=
+                                  MyOrdersPage.route) {
+                                Navigator.pushNamed(
+                                    context, MyOrdersPage.route);
+                              }
+                              if (cubit.state.isOpenMenu) {
+                                cubit.toggleMenu();
+                              }
+                            },
                           ),
                           _MenuItem(
-                            title: 'Mi formaciones y eventos',
+                            title: 'Mis formaciones y eventos',
                             onTap: () {},
                           ),
                           _MenuItem(

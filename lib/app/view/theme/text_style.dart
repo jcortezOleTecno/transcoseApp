@@ -61,6 +61,12 @@ abstract class AppTextStyle {
     fontWeight: FontWeight.w500,
     color: AppColor.black,
   );
+  static const TextStyle titleCard = TextStyle(
+    fontFamily: 'NunitoSans',
+    fontSize: 18,
+    fontWeight: FontWeight.w700,
+    color: AppColor.black,
+  );
   static const TextStyle menuStyle = TextStyle(
     fontFamily: 'NunitoSans',
     fontSize: 16,

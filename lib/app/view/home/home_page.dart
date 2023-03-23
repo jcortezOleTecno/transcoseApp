@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nested_scroll_views/nested_scroll_views.dart';
+import 'package:vemare/app/data/brands_repository.dart';
 import 'package:vemare/app/data/notices_repository.dart';
 import 'package:vemare/app/data/products_repository.dart';
 import 'package:vemare/app/data/promotion_repository.dart';
@@ -44,6 +45,7 @@ class HomePage extends StatelessWidget {
         getIt.get<ServicesRepository>(),
         getIt.get<WorkShopsRepository>(),
         getIt.get<NoticesRepository>(),
+        getIt.get<BrandsRepository>(),
       ),
       child: const HomePage._(),
     );
@@ -679,27 +681,34 @@ class _ProductsVemare extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(
-          height: MediaQuery.of(context).size.width * .5,
-          child: PageView.builder(
-            itemCount: 3,
-            controller: PageController(initialPage: 1, viewportFraction: 0.5),
-            itemBuilder: (context, index) => ClipRRect(
-              child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(120),
-                  ),
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Image.asset(
-                      'assets/imgs/Continental.png',
-                      scale: 2,
-                    ),
-                  )),
-            ),
-          ),
+        BlocBuilder<HomeCubit, HomeState>(
+          builder: (context, state) {
+            if (state.loading) {
+              return MyShimmer(
+                height: MediaQuery.of(context).size.width * .5,
+              );
+            }
+            return SizedBox(
+              height: MediaQuery.of(context).size.width * .5,
+              child: PageView.builder(
+                itemCount: state.brands.length,
+                controller:
+                    PageController(initialPage: 1, viewportFraction: 0.5),
+                itemBuilder: (context, i) => ClipRRect(
+                  child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(120),
+                      ),
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 20),
+                      child: Image.network(
+                        state.brands[i].image!, fit: BoxFit.cover,
+                        // scale: 2,
+                      )),
+                ),
+              ),
+            );
+          },
         ),
       ],
     );

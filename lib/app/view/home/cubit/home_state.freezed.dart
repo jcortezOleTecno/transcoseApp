@@ -23,6 +23,7 @@ mixin _$HomeState {
   List<Services> get services => throw _privateConstructorUsedError;
   List<WorkShop> get workshop => throw _privateConstructorUsedError;
   List<Notices> get notices => throw _privateConstructorUsedError;
+  List<Brand> get brands => throw _privateConstructorUsedError;
   UserData? get user => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -43,6 +44,7 @@ abstract class $HomeStateCopyWith<$Res> {
       List<Services> services,
       List<WorkShop> workshop,
       List<Notices> notices,
+      List<Brand> brands,
       UserData? user});
 }
 
@@ -66,6 +68,7 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     Object? services = null,
     Object? workshop = null,
     Object? notices = null,
+    Object? brands = null,
     Object? user = freezed,
   }) {
     return _then(_value.copyWith(
@@ -97,6 +100,10 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.notices
           : notices // ignore: cast_nullable_to_non_nullable
               as List<Notices>,
+      brands: null == brands
+          ? _value.brands
+          : brands // ignore: cast_nullable_to_non_nullable
+              as List<Brand>,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -120,6 +127,7 @@ abstract class _$$_HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
       List<Services> services,
       List<WorkShop> workshop,
       List<Notices> notices,
+      List<Brand> brands,
       UserData? user});
 }
 
@@ -141,6 +149,7 @@ class __$$_HomeStateCopyWithImpl<$Res>
     Object? services = null,
     Object? workshop = null,
     Object? notices = null,
+    Object? brands = null,
     Object? user = freezed,
   }) {
     return _then(_$_HomeState(
@@ -172,6 +181,10 @@ class __$$_HomeStateCopyWithImpl<$Res>
           ? _value._notices
           : notices // ignore: cast_nullable_to_non_nullable
               as List<Notices>,
+      brands: null == brands
+          ? _value._brands
+          : brands // ignore: cast_nullable_to_non_nullable
+              as List<Brand>,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -191,12 +204,14 @@ class _$_HomeState extends _HomeState {
       final List<Services> services = const <Services>[],
       final List<WorkShop> workshop = const <WorkShop>[],
       final List<Notices> notices = const <Notices>[],
+      final List<Brand> brands = const <Brand>[],
       this.user})
       : _promotions = promotions,
         _products = products,
         _services = services,
         _workshop = workshop,
         _notices = notices,
+        _brands = brands,
         super._();
 
   @override
@@ -250,12 +265,21 @@ class _$_HomeState extends _HomeState {
     return EqualUnmodifiableListView(_notices);
   }
 
+  final List<Brand> _brands;
+  @override
+  @JsonKey()
+  List<Brand> get brands {
+    if (_brands is EqualUnmodifiableListView) return _brands;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_brands);
+  }
+
   @override
   final UserData? user;
 
   @override
   String toString() {
-    return 'HomeState(isLogged: $isLogged, loading: $loading, promotions: $promotions, products: $products, services: $services, workshop: $workshop, notices: $notices, user: $user)';
+    return 'HomeState(isLogged: $isLogged, loading: $loading, promotions: $promotions, products: $products, services: $services, workshop: $workshop, notices: $notices, brands: $brands, user: $user)';
   }
 
   @override
@@ -272,6 +296,7 @@ class _$_HomeState extends _HomeState {
             const DeepCollectionEquality().equals(other._services, _services) &&
             const DeepCollectionEquality().equals(other._workshop, _workshop) &&
             const DeepCollectionEquality().equals(other._notices, _notices) &&
+            const DeepCollectionEquality().equals(other._brands, _brands) &&
             (identical(other.user, user) || other.user == user));
   }
 
@@ -285,6 +310,7 @@ class _$_HomeState extends _HomeState {
       const DeepCollectionEquality().hash(_services),
       const DeepCollectionEquality().hash(_workshop),
       const DeepCollectionEquality().hash(_notices),
+      const DeepCollectionEquality().hash(_brands),
       user);
 
   @JsonKey(ignore: true)
@@ -303,6 +329,7 @@ abstract class _HomeState extends HomeState {
       final List<Services> services,
       final List<WorkShop> workshop,
       final List<Notices> notices,
+      final List<Brand> brands,
       final UserData? user}) = _$_HomeState;
   const _HomeState._() : super._();
 
@@ -320,6 +347,8 @@ abstract class _HomeState extends HomeState {
   List<WorkShop> get workshop;
   @override
   List<Notices> get notices;
+  @override
+  List<Brand> get brands;
   @override
   UserData? get user;
   @override

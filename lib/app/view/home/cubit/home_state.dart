@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:vemare/app/domain/model/brand.dart';
 import 'package:vemare/app/domain/model/notices.dart';
 import 'package:vemare/app/domain/model/product.dart';
 import 'package:vemare/app/domain/model/promotion.dart';
@@ -18,6 +19,7 @@ class HomeState with _$HomeState {
     @Default(<Services>[]) List<Services> services,
     @Default(<WorkShop>[]) List<WorkShop> workshop,
     @Default(<Notices>[]) List<Notices> notices,
+    @Default(<Brand>[]) List<Brand> brands,
     UserData? user,
   }) = _HomeState;
   const HomeState._();

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/personal_area/my_contracts/contract_detail.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
@@ -29,7 +30,9 @@ class MyContractsPage extends StatelessWidget {
               spacerM,
               ...List.generate(5, (i) {
                 return GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, ContractDetailPage.route);
+                  },
                   child: Card(
                     margin: const EdgeInsets.only(bottom: 15),
                     child: Padding(

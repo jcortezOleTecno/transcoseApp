@@ -1,10 +1,12 @@
 import 'package:bloc/bloc.dart';
+import 'package:vemare/app/data/brands_repository.dart';
 import 'package:vemare/app/data/notices_repository.dart';
 import 'package:vemare/app/data/products_repository.dart';
 import 'package:vemare/app/data/promotion_repository.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/services_repository.dart';
 import 'package:vemare/app/data/workshops_repository.dart';
+import 'package:vemare/app/domain/model/brand.dart';
 import 'package:vemare/app/domain/model/notices.dart';
 import 'package:vemare/app/domain/model/product.dart';
 import 'package:vemare/app/domain/model/promotion.dart';
@@ -20,6 +22,7 @@ class HomeCubit extends Cubit<HomeState> {
     this._servicesRepository,
     this._workShopsRepository,
     this._noticesRepository,
+    this._brandsRepository,
   ) : super(HomeState(
             user: _localDataRepository.user,
             isLogged: _localDataRepository.isLogged)) {
@@ -28,10 +31,12 @@ class HomeCubit extends Cubit<HomeState> {
 
   final LocalDataRepository _localDataRepository;
   final PromotionRepository _promotionsRepository;
+
   final ProductsRepository _productsRepository;
   final ServicesRepository _servicesRepository;
   final WorkShopsRepository _workShopsRepository;
   final NoticesRepository _noticesRepository;
+  final BrandsRepository _brandsRepository;
 
   Future<void> fetchData() async {
     emit(state.copyWith(loading: true));
@@ -41,6 +46,7 @@ class HomeCubit extends Cubit<HomeState> {
     List<Services> services = [];
     List<WorkShop> workShops = [];
     List<Notices> notices = [];
+    List<Brand> brands = [];
 
     await Future.wait([
       _productsRepository.getProducts().then((v) => products = v),
@@ -48,6 +54,7 @@ class HomeCubit extends Cubit<HomeState> {
       _servicesRepository.getServices().then((v) => services = v),
       _workShopsRepository.getWorkShops().then((v) => workShops = v),
       _noticesRepository.getNotices().then((v) => notices = v),
+      _brandsRepository.getBrands().then((v) => brands = v),
     ]);
 
     emit(state.copyWith(
@@ -57,6 +64,7 @@ class HomeCubit extends Cubit<HomeState> {
       services: services,
       workshop: workShops,
       notices: notices,
+      brands: brands,
     ));
   }
 }

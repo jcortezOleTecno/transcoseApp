@@ -69,7 +69,7 @@ class MyIconButton extends StatelessWidget {
                     Theme.of(context).textTheme.button?.merge(style.textStyle),
               ),
             ),
-            spacerM,
+            spacerXs,
             SizedBox(width: 24, height: 24, child: icon),
           ],
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 abstract class AppColor {
+  static const blue50 = Color(0xFFF4F8FF);
   static const blue100 = Color(0xFFE1EAFF);
   static const blue200 = Color(0xFFA9C0F6);
   static const blue300 = Color(0xFF5471B7);
