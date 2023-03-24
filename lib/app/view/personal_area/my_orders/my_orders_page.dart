@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
-import 'package:vemare/app/view/_components/my_label_status/my_label_status.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/personal_area/my_orders/albaran_detail.dart';
+import 'package:vemare/app/view/personal_area/my_orders/bill_detail.dart';
+import 'package:vemare/app/view/personal_area/my_orders/order_detail.dart';
+import 'package:vemare/app/view/personal_area/my_orders/warranty_detail.dart';
+import 'package:vemare/app/view/personal_area/widgets/bill.dart';
+import 'package:vemare/app/view/personal_area/widgets/warranty.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
@@ -17,14 +22,14 @@ class MyOrdersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: MyBody(
-          child: DefaultTabController(
-        length: 3,
-        child: Column(
-          children: const [
-            spacerS,
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: TabBar(
+        child: DefaultTabController(
+          length: 3,
+          child: Column(
+            children: const [
+              spacerS,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                child: TabBar(
                   labelColor: AppColor.primaryBlue,
                   indicatorColor: AppColor.primaryBlue,
                   indicatorWeight: 2.5,
@@ -37,23 +42,28 @@ class MyOrdersPage extends StatelessWidget {
                     Tab(text: 'Mis pedidos'),
                     Tab(text: 'Mis garantías'),
                     Tab(text: 'Mis facturas'),
-                  ]),
-            ),
-            Divider(
-              height: 0,
-              thickness: 2,
-              indent: 15,
-              endIndent: 15,
-            ),
-            Expanded(
-                child: TabBarView(children: [
-              _MyOrders(),
-              Placeholder(),
-              Placeholder(),
-            ]))
-          ],
+                  ],
+                ),
+              ),
+              Divider(
+                height: 0,
+                thickness: 2,
+                indent: 15,
+                endIndent: 15,
+              ),
+              Expanded(
+                child: TabBarView(
+                  children: [
+                    _MyOrders(),
+                    _MyWarranty(),
+                    _MyBills(),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
-      )),
+      ),
     );
   }
 }
@@ -86,9 +96,14 @@ class _MyOrders extends StatelessWidget {
           ),
           variant: MyButtonVariant.outlinedBold,
         ),
-        spacerM,
+        spacerL,
         ...List.generate(3, (i) {
-          return _Bill();
+          return Bill(
+            onTapBill: () =>
+                Navigator.pushNamed(context, OrderDetailPage.route),
+            onTapAlbaran: () =>
+                Navigator.pushNamed(context, AlbaranDetailPage.route),
+          );
         }),
         MyIconButton(
           onPressed: () {},
@@ -104,155 +119,84 @@ class _MyOrders extends StatelessWidget {
   }
 }
 
-class _Bill extends StatelessWidget {
+class _MyWarranty extends StatelessWidget {
+  const _MyWarranty({
+    Key? key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 20),
-      clipBehavior: Clip.antiAlias,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColor.blue100),
-      ),
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(15),
-            decoration: const BoxDecoration(
-              color: AppColor.blue50,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(12),
-                topRight: Radius.circular(12),
-              ),
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'N° DE FACTURA',
-                        style: AppTextStyle.defaultStyle,
-                      ),
-                      Text(
-                        '0000000000000',
-                        style: AppTextStyle.defaultStyle
-                            .copyWith(fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                ),
-                MyLabelStatus.subscribe(),
-                spacerM,
-                Image.asset('assets/icons/arrow_next.png', scale: 2),
-              ],
-            ),
+    return ListView(
+      padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+      children: [
+        spacerS,
+        const Text('Mis garantías', style: AppTextStyle.h2Style),
+        Text(
+          getIt.get<LocalDataRepository>().user?.name ?? '',
+          style: AppTextStyle.h3Style.copyWith(
+            fontWeight: FontWeight.normal,
           ),
-          Container(
-            padding: const EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Column(
-              children: [
-                spacerS,
-                Container(
-                  alignment: Alignment.centerLeft,
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  height: 38,
-                  decoration: BoxDecoration(
-                    color: AppColor.blue50,
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: RichText(
-                    text: TextSpan(
-                      style: TextStyle(color: Colors.black),
-                      children: [
-                        TextSpan(
-                          text: 'FECHA',
-                        ),
-                        TextSpan(
-                          text: '  00/00/00',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                spacerM,
-                ...List.generate(5, (i) {
-                  return _Albaran();
-                })
-              ],
-            ),
-          )
-        ],
-      ),
+        ),
+        spacerM,
+        MyIconButton(
+          onPressed: () {},
+          text: 'Aplicar filtros',
+          icon: Image.asset(
+            'assets/icons/Filtro.png',
+            scale: 2,
+          ),
+          variant: MyButtonVariant.outlinedBold,
+        ),
+        spacerL,
+        ...List.generate(3, (i) {
+          return Warranty(
+            onTap: () {
+              Navigator.pushNamed(context, WarrantyDetailPage.route);
+            },
+          );
+        }),
+      ],
     );
   }
 }
 
-class _Albaran extends StatelessWidget {
+class _MyBills extends StatelessWidget {
+  const _MyBills({
+    Key? key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(children: [
-        ListTile(
-          leading: Icon(Icons.check_box_outline_blank, color: Colors.black),
-          title: Text('N° ALBARÁN', style: AppTextStyle.defaultStyle),
-          subtitle: Text('0000000000000000',
-              style: AppTextStyle.defaultStyle
-                  .copyWith(fontWeight: FontWeight.bold, color: Colors.black)),
-          trailing: Image.asset(
-            'assets/icons/arrow_next.png',
+    return ListView(
+      padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+      children: [
+        spacerS,
+        const Text('Mis facturas', style: AppTextStyle.h2Style),
+        Text(
+          getIt.get<LocalDataRepository>().user?.name ?? '',
+          style: AppTextStyle.h3Style.copyWith(
+            fontWeight: FontWeight.normal,
+          ),
+        ),
+        spacerM,
+        MyIconButton(
+          onPressed: () {},
+          text: 'Aplicar filtros',
+          icon: Image.asset(
+            'assets/icons/Filtro.png',
             scale: 2,
-            color: AppColor.primaryBlue,
           ),
+          variant: MyButtonVariant.outlinedBold,
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('UDS', style: AppTextStyle.defaultStyle),
-                    Text('40',
-                        style: AppTextStyle.defaultStyle
-                            .copyWith(fontWeight: FontWeight.bold)),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('PRECIO', style: AppTextStyle.defaultStyle),
-                    Text(
-                      '400 €',
-                      style: AppTextStyle.defaultStyle.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
-        spacerM,
-        MyLabelStatus.pending(),
-        spacerM,
-        Divider(
-          thickness: 1.5,
-          color: AppColor.blue100,
-        ),
-      ]),
+        spacerL,
+        ...List.generate(3, (i) {
+          return BillCard(
+            onTap: () {
+              Navigator.pushNamed(context, BillDetailPage.route);
+            },
+          );
+        }),
+      ],
     );
   }
 }

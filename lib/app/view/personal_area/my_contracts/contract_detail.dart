@@ -6,6 +6,7 @@ import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_label_status/my_label_status.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/personal_area/widgets/warranty.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
@@ -34,7 +35,7 @@ class ContractDetailPage extends StatelessWidget {
                       style: AppTextStyle.h2Style,
                     ),
                     spacerM,
-                    _WarrantyDetail(),
+                    WarrantyDetail(),
                     spacerL,
                     MyIconButton(
                       onPressed: () {},
@@ -177,90 +178,6 @@ class _Revision extends StatelessWidget {
               ],
             ),
           )
-        ],
-      ),
-    );
-  }
-}
-
-class _WarrantyDetail extends StatelessWidget {
-  const _WarrantyDetail({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColor.blue100),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            'Detalle de la garantía',
-            style: AppTextStyle.titleCard,
-          ),
-          spacerM,
-          Row(
-            children: [
-              Expanded(child: Text('FECHA', style: AppTextStyle.defaultStyle)),
-              Expanded(
-                  child: Text('IMPORTE', style: AppTextStyle.defaultStyle)),
-            ],
-          ),
-          Row(
-            children: [
-              Expanded(
-                  child: Text(
-                '20/08/2022',
-                style: AppTextStyle.defaultStyle.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
-              )),
-              Expanded(
-                  child: Text(
-                '100 €',
-                style: AppTextStyle.defaultStyle.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
-              )),
-            ],
-          ),
-          spacerM,
-          Row(
-            children: [
-              Expanded(
-                  child: Text('SITUACIÓN', style: AppTextStyle.defaultStyle)),
-              Expanded(
-                  child:
-                      Text('REQUIERE FIRMA', style: AppTextStyle.defaultStyle)),
-            ],
-          ),
-          Row(
-            children: [
-              Expanded(
-                  child: Text(
-                '???',
-                style: AppTextStyle.defaultStyle.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
-              )),
-              Expanded(
-                  child: Text(
-                '???',
-                style: AppTextStyle.defaultStyle.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
-              )),
-            ],
-          ),
-          spacerM,
-          MyLabelStatus.pending()
         ],
       ),
     );

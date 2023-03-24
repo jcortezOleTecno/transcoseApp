@@ -696,6 +696,7 @@ class _ProductsVemare extends StatelessWidget {
                     PageController(initialPage: 1, viewportFraction: 0.5),
                 itemBuilder: (context, i) => ClipRRect(
                   child: Card(
+                      clipBehavior: Clip.antiAlias,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(120),
                       ),

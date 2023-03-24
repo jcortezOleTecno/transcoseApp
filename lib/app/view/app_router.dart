@@ -19,7 +19,11 @@ import 'package:vemare/app/view/personal_area/my_budget/budget_detail.dart';
 import 'package:vemare/app/view/personal_area/my_budget/my_budget_page.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/contract_detail.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/my_contracts_page.dart';
+import 'package:vemare/app/view/personal_area/my_orders/albaran_detail.dart';
+import 'package:vemare/app/view/personal_area/my_orders/bill_detail.dart';
 import 'package:vemare/app/view/personal_area/my_orders/my_orders_page.dart';
+import 'package:vemare/app/view/personal_area/my_orders/order_detail.dart';
+import 'package:vemare/app/view/personal_area/my_orders/warranty_detail.dart';
 import 'package:vemare/app/view/promotions/detail_sale_rent/detail_sale_rent.dart';
 import 'package:vemare/app/view/promotions/promotions_page.dart';
 import 'package:vemare/app/view/promotions/renting_store/card_payment_form.dart';
@@ -190,6 +194,26 @@ abstract class AppRouter {
         return MaterialPageRoute<void>(
           settings: settings,
           builder: (_) => const MyOrdersPage(),
+        );
+      case OrderDetailPage.route:
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => const OrderDetailPage(),
+        );
+      case AlbaranDetailPage.route:
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => const AlbaranDetailPage(),
+        );
+      case WarrantyDetailPage.route:
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => const WarrantyDetailPage(),
+        );
+      case BillDetailPage.route:
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => const BillDetailPage(),
         );
 
       default:
