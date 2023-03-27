@@ -7,6 +7,7 @@ part 'menu_state.freezed.dart';
 class MenuState with _$MenuState {
   const factory MenuState({
     @Default(false) bool isOpenMenu,
+    @Default(false) bool isOpenNotification,
     @Default(false) bool isLogged,
     UserData? user,
   }) = _MenuState;

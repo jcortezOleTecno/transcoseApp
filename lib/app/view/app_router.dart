@@ -3,6 +3,9 @@ import 'package:vemare/app/domain/model/services.dart';
 import 'package:vemare/app/view/about_us/about_us_page.dart';
 import 'package:vemare/app/view/home/home_page.dart';
 import 'package:vemare/app/view/login/login_page.dart';
+import 'package:vemare/app/view/my_notifications/my_notifications_page.dart';
+import 'package:vemare/app/view/personal_area/SAT/sat_page.dart';
+import 'package:vemare/app/view/personal_area/modelo_347/modelo_347_page.dart';
 import 'package:vemare/app/view/personal_area/my_account/my_account_page.dart';
 import 'package:vemare/app/view/my_services/formations/detail_formation.dart';
 import 'package:vemare/app/view/my_services/formations/enroll_training.dart';
@@ -24,6 +27,7 @@ import 'package:vemare/app/view/personal_area/my_orders/bill_detail.dart';
 import 'package:vemare/app/view/personal_area/my_orders/my_orders_page.dart';
 import 'package:vemare/app/view/personal_area/my_orders/order_detail.dart';
 import 'package:vemare/app/view/personal_area/my_orders/warranty_detail.dart';
+import 'package:vemare/app/view/personal_area/my_trainigs_and_events/my_trainigs_and_events_page.dart';
 import 'package:vemare/app/view/promotions/detail_sale_rent/detail_sale_rent.dart';
 import 'package:vemare/app/view/promotions/promotions_page.dart';
 import 'package:vemare/app/view/promotions/renting_store/card_payment_form.dart';
@@ -214,6 +218,26 @@ abstract class AppRouter {
         return MaterialPageRoute<void>(
           settings: settings,
           builder: (_) => const BillDetailPage(),
+        );
+      case MyTrainingAndEventsPage.route:
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => const MyTrainingAndEventsPage(),
+        );
+      case SatPage.route:
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => const SatPage(),
+        );
+      case Modelo347Page.route:
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => const Modelo347Page(),
+        );
+      case MyNotificationsPage.route:
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => MyNotificationsPage.create(),
         );
 
       default:

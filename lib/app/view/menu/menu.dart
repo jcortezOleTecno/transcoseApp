@@ -6,18 +6,23 @@ import 'package:slide_to_confirm/slide_to_confirm.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
+import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/about_us/about_us_page.dart';
 import 'package:vemare/app/view/home/home_page.dart';
 import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/menu/bloc/menu_cubit.dart';
 import 'package:vemare/app/view/menu/bloc/menu_state.dart';
+import 'package:vemare/app/view/my_notifications/my_notifications_page.dart';
+import 'package:vemare/app/view/personal_area/SAT/sat_page.dart';
+import 'package:vemare/app/view/personal_area/modelo_347/modelo_347_page.dart';
 import 'package:vemare/app/view/personal_area/my_account/my_account_page.dart';
 import 'package:vemare/app/view/my_services/services_page.dart';
 import 'package:vemare/app/view/our_products/type_of_vehicle_page.dart';
 import 'package:vemare/app/view/personal_area/my_budget/my_budget_page.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/my_contracts_page.dart';
 import 'package:vemare/app/view/personal_area/my_orders/my_orders_page.dart';
+import 'package:vemare/app/view/personal_area/my_trainigs_and_events/my_trainigs_and_events_page.dart';
 import 'package:vemare/app/view/promotions/promotions_page.dart';
 import 'package:vemare/app/view/shopping_cart/shopping_cart.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
@@ -49,7 +54,10 @@ class MyMenu extends StatelessWidget {
             if (state.isOpenMenu) {
               cubit.toggleMenu();
             }
-            return Future.value(!state.isOpenMenu);
+            if (state.isOpenNotification) {
+              cubit.toggleNotification();
+            }
+            return Future.value(!state.isOpenMenu && !state.isOpenNotification);
           },
           child: SafeArea(
             child: Column(
@@ -67,19 +75,27 @@ class MyMenu extends StatelessWidget {
                       const Spacer(),
                       _IconsAppbar(
                         state.isOpenMenu,
+                        state.isOpenNotification,
                         menuFunc: cubit.toggleMenu,
+                        notificationsFunc: cubit.toggleNotification,
                       ),
                       spacerM,
                     ],
                   ),
                 ),
                 AnimatedContainer(
-                  duration: const Duration(milliseconds: 90),
+                  duration:
+                      Duration(milliseconds: state.isOpenNotification ? 0 : 60),
                   height: !state.isOpenMenu
                       ? 0
                       : MediaQuery.of(context).size.height -
                           (80 + MediaQuery.of(context).viewPadding.vertical),
                   child: const _Menu(),
+                ),
+                AnimatedContainer(
+                  duration: Duration(milliseconds: state.isOpenMenu ? 0 : 60),
+                  height: !state.isOpenNotification ? 0 : null,
+                  child: const _NotificationsMenu(),
                 )
               ],
             ),
@@ -95,11 +111,18 @@ class MyMenu extends StatelessWidget {
 */
 
 class _IconsAppbar extends StatefulWidget {
-  const _IconsAppbar(this.isOpenMenu, {required this.menuFunc, Key? key})
-      : super(key: key);
+  const _IconsAppbar(
+    this.isOpenMenu,
+    this.isOpenNotifications, {
+    required this.menuFunc,
+    required this.notificationsFunc,
+    Key? key,
+  }) : super(key: key);
 
   final bool isOpenMenu;
+  final bool isOpenNotifications;
   final Function() menuFunc;
+  final Function() notificationsFunc;
 
   @override
   State<_IconsAppbar> createState() => __IconsAppbarState();
@@ -113,11 +136,19 @@ class __IconsAppbarState extends State<_IconsAppbar> {
       children: [
         spacerM,
         InkWell(
-          onTap: () {},
-          child: Image.asset(
-            'assets/icons/notificationOn.png',
-            color: Colors.white,
-            scale: 2,
+          onTap: widget.notificationsFunc,
+          child: Visibility(
+            visible: !widget.isOpenNotifications,
+            replacement: Image.asset(
+              'assets/icons/Close.png',
+              color: Colors.white,
+              scale: 2,
+            ),
+            child: Image.asset(
+              'assets/icons/notificationOn.png',
+              color: Colors.white,
+              scale: 2,
+            ),
           ),
         ),
         spacerM,
@@ -313,15 +344,41 @@ class _Menu extends StatelessWidget {
                           ),
                           _MenuItem(
                             title: 'Mis formaciones y eventos',
-                            onTap: () {},
+                            onTap: () {
+                              if (ModalRoute.of(context)!.settings.name !=
+                                  MyTrainingAndEventsPage.route) {
+                                Navigator.pushNamed(
+                                    context, MyTrainingAndEventsPage.route);
+                              }
+                              if (cubit.state.isOpenMenu) {
+                                cubit.toggleMenu();
+                              }
+                            },
                           ),
                           _MenuItem(
                             title: 'SAT',
-                            onTap: () {},
+                            onTap: () {
+                              if (ModalRoute.of(context)!.settings.name !=
+                                  SatPage.route) {
+                                Navigator.pushNamed(context, SatPage.route);
+                              }
+                              if (cubit.state.isOpenMenu) {
+                                cubit.toggleMenu();
+                              }
+                            },
                           ),
                           _MenuItem(
                             title: 'Modelo 347',
-                            onTap: () {},
+                            onTap: () {
+                              if (ModalRoute.of(context)!.settings.name !=
+                                  Modelo347Page.route) {
+                                Navigator.pushNamed(
+                                    context, Modelo347Page.route);
+                              }
+                              if (cubit.state.isOpenMenu) {
+                                cubit.toggleMenu();
+                              }
+                            },
                           ),
                         ],
                       ),
@@ -542,6 +599,88 @@ class _MenuItem extends StatelessWidget {
         'assets/icons/arrow_next.png',
         color: Colors.white,
         scale: 2,
+      ),
+    );
+  }
+}
+
+class _NotificationsMenu extends StatelessWidget {
+  const _NotificationsMenu({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final cubit = context.read<MenuCubit>();
+    return Container(
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+      color: AppColor.primaryBlue,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Divider(color: Colors.white),
+          ListTile(
+            leading: Image.asset('assets/icons/Notifications.png', scale: 2),
+            title: Text(
+                'Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
+                style: AppTextStyle.inputStyle.copyWith(color: Colors.white)),
+            subtitle: Text(
+              'Hace 3 min',
+              style: AppTextStyle.inputStyle.copyWith(
+                color: Colors.white,
+                height: 2,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+          Divider(color: Colors.white),
+          ListTile(
+            leading: Image.asset('assets/icons/Notifications.png', scale: 2),
+            title: Text(
+                'Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
+                style: AppTextStyle.inputStyle.copyWith(color: Colors.white)),
+            subtitle: Text(
+              'Hace 3 min',
+              style: AppTextStyle.inputStyle.copyWith(
+                color: Colors.white,
+                height: 2,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+          Divider(color: Colors.white),
+          Visibility(
+            visible: getIt.get<LocalDataRepository>().isLogged,
+            child: SizedBox(
+              height: 60,
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: TextButton.icon(
+                    onPressed: () {
+                      if (ModalRoute.of(context)!.settings.name !=
+                          MyNotificationsPage.route) {
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          MyNotificationsPage.route,
+                          ModalRoute.withName(HomePage.route),
+                        );
+                      }
+                      cubit.toggleNotification();
+                    },
+                    label: Image.asset(
+                      'assets/icons/arrow_next.png',
+                      scale: 2,
+                      color: Colors.white,
+                    ),
+                    icon: Text(
+                      'Ver mis notificaciones ',
+                      style: AppTextStyle.inputStyle.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    )),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

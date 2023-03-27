@@ -13,6 +13,16 @@ class MenuCubit extends Cubit<MenuState> {
   final LocalDataRepository _localDataRepository;
 
   void toggleMenu() {
-    emit(state.copyWith(isOpenMenu: !state.isOpenMenu));
+    emit(state.copyWith(
+      isOpenMenu: !state.isOpenMenu,
+      isOpenNotification: false,
+    ));
+  }
+
+  void toggleNotification() {
+    emit(state.copyWith(
+      isOpenNotification: !state.isOpenNotification,
+      isOpenMenu: false,
+    ));
   }
 }
