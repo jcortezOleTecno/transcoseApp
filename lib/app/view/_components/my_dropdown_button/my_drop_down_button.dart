@@ -76,23 +76,7 @@ class MyCustomDropdownButton<T> extends StatelessWidget {
           ),
         ),
         value: value,
-        items: dropdownItems
-        /*.map((item) => DropdownMenuItem<T>(
-                  value: item,
-                  child: Container(
-                    alignment: valueAlignment,
-                    child: Text(
-                      item.name,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      style: const TextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
-                  ),
-                ))
-            .toList()*/
-        ,
+        items: dropdownItems,
         onChanged: onChanged,
         selectedItemBuilder: selectedItemBuilder,
         buttonStyleData: ButtonStyleData(

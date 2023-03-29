@@ -8,6 +8,7 @@ import 'package:vemare/app/view/_components/my_filter_image/my_filter_image.dart
 import 'package:vemare/app/view/_components/my_input/my_input.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/tap_to_hide_keyboard/tap_to_hide_keyboard.dart';
+import 'package:vemare/app/view/my_services/events/events_vemare_page.dart';
 import 'package:vemare/app/view/my_services/formations/formations.dart';
 import 'package:vemare/app/view/my_services/service_general.dart';
 import 'package:vemare/app/view/theme/color.dart';
@@ -243,6 +244,9 @@ class _CardService extends StatelessWidget {
             }
             if (title == 'Formaciones') {
               Navigator.pushNamed(context, FormationsPage.route);
+            }
+            if (title == 'Eventos') {
+              Navigator.pushNamed(context, EventsVemarePage.route);
             }
           },
       child: Container(

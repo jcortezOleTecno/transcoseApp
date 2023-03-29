@@ -4,6 +4,9 @@ import 'package:vemare/app/view/about_us/about_us_page.dart';
 import 'package:vemare/app/view/home/home_page.dart';
 import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/my_notifications/my_notifications_page.dart';
+import 'package:vemare/app/view/my_services/events/enroll_event.dart';
+import 'package:vemare/app/view/my_services/events/events_vemare_page.dart';
+import 'package:vemare/app/view/my_services/events/other_event_page.dart';
 import 'package:vemare/app/view/personal_area/SAT/sat_page.dart';
 import 'package:vemare/app/view/personal_area/modelo_347/modelo_347_page.dart';
 import 'package:vemare/app/view/personal_area/my_account/my_account_page.dart';
@@ -238,6 +241,21 @@ abstract class AppRouter {
         return MaterialPageRoute<void>(
           settings: settings,
           builder: (_) => MyNotificationsPage.create(),
+        );
+      case EventsVemarePage.route:
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => const EventsVemarePage(),
+        );
+      case OtherEventPage.route:
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => const OtherEventPage(),
+        );
+      case EnrollEventPage.route:
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => const EnrollEventPage(),
         );
 
       default:

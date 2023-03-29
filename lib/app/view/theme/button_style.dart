@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vemare/app/view/theme/color.dart';
+import 'package:vemare/app/view/theme/text_style.dart';
 
 abstract class AppButtonStyle {
   static MyButtonStyles containedPrimaryButtonStyles =
@@ -124,11 +125,10 @@ class LinkButtonStyles extends MyButtonStyles {
   @override
   EdgeInsets get inset => _minimalPadding;
   @override
-  TextStyle get textStyle =>
-      const TextStyle(color: Colors.white, fontWeight: FontWeight.w400);
+  TextStyle get textStyle => AppTextStyle.linkStyle;
   @override
   ButtonStyle get buttonStyle => ElevatedButton.styleFrom(
-        onPrimary: Colors.grey,
+        foregroundColor: Colors.grey,
         shape: semiRoundedShape,
       );
 }
@@ -141,7 +141,7 @@ class LightLinkButtonStyles extends MyButtonStyles {
       const TextStyle(color: Colors.white, fontWeight: FontWeight.w400);
   @override
   ButtonStyle get buttonStyle => ElevatedButton.styleFrom(
-        onPrimary: Colors.white,
+        foregroundColor: Colors.white,
         shape: semiRoundedShape,
       );
 }
@@ -150,12 +150,13 @@ class DisabledButtonStyles extends MyButtonStyles {
   @override
   EdgeInsets get inset => _padding;
   @override
-  TextStyle get textStyle => const TextStyle(color: Colors.white);
+  TextStyle get textStyle => const TextStyle(color: Colors.white, fontSize: 18);
   @override
   ButtonStyle get buttonStyle => ElevatedButton.styleFrom(
-        primary: AppColor.blue200,
-        onSurface: AppColor.black,
-        onPrimary: Colors.black,
+        foregroundColor: Colors.black,
+        backgroundColor: AppColor.neutral20,
+        disabledForegroundColor: AppColor.neutral20,
+        disabledBackgroundColor: AppColor.neutral20,
         shape: semiRoundedShape,
       );
 }

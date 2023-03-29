@@ -14,9 +14,9 @@ import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
-class EnrollTrainingPage extends StatelessWidget {
-  const EnrollTrainingPage({super.key});
-  static const route = '/enroll_training';
+class EnrollEventPage extends StatelessWidget {
+  const EnrollEventPage({super.key});
+  static const route = '/enroll_event';
 
   @override
   Widget build(BuildContext context) {
@@ -33,15 +33,11 @@ class EnrollTrainingPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      'Nombre de la formación',
+                      'Nombre del evento',
                       style: AppTextStyle.h1Style,
                     ),
-                    spacerS,
-                    Text(
-                      'Selecciona un area de formación',
-                      style: AppTextStyle.defaultStyle,
-                    ),
-                    spacerXL,
+                    spacerM,
+
                     MyCalendar(
                       dates: [
                         DateTime(2023, 3, 28),
@@ -136,7 +132,7 @@ class EnrollTrainingPage extends StatelessWidget {
                   ),
                   spacerM,
                   Text(
-                    "Nombre de la formación",
+                    "Nombre del evento",
                     style: AppTextStyle.h3Style,
                   ),
                   spacerS,
