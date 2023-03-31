@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
+import 'package:vemare/app/view/_components/my_filter_image/my_filter_image.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
-import 'package:vemare/app/view/my_services/events/other_event_page.dart';
+import 'package:vemare/app/view/my_services/events/event_detail_page.dart';
+import 'package:vemare/app/view/my_services/events/my_events_page.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
@@ -26,32 +28,31 @@ class EventsVemarePage extends StatelessWidget {
                   children: [
                     const Text('Eventos Vemare', style: AppTextStyle.h1Style),
                     spacerS,
-                    const Text('Selecciona un area de evento',
+                    const Text(
+                        'Encuentros, charlas, presentaciones... Infórmate sobre todos los eventos que creamos para nuestros clientes.',
                         style: AppTextStyle.defaultStyle),
                     spacerXL,
-                    _Item(
-                      title: 'Mis eventos',
-                      content:
-                          'Consulta las fechas y toda la información de tus próximos eventos y no te pierdas ningún detalle.',
-                      onTap: () {},
-                    ),
-                    _Item(
-                      title: 'Otros eventos',
-                      content:
-                          'Junto a nuestros proveedores creamos momentos únicos que ahora puedes consultar.',
-                      onTap: () {
-                        Navigator.pushNamed(context, OtherEventPage.route);
-                      },
-                    ),
-                    _Item(
-                      title: 'Eventos Vemare',
-                      content:
-                          'Encuentros, charlas, presentaciones... Infórmate sobre todos los eventos que creamos para nuestros clientes.',
-                      onTap: () {},
-                    ),
                   ],
                 ),
               ),
+              _MyEvents(
+                  icon: true,
+                  title: 'Mis Eventos',
+                  onTap: () {
+                    Navigator.pushNamed(context, MyEventsPage.route);
+                  }),
+              spacerS,
+              ...List.generate(4, (i) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: _MyEvents(
+                    borderRadius: BorderRadius.circular(12),
+                    title: 'Lorem ipsum',
+                    onTap: () =>
+                        Navigator.pushNamed(context, EventDetailPage.route),
+                  ),
+                );
+              })
             ],
           ),
         ),
@@ -60,58 +61,60 @@ class EventsVemarePage extends StatelessWidget {
   }
 }
 
-class _Item extends StatelessWidget {
-  const _Item({
+class _MyEvents extends StatelessWidget {
+  const _MyEvents({
+    this.borderRadius,
     this.onTap,
-    required this.title,
-    required this.content,
+    this.title,
+    this.icon = false,
     Key? key,
   }) : super(key: key);
 
+  final BorderRadiusGeometry? borderRadius;
+  final String? title;
+  final bool icon;
   final void Function()? onTap;
-  final String title;
-  final String content;
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Card(
-        margin: const EdgeInsets.only(bottom: 20),
+      child: Container(
         clipBehavior: Clip.antiAlias,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Column(children: [
-          Image.asset(
-            'assets/imgs/ADservice.png',
-            width: double.infinity,
-            height: 150,
+        decoration: BoxDecoration(borderRadius: borderRadius),
+        margin: const EdgeInsets.only(bottom: 15),
+        height: 220,
+        width: double.infinity,
+        child: Stack(fit: StackFit.expand, children: [
+          const Image(
+            image: AssetImage('assets/imgs/AD360IMG.png'),
             fit: BoxFit.cover,
           ),
-          Container(
-            padding: const EdgeInsets.all(15),
-            child: Column(children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    title,
-                    style: AppTextStyle.h3Style.copyWith(
-                      color: AppColor.primaryBlue,
+          const MyFilterImage(),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              children: [
+                const Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      title ?? '',
+                      style: AppTextStyle.linkStyle
+                          .copyWith(color: AppColor.white, fontSize: 22),
                     ),
-                  ),
-                  Image.asset(
-                    'assets/icons/arrow_next.png',
-                    color: AppColor.primaryBlue,
-                    scale: 2,
-                  )
-                ],
-              ),
-              spacerS,
-              Text(content, style: AppTextStyle.defaultStyle),
-              spacerS,
-            ]),
+                    Visibility(
+                      visible: icon,
+                      child: Image.asset(
+                        'assets/icons/arrow_next.png',
+                        color: AppColor.white,
+                        scale: 2,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           )
         ]),
       ),

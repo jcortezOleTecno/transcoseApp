@@ -8,11 +8,12 @@ import 'package:vemare/app/view/_components/my_filter_image/my_filter_image.dart
 import 'package:vemare/app/view/_components/my_input/my_input.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/tap_to_hide_keyboard/tap_to_hide_keyboard.dart';
-import 'package:vemare/app/view/my_services/events/events_vemare_page.dart';
+import 'package:vemare/app/view/my_services/events/events_page.dart';
 import 'package:vemare/app/view/my_services/formations/formations.dart';
 import 'package:vemare/app/view/my_services/service_general.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
+import 'package:vemare/app/view/workshop_networks/workshop_networks_page.dart';
 
 class ServiceClass {
   final String name;
@@ -95,7 +96,8 @@ class _ServicesPageState extends State<ServicesPage> {
                     _CardService(
                       title: 'Redes de talleres',
                       borderRadius: BorderRadius.circular(15),
-                      onTap: () {},
+                      onTap: () => Navigator.pushNamed(
+                          context, WorkshopNetworksPage.route),
                     ),
                     spacerS,
                     const Text('Contactos', style: AppTextStyle.h2Style),
@@ -246,7 +248,7 @@ class _CardService extends StatelessWidget {
               Navigator.pushNamed(context, FormationsPage.route);
             }
             if (title == 'Eventos') {
-              Navigator.pushNamed(context, EventsVemarePage.route);
+              Navigator.pushNamed(context, EventsPage.route);
             }
           },
       child: Container(

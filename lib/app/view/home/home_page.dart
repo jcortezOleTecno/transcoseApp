@@ -29,6 +29,7 @@ import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/app/view/work_with_us/work_with_us_page.dart';
+import 'package:vemare/app/view/workshop_networks/workshop_networks_page.dart';
 import 'package:vemare/config/service_locator.dart';
 
 class HomePage extends StatelessWidget {
@@ -170,7 +171,7 @@ class _PageB extends StatelessWidget {
           const _LastService(),
           const _RedesTalleres(),
           spacerL,
-          const _Noticias(),
+          const _News(),
           spacerL,
           const _TrabajaConNosotros(),
           spacerM,
@@ -195,8 +196,8 @@ class _PageB extends StatelessWidget {
   }
 }
 
-class _Noticias extends StatelessWidget {
-  const _Noticias({
+class _News extends StatelessWidget {
+  const _News({
     Key? key,
   }) : super(key: key);
 
@@ -360,15 +361,20 @@ class _RedesTalleres extends StatelessWidget {
               );
             }
             return Column(
-                children: state.workshop
-                    .map(
-                      (e) => MyListile(
-                        icon: Image.network(e.image!, fit: BoxFit.cover),
-                        title: e.name ?? '',
-                        onTap: () {},
+              children: state.workshop
+                  .map(
+                    (e) => MyListile(
+                      icon: Image.network(e.image!, fit: BoxFit.cover),
+                      title: e.name ?? '',
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        WorkshopNetworksPage.route,
+                        arguments: e.id,
                       ),
-                    )
-                    .toList());
+                    ),
+                  )
+                  .toList(),
+            );
           },
         ),
       ],

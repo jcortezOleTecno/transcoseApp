@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:vemare/app/domain/model/services.dart';
+import 'package:vemare/app/domain/model/workshop.dart';
 import 'package:vemare/app/view/about_us/about_us_page.dart';
 import 'package:vemare/app/view/home/home_page.dart';
 import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/my_notifications/my_notifications_page.dart';
 import 'package:vemare/app/view/my_services/events/enroll_event.dart';
+import 'package:vemare/app/view/my_services/events/event_detail_page.dart';
+import 'package:vemare/app/view/my_services/events/events_page.dart';
 import 'package:vemare/app/view/my_services/events/events_vemare_page.dart';
+import 'package:vemare/app/view/my_services/events/my_events_page.dart';
 import 'package:vemare/app/view/my_services/events/other_event_page.dart';
 import 'package:vemare/app/view/personal_area/SAT/sat_page.dart';
 import 'package:vemare/app/view/personal_area/modelo_347/modelo_347_page.dart';
@@ -40,6 +44,7 @@ import 'package:vemare/app/view/register/register_page.dart';
 import 'package:vemare/app/view/shopping_cart/shopping_cart.dart';
 import 'package:vemare/app/view/splash/splash_page.dart';
 import 'package:vemare/app/view/work_with_us/work_with_us_page.dart';
+import 'package:vemare/app/view/workshop_networks/workshop_networks_page.dart';
 
 import 'promotions/promotion/promotion_page.dart';
 
@@ -242,10 +247,10 @@ abstract class AppRouter {
           settings: settings,
           builder: (_) => MyNotificationsPage.create(),
         );
-      case EventsVemarePage.route:
+      case EventsPage.route:
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const EventsVemarePage(),
+          builder: (_) => const EventsPage(),
         );
       case OtherEventPage.route:
         return MaterialPageRoute<void>(
@@ -256,6 +261,27 @@ abstract class AppRouter {
         return MaterialPageRoute<void>(
           settings: settings,
           builder: (_) => const EnrollEventPage(),
+        );
+      case EventsVemarePage.route:
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => const EventsVemarePage(),
+        );
+      case MyEventsPage.route:
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => const MyEventsPage(),
+        );
+      case EventDetailPage.route:
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => const EventDetailPage(),
+        );
+      case WorkshopNetworksPage.route:
+        final int? id = settings.arguments as int?;
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => WorkshopNetworksPage.create(id),
         );
 
       default:

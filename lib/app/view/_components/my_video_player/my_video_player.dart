@@ -26,7 +26,8 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
   }
 
   Future<void> _initializePlayer() async {
-    _videoPlayerController = VideoPlayerController.network(widget.video);
+    _videoPlayerController = VideoPlayerController.network(widget.video,
+        httpHeaders: <String, String>{'Accept': 'application/json'});
 
     await _videoPlayerController.initialize();
     setState(() {
