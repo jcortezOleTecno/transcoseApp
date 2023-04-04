@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:vemare/app/view/theme/color.dart';
 
 class MyShimmer extends StatelessWidget {
   const MyShimmer({
@@ -14,6 +13,12 @@ class MyShimmer extends StatelessWidget {
   final double? borderRadius;
   final EdgeInsetsGeometry? margin;
 
+  const MyShimmer.full({
+    super.key,
+    this.height = double.infinity,
+    this.borderRadius = 0,
+    this.margin = EdgeInsets.zero,
+  });
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(

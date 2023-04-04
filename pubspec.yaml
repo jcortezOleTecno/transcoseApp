@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 publish_to: 'none' 
 
-version: 1.0.0+7
+version: 1.0.0+9
 
 environment:
   sdk: ">=2.18.0 <3.0.0"
@@ -28,6 +28,7 @@ dependencies:
   url_launcher: ^6.1.10
   table_calendar: ^3.0.9
   dropdown_search: ^5.0.5
+  flutter_swiper_null_safety: ^1.0.2
 
 
   cupertino_icons: ^1.0.2
@@ -35,6 +36,7 @@ dependencies:
   intl: ^0.18.0
   timeago: ^3.4.0
   animate_do: ^3.0.2
+  flutter_html: ^3.0.0-alpha.6
 
 dev_dependencies:
   flutter_test:

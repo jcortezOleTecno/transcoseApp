@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:vemare/app/data/brands_repository.dart';
+import 'package:vemare/app/data/home_repository.dart';
 import 'package:vemare/app/data/notices_repository.dart';
 import 'package:vemare/app/data/products_repository.dart';
 import 'package:vemare/app/data/promotion_repository.dart';
@@ -7,15 +8,17 @@ import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/services_repository.dart';
 import 'package:vemare/app/data/workshops_repository.dart';
 import 'package:vemare/app/domain/model/brand.dart';
+import 'package:vemare/app/domain/model/hero.dart';
 import 'package:vemare/app/domain/model/notices.dart';
 import 'package:vemare/app/domain/model/product.dart';
 import 'package:vemare/app/domain/model/promotion.dart';
 import 'package:vemare/app/domain/model/services.dart';
 import 'package:vemare/app/domain/model/workshop.dart';
-import 'package:vemare/app/view/home/cubit/home_state.dart';
+import 'package:vemare/app/view/home/bloc/home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit(
+    this._homeRepository,
     this._localDataRepository,
     this._promotionsRepository,
     this._productsRepository,
@@ -29,6 +32,7 @@ class HomeCubit extends Cubit<HomeState> {
     fetchData();
   }
 
+  final HomeRepository _homeRepository;
   final LocalDataRepository _localDataRepository;
   final PromotionRepository _promotionsRepository;
 
@@ -41,14 +45,16 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> fetchData() async {
     emit(state.copyWith(loading: true));
 
+    List<HeroHome> hero = [];
     List<Product> products = [];
     List<Promotion> promotions = [];
     List<Services> services = [];
     List<WorkShop> workShops = [];
-    List<Notices> notices = [];
+    List<News> notices = [];
     List<Brand> brands = [];
 
     await Future.wait([
+      _homeRepository.getHero().then((v) => hero = v),
       _productsRepository.getProducts().then((v) => products = v),
       _promotionsRepository.getPromociones().then((v) => promotions = v),
       _servicesRepository.getServices().then((v) => services = v),
@@ -59,6 +65,7 @@ class HomeCubit extends Cubit<HomeState> {
 
     emit(state.copyWith(
       loading: false,
+      hero: hero,
       promotions: promotions,
       products: products,
       services: services,

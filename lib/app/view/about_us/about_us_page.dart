@@ -1,14 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vemare/app/data/library_repository.dart';
+import 'package:vemare/app/data/notices_repository.dart';
+import 'package:vemare/app/data/pills_repository.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
+import 'package:vemare/app/view/_components/my_cards/my_news_card.dart';
 import 'package:vemare/app/view/_components/my_filter_image/my_filter_image.dart';
+import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/about_us/bloc/about_us_cubit.dart';
+import 'package:vemare/app/view/about_us/bloc/about_us_state.dart';
+import 'package:vemare/app/view/library/library_page.dart';
+import 'package:vemare/app/view/news/news_page.dart';
+import 'package:vemare/app/view/pills/pills_page.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
+import 'package:vemare/app/view/where_we_are/where_we_are_page.dart';
+import 'package:vemare/config/service_locator.dart';
 
 class AboutUsPage extends StatelessWidget {
-  const AboutUsPage({super.key});
+  const AboutUsPage._();
 
   static const route = '/about_us';
+
+  static Widget create() {
+    return BlocProvider(
+      create: (context) => AboutUsCubit(
+        getIt.get<LibraryRepository>(),
+        getIt.get<PillsRepository>(),
+        getIt.get<NoticesRepository>(),
+      ),
+      child: const AboutUsPage._(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +42,8 @@ class AboutUsPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(15),
+              const Padding(
+                padding: EdgeInsets.all(15),
                 child: Text('Sobre nosotros', style: AppTextStyle.h1Style),
               ),
               _OurHistory(),
@@ -99,40 +123,45 @@ class _OurHistory extends StatelessWidget {
 class _WhereWeAre extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 220,
-      width: double.infinity,
-      child: Stack(fit: StackFit.expand, children: [
-        const Image(
-          image: AssetImage('assets/imgs/donde_estamos.png'),
-          fit: BoxFit.cover,
-        ),
-        const MyFilterImage(),
-        Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: [
-              const Spacer(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '¿Dónde estamos?',
-                    style: AppTextStyle.linkStyle
-                        .copyWith(color: AppColor.white, fontSize: 22),
-                  ),
-                  Image.asset(
-                    'assets/icons/arrow_next.png',
-                    color: AppColor.white,
-                    scale: 2,
-                  ),
-                ],
-              ),
-              spacerXs,
-            ],
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, WhereWeArePage.route);
+      },
+      child: SizedBox(
+        height: 220,
+        width: double.infinity,
+        child: Stack(fit: StackFit.expand, children: [
+          const Image(
+            image: AssetImage('assets/imgs/donde_estamos.png'),
+            fit: BoxFit.cover,
           ),
-        )
-      ]),
+          const MyFilterImage(),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              children: [
+                const Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      '¿Dónde estamos?',
+                      style: AppTextStyle.linkStyle
+                          .copyWith(color: AppColor.white, fontSize: 22),
+                    ),
+                    Image.asset(
+                      'assets/icons/arrow_next.png',
+                      color: AppColor.white,
+                      scale: 2,
+                    ),
+                  ],
+                ),
+                spacerXs,
+              ],
+            ),
+          )
+        ]),
+      ),
     );
   }
 }
@@ -208,62 +237,32 @@ class _News extends StatelessWidget {
             style: AppTextStyle.h1Style,
           ),
         ),
-        SizedBox(
-          height: 220,
-          child: PageView.builder(
-            itemCount: 3,
-            controller: PageController(initialPage: 0, viewportFraction: 0.9),
-            itemBuilder: (context, i) => Card(
-              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-              clipBehavior: Clip.antiAlias,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              child: Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/imgs/IMGeventos.png'),
-                    fit: BoxFit.cover,
-                  ),
+        BlocBuilder<AboutUsCubit, AboutUsState>(
+          builder: (context, state) {
+            if (state.news.isEmpty) {
+              return const MyShimmer(height: 220);
+            }
+            return SizedBox(
+              height: 400,
+              child: PageView.builder(
+                itemCount: state.news.length,
+                controller: PageController(
+                  initialPage: 0,
+                  viewportFraction: 0.9,
                 ),
-                child: Stack(
-                  children: [
-                    const MyFilterImage(),
-                    Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          const MySpacer(height: 80),
-                          Row(
-                            children: [
-                              Text(
-                                'Convención MIllennium 2022',
-                                style: AppTextStyle.h3Style.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColor.white),
-                              ),
-                            ],
-                          ),
-                          spacerS,
-                          Text(
-                            'Con inmensas ganas de volver junto a nuestros clientes nos citamos en Toledo para celebrar nuestra Convención.',
-                            maxLines: 4,
-                            overflow: TextOverflow.ellipsis,
-                            style: AppTextStyle.contentCard
-                                .copyWith(color: Colors.white),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                itemBuilder: (context, i) => MyNewsCard(
+                  img: state.news[i].image!,
+                  title: state.news[i].title ?? '',
+                  description: state.news[i].description ?? '',
+                  onPressed: () {},
                 ),
               ),
-            ),
-          ),
+            );
+          },
         ),
         Center(
           child: TextButton.icon(
-            onPressed: () {},
+            onPressed: () => Navigator.pushNamed(context, NewsPage.route),
             label: Image.asset(
               'assets/icons/arrow_next.png',
               scale: 2,
@@ -282,52 +281,64 @@ class _News extends StatelessWidget {
 class _Library extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Bilioteca', style: AppTextStyle.h1Style),
-          ...List.generate(2, (i) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                spacerM,
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: Image.asset(
-                    'assets/imgs/IMGeventos.png',
-                    height: 220,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
+    return BlocBuilder<AboutUsCubit, AboutUsState>(
+      builder: (context, state) {
+        return Container(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('Bilioteca', style: AppTextStyle.h1Style),
+              state.libraries.isEmpty
+                  ? const MyShimmer(
+                      height: 440,
+                      margin: EdgeInsets.zero,
+                    )
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: List.generate(state.libraries.length, (i) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            spacerM,
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.network(
+                                state.libraries[i].image ?? '',
+                                height: 220,
+                                width: double.infinity,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            spacerS,
+                            Text(state.libraries[i].title ?? '',
+                                style: AppTextStyle.titleCard),
+                            spacerXs,
+                            Text(state.libraries[i].subtitle ?? '',
+                                style: AppTextStyle.defaultStyle),
+                          ],
+                        );
+                      }),
+                    ),
+              spacerS,
+              Center(
+                child: TextButton.icon(
+                  onPressed: () =>
+                      Navigator.pushNamed(context, LibraryPage.route),
+                  label: Image.asset(
+                    'assets/icons/arrow_next.png',
+                    scale: 2,
+                  ),
+                  icon: const Text(
+                    'Ver más',
+                    style: AppTextStyle.linkStyle,
                   ),
                 ),
-                spacerS,
-                Text('Lorem ipsum dolor sit amet',
-                    style: AppTextStyle.titleCard),
-                spacerXs,
-                Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit nisl mauris enim, aliquet tortor sollicitudin sem rhoncus.',
-                    style: AppTextStyle.defaultStyle),
-              ],
-            );
-          }),
-          spacerS,
-          Center(
-            child: TextButton.icon(
-              onPressed: () {},
-              label: Image.asset(
-                'assets/icons/arrow_next.png',
-                scale: 2,
               ),
-              icon: const Text(
-                'Ver más',
-                style: AppTextStyle.linkStyle,
-              ),
-            ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
@@ -335,61 +346,72 @@ class _Library extends StatelessWidget {
 class _PillsVemare extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Píldoras Vemare', style: AppTextStyle.h1Style),
-          spacerS,
-          ...List.generate(2, (i) {
-            return Card(
-              margin: const EdgeInsets.only(bottom: 20),
-              clipBehavior: Clip.antiAlias,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12)),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Image.asset(
-                    'assets/imgs/IMGeventos.png',
-                    height: 220,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Lorem ipsum dolor sit amet',
-                            style: AppTextStyle.titleCard),
-                        spacerXs,
-                        Text(
-                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit nisl mauris enim, aliquet tortor sollicitudin sem rhoncus.',
-                            style: AppTextStyle.defaultStyle),
-                      ],
+    return BlocBuilder<AboutUsCubit, AboutUsState>(
+      builder: (context, state) {
+        return Container(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('Píldoras Vemare', style: AppTextStyle.h1Style),
+              spacerS,
+              state.pills.isEmpty
+                  ? const MyShimmer(
+                      height: 440,
+                      margin: EdgeInsets.zero,
+                    )
+                  : Column(
+                      children: List.generate(state.pills.length, (i) {
+                        return Card(
+                          margin: const EdgeInsets.only(bottom: 20),
+                          clipBehavior: Clip.antiAlias,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Image.network(
+                                state.pills[i].image ?? '',
+                                width: double.infinity,
+                                height: 220,
+                                fit: BoxFit.cover,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(15),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(state.pills[i].title ?? '',
+                                        style: AppTextStyle.titleCard),
+                                    spacerXs,
+                                    Text(state.pills[i].subtitle ?? '',
+                                        style: AppTextStyle.defaultStyle),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        );
+                      }),
                     ),
-                  )
-                ],
+              Center(
+                child: TextButton.icon(
+                  onPressed: () =>
+                      Navigator.pushNamed(context, PillsPage.route),
+                  label: Image.asset(
+                    'assets/icons/arrow_next.png',
+                    scale: 2,
+                  ),
+                  icon: const Text(
+                    'Ver más',
+                    style: AppTextStyle.linkStyle,
+                  ),
+                ),
               ),
-            );
-          }),
-          Center(
-            child: TextButton.icon(
-              onPressed: () {},
-              label: Image.asset(
-                'assets/icons/arrow_next.png',
-                scale: 2,
-              ),
-              icon: const Text(
-                'Ver más',
-                style: AppTextStyle.linkStyle,
-              ),
-            ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

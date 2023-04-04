@@ -1,0 +1,124 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vemare/app/data/notices_repository.dart';
+import 'package:vemare/app/view/_components/my_body/my_body.dart';
+import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
+import 'package:vemare/app/view/_components/my_cards/my_news_card.dart';
+import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
+import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/news/bloc/news_cubit.dart';
+import 'package:vemare/app/view/news/bloc/news_state.dart';
+import 'package:vemare/app/view/theme/text_style.dart';
+import 'package:vemare/config/service_locator.dart';
+
+class NewsPage extends StatelessWidget {
+  const NewsPage._();
+  static const route = '/news_page';
+
+  static Widget create() {
+    return BlocProvider(
+      create: (context) => NewsCubit(
+        getIt.get<NoticesRepository>(),
+      ),
+      child: const NewsPage._(),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: MyBody(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              MyBackButton(),
+              _MostReadNews(),
+              spacerL,
+              _News(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _MostReadNews extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Text(
+            'Las noticias más leídas',
+            style: AppTextStyle.h2Style,
+          ),
+        ),
+        BlocBuilder<NewsCubit, NewsState>(
+          builder: (context, state) {
+            if (state.news.isEmpty) {
+              return const MyShimmer(height: 400);
+            }
+            return SizedBox(
+              height: 400,
+              child: PageView.builder(
+                itemCount: state.news.length,
+                controller: PageController(
+                  initialPage: 0,
+                  viewportFraction: 0.9,
+                ),
+                itemBuilder: (context, i) => MyNewsCard(
+                  img: state.news[i].image!,
+                  title: state.news[i].title ?? '',
+                  description: state.news[i].description ?? '',
+                  onPressed: () {},
+                ),
+              ),
+            );
+          },
+        ),
+      ],
+    );
+  }
+}
+
+class _News extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<NewsCubit, NewsState>(
+      builder: (context, state) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Text('Noticias', style: AppTextStyle.h2Style),
+            ),
+            spacerS,
+            state.news.isEmpty
+                ? const MyShimmer(
+                    height: 400,
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+                  )
+                : Column(
+                    children: state.news
+                        .map((e) => Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              margin: const EdgeInsets.only(bottom: 20),
+                              height: 400,
+                              child: MyNewsCard(
+                                  title: e.title ?? '',
+                                  description: e.description ?? '',
+                                  img: e.image!),
+                            ))
+                        .toList())
+          ],
+        );
+      },
+    );
+  }
+}

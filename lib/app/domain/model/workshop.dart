@@ -7,6 +7,7 @@ class WorkShop {
   final String? description;
   final String? videoLink;
   final String? image;
+  final List<Gallery>? gallery;
 
   WorkShop({
     this.id,
@@ -17,6 +18,7 @@ class WorkShop {
     this.description,
     this.videoLink,
     this.image,
+    this.gallery,
   });
   factory WorkShop.froJson(dynamic map) {
     return WorkShop(
@@ -28,6 +30,8 @@ class WorkShop {
       externalLink: map['external_link'] as String?,
       videoLink: map['video_link'] as String?,
       image: map['image'] as String?,
+      gallery:
+          List<Gallery>.from(map["gallery"].map((x) => Gallery.fromJson(x))),
     );
   }
 
@@ -41,6 +45,23 @@ class WorkShop {
       'external_link': externalLink,
       'video_link': videoLink,
       'image': image,
+      "gallery": List<dynamic>.from(gallery!.map((x) => x.toJson())),
     };
   }
+}
+
+class Gallery {
+  Gallery({
+    required this.imagen,
+  });
+
+  String imagen;
+
+  factory Gallery.fromJson(Map<String, dynamic> json) => Gallery(
+        imagen: json["imagen"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "imagen": imagen,
+      };
 }

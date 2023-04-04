@@ -33,93 +33,96 @@ class _MyImageGalleryState extends State<MyImageGallery> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 320,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Text(
-              widget.title ?? 'Galeria de imágenes',
-              style: AppTextStyle.h2Style,
+    return Visibility(
+      visible: widget.imgs.isNotEmpty,
+      child: SizedBox(
+        height: 320,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Text(
+                widget.title ?? 'Galeria de imágenes',
+                style: AppTextStyle.h2Style,
+              ),
             ),
-          ),
-          spacerS,
-          Expanded(
-            child: PageView.builder(
-              itemCount: widget.imgs.length,
-              itemBuilder: (context, i) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: widget.isNetwork
-                        ? Image.network(
-                            widget.imgs[i],
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                          )
-                        : Image.asset(
-                            widget.imgs[i],
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                          ),
-                  ),
-                );
-              },
-              controller: controller,
+            spacerS,
+            Expanded(
+              child: PageView.builder(
+                itemCount: widget.imgs.length,
+                itemBuilder: (context, i) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: widget.isNetwork
+                          ? Image.network(
+                              widget.imgs[i],
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                            )
+                          : Image.asset(
+                              widget.imgs[i],
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                            ),
+                    ),
+                  );
+                },
+                controller: controller,
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Material(
-                  color: AppColor.blue100,
-                  borderRadius: BorderRadius.circular(100),
-                  child: InkWell(
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Material(
+                    color: AppColor.blue100,
                     borderRadius: BorderRadius.circular(100),
-                    onTap: () {
-                      controller.previousPage(
-                          duration: const Duration(milliseconds: 150),
-                          curve: Curves.linear);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Image.asset(
-                        'assets/icons/arrow_back.png',
-                        scale: 2,
-                        color: AppColor.primaryBlue,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(100),
+                      onTap: () {
+                        controller.previousPage(
+                            duration: const Duration(milliseconds: 150),
+                            curve: Curves.linear);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Image.asset(
+                          'assets/icons/arrow_back.png',
+                          scale: 2,
+                          color: AppColor.primaryBlue,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Material(
-                  color: AppColor.blue100,
-                  borderRadius: BorderRadius.circular(100),
-                  child: InkWell(
+                  Material(
+                    color: AppColor.blue100,
                     borderRadius: BorderRadius.circular(100),
-                    onTap: () {
-                      controller.nextPage(
-                          duration: const Duration(milliseconds: 150),
-                          curve: Curves.linear);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Image.asset(
-                        'assets/icons/arrow_next.png',
-                        scale: 2,
-                        color: AppColor.primaryBlue,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(100),
+                      onTap: () {
+                        controller.nextPage(
+                            duration: const Duration(milliseconds: 150),
+                            curve: Curves.linear);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Image.asset(
+                          'assets/icons/arrow_next.png',
+                          scale: 2,
+                          color: AppColor.primaryBlue,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

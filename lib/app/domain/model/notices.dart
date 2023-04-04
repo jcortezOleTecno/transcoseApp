@@ -1,4 +1,4 @@
-class Notices {
+class News {
   final int? id;
   final String? title;
   final String? slug;
@@ -7,7 +7,7 @@ class Notices {
   final String? description;
   final String? image;
 
-  Notices({
+  News({
     this.id,
     this.slug,
     this.tags,
@@ -16,8 +16,8 @@ class Notices {
     this.title,
     this.image,
   });
-  factory Notices.froJson(dynamic map) {
-    return Notices(
+  factory News.froJson(dynamic map) {
+    return News(
       id: map['id'] as int?,
       slug: map['slug'] as String?,
       tags: map['tags'] as String?,

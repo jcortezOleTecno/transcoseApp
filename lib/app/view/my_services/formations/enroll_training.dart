@@ -44,8 +44,8 @@ class EnrollTrainingPage extends StatelessWidget {
                     spacerXL,
                     MyCalendar(
                       dates: [
-                        DateTime(2023, 3, 28),
-                        DateTime(2023, 3, 30),
+                        DateTime(2023, 4, 01),
+                        DateTime(2023, 3, 31),
                         DateTime(2023, 3, 29),
                       ],
                       onSelectedDate: (dateTime) {

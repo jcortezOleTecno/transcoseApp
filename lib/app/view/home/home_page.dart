@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:nested_scroll_views/nested_scroll_views.dart';
 import 'package:vemare/app/data/brands_repository.dart';
+import 'package:vemare/app/data/home_repository.dart';
 import 'package:vemare/app/data/notices_repository.dart';
 import 'package:vemare/app/data/products_repository.dart';
 import 'package:vemare/app/data/promotion_repository.dart';
@@ -12,15 +14,17 @@ import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_cards/my_promotions_card.dart';
 import 'package:vemare/app/view/_components/my_filter_image/my_filter_image.dart';
+import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_listile/my_listile.dart';
 import 'package:vemare/app/view/_components/my_cards/my_products_card.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
-import 'package:vemare/app/view/home/cubit/home_cubit.dart';
-import 'package:vemare/app/view/home/cubit/home_state.dart';
+import 'package:vemare/app/view/home/bloc/home_cubit.dart';
+import 'package:vemare/app/view/home/bloc/home_state.dart';
 import 'package:vemare/app/view/my_services/formations/formations.dart';
 import 'package:vemare/app/view/my_services/service_general.dart';
 import 'package:vemare/app/view/my_services/services_page.dart';
+import 'package:vemare/app/view/news/news_page.dart';
 import 'package:vemare/app/view/our_products/product/product_page.dart';
 import 'package:vemare/app/view/our_products/type_of_vehicle_page.dart';
 import 'package:vemare/app/view/promotions/promotion/promotion_page.dart';
@@ -40,6 +44,7 @@ class HomePage extends StatelessWidget {
   static Widget create() {
     return BlocProvider(
       create: (context) => HomeCubit(
+        getIt.get<HomeRepository>(),
         getIt.get<LocalDataRepository>(),
         getIt.get<PromotionRepository>(),
         getIt.get<ProductsRepository>(),
@@ -91,16 +96,6 @@ class _PageA extends StatelessWidget {
                       style: AppTextStyle.homeStyle,
                     ),
                     spacerM,
-                    Text(
-                      'Grupo Vemare',
-                      style: AppTextStyle.h1Style
-                          .copyWith(color: AppColor.white, fontSize: 58),
-                    ),
-                    spacerM,
-                    const Text(
-                      'Proveedores originales, productos multimarca de Calidad, equipamiento para el taller y servicios, con el soporte de la principal red de distribución de recambios de Europa, AD Parts.',
-                      style: AppTextStyle.homeStyle,
-                    ),
                     const Spacer(),
                     MyIconButton(
                       onPressed: () {},
@@ -133,20 +128,55 @@ class _Background extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Stack(
-      children: [
-        Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/imgs/img_home.png'),
-              fit: BoxFit.cover,
-            ),
-          ),
-          width: size.width,
-          height: size.height - 80,
-        ),
-        const MyFilterImage()
-      ],
+    return BlocBuilder<HomeCubit, HomeState>(
+      builder: (context, state) {
+        return state.hero.isEmpty
+            ? const MyShimmer.full()
+            : Swiper(
+                itemCount: state.hero.length,
+                itemHeight: size.height,
+                itemWidth: size.width,
+                autoplay: true,
+                autoplayDelay: 3000,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, i) {
+                  return Stack(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(state.hero[i].image ?? ''),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        width: size.width,
+                        height: size.height - 80,
+                      ),
+                      const MyFilterImage(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const MySpacer(height: 250),
+                            Text(
+                              state.hero[i].title ?? '',
+                              style: AppTextStyle.h1Style.copyWith(
+                                  color: AppColor.white, fontSize: 58),
+                            ),
+                            spacerS,
+                            MyHtml(
+                              text: state.hero[i].description ?? '',
+                              color: Colors.white,
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  );
+                },
+              );
+      },
     );
   }
 }
@@ -277,7 +307,7 @@ class _News extends StatelessWidget {
         ),
         Center(
           child: TextButton.icon(
-            onPressed: () {},
+            onPressed: () => Navigator.pushNamed(context, NewsPage.route),
             label: Image.asset(
               'assets/icons/arrow_next.png',
               scale: 2,
@@ -432,14 +462,18 @@ class _LastService extends StatelessWidget {
                     child: Column(
                       children: [
                         SizedBox(
-                            child: Text(
+                            child: MyHtml(
+                          text: state.services.last.subtitle ?? '',
+                          color: Colors.white,
+                        ) /*Text(
                           state.services.last.description ?? '',
                           style: AppTextStyle.contentCard.copyWith(
                             color: AppColor.white,
                             fontSize: 18,
                             height: 1.8,
-                          ),
-                        ))
+                          ),*/
+                            // )
+                            )
                       ],
                     ),
                   )

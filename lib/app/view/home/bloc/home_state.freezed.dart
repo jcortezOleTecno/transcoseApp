@@ -18,11 +18,12 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$HomeState {
   bool get isLogged => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
+  List<HeroHome> get hero => throw _privateConstructorUsedError;
   List<Promotion> get promotions => throw _privateConstructorUsedError;
   List<Product> get products => throw _privateConstructorUsedError;
   List<Services> get services => throw _privateConstructorUsedError;
   List<WorkShop> get workshop => throw _privateConstructorUsedError;
-  List<Notices> get notices => throw _privateConstructorUsedError;
+  List<News> get notices => throw _privateConstructorUsedError;
   List<Brand> get brands => throw _privateConstructorUsedError;
   UserData? get user => throw _privateConstructorUsedError;
 
@@ -39,11 +40,12 @@ abstract class $HomeStateCopyWith<$Res> {
   $Res call(
       {bool isLogged,
       bool loading,
+      List<HeroHome> hero,
       List<Promotion> promotions,
       List<Product> products,
       List<Services> services,
       List<WorkShop> workshop,
-      List<Notices> notices,
+      List<News> notices,
       List<Brand> brands,
       UserData? user});
 }
@@ -63,6 +65,7 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   $Res call({
     Object? isLogged = null,
     Object? loading = null,
+    Object? hero = null,
     Object? promotions = null,
     Object? products = null,
     Object? services = null,
@@ -80,6 +83,10 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
               as bool,
+      hero: null == hero
+          ? _value.hero
+          : hero // ignore: cast_nullable_to_non_nullable
+              as List<HeroHome>,
       promotions: null == promotions
           ? _value.promotions
           : promotions // ignore: cast_nullable_to_non_nullable
@@ -99,7 +106,7 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
       notices: null == notices
           ? _value.notices
           : notices // ignore: cast_nullable_to_non_nullable
-              as List<Notices>,
+              as List<News>,
       brands: null == brands
           ? _value.brands
           : brands // ignore: cast_nullable_to_non_nullable
@@ -122,11 +129,12 @@ abstract class _$$_HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
   $Res call(
       {bool isLogged,
       bool loading,
+      List<HeroHome> hero,
       List<Promotion> promotions,
       List<Product> products,
       List<Services> services,
       List<WorkShop> workshop,
-      List<Notices> notices,
+      List<News> notices,
       List<Brand> brands,
       UserData? user});
 }
@@ -144,6 +152,7 @@ class __$$_HomeStateCopyWithImpl<$Res>
   $Res call({
     Object? isLogged = null,
     Object? loading = null,
+    Object? hero = null,
     Object? promotions = null,
     Object? products = null,
     Object? services = null,
@@ -161,6 +170,10 @@ class __$$_HomeStateCopyWithImpl<$Res>
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
               as bool,
+      hero: null == hero
+          ? _value._hero
+          : hero // ignore: cast_nullable_to_non_nullable
+              as List<HeroHome>,
       promotions: null == promotions
           ? _value._promotions
           : promotions // ignore: cast_nullable_to_non_nullable
@@ -180,7 +193,7 @@ class __$$_HomeStateCopyWithImpl<$Res>
       notices: null == notices
           ? _value._notices
           : notices // ignore: cast_nullable_to_non_nullable
-              as List<Notices>,
+              as List<News>,
       brands: null == brands
           ? _value._brands
           : brands // ignore: cast_nullable_to_non_nullable
@@ -199,14 +212,16 @@ class _$_HomeState extends _HomeState {
   const _$_HomeState(
       {this.isLogged = false,
       this.loading = false,
+      final List<HeroHome> hero = const <HeroHome>[],
       final List<Promotion> promotions = const <Promotion>[],
       final List<Product> products = const <Product>[],
       final List<Services> services = const <Services>[],
       final List<WorkShop> workshop = const <WorkShop>[],
-      final List<Notices> notices = const <Notices>[],
+      final List<News> notices = const <News>[],
       final List<Brand> brands = const <Brand>[],
       this.user})
-      : _promotions = promotions,
+      : _hero = hero,
+        _promotions = promotions,
         _products = products,
         _services = services,
         _workshop = workshop,
@@ -220,6 +235,15 @@ class _$_HomeState extends _HomeState {
   @override
   @JsonKey()
   final bool loading;
+  final List<HeroHome> _hero;
+  @override
+  @JsonKey()
+  List<HeroHome> get hero {
+    if (_hero is EqualUnmodifiableListView) return _hero;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_hero);
+  }
+
   final List<Promotion> _promotions;
   @override
   @JsonKey()
@@ -256,10 +280,10 @@ class _$_HomeState extends _HomeState {
     return EqualUnmodifiableListView(_workshop);
   }
 
-  final List<Notices> _notices;
+  final List<News> _notices;
   @override
   @JsonKey()
-  List<Notices> get notices {
+  List<News> get notices {
     if (_notices is EqualUnmodifiableListView) return _notices;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_notices);
@@ -279,7 +303,7 @@ class _$_HomeState extends _HomeState {
 
   @override
   String toString() {
-    return 'HomeState(isLogged: $isLogged, loading: $loading, promotions: $promotions, products: $products, services: $services, workshop: $workshop, notices: $notices, brands: $brands, user: $user)';
+    return 'HomeState(isLogged: $isLogged, loading: $loading, hero: $hero, promotions: $promotions, products: $products, services: $services, workshop: $workshop, notices: $notices, brands: $brands, user: $user)';
   }
 
   @override
@@ -290,6 +314,7 @@ class _$_HomeState extends _HomeState {
             (identical(other.isLogged, isLogged) ||
                 other.isLogged == isLogged) &&
             (identical(other.loading, loading) || other.loading == loading) &&
+            const DeepCollectionEquality().equals(other._hero, _hero) &&
             const DeepCollectionEquality()
                 .equals(other._promotions, _promotions) &&
             const DeepCollectionEquality().equals(other._products, _products) &&
@@ -305,6 +330,7 @@ class _$_HomeState extends _HomeState {
       runtimeType,
       isLogged,
       loading,
+      const DeepCollectionEquality().hash(_hero),
       const DeepCollectionEquality().hash(_promotions),
       const DeepCollectionEquality().hash(_products),
       const DeepCollectionEquality().hash(_services),
@@ -324,11 +350,12 @@ abstract class _HomeState extends HomeState {
   const factory _HomeState(
       {final bool isLogged,
       final bool loading,
+      final List<HeroHome> hero,
       final List<Promotion> promotions,
       final List<Product> products,
       final List<Services> services,
       final List<WorkShop> workshop,
-      final List<Notices> notices,
+      final List<News> notices,
       final List<Brand> brands,
       final UserData? user}) = _$_HomeState;
   const _HomeState._() : super._();
@@ -338,6 +365,8 @@ abstract class _HomeState extends HomeState {
   @override
   bool get loading;
   @override
+  List<HeroHome> get hero;
+  @override
   List<Promotion> get promotions;
   @override
   List<Product> get products;
@@ -346,7 +375,7 @@ abstract class _HomeState extends HomeState {
   @override
   List<WorkShop> get workshop;
   @override
-  List<Notices> get notices;
+  List<News> get notices;
   @override
   List<Brand> get brands;
   @override

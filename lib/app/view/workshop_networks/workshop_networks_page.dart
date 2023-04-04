@@ -177,15 +177,14 @@ class _Info extends StatelessWidget {
                   ),
                 ),
                 Visibility(
-                  visible: state.workShop?.image != null,
+                  visible: state.workShop?.gallery != null,
                   child: MyImageGallery(
+                    isNetwork: true,
                     title: 'Imágenes',
-                    imgs: [
-                      'assets/imgs/IMGeventos.png',
-                      'assets/imgs/promotionImg.png',
-                      'assets/imgs/IMGeventos.png',
-                      'assets/imgs/IMGeventos.png',
-                    ],
+                    imgs: state.workShop?.gallery
+                            ?.map((e) => e.imagen)
+                            .toList() ??
+                        [],
                   ),
                 ),
                 Visibility(
