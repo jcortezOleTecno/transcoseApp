@@ -56,8 +56,8 @@ class WhereWeArePage extends StatelessWidget {
                       _Map(),
                       spacerM,
                       state.centers.isEmpty
-                          ? Padding(
-                              padding: const EdgeInsets.only(bottom: 20),
+                          ? const Padding(
+                              padding: EdgeInsets.only(bottom: 20),
                               child: MyShimmer(
                                 height: 250,
                                 margin: EdgeInsets.zero,
