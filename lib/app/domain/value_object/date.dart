@@ -1,7 +1,7 @@
 class InvalidDateException implements Exception {}
 
-class LrmDate {
-  LrmDate(this.value) {
+class VmrDate {
+  VmrDate(this.value) {
     if (!isValid(value)) {
       throw InvalidDateException();
     }

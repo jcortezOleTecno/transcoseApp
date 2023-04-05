@@ -28,7 +28,7 @@ import 'package:vemare/app/view/news/news_page.dart';
 import 'package:vemare/app/view/our_products/product/product_page.dart';
 import 'package:vemare/app/view/our_products/type_of_vehicle_page.dart';
 import 'package:vemare/app/view/promotions/promotion/promotion_page.dart';
-import 'package:vemare/app/view/promotions/promotions_page.dart';
+import 'package:vemare/app/view/promotions/promotions_categories/promotions_page.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
@@ -632,12 +632,17 @@ class _Promociones extends StatelessWidget {
                 itemBuilder: (context, i) => MySingleCard(
                   title: state.promotions[i].name ?? '',
                   content: state.promotions[i].subtitle ?? '',
-                  icon: Image.asset(
-                    'assets/icons/star.png',
-                    scale: 2,
+                  icon: Image.network(
+                    state.promotions[i].image ?? '',
                   ),
                   onTap: () {
-                    Navigator.pushNamed(context, PromotionPage.route);
+                    Navigator.pushNamed(
+                      context,
+                      PromotionPage.route,
+                      arguments: PromotionArgs(
+                        category: state.promotions[i],
+                      ),
+                    );
                   },
                 ),
               ),

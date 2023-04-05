@@ -19,8 +19,8 @@ mixin _$HomeState {
   bool get isLogged => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
   List<HeroHome> get hero => throw _privateConstructorUsedError;
-  List<Promotion> get promotions => throw _privateConstructorUsedError;
-  List<Product> get products => throw _privateConstructorUsedError;
+  List<Category> get promotions => throw _privateConstructorUsedError;
+  List<Category> get products => throw _privateConstructorUsedError;
   List<Services> get services => throw _privateConstructorUsedError;
   List<WorkShop> get workshop => throw _privateConstructorUsedError;
   List<News> get notices => throw _privateConstructorUsedError;
@@ -41,8 +41,8 @@ abstract class $HomeStateCopyWith<$Res> {
       {bool isLogged,
       bool loading,
       List<HeroHome> hero,
-      List<Promotion> promotions,
-      List<Product> products,
+      List<Category> promotions,
+      List<Category> products,
       List<Services> services,
       List<WorkShop> workshop,
       List<News> notices,
@@ -90,11 +90,11 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
       promotions: null == promotions
           ? _value.promotions
           : promotions // ignore: cast_nullable_to_non_nullable
-              as List<Promotion>,
+              as List<Category>,
       products: null == products
           ? _value.products
           : products // ignore: cast_nullable_to_non_nullable
-              as List<Product>,
+              as List<Category>,
       services: null == services
           ? _value.services
           : services // ignore: cast_nullable_to_non_nullable
@@ -130,8 +130,8 @@ abstract class _$$_HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
       {bool isLogged,
       bool loading,
       List<HeroHome> hero,
-      List<Promotion> promotions,
-      List<Product> products,
+      List<Category> promotions,
+      List<Category> products,
       List<Services> services,
       List<WorkShop> workshop,
       List<News> notices,
@@ -177,11 +177,11 @@ class __$$_HomeStateCopyWithImpl<$Res>
       promotions: null == promotions
           ? _value._promotions
           : promotions // ignore: cast_nullable_to_non_nullable
-              as List<Promotion>,
+              as List<Category>,
       products: null == products
           ? _value._products
           : products // ignore: cast_nullable_to_non_nullable
-              as List<Product>,
+              as List<Category>,
       services: null == services
           ? _value._services
           : services // ignore: cast_nullable_to_non_nullable
@@ -213,8 +213,8 @@ class _$_HomeState extends _HomeState {
       {this.isLogged = false,
       this.loading = false,
       final List<HeroHome> hero = const <HeroHome>[],
-      final List<Promotion> promotions = const <Promotion>[],
-      final List<Product> products = const <Product>[],
+      final List<Category> promotions = const <Category>[],
+      final List<Category> products = const <Category>[],
       final List<Services> services = const <Services>[],
       final List<WorkShop> workshop = const <WorkShop>[],
       final List<News> notices = const <News>[],
@@ -244,19 +244,19 @@ class _$_HomeState extends _HomeState {
     return EqualUnmodifiableListView(_hero);
   }
 
-  final List<Promotion> _promotions;
+  final List<Category> _promotions;
   @override
   @JsonKey()
-  List<Promotion> get promotions {
+  List<Category> get promotions {
     if (_promotions is EqualUnmodifiableListView) return _promotions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_promotions);
   }
 
-  final List<Product> _products;
+  final List<Category> _products;
   @override
   @JsonKey()
-  List<Product> get products {
+  List<Category> get products {
     if (_products is EqualUnmodifiableListView) return _products;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_products);
@@ -351,8 +351,8 @@ abstract class _HomeState extends HomeState {
       {final bool isLogged,
       final bool loading,
       final List<HeroHome> hero,
-      final List<Promotion> promotions,
-      final List<Product> products,
+      final List<Category> promotions,
+      final List<Category> products,
       final List<Services> services,
       final List<WorkShop> workshop,
       final List<News> notices,
@@ -367,9 +367,9 @@ abstract class _HomeState extends HomeState {
   @override
   List<HeroHome> get hero;
   @override
-  List<Promotion> get promotions;
+  List<Category> get promotions;
   @override
-  List<Product> get products;
+  List<Category> get products;
   @override
   List<Services> get services;
   @override

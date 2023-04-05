@@ -1,149 +1,184 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vemare/app/data/promotion_repository.dart';
+import 'package:vemare/app/domain/model/category.dart';
+import 'package:vemare/app/domain/model/promotion.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_dropdown_button/my_drop_down_button.dart';
 import 'package:vemare/app/view/_components/my_input/my_input_search.dart';
+import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/tap_to_hide_keyboard/tap_to_hide_keyboard.dart';
 import 'package:vemare/app/view/promotions/detail_sale_rent/detail_sale_rent.dart';
+import 'package:vemare/app/view/promotions/promotion/bloc/promotion_cubit.dart';
+import 'package:vemare/app/view/promotions/promotion/bloc/promotion_state.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
+import 'package:vemare/config/service_locator.dart';
 
-class PromotionPage extends StatefulWidget {
-  const PromotionPage({super.key});
+class PromotionArgs {
+  final Category? category;
+  final String? query;
+
+  PromotionArgs({this.category, this.query});
+}
+
+class PromotionPage extends StatelessWidget {
+  const PromotionPage._();
 
   static const route = '/promotion';
 
-  @override
-  State<PromotionPage> createState() => _PromotionPageState();
-}
-
-class _PromotionPageState extends State<PromotionPage> {
-  final List<String> items = [
-    'Item1',
-    'Item2',
-    'Item3',
-    'Item4',
-    'Item5',
-    'Item6',
-    'Item7',
-    'Item8',
-  ];
-  String? selectedValue;
+  static Widget create(PromotionArgs args) {
+    return BlocProvider(
+      create: (context) => PromotionCubit(
+        getIt.get<PromotionRepository>(),
+        args.category,
+        args.query,
+      ),
+      child: const PromotionPage._(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<PromotionCubit>();
     return MyTapToHideKeyboard(
       child: Scaffold(
-        body: MyBody(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const MyBackButton(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      const Text(
-                        'Recambios',
-                        style: AppTextStyle.h1Style,
-                      ),
-                      spacerL,
-                      MyCustomDropdownButton(
-                        hint: 'Todos los recambios',
-                        dropdownItems: items
-                            .map((item) => DropdownMenuItem(
-                                  value: item,
-                                  child: Text(
-                                    item,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ))
-                            .toList(),
-                        value: selectedValue,
-                        onChanged: (value) {
-                          setState(() {
-                            selectedValue = value;
-                          });
-                        },
-                      ),
-                      spacerM,
-                      const MySearchInput(),
-                    ],
-                  ),
-                ),
-                spacerL,
-                ...List.generate(5, (i) {
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, DetailSaleRent.route);
-                    },
-                    child: Card(
-                      margin: const EdgeInsets.symmetric(
-                          vertical: 7.5, horizontal: 15),
-                      clipBehavior: Clip.antiAlias,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
+        body: BlocConsumer<PromotionCubit, PromotionState>(
+          listener: (context, state) {
+            // TODO: implement listener
+          },
+          builder: (context, state) {
+            return MyBody(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const MyBackButton(),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Container(
-                            alignment: Alignment.topLeft,
-                            height: 200,
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                image:
-                                    AssetImage('assets/imgs/promotionImg.png'),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            child: Visibility(
-                              visible: i == 0 || i == 2,
-                              child: Container(
-                                margin: const EdgeInsets.all(10),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 3),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(50),
-                                    color: AppColor.red500),
-                                child: Text(
-                                  'Renting',
-                                  style: AppTextStyle.linkStyle.copyWith(
-                                    color: AppColor.white,
-                                  ),
-                                ),
-                              ),
-                            ),
+                          Text(
+                            state.category?.name ?? 'Todas las promociones',
+                            style: AppTextStyle.h1Style,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(12),
-                            child: Row(
-                              children: const [
-                                Expanded(
-                                    child: Text(
-                                  'Lorem ipsum dolor sit amet',
-                                  style: AppTextStyle.defaultStyle,
-                                )),
-                                Text(
-                                  '23\$',
-                                  style: AppTextStyle.h3Style,
-                                ),
-                              ],
-                            ),
-                          )
+                          spacerL,
+                          MyCustomDropdownButton(
+                            hint: 'Todas las promociones',
+                            hintStyle: AppTextStyle.inputStyle,
+                            dropdownItems: state.categories
+                                .map((item) => DropdownMenuItem<Category>(
+                                      value: item,
+                                      child: Text(
+                                        item.name ?? '',
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        style: AppTextStyle.inputStyle,
+                                      ),
+                                    ))
+                                .toList(),
+                            value: state.category,
+                            onChanged: cubit.category,
+                          ),
+                          spacerM,
+                          MySearchInput(
+                            initialValue: state.query,
+                            onChanged: cubit.query,
+                            onFieldSubmitted: (_) => cubit.search(),
+                            onTap: () => cubit.search(),
+                          ),
                         ],
                       ),
                     ),
-                  );
-                })
-              ],
+                    spacerL,
+                    state.loading
+                        ? const MyShimmer(
+                            height: 240,
+                            margin: EdgeInsets.symmetric(horizontal: 20),
+                          )
+                        : Column(
+                            children:
+                                state.promotions.map((e) => _Card(e)).toList(),
+                          )
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _Card extends StatelessWidget {
+  const _Card(
+    this.promotion, {
+    Key? key,
+  }) : super(key: key);
+
+  final Promotion promotion;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, DetailSaleRent.route);
+      },
+      child: Card(
+        margin: const EdgeInsets.symmetric(vertical: 7.5, horizontal: 15),
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        child: Column(
+          children: [
+            Container(
+              alignment: Alignment.topLeft,
+              height: 200,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(promotion.image!),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Visibility(
+                visible: promotion.renting == 1,
+                child: Container(
+                  margin: const EdgeInsets.all(10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: AppColor.red500),
+                  child: Text(
+                    'Renting',
+                    style: AppTextStyle.linkStyle.copyWith(
+                      color: AppColor.white,
+                    ),
+                  ),
+                ),
+              ),
             ),
-          ),
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      promotion.name ?? '',
+                      style: AppTextStyle.defaultStyle,
+                    ),
+                  ),
+                  Text(
+                    '${promotion.pvpOriginal}\$',
+                    style: AppTextStyle.h3Style,
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
       ),
     );

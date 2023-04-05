@@ -23,7 +23,7 @@ import 'package:vemare/app/view/personal_area/my_budget/my_budget_page.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/my_contracts_page.dart';
 import 'package:vemare/app/view/personal_area/my_orders/my_orders_page.dart';
 import 'package:vemare/app/view/personal_area/my_trainigs_and_events/my_trainigs_and_events_page.dart';
-import 'package:vemare/app/view/promotions/promotions_page.dart';
+import 'package:vemare/app/view/promotions/promotions_categories/promotions_page.dart';
 import 'package:vemare/app/view/shopping_cart/shopping_cart.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';

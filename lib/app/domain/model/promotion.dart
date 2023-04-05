@@ -1,55 +1,76 @@
 class Promotion {
-  final int? id;
-  final int? categoryId;
-  final String? name;
-  final String? slug;
-  final String? tags;
-  final String? subtitle;
-  final String? description;
-  final String? pvpOriginal;
-  final String? pvpLowered;
-  final String? image;
-
   Promotion({
-    this.id,
-    this.categoryId,
+    required this.id,
     this.name,
     this.slug,
     this.tags,
     this.subtitle,
-    this.description,
     this.pvpOriginal,
     this.pvpLowered,
+    this.description,
+    this.renting,
     this.image,
   });
 
-  factory Promotion.froJson(dynamic map) {
-    return Promotion(
-      id: map['id'] as int?,
-      categoryId: map['category_id'] as int?,
-      name: map['name'] as String?,
-      slug: map['slug'] as String?,
-      tags: map['tags'] as String?,
-      subtitle: map['subtitle'] as String?,
-      description: map['description'] as String?,
-      pvpOriginal: map['pvp_original'] as String?,
-      pvpLowered: map['pvp_lowered'] as String?,
-      image: map['image'] as String?,
-    );
-  }
+  int id;
+  String? name;
+  String? slug;
+  String? tags;
+  String? subtitle;
+  String? pvpOriginal;
+  String? pvpLowered;
+  String? description;
+  int? renting;
+  String? image;
 
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'id': id,
-      'category_id': categoryId,
-      'name': name,
-      'slug': slug,
-      'tags': tags,
-      'subtitle': subtitle,
-      'description': description,
-      'pvp_original': pvpOriginal,
-      'pvp_lowered': pvpLowered,
-      'image': image,
-    };
-  }
+  Promotion copyWith({
+    int? id,
+    String? name,
+    String? slug,
+    String? tags,
+    String? subtitle,
+    String? pvpOriginal,
+    String? pvpLowered,
+    String? description,
+    int? renting,
+    String? image,
+  }) =>
+      Promotion(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        slug: slug ?? this.slug,
+        tags: tags ?? this.tags,
+        subtitle: subtitle ?? this.subtitle,
+        pvpOriginal: pvpOriginal ?? this.pvpOriginal,
+        pvpLowered: pvpLowered ?? this.pvpLowered,
+        description: description ?? this.description,
+        renting: renting ?? this.renting,
+        image: image ?? this.image,
+      );
+
+  factory Promotion.fromJson(dynamic json) => Promotion(
+        id: json["id"] as int,
+        name: json["name"] as String?,
+        slug: json["slug"] as String?,
+        tags: json["tags"] as String?,
+        subtitle: json["subtitle"] as String?,
+        pvpOriginal: json["pvp_original"] as String?,
+        pvpLowered: json["pvp_lowered"] as String?,
+        description: json["description"] as String?,
+        renting: json["renting"] as int?,
+        image: json["image"] as String?,
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "slug": slug,
+        "tags": tags,
+        "subtitle": subtitle,
+        "pvp_original": pvpOriginal,
+        "pvp_lowered": pvpLowered,
+        "description": description,
+        "renting": renting,
+        "image": image,
+      };
 }

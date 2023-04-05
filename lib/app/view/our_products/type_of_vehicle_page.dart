@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_listile/my_listile.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
-import 'package:vemare/app/view/our_products/our_productos_page.dart';
+import 'package:vemare/app/view/our_products/products_categories/our_products_page.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 

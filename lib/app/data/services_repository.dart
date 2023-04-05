@@ -7,10 +7,10 @@ class ServicesRepository {
 
   ServicesRepository(this._apiClient);
 
-  Future<List<Services>> getServices() async {
+  Future<List<Services>> getServices({int limit = 0}) async {
     final dynamic res = await _apiClient.getRequest(
         '$BASE_API_URL/api/servicios',
-        params: <String, dynamic>{'limit': '6'});
+        params: <String, dynamic>{'limit': '$limit'});
     return (res as List).map(Services.froJson).toList();
   }
 }

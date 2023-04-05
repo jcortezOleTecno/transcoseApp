@@ -28,6 +28,7 @@ class MyCustomDropdownButton<T> extends StatelessWidget {
   final double? scrollbarThickness;
   final bool? scrollbarAlwaysShow;
   final Offset offset;
+  final TextStyle? hintStyle;
 
   const MyCustomDropdownButton({
     required this.hint,
@@ -54,6 +55,7 @@ class MyCustomDropdownButton<T> extends StatelessWidget {
     this.dropdownDecoration,
     this.dropdownElevation,
     this.scrollbarRadius,
+    this.hintStyle,
     this.scrollbarThickness,
     this.scrollbarAlwaysShow,
     this.offset = const Offset(0, 0),
@@ -72,7 +74,7 @@ class MyCustomDropdownButton<T> extends StatelessWidget {
             hint,
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
-            style: AppTextStyle.inputHintStyle,
+            style: hintStyle ?? AppTextStyle.inputHintStyle,
           ),
         ),
         value: value,

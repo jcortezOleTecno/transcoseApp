@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vemare/app/domain/model/category.dart';
 import 'package:vemare/app/domain/model/services.dart';
-import 'package:vemare/app/domain/model/workshop.dart';
 import 'package:vemare/app/view/about_us/about_us_page.dart';
 import 'package:vemare/app/view/home/home_page.dart';
 import 'package:vemare/app/view/library/library_page.dart';
@@ -23,7 +23,7 @@ import 'package:vemare/app/view/my_services/service_general.dart';
 import 'package:vemare/app/view/my_services/services_page.dart';
 import 'package:vemare/app/view/my_services/formations/skillful_formation.dart';
 import 'package:vemare/app/view/our_products/detail_product/detail_product.dart';
-import 'package:vemare/app/view/our_products/our_productos_page.dart';
+import 'package:vemare/app/view/our_products/products_categories/our_products_page.dart';
 import 'package:vemare/app/view/our_products/product/product_page.dart';
 import 'package:vemare/app/view/our_products/search_my_product/search_my_product_page.dart';
 import 'package:vemare/app/view/our_products/type_of_vehicle_page.dart';
@@ -39,7 +39,7 @@ import 'package:vemare/app/view/personal_area/my_orders/warranty_detail.dart';
 import 'package:vemare/app/view/personal_area/my_trainigs_and_events/my_trainigs_and_events_page.dart';
 import 'package:vemare/app/view/pills/pills_page.dart';
 import 'package:vemare/app/view/promotions/detail_sale_rent/detail_sale_rent.dart';
-import 'package:vemare/app/view/promotions/promotions_page.dart';
+import 'package:vemare/app/view/promotions/promotions_categories/promotions_page.dart';
 import 'package:vemare/app/view/promotions/renting_store/card_payment_form.dart';
 import 'package:vemare/app/view/promotions/renting_store/payment_form.dart';
 import 'package:vemare/app/view/promotions/renting_store/renting_store_page.dart';
@@ -91,7 +91,7 @@ abstract class AppRouter {
         final typeVehicle = settings.arguments as String?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => OurProductsPage(typeVehicle!),
+          builder: (_) => OurProductsPage.create(typeVehicle!),
         );
       case ProductPage.route:
         return MaterialPageRoute<void>(
@@ -111,12 +111,13 @@ abstract class AppRouter {
       case PromotionsPage.route:
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const PromotionsPage(),
+          builder: (_) => PromotionsPage.create(),
         );
       case PromotionPage.route:
+        final args = settings.arguments as PromotionArgs?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const PromotionPage(),
+          builder: (_) => PromotionPage.create(args!),
         );
       case DetailSaleRent.route:
         return MaterialPageRoute<void>(

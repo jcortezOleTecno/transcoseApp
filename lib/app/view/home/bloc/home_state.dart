@@ -2,8 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:vemare/app/domain/model/brand.dart';
 import 'package:vemare/app/domain/model/hero.dart';
 import 'package:vemare/app/domain/model/notices.dart';
-import 'package:vemare/app/domain/model/product.dart';
-import 'package:vemare/app/domain/model/promotion.dart';
+import 'package:vemare/app/domain/model/category.dart';
 import 'package:vemare/app/domain/model/services.dart';
 import 'package:vemare/app/domain/model/user_data.dart';
 import 'package:vemare/app/domain/model/workshop.dart';
@@ -16,8 +15,8 @@ class HomeState with _$HomeState {
     @Default(false) bool isLogged,
     @Default(false) bool loading,
     @Default(<HeroHome>[]) List<HeroHome> hero,
-    @Default(<Promotion>[]) List<Promotion> promotions,
-    @Default(<Product>[]) List<Product> products,
+    @Default(<Category>[]) List<Category> promotions,
+    @Default(<Category>[]) List<Category> products,
     @Default(<Services>[]) List<Services> services,
     @Default(<WorkShop>[]) List<WorkShop> workshop,
     @Default(<News>[]) List<News> notices,

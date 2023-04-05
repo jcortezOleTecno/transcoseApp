@@ -23,14 +23,14 @@ class CardProducts extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Card(
-          margin:
-              margin ?? const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+          margin: margin ?? const EdgeInsets.only(bottom: 20),
           child: Padding(
             padding: const EdgeInsets.all(12),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
+                    clipBehavior: Clip.antiAlias,
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       color: AppColor.blue100,
@@ -41,6 +41,7 @@ class CardProducts extends StatelessWidget {
                 spacerS,
                 Expanded(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       spacerXs,
                       Row(

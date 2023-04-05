@@ -7,7 +7,7 @@ class NoticesRepository {
 
   NoticesRepository(this._apiClient);
 
-  Future<List<News>> getNotices({int limit = 6}) async {
+  Future<List<News>> getNotices({int limit = 0}) async {
     final dynamic res = await _apiClient.getRequest(
         '$BASE_API_URL/api/noticias',
         params: <String, dynamic>{'limit': '$limit'});
