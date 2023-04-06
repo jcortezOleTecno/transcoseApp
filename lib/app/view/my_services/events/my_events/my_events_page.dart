@@ -25,7 +25,7 @@ class MyEventsPage extends StatelessWidget {
                     const Text('Mis eventos', style: AppTextStyle.h1Style),
                     spacerS,
                     const Text(
-                        '''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat interdum bibendum urna curabitur sociis vestibulum quam risus, varius. Tortor morbi ut malesuada ipsum elementum.''',
+                        'Consulta las fechas y toda la información de tus próximos eventos y no te pierdas ningún detalle.',
                         style: AppTextStyle.defaultStyle),
                     spacerL,
                     Center(

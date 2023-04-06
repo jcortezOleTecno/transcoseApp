@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$FormationsState {
   bool get loading => throw _privateConstructorUsedError;
+  FormStatus get status => throw _privateConstructorUsedError;
   List<Formations> get formations => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,7 +31,7 @@ abstract class $FormationsStateCopyWith<$Res> {
           FormationsState value, $Res Function(FormationsState) then) =
       _$FormationsStateCopyWithImpl<$Res, FormationsState>;
   @useResult
-  $Res call({bool loading, List<Formations> formations});
+  $Res call({bool loading, FormStatus status, List<Formations> formations});
 }
 
 /// @nodoc
@@ -47,6 +48,7 @@ class _$FormationsStateCopyWithImpl<$Res, $Val extends FormationsState>
   @override
   $Res call({
     Object? loading = null,
+    Object? status = null,
     Object? formations = null,
   }) {
     return _then(_value.copyWith(
@@ -54,6 +56,10 @@ class _$FormationsStateCopyWithImpl<$Res, $Val extends FormationsState>
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
               as bool,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as FormStatus,
       formations: null == formations
           ? _value.formations
           : formations // ignore: cast_nullable_to_non_nullable
@@ -70,7 +76,7 @@ abstract class _$$_FormationsStateCopyWith<$Res>
       __$$_FormationsStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool loading, List<Formations> formations});
+  $Res call({bool loading, FormStatus status, List<Formations> formations});
 }
 
 /// @nodoc
@@ -85,6 +91,7 @@ class __$$_FormationsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? loading = null,
+    Object? status = null,
     Object? formations = null,
   }) {
     return _then(_$_FormationsState(
@@ -92,6 +99,10 @@ class __$$_FormationsStateCopyWithImpl<$Res>
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
               as bool,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as FormStatus,
       formations: null == formations
           ? _value._formations
           : formations // ignore: cast_nullable_to_non_nullable
@@ -105,6 +116,7 @@ class __$$_FormationsStateCopyWithImpl<$Res>
 class _$_FormationsState extends _FormationsState {
   const _$_FormationsState(
       {this.loading = false,
+      this.status = FormStatus.editing,
       final List<Formations> formations = const <Formations>[]})
       : _formations = formations,
         super._();
@@ -112,6 +124,9 @@ class _$_FormationsState extends _FormationsState {
   @override
   @JsonKey()
   final bool loading;
+  @override
+  @JsonKey()
+  final FormStatus status;
   final List<Formations> _formations;
   @override
   @JsonKey()
@@ -123,7 +138,7 @@ class _$_FormationsState extends _FormationsState {
 
   @override
   String toString() {
-    return 'FormationsState(loading: $loading, formations: $formations)';
+    return 'FormationsState(loading: $loading, status: $status, formations: $formations)';
   }
 
   @override
@@ -132,13 +147,14 @@ class _$_FormationsState extends _FormationsState {
         (other.runtimeType == runtimeType &&
             other is _$_FormationsState &&
             (identical(other.loading, loading) || other.loading == loading) &&
+            (identical(other.status, status) || other.status == status) &&
             const DeepCollectionEquality()
                 .equals(other._formations, _formations));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, loading, const DeepCollectionEquality().hash(_formations));
+  int get hashCode => Object.hash(runtimeType, loading, status,
+      const DeepCollectionEquality().hash(_formations));
 
   @JsonKey(ignore: true)
   @override
@@ -150,11 +166,14 @@ class _$_FormationsState extends _FormationsState {
 abstract class _FormationsState extends FormationsState {
   const factory _FormationsState(
       {final bool loading,
+      final FormStatus status,
       final List<Formations> formations}) = _$_FormationsState;
   const _FormationsState._() : super._();
 
   @override
   bool get loading;
+  @override
+  FormStatus get status;
   @override
   List<Formations> get formations;
   @override

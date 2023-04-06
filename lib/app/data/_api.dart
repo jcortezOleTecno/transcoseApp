@@ -96,7 +96,3 @@ class MyApi extends MyApiClient {
 final allHeaders = {
   'Accept': 'application/json',
 };
-
-// const headerAcceptApplicationJson = {
-//   'Accept': 'application/json',
-// };

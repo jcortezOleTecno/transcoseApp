@@ -5,8 +5,7 @@ import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/my_services/events/events_vemare/events_vemare_page.dart';
-import 'package:vemare/app/view/my_services/events/my_events_page.dart';
-import 'package:vemare/app/view/my_services/events/other_events/other_event_page.dart';
+import 'package:vemare/app/view/my_services/events/my_events/my_events_page.dart';
 import 'package:vemare/app/view/my_services/events/other_events/other_events_list.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
@@ -46,9 +45,12 @@ class EventsPage extends StatelessWidget {
                           Navigator.pushNamed(
                             context,
                             LoginPage.route,
-                            arguments: true,
+                            arguments:
+                                'Para acceder a la información de los eventos tienes que iniciar sesión.',
                           ).then((_) {
-                            Navigator.pushNamed(context, MyEventsPage.route);
+                            if (LocalDataRepository().isLogged) {
+                              Navigator.pushNamed(context, MyEventsPage.route);
+                            }
                           });
                         }
                       },

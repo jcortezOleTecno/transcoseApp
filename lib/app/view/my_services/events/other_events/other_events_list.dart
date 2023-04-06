@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:vemare/app/data/events_repository.dart';
+import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/domain/model/events.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/my_services/events/other_events/bloc/other_events_cubit.dart';
 import 'package:vemare/app/view/my_services/events/other_events/bloc/other_events_state.dart';
 import 'package:vemare/app/view/my_services/events/other_events/other_event_page.dart';
@@ -99,11 +100,23 @@ class _MyEventCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(
-        context,
-        OtherEventPage.route,
-        arguments: event,
-      ),
+      onTap: () {
+        if (LocalDataRepository().isLogged) {
+          Navigator.pushNamed(context, OtherEventPage.route, arguments: event);
+        } else {
+          Navigator.pushNamed(
+            context,
+            LoginPage.route,
+            arguments:
+                'Para acceder a la información de los eventos tienes que iniciar sesión.',
+          ).then((_) {
+            if (LocalDataRepository().isLogged) {
+              Navigator.pushNamed(context, OtherEventPage.route,
+                  arguments: event);
+            }
+          });
+        }
+      },
       child: SizedBox(
         width: size.width * .44,
         // height: 120,

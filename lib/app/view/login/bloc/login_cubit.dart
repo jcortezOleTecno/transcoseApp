@@ -1,24 +1,29 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:vemare/app/data/auth_repository.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
+import 'package:vemare/app/domain/model/employee.dart';
 import 'package:vemare/app/domain/value_object/email.dart';
 import 'package:vemare/app/domain/value_object/password.dart';
 import 'package:vemare/app/domain/value_object/status.dart';
 import 'package:vemare/app/view/login/bloc/login_state.dart';
+import 'package:vemare/app/view/shared/bloc/user_cubit.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit(
     this._authRepository,
     this._localDataRepository,
-    bool goBack,
-  ) : super(LoginState(goBack: goBack)) {
+    this._userCubit,
+    String? msgGoBack,
+  ) : super(LoginState(msgGoBack: msgGoBack)) {
     getRememberData();
   }
 
   final AuthRepository _authRepository;
   final LocalDataRepository _localDataRepository;
+  final UserCubit _userCubit;
 
   void getRememberData() {
     var email = _localDataRepository.loginDataEmail;
@@ -88,6 +93,7 @@ class LoginCubit extends Cubit<LoginState> {
           ..deleteLoginDataEmail()
           ..deleteLoginDataPassword();
       }
+      unawaited(_userCubit.getEmployees());
       emit(
         state.copyWith(
           status: FormStatus.done,

@@ -4,7 +4,6 @@ import 'package:vemare/app/domain/model/hero.dart';
 import 'package:vemare/app/domain/model/notices.dart';
 import 'package:vemare/app/domain/model/category.dart';
 import 'package:vemare/app/domain/model/services.dart';
-import 'package:vemare/app/domain/model/user_data.dart';
 import 'package:vemare/app/domain/model/workshop.dart';
 
 part 'home_state.freezed.dart';
@@ -12,7 +11,6 @@ part 'home_state.freezed.dart';
 @freezed
 class HomeState with _$HomeState {
   const factory HomeState({
-    @Default(false) bool isLogged,
     @Default(false) bool loading,
     @Default(<HeroHome>[]) List<HeroHome> hero,
     @Default(<Category>[]) List<Category> promotions,
@@ -21,7 +19,6 @@ class HomeState with _$HomeState {
     @Default(<WorkShop>[]) List<WorkShop> workshop,
     @Default(<News>[]) List<News> notices,
     @Default(<Brand>[]) List<Brand> brands,
-    UserData? user,
   }) = _HomeState;
   const HomeState._();
 }

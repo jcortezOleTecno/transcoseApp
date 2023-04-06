@@ -1,8 +1,10 @@
 // import 'package:dropdown_search/dropdown_search.dart' as drop;
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:vemare/app/data/formations_repository.dart';
 import 'package:vemare/app/domain/model/formation.dart';
-import 'package:vemare/app/domain/model/people.dart';
+import 'package:vemare/app/domain/model/employee.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
@@ -11,14 +13,27 @@ import 'package:vemare/app/view/_components/my_calendar/my_calendar.dart';
 import 'package:vemare/app/view/_components/my_dropdown_button/my_drop_down_button.dart';
 import 'package:vemare/app/view/_components/my_input/my_input.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/my_services/formations/enroll_training/bloc/enroll_training_cubit.dart';
+import 'package:vemare/app/view/shared/bloc/user_cubit.dart';
+import 'package:vemare/app/view/shared/bloc/user_state.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
+import 'package:vemare/config/service_locator.dart';
 
 class EnrollTrainingPage extends StatelessWidget {
-  const EnrollTrainingPage(this.formation, {super.key});
+  const EnrollTrainingPage._(this.formation);
   static const route = '/enroll_training';
   final Formation formation;
+
+  static Widget create(Formation formation) {
+    return BlocProvider(
+      create: (context) => EnrollTrainingCubit(
+        getIt.get<FormationsRepository>(),
+      ),
+      child: EnrollTrainingPage._(formation),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,15 +66,16 @@ class EnrollTrainingPage extends StatelessWidget {
                           if (v!) {
                             _dialogEnrollEmployee(context).then((v) {
                               if (v!) {
-                                _dialogCongratulations(context, horario);
+                                _dialogCongratulations(context, horario)
+                                    .then((_) {
+                                  Navigator.of(context).pop();
+                                });
                               }
                             });
                           }
                         });
                       },
                     ),
-
-                    //TEST
                   ],
                 ),
               )
@@ -164,19 +180,13 @@ class EnrollTrainingPage extends StatelessWidget {
         });
   }
 
-  Future<bool?> _dialogEnrollEmployee(BuildContext context) {
-    var employees = <String>[
-      'Nombre A',
-      'Nombre B',
-      'Nombre C',
-      'Nombre D',
-      'Nombre E',
-      'Nombre F'
-    ];
-    var selectedEmployees = <String>[];
-    List<Person> people = [];
+  Future<bool?> _dialogEnrollEmployee(BuildContext ctx) {
+    var selectedEmployees = <Employee>[];
+    List<Employee> people = [];
+    bool loading = false;
+    final cubit = ctx.read<EnrollTrainingCubit>();
     return showDialog<bool>(
-      context: context,
+      context: ctx,
       barrierDismissible: false,
       builder: (context) {
         return StatefulBuilder(
@@ -218,85 +228,97 @@ class EnrollTrainingPage extends StatelessWidget {
                               textAlign: TextAlign.center,
                             ),
                             spacerM,
-                            Align(
+                            const Align(
                               alignment: Alignment.centerLeft,
                               child: Text('Empleados a inscribir',
                                   style: AppTextStyle.inputLabelStyle),
                             ),
                             spacerXs,
-                            MyCustomDropdownButton(
-                              buttonWidth: double.infinity,
-                              hint: 'Selecciona uno o varios',
-                              onChanged: (value) {},
-                              selectedItemBuilder: (context) {
-                                return employees.map(
-                                  (item) {
-                                    return Container(
-                                      alignment: AlignmentDirectional.center,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16.0),
-                                      child: Text(
-                                        selectedEmployees.join(', '),
-                                        style: AppTextStyle.inputStyle.copyWith(
-                                            overflow: TextOverflow.ellipsis),
-                                        maxLines: 1,
-                                      ),
-                                    );
-                                  },
-                                ).toList();
-                              },
-                              dropdownElevation: 1,
-                              dropdownWidth:
-                                  MediaQuery.of(context).size.width * .81,
-                              dropdownItems: employees.map((e) {
-                                return DropdownMenuItem<String>(
-                                  value: e,
-                                  enabled: false,
-                                  child: StatefulBuilder(
-                                    builder: (context, menuSetState) {
-                                      final _isSelected =
-                                          selectedEmployees.contains(e);
-                                      return InkWell(
-                                        onTap: () {
-                                          _isSelected
-                                              ? selectedEmployees.remove(e)
-                                              : selectedEmployees.add(e);
-                                          setState(() {});
-                                          menuSetState(() {});
-                                        },
-                                        child: Container(
-                                          height: double.infinity,
+                            BlocBuilder<UserCubit, UserState>(
+                              builder: (context, state) {
+                                return MyCustomDropdownButton<Employee>(
+                                  buttonWidth: double.infinity,
+                                  hint: 'Selecciona uno o varios',
+                                  onChanged: (value) {},
+                                  selectedItemBuilder: (context) {
+                                    return state.employees.map(
+                                      (item) {
+                                        return Container(
+                                          alignment:
+                                              AlignmentDirectional.center,
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 16.0),
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                child: Text(e,
-                                                    style: AppTextStyle
-                                                        .defaultStyle
-                                                        .copyWith(
-                                                            color: _isSelected
-                                                                ? AppColor
-                                                                    .neutral
-                                                                : AppColor
-                                                                    .neutral40)),
-                                              ),
-                                              _isSelected
-                                                  ? const Icon(Icons.check_box)
-                                                  : const Icon(Icons
-                                                      .check_box_outline_blank),
-                                              const SizedBox(width: 16),
-                                            ],
+                                          child: Text(
+                                            selectedEmployees
+                                                .map((e) => e.firstName)
+                                                .join(', '),
+                                            style: AppTextStyle.inputStyle
+                                                .copyWith(
+                                                    overflow:
+                                                        TextOverflow.ellipsis),
+                                            maxLines: 1,
                                           ),
-                                        ),
-                                      );
-                                    },
-                                  ),
+                                        );
+                                      },
+                                    ).toList();
+                                  },
+                                  dropdownElevation: 1,
+                                  dropdownWidth:
+                                      MediaQuery.of(context).size.width * .81,
+                                  dropdownItems: state.employees.map((e) {
+                                    return DropdownMenuItem(
+                                      value: e,
+                                      enabled: false,
+                                      child: StatefulBuilder(
+                                        builder: (context, menuSetState) {
+                                          final _isSelected =
+                                              selectedEmployees.contains(e);
+                                          return InkWell(
+                                            onTap: () {
+                                              _isSelected
+                                                  ? selectedEmployees.remove(e)
+                                                  : selectedEmployees.add(e);
+                                              setState(() {});
+                                              menuSetState(() {});
+                                            },
+                                            child: Container(
+                                              height: double.infinity,
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 16.0),
+                                              child: Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: Text(
+                                                        e.firstName ?? '',
+                                                        style: AppTextStyle
+                                                            .defaultStyle
+                                                            .copyWith(
+                                                                color: _isSelected
+                                                                    ? AppColor
+                                                                        .neutral
+                                                                    : AppColor
+                                                                        .neutral40)),
+                                                  ),
+                                                  _isSelected
+                                                      ? const Icon(
+                                                          Icons.check_box)
+                                                      : const Icon(Icons
+                                                          .check_box_outline_blank),
+                                                  const SizedBox(width: 16),
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  }).toList(),
+                                  value: selectedEmployees.isEmpty
+                                      ? null
+                                      : selectedEmployees.first,
                                 );
-                              }).toList(),
-                              value: selectedEmployees.isEmpty
-                                  ? null
-                                  : selectedEmployees.first,
+                              },
                             ),
                             spacerM,
                             MyIconButton(
@@ -364,8 +386,22 @@ class EnrollTrainingPage extends StatelessWidget {
                       ),
                     ),
                     MyButton(
-                      onPressed: () => Navigator.of(context).pop(true),
+                      onPressed: () async {
+                        setState(() {
+                          loading = true;
+                        });
+                        cubit
+                            .enrullFormation(
+                                id: formation.id!,
+                                idsEmployees: selectedEmployees
+                                    .map((e) => e.id!)
+                                    .toList())
+                            .then((value) {
+                          Navigator.of(context).pop(true);
+                        });
+                      },
                       text: 'Confirmar inscripciones',
+                      isLoading: loading,
                       width: double.infinity,
                       disabled: selectedEmployees.isEmpty && people.isEmpty,
                     ),
@@ -386,9 +422,9 @@ class EnrollTrainingPage extends StatelessWidget {
     );
   }
 
-  Future<Person?> _dialogEnrollPeople(BuildContext context) {
-    Person person = Person();
-    return showDialog<Person?>(
+  Future<Employee?> _dialogEnrollPeople(BuildContext context) {
+    Employee person = Employee();
+    return showDialog<Employee?>(
       barrierColor: Colors.transparent,
       useSafeArea: true,
       context: context,

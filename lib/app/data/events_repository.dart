@@ -19,4 +19,15 @@ class EventsRepository {
         await _apiClient.getRequest('$BASE_API_URL/api/eventos');
     return (res as List).map(Events.fromJson).toList();
   }
+
+  Future<void> enrollEvents({
+    required int eventId,
+    required List<int> idsEmployees,
+  }) async {
+    await _apiClient.getRequest('$BASE_API_URL/api/eventos/inscripcion',
+        params: <String, dynamic>{
+          'date_id': eventId.toString(),
+          'employee': idsEmployees.join(','),
+        });
+  }
 }

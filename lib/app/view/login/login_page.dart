@@ -12,6 +12,7 @@ import 'package:vemare/app/view/home/home_page.dart';
 import 'package:vemare/app/view/login/bloc/login_cubit.dart';
 import 'package:vemare/app/view/login/bloc/login_state.dart';
 import 'package:vemare/app/view/register/register_page.dart';
+import 'package:vemare/app/view/shared/bloc/user_cubit.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
@@ -22,12 +23,13 @@ class LoginPage extends StatelessWidget {
 
   static const String route = '/login';
 
-  static Widget create({bool? goBack = false}) {
+  static Widget create({String? msgGoBack}) {
     return BlocProvider(
       create: (context) => LoginCubit(
         getIt.get<AuthRepository>(),
         LocalDataRepository(),
-        goBack!,
+        context.read<UserCubit>(),
+        msgGoBack,
       ),
       child: const LoginPage._(),
     );
@@ -41,7 +43,7 @@ class LoginPage extends StatelessWidget {
         body: BlocConsumer<LoginCubit, LoginState>(
           listener: (context, state) {
             if (state.status == FormStatus.done) {
-              if (state.goBack) {
+              if (state.msgGoBack != null) {
                 Navigator.of(context).pop();
               } else {
                 Navigator.pushReplacementNamed(context, HomePage.route);
@@ -62,7 +64,19 @@ class LoginPage extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: AppTextStyle.h1Style,
                   ),
-                  spacerM,
+                  spacerS,
+                  Visibility(
+                    visible: state.msgGoBack != null,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(
+                        state.msgGoBack ?? '',
+                        style: AppTextStyle.defaultStyle.copyWith(
+                            fontSize: 18, fontWeight: FontWeight.w600),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
                   Visibility(
                     visible: state.status == FormStatus.error,
                     child: Padding(
@@ -101,16 +115,20 @@ class LoginPage extends StatelessWidget {
                     text: 'He olvidado mi contraseña',
                     variant: MyButtonVariant.containedSecondary,
                   ),
-                  CheckboxListTile(
-                    onChanged: cubit.rememberData,
-                    value: state.rememberData,
-                    title: const Text('Recordar mis datos'),
-                    controlAffinity: ListTileControlAffinity.leading,
-                    activeColor: AppColor.white,
-                    contentPadding: EdgeInsets.zero,
-                    checkColor: AppColor.blue,
-                    checkboxShape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5)),
+                  Visibility(
+                    visible: state.msgGoBack == null,
+                    replacement: const SizedBox(height: 50),
+                    child: CheckboxListTile(
+                      onChanged: cubit.rememberData,
+                      value: state.rememberData,
+                      title: const Text('Recordar mis datos'),
+                      controlAffinity: ListTileControlAffinity.leading,
+                      activeColor: AppColor.white,
+                      contentPadding: EdgeInsets.zero,
+                      checkColor: AppColor.blue,
+                      checkboxShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5)),
+                    ),
                   ),
                   spacerS,
                   MyButton(
@@ -128,21 +146,24 @@ class LoginPage extends StatelessWidget {
                     variant: MyButtonVariant.outlinedBold,
                   ),
                   spacerS,
-                  TextButton.icon(
-                    onPressed: () {
-                      Navigator.pushNamed(
-                        context,
-                        HomePage.route,
-                        arguments: false,
-                      );
-                    },
-                    label: Image.asset(
-                      'assets/icons/arrow_next.png',
-                      scale: 2,
-                    ),
-                    icon: const Text(
-                      'Continuar sin iniciar sesión',
-                      style: AppTextStyle.linkStyle,
+                  Visibility(
+                    visible: state.msgGoBack == null,
+                    child: TextButton.icon(
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          HomePage.route,
+                          arguments: false,
+                        );
+                      },
+                      label: Image.asset(
+                        'assets/icons/arrow_next.png',
+                        scale: 2,
+                      ),
+                      icon: const Text(
+                        'Continuar sin iniciar sesión',
+                        style: AppTextStyle.linkStyle,
+                      ),
                     ),
                   )
                 ],

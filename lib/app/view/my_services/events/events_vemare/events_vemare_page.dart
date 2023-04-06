@@ -8,10 +8,10 @@ import 'package:vemare/app/view/_components/my_filter_image/my_filter_image.dart
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/login/login_page.dart';
-import 'package:vemare/app/view/my_services/events/event_detail_page.dart';
+import 'package:vemare/app/view/my_services/events/events_vemare/event_detail_page.dart';
 import 'package:vemare/app/view/my_services/events/events_vemare/bloc/events_vemare_cubit.dart';
 import 'package:vemare/app/view/my_services/events/events_vemare/bloc/events_vemare_state.dart';
-import 'package:vemare/app/view/my_services/events/my_events_page.dart';
+import 'package:vemare/app/view/my_services/events/my_events/my_events_page.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
@@ -63,9 +63,12 @@ class EventsVemarePage extends StatelessWidget {
                       Navigator.pushNamed(
                         context,
                         LoginPage.route,
-                        arguments: true,
+                        arguments:
+                            'Para acceder a la información de los eventos tienes que iniciar sesión.',
                       ).then((_) {
-                        Navigator.pushNamed(context, MyEventsPage.route);
+                        if (LocalDataRepository().isLogged) {
+                          Navigator.pushNamed(context, MyEventsPage.route);
+                        }
                       });
                     }
                   }),
@@ -84,13 +87,29 @@ class EventsVemarePage extends StatelessWidget {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 15),
                               child: _MyEvents(
-                                borderRadius: BorderRadius.circular(12),
-                                img: NetworkImage(e.image!),
-                                title: e.title ?? '',
-                                onTap: () => Navigator.pushNamed(
-                                    context, EventDetailPage.route,
-                                    arguments: e),
-                              ),
+                                  borderRadius: BorderRadius.circular(12),
+                                  img: NetworkImage(e.image!),
+                                  title: e.title ?? '',
+                                  onTap: () {
+                                    if (LocalDataRepository().isLogged) {
+                                      Navigator.pushNamed(
+                                          context, EventDetailPage.route,
+                                          arguments: e);
+                                    } else {
+                                      Navigator.pushNamed(
+                                        context,
+                                        LoginPage.route,
+                                        arguments:
+                                            'Para acceder a la información de los eventos tienes que iniciar sesión.',
+                                      ).then((_) {
+                                        if (LocalDataRepository().isLogged) {
+                                          Navigator.pushNamed(
+                                              context, EventDetailPage.route,
+                                              arguments: e);
+                                        }
+                                      });
+                                    }
+                                  }),
                             ))
                         .toList(),
                   );

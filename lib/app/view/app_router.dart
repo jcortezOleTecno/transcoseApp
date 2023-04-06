@@ -9,11 +9,11 @@ import 'package:vemare/app/view/home/home_page.dart';
 import 'package:vemare/app/view/library/library_page.dart';
 import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/my_notifications/my_notifications_page.dart';
-import 'package:vemare/app/view/my_services/events/enroll_event.dart';
-import 'package:vemare/app/view/my_services/events/event_detail_page.dart';
+import 'package:vemare/app/view/my_services/events/other_events/enroll_event/enroll_event.dart';
+import 'package:vemare/app/view/my_services/events/events_vemare/event_detail_page.dart';
 import 'package:vemare/app/view/my_services/events/events_page.dart';
 import 'package:vemare/app/view/my_services/events/events_vemare/events_vemare_page.dart';
-import 'package:vemare/app/view/my_services/events/my_events_page.dart';
+import 'package:vemare/app/view/my_services/events/my_events/my_events_page.dart';
 import 'package:vemare/app/view/my_services/events/other_events/other_event_page.dart';
 import 'package:vemare/app/view/my_services/events/other_events/other_events_list.dart';
 import 'package:vemare/app/view/news/news_page.dart';
@@ -22,7 +22,7 @@ import 'package:vemare/app/view/personal_area/SAT/sat_page.dart';
 import 'package:vemare/app/view/personal_area/modelo_347/modelo_347_page.dart';
 import 'package:vemare/app/view/personal_area/my_account/my_account_page.dart';
 import 'package:vemare/app/view/my_services/formations/detail_formation.dart';
-import 'package:vemare/app/view/my_services/formations/enroll_training.dart';
+import 'package:vemare/app/view/my_services/formations/enroll_training/enroll_training.dart';
 import 'package:vemare/app/view/my_services/formations/formations/formations_page.dart';
 import 'package:vemare/app/view/my_services/services/service_general.dart';
 import 'package:vemare/app/view/my_services/services/services_page.dart';
@@ -68,10 +68,10 @@ abstract class AppRouter {
           builder: (_) => const SplashPage(),
         );
       case LoginPage.route:
-        final bool? goBack = settings.arguments as bool?;
+        final String? msgGoBack = settings.arguments as String?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => LoginPage.create(goBack: goBack != null),
+          builder: (_) => LoginPage.create(msgGoBack: msgGoBack),
         );
       case RegisterPage.route:
         return MaterialPageRoute<void>(
@@ -189,7 +189,7 @@ abstract class AppRouter {
         final Formation? formation = settings.arguments as Formation?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => EnrollTrainingPage(formation!),
+          builder: (_) => EnrollTrainingPage.create(formation!),
         );
       case MyAccountPage.route:
         return MaterialPageRoute<void>(
@@ -273,9 +273,10 @@ abstract class AppRouter {
           builder: (_) => OtherEventPage(event!),
         );
       case EnrollEventPage.route:
+        final event = settings.arguments as Events?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const EnrollEventPage(),
+          builder: (_) => EnrollEventPage.create(event!),
         );
       case EventsVemarePage.route:
         return MaterialPageRoute<void>(

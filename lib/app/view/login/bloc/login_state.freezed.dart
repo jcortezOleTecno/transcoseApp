@@ -18,8 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$LoginState {
   FormStatus get status => throw _privateConstructorUsedError;
   bool get rememberData => throw _privateConstructorUsedError;
-  bool get goBack => throw _privateConstructorUsedError;
   String? get msgError => throw _privateConstructorUsedError;
+  String? get msgGoBack => throw _privateConstructorUsedError;
   String? get initialEmail => throw _privateConstructorUsedError;
   String? get initialPassword => throw _privateConstructorUsedError;
   Email? get email => throw _privateConstructorUsedError;
@@ -39,8 +39,8 @@ abstract class $LoginStateCopyWith<$Res> {
   $Res call(
       {FormStatus status,
       bool rememberData,
-      bool goBack,
       String? msgError,
+      String? msgGoBack,
       String? initialEmail,
       String? initialPassword,
       Email? email,
@@ -62,8 +62,8 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
   $Res call({
     Object? status = null,
     Object? rememberData = null,
-    Object? goBack = null,
     Object? msgError = freezed,
+    Object? msgGoBack = freezed,
     Object? initialEmail = freezed,
     Object? initialPassword = freezed,
     Object? email = freezed,
@@ -78,13 +78,13 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
           ? _value.rememberData
           : rememberData // ignore: cast_nullable_to_non_nullable
               as bool,
-      goBack: null == goBack
-          ? _value.goBack
-          : goBack // ignore: cast_nullable_to_non_nullable
-              as bool,
       msgError: freezed == msgError
           ? _value.msgError
           : msgError // ignore: cast_nullable_to_non_nullable
+              as String?,
+      msgGoBack: freezed == msgGoBack
+          ? _value.msgGoBack
+          : msgGoBack // ignore: cast_nullable_to_non_nullable
               as String?,
       initialEmail: freezed == initialEmail
           ? _value.initialEmail
@@ -117,8 +117,8 @@ abstract class _$$_LoginStateCopyWith<$Res>
   $Res call(
       {FormStatus status,
       bool rememberData,
-      bool goBack,
       String? msgError,
+      String? msgGoBack,
       String? initialEmail,
       String? initialPassword,
       Email? email,
@@ -138,8 +138,8 @@ class __$$_LoginStateCopyWithImpl<$Res>
   $Res call({
     Object? status = null,
     Object? rememberData = null,
-    Object? goBack = null,
     Object? msgError = freezed,
+    Object? msgGoBack = freezed,
     Object? initialEmail = freezed,
     Object? initialPassword = freezed,
     Object? email = freezed,
@@ -154,13 +154,13 @@ class __$$_LoginStateCopyWithImpl<$Res>
           ? _value.rememberData
           : rememberData // ignore: cast_nullable_to_non_nullable
               as bool,
-      goBack: null == goBack
-          ? _value.goBack
-          : goBack // ignore: cast_nullable_to_non_nullable
-              as bool,
       msgError: freezed == msgError
           ? _value.msgError
           : msgError // ignore: cast_nullable_to_non_nullable
+              as String?,
+      msgGoBack: freezed == msgGoBack
+          ? _value.msgGoBack
+          : msgGoBack // ignore: cast_nullable_to_non_nullable
               as String?,
       initialEmail: freezed == initialEmail
           ? _value.initialEmail
@@ -188,8 +188,8 @@ class _$_LoginState extends _LoginState {
   const _$_LoginState(
       {this.status = FormStatus.editing,
       this.rememberData = false,
-      this.goBack = false,
       this.msgError,
+      this.msgGoBack,
       this.initialEmail,
       this.initialPassword,
       this.email,
@@ -203,10 +203,9 @@ class _$_LoginState extends _LoginState {
   @JsonKey()
   final bool rememberData;
   @override
-  @JsonKey()
-  final bool goBack;
-  @override
   final String? msgError;
+  @override
+  final String? msgGoBack;
   @override
   final String? initialEmail;
   @override
@@ -218,7 +217,7 @@ class _$_LoginState extends _LoginState {
 
   @override
   String toString() {
-    return 'LoginState(status: $status, rememberData: $rememberData, goBack: $goBack, msgError: $msgError, initialEmail: $initialEmail, initialPassword: $initialPassword, email: $email, password: $password)';
+    return 'LoginState(status: $status, rememberData: $rememberData, msgError: $msgError, msgGoBack: $msgGoBack, initialEmail: $initialEmail, initialPassword: $initialPassword, email: $email, password: $password)';
   }
 
   @override
@@ -229,9 +228,10 @@ class _$_LoginState extends _LoginState {
             (identical(other.status, status) || other.status == status) &&
             (identical(other.rememberData, rememberData) ||
                 other.rememberData == rememberData) &&
-            (identical(other.goBack, goBack) || other.goBack == goBack) &&
             (identical(other.msgError, msgError) ||
                 other.msgError == msgError) &&
+            (identical(other.msgGoBack, msgGoBack) ||
+                other.msgGoBack == msgGoBack) &&
             (identical(other.initialEmail, initialEmail) ||
                 other.initialEmail == initialEmail) &&
             (identical(other.initialPassword, initialPassword) ||
@@ -242,8 +242,8 @@ class _$_LoginState extends _LoginState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, rememberData, goBack,
-      msgError, initialEmail, initialPassword, email, password);
+  int get hashCode => Object.hash(runtimeType, status, rememberData, msgError,
+      msgGoBack, initialEmail, initialPassword, email, password);
 
   @JsonKey(ignore: true)
   @override
@@ -256,8 +256,8 @@ abstract class _LoginState extends LoginState {
   const factory _LoginState(
       {final FormStatus status,
       final bool rememberData,
-      final bool goBack,
       final String? msgError,
+      final String? msgGoBack,
       final String? initialEmail,
       final String? initialPassword,
       final Email? email,
@@ -269,9 +269,9 @@ abstract class _LoginState extends LoginState {
   @override
   bool get rememberData;
   @override
-  bool get goBack;
-  @override
   String? get msgError;
+  @override
+  String? get msgGoBack;
   @override
   String? get initialEmail;
   @override

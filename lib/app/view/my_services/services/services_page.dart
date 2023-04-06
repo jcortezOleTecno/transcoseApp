@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vemare/app/data/services_data.dart';
 import 'package:vemare/app/data/services_repository.dart';
-import 'package:vemare/app/domain/model/services.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_dropdown_button/my_drop_down_button.dart';
@@ -20,22 +18,6 @@ import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/app/view/workshop_networks/workshop_networks_page.dart';
 import 'package:vemare/config/service_locator.dart';
-
-class ServiceClass {
-  final String name;
-  final String desc;
-  final String? video;
-  final String img;
-  final List<String> imgs;
-
-  ServiceClass({
-    required this.name,
-    required this.desc,
-    this.video,
-    required this.img,
-    required this.imgs,
-  });
-}
 
 class ServicesPage extends StatefulWidget {
   const ServicesPage._();
@@ -274,13 +256,11 @@ class _CardService extends StatelessWidget {
     required this.title,
     required this.image,
     this.onTap,
-    // this.service,
     this.borderRadius,
     Key? key,
   }) : super(key: key);
 
   final String title;
-  // final ServiceClass? service;
   final void Function()? onTap;
   final ImageProvider<Object> image;
 
@@ -289,24 +269,7 @@ class _CardService extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap:
-          onTap /*??
-          () {
-            if (title != 'Formaciones' && title != 'Eventos') {
-              Navigator.pushNamed(
-                context,
-                ServiceGeneralPage.route,
-                arguments: service,
-              );
-            }
-            if (title == 'Formaciones') {
-              Navigator.pushNamed(context, FormationsPage.route);
-            }
-            if (title == 'Eventos') {
-              Navigator.pushNamed(context, EventsPage.route);
-            }
-          },*/
-      ,
+      onTap: onTap,
       child: Container(
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(borderRadius: borderRadius),

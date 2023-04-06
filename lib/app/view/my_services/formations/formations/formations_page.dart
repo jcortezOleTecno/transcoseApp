@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vemare/app/data/formations_repository.dart';
+import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_cards/my_promotions_card.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/my_services/formations/formations/bloc/formations_cubit.dart';
 import 'package:vemare/app/view/my_services/formations/formations/bloc/formations_state.dart';
 import 'package:vemare/app/view/my_services/formations/skillful_formation.dart';
@@ -67,11 +69,28 @@ class FormationsPage extends StatelessWidget {
                                   content: e.description ?? '',
                                   margin: const EdgeInsets.only(bottom: 15),
                                   onTap: () {
-                                    Navigator.pushNamed(
-                                      context,
-                                      SkillFormationPage.route,
-                                      arguments: e,
-                                    );
+                                    if (LocalDataRepository().isLogged) {
+                                      Navigator.pushNamed(
+                                        context,
+                                        SkillFormationPage.route,
+                                        arguments: e,
+                                      );
+                                    } else {
+                                      Navigator.pushNamed(
+                                        context,
+                                        LoginPage.route,
+                                        arguments:
+                                            'Inicia sesión para conocer más detalles de esta formación',
+                                      ).then((_) {
+                                        if (LocalDataRepository().isLogged) {
+                                          Navigator.pushNamed(
+                                            context,
+                                            SkillFormationPage.route,
+                                            arguments: e,
+                                          );
+                                        }
+                                      });
+                                    }
                                   },
                                 ),
                               )

@@ -12,4 +12,15 @@ class FormationsRepository {
         await _apiClient.getRequest('$BASE_API_URL/api/formaciones');
     return (res as List).map(Formations.fromJson).toList();
   }
+
+  Future<void> enrollFormations({
+    required int dateId,
+    required List<int> idsEmployees,
+  }) async {
+    await _apiClient.getRequest('$BASE_API_URL/api/formaciones/inscripcion',
+        params: <String, dynamic>{
+          'date_id': dateId.toString(),
+          'employee': idsEmployees.join(','),
+        });
+  }
 }

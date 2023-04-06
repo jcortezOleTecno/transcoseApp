@@ -1,7 +1,11 @@
 // import 'package:dropdown_search/dropdown_search.dart' as drop;
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:vemare/app/domain/model/people.dart';
+import 'package:vemare/app/data/events_repository.dart';
+import 'package:vemare/app/domain/model/events.dart';
+import 'package:vemare/app/domain/model/formation.dart';
+import 'package:vemare/app/domain/model/employee.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
@@ -10,13 +14,28 @@ import 'package:vemare/app/view/_components/my_calendar/my_calendar.dart';
 import 'package:vemare/app/view/_components/my_dropdown_button/my_drop_down_button.dart';
 import 'package:vemare/app/view/_components/my_input/my_input.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/my_services/events/other_events/enroll_event/bloc/enroll_event_cubit.dart';
+import 'package:vemare/app/view/shared/bloc/user_cubit.dart';
+import 'package:vemare/app/view/shared/bloc/user_state.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
+import 'package:vemare/config/service_locator.dart';
 
 class EnrollEventPage extends StatelessWidget {
-  const EnrollEventPage({super.key});
+  const EnrollEventPage._(this.event);
   static const route = '/enroll_event';
+
+  final Events event;
+
+  static Widget create(Events event) {
+    return BlocProvider(
+      create: (context) => EnrollEventCubit(
+        getIt.get<EventsRepository>(),
+      ),
+      child: EnrollEventPage._(event),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,36 +45,35 @@ class EnrollEventPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              MyBackButton(),
+              const MyBackButton(),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      'Nombre del evento',
+                      event.title ?? '',
                       style: AppTextStyle.h1Style,
                     ),
                     spacerM,
 
-                    // MyCalendar(
-                    //   dates: [
-                    //     DateTime(2023, 3, 28),
-                    //     DateTime(2023, 3, 30),
-                    //     DateTime(2023, 3, 29),
-                    //   ],
-                    //   onSelectedDate: (dateTime) {
-                    //     _dialogConfirmSchedule(context, dateTime).then((v) {
-                    //       if (v!) {
-                    //         _dialogEnrollEmployee(context).then((v) {
-                    //           if (v!) {
-                    //             _dialogCongratulations(context, dateTime);
-                    //           }
-                    //         });
-                    //       }
-                    //     });
-                    //   },
-                    // ),
+                    MyCalendar(
+                      dates: event.horario ?? [],
+                      onSelectedDate: (horario) {
+                        _dialogConfirmSchedule(context, horario).then((v) {
+                          if (v!) {
+                            _dialogEnrollEmployee(context).then((v) {
+                              if (v!) {
+                                _dialogCongratulations(context, horario)
+                                    .then((_) {
+                                  Navigator.of(context).pop();
+                                });
+                              }
+                            });
+                          }
+                        });
+                      },
+                    ),
 
                     //TEST
                   ],
@@ -70,7 +88,7 @@ class EnrollEventPage extends StatelessWidget {
 
   Future<bool?> _dialogConfirmSchedule(
     BuildContext context,
-    DateTime dateTime,
+    Horario horario,
   ) {
     return showDialog<bool>(
         context: context,
@@ -103,11 +121,12 @@ class EnrollEventPage extends StatelessWidget {
                       children: [
                         TextSpan(
                           text: DateFormat.MMMMd('es')
-                              .format(dateTime)
+                              .format(horario.date!)
                               .toUpperCase(),
                         ),
                         TextSpan(
-                          text: ' 14:30 - 16:30 h',
+                          text:
+                              ' - ${DateFormat.jm().format(DateFormat.j('es').parse(horario.time!))}',
                           style: AppTextStyle.defaultStyle
                               .copyWith(color: AppColor.neutral40),
                         ),
@@ -124,21 +143,20 @@ class EnrollEventPage extends StatelessWidget {
                         color: AppColor.primaryBlue,
                       ),
                       spacerS,
-                      const Text(
-                        'Calle Libertad 20, Madrid',
+                      Text(
+                        horario.location ?? '',
                         style: AppTextStyle.defaultStyle,
                       )
                     ],
                   ),
                   spacerM,
                   Text(
-                    "Nombre del evento",
+                    event.title ?? '',
                     style: AppTextStyle.h3Style,
                   ),
                   spacerS,
                   Text(
-                    '''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id consectetur quis enim, neque. Diam massa ornare mauris sed vestibulum. Curabitur erat nisl nibh sit vulputate cras auctor.
-Enim, ipsum pellentesque vestibulum sed elit. Quis tortor libero nisi, lorem nullam arcu facilisis.''',
+                    event.description ?? '',
                     style: AppTextStyle.defaultStyle,
                     textAlign: TextAlign.center,
                   ),
@@ -162,19 +180,13 @@ Enim, ipsum pellentesque vestibulum sed elit. Quis tortor libero nisi, lorem nul
         });
   }
 
-  Future<bool?> _dialogEnrollEmployee(BuildContext context) {
-    var employees = <String>[
-      'Nombre A',
-      'Nombre B',
-      'Nombre C',
-      'Nombre D',
-      'Nombre E',
-      'Nombre F'
-    ];
-    var selectedEmployees = <String>[];
-    List<Person> people = [];
+  Future<bool?> _dialogEnrollEmployee(BuildContext ctx) {
+    var selectedEmployees = <Employee>[];
+    List<Employee> people = [];
+    bool loading = false;
+    final cubit = ctx.read<EnrollEventCubit>();
     return showDialog<bool>(
-      context: context,
+      context: ctx,
       barrierDismissible: false,
       builder: (context) {
         return StatefulBuilder(
@@ -216,85 +228,97 @@ Enim, ipsum pellentesque vestibulum sed elit. Quis tortor libero nisi, lorem nul
                               textAlign: TextAlign.center,
                             ),
                             spacerM,
-                            Align(
+                            const Align(
                               alignment: Alignment.centerLeft,
                               child: Text('Empleados a inscribir',
                                   style: AppTextStyle.inputLabelStyle),
                             ),
                             spacerXs,
-                            MyCustomDropdownButton(
-                              buttonWidth: double.infinity,
-                              hint: 'Selecciona uno o varios',
-                              onChanged: (value) {},
-                              selectedItemBuilder: (context) {
-                                return employees.map(
-                                  (item) {
-                                    return Container(
-                                      alignment: AlignmentDirectional.center,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16.0),
-                                      child: Text(
-                                        selectedEmployees.join(', '),
-                                        style: AppTextStyle.inputStyle.copyWith(
-                                            overflow: TextOverflow.ellipsis),
-                                        maxLines: 1,
-                                      ),
-                                    );
-                                  },
-                                ).toList();
-                              },
-                              dropdownElevation: 1,
-                              dropdownWidth:
-                                  MediaQuery.of(context).size.width * .81,
-                              dropdownItems: employees.map((e) {
-                                return DropdownMenuItem<String>(
-                                  value: e,
-                                  enabled: false,
-                                  child: StatefulBuilder(
-                                    builder: (context, menuSetState) {
-                                      final _isSelected =
-                                          selectedEmployees.contains(e);
-                                      return InkWell(
-                                        onTap: () {
-                                          _isSelected
-                                              ? selectedEmployees.remove(e)
-                                              : selectedEmployees.add(e);
-                                          setState(() {});
-                                          menuSetState(() {});
-                                        },
-                                        child: Container(
-                                          height: double.infinity,
+                            BlocBuilder<UserCubit, UserState>(
+                              builder: (context, state) {
+                                return MyCustomDropdownButton<Employee>(
+                                  buttonWidth: double.infinity,
+                                  hint: 'Selecciona uno o varios',
+                                  onChanged: (value) {},
+                                  selectedItemBuilder: (context) {
+                                    return state.employees.map(
+                                      (item) {
+                                        return Container(
+                                          alignment:
+                                              AlignmentDirectional.center,
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 16.0),
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                child: Text(e,
-                                                    style: AppTextStyle
-                                                        .defaultStyle
-                                                        .copyWith(
-                                                            color: _isSelected
-                                                                ? AppColor
-                                                                    .neutral
-                                                                : AppColor
-                                                                    .neutral40)),
-                                              ),
-                                              _isSelected
-                                                  ? const Icon(Icons.check_box)
-                                                  : const Icon(Icons
-                                                      .check_box_outline_blank),
-                                              const SizedBox(width: 16),
-                                            ],
+                                          child: Text(
+                                            selectedEmployees
+                                                .map((e) => e.firstName)
+                                                .join(', '),
+                                            style: AppTextStyle.inputStyle
+                                                .copyWith(
+                                                    overflow:
+                                                        TextOverflow.ellipsis),
+                                            maxLines: 1,
                                           ),
-                                        ),
-                                      );
-                                    },
-                                  ),
+                                        );
+                                      },
+                                    ).toList();
+                                  },
+                                  dropdownElevation: 1,
+                                  dropdownWidth:
+                                      MediaQuery.of(context).size.width * .81,
+                                  dropdownItems: state.employees.map((e) {
+                                    return DropdownMenuItem(
+                                      value: e,
+                                      enabled: false,
+                                      child: StatefulBuilder(
+                                        builder: (context, menuSetState) {
+                                          final _isSelected =
+                                              selectedEmployees.contains(e);
+                                          return InkWell(
+                                            onTap: () {
+                                              _isSelected
+                                                  ? selectedEmployees.remove(e)
+                                                  : selectedEmployees.add(e);
+                                              setState(() {});
+                                              menuSetState(() {});
+                                            },
+                                            child: Container(
+                                              height: double.infinity,
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 16.0),
+                                              child: Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: Text(
+                                                        e.firstName ?? '',
+                                                        style: AppTextStyle
+                                                            .defaultStyle
+                                                            .copyWith(
+                                                                color: _isSelected
+                                                                    ? AppColor
+                                                                        .neutral
+                                                                    : AppColor
+                                                                        .neutral40)),
+                                                  ),
+                                                  _isSelected
+                                                      ? const Icon(
+                                                          Icons.check_box)
+                                                      : const Icon(Icons
+                                                          .check_box_outline_blank),
+                                                  const SizedBox(width: 16),
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  }).toList(),
+                                  value: selectedEmployees.isEmpty
+                                      ? null
+                                      : selectedEmployees.first,
                                 );
-                              }).toList(),
-                              value: selectedEmployees.isEmpty
-                                  ? null
-                                  : selectedEmployees.first,
+                              },
                             ),
                             spacerM,
                             MyIconButton(
@@ -362,9 +386,23 @@ Enim, ipsum pellentesque vestibulum sed elit. Quis tortor libero nisi, lorem nul
                       ),
                     ),
                     MyButton(
-                      onPressed: () => Navigator.of(context).pop(true),
+                      onPressed: () async {
+                        setState(() {
+                          loading = true;
+                        });
+                        cubit
+                            .enrollEvent(
+                                id: event.id!,
+                                idsEmployees: selectedEmployees
+                                    .map((e) => e.id!)
+                                    .toList())
+                            .then((value) {
+                          Navigator.of(context).pop(true);
+                        });
+                      },
                       text: 'Confirmar inscripciones',
                       width: double.infinity,
+                      isLoading: loading,
                       disabled: selectedEmployees.isEmpty && people.isEmpty,
                     ),
                     spacerS,
@@ -384,9 +422,9 @@ Enim, ipsum pellentesque vestibulum sed elit. Quis tortor libero nisi, lorem nul
     );
   }
 
-  Future<Person?> _dialogEnrollPeople(BuildContext context) {
-    Person person = Person();
-    return showDialog<Person?>(
+  Future<Employee?> _dialogEnrollPeople(BuildContext context) {
+    Employee person = Employee();
+    return showDialog<Employee?>(
       barrierColor: Colors.transparent,
       useSafeArea: true,
       context: context,
@@ -503,7 +541,7 @@ Enim, ipsum pellentesque vestibulum sed elit. Quis tortor libero nisi, lorem nul
     );
   }
 
-  Future _dialogCongratulations(BuildContext context, DateTime dateTime) {
+  Future _dialogCongratulations(BuildContext context, Horario horario) {
     return showDialog(
       context: context,
       barrierDismissible: false,
@@ -551,7 +589,7 @@ Enim, ipsum pellentesque vestibulum sed elit. Quis tortor libero nisi, lorem nul
                                   text: 'Hemos confirmado tu formación en',
                                 ),
                                 TextSpan(
-                                  text: ' Lorem ipsun ',
+                                  text: ' ${event.title ?? ''} ',
                                   style: AppTextStyle.defaultStyle
                                       .copyWith(fontWeight: FontWeight.bold),
                                 ),
@@ -560,7 +598,7 @@ Enim, ipsum pellentesque vestibulum sed elit. Quis tortor libero nisi, lorem nul
                                 ),
                                 TextSpan(
                                   text:
-                                      '${DateFormat.MMMMd('es').format(dateTime).toUpperCase()}.',
+                                      '${DateFormat.MMMMd('es').format(horario.date!).toUpperCase()}.',
                                   style: AppTextStyle.defaultStyle
                                       .copyWith(fontWeight: FontWeight.bold),
                                 ),

@@ -29,6 +29,7 @@ import 'package:vemare/app/view/our_products/product/product_page.dart';
 import 'package:vemare/app/view/our_products/type_of_vehicle_page.dart';
 import 'package:vemare/app/view/promotions/promotion/promotion_page.dart';
 import 'package:vemare/app/view/promotions/promotions_categories/promotions_page.dart';
+import 'package:vemare/app/view/shared/bloc/user_cubit.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
@@ -45,13 +46,13 @@ class HomePage extends StatelessWidget {
     return BlocProvider(
       create: (context) => HomeCubit(
         getIt.get<HomeRepository>(),
-        LocalDataRepository(),
         getIt.get<PromotionRepository>(),
         getIt.get<ProductsRepository>(),
         getIt.get<ServicesRepository>(),
         getIt.get<WorkShopsRepository>(),
         getIt.get<NoticesRepository>(),
         getIt.get<BrandsRepository>(),
+        context.read<UserCubit>(),
       ),
       child: const HomePage._(),
     );
@@ -92,7 +93,7 @@ class _PageA extends StatelessWidget {
                   children: [
                     const MySpacer(height: 200),
                     Text(
-                      '¡Bienvenido${state.isLogged ? ', ${state.user?.responsibleName ?? ''}!' : '!'}',
+                      '¡Bienvenido${LocalDataRepository().isLogged ? ', ${LocalDataRepository().user?.responsibleName ?? ''}!' : '!'}',
                       style: AppTextStyle.homeStyle,
                     ),
                     spacerM,

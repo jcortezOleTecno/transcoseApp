@@ -4,11 +4,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:vemare/app/data/about_us_repository.dart';
+import 'package:vemare/app/data/auth_repository.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/view/_components/no_scale_widget/no_scale_widget.dart';
 import 'package:vemare/app/view/about_us/bloc/about_us_cubit.dart';
 import 'package:vemare/app/view/app_router.dart';
 import 'package:vemare/app/view/our_history/bloc/our_history_cubit.dart';
+import 'package:vemare/app/view/shared/bloc/user_cubit.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/theme.dart';
 import 'package:vemare/config/service_locator.dart';
@@ -41,6 +43,11 @@ class MyApp extends StatelessWidget {
     );
     return MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (context) => UserCubit(
+            getIt.get<AuthRepository>(),
+          ),
+        ),
         BlocProvider(
           create: (context) => OurHistoryCubit(
             getIt.get<AboutUsRepository>(),

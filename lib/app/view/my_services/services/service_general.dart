@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vemare/app/data/services_data.dart';
 import 'package:vemare/app/domain/model/services.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';

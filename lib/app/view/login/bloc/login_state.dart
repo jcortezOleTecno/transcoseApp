@@ -10,8 +10,8 @@ class LoginState with _$LoginState {
   const factory LoginState({
     @Default(FormStatus.editing) FormStatus status,
     @Default(false) bool rememberData,
-    @Default(false) bool goBack,
     String? msgError,
+    String? msgGoBack,
     String? initialEmail,
     String? initialPassword,
     Email? email,
