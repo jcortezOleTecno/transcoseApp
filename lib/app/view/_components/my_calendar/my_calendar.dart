@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:vemare/app/domain/model/formation.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
@@ -11,8 +12,8 @@ class MyCalendar extends StatefulWidget {
     required this.dates,
   }) : super(key: key);
 
-  final List<DateTime> dates;
-  final Function(DateTime) onSelectedDate;
+  final List<Horario> dates;
+  final Function(Horario) onSelectedDate;
 
   @override
   State<MyCalendar> createState() => _MyCalendarState();
@@ -28,7 +29,7 @@ class _MyCalendarState extends State<MyCalendar> {
       color: Colors.white,
       child: TableCalendar(
         focusedDay: DateTime.now(),
-        firstDay: DateTime.now(),
+        firstDay: DateTime.now().subtract(const Duration(days: 60)),
         lastDay: DateTime.now().add(const Duration(days: 365)),
         headerStyle: HeaderStyle(
           titleTextFormatter: (date, locale) =>
@@ -48,7 +49,7 @@ class _MyCalendarState extends State<MyCalendar> {
         ),
         selectedDayPredicate: (day) {
           if (widget.dates
-              .where((e) => isSameDay(e, day))
+              .where((e) => isSameDay(e.date, day))
               .toList()
               .isNotEmpty) {
             return isSameDay(_selectedDay, day);
@@ -57,7 +58,7 @@ class _MyCalendarState extends State<MyCalendar> {
         },
         onDaySelected: (selectedDay, focusedDay) {
           if (widget.dates
-              .where((e) => isSameDay(e, selectedDay))
+              .where((e) => isSameDay(e.date, selectedDay))
               .toList()
               .isNotEmpty) {
             setState(() {
@@ -65,17 +66,18 @@ class _MyCalendarState extends State<MyCalendar> {
               _focusedDay = focusedDay;
             });
             if (widget.dates
-                .where((e) => isSameDay(e, selectedDay))
+                .where((e) => isSameDay(e.date, selectedDay))
                 .toList()
                 .isNotEmpty) {
-              widget.onSelectedDate(selectedDay);
+              widget.onSelectedDate(widget.dates
+                  .firstWhere((e) => isSameDay(e.date, selectedDay)));
             }
           }
         },
         calendarBuilders: CalendarBuilders(
           defaultBuilder: (context, day, focusedDay) {
             if (widget.dates
-                .where((e) => isSameDay(e, day))
+                .where((e) => isSameDay(e.date, day))
                 .toList()
                 .isNotEmpty) {
               return Center(

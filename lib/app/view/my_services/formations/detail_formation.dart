@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:vemare/app/data/local_data_repository.dart';
+import 'package:vemare/app/domain/model/formation.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/my_services/formations/enroll_training.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
 class DetailFormationPage extends StatelessWidget {
-  const DetailFormationPage({super.key});
+  const DetailFormationPage(this.formation, {super.key});
 
   static const route = '/detail_formation';
+
+  final Formation formation;
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +33,8 @@ class DetailFormationPage extends StatelessWidget {
                     Expanded(
                         child: ClipRRect(
                       borderRadius: BorderRadius.circular(12),
-                      child: const Image(
-                        image: AssetImage('assets/imgs/AD360IMG.png'),
+                      child: Image(
+                        image: NetworkImage(formation.image!),
                         fit: BoxFit.cover,
                       ),
                     )),
@@ -38,11 +43,10 @@ class DetailFormationPage extends StatelessWidget {
                         child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Lorem ipsum', style: AppTextStyle.h2Style),
+                        Text(formation.title ?? '',
+                            style: AppTextStyle.h2Style),
                         spacerS,
-                        Text(
-                            '''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Egestas tempor aliquam nulla nulla. Nullam tempus cursus facilisi fusce ante ullamcorper. Sem euismod fames sapien venenatis cras sit venenatis.
-Ut eleifend vel diam cras integer nec enim nibh et. Vulputate mus vitae in sit euismod cras.''',
+                        Text(formation.description ?? '',
                             style: AppTextStyle.defaultStyle),
                         spacerM,
                         Row(
@@ -64,8 +68,25 @@ Ut eleifend vel diam cras integer nec enim nibh et. Vulputate mus vitae in sit e
                       padding: const EdgeInsets.all(15),
                       child: MyButton(
                         onPressed: () {
-                          Navigator.pushNamed(
-                              context, EnrollTrainingPage.route);
+                          if (LocalDataRepository().isLogged) {
+                            Navigator.pushNamed(
+                              context,
+                              EnrollTrainingPage.route,
+                              arguments: formation,
+                            );
+                          } else {
+                            Navigator.pushNamed(
+                              context,
+                              LoginPage.route,
+                              arguments: true,
+                            ).then((_) {
+                              Navigator.pushNamed(
+                                context,
+                                EnrollTrainingPage.route,
+                                arguments: formation,
+                              );
+                            });
+                          }
                         },
                         text: 'Continuar',
                       ),

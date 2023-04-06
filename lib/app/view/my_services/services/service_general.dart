@@ -47,9 +47,10 @@ class ServiceGeneralPage extends StatelessWidget {
               ),
               spacerM,
               Visibility(
-                visible: serviceData[0].imgs.isNotEmpty,
+                visible: service.gallery != null,
                 child: MyImageGallery(
-                  imgs: serviceData[0].imgs,
+                  isNetwork: true,
+                  imgs: service.gallery!.map((e) => e.imagen).toList(),
                 ),
               ),
               spacerM,

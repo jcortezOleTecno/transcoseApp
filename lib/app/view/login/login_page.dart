@@ -22,11 +22,12 @@ class LoginPage extends StatelessWidget {
 
   static const String route = '/login';
 
-  static Widget create() {
+  static Widget create({bool? goBack = false}) {
     return BlocProvider(
       create: (context) => LoginCubit(
         getIt.get<AuthRepository>(),
-        getIt.get<LocalDataRepository>(),
+        LocalDataRepository(),
+        goBack!,
       ),
       child: const LoginPage._(),
     );
@@ -40,11 +41,13 @@ class LoginPage extends StatelessWidget {
         body: BlocConsumer<LoginCubit, LoginState>(
           listener: (context, state) {
             if (state.status == FormStatus.done) {
-              Navigator.pushReplacementNamed(context, HomePage.route);
+              if (state.goBack) {
+                Navigator.of(context).pop();
+              } else {
+                Navigator.pushReplacementNamed(context, HomePage.route);
+              }
             }
           },
-          // buildWhen: (p, c) =>
-          //     p.status != c.status || p.rememberData != c.rememberData,
           builder: (context, state) {
             return SingleChildScrollView(
               padding: const EdgeInsets.all(20),

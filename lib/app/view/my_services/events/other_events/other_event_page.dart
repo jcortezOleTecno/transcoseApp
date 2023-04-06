@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vemare/app/domain/model/events.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
@@ -7,8 +8,10 @@ import 'package:vemare/app/view/my_services/events/enroll_event.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
 class OtherEventPage extends StatelessWidget {
-  const OtherEventPage({super.key});
+  const OtherEventPage(this.event, {super.key});
   static const route = '/other_event';
+
+  final Events event;
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +28,14 @@ class OtherEventPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Expanded(
-                        child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: const Image(
-                        image: AssetImage('assets/imgs/AD360IMG.png'),
-                        fit: BoxFit.cover,
+                        child: Hero(
+                      tag: event.id!,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image(
+                          image: NetworkImage(event.image!),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     )),
                     spacerS,
@@ -37,11 +43,9 @@ class OtherEventPage extends StatelessWidget {
                         child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Nombre del evento', style: AppTextStyle.h2Style),
+                        Text(event.title ?? '', style: AppTextStyle.h2Style),
                         spacerS,
-                        Text(
-                            '''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Egestas tempor aliquam nulla nulla. Nullam tempus cursus facilisi fusce ante ullamcorper. Sem euismod fames sapien venenatis cras sit venenatis.
-Ut eleifend vel diam cras integer nec enim nibh et. Vulputate mus vitae in sit euismod cras.''',
+                        Text(event.description ?? '',
                             style: AppTextStyle.defaultStyle),
                       ],
                     )),

@@ -4,12 +4,14 @@ import 'package:shimmer/shimmer.dart';
 class MyShimmer extends StatelessWidget {
   const MyShimmer({
     this.height,
+    this.width,
     this.borderRadius,
     this.margin,
     Key? key,
   }) : super(key: key);
 
   final double? height;
+  final double? width;
   final double? borderRadius;
   final EdgeInsetsGeometry? margin;
 
@@ -17,6 +19,7 @@ class MyShimmer extends StatelessWidget {
     super.key,
     this.height = double.infinity,
     this.borderRadius = 0,
+    this.width,
     this.margin = EdgeInsets.zero,
   });
   @override
@@ -30,7 +33,7 @@ class MyShimmer extends StatelessWidget {
           color: Colors.white,
         ),
         margin: margin ?? const EdgeInsets.symmetric(horizontal: 30),
-        width: double.infinity,
+        width: width ?? double.infinity,
         height: height ?? 100,
       ),
     );

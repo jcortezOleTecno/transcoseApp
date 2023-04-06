@@ -18,8 +18,6 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$MenuState {
   bool get isOpenMenu => throw _privateConstructorUsedError;
   bool get isOpenNotification => throw _privateConstructorUsedError;
-  bool get isLogged => throw _privateConstructorUsedError;
-  UserData? get user => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MenuStateCopyWith<MenuState> get copyWith =>
@@ -31,11 +29,7 @@ abstract class $MenuStateCopyWith<$Res> {
   factory $MenuStateCopyWith(MenuState value, $Res Function(MenuState) then) =
       _$MenuStateCopyWithImpl<$Res, MenuState>;
   @useResult
-  $Res call(
-      {bool isOpenMenu,
-      bool isOpenNotification,
-      bool isLogged,
-      UserData? user});
+  $Res call({bool isOpenMenu, bool isOpenNotification});
 }
 
 /// @nodoc
@@ -53,8 +47,6 @@ class _$MenuStateCopyWithImpl<$Res, $Val extends MenuState>
   $Res call({
     Object? isOpenMenu = null,
     Object? isOpenNotification = null,
-    Object? isLogged = null,
-    Object? user = freezed,
   }) {
     return _then(_value.copyWith(
       isOpenMenu: null == isOpenMenu
@@ -65,14 +57,6 @@ class _$MenuStateCopyWithImpl<$Res, $Val extends MenuState>
           ? _value.isOpenNotification
           : isOpenNotification // ignore: cast_nullable_to_non_nullable
               as bool,
-      isLogged: null == isLogged
-          ? _value.isLogged
-          : isLogged // ignore: cast_nullable_to_non_nullable
-              as bool,
-      user: freezed == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as UserData?,
     ) as $Val);
   }
 }
@@ -84,11 +68,7 @@ abstract class _$$_MenuStateCopyWith<$Res> implements $MenuStateCopyWith<$Res> {
       __$$_MenuStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {bool isOpenMenu,
-      bool isOpenNotification,
-      bool isLogged,
-      UserData? user});
+  $Res call({bool isOpenMenu, bool isOpenNotification});
 }
 
 /// @nodoc
@@ -104,8 +84,6 @@ class __$$_MenuStateCopyWithImpl<$Res>
   $Res call({
     Object? isOpenMenu = null,
     Object? isOpenNotification = null,
-    Object? isLogged = null,
-    Object? user = freezed,
   }) {
     return _then(_$_MenuState(
       isOpenMenu: null == isOpenMenu
@@ -116,14 +94,6 @@ class __$$_MenuStateCopyWithImpl<$Res>
           ? _value.isOpenNotification
           : isOpenNotification // ignore: cast_nullable_to_non_nullable
               as bool,
-      isLogged: null == isLogged
-          ? _value.isLogged
-          : isLogged // ignore: cast_nullable_to_non_nullable
-              as bool,
-      user: freezed == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as UserData?,
     ));
   }
 }
@@ -131,11 +101,7 @@ class __$$_MenuStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_MenuState extends _MenuState {
-  const _$_MenuState(
-      {this.isOpenMenu = false,
-      this.isOpenNotification = false,
-      this.isLogged = false,
-      this.user})
+  const _$_MenuState({this.isOpenMenu = false, this.isOpenNotification = false})
       : super._();
 
   @override
@@ -144,15 +110,10 @@ class _$_MenuState extends _MenuState {
   @override
   @JsonKey()
   final bool isOpenNotification;
-  @override
-  @JsonKey()
-  final bool isLogged;
-  @override
-  final UserData? user;
 
   @override
   String toString() {
-    return 'MenuState(isOpenMenu: $isOpenMenu, isOpenNotification: $isOpenNotification, isLogged: $isLogged, user: $user)';
+    return 'MenuState(isOpenMenu: $isOpenMenu, isOpenNotification: $isOpenNotification)';
   }
 
   @override
@@ -163,15 +124,11 @@ class _$_MenuState extends _MenuState {
             (identical(other.isOpenMenu, isOpenMenu) ||
                 other.isOpenMenu == isOpenMenu) &&
             (identical(other.isOpenNotification, isOpenNotification) ||
-                other.isOpenNotification == isOpenNotification) &&
-            (identical(other.isLogged, isLogged) ||
-                other.isLogged == isLogged) &&
-            (identical(other.user, user) || other.user == user));
+                other.isOpenNotification == isOpenNotification));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, isOpenMenu, isOpenNotification, isLogged, user);
+  int get hashCode => Object.hash(runtimeType, isOpenMenu, isOpenNotification);
 
   @JsonKey(ignore: true)
   @override
@@ -182,20 +139,13 @@ class _$_MenuState extends _MenuState {
 
 abstract class _MenuState extends MenuState {
   const factory _MenuState(
-      {final bool isOpenMenu,
-      final bool isOpenNotification,
-      final bool isLogged,
-      final UserData? user}) = _$_MenuState;
+      {final bool isOpenMenu, final bool isOpenNotification}) = _$_MenuState;
   const _MenuState._() : super._();
 
   @override
   bool get isOpenMenu;
   @override
   bool get isOpenNotification;
-  @override
-  bool get isLogged;
-  @override
-  UserData? get user;
   @override
   @JsonKey(ignore: true)
   _$$_MenuStateCopyWith<_$_MenuState> get copyWith =>

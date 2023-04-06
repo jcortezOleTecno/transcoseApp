@@ -12,6 +12,7 @@ import 'package:vemare/app/view/about_us/bloc/about_us_cubit.dart';
 import 'package:vemare/app/view/about_us/bloc/about_us_state.dart';
 import 'package:vemare/app/view/library/library_page.dart';
 import 'package:vemare/app/view/news/news_page.dart';
+import 'package:vemare/app/view/our_history/our_history.dart';
 import 'package:vemare/app/view/pills/pills_page.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
@@ -69,53 +70,56 @@ class AboutUsPage extends StatelessWidget {
 class _OurHistory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.width * .80,
-      width: double.infinity,
-      child: Stack(fit: StackFit.expand, children: [
-        const Image(
-          image: AssetImage('assets/imgs/our_history.png'),
-          fit: BoxFit.cover,
-        ),
-        const MyFilterImage(),
-        Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: [
-              const Spacer(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Nuestra historia',
-                    style: AppTextStyle.linkStyle
-                        .copyWith(color: AppColor.white, fontSize: 22),
-                  ),
-                  Image.asset(
-                    'assets/icons/arrow_next.png',
-                    color: AppColor.white,
-                    scale: 2,
-                  ),
-                ],
-              ),
-              spacerXs,
-              Column(
-                children: [
-                  SizedBox(
-                      child: Text(
-                    'Más de 65 años a su servicio como distribuidores de recambio de automovil original.',
-                    style: AppTextStyle.contentCard.copyWith(
-                      color: AppColor.white,
-                      fontSize: 18,
-                      height: 1.8,
-                    ),
-                  ))
-                ],
-              )
-            ],
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(context, OurHistoryPage.route),
+      child: SizedBox(
+        height: MediaQuery.of(context).size.width * .80,
+        width: double.infinity,
+        child: Stack(fit: StackFit.expand, children: [
+          const Image(
+            image: AssetImage('assets/imgs/our_history.png'),
+            fit: BoxFit.cover,
           ),
-        )
-      ]),
+          const MyFilterImage(),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              children: [
+                const Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Nuestra historia',
+                      style: AppTextStyle.linkStyle
+                          .copyWith(color: AppColor.white, fontSize: 22),
+                    ),
+                    Image.asset(
+                      'assets/icons/arrow_next.png',
+                      color: AppColor.white,
+                      scale: 2,
+                    ),
+                  ],
+                ),
+                spacerXs,
+                Column(
+                  children: [
+                    SizedBox(
+                        child: Text(
+                      'Más de 65 años a su servicio como distribuidores de recambio de automovil original.',
+                      style: AppTextStyle.contentCard.copyWith(
+                        color: AppColor.white,
+                        fontSize: 18,
+                        height: 1.8,
+                      ),
+                    ))
+                  ],
+                )
+              ],
+            ),
+          )
+        ]),
+      ),
     );
   }
 }

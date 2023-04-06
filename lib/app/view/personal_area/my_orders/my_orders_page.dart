@@ -81,7 +81,7 @@ class _MyOrders extends StatelessWidget {
         spacerS,
         const Text('Mis pedidos', style: AppTextStyle.h2Style),
         Text(
-          getIt.get<LocalDataRepository>().user?.name ?? '',
+          LocalDataRepository().user?.name ?? '',
           style: AppTextStyle.h3Style.copyWith(
             fontWeight: FontWeight.normal,
           ),
@@ -132,7 +132,7 @@ class _MyWarranty extends StatelessWidget {
         spacerS,
         const Text('Mis garantías', style: AppTextStyle.h2Style),
         Text(
-          getIt.get<LocalDataRepository>().user?.name ?? '',
+          LocalDataRepository().user?.name ?? '',
           style: AppTextStyle.h3Style.copyWith(
             fontWeight: FontWeight.normal,
           ),
@@ -173,7 +173,7 @@ class _MyBills extends StatelessWidget {
         spacerS,
         const Text('Mis facturas', style: AppTextStyle.h2Style),
         Text(
-          getIt.get<LocalDataRepository>().user?.name ?? '',
+          LocalDataRepository().user?.name ?? '',
           style: AppTextStyle.h3Style.copyWith(
             fontWeight: FontWeight.normal,
           ),

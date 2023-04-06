@@ -38,24 +38,24 @@ class EnrollEventPage extends StatelessWidget {
                     ),
                     spacerM,
 
-                    MyCalendar(
-                      dates: [
-                        DateTime(2023, 3, 28),
-                        DateTime(2023, 3, 30),
-                        DateTime(2023, 3, 29),
-                      ],
-                      onSelectedDate: (dateTime) {
-                        _dialogConfirmSchedule(context, dateTime).then((v) {
-                          if (v!) {
-                            _dialogEnrollEmployee(context).then((v) {
-                              if (v!) {
-                                _dialogCongratulations(context, dateTime);
-                              }
-                            });
-                          }
-                        });
-                      },
-                    ),
+                    // MyCalendar(
+                    //   dates: [
+                    //     DateTime(2023, 3, 28),
+                    //     DateTime(2023, 3, 30),
+                    //     DateTime(2023, 3, 29),
+                    //   ],
+                    //   onSelectedDate: (dateTime) {
+                    //     _dialogConfirmSchedule(context, dateTime).then((v) {
+                    //       if (v!) {
+                    //         _dialogEnrollEmployee(context).then((v) {
+                    //           if (v!) {
+                    //             _dialogCongratulations(context, dateTime);
+                    //           }
+                    //         });
+                    //       }
+                    //     });
+                    //   },
+                    // ),
 
                     //TEST
                   ],

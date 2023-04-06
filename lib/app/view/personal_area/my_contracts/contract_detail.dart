@@ -64,7 +64,7 @@ class ContractDetailPage extends StatelessWidget {
                     ),
                     spacerXs,
                     Text(
-                      getIt.get<LocalDataRepository>().user?.name ?? '',
+                      LocalDataRepository().user?.name ?? '',
                       style: AppTextStyle.defaultStyle,
                     ),
                     spacerL,

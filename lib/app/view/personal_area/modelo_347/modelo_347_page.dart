@@ -38,7 +38,7 @@ class _Modelo347PageState extends State<Modelo347Page> {
             children: [
               const Text('Modelo 347', style: AppTextStyle.h1Style),
               Text(
-                getIt.get<LocalDataRepository>().user?.name ?? '',
+                LocalDataRepository().user?.name ?? '',
                 style: AppTextStyle.h3Style.copyWith(
                   fontWeight: FontWeight.normal,
                 ),

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:vemare/app/domain/model/category.dart';
+import 'package:vemare/app/domain/model/events.dart';
+import 'package:vemare/app/domain/model/events_vemare.dart';
+import 'package:vemare/app/domain/model/formation.dart';
+import 'package:vemare/app/domain/model/galery.dart';
 import 'package:vemare/app/domain/model/services.dart';
 import 'package:vemare/app/view/about_us/about_us_page.dart';
 import 'package:vemare/app/view/home/home_page.dart';
@@ -9,18 +12,20 @@ import 'package:vemare/app/view/my_notifications/my_notifications_page.dart';
 import 'package:vemare/app/view/my_services/events/enroll_event.dart';
 import 'package:vemare/app/view/my_services/events/event_detail_page.dart';
 import 'package:vemare/app/view/my_services/events/events_page.dart';
-import 'package:vemare/app/view/my_services/events/events_vemare_page.dart';
+import 'package:vemare/app/view/my_services/events/events_vemare/events_vemare_page.dart';
 import 'package:vemare/app/view/my_services/events/my_events_page.dart';
-import 'package:vemare/app/view/my_services/events/other_event_page.dart';
+import 'package:vemare/app/view/my_services/events/other_events/other_event_page.dart';
+import 'package:vemare/app/view/my_services/events/other_events/other_events_list.dart';
 import 'package:vemare/app/view/news/news_page.dart';
+import 'package:vemare/app/view/our_history/our_history.dart';
 import 'package:vemare/app/view/personal_area/SAT/sat_page.dart';
 import 'package:vemare/app/view/personal_area/modelo_347/modelo_347_page.dart';
 import 'package:vemare/app/view/personal_area/my_account/my_account_page.dart';
 import 'package:vemare/app/view/my_services/formations/detail_formation.dart';
 import 'package:vemare/app/view/my_services/formations/enroll_training.dart';
-import 'package:vemare/app/view/my_services/formations/formations.dart';
-import 'package:vemare/app/view/my_services/service_general.dart';
-import 'package:vemare/app/view/my_services/services_page.dart';
+import 'package:vemare/app/view/my_services/formations/formations/formations_page.dart';
+import 'package:vemare/app/view/my_services/services/service_general.dart';
+import 'package:vemare/app/view/my_services/services/services_page.dart';
 import 'package:vemare/app/view/my_services/formations/skillful_formation.dart';
 import 'package:vemare/app/view/our_products/detail_product/detail_product.dart';
 import 'package:vemare/app/view/our_products/products_categories/our_products_page.dart';
@@ -63,9 +68,10 @@ abstract class AppRouter {
           builder: (_) => const SplashPage(),
         );
       case LoginPage.route:
+        final bool? goBack = settings.arguments as bool?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => LoginPage.create(),
+          builder: (_) => LoginPage.create(goBack: goBack != null),
         );
       case RegisterPage.route:
         return MaterialPageRoute<void>(
@@ -144,7 +150,7 @@ abstract class AppRouter {
       case ServicesPage.route:
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const ServicesPage(),
+          builder: (_) => ServicesPage.create(),
         );
       case ServiceGeneralPage.route:
         final Services? service = settings.arguments as Services?;
@@ -155,12 +161,13 @@ abstract class AppRouter {
       case FormationsPage.route:
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const FormationsPage(),
+          builder: (_) => FormationsPage.create(),
         );
       case SkillFormationPage.route:
+        final Formations? formations = settings.arguments as Formations?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const SkillFormationPage(),
+          builder: (_) => SkillFormationPage(formations!),
         );
       case AboutUsPage.route:
         return MaterialPageRoute<void>(
@@ -173,14 +180,16 @@ abstract class AppRouter {
           builder: (_) => const ShoppingCartPage(),
         );
       case DetailFormationPage.route:
+        final Formation? formation = settings.arguments as Formation?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const DetailFormationPage(),
+          builder: (_) => DetailFormationPage(formation!),
         );
       case EnrollTrainingPage.route:
+        final Formation? formation = settings.arguments as Formation?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const EnrollTrainingPage(),
+          builder: (_) => EnrollTrainingPage(formation!),
         );
       case MyAccountPage.route:
         return MaterialPageRoute<void>(
@@ -258,9 +267,10 @@ abstract class AppRouter {
           builder: (_) => const EventsPage(),
         );
       case OtherEventPage.route:
+        final event = settings.arguments as Events?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const OtherEventPage(),
+          builder: (_) => OtherEventPage(event!),
         );
       case EnrollEventPage.route:
         return MaterialPageRoute<void>(
@@ -270,7 +280,7 @@ abstract class AppRouter {
       case EventsVemarePage.route:
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const EventsVemarePage(),
+          builder: (_) => EventsVemarePage.create(),
         );
       case MyEventsPage.route:
         return MaterialPageRoute<void>(
@@ -278,9 +288,10 @@ abstract class AppRouter {
           builder: (_) => const MyEventsPage(),
         );
       case EventDetailPage.route:
+        final event = settings.arguments as EventsVemare?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const EventDetailPage(),
+          builder: (_) => EventDetailPage(event!),
         );
       case WorkshopNetworksPage.route:
         final int? id = settings.arguments as int?;
@@ -307,6 +318,16 @@ abstract class AppRouter {
         return MaterialPageRoute<void>(
           settings: settings,
           builder: (_) => PillsPage.create(),
+        );
+      case OurHistoryPage.route:
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => const OurHistoryPage(),
+        );
+      case OtherEventsListPage.route:
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => OtherEventsListPage.create(),
         );
 
       default:

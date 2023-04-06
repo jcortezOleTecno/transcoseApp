@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
-import 'package:vemare/app/view/my_services/events/events_vemare_page.dart';
+import 'package:vemare/app/view/login/login_page.dart';
+import 'package:vemare/app/view/my_services/events/events_vemare/events_vemare_page.dart';
 import 'package:vemare/app/view/my_services/events/my_events_page.dart';
-import 'package:vemare/app/view/my_services/events/other_event_page.dart';
+import 'package:vemare/app/view/my_services/events/other_events/other_event_page.dart';
+import 'package:vemare/app/view/my_services/events/other_events/other_events_list.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
@@ -35,20 +38,33 @@ class EventsPage extends StatelessWidget {
                       title: 'Mis eventos',
                       content:
                           'Consulta las fechas y toda la información de tus próximos eventos y no te pierdas ningún detalle.',
+                      img: 'assets/imgs/misEventosIMG.png',
                       onTap: () {
-                        Navigator.pushNamed(context, MyEventsPage.route);
+                        if (LocalDataRepository().isLogged) {
+                          Navigator.pushNamed(context, MyEventsPage.route);
+                        } else {
+                          Navigator.pushNamed(
+                            context,
+                            LoginPage.route,
+                            arguments: true,
+                          ).then((_) {
+                            Navigator.pushNamed(context, MyEventsPage.route);
+                          });
+                        }
                       },
                     ),
                     _Item(
                       title: 'Otros eventos',
+                      img: 'assets/imgs/otrosEventosIMG.png',
                       content:
                           'Junto a nuestros proveedores creamos momentos únicos que ahora puedes consultar.',
                       onTap: () {
-                        Navigator.pushNamed(context, OtherEventPage.route);
+                        Navigator.pushNamed(context, OtherEventsListPage.route);
                       },
                     ),
                     _Item(
                       title: 'Eventos Vemare',
+                      img: 'assets/imgs/eventosVemareIMG.png',
                       content:
                           'Encuentros, charlas, presentaciones... Infórmate sobre todos los eventos que creamos para nuestros clientes.',
                       onTap: () {
@@ -71,12 +87,14 @@ class _Item extends StatelessWidget {
     this.onTap,
     required this.title,
     required this.content,
+    required this.img,
     Key? key,
   }) : super(key: key);
 
   final void Function()? onTap;
   final String title;
   final String content;
+  final String img;
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +108,7 @@ class _Item extends StatelessWidget {
         ),
         child: Column(children: [
           Image.asset(
-            'assets/imgs/ADservice.png',
+            img,
             width: double.infinity,
             height: 150,
             fit: BoxFit.cover,

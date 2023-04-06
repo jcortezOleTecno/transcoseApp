@@ -1,6 +1,7 @@
 // import 'package:dropdown_search/dropdown_search.dart' as drop;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:vemare/app/domain/model/formation.dart';
 import 'package:vemare/app/domain/model/people.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
@@ -15,8 +16,9 @@ import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
 class EnrollTrainingPage extends StatelessWidget {
-  const EnrollTrainingPage({super.key});
+  const EnrollTrainingPage(this.formation, {super.key});
   static const route = '/enroll_training';
+  final Formation formation;
 
   @override
   Widget build(BuildContext context) {
@@ -26,34 +28,30 @@ class EnrollTrainingPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              MyBackButton(),
+              const MyBackButton(),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      'Nombre de la formación',
+                      formation.title ?? '',
                       style: AppTextStyle.h1Style,
                     ),
                     spacerS,
-                    Text(
+                    const Text(
                       'Selecciona un area de formación',
                       style: AppTextStyle.defaultStyle,
                     ),
                     spacerXL,
                     MyCalendar(
-                      dates: [
-                        DateTime(2023, 4, 01),
-                        DateTime(2023, 3, 31),
-                        DateTime(2023, 3, 29),
-                      ],
-                      onSelectedDate: (dateTime) {
-                        _dialogConfirmSchedule(context, dateTime).then((v) {
+                      dates: formation.horario ?? [],
+                      onSelectedDate: (horario) {
+                        _dialogConfirmSchedule(context, horario).then((v) {
                           if (v!) {
                             _dialogEnrollEmployee(context).then((v) {
                               if (v!) {
-                                _dialogCongratulations(context, dateTime);
+                                _dialogCongratulations(context, horario);
                               }
                             });
                           }
@@ -74,7 +72,7 @@ class EnrollTrainingPage extends StatelessWidget {
 
   Future<bool?> _dialogConfirmSchedule(
     BuildContext context,
-    DateTime dateTime,
+    Horario horario,
   ) {
     return showDialog<bool>(
         context: context,
@@ -107,11 +105,12 @@ class EnrollTrainingPage extends StatelessWidget {
                       children: [
                         TextSpan(
                           text: DateFormat.MMMMd('es')
-                              .format(dateTime)
+                              .format(horario.date!)
                               .toUpperCase(),
                         ),
                         TextSpan(
-                          text: ' 14:30 - 16:30 h',
+                          text:
+                              ' - ${DateFormat.jm().format(DateFormat.j('es').parse(horario.time!))}',
                           style: AppTextStyle.defaultStyle
                               .copyWith(color: AppColor.neutral40),
                         ),
@@ -128,21 +127,20 @@ class EnrollTrainingPage extends StatelessWidget {
                         color: AppColor.primaryBlue,
                       ),
                       spacerS,
-                      const Text(
-                        'Calle Libertad 20, Madrid',
-                        style: AppTextStyle.defaultStyle,
+                      Text(
+                        horario.location ?? '',
+                        style: AppTextStyle.defaultStyle.copyWith(fontSize: 18),
                       )
                     ],
                   ),
                   spacerM,
                   Text(
-                    "Nombre de la formación",
+                    formation.title ?? '',
                     style: AppTextStyle.h3Style,
                   ),
                   spacerS,
                   Text(
-                    '''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id consectetur quis enim, neque. Diam massa ornare mauris sed vestibulum. Curabitur erat nisl nibh sit vulputate cras auctor.
-Enim, ipsum pellentesque vestibulum sed elit. Quis tortor libero nisi, lorem nullam arcu facilisis.''',
+                    formation.description ?? '',
                     style: AppTextStyle.defaultStyle,
                     textAlign: TextAlign.center,
                   ),
@@ -507,7 +505,7 @@ Enim, ipsum pellentesque vestibulum sed elit. Quis tortor libero nisi, lorem nul
     );
   }
 
-  Future _dialogCongratulations(BuildContext context, DateTime dateTime) {
+  Future _dialogCongratulations(BuildContext context, Horario horario) {
     return showDialog(
       context: context,
       barrierDismissible: false,
@@ -555,7 +553,7 @@ Enim, ipsum pellentesque vestibulum sed elit. Quis tortor libero nisi, lorem nul
                                   text: 'Hemos confirmado tu formación en',
                                 ),
                                 TextSpan(
-                                  text: ' Lorem ipsun ',
+                                  text: ' ${formation.title ?? ''} ',
                                   style: AppTextStyle.defaultStyle
                                       .copyWith(fontWeight: FontWeight.bold),
                                 ),
@@ -564,7 +562,7 @@ Enim, ipsum pellentesque vestibulum sed elit. Quis tortor libero nisi, lorem nul
                                 ),
                                 TextSpan(
                                   text:
-                                      '${DateFormat.MMMMd('es').format(dateTime).toUpperCase()}.',
+                                      '${DateFormat.MMMMd('es').format(horario.date!).toUpperCase()}.',
                                   style: AppTextStyle.defaultStyle
                                       .copyWith(fontWeight: FontWeight.bold),
                                 ),

@@ -1,4 +1,4 @@
-import 'package:vemare/app/view/my_services/services_page.dart';
+import 'package:vemare/app/view/my_services/services/services_page.dart';
 
 final serviceData = <ServiceClass>[
   ServiceClass(

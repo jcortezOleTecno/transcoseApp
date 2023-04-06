@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$LoginState {
   FormStatus get status => throw _privateConstructorUsedError;
   bool get rememberData => throw _privateConstructorUsedError;
+  bool get goBack => throw _privateConstructorUsedError;
   String? get msgError => throw _privateConstructorUsedError;
   String? get initialEmail => throw _privateConstructorUsedError;
   String? get initialPassword => throw _privateConstructorUsedError;
@@ -38,6 +39,7 @@ abstract class $LoginStateCopyWith<$Res> {
   $Res call(
       {FormStatus status,
       bool rememberData,
+      bool goBack,
       String? msgError,
       String? initialEmail,
       String? initialPassword,
@@ -60,6 +62,7 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
   $Res call({
     Object? status = null,
     Object? rememberData = null,
+    Object? goBack = null,
     Object? msgError = freezed,
     Object? initialEmail = freezed,
     Object? initialPassword = freezed,
@@ -74,6 +77,10 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
       rememberData: null == rememberData
           ? _value.rememberData
           : rememberData // ignore: cast_nullable_to_non_nullable
+              as bool,
+      goBack: null == goBack
+          ? _value.goBack
+          : goBack // ignore: cast_nullable_to_non_nullable
               as bool,
       msgError: freezed == msgError
           ? _value.msgError
@@ -110,6 +117,7 @@ abstract class _$$_LoginStateCopyWith<$Res>
   $Res call(
       {FormStatus status,
       bool rememberData,
+      bool goBack,
       String? msgError,
       String? initialEmail,
       String? initialPassword,
@@ -130,6 +138,7 @@ class __$$_LoginStateCopyWithImpl<$Res>
   $Res call({
     Object? status = null,
     Object? rememberData = null,
+    Object? goBack = null,
     Object? msgError = freezed,
     Object? initialEmail = freezed,
     Object? initialPassword = freezed,
@@ -144,6 +153,10 @@ class __$$_LoginStateCopyWithImpl<$Res>
       rememberData: null == rememberData
           ? _value.rememberData
           : rememberData // ignore: cast_nullable_to_non_nullable
+              as bool,
+      goBack: null == goBack
+          ? _value.goBack
+          : goBack // ignore: cast_nullable_to_non_nullable
               as bool,
       msgError: freezed == msgError
           ? _value.msgError
@@ -175,6 +188,7 @@ class _$_LoginState extends _LoginState {
   const _$_LoginState(
       {this.status = FormStatus.editing,
       this.rememberData = false,
+      this.goBack = false,
       this.msgError,
       this.initialEmail,
       this.initialPassword,
@@ -189,6 +203,9 @@ class _$_LoginState extends _LoginState {
   @JsonKey()
   final bool rememberData;
   @override
+  @JsonKey()
+  final bool goBack;
+  @override
   final String? msgError;
   @override
   final String? initialEmail;
@@ -201,7 +218,7 @@ class _$_LoginState extends _LoginState {
 
   @override
   String toString() {
-    return 'LoginState(status: $status, rememberData: $rememberData, msgError: $msgError, initialEmail: $initialEmail, initialPassword: $initialPassword, email: $email, password: $password)';
+    return 'LoginState(status: $status, rememberData: $rememberData, goBack: $goBack, msgError: $msgError, initialEmail: $initialEmail, initialPassword: $initialPassword, email: $email, password: $password)';
   }
 
   @override
@@ -212,6 +229,7 @@ class _$_LoginState extends _LoginState {
             (identical(other.status, status) || other.status == status) &&
             (identical(other.rememberData, rememberData) ||
                 other.rememberData == rememberData) &&
+            (identical(other.goBack, goBack) || other.goBack == goBack) &&
             (identical(other.msgError, msgError) ||
                 other.msgError == msgError) &&
             (identical(other.initialEmail, initialEmail) ||
@@ -224,8 +242,8 @@ class _$_LoginState extends _LoginState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, rememberData, msgError,
-      initialEmail, initialPassword, email, password);
+  int get hashCode => Object.hash(runtimeType, status, rememberData, goBack,
+      msgError, initialEmail, initialPassword, email, password);
 
   @JsonKey(ignore: true)
   @override
@@ -238,6 +256,7 @@ abstract class _LoginState extends LoginState {
   const factory _LoginState(
       {final FormStatus status,
       final bool rememberData,
+      final bool goBack,
       final String? msgError,
       final String? initialEmail,
       final String? initialPassword,
@@ -249,6 +268,8 @@ abstract class _LoginState extends LoginState {
   FormStatus get status;
   @override
   bool get rememberData;
+  @override
+  bool get goBack;
   @override
   String? get msgError;
   @override

@@ -6,7 +6,6 @@ import 'package:slide_to_confirm/slide_to_confirm.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
-import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/about_us/about_us_page.dart';
 import 'package:vemare/app/view/home/home_page.dart';
@@ -17,7 +16,7 @@ import 'package:vemare/app/view/my_notifications/my_notifications_page.dart';
 import 'package:vemare/app/view/personal_area/SAT/sat_page.dart';
 import 'package:vemare/app/view/personal_area/modelo_347/modelo_347_page.dart';
 import 'package:vemare/app/view/personal_area/my_account/my_account_page.dart';
-import 'package:vemare/app/view/my_services/services_page.dart';
+import 'package:vemare/app/view/my_services/services/services_page.dart';
 import 'package:vemare/app/view/our_products/type_of_vehicle_page.dart';
 import 'package:vemare/app/view/personal_area/my_budget/my_budget_page.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/my_contracts_page.dart';
@@ -28,7 +27,6 @@ import 'package:vemare/app/view/shopping_cart/shopping_cart.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
-import 'package:vemare/config/service_locator.dart';
 
 class MyMenu extends StatelessWidget {
   const MyMenu._({
@@ -37,9 +35,7 @@ class MyMenu extends StatelessWidget {
 
   static Widget create() {
     return BlocProvider(
-      create: (context) => MenuCubit(
-        getIt.get<LocalDataRepository>(),
-      ),
+      create: (context) => MenuCubit(),
       child: const MyMenu._(),
     );
   }
@@ -206,7 +202,7 @@ class _Menu extends StatelessWidget {
           builder: (ctx, state) {
             return Column(
               children: [
-                state.isLogged
+                LocalDataRepository().isLogged
                     ? const _HeaderMenu()
                     : Padding(
                         padding: const EdgeInsets.symmetric(vertical: 15),
@@ -278,7 +274,7 @@ class _Menu extends StatelessWidget {
                   },
                 ),
                 Visibility(
-                  visible: state.isLogged,
+                  visible: LocalDataRepository().isLogged,
                   child: Column(
                     children: [
                       divider,
@@ -386,13 +382,13 @@ class _Menu extends StatelessWidget {
                   ),
                 ),
                 Visibility(
-                  visible: state.isLogged,
+                  visible: LocalDataRepository().isLogged,
                   child: Column(
                     children: [
                       divider,
                       ListTile(
                         onTap: () {
-                          getIt.get<LocalDataRepository>().logOut().then((_) {
+                          LocalDataRepository().logOut().then((_) {
                             Navigator.pushNamedAndRemoveUntil(
                                 ctx, LoginPage.route, (route) => false);
                           });
@@ -412,8 +408,9 @@ class _Menu extends StatelessWidget {
                 ),
                 divider,
                 _MenuItemExpand(
-                  title:
-                      state.isLogged ? 'Mis contactos Vemare' : 'Mis contactos',
+                  title: LocalDataRepository().isLogged
+                      ? 'Mis contactos Vemare'
+                      : 'Mis contactos',
                   icon: Image.asset(
                     'assets/icons/Phone.png',
                     scale: 2,
@@ -535,7 +532,7 @@ class _HeaderMenu extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                state.user?.name ?? '',
+                LocalDataRepository().user?.name ?? '',
                 style: AppTextStyle.menuStyle,
               ),
               spacerS,
@@ -543,7 +540,7 @@ class _HeaderMenu extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      '${state.user?.responsibleName ?? ''} ${state.user?.responsibleLastname ?? ''}',
+                      '${LocalDataRepository().user?.responsibleName ?? ''} ${LocalDataRepository().user?.responsibleLastname ?? ''}',
                       style: AppTextStyle.menuStyle
                           .copyWith(fontWeight: FontWeight.normal),
                     ),
@@ -631,7 +628,7 @@ class _NotificationsMenu extends StatelessWidget {
               ),
             ),
           ),
-          Divider(color: Colors.white),
+          const Divider(color: Colors.white),
           ListTile(
             leading: Image.asset('assets/icons/Notifications.png', scale: 2),
             title: Text(
@@ -646,9 +643,9 @@ class _NotificationsMenu extends StatelessWidget {
               ),
             ),
           ),
-          Divider(color: Colors.white),
+          const Divider(color: Colors.white),
           Visibility(
-            visible: getIt.get<LocalDataRepository>().isLogged,
+            visible: LocalDataRepository().isLogged,
             child: SizedBox(
               height: 60,
               child: Align(

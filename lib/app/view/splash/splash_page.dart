@@ -23,7 +23,7 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   void initState() {
-    final logged = getIt.get<LocalDataRepository>().isLogged;
+    final logged = LocalDataRepository().isLogged;
     Future.delayed(const Duration(milliseconds: 3500), () {
       if (logged) {
         Navigator.pushReplacementNamed(context, HomePage.route);

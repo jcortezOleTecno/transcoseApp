@@ -12,7 +12,8 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit(
     this._authRepository,
     this._localDataRepository,
-  ) : super(const LoginState()) {
+    bool goBack,
+  ) : super(LoginState(goBack: goBack)) {
     getRememberData();
   }
 

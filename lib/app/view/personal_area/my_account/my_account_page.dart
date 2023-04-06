@@ -18,7 +18,7 @@ class MyAccountPage extends StatelessWidget {
   static Widget create() {
     return BlocProvider(
       create: (context) => MyAccountCubit(
-        getIt.get<LocalDataRepository>(),
+        LocalDataRepository(),
       ),
       child: const MyAccountPage._(),
     );

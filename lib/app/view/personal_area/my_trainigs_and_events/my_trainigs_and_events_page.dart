@@ -25,7 +25,7 @@ class MyTrainingAndEventsPage extends StatelessWidget {
               const Text('Mis formaciones y eventos',
                   style: AppTextStyle.h1Style),
               Text(
-                getIt.get<LocalDataRepository>().user?.name ?? '',
+                LocalDataRepository().user?.name ?? '',
                 style: AppTextStyle.h3Style.copyWith(
                   fontWeight: FontWeight.normal,
                 ),

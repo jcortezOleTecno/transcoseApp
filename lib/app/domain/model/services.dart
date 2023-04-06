@@ -1,3 +1,5 @@
+import 'package:vemare/app/domain/model/galery.dart';
+
 class Services {
   final int? id;
   final String? title;
@@ -10,6 +12,7 @@ class Services {
   final String? buttonText;
   final String? youtubeVideo;
   final String? image;
+  final List<Gallery>? gallery;
 
   Services({
     this.id,
@@ -23,6 +26,7 @@ class Services {
     this.buttonText,
     this.youtubeVideo,
     this.image,
+    this.gallery,
   });
   factory Services.froJson(dynamic map) {
     return Services(
@@ -37,6 +41,8 @@ class Services {
       buttonText: map['button_text'] as String?,
       youtubeVideo: map['youtube_video'] as String?,
       image: map['image'] as String?,
+      gallery:
+          List<Gallery>.from(map["gallery"].map((x) => Gallery.fromJson(x))),
     );
   }
 
@@ -53,6 +59,7 @@ class Services {
       'button_text': buttonText,
       'youtube_video': youtubeVideo,
       'image': image,
+      "gallery": List<dynamic>.from(gallery!.map((x) => x.toJson())),
     };
   }
 }

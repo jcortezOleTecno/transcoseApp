@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
-import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_label_status/my_label_status.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
-import 'package:vemare/config/service_locator.dart';
 
 class SatPage extends StatelessWidget {
   const SatPage({super.key});
@@ -24,7 +22,7 @@ class SatPage extends StatelessWidget {
               const Text('Mis formaciones y eventos',
                   style: AppTextStyle.h1Style),
               Text(
-                getIt.get<LocalDataRepository>().user?.name ?? '',
+                LocalDataRepository().user?.name ?? '',
                 style: AppTextStyle.h3Style.copyWith(
                   fontWeight: FontWeight.normal,
                 ),

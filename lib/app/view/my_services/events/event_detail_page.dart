@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vemare/app/domain/model/events_vemare.dart';
+import 'package:vemare/app/domain/model/galery.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_filter_image/my_filter_image.dart';
@@ -7,8 +9,10 @@ import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
 class EventDetailPage extends StatelessWidget {
-  const EventDetailPage({super.key});
+  const EventDetailPage(this.event, {super.key});
   static const route = '/event_detail_page';
+
+  final EventsVemare event;
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +28,12 @@ class EventDetailPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Lorem ipsum', style: AppTextStyle.h2Style),
+                    Text(event.title ?? '', style: AppTextStyle.h2Style),
                     spacerL,
-                    ...List.generate(5, (i) {
-                      return _Item();
-                    })
+                    if (event.gallery != null)
+                      Column(
+                        children: event.gallery!.map((e) => _Item(e)).toList(),
+                      )
                   ],
                 ),
               ),
@@ -41,9 +46,12 @@ class EventDetailPage extends StatelessWidget {
 }
 
 class _Item extends StatelessWidget {
-  const _Item({
+  const _Item(
+    this.galery, {
     Key? key,
   }) : super(key: key);
+
+  final Gallery galery;
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +60,8 @@ class _Item extends StatelessWidget {
       height: 220,
       width: double.infinity,
       child: Stack(fit: StackFit.expand, children: [
-        const Image(
-          image: AssetImage('assets/imgs/AD360IMG.png'),
+        Image(
+          image: NetworkImage(galery.imagen),
           fit: BoxFit.cover,
         ),
         const MyFilterImage(),

@@ -5,7 +5,7 @@ import 'package:vemare/app/view/theme/text_style.dart';
 
 class MySingleCard extends StatelessWidget {
   const MySingleCard({
-    required this.icon,
+    this.icon,
     required this.title,
     required this.content,
     this.margin,
@@ -15,7 +15,7 @@ class MySingleCard extends StatelessWidget {
 
   final EdgeInsetsGeometry? margin;
   final void Function()? onTap;
-  final Widget icon;
+  final Widget? icon;
   final String title;
   final String content;
 
@@ -31,15 +31,16 @@ class MySingleCard extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: AppColor.blue100,
+                if (icon != null)
+                  Container(
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColor.blue100,
+                    ),
+                    height: 40,
+                    width: 40,
+                    child: icon,
                   ),
-                  height: 40,
-                  width: 40,
-                  child: icon,
-                ),
                 spacerS,
                 Expanded(
                   child: Column(

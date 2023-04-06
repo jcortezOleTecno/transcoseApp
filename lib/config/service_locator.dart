@@ -2,9 +2,12 @@
 
 import 'package:get_it/get_it.dart';
 import 'package:vemare/app/data/_api.dart';
+import 'package:vemare/app/data/about_us_repository.dart';
 import 'package:vemare/app/data/auth_repository.dart';
 import 'package:vemare/app/data/brands_repository.dart';
 import 'package:vemare/app/data/center_repository.dart';
+import 'package:vemare/app/data/events_repository.dart';
+import 'package:vemare/app/data/formations_repository.dart';
 import 'package:vemare/app/data/home_repository.dart';
 import 'package:vemare/app/data/library_repository.dart';
 import 'package:vemare/app/data/notices_repository.dart';
@@ -21,11 +24,11 @@ abstract class ServiceLocator {
   static Future<void> setup() async {
     final myApi = MyApi();
     getIt
-      ..registerFactory(LocalDataRepository.new)
+      // ..registerSingleton(LocalDataRepository.new)
       ..registerFactory(
         () => AuthRepository(
           apiClient: myApi,
-          localDataRepository: getIt.get<LocalDataRepository>(),
+          localDataRepository: LocalDataRepository(),
         ),
       )
       ..registerFactory(() => HomeRepository(myApi))
@@ -37,6 +40,9 @@ abstract class ServiceLocator {
       ..registerFactory(() => NoticesRepository(myApi))
       ..registerFactory(() => LibraryRepository(myApi))
       ..registerFactory(() => PillsRepository(myApi))
-      ..registerFactory(() => CenterRepository(myApi));
+      ..registerFactory(() => CenterRepository(myApi))
+      ..registerFactory(() => FormationsRepository(myApi))
+      ..registerFactory(() => EventsRepository(myApi))
+      ..registerFactory(() => AboutUsRepository(myApi));
   }
 }

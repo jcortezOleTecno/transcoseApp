@@ -21,9 +21,9 @@ import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/home/bloc/home_cubit.dart';
 import 'package:vemare/app/view/home/bloc/home_state.dart';
-import 'package:vemare/app/view/my_services/formations/formations.dart';
-import 'package:vemare/app/view/my_services/service_general.dart';
-import 'package:vemare/app/view/my_services/services_page.dart';
+import 'package:vemare/app/view/my_services/formations/formations/formations_page.dart';
+import 'package:vemare/app/view/my_services/services/service_general.dart';
+import 'package:vemare/app/view/my_services/services/services_page.dart';
 import 'package:vemare/app/view/news/news_page.dart';
 import 'package:vemare/app/view/our_products/product/product_page.dart';
 import 'package:vemare/app/view/our_products/type_of_vehicle_page.dart';
@@ -45,7 +45,7 @@ class HomePage extends StatelessWidget {
     return BlocProvider(
       create: (context) => HomeCubit(
         getIt.get<HomeRepository>(),
-        getIt.get<LocalDataRepository>(),
+        LocalDataRepository(),
         getIt.get<PromotionRepository>(),
         getIt.get<ProductsRepository>(),
         getIt.get<ServicesRepository>(),

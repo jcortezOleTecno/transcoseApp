@@ -8,8 +8,8 @@ class MenuState with _$MenuState {
   const factory MenuState({
     @Default(false) bool isOpenMenu,
     @Default(false) bool isOpenNotification,
-    @Default(false) bool isLogged,
-    UserData? user,
+    // @Default(false) bool isLogged,
+    // UserData? user,
   }) = _MenuState;
 
   const MenuState._();
