@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$UserState {
   List<Employee> get employees => throw _privateConstructorUsedError;
+  List<Enterprise> get enterprises => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserStateCopyWith<UserState> get copyWith =>
@@ -28,7 +29,7 @@ abstract class $UserStateCopyWith<$Res> {
   factory $UserStateCopyWith(UserState value, $Res Function(UserState) then) =
       _$UserStateCopyWithImpl<$Res, UserState>;
   @useResult
-  $Res call({List<Employee> employees});
+  $Res call({List<Employee> employees, List<Enterprise> enterprises});
 }
 
 /// @nodoc
@@ -45,12 +46,17 @@ class _$UserStateCopyWithImpl<$Res, $Val extends UserState>
   @override
   $Res call({
     Object? employees = null,
+    Object? enterprises = null,
   }) {
     return _then(_value.copyWith(
       employees: null == employees
           ? _value.employees
           : employees // ignore: cast_nullable_to_non_nullable
               as List<Employee>,
+      enterprises: null == enterprises
+          ? _value.enterprises
+          : enterprises // ignore: cast_nullable_to_non_nullable
+              as List<Enterprise>,
     ) as $Val);
   }
 }
@@ -62,7 +68,7 @@ abstract class _$$_UserStateCopyWith<$Res> implements $UserStateCopyWith<$Res> {
       __$$_UserStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Employee> employees});
+  $Res call({List<Employee> employees, List<Enterprise> enterprises});
 }
 
 /// @nodoc
@@ -77,12 +83,17 @@ class __$$_UserStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? employees = null,
+    Object? enterprises = null,
   }) {
     return _then(_$_UserState(
       employees: null == employees
           ? _value._employees
           : employees // ignore: cast_nullable_to_non_nullable
               as List<Employee>,
+      enterprises: null == enterprises
+          ? _value._enterprises
+          : enterprises // ignore: cast_nullable_to_non_nullable
+              as List<Enterprise>,
     ));
   }
 }
@@ -90,8 +101,11 @@ class __$$_UserStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_UserState extends _UserState {
-  const _$_UserState({final List<Employee> employees = const <Employee>[]})
+  const _$_UserState(
+      {final List<Employee> employees = const <Employee>[],
+      final List<Enterprise> enterprises = const <Enterprise>[]})
       : _employees = employees,
+        _enterprises = enterprises,
         super._();
 
   final List<Employee> _employees;
@@ -103,9 +117,18 @@ class _$_UserState extends _UserState {
     return EqualUnmodifiableListView(_employees);
   }
 
+  final List<Enterprise> _enterprises;
+  @override
+  @JsonKey()
+  List<Enterprise> get enterprises {
+    if (_enterprises is EqualUnmodifiableListView) return _enterprises;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_enterprises);
+  }
+
   @override
   String toString() {
-    return 'UserState(employees: $employees)';
+    return 'UserState(employees: $employees, enterprises: $enterprises)';
   }
 
   @override
@@ -114,12 +137,16 @@ class _$_UserState extends _UserState {
         (other.runtimeType == runtimeType &&
             other is _$_UserState &&
             const DeepCollectionEquality()
-                .equals(other._employees, _employees));
+                .equals(other._employees, _employees) &&
+            const DeepCollectionEquality()
+                .equals(other._enterprises, _enterprises));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_employees));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_employees),
+      const DeepCollectionEquality().hash(_enterprises));
 
   @JsonKey(ignore: true)
   @override
@@ -129,11 +156,15 @@ class _$_UserState extends _UserState {
 }
 
 abstract class _UserState extends UserState {
-  const factory _UserState({final List<Employee> employees}) = _$_UserState;
+  const factory _UserState(
+      {final List<Employee> employees,
+      final List<Enterprise> enterprises}) = _$_UserState;
   const _UserState._() : super._();
 
   @override
   List<Employee> get employees;
+  @override
+  List<Enterprise> get enterprises;
   @override
   @JsonKey(ignore: true)
   _$$_UserStateCopyWith<_$_UserState> get copyWith =>

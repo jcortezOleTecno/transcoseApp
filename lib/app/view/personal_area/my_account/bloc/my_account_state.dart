@@ -5,7 +5,5 @@ part 'my_account_state.freezed.dart';
 
 @freezed
 class MyAccountState with _$MyAccountState {
-  const factory MyAccountState({
-    UserData? user,
-  }) = _MyAccountState;
+  const factory MyAccountState() = _MyAccountState;
 }

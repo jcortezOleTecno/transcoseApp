@@ -17,9 +17,7 @@ class MyAccountPage extends StatelessWidget {
 
   static Widget create() {
     return BlocProvider(
-      create: (context) => MyAccountCubit(
-        LocalDataRepository(),
-      ),
+      create: (context) => MyAccountCubit(),
       child: const MyAccountPage._(),
     );
   }
@@ -41,7 +39,7 @@ class MyAccountPage extends StatelessWidget {
                 const Text('Mi Cuenta', style: AppTextStyle.h1Style),
                 spacerXs,
                 Text(
-                  state.user?.name ?? '',
+                  LocalDataRepository().user?.name ?? '',
                   style: AppTextStyle.h3Style.copyWith(
                     fontWeight: FontWeight.normal,
                   ),
@@ -49,15 +47,15 @@ class MyAccountPage extends StatelessWidget {
                 spacerM,
                 MyInput(
                   label: 'Nombre',
-                  initialValue: state.user?.name ?? '',
+                  initialValue: LocalDataRepository().user?.name ?? '',
                 ),
                 MyInput(
                   label: 'Teléfono',
-                  initialValue: state.user?.phone,
+                  initialValue: LocalDataRepository().user?.phone,
                 ),
                 MyInput(
                   label: 'E-mail',
-                  initialValue: state.user?.email ?? '',
+                  initialValue: LocalDataRepository().user?.email ?? '',
                 ),
                 MyInput(
                   label: 'Contraseña',
@@ -65,19 +63,20 @@ class MyAccountPage extends StatelessWidget {
                 ),
                 MyInput(
                   label: 'CIF',
-                  initialValue: state.user?.cif ?? '',
+                  initialValue: LocalDataRepository().user?.cif ?? '',
                 ),
                 MyInput(
                   label: 'ID',
-                  initialValue: state.user?.parentId.toString() ?? '',
+                  initialValue:
+                      LocalDataRepository().user?.parentId.toString() ?? '',
                 ),
                 MyInput(
                   label: 'Dirección de envío',
-                  initialValue: 'Calle Santa Eugenia 45',
+                  initialValue: LocalDataRepository().user?.address ?? '',
                 ),
                 MyInput(
                   label: 'Dirección de facturación',
-                  initialValue: 'Calle Santa Eugenia 45',
+                  initialValue: LocalDataRepository().user?.address ?? '',
                 ),
                 MyButton(onPressed: () {}, text: 'Guardar cambios'),
                 spacerS,

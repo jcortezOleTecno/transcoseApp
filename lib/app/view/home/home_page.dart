@@ -429,59 +429,68 @@ class _LastService extends StatelessWidget {
             height: MediaQuery.of(context).size.width * .80,
           );
         }
-        return SizedBox(
-          height: MediaQuery.of(context).size.width * .80,
-          width: double.infinity,
-          child: Stack(fit: StackFit.expand, children: [
-            Image(
-              image: NetworkImage(state.services.last.image!),
-              fit: BoxFit.cover,
-            ),
-            const MyFilterImage(),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  const Spacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        state.services.last.title ?? '',
-                        style: AppTextStyle.linkStyle
-                            .copyWith(color: AppColor.white, fontSize: 22),
-                      ),
-                      Image.asset(
-                        'assets/icons/arrow_next.png',
-                        color: AppColor.white,
-                        scale: 2,
-                      ),
-                    ],
-                  ),
-                  spacerXs,
-                  Expanded(
-                    child: Column(
+        return GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(
+              context,
+              ServiceGeneralPage.route,
+              arguments: state.services.last,
+            );
+          },
+          child: SizedBox(
+            height: MediaQuery.of(context).size.width * .80,
+            width: double.infinity,
+            child: Stack(fit: StackFit.expand, children: [
+              Image(
+                image: NetworkImage(state.services.last.image!),
+                fit: BoxFit.cover,
+              ),
+              const MyFilterImage(),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    const Spacer(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SizedBox(
-                            child: MyHtml(
-                          text: state.services.last.subtitle ?? '',
-                          color: Colors.white,
-                        ) /*Text(
-                          state.services.last.description ?? '',
-                          style: AppTextStyle.contentCard.copyWith(
-                            color: AppColor.white,
-                            fontSize: 18,
-                            height: 1.8,
-                          ),*/
-                            // )
-                            )
+                        Text(
+                          state.services.last.title ?? '',
+                          style: AppTextStyle.linkStyle
+                              .copyWith(color: AppColor.white, fontSize: 22),
+                        ),
+                        Image.asset(
+                          'assets/icons/arrow_next.png',
+                          color: AppColor.white,
+                          scale: 2,
+                        ),
                       ],
                     ),
-                  )
-                ],
-              ),
-            )
-          ]),
+                    spacerXs,
+                    Expanded(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                              child: MyHtml(
+                            text: state.services.last.subtitle ?? '',
+                            color: Colors.white,
+                          ) /*Text(
+                            state.services.last.description ?? '',
+                            style: AppTextStyle.contentCard.copyWith(
+                              color: AppColor.white,
+                              fontSize: 18,
+                              height: 1.8,
+                            ),*/
+                              // )
+                              )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ]),
+          ),
         );
       },
     );
@@ -518,17 +527,11 @@ class _Servicios extends StatelessWidget {
                     PageController(initialPage: 0, viewportFraction: 0.9),
                 itemBuilder: (context, i) => GestureDetector(
                   onTap: () {
-                    if (state.services[i].title != 'Formaciones' &&
-                        state.services[i].title != 'Eventos') {
-                      Navigator.pushNamed(
-                        context,
-                        ServiceGeneralPage.route,
-                        arguments: state.services[i],
-                      );
-                    }
-                    if (state.services[i].title == 'Formaciones') {
-                      Navigator.pushNamed(context, FormationsPage.route);
-                    }
+                    Navigator.pushNamed(
+                      context,
+                      ServiceGeneralPage.route,
+                      arguments: state.services[i],
+                    );
                   },
                   child: Card(
                     margin:
@@ -703,6 +706,7 @@ class _ProductsVemare extends StatelessWidget {
                   onTap: () {
                     Navigator.pushNamed(context, ProductPage.route);
                   },
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
                   icon: Image.network(state.products[i].image!),
                   title: state.products[i].name ?? '',
                   content: state.products[i].subtitle ?? '',

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:slide_to_confirm/slide_to_confirm.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
@@ -23,6 +24,8 @@ import 'package:vemare/app/view/personal_area/my_contracts/my_contracts_page.dar
 import 'package:vemare/app/view/personal_area/my_orders/my_orders_page.dart';
 import 'package:vemare/app/view/personal_area/my_trainigs_and_events/my_trainigs_and_events_page.dart';
 import 'package:vemare/app/view/promotions/promotions_categories/promotions_page.dart';
+import 'package:vemare/app/view/shared/bloc/user_cubit.dart';
+import 'package:vemare/app/view/shared/bloc/user_state.dart';
 import 'package:vemare/app/view/shopping_cart/shopping_cart.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
@@ -407,30 +410,31 @@ class _Menu extends StatelessWidget {
                   ),
                 ),
                 divider,
-                _MenuItemExpand(
-                  title: LocalDataRepository().isLogged
-                      ? 'Mis contactos Vemare'
-                      : 'Mis contactos',
-                  icon: Image.asset(
-                    'assets/icons/Phone.png',
-                    scale: 2,
-                    color: AppColor.white,
+                if (LocalDataRepository().isLogged)
+                  BlocBuilder<UserCubit, UserState>(
+                    builder: (context, state) {
+                      return _MenuItemExpand(
+                          title: LocalDataRepository().isLogged
+                              ? 'Mis contactos Vemare'
+                              : 'Mis contactos',
+                          icon: Image.asset(
+                            'assets/icons/Phone.png',
+                            scale: 2,
+                            color: AppColor.white,
+                          ),
+                          children: state.enterprises
+                              .map(
+                                (e) => _MenuItem(
+                                  onTap: () =>
+                                      _callDialog(context, number: e.phone),
+                                  title: e.name,
+                                  subtitle:
+                                      '${e.phone.split('').getRange(0, 3).join()}  ${e.phone.split('').getRange(3, 6).join()}  ${e.phone.split('').getRange(6, 9).join()}',
+                                ),
+                              )
+                              .toList());
+                    },
                   ),
-                  children: [
-                    _MenuItem(
-                      onTap: () =>
-                          _callDialog(context, number: '+34 999 9999 9999'),
-                      title: 'comercial 1',
-                      subtitle: '999 9999 9999',
-                    ),
-                    _MenuItem(
-                      onTap: () =>
-                          _callDialog(context, number: '+34 123 4567 8998'),
-                      title: 'Comercial 2',
-                      subtitle: '123 4567 8998',
-                    ),
-                  ],
-                ),
                 spacerL,
                 ConfirmationSlider(
                   onConfirmation: () {},
@@ -460,7 +464,10 @@ class _Menu extends StatelessWidget {
       context: context,
       builder: (context) {
         return CupertinoAlertDialog(
-          content: Text(number, style: AppTextStyle.h3Style),
+          content: Text(
+            '${number.split('').getRange(0, 3).join()} ${number.split('').getRange(3, 6).join()} ${number.split('').getRange(6, 9).join()}',
+            style: AppTextStyle.h3Style,
+          ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),

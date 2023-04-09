@@ -52,7 +52,7 @@ class HomeCubit extends Cubit<HomeState> {
     List<Brand> brands = [];
 
     if (_userCubit.state.employees.isEmpty) {
-      unawaited(_userCubit.getEmployees());
+      unawaited(_userCubit.getEmployeesAndEnterprises());
     }
     await Future.wait([
       _homeRepository.getHero().then((v) => hero = v),

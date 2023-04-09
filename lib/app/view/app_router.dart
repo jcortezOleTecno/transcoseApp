@@ -3,6 +3,7 @@ import 'package:vemare/app/domain/model/events.dart';
 import 'package:vemare/app/domain/model/events_vemare.dart';
 import 'package:vemare/app/domain/model/formation.dart';
 import 'package:vemare/app/domain/model/galery.dart';
+import 'package:vemare/app/domain/model/promotion.dart';
 import 'package:vemare/app/domain/model/services.dart';
 import 'package:vemare/app/view/about_us/about_us_page.dart';
 import 'package:vemare/app/view/home/home_page.dart';
@@ -86,7 +87,7 @@ abstract class AppRouter {
       case WorkWithUsPage.route:
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const WorkWithUsPage(),
+          builder: (_) => WorkWithUsPage.create(),
         );
       case TypeOfVehiclePage.route:
         return MaterialPageRoute<void>(
@@ -126,9 +127,10 @@ abstract class AppRouter {
           builder: (_) => PromotionPage.create(args!),
         );
       case DetailSaleRent.route:
+        final promotion = settings.arguments as Promotion?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const DetailSaleRent(),
+          builder: (_) => DetailSaleRent.create(promotion!),
         );
       case RentingStorePage.route:
         final isStore = settings.arguments as bool?;
@@ -177,7 +179,7 @@ abstract class AppRouter {
       case ShoppingCartPage.route:
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const ShoppingCartPage(),
+          builder: (_) => ShoppingCartPage.create(),
         );
       case DetailFormationPage.route:
         final Formation? formation = settings.arguments as Formation?;

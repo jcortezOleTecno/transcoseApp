@@ -7,24 +7,18 @@ import 'package:vemare/app/domain/model/user_data.dart';
 import 'package:vemare/app/domain/model/user_rol.dart';
 
 class AuthRepository {
-  AuthRepository({
-    required this.apiClient,
-    required LocalDataRepository localDataRepository,
-  }) {
-    _localDataRepository = localDataRepository;
-  }
+  AuthRepository(this.apiClient);
 
   final MyApiClient apiClient;
-  late final LocalDataRepository _localDataRepository;
 
   Future<void> login({required String email, required String password}) async {
     final body = <String, dynamic>{'email': email, 'password': password};
     final dynamic res =
         await apiClient.postRequest('$BASE_API_URL/api/login', body: body);
-    _localDataRepository.authToken = res["access_token"];
+    LocalDataRepository().authToken = res["access_token"];
     final user = UserData.froJson(res['user']);
-    _localDataRepository.isLogged = true;
-    _localDataRepository.user = user;
+    LocalDataRepository().isLogged = true;
+    LocalDataRepository().user = user;
   }
 
   Future<void> registerEnterprise(Map<String, dynamic> data) async {

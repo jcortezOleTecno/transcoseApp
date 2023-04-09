@@ -34,6 +34,7 @@ class MyInput extends StatefulWidget {
     this.enabled,
     this.textInputAction,
     this.hintText,
+    this.inputFormatters,
   }) : super(key: key);
 
   final TextEditingController? controller;
@@ -61,6 +62,7 @@ class MyInput extends StatefulWidget {
   final int maxLines;
   final Widget? suffixWidget;
   final TextInputAction? textInputAction;
+  final List<TextInputFormatter>? inputFormatters;
 
   @override
   State<MyInput> createState() => _MyInputState();
@@ -118,6 +120,7 @@ class _MyInputState extends State<MyInput> {
           initialValue: widget.initialValue,
           onFieldSubmitted: widget.onFieldSubmitted,
           autofillHints: widget.autofillHints,
+          inputFormatters: widget.inputFormatters,
           style: AppTextStyle.inputStyle,
           autocorrect: false,
           maxLines: widget.maxLines,

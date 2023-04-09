@@ -126,7 +126,11 @@ class _Card extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, DetailSaleRent.route);
+        Navigator.pushNamed(
+          context,
+          DetailSaleRent.route,
+          arguments: promotion,
+        );
       },
       child: Card(
         margin: const EdgeInsets.symmetric(vertical: 7.5, horizontal: 15),
