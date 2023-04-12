@@ -15,7 +15,7 @@ import 'package:vemare/app/domain/model/category.dart';
 import 'package:vemare/app/domain/model/services.dart';
 import 'package:vemare/app/domain/model/workshop.dart';
 import 'package:vemare/app/view/home/bloc/home_state.dart';
-import 'package:vemare/app/view/shared/bloc/user_cubit.dart';
+import 'package:vemare/app/view/shared/userbloc/user_cubit.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit(

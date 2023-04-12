@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vemare/app/domain/model/budget.dart';
 import 'package:vemare/app/domain/model/events.dart';
 import 'package:vemare/app/domain/model/events_vemare.dart';
 import 'package:vemare/app/domain/model/formation.dart';
@@ -33,13 +34,13 @@ import 'package:vemare/app/view/our_products/products_categories/our_products_pa
 import 'package:vemare/app/view/our_products/product/product_page.dart';
 import 'package:vemare/app/view/our_products/search_my_product/search_my_product_page.dart';
 import 'package:vemare/app/view/our_products/type_of_vehicle_page.dart';
-import 'package:vemare/app/view/personal_area/my_budget/budget_detail.dart';
-import 'package:vemare/app/view/personal_area/my_budget/my_budget_page.dart';
+import 'package:vemare/app/view/personal_area/my_budget/budget_detail/budget_detail.dart';
+import 'package:vemare/app/view/personal_area/my_budget/my_budget/my_budget_page.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/contract_detail.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/my_contracts_page.dart';
 import 'package:vemare/app/view/personal_area/my_orders/albaran_detail.dart';
 import 'package:vemare/app/view/personal_area/my_orders/bill_detail.dart';
-import 'package:vemare/app/view/personal_area/my_orders/my_orders_page.dart';
+import 'package:vemare/app/view/personal_area/my_orders/my_orders/my_orders_page.dart';
 import 'package:vemare/app/view/personal_area/my_orders/order_detail.dart';
 import 'package:vemare/app/view/personal_area/my_orders/warranty_detail.dart';
 import 'package:vemare/app/view/personal_area/my_trainigs_and_events/my_trainigs_and_events_page.dart';
@@ -211,17 +212,18 @@ abstract class AppRouter {
       case MyBudgetPage.route:
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const MyBudgetPage(),
+          builder: (_) => MyBudgetPage.create(),
         );
       case BudgetDetailPage.route:
+        final Budget? budget = settings.arguments as Budget?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const BudgetDetailPage(),
+          builder: (_) => BudgetDetailPage.create(budget!),
         );
       case MyOrdersPage.route:
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const MyOrdersPage(),
+          builder: (_) => MyOrdersPage.create(),
         );
       case OrderDetailPage.route:
         return MaterialPageRoute<void>(

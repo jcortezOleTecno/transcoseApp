@@ -12,7 +12,7 @@ import 'package:vemare/app/view/home/home_page.dart';
 import 'package:vemare/app/view/login/bloc/login_cubit.dart';
 import 'package:vemare/app/view/login/bloc/login_state.dart';
 import 'package:vemare/app/view/register/register_page.dart';
-import 'package:vemare/app/view/shared/bloc/user_cubit.dart';
+import 'package:vemare/app/view/shared/userbloc/user_cubit.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';

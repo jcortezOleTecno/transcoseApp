@@ -20,12 +20,14 @@ class ShoppingCardRepository {
     return res["message"];
   }
 
-  Future<String?> shoppingAdd({required int id, required int quantity}) async {
+  Future<String?> shoppingAdd(
+      {required int id, required int quantity, required int renting}) async {
     final dynamic res = await _apiClient.postRequest(
         '$BASE_API_URL/api/promociones/shoppingAdd',
         body: <String, dynamic>{
           "productId": id.toString(),
           "quantity": quantity.toString(),
+          "renting": renting.toString(),
         });
     return res["message"];
   }

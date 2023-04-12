@@ -134,12 +134,16 @@ class _ShoppingItem extends StatelessWidget {
               Expanded(
                 child: RichText(
                   text: TextSpan(
-                    style: AppTextStyle.titleCard,
+                    style: AppTextStyle.defaultStyle.copyWith(
+                        fontWeight: FontWeight.w700, color: Colors.black),
                     children: [
                       TextSpan(
                         text: product.promotionName,
                       ),
-                      TextSpan(text: ' x1', style: AppTextStyle.defaultStyle),
+                      TextSpan(
+                          text: ' x${product.quantity}',
+                          style:
+                              AppTextStyle.defaultStyle.copyWith(fontSize: 14)),
                     ],
                   ),
                 ),

@@ -9,7 +9,7 @@ import 'package:vemare/app/domain/value_object/email.dart';
 import 'package:vemare/app/domain/value_object/password.dart';
 import 'package:vemare/app/domain/value_object/status.dart';
 import 'package:vemare/app/view/login/bloc/login_state.dart';
-import 'package:vemare/app/view/shared/bloc/user_cubit.dart';
+import 'package:vemare/app/view/shared/userbloc/user_cubit.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit(

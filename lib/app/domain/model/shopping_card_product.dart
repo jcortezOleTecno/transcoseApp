@@ -3,6 +3,7 @@ class ShoppingCardProduct {
     this.id,
     this.userId,
     this.renting,
+    this.quantity,
     this.promotionName,
     this.promotionPrice,
     this.image,
@@ -11,6 +12,7 @@ class ShoppingCardProduct {
   int? id;
   int? userId;
   int? renting;
+  int? quantity;
   String? promotionName;
   String? promotionPrice;
   String? image;
@@ -19,6 +21,7 @@ class ShoppingCardProduct {
     int? id,
     int? userId,
     int? renting,
+    int? quantity,
     String? promotionName,
     String? promotionPrice,
     String? image,
@@ -27,6 +30,7 @@ class ShoppingCardProduct {
         id: id ?? this.id,
         userId: userId ?? this.userId,
         renting: renting ?? this.renting,
+        quantity: quantity ?? this.quantity,
         promotionName: promotionName ?? this.promotionName,
         promotionPrice: promotionPrice ?? this.promotionPrice,
         image: image ?? this.image,
@@ -36,6 +40,7 @@ class ShoppingCardProduct {
         id: json["id"] as int?,
         userId: json["user_id"] as int?,
         renting: json["renting"] as int?,
+        quantity: json["quantity"] as int?,
         promotionName: json["promotion_name"] as String?,
         promotionPrice: json["promotion_price"] as String?,
         image: json["image"] as String?,
@@ -45,6 +50,7 @@ class ShoppingCardProduct {
         "id": id,
         "user_id": userId,
         "renting": renting,
+        "quantity": quantity,
         "promotion_name": promotionName,
         "promotion_price": promotionPrice,
         "image": image,

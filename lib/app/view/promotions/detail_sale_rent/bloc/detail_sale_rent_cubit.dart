@@ -23,7 +23,10 @@ class DetailSaleRentCubit extends Cubit<DetailSaleRentState> {
     emit(state.copyWith(loading: true));
 
     var message = await _shoppingCardRepository.shoppingAdd(
-        id: state.promotion!.id, quantity: state.quantity);
+      id: state.promotion!.id,
+      quantity: state.quantity,
+      renting: state.isTienda ? 0 : 1,
+    );
 
     emit(state.copyWith(
       loading: false,

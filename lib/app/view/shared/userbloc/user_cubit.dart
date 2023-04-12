@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:vemare/app/data/auth_repository.dart';
 import 'package:vemare/app/domain/model/employee.dart';
 import 'package:vemare/app/domain/model/enterprise.dart';
-import 'package:vemare/app/view/shared/bloc/user_state.dart';
+import 'package:vemare/app/view/shared/userbloc/user_state.dart';
 
 class UserCubit extends Cubit<UserState> {
   UserCubit(

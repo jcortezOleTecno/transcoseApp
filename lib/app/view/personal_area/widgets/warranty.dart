@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:vemare/app/domain/model/warranty.dart';
+import 'package:vemare/app/domain/utils/money_formatter.dart';
 import 'package:vemare/app/view/_components/my_label_status/my_label_status.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
-class Warranty extends StatelessWidget {
-  const Warranty({super.key, this.onTap});
+class WarrantyCard extends StatelessWidget {
+  const WarrantyCard(this.warranty, {super.key, this.onTap});
 
   final void Function()? onTap;
+  final Warranty warranty;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +26,7 @@ class Warranty extends StatelessWidget {
             children: [
               ListTile(
                 title: Text('N° de GARANTÍA', style: AppTextStyle.defaultStyle),
-                subtitle: Text('0000000000000000',
+                subtitle: Text(warranty.numero?.toString() ?? '0000000000',
                     style: AppTextStyle.defaultStyle.copyWith(
                         fontWeight: FontWeight.bold, color: Colors.black)),
                 trailing: Image.asset(
@@ -40,7 +44,10 @@ class Warranty extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text('FECHA', style: AppTextStyle.defaultStyle),
-                          Text('00/00/0000',
+                          Text(
+                              DateFormat.yMd('es')
+                                  .format(warranty.fechaAlta!)
+                                  .toUpperCase(),
                               style: AppTextStyle.defaultStyle
                                   .copyWith(fontWeight: FontWeight.bold)),
                         ],
@@ -50,9 +57,15 @@ class Warranty extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('IMPORTE', style: AppTextStyle.defaultStyle),
+                          const Text('IMPORTE',
+                              style: AppTextStyle.defaultStyle),
                           Text(
-                            '400 €',
+                            fmf
+                                .copyWith(
+                                    amount: double.tryParse(
+                                        warranty.importe ?? '0'))
+                                .output
+                                .symbolOnRight,
                             style: AppTextStyle.defaultStyle.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
@@ -64,8 +77,8 @@ class Warranty extends StatelessWidget {
                 ),
               ),
               spacerM,
-              MyLabelStatus.pending(),
-              spacerS,
+              // MyLabelStatus.pending(),
+              // spacerS,
             ],
           ),
         ),

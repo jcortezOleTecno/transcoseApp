@@ -31,8 +31,7 @@ dependencies:
   flutter_swiper_null_safety: ^1.0.2
   flutter_multi_formatter: ^2.10.2
   file_picker: ^5.2.7
-
-
+  money_formatter: ^0.0.4
   cupertino_icons: ^1.0.2
   flutter_bloc: ^8.1.2
   intl: ^0.18.0

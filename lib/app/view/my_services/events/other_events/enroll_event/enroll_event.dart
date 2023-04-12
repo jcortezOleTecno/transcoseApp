@@ -15,8 +15,8 @@ import 'package:vemare/app/view/_components/my_dropdown_button/my_drop_down_butt
 import 'package:vemare/app/view/_components/my_input/my_input.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/my_services/events/other_events/enroll_event/bloc/enroll_event_cubit.dart';
-import 'package:vemare/app/view/shared/bloc/user_cubit.dart';
-import 'package:vemare/app/view/shared/bloc/user_state.dart';
+import 'package:vemare/app/view/shared/userbloc/user_cubit.dart';
+import 'package:vemare/app/view/shared/userbloc/user_state.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
