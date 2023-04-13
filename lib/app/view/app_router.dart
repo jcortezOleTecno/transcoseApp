@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vemare/app/domain/model/albaran.dart';
 import 'package:vemare/app/domain/model/budget.dart';
 import 'package:vemare/app/domain/model/events.dart';
 import 'package:vemare/app/domain/model/events_vemare.dart';
@@ -6,6 +7,7 @@ import 'package:vemare/app/domain/model/formation.dart';
 import 'package:vemare/app/domain/model/galery.dart';
 import 'package:vemare/app/domain/model/promotion.dart';
 import 'package:vemare/app/domain/model/services.dart';
+import 'package:vemare/app/domain/model/warranty.dart';
 import 'package:vemare/app/view/about_us/about_us_page.dart';
 import 'package:vemare/app/view/home/home_page.dart';
 import 'package:vemare/app/view/library/library_page.dart';
@@ -38,11 +40,11 @@ import 'package:vemare/app/view/personal_area/my_budget/budget_detail/budget_det
 import 'package:vemare/app/view/personal_area/my_budget/my_budget/my_budget_page.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/contract_detail.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/my_contracts_page.dart';
-import 'package:vemare/app/view/personal_area/my_orders/albaran_detail.dart';
+import 'package:vemare/app/view/personal_area/my_orders/albaran_details/albaran_detail.dart';
 import 'package:vemare/app/view/personal_area/my_orders/bill_detail.dart';
 import 'package:vemare/app/view/personal_area/my_orders/my_orders/my_orders_page.dart';
 import 'package:vemare/app/view/personal_area/my_orders/order_detail.dart';
-import 'package:vemare/app/view/personal_area/my_orders/warranty_detail.dart';
+import 'package:vemare/app/view/personal_area/my_orders/warranty_details/warranty_details_page.dart';
 import 'package:vemare/app/view/personal_area/my_trainigs_and_events/my_trainigs_and_events_page.dart';
 import 'package:vemare/app/view/pills/pills_page.dart';
 import 'package:vemare/app/view/promotions/detail_sale_rent/detail_sale_rent.dart';
@@ -231,14 +233,16 @@ abstract class AppRouter {
           builder: (_) => const OrderDetailPage(),
         );
       case AlbaranDetailPage.route:
+        final Albaran? albaran = settings.arguments as Albaran?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const AlbaranDetailPage(),
+          builder: (_) => AlbaranDetailPage.create(albaran!),
         );
       case WarrantyDetailPage.route:
+        final Warranty? warranty = settings.arguments as Warranty?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const WarrantyDetailPage(),
+          builder: (_) => WarrantyDetailPage.create(warranty!),
         );
       case BillDetailPage.route:
         return MaterialPageRoute<void>(

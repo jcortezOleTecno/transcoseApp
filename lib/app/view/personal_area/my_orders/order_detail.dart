@@ -9,7 +9,7 @@ import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
 class OrderDetailPage extends StatelessWidget {
-  const OrderDetailPage({super.key});
+  const OrderDetailPage();
   static const route = '/order_detail';
 
   @override
@@ -114,8 +114,6 @@ class _OrderDetails extends StatelessWidget {
               ),
             ],
           ),
-          spacerM,
-          MyLabelStatus.pending()
         ],
       ),
     );

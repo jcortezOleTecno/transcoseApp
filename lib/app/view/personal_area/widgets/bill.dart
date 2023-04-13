@@ -98,9 +98,9 @@ class Bill extends StatelessWidget {
                     ),
                   ),
                   spacerM,
-                  ...List.generate(5, (i) {
-                    return Albaran(onTapAlbaran: onTapAlbaran);
-                  })
+                  // ...List.generate(5, (i) {
+                  //   return AlbaranCard(onTapAlbaran: onTapAlbaran);
+                  // })
                 ],
               ),
             )

@@ -12,6 +12,7 @@ import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/personal_area/my_budget/budget_detail/bloc/budget_detail_cubit.dart';
 import 'package:vemare/app/view/personal_area/my_budget/budget_detail/bloc/budget_detail_state.dart';
+import 'package:vemare/app/view/personal_area/widgets/item_card.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
@@ -130,9 +131,9 @@ class _DetailBudget extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                  child: _Item(title: 'FECHA', content: budget?.fecha ?? '')),
+                  child: Item(title: 'FECHA', content: budget?.fecha ?? '')),
               Expanded(
-                  child: _Item(
+                  child: Item(
                       title: 'CÓDIGO',
                       content: budget?.codigo.toString() ?? '')),
             ],
@@ -141,28 +142,28 @@ class _DetailBudget extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                  child: _Item(
+                  child: Item(
                       title: 'FECHA VALIDEZ',
                       content: budget?.fechaValidez ?? '')),
               Expanded(
-                  child: _Item(
+                  child: Item(
                       title: 'ACTIVO',
                       content: (budget?.activo ?? false) ? 'SI' : 'NO')),
             ],
           ),
           spacerM,
-          _Item(title: 'ASUNTO', content: budget?.asunto ?? ''),
+          Item(title: 'ASUNTO', content: budget?.asunto ?? ''),
           if (budget?.condicionesGenereles != null &&
               budget?.condicionesGenereles != '') ...[
             spacerM,
-            _Item(
+            Item(
                 title: 'CONDICIONES GENERALES',
                 content: budget?.condicionesGenereles ?? '')
           ],
           if (budget?.condicionesEspecificas != null &&
               budget?.condicionesEspecificas != '') ...[
             spacerM,
-            _Item(
+            Item(
                 title: 'CONDICIONES ESPECIFICAS',
                 content: budget?.condicionesEspecificas ?? ''),
           ],
@@ -170,11 +171,11 @@ class _DetailBudget extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                  child: _Item(
+                  child: Item(
                       title: 'VERSIÓN',
                       content: budget?.version.toString() ?? '')),
               Expanded(
-                  child: _Item(
+                  child: Item(
                       title: 'IMP. SAT MONTAJE',
                       content: budget?.importeSatMontaje ?? '0,00 €')),
             ],
@@ -183,11 +184,11 @@ class _DetailBudget extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                  child: _Item(
+                  child: Item(
                       title: 'IMP. SAT TRANSPORTE',
                       content: budget?.importeSatTransporte ?? '0,00 €')),
               Expanded(
-                  child: _Item(
+                  child: Item(
                       title: 'IMPORTE NETO',
                       content: '${budget?.importeNeto ?? '0,00'} €')),
             ],
@@ -196,11 +197,11 @@ class _DetailBudget extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                  child: _Item(
+                  child: Item(
                       title: 'BASE IMPONIBLE',
                       content: '${budget?.baseImponible ?? '0,00'} €')),
               Expanded(
-                  child: _Item(
+                  child: Item(
                       title: 'IMPORTE IVA',
                       content: '${budget?.importeIva ?? '0,00'} €')),
             ],
@@ -209,11 +210,11 @@ class _DetailBudget extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                  child: _Item(
+                  child: Item(
                       title: 'DESCUENTO',
                       content: '${budget?.descuento ?? '0,00'} €')),
               Expanded(
-                  child: _Item(
+                  child: Item(
                       title: 'TRANSPORTE INCLUIDO',
                       content:
                           (budget?.transporteIncluido ?? false) ? 'SI' : 'NO')),
@@ -223,12 +224,12 @@ class _DetailBudget extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                  child: _Item(
+                  child: Item(
                       title: 'MONTAJE INCLUIDO',
                       content:
                           (budget?.montajeIncluido ?? false) ? 'SI' : 'NO')),
               Expanded(
-                  child: _Item(
+                  child: Item(
                       title: 'FECHA FIRMA', content: budget?.fechaFirma ?? '')),
             ],
           ),
@@ -236,10 +237,10 @@ class _DetailBudget extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                  child: _Item(
+                  child: Item(
                       title: 'QUIEN FIRMA', content: budget?.quienFirma ?? '')),
               Expanded(
-                  child: _Item(
+                  child: Item(
                       title: 'NIF QUIEN FIRMA',
                       content: budget?.nifQuienFirma ?? '')),
             ],
@@ -284,33 +285,6 @@ class _DetailBudget extends StatelessWidget {
           // const MyLabelStatus.approved()
         ],
       ),
-    );
-  }
-}
-
-class _Item extends StatelessWidget {
-  const _Item({
-    Key? key,
-    required this.title,
-    required this.content,
-  }) : super(key: key);
-
-  final String title;
-  final String content;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(title, style: AppTextStyle.defaultStyle),
-        Text(
-          content,
-          style: AppTextStyle.defaultStyle.copyWith(
-            fontWeight: FontWeight.w700,
-          ),
-        )
-      ],
     );
   }
 }

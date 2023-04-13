@@ -17,7 +17,7 @@ import 'package:vemare/app/data/products_repository.dart';
 import 'package:vemare/app/data/promotion_repository.dart';
 import 'package:vemare/app/data/services_repository.dart';
 import 'package:vemare/app/data/shopping_cart_repository.dart';
-import 'package:vemare/app/data/warranty_repository.dart';
+import 'package:vemare/app/data/my_account_repository.dart';
 import 'package:vemare/app/data/work_with_us_repository.dart';
 import 'package:vemare/app/data/workshops_repository.dart';
 
@@ -43,7 +43,7 @@ abstract class ServiceLocator {
       ..registerFactory(() => WorkWithUsRepository(myApi))
       ..registerFactory(() => ShoppingCardRepository(myApi))
       ..registerFactory(() => BudgetRepository(myApi))
-      ..registerFactory(() => WarrantyRepository(myApi))
+      ..registerFactory(() => MyAccountRepository(myApi))
       ..registerFactory(() => AboutUsRepository(myApi));
   }
 }

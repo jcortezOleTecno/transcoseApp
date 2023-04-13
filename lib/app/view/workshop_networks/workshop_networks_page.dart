@@ -9,6 +9,7 @@ import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_dropdown_button/my_drop_down_button.dart';
 import 'package:vemare/app/view/_components/my_gallery/my_galery.dart';
+import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_input/my_input.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/my_video_player/my_video_player.dart';
@@ -153,11 +154,12 @@ class _Info extends StatelessWidget {
                                 state.workShop?.name ?? '',
                                 style: AppTextStyle.titleCard,
                               ),
-                              spacerXs,
-                              Text(
-                                state.workShop?.description ?? '',
-                                style: AppTextStyle.defaultStyle,
-                              ),
+                              // spacerXs,
+                              MyHtml(text: state.workShop?.description ?? '')
+                              // Text(
+                              //   state.workShop?.description ?? '',
+                              //   style: AppTextStyle.defaultStyle,
+                              // ),
                             ],
                           ))
                         ],

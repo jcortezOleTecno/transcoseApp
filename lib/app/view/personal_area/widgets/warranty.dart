@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:vemare/app/domain/model/warranty.dart';
+import 'package:vemare/app/domain/model/warranty_details.dart';
 import 'package:vemare/app/domain/utils/money_formatter.dart';
 import 'package:vemare/app/view/_components/my_label_status/my_label_status.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/personal_area/widgets/item_card.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
@@ -88,9 +90,14 @@ class WarrantyCard extends StatelessWidget {
 }
 
 class WarrantyDetail extends StatelessWidget {
-  const WarrantyDetail({
+  const WarrantyDetail(
+    this.warranty,
+    this.detail, {
     Key? key,
   }) : super(key: key);
+
+  final WarrantyDetailModel? detail;
+  final Warranty warranty;
 
   @override
   Widget build(BuildContext context) {
@@ -105,66 +112,105 @@ class WarrantyDetail extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
+          const Text(
             'Detalle de la garantía',
             style: AppTextStyle.titleCard,
           ),
           spacerM,
           Row(
             children: [
-              Expanded(child: Text('FECHA', style: AppTextStyle.defaultStyle)),
               Expanded(
-                  child: Text('IMPORTE', style: AppTextStyle.defaultStyle)),
+                child: Item(
+                    title: "FECHA",
+                    content: DateFormat.yMd().format(warranty.fechaAlta!)),
+              ),
+              Expanded(
+                child: Item(
+                    title: "IMPORTE",
+                    content: fmf
+                        .copyWith(
+                            amount: double.parse(warranty.importe ?? '0.0'))
+                        .output
+                        .symbolOnRight),
+              ),
             ],
           ),
+          spacerS,
           Row(
             children: [
               Expanded(
-                  child: Text(
-                '20/08/2022',
-                style: AppTextStyle.defaultStyle.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
-              )),
+                child: Item(
+                    title: "CENTRO REPARTO",
+                    content: warranty.centroReparto ?? ''),
+              ),
               Expanded(
-                  child: Text(
-                '100 €',
-                style: AppTextStyle.defaultStyle.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
-              )),
+                child: Item(
+                    title: "ESTADO SUSTITUCIÓN",
+                    content: warranty.estadoSu ?? ''),
+              ),
             ],
           ),
-          spacerM,
+          spacerS,
           Row(
             children: [
               Expanded(
-                  child: Text('SITUACIÓN', style: AppTextStyle.defaultStyle)),
+                child: Item(
+                    title: "IMPORTE VEMARE",
+                    content: fmf
+                        .copyWith(
+                            amount:
+                                double.parse(detail?.importeVemare ?? '0.0'))
+                        .output
+                        .symbolOnRight),
+              ),
               Expanded(
+                child: Item(
+                    title: "IMPORTE CLIENTE",
+                    content: fmf
+                        .copyWith(
+                            amount:
+                                double.parse(detail?.importeCliente ?? '0.0'))
+                        .output
+                        .symbolOnRight),
+              ),
+            ],
+          ),
+          spacerS,
+          Row(
+            children: [
+              Expanded(
+                child:
+                    Item(title: "FIRMADO", content: warranty.firmado ?? 'No'),
+              ),
+              Expanded(
+                child: Item(
+                    title: "PERMITE FIRMA", content: warranty.visar ?? 'No'),
+              ),
+            ],
+          ),
+          if (warranty.firmado == 'Si') ...[
+            spacerS,
+            Row(
+              children: [
+                Expanded(
+                  child: Item(
+                      title: "QUIEN FIRMA", content: warranty.quienFirma ?? ''),
+                ),
+                Expanded(
                   child:
-                      Text('REQUIERE FIRMA', style: AppTextStyle.defaultStyle)),
-            ],
-          ),
-          Row(
-            children: [
-              Expanded(
-                  child: Text(
-                '???',
+                      Item(title: "NIF", content: warranty.nifQuienFirma ?? ''),
+                ),
+              ],
+            ),
+            Text(warranty.fechaFirma ?? '',
                 style: AppTextStyle.defaultStyle.copyWith(
                   fontWeight: FontWeight.w700,
-                ),
-              )),
-              Expanded(
-                  child: Text(
-                '???',
-                style: AppTextStyle.defaultStyle.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
-              )),
-            ],
-          ),
-          spacerM,
-          MyLabelStatus.pending()
+                  color: Colors.grey,
+                ))
+          ]
+
+          // spacerM,
+          // MyLabelStatus.pending()
         ],
       ),
     );

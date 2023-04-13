@@ -35,7 +35,7 @@ class ContractDetailPage extends StatelessWidget {
                       style: AppTextStyle.h2Style,
                     ),
                     spacerM,
-                    WarrantyDetail(),
+                    // WarrantyDetail(),
                     spacerL,
                     MyIconButton(
                       onPressed: () {},
