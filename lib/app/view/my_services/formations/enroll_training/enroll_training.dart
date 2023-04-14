@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:vemare/app/data/formations_repository.dart';
 import 'package:vemare/app/domain/model/formation.dart';
 import 'package:vemare/app/domain/model/employee.dart';
+import 'package:vemare/app/domain/value_object/email.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
@@ -392,10 +393,11 @@ class EnrollTrainingPage extends StatelessWidget {
                         });
                         cubit
                             .enrullFormation(
-                                id: formation.id!,
-                                idsEmployees: selectedEmployees
-                                    .map((e) => e.id!)
-                                    .toList())
+                          id: formation.id!,
+                          idsEmployees:
+                              selectedEmployees.map((e) => e.id!).toList(),
+                          persons: people,
+                        )
                             .then((value) {
                           Navigator.of(context).pop(true);
                         });
@@ -424,6 +426,7 @@ class EnrollTrainingPage extends StatelessWidget {
 
   Future<Employee?> _dialogEnrollPeople(BuildContext context) {
     Employee person = Employee();
+    Email? email;
     return showDialog<Employee?>(
       barrierColor: Colors.transparent,
       useSafeArea: true,
@@ -505,6 +508,24 @@ class EnrollTrainingPage extends StatelessWidget {
                                 });
                               },
                             ),
+                            MyInput(
+                              label: 'email',
+                              required: true,
+                              hintText: 'email',
+                              inputType: TextInputType.emailAddress,
+                              textInputAction: TextInputAction.next,
+                              onChanged: (value) {
+                                try {
+                                  setState(() {
+                                    email = Email(value);
+                                  });
+                                } catch (e) {
+                                  setState(() {
+                                    email = null;
+                                  });
+                                }
+                              },
+                            ),
                             // const Spacer(),
                           ],
                         ),
@@ -512,6 +533,7 @@ class EnrollTrainingPage extends StatelessWidget {
                     ),
                     MyIconButton(
                       onPressed: () {
+                        person.email = email!.value;
                         Navigator.of(context).pop(person);
                       },
                       text: 'Inscribir',
@@ -521,8 +543,13 @@ class EnrollTrainingPage extends StatelessWidget {
                         color: Colors.white,
                       ),
                       disabled: person.firstName == null ||
+                          person.firstName == '' ||
                           person.lastName == null ||
-                          person.phone == null,
+                          person.lastName == '' ||
+                          person.phone == null ||
+                          person.phone == '' ||
+                          email == null ||
+                          email?.value == '',
                     ),
                     spacerS,
                     MyButton(
@@ -604,7 +631,7 @@ class EnrollTrainingPage extends StatelessWidget {
                                 ),
                                 const TextSpan(
                                   text:
-                                      '\nTe notificaremos a ti y a los asistentes su inscripción al curso mediante notificación por la APP y vía SMS.',
+                                      '\nTe notificaremos a ti y a los asistentes su inscripción al curso mediante notificación.',
                                 ),
                               ],
                             ),

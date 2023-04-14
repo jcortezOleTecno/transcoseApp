@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:vemare/app/data/_api_classes.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/domain/model/events.dart';
 import 'package:vemare/app/domain/model/events_vemare.dart';
+
+import '../domain/model/employee.dart';
+import '_api.dart';
 
 class EventsRepository {
   final MyApiClient _apiClient;
@@ -22,12 +27,17 @@ class EventsRepository {
 
   Future<void> enrollEvents({
     required int eventId,
-    required List<int> idsEmployees,
+    required List<int>? idsEmployees,
+    List<Employee>? persons,
   }) async {
-    await _apiClient.getRequest('$BASE_API_URL/api/eventos/inscripcion',
-        params: <String, dynamic>{
-          'date_id': eventId.toString(),
-          'employee': idsEmployees.join(','),
-        });
+    final data = {
+      'date_id': eventId,
+      'employee': idsEmployees?.join(',').toString() ?? "",
+      'persons': persons?.map((e) => e.toEnrollData()).toList(),
+    };
+
+    await _apiClient.postRequest('$BASE_API_URL/api/eventos/inscripcion',
+        body: jsonEncode(data),
+        customHeaders: headerContentTypeApplicationJson);
   }
 }

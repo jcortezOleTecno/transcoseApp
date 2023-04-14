@@ -32,6 +32,7 @@ class MyApi extends MyApiClient {
       headers: {...await _getHeaders(), ...customHeaders ?? {}},
       body: body,
     );
+    print(response.body);
     return _handleResponse(response);
   }
 
@@ -95,4 +96,7 @@ class MyApi extends MyApiClient {
 
 final allHeaders = {
   'Accept': 'application/json',
+};
+const headerContentTypeApplicationJson = {
+  'Content-Type': 'application/json',
 };

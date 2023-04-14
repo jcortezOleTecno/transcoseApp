@@ -3,6 +3,7 @@ import 'package:vemare/app/domain/model/events.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
+import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/my_services/events/other_events/enroll_event/enroll_event.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
@@ -45,8 +46,7 @@ class OtherEventPage extends StatelessWidget {
                       children: [
                         Text(event.title ?? '', style: AppTextStyle.h2Style),
                         spacerS,
-                        Text(event.description ?? '',
-                            style: AppTextStyle.defaultStyle),
+                        MyHtml(text: event.description ?? ''),
                       ],
                     )),
                     Padding(

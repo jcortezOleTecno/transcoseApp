@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vemare/app/domain/model/albaran.dart';
 import 'package:vemare/app/domain/model/budget.dart';
+import 'package:vemare/app/domain/model/category.dart';
+import 'package:vemare/app/domain/model/categoty_detail.dart';
 import 'package:vemare/app/domain/model/events.dart';
 import 'package:vemare/app/domain/model/events_vemare.dart';
 import 'package:vemare/app/domain/model/formation.dart';
@@ -104,19 +106,22 @@ abstract class AppRouter {
           builder: (_) => OurProductsPage.create(typeVehicle!),
         );
       case ProductPage.route:
+        final cat = settings.arguments as Category?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const ProductPage(),
+          builder: (_) => ProductPage.create(cat!),
         );
       case DetailProductPage.route:
+        final cat = settings.arguments as DetailProductPageArg?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const DetailProductPage(),
+          builder: (_) => DetailProductPage(cat!),
         );
       case SearchMyProductPage.route:
+        final cat = settings.arguments as Category?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const SearchMyProductPage(),
+          builder: (_) => SearchMyProductPage(cat!),
         );
       case PromotionsPage.route:
         return MaterialPageRoute<void>(

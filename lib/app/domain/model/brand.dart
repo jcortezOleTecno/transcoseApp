@@ -27,4 +27,17 @@ class Brand {
       'image': image,
     };
   }
+
+  @override
+  bool operator ==(other) {
+    return (other is Brand) &&
+        other.id == id &&
+        other.description == description &&
+        other.name == name &&
+        other.image == image;
+  }
+
+  @override
+  int get hashCode =>
+      id.hashCode ^ description.hashCode ^ name.hashCode ^ image.hashCode;
 }

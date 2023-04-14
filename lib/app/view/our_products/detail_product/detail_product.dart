@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vemare/app/domain/model/categoty_detail.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_input/my_input_search.dart';
@@ -7,8 +8,17 @@ import 'package:vemare/app/view/_components/tap_to_hide_keyboard/tap_to_hide_key
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
+class DetailProductPageArg {
+  final CategoryDetail cat;
+  final String icon;
+
+  DetailProductPageArg({required this.cat, required this.icon});
+}
+
 class DetailProductPage extends StatelessWidget {
-  const DetailProductPage({super.key});
+  const DetailProductPage(this.args, {super.key});
+
+  final DetailProductPageArg args;
 
   static const route = '/details_products';
 
@@ -37,19 +47,18 @@ class DetailProductPage extends StatelessWidget {
                             ),
                             height: 60,
                             width: 60,
-                            child: Image.asset('assets/icons/Lubricantes.png',
-                                scale: 2),
+                            child: Image.network(args.icon),
                           ),
                           spacerS,
-                          const Text(
-                            'Aceite latas',
+                          Text(
+                            args.cat.name ?? '',
                             style: AppTextStyle.h1Style,
                           ),
                         ],
                       ),
                       spacerM,
-                      const Text(
-                        'Podrás encontrar la tecnología más avanzada en lubricantes sintéticos para todos los motores.',
+                      Text(
+                        args.cat.description ?? '',
                         style: AppTextStyle.defaultStyle,
                       ),
                       spacerM,
@@ -59,31 +68,31 @@ class DetailProductPage extends StatelessWidget {
                   ),
                 ),
                 spacerS,
-                Center(
-                  child: Wrap(
-                    alignment: WrapAlignment.start,
-                    children: List.generate(8, (i) {
-                      return ClipRRect(
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(120),
-                          ),
-                          margin: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 10),
-                          child: Container(
-                            height: width * .40,
-                            width: width * .40,
-                            padding: const EdgeInsets.all(10),
-                            child: Image.asset(
-                              'assets/imgs/Continental.png',
-                              scale: 2,
-                            ),
-                          ),
-                        ),
-                      );
-                    }),
+                if (args.cat.brands != null)
+                  Center(
+                    child: Wrap(
+                      alignment: WrapAlignment.start,
+                      children: args.cat.brands!
+                          .map((e) => ClipRRect(
+                                child: Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(120),
+                                  ),
+                                  margin: const EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 10),
+                                  child: SizedBox(
+                                    height: width * .40,
+                                    width: width * .40,
+                                    child: Image.network(
+                                      e.image!,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ))
+                          .toList(),
+                    ),
                   ),
-                ),
               ],
             ),
           ),

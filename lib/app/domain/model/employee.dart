@@ -4,24 +4,28 @@ class Employee {
     this.firstName,
     this.lastName,
     this.phone,
+    this.email,
   });
 
   int? id;
   String? firstName;
   String? lastName;
   String? phone;
+  String? email;
 
   Employee copyWith({
     int? id,
     String? firstName,
     String? lastName,
     String? phone,
+    String? email,
   }) =>
       Employee(
         id: id ?? this.id,
         firstName: firstName ?? this.firstName,
         lastName: lastName ?? this.lastName,
         phone: phone ?? this.phone,
+        email: email ?? this.email,
       );
 
   factory Employee.fromJson(dynamic json) => Employee(
@@ -34,5 +38,12 @@ class Employee {
         "id": id,
         "name": firstName,
         "lastname": lastName,
+      };
+
+  Map<String, dynamic> toEnrollData() => {
+        "name": firstName,
+        "lastname": lastName,
+        "phone": phone,
+        "email": email,
       };
 }

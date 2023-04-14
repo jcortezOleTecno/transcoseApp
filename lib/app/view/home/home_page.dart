@@ -704,7 +704,8 @@ class _ProductsVemare extends StatelessWidget {
                     PageController(initialPage: 0, viewportFraction: 0.9),
                 itemBuilder: (context, i) => CardProducts(
                   onTap: () {
-                    Navigator.pushNamed(context, ProductPage.route);
+                    Navigator.pushNamed(context, ProductPage.route,
+                        arguments: state.products[i]);
                   },
                   margin: const EdgeInsets.symmetric(horizontal: 10),
                   icon: Image.network(state.products[i].image!),

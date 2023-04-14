@@ -1,5 +1,9 @@
+import 'dart:convert';
+
+import 'package:vemare/app/data/_api.dart';
 import 'package:vemare/app/data/_api_classes.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
+import 'package:vemare/app/domain/model/employee.dart';
 import 'package:vemare/app/domain/model/formation.dart';
 
 class FormationsRepository {
@@ -15,12 +19,17 @@ class FormationsRepository {
 
   Future<void> enrollFormations({
     required int dateId,
-    required List<int> idsEmployees,
+    List<int>? idsEmployees,
+    List<Employee>? persons,
   }) async {
-    await _apiClient.getRequest('$BASE_API_URL/api/formaciones/inscripcion',
-        params: <String, dynamic>{
-          'date_id': dateId.toString(),
-          'employee': idsEmployees.join(','),
-        });
+    final data = {
+      'date_id': dateId,
+      'employee': idsEmployees?.join(',').toString() ?? "",
+      'persons': persons?.map((e) => e.toEnrollData()).toList(),
+    };
+
+    await _apiClient.postRequest('$BASE_API_URL/api/formaciones/inscripcion',
+        body: jsonEncode(data),
+        customHeaders: headerContentTypeApplicationJson);
   }
 }

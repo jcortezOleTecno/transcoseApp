@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vemare/app/domain/model/category.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
@@ -8,9 +9,11 @@ import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
 class SearchMyProductPage extends StatelessWidget {
-  const SearchMyProductPage({super.key});
+  const SearchMyProductPage(this.cat, {super.key});
 
   static const route = '/search_my_products';
+
+  final Category cat;
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +31,9 @@ class SearchMyProductPage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: const [
+                        children: [
                           Text(
-                            'Buscar mi lubricante',
+                            'Buscar mi ${cat.name ?? ''}',
                             style: AppTextStyle.h1Style,
                           ),
                         ],
@@ -52,9 +55,8 @@ class SearchMyProductPage extends StatelessWidget {
                         ),
                         height: 90,
                         width: 90,
-                        child: Image.asset(
-                          'assets/icons/contructor.png',
-                          scale: 2,
+                        child: Image.network(
+                          cat.image!,
                         ),
                       ),
                       spacerL,
@@ -72,7 +74,7 @@ class SearchMyProductPage extends StatelessWidget {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        text: 'Volver a Lubricantes',
+                        text: 'Volver a ${cat.name ?? ''}',
                         width: double.infinity,
                       )
                     ],

@@ -115,7 +115,8 @@ class OurProductsPage extends StatelessWidget {
                                           title: e.name ?? '',
                                           content: e.subtitle ?? '',
                                           onTap: () => Navigator.pushNamed(
-                                              context, ProductPage.route),
+                                              context, ProductPage.route,
+                                              arguments: e),
                                         ))
                                     .toList(),
                               )

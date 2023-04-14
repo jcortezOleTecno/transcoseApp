@@ -6,6 +6,7 @@ import 'package:vemare/app/data/events_repository.dart';
 import 'package:vemare/app/domain/model/events.dart';
 import 'package:vemare/app/domain/model/formation.dart';
 import 'package:vemare/app/domain/model/employee.dart';
+import 'package:vemare/app/domain/value_object/email.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
@@ -395,7 +396,8 @@ class EnrollEventPage extends StatelessWidget {
                                 id: event.id!,
                                 idsEmployees: selectedEmployees
                                     .map((e) => e.id!)
-                                    .toList())
+                                    .toList(),
+                                persons: people)
                             .then((value) {
                           Navigator.of(context).pop(true);
                         });
@@ -424,6 +426,7 @@ class EnrollEventPage extends StatelessWidget {
 
   Future<Employee?> _dialogEnrollPeople(BuildContext context) {
     Employee person = Employee();
+    Email? email;
     return showDialog<Employee?>(
       barrierColor: Colors.transparent,
       useSafeArea: true,
@@ -505,6 +508,24 @@ class EnrollEventPage extends StatelessWidget {
                                 });
                               },
                             ),
+                            MyInput(
+                              label: 'email',
+                              required: true,
+                              hintText: 'email',
+                              inputType: TextInputType.emailAddress,
+                              textInputAction: TextInputAction.next,
+                              onChanged: (value) {
+                                try {
+                                  setState(() {
+                                    email = Email(value);
+                                  });
+                                } catch (e) {
+                                  setState(() {
+                                    email = null;
+                                  });
+                                }
+                              },
+                            ),
                             // const Spacer(),
                           ],
                         ),
@@ -521,8 +542,13 @@ class EnrollEventPage extends StatelessWidget {
                         color: Colors.white,
                       ),
                       disabled: person.firstName == null ||
+                          person.firstName == '' ||
                           person.lastName == null ||
-                          person.phone == null,
+                          person.lastName == '' ||
+                          person.phone == null ||
+                          person.phone == '' ||
+                          email == null ||
+                          email?.value == '',
                     ),
                     spacerS,
                     MyButton(
