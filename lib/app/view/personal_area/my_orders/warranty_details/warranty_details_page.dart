@@ -62,9 +62,8 @@ class WarrantyDetailPage extends StatelessWidget {
                         const Text('Productos', style: AppTextStyle.h2Style),
                         spacerM,
                         const _Products(),
-                        /*if (state.warranty!.visar == 'Si' &&
-                            state.warranty!.firmado == 'No') */
-                        ...[
+                        if (state.details?.visar == 'Si' &&
+                            state.details?.firmado == 'No') ...[
                           spacerM,
                           MyIconButton(
                             onPressed: () {

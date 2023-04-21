@@ -6,6 +6,7 @@ import 'package:vemare/app/domain/model/events.dart';
 import 'package:vemare/app/domain/model/events_vemare.dart';
 
 import '../domain/model/employee.dart';
+import '../domain/model/my_event.dart';
 import '_api.dart';
 
 class EventsRepository {
@@ -23,6 +24,12 @@ class EventsRepository {
     final dynamic res =
         await _apiClient.getRequest('$BASE_API_URL/api/eventos');
     return (res as List).map(Events.fromJson).toList();
+  }
+
+  Future<List<MyEvents>> getMyEvents() async {
+    final dynamic res =
+        await _apiClient.getRequest('$BASE_API_URL/api/eventos/mis_eventos');
+    return (res as List).map(MyEvents.fromJson).toList();
   }
 
   Future<void> enrollEvents({

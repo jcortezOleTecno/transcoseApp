@@ -1,0 +1,22 @@
+import 'package:bloc/bloc.dart';
+import 'package:vemare/app/data/my_account_repository.dart';
+
+import 'my_trainigs_and_events_state.dart';
+
+class MyTrainigsAndEventsCubit extends Cubit<MyTrainigsAndEventsState> {
+  MyTrainigsAndEventsCubit(this._accountRepository)
+      : super(const MyTrainigsAndEventsState()) {
+    getData();
+  }
+
+  final MyAccountRepository _accountRepository;
+
+  Future<void> getData() async {
+    emit(state.copyWith(loading: true));
+    var data = await _accountRepository.getTrainingsEvents();
+    emit(state.copyWith(
+      data: data,
+      loading: false,
+    ));
+  }
+}

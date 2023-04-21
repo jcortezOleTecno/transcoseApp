@@ -2,12 +2,11 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:vemare/app/data/about_us_repository.dart';
 import 'package:vemare/app/data/auth_repository.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/view/_components/no_scale_widget/no_scale_widget.dart';
-import 'package:vemare/app/view/about_us/bloc/about_us_cubit.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:vemare/app/view/app_router.dart';
 import 'package:vemare/app/view/our_history/bloc/our_history_cubit.dart';
 import 'package:vemare/app/view/shared/userbloc/user_cubit.dart';
@@ -20,7 +19,7 @@ NavigatorState get navigator => navigatorKey.currentState!;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await initializeDateFormatting();
+  // await initializeDateFormatting();
   await LocalDataRepository().initPrefs();
   await ServiceLocator.setup();
   runApp(const MyApp());
@@ -68,6 +67,15 @@ class MyApp extends StatelessWidget {
         scrollBehavior: const MaterialScrollBehavior().copyWith(
           dragDevices: PointerDeviceKind.values.toSet(),
         ),
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('en', 'US'),
+          Locale('es', 'ES'),
+        ],
       ),
     );
   }

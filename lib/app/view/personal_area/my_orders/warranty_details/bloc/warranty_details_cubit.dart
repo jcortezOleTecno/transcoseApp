@@ -31,9 +31,16 @@ class WarrantyDetailsCubit extends Cubit<WarrantyDetailsState> {
     required String nif,
     required String signature,
   }) async {
-    await Future.delayed(const Duration(seconds: 2));
-    print(name);
-    print(nif);
-    print(signature);
+    await _myAccountRepository
+        .signWarranty(
+            codigoGarantia: state.warranty!.codigoGarantia.toString(),
+            persona: name,
+            nif: nif,
+            firma: signature)
+        .then((value) {
+      if (value) {
+        fetchData();
+      }
+    });
   }
 }

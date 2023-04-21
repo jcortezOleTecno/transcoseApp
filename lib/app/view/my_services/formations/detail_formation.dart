@@ -4,6 +4,7 @@ import 'package:vemare/app/domain/model/formation.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
+import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/my_services/formations/enroll_training/enroll_training.dart';
@@ -21,79 +22,86 @@ class DetailFormationPage extends StatelessWidget {
     return Scaffold(
       body: MyBody(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const MyBackButton(),
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: SingleChildScrollView(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                        child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image.network(
-                        formation.image!,
-                        fit: BoxFit.cover,
-                      ),
-                    )),
-                    spacerS,
-                    Expanded(
-                        child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(formation.title ?? '',
-                            style: AppTextStyle.h2Style),
-                        spacerS,
-                        Text(formation.description ?? '',
-                            style: AppTextStyle.defaultStyle),
-                        spacerM,
-                        Row(
-                          children: [
-                            Image.asset(
-                              'assets/icons/locate.png',
-                              scale: 2,
-                            ),
-                            spacerS,
-                            const Text(
-                              'Lugar de la formacion',
-                              style: AppTextStyle.defaultStyle,
-                            )
-                          ],
-                        ),
-                      ],
-                    )),
+                    const MyBackButton(),
                     Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: MyButton(
-                        onPressed: () {
-                          if (LocalDataRepository().isLogged) {
-                            Navigator.pushNamed(
-                              context,
-                              EnrollTrainingPage.route,
-                              arguments: formation,
-                            );
-                          } else {
-                            Navigator.pushNamed(
-                              context,
-                              LoginPage.route,
-                              arguments: true,
-                            ).then((_) {
-                              Navigator.pushNamed(
-                                context,
-                                EnrollTrainingPage.route,
-                                arguments: formation,
-                              );
-                            });
-                          }
-                        },
-                        text: 'Continuar',
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Image.network(
+                              formation.image!,
+                              fit: BoxFit.cover,
+                              height: 250,
+                            ),
+                          ),
+                          spacerS,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(formation.title ?? '',
+                                  style: AppTextStyle.h2Style),
+                              spacerS,
+                              // Text(formation.description ?? '',
+                              //     style: AppTextStyle.defaultStyle),
+                              MyHtml(text: formation.description ?? ''),
+                              spacerM,
+                              Row(
+                                children: [
+                                  Image.asset(
+                                    'assets/icons/locate.png',
+                                    scale: 2,
+                                  ),
+                                  spacerS,
+                                  const Text(
+                                    'Lugar de la formacion',
+                                    style: AppTextStyle.defaultStyle,
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                          spacerS,
+                        ],
                       ),
                     ),
-                    spacerS,
                   ],
                 ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: MyButton(
+                width: double.infinity,
+                onPressed: () {
+                  if (LocalDataRepository().isLogged) {
+                    Navigator.pushNamed(
+                      context,
+                      EnrollTrainingPage.route,
+                      arguments: formation,
+                    );
+                  } else {
+                    Navigator.pushNamed(
+                      context,
+                      LoginPage.route,
+                      arguments: true,
+                    ).then((_) {
+                      Navigator.pushNamed(
+                        context,
+                        EnrollTrainingPage.route,
+                        arguments: formation,
+                      );
+                    });
+                  }
+                },
+                text: 'Continuar',
               ),
             ),
           ],

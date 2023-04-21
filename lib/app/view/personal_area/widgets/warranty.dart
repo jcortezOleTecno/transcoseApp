@@ -179,8 +179,7 @@ class WarrantyDetail extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child:
-                    Item(title: "FIRMADO", content: warranty.firmado ?? 'No'),
+                child: Item(title: "FIRMADO", content: detail?.firmado ?? 'No'),
               ),
               Expanded(
                 child: Item(

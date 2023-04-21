@@ -3,6 +3,7 @@ import 'package:vemare/app/domain/model/albaran.dart';
 import 'package:vemare/app/domain/model/budget.dart';
 import 'package:vemare/app/domain/model/category.dart';
 import 'package:vemare/app/domain/model/categoty_detail.dart';
+import 'package:vemare/app/domain/model/contrats.dart';
 import 'package:vemare/app/domain/model/events.dart';
 import 'package:vemare/app/domain/model/events_vemare.dart';
 import 'package:vemare/app/domain/model/formation.dart';
@@ -40,8 +41,9 @@ import 'package:vemare/app/view/our_products/search_my_product/search_my_product
 import 'package:vemare/app/view/our_products/type_of_vehicle_page.dart';
 import 'package:vemare/app/view/personal_area/my_budget/budget_detail/budget_detail.dart';
 import 'package:vemare/app/view/personal_area/my_budget/my_budget/my_budget_page.dart';
-import 'package:vemare/app/view/personal_area/my_contracts/contract_detail.dart';
-import 'package:vemare/app/view/personal_area/my_contracts/my_contracts_page.dart';
+import 'package:vemare/app/view/personal_area/my_contracts/details/contract_detail.dart';
+import 'package:vemare/app/view/personal_area/my_contracts/details_pmp/contract_pmp_detail.dart';
+import 'package:vemare/app/view/personal_area/my_contracts/page/my_contracts_page.dart';
 import 'package:vemare/app/view/personal_area/my_orders/albaran_details/albaran_detail.dart';
 import 'package:vemare/app/view/personal_area/my_orders/bill_detail.dart';
 import 'package:vemare/app/view/personal_area/my_orders/my_orders/my_orders_page.dart';
@@ -61,6 +63,7 @@ import 'package:vemare/app/view/where_we_are/where_we_are_page.dart';
 import 'package:vemare/app/view/work_with_us/work_with_us_page.dart';
 import 'package:vemare/app/view/workshop_networks/workshop_networks_page.dart';
 
+import '../domain/model/contrato_pmp.dart';
 import 'promotions/promotion/promotion_page.dart';
 
 abstract class AppRouter {
@@ -209,12 +212,13 @@ abstract class AppRouter {
       case MyContractsPage.route:
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const MyContractsPage(),
+          builder: (_) => MyContractsPage.create(),
         );
       case ContractDetailPage.route:
+        final contract = settings.arguments as Contrats?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const ContractDetailPage(),
+          builder: (_) => ContractDetailPage.create(contract!),
         );
       case MyBudgetPage.route:
         return MaterialPageRoute<void>(
@@ -257,17 +261,17 @@ abstract class AppRouter {
       case MyTrainingAndEventsPage.route:
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const MyTrainingAndEventsPage(),
+          builder: (_) => MyTrainingAndEventsPage.create(),
         );
       case SatPage.route:
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const SatPage(),
+          builder: (_) => SatPage.create(),
         );
       case Modelo347Page.route:
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const Modelo347Page(),
+          builder: (_) => Modelo347Page.create(),
         );
       case MyNotificationsPage.route:
         return MaterialPageRoute<void>(
@@ -299,7 +303,7 @@ abstract class AppRouter {
       case MyEventsPage.route:
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const MyEventsPage(),
+          builder: (_) => MyEventsPage.create(),
         );
       case EventDetailPage.route:
         final event = settings.arguments as EventsVemare?;
@@ -342,6 +346,12 @@ abstract class AppRouter {
         return MaterialPageRoute<void>(
           settings: settings,
           builder: (_) => OtherEventsListPage.create(),
+        );
+      case ContractPMPDetailPage.route:
+        final contrat = settings.arguments as ContratoPmp?;
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => ContractPMPDetailPage.create(contrat!),
         );
 
       default:

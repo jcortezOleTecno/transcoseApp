@@ -4,14 +4,13 @@ import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/my_account_repository.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
+import 'package:vemare/app/view/_components/my_filters/my_filters.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
-import 'package:vemare/app/view/personal_area/my_orders/bill_detail.dart';
 import 'package:vemare/app/view/personal_area/my_orders/my_orders/bloc/my_orders_cubit.dart';
 import 'package:vemare/app/view/personal_area/my_orders/my_orders/bloc/my_orders_state.dart';
 import 'package:vemare/app/view/personal_area/my_orders/warranty_details/warranty_details_page.dart';
 import 'package:vemare/app/view/personal_area/widgets/albaran.dart';
-import 'package:vemare/app/view/personal_area/widgets/bill.dart';
 import 'package:vemare/app/view/personal_area/widgets/warranty.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
@@ -89,6 +88,7 @@ class _MyOrders extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<MyOrdersCubit>();
     return BlocBuilder<MyOrdersCubit, MyOrdersState>(
       builder: (context, state) {
         return ListView(
@@ -104,7 +104,13 @@ class _MyOrders extends StatelessWidget {
             ),
             spacerM,
             MyIconButton(
-              onPressed: () {},
+              onPressed: () {
+                myFilters(context).then((filter) {
+                  if (filter != null) {
+                    cubit.getMyOrders(filter: filter);
+                  }
+                });
+              },
               text: 'Aplicar filtros',
               icon: Image.asset(
                 'assets/icons/Filtro.png',
@@ -118,10 +124,10 @@ class _MyOrders extends StatelessWidget {
                   3,
                   (_) => const Padding(
                         padding: EdgeInsets.only(bottom: 20),
-                        child: MyShimmer(height: 160, margin: EdgeInsets.zero),
+                        child: MyShimmer(height: 230, margin: EdgeInsets.zero),
                       )),
             if (!state.loading)
-              ...state.albaranes.map((e) => AlbaranCard(e)).toList(),
+              ...state.orders.map((e) => AlbaranCard(e)).toList(),
             // MyIconButton(
             //   onPressed: () {},
             //   text: 'Firmar',
@@ -145,6 +151,8 @@ class _MyWarranty extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<MyOrdersCubit>();
+
     return BlocBuilder<MyOrdersCubit, MyOrdersState>(
       builder: (context, state) {
         return ListView(
@@ -160,7 +168,13 @@ class _MyWarranty extends StatelessWidget {
             ),
             spacerM,
             MyIconButton(
-              onPressed: () {},
+              onPressed: () {
+                myFilters(context).then((filter) {
+                  if (filter != null) {
+                    cubit.getMyOrders(filter: filter);
+                  }
+                });
+              },
               text: 'Aplicar filtros',
               icon: Image.asset(
                 'assets/icons/Filtro.png',
@@ -205,36 +219,49 @@ class _MyBills extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
-      children: [
-        spacerS,
-        const Text('Mis facturas', style: AppTextStyle.h2Style),
-        Text(
-          LocalDataRepository().user?.name ?? '',
-          style: AppTextStyle.h3Style.copyWith(
-            fontWeight: FontWeight.normal,
-          ),
-        ),
-        spacerM,
-        MyIconButton(
-          onPressed: () {},
-          text: 'Aplicar filtros',
-          icon: Image.asset(
-            'assets/icons/Filtro.png',
-            scale: 2,
-          ),
-          variant: MyButtonVariant.outlinedBold,
-        ),
-        spacerL,
-        ...List.generate(3, (i) {
-          return BillCard(
-            onTap: () {
-              Navigator.pushNamed(context, BillDetailPage.route);
-            },
-          );
-        }),
-      ],
+    final cubit = context.read<MyOrdersCubit>();
+    return BlocBuilder<MyOrdersCubit, MyOrdersState>(
+      builder: (context, state) {
+        return ListView(
+          padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+          children: [
+            spacerS,
+            const Text('Mis facturas', style: AppTextStyle.h2Style),
+            Text(
+              LocalDataRepository().user?.name ?? '',
+              style: AppTextStyle.h3Style.copyWith(
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            spacerM,
+            MyIconButton(
+              onPressed: () {
+                myFilters(context).then((filter) {
+                  if (filter != null) {
+                    cubit.getMyBills(filter: filter);
+                  }
+                });
+              },
+              text: 'Aplicar filtros',
+              icon: Image.asset(
+                'assets/icons/Filtro.png',
+                scale: 2,
+              ),
+              variant: MyButtonVariant.outlinedBold,
+            ),
+            spacerL,
+            if (state.loading)
+              ...List.generate(
+                  3,
+                  (_) => const Padding(
+                        padding: EdgeInsets.only(bottom: 20),
+                        child: MyShimmer(height: 230, margin: EdgeInsets.zero),
+                      )),
+            if (!state.loading)
+              ...state.bills.map((e) => AlbaranCard(e)).toList(),
+          ],
+        );
+      },
     );
   }
 }

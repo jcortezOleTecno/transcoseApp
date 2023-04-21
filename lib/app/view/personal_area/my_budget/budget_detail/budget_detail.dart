@@ -9,6 +9,7 @@ import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_label_status/my_label_status.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
+import 'package:vemare/app/view/_components/my_signature/my_signature.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/personal_area/my_budget/budget_detail/bloc/budget_detail_cubit.dart';
 import 'package:vemare/app/view/personal_area/my_budget/budget_detail/bloc/budget_detail_state.dart';
@@ -33,6 +34,7 @@ class BudgetDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<BudgetDetailCubit>();
     return Scaffold(
       body: BlocConsumer<BudgetDetailCubit, BudgetDetailState>(
         listener: (context, state) {
@@ -83,7 +85,16 @@ class BudgetDetailPage extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(15),
                     child: MyIconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        myDialogSignature(context,
+                            sign: (name, nif, signature) async {
+                          await cubit.sign(
+                            name: name,
+                            nif: nif,
+                            signature: signature,
+                          );
+                        });
+                      },
                       text: 'Firmar',
                       icon: Image.asset(
                         'assets/icons/firma.png',

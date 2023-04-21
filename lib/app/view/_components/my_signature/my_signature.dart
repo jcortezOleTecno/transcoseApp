@@ -9,6 +9,7 @@ import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_input/my_input.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/_components/tap_to_hide_keyboard/tap_to_hide_keyboard.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
@@ -72,82 +73,86 @@ class _MySignatureState extends State<MySignature> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Container(
-            color: AppColor.primaryBlue,
-            padding: const EdgeInsets.all(15),
-            child: Center(
-              child: Text(
-                'Firma aquí:',
-                style: AppTextStyle.titleCard.copyWith(color: Colors.white),
+    return MyTapToHideKeyboard(
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Container(
+              color: AppColor.primaryBlue,
+              padding: const EdgeInsets.all(15),
+              child: Center(
+                child: Text(
+                  'Firma aquí:',
+                  style: AppTextStyle.titleCard.copyWith(color: Colors.white),
+                ),
               ),
             ),
-          ),
-          //SIGNATURE CANVAS
-          Signature(
-            key: const Key('signature'),
-            controller: _controller,
-            height: 250,
-            backgroundColor: Colors.grey[100]!,
-          ),
-          //OK AND CLEAR BUTTONS
-
-          _buttons(),
-          spacerS,
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              children: [
-                MyInput(
-                  label: 'Nombre',
-                  textCapitalization: TextCapitalization.sentences,
-                  textInputAction: TextInputAction.next,
-                  inputType: TextInputType.name,
-                  onChanged: (value) {
-                    setState(() {
-                      name = value;
-                    });
-                  },
-                ),
-                MyInput(
-                  label: 'NIF',
-                  textInputAction: TextInputAction.next,
-                  inputType: TextInputType.number,
-                  onChanged: (value) {
-                    setState(() {
-                      nif = value;
-                    });
-                  },
-                ),
-                spacerS,
-                MyButton(
-                  onPressed: () async {
-                    setState(() {
-                      loading = true;
-                    });
-
-                    signature = await _controller.toPngBytes();
-                    await widget.sign(
-                        name, nif, base64Encode(signature!.toList()));
-                    setState(() {
-                      loading = false;
-                    });
-                    // ignore: use_build_context_synchronously
-                    Navigator.of(context).pop();
-                  },
-                  disabled: (name == '' || nif == '') || signIsEmpty,
-                  text: 'Firmar',
-                  variant: MyButtonVariant.outlinedBold,
-                  width: double.infinity,
-                  isLoading: loading,
-                ),
-              ],
+            //SIGNATURE CANVAS
+            Signature(
+              key: const Key('signature'),
+              controller: _controller,
+              height: 250,
+              backgroundColor: Colors.grey[100]!,
             ),
-          )
-        ],
+            //OK AND CLEAR BUTTONS
+
+            _buttons(),
+            spacerS,
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  MyInput(
+                    label: 'Nombre',
+                    textCapitalization: TextCapitalization.sentences,
+                    textInputAction: TextInputAction.next,
+                    inputType: TextInputType.name,
+                    onChanged: (value) {
+                      setState(() {
+                        name = value;
+                      });
+                    },
+                  ),
+                  MyInput(
+                    label: 'NIF',
+                    textInputAction: TextInputAction.next,
+                    inputType: TextInputType.number,
+                    onChanged: (value) {
+                      setState(() {
+                        nif = value;
+                      });
+                    },
+                  ),
+                  spacerS,
+                  MyButton(
+                    onPressed: () async {
+                      setState(() {
+                        loading = true;
+                      });
+
+                      FocusScope.of(context).requestFocus(FocusNode());
+
+                      signature = await _controller.toPngBytes();
+                      await widget.sign(name, nif,
+                          'data:image/png;base64,${base64Encode(signature!.toList())}');
+                      setState(() {
+                        loading = false;
+                      });
+                      // ignore: use_build_context_synchronously
+                      Navigator.of(context).pop();
+                    },
+                    disabled: (name == '' || nif == '') || signIsEmpty,
+                    text: 'Firmar',
+                    variant: MyButtonVariant.outlinedBold,
+                    width: double.infinity,
+                    isLoading: loading,
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

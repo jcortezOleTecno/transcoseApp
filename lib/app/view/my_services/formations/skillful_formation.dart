@@ -83,12 +83,15 @@ class _Item extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    formation.title ?? '',
-                    style: AppTextStyle.h3Style.copyWith(
-                      color: AppColor.primaryBlue,
+                  Expanded(
+                    child: Text(
+                      formation.title ?? '',
+                      style: AppTextStyle.h3Style.copyWith(
+                        color: AppColor.primaryBlue,
+                      ),
                     ),
                   ),
+                  spacerS,
                   Image.asset(
                     'assets/icons/arrow_next.png',
                     color: AppColor.primaryBlue,

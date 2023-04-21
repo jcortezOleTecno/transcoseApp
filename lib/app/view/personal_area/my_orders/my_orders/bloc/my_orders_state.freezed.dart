@@ -18,7 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$MyOrdersState {
   bool get loading => throw _privateConstructorUsedError;
   List<Warranty> get guarantee => throw _privateConstructorUsedError;
-  List<Albaran> get albaranes => throw _privateConstructorUsedError;
+  List<Albaran> get orders => throw _privateConstructorUsedError;
+  List<Albaran> get bills => throw _privateConstructorUsedError;
+  StatusWarranty? get statusWarranty => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MyOrdersStateCopyWith<MyOrdersState> get copyWith =>
@@ -31,7 +33,12 @@ abstract class $MyOrdersStateCopyWith<$Res> {
           MyOrdersState value, $Res Function(MyOrdersState) then) =
       _$MyOrdersStateCopyWithImpl<$Res, MyOrdersState>;
   @useResult
-  $Res call({bool loading, List<Warranty> guarantee, List<Albaran> albaranes});
+  $Res call(
+      {bool loading,
+      List<Warranty> guarantee,
+      List<Albaran> orders,
+      List<Albaran> bills,
+      StatusWarranty? statusWarranty});
 }
 
 /// @nodoc
@@ -49,7 +56,9 @@ class _$MyOrdersStateCopyWithImpl<$Res, $Val extends MyOrdersState>
   $Res call({
     Object? loading = null,
     Object? guarantee = null,
-    Object? albaranes = null,
+    Object? orders = null,
+    Object? bills = null,
+    Object? statusWarranty = freezed,
   }) {
     return _then(_value.copyWith(
       loading: null == loading
@@ -60,10 +69,18 @@ class _$MyOrdersStateCopyWithImpl<$Res, $Val extends MyOrdersState>
           ? _value.guarantee
           : guarantee // ignore: cast_nullable_to_non_nullable
               as List<Warranty>,
-      albaranes: null == albaranes
-          ? _value.albaranes
-          : albaranes // ignore: cast_nullable_to_non_nullable
+      orders: null == orders
+          ? _value.orders
+          : orders // ignore: cast_nullable_to_non_nullable
               as List<Albaran>,
+      bills: null == bills
+          ? _value.bills
+          : bills // ignore: cast_nullable_to_non_nullable
+              as List<Albaran>,
+      statusWarranty: freezed == statusWarranty
+          ? _value.statusWarranty
+          : statusWarranty // ignore: cast_nullable_to_non_nullable
+              as StatusWarranty?,
     ) as $Val);
   }
 }
@@ -76,7 +93,12 @@ abstract class _$$_MyOrdersStateCopyWith<$Res>
       __$$_MyOrdersStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool loading, List<Warranty> guarantee, List<Albaran> albaranes});
+  $Res call(
+      {bool loading,
+      List<Warranty> guarantee,
+      List<Albaran> orders,
+      List<Albaran> bills,
+      StatusWarranty? statusWarranty});
 }
 
 /// @nodoc
@@ -92,7 +114,9 @@ class __$$_MyOrdersStateCopyWithImpl<$Res>
   $Res call({
     Object? loading = null,
     Object? guarantee = null,
-    Object? albaranes = null,
+    Object? orders = null,
+    Object? bills = null,
+    Object? statusWarranty = freezed,
   }) {
     return _then(_$_MyOrdersState(
       loading: null == loading
@@ -103,10 +127,18 @@ class __$$_MyOrdersStateCopyWithImpl<$Res>
           ? _value._guarantee
           : guarantee // ignore: cast_nullable_to_non_nullable
               as List<Warranty>,
-      albaranes: null == albaranes
-          ? _value._albaranes
-          : albaranes // ignore: cast_nullable_to_non_nullable
+      orders: null == orders
+          ? _value._orders
+          : orders // ignore: cast_nullable_to_non_nullable
               as List<Albaran>,
+      bills: null == bills
+          ? _value._bills
+          : bills // ignore: cast_nullable_to_non_nullable
+              as List<Albaran>,
+      statusWarranty: freezed == statusWarranty
+          ? _value.statusWarranty
+          : statusWarranty // ignore: cast_nullable_to_non_nullable
+              as StatusWarranty?,
     ));
   }
 }
@@ -117,9 +149,12 @@ class _$_MyOrdersState extends _MyOrdersState {
   const _$_MyOrdersState(
       {this.loading = false,
       final List<Warranty> guarantee = const <Warranty>[],
-      final List<Albaran> albaranes = const <Albaran>[]})
+      final List<Albaran> orders = const <Albaran>[],
+      final List<Albaran> bills = const <Albaran>[],
+      this.statusWarranty})
       : _guarantee = guarantee,
-        _albaranes = albaranes,
+        _orders = orders,
+        _bills = bills,
         super._();
 
   @override
@@ -134,18 +169,30 @@ class _$_MyOrdersState extends _MyOrdersState {
     return EqualUnmodifiableListView(_guarantee);
   }
 
-  final List<Albaran> _albaranes;
+  final List<Albaran> _orders;
   @override
   @JsonKey()
-  List<Albaran> get albaranes {
-    if (_albaranes is EqualUnmodifiableListView) return _albaranes;
+  List<Albaran> get orders {
+    if (_orders is EqualUnmodifiableListView) return _orders;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_albaranes);
+    return EqualUnmodifiableListView(_orders);
+  }
+
+  final List<Albaran> _bills;
+  @override
+  @JsonKey()
+  List<Albaran> get bills {
+    if (_bills is EqualUnmodifiableListView) return _bills;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_bills);
   }
 
   @override
+  final StatusWarranty? statusWarranty;
+
+  @override
   String toString() {
-    return 'MyOrdersState(loading: $loading, guarantee: $guarantee, albaranes: $albaranes)';
+    return 'MyOrdersState(loading: $loading, guarantee: $guarantee, orders: $orders, bills: $bills, statusWarranty: $statusWarranty)';
   }
 
   @override
@@ -156,8 +203,10 @@ class _$_MyOrdersState extends _MyOrdersState {
             (identical(other.loading, loading) || other.loading == loading) &&
             const DeepCollectionEquality()
                 .equals(other._guarantee, _guarantee) &&
-            const DeepCollectionEquality()
-                .equals(other._albaranes, _albaranes));
+            const DeepCollectionEquality().equals(other._orders, _orders) &&
+            const DeepCollectionEquality().equals(other._bills, _bills) &&
+            (identical(other.statusWarranty, statusWarranty) ||
+                other.statusWarranty == statusWarranty));
   }
 
   @override
@@ -165,7 +214,9 @@ class _$_MyOrdersState extends _MyOrdersState {
       runtimeType,
       loading,
       const DeepCollectionEquality().hash(_guarantee),
-      const DeepCollectionEquality().hash(_albaranes));
+      const DeepCollectionEquality().hash(_orders),
+      const DeepCollectionEquality().hash(_bills),
+      statusWarranty);
 
   @JsonKey(ignore: true)
   @override
@@ -178,7 +229,9 @@ abstract class _MyOrdersState extends MyOrdersState {
   const factory _MyOrdersState(
       {final bool loading,
       final List<Warranty> guarantee,
-      final List<Albaran> albaranes}) = _$_MyOrdersState;
+      final List<Albaran> orders,
+      final List<Albaran> bills,
+      final StatusWarranty? statusWarranty}) = _$_MyOrdersState;
   const _MyOrdersState._() : super._();
 
   @override
@@ -186,7 +239,11 @@ abstract class _MyOrdersState extends MyOrdersState {
   @override
   List<Warranty> get guarantee;
   @override
-  List<Albaran> get albaranes;
+  List<Albaran> get orders;
+  @override
+  List<Albaran> get bills;
+  @override
+  StatusWarranty? get statusWarranty;
   @override
   @JsonKey(ignore: true)
   _$$_MyOrdersStateCopyWith<_$_MyOrdersState> get copyWith =>

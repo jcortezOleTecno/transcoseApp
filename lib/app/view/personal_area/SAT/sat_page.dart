@@ -1,38 +1,68 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
+import 'package:vemare/app/data/my_account_repository.dart';
+import 'package:vemare/app/domain/model/sat.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_label_status/my_label_status.dart';
+import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/personal_area/widgets/item_card.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
+import 'package:vemare/config/service_locator.dart';
+
+import 'bloc/sat_cubit.dart';
+import 'bloc/sat_state.dart';
 
 class SatPage extends StatelessWidget {
-  const SatPage({super.key});
+  const SatPage._();
   static const route = '/sat';
+
+  static Widget create() {
+    return BlocProvider(
+      create: (context) => SatCubit(
+        getIt.get<MyAccountRepository>(),
+      ),
+      child: const SatPage._(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: MyBody(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const Text('Mis formaciones y eventos',
-                  style: AppTextStyle.h1Style),
-              Text(
-                LocalDataRepository().user?.name ?? '',
-                style: AppTextStyle.h3Style.copyWith(
-                  fontWeight: FontWeight.normal,
-                ),
+        child: BlocBuilder<SatCubit, SatState>(
+          builder: (context, state) {
+            return SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Text('SAT', style: AppTextStyle.h1Style),
+                  Text(
+                    LocalDataRepository().user?.name ?? '',
+                    style: AppTextStyle.h3Style.copyWith(
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                  spacerL,
+                  if (state.loading)
+                    ...List.generate(2, (i) {
+                      return const Padding(
+                        padding: EdgeInsets.only(bottom: 20),
+                        child: MyShimmer(
+                          height: 310,
+                          margin: EdgeInsets.zero,
+                        ),
+                      );
+                    }),
+                  if (!state.loading)
+                    ...state.sats.map((e) => _SATCard(e)).toList(),
+                ],
               ),
-              spacerL,
-              ...List.generate(4, (i) {
-                return _SATCard();
-              }),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
@@ -40,9 +70,12 @@ class SatPage extends StatelessWidget {
 }
 
 class _SATCard extends StatelessWidget {
-  const _SATCard({
+  const _SATCard(
+    this.sat, {
     Key? key,
   }) : super(key: key);
+
+  final Sat sat;
 
   @override
   Widget build(BuildContext context) {
@@ -61,37 +94,61 @@ class _SATCard extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('REVISIÓN', style: AppTextStyle.defaultStyle),
-                    Text(
-                      '???',
-                      style: AppTextStyle.titleCard,
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'FECHA',
-                      style: AppTextStyle.defaultStyle,
-                    ),
-                    Text(
-                      '00/00/00',
-                      style: AppTextStyle.titleCard,
-                    ),
-                  ],
-                ),
-              ),
-              _popupMenu(),
+                  child: Item(
+                      title: 'CÓDIGO', content: sat.codigo?.toString() ?? '')),
+              Expanded(child: Item(title: 'FECHA', content: sat.fecha ?? '')),
             ],
           ),
-          spacerM,
-          MyLabelStatus.pending(),
+          spacerS,
+          Row(
+            children: [
+              Expanded(
+                  child: Item(
+                      title: 'TIPO AVERIA', content: sat.tipoAveria ?? '')),
+              Expanded(child: Item(title: 'MARCA', content: sat.marca ?? '')),
+            ],
+          ),
+          spacerS,
+          Row(
+            children: [
+              Expanded(child: Item(title: 'MODELO', content: sat.modelo ?? '')),
+              Expanded(
+                  child: Item(
+                      title: 'N° DE SERIE', content: sat.numeroSerie ?? '')),
+            ],
+          ),
+          spacerS,
+          Row(
+            children: [
+              Expanded(
+                  child:
+                      Item(title: 'TIPO ACUSE', content: sat.tipoAcuse ?? '')),
+              Expanded(
+                  child:
+                      Item(title: 'FECHA CITA', content: sat.fechaCita ?? '')),
+            ],
+          ),
+          spacerS,
+          Row(
+            children: [
+              Expanded(
+                  child: Item(
+                      title: 'HORA CITA',
+                      content: sat.franjaHorariaCita ?? '')),
+              Expanded(
+                  child: Item(
+                      title: 'N° DE INTERVENSIÓN',
+                      content: sat.numeroIntervenciom ?? '')),
+            ],
+          ),
+          spacerS,
+          Row(
+            children: [
+              Expanded(child: Item(title: 'ESTADO', content: sat.estado ?? '')),
+              Expanded(
+                  child: Item(title: 'TÉCNICO', content: sat.tecnico ?? '')),
+            ],
+          ),
         ],
       ),
     );

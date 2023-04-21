@@ -19,7 +19,7 @@ import 'package:vemare/app/view/personal_area/my_account/my_account_page.dart';
 import 'package:vemare/app/view/my_services/services/services_page.dart';
 import 'package:vemare/app/view/our_products/type_of_vehicle_page.dart';
 import 'package:vemare/app/view/personal_area/my_budget/my_budget/my_budget_page.dart';
-import 'package:vemare/app/view/personal_area/my_contracts/my_contracts_page.dart';
+import 'package:vemare/app/view/personal_area/my_contracts/page/my_contracts_page.dart';
 import 'package:vemare/app/view/personal_area/my_orders/my_orders/my_orders_page.dart';
 import 'package:vemare/app/view/personal_area/my_trainigs_and_events/my_trainigs_and_events_page.dart';
 import 'package:vemare/app/view/promotions/promotions_categories/promotions_page.dart';
@@ -410,33 +410,41 @@ class _Menu extends StatelessWidget {
                 ),
                 divider,
                 if (LocalDataRepository().isLogged)
-                  BlocBuilder<UserCubit, UserState>(
-                    builder: (context, state) {
-                      return _MenuItemExpand(
-                          title: LocalDataRepository().isLogged
-                              ? 'Mis contactos Vemare'
-                              : 'Mis contactos',
-                          icon: Image.asset(
-                            'assets/icons/Phone.png',
-                            scale: 2,
-                            color: AppColor.white,
-                          ),
-                          children: state.enterprises
-                              .map(
-                                (e) => _MenuItem(
-                                  onTap: () =>
-                                      _callDialog(context, number: e.phone),
-                                  title: e.name,
-                                  subtitle:
-                                      '${e.phone.split('').getRange(0, 3).join()}  ${e.phone.split('').getRange(3, 6).join()}  ${e.phone.split('').getRange(6, 9).join()}',
-                                ),
-                              )
-                              .toList());
-                    },
-                  ),
+                  _MenuItemExpand(
+                      title: 'Mis contactos Vemare',
+                      icon: Image.asset(
+                        'assets/icons/Phone.png',
+                        scale: 2,
+                        color: AppColor.white,
+                      ),
+                      children: LocalDataRepository()
+                          .user!
+                          .webservice!
+                          .comerciales!
+                          .map(
+                            (e) => _MenuItem(
+                              onTap: () => _callDialog(context,
+                                  number: e.telefono == ''
+                                      ? '000000000'
+                                      : e.telefono ?? '000000000'),
+                              title: e.nombre ?? '',
+                              subtitle: e.telefono == ''
+                                  ? '000 000 000'
+                                  : '${e.telefono?.split('').getRange(0, 3).join()}  ${e.telefono?.split('').getRange(3, 6).join()}  ${e.telefono?.split('').getRange(6, 9).join()}',
+                            ),
+                          )
+                          .toList()),
                 spacerL,
                 ConfirmationSlider(
-                  onConfirmation: () {},
+                  onConfirmation: () async {
+                    final number = LocalDataRepository()
+                            .user!
+                            .webservice
+                            ?.centroReparto?[0]
+                            .telefonos ??
+                        '000000000';
+                    await launchUrlString('tel:$number');
+                  },
                   backgroundColor: AppColor.blue,
                   foregroundColor: AppColor.blue200,
                   iconColor: AppColor.blue,
@@ -464,7 +472,9 @@ class _Menu extends StatelessWidget {
       builder: (context) {
         return CupertinoAlertDialog(
           content: Text(
-            '${number.split('').getRange(0, 3).join()} ${number.split('').getRange(3, 6).join()} ${number.split('').getRange(6, 9).join()}',
+            number == null
+                ? ''
+                : '${number.split('').getRange(0, 3).join()} ${number.split('').getRange(3, 6).join()} ${number.split('').getRange(6, 9).join()}',
             style: AppTextStyle.h3Style,
           ),
           actions: [

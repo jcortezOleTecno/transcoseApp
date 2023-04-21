@@ -19,52 +19,59 @@ class OtherEventPage extends StatelessWidget {
     return Scaffold(
       body: MyBody(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const MyBackButton(),
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: SingleChildScrollView(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                        child: Hero(
-                      tag: event.id!,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: Image(
-                          image: NetworkImage(event.image!),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    )),
-                    spacerS,
-                    Expanded(
-                        child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(event.title ?? '', style: AppTextStyle.h2Style),
-                        spacerS,
-                        MyHtml(text: event.description ?? ''),
-                      ],
-                    )),
+                    const MyBackButton(),
                     Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: MyButton(
-                        onPressed: () {
-                          Navigator.pushNamed(
-                            context,
-                            EnrollEventPage.route,
-                            arguments: event,
-                          );
-                        },
-                        text: 'Continuar',
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Hero(
+                            tag: event.id!,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image(
+                                image: NetworkImage(event.image!),
+                                fit: BoxFit.cover,
+                                height: 250,
+                              ),
+                            ),
+                          ),
+                          spacerS,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(event.title ?? '',
+                                  style: AppTextStyle.h2Style),
+                              spacerS,
+                              MyHtml(text: event.description ?? ''),
+                            ],
+                          ),
+                          spacerS,
+                        ],
                       ),
                     ),
-                    spacerS,
                   ],
                 ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: MyButton(
+                width: double.infinity,
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    EnrollEventPage.route,
+                    arguments: event,
+                  );
+                },
+                text: 'Continuar',
               ),
             ),
           ],

@@ -1,19 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
-import 'package:money_formatter/money_formatter.dart';
 import 'package:vemare/app/data/budget_repository.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/domain/model/budget.dart';
-import 'package:vemare/app/domain/model/months.dart';
 import 'package:vemare/app/domain/utils/money_formatter.dart';
-import 'package:vemare/app/domain/utils/months_list.dart';
-import 'package:vemare/app/domain/utils/year_list.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
-import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
-import 'package:vemare/app/view/_components/my_dropdown_button/my_drop_down_button.dart';
-import 'package:vemare/app/view/_components/my_label_status/my_label_status.dart';
+import 'package:vemare/app/view/_components/my_filters/my_filters.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/personal_area/my_budget/budget_detail/budget_detail.dart';
@@ -39,6 +32,7 @@ class MyBudgetPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<BudgetCubit>();
     return Scaffold(
       body: BlocConsumer<BudgetCubit, BudgetState>(
         listener: (context, state) {
@@ -61,7 +55,11 @@ class MyBudgetPage extends StatelessWidget {
                   spacerM,
                   MyIconButton(
                     onPressed: () {
-                      _filters(context);
+                      myFilters(context).then((filter) {
+                        if (filter != null) {
+                          cubit.fetchData(filter: filter);
+                        }
+                      });
                     },
                     text: 'Aplicar filtros',
                     icon: Image.asset(
@@ -80,15 +78,15 @@ class MyBudgetPage extends StatelessWidget {
                       );
                     }),
                   ],
-                  ...state.budget.map((e) => _Budget(e)),
-                  MyIconButton(
-                    onPressed: () {},
-                    text: 'Firmar',
-                    icon: Image.asset(
-                      'assets/icons/firma.png',
-                      scale: 2,
-                    ),
-                  ),
+                  if (!state.loading) ...state.budget.map((e) => _Budget(e)),
+                  // MyIconButton(
+                  //   onPressed: () {},
+                  //   text: 'Firmar',
+                  //   icon: Image.asset(
+                  //     'assets/icons/firma.png',
+                  //     scale: 2,
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -96,120 +94,6 @@ class MyBudgetPage extends StatelessWidget {
         },
       ),
     );
-  }
-
-  Future<dynamic> _filters(BuildContext context) {
-    final cubit = context.read<BudgetCubit>();
-    Months? monthsSelect;
-    String? yearSelect;
-
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return StatefulBuilder(
-            builder: (context, setState) {
-              return Dialog(
-                insetPadding: const EdgeInsets.fromLTRB(20, 25, 20, 20),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                child: Container(
-                  padding: const EdgeInsets.all(20),
-                  width: double.infinity,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const MySpacer(height: 15),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text('Aplicar filtros',
-                              style: AppTextStyle.h2Style),
-                          IconButton(
-                              onPressed: () => Navigator.of(context).pop(),
-                              icon: const Icon(Icons.close))
-                        ],
-                      ),
-                      spacerM,
-                      const Text(
-                        'Filtrar por mes',
-                        style: AppTextStyle.inputLabelStyle,
-                      ),
-                      MyCustomDropdownButton<Months>(
-                        hint: 'Selecciona un mes',
-                        dropdownItems: monthsList
-                            .map((item) => DropdownMenuItem(
-                                  value: item,
-                                  child: Text(
-                                    item.name,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                    style: AppTextStyle.inputStyle,
-                                  ),
-                                ))
-                            .toList(),
-                        buttonWidth: double.infinity,
-                        value: monthsSelect,
-                        onChanged: (value) {
-                          setState(() {
-                            monthsSelect = value;
-                          });
-                        },
-                      ),
-                      spacerM,
-                      const Text(
-                        'Filtrar por año',
-                        style: AppTextStyle.inputLabelStyle,
-                      ),
-                      MyCustomDropdownButton<String>(
-                        hint: 'Selecciona un año',
-                        dropdownItems: yearsList
-                            .map((item) => DropdownMenuItem(
-                                  value: item,
-                                  child: Text(
-                                    item,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                    style: AppTextStyle.inputStyle,
-                                  ),
-                                ))
-                            .toList(),
-                        buttonWidth: double.infinity,
-                        value: yearSelect,
-                        onChanged: (value) {
-                          setState(() {
-                            yearSelect = value;
-                          });
-                        },
-                      ),
-                      spacerXL,
-                      MyButton(
-                        onPressed: () => Navigator.of(context).pop(),
-                        text: 'Aplicar',
-                        width: double.infinity,
-                      ),
-                      spacerS,
-                      MyIconButton(
-                        onPressed: () {
-                          setState(() {
-                            yearSelect = null;
-                            monthsSelect = null;
-                          });
-                        },
-                        text: 'Borrar filtros',
-                        variant: MyButtonVariant.outlinedBold,
-                        icon: Image.asset(
-                          'assets/icons/Trash.png',
-                          scale: 2,
-                          color: AppColor.primaryBlue,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            },
-          );
-        });
   }
 }
 

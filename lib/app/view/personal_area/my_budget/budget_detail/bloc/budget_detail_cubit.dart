@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:vemare/app/data/budget_repository.dart';
 import 'package:vemare/app/domain/model/budget.dart';
 import 'package:vemare/app/domain/model/budget_detail.dart';
-import 'package:vemare/app/domain/model/months.dart';
 import 'package:vemare/app/view/personal_area/my_budget/budget_detail/bloc/budget_detail_state.dart';
 
 class BudgetDetailCubit extends Cubit<BudgetDetailState> {
@@ -22,7 +21,23 @@ class BudgetDetailCubit extends Cubit<BudgetDetailState> {
     emit(state.copyWith(budgetDetails: budgetDetails, loading: false));
   }
 
-  void months(Months? months) {
-    // emit(state.copyWith(monthsSelect: months));
+  Future<void> sign({
+    required String name,
+    required String nif,
+    required String signature,
+  }) async {
+    await _budgetRepository
+        .signBudget(
+      codPresupuesto: state.budget!.codigoPresupuesto.toString(),
+      numeroProyecto: state.budget!.numero!,
+      persona: name,
+      nif: nif,
+      firma: signature,
+    )
+        .then((value) {
+      if (value) {
+        fetchData();
+      }
+    });
   }
 }

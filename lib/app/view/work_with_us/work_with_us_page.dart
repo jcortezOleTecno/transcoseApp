@@ -70,6 +70,7 @@ class WorkWithUsPage extends StatelessWidget {
                             '''Bienvenido a Grupo Vemare, compañía líder en la zona centro en la distribución de recambio de automóvil original y equipamiento para el taller. ¿Te gustaría trabajar con nosotros?
               
               Por favor, cumplimenta el siguiente formulario. En cuanto iniciemos un proceso de selección que se ajuste a tu perfil, nos pondremos en contacto contigo. Gracias.''',
+                            style: AppTextStyle.defaultStyle,
                           ),
                           spacerS,
                           const Text(

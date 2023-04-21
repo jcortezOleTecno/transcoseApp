@@ -9,7 +9,8 @@ abstract class AppTheme {
       fontFamily: 'NunitoSans',
       brightness: Brightness.light,
       splashColor: AppColor.primary,
-      colorScheme: colorScheme,
+      accentColor: AppColor.primary,
+      primaryColor: AppColor.primary,
       textTheme: textTheme,
       iconTheme: iconTheme,
       progressIndicatorTheme: progressIndicatorTheme,
@@ -37,6 +38,7 @@ abstract class AppTheme {
       bottomSheetTheme: const BottomSheetThemeData(
         backgroundColor: Colors.transparent,
       ),
+      colorScheme: colorScheme.copyWith(secondary: AppColor.primary),
     );
   }
 

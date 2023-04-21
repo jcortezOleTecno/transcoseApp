@@ -12,6 +12,7 @@ import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_calendar/my_calendar.dart';
 import 'package:vemare/app/view/_components/my_dropdown_button/my_drop_down_button.dart';
+import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_input/my_input.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/my_services/formations/enroll_training/bloc/enroll_training_cubit.dart';
@@ -156,11 +157,12 @@ class EnrollTrainingPage extends StatelessWidget {
                     style: AppTextStyle.h3Style,
                   ),
                   spacerS,
-                  Text(
-                    formation.description ?? '',
-                    style: AppTextStyle.defaultStyle,
-                    textAlign: TextAlign.center,
-                  ),
+                  MyHtml(text: formation.description ?? ''),
+                  // Text(
+                  //   formation.description ?? '',
+                  //   style: AppTextStyle.defaultStyle,
+                  //   textAlign: TextAlign.center,
+                  // ),
                   const Spacer(),
                   MyButton(
                     onPressed: () => Navigator.of(context).pop(true),

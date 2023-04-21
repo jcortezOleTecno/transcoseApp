@@ -1,80 +1,94 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
+import 'package:vemare/app/data/my_account_repository.dart';
+import 'package:vemare/app/domain/model/modelo_347.dart';
+import 'package:vemare/app/domain/utils/year_list.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_dropdown_button/my_drop_down_button.dart';
+import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/personal_area/widgets/item_card.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
 
-class Modelo347Page extends StatefulWidget {
-  const Modelo347Page({super.key});
+import 'bloc/modelo_347_cubit.dart';
+import 'bloc/modelo_347_state.dart';
+
+class Modelo347Page extends StatelessWidget {
+  const Modelo347Page._();
   static const route = '/modelo_347';
 
-  @override
-  State<Modelo347Page> createState() => _Modelo347PageState();
-}
+  static Widget create() {
+    return BlocProvider(
+      create: (context) => Modelo347Cubit(
+        getIt.get<MyAccountRepository>(),
+      ),
+      child: const Modelo347Page._(),
+    );
+  }
 
-class _Modelo347PageState extends State<Modelo347Page> {
-  final List<String> items = [
-    'Item1',
-    'Item2',
-    'Item3',
-    'Item4',
-    'Item5',
-    'Item6',
-    'Item7',
-    'Item8',
-  ];
-  String? selectedValue;
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<Modelo347Cubit>();
     return Scaffold(
       body: MyBody(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const Text('Modelo 347', style: AppTextStyle.h1Style),
-              Text(
-                LocalDataRepository().user?.name ?? '',
-                style: AppTextStyle.h3Style.copyWith(
-                  fontWeight: FontWeight.normal,
-                ),
+        child: BlocConsumer<Modelo347Cubit, Modelo347State>(
+          listener: (context, state) {
+            // TODO: implement listener
+          },
+          builder: (context, state) {
+            return SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Text('Modelo 347', style: AppTextStyle.h1Style),
+                  Text(
+                    LocalDataRepository().user?.name ?? '',
+                    style: AppTextStyle.h3Style.copyWith(
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                  spacerL,
+                  const Text(
+                    'Filtrar por año',
+                    style: AppTextStyle.inputLabelStyle,
+                  ),
+                  MyCustomDropdownButton(
+                      hint: '2021',
+                      hintStyle: AppTextStyle.inputStyle,
+                      dropdownItems: yearsList
+                          .map((item) => DropdownMenuItem(
+                                value: item,
+                                child: Text(item,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    style: AppTextStyle.inputStyle),
+                              ))
+                          .toList(),
+                      value: state.yearSelect,
+                      onChanged: (value) {
+                        cubit.getMy347(year: value);
+                      }),
+                  spacerM,
+                  if (state.loading)
+                    ...List.generate(4, (i) {
+                      return const Padding(
+                        padding: EdgeInsets.only(bottom: 20),
+                        child: MyShimmer(
+                          height: 75,
+                          margin: EdgeInsets.zero,
+                        ),
+                      );
+                    }),
+                  if (!state.loading)
+                    ...state.modelos.map((e) => _Item(e)).toList(),
+                ],
               ),
-              spacerL,
-              Text(
-                'Filtrar por año',
-                style: AppTextStyle.inputLabelStyle,
-              ),
-              MyCustomDropdownButton(
-                  hint: 'Seleccione',
-                  dropdownItems: items
-                      .map((item) => DropdownMenuItem(
-                            value: item,
-                            child: Text(
-                              item,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              style: const TextStyle(
-                                fontSize: 14,
-                              ),
-                            ),
-                          ))
-                      .toList(),
-                  value: selectedValue,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedValue = value;
-                    });
-                  }),
-              spacerM,
-              ...List.generate(4, (i) {
-                return _Item();
-              }),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
@@ -82,9 +96,12 @@ class _Modelo347PageState extends State<Modelo347Page> {
 }
 
 class _Item extends StatelessWidget {
-  const _Item({
+  const _Item(
+    this.modelo, {
     Key? key,
   }) : super(key: key);
+
+  final Modelo347 modelo;
 
   @override
   Widget build(BuildContext context) {
@@ -98,51 +115,10 @@ class _Item extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: AppColor.blue100),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('TRIMESTRE', style: AppTextStyle.defaultStyle),
-              Text(
-                'Trimestre 1',
-                style: AppTextStyle.titleCard,
-              ),
-            ],
-          ),
-          spacerS,
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('EMISOR', style: AppTextStyle.defaultStyle),
-                    Text(
-                      'VEM',
-                      style: AppTextStyle.titleCard,
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'TOTAL',
-                      style: AppTextStyle.defaultStyle,
-                    ),
-                    Text(
-                      '42.060,50 €',
-                      style: AppTextStyle.titleCard,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+          Expanded(child: Item(title: 'PERIODO', content: modelo.name ?? '')),
+          Expanded(child: Item(title: 'TOTAL', content: '${modelo.value}€')),
         ],
       ),
     );
