@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:vemare/app/domain/model/intervenciones.dart';
 import 'package:vemare/app/domain/model/sat.dart';
 
 part 'sat_state.freezed.dart';
@@ -7,6 +8,6 @@ part 'sat_state.freezed.dart';
 class SatState with _$SatState {
   const factory SatState({
     @Default(false) bool loading,
-    @Default(<Sat>[]) List<Sat> sats,
+    @Default(<Intervenciones>[]) List<Intervenciones> sats,
   }) = _SatState;
 }

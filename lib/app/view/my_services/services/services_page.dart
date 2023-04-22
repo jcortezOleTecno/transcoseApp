@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:vemare/app/data/services_repository.dart';
+import 'package:vemare/app/domain/value_object/status.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_dropdown_button/my_drop_down_button.dart';
@@ -38,23 +40,50 @@ class ServicesPage extends StatefulWidget {
 }
 
 class _ServicesPageState extends State<ServicesPage> {
-  final List<String> items = [
-    'Item1',
-    'Item2',
-    'Item3',
-    'Item4',
-    'Item5',
-    'Item6',
-    'Item7',
-    'Item8',
-  ];
-  String? selectedValue;
+  late TextEditingController tcName;
+  late TextEditingController tcEmail;
+  late TextEditingController tcPhone;
+  late TextEditingController tcProvince;
+  late TextEditingController tcCity;
+  late TextEditingController tcMsg;
+
+  @override
+  void initState() {
+    tcName = TextEditingController();
+    tcEmail = TextEditingController();
+    tcPhone = TextEditingController();
+    tcProvince = TextEditingController();
+    tcCity = TextEditingController();
+    tcMsg = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    tcName.dispose();
+    tcEmail.dispose();
+    tcPhone.dispose();
+    tcProvince.dispose();
+    tcCity.dispose();
+    tcMsg.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<ServicesCubit>();
     return BlocConsumer<ServicesCubit, ServicesState>(
       listener: (context, state) {
-        // TODO: implement listener
+        if (state.status == FormStatus.done) {
+          tcName.clear();
+          tcEmail.clear();
+          tcPhone.clear();
+          tcProvince.clear();
+          tcCity.clear();
+          tcMsg.clear();
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Su solicitud ha sido enviada')));
+        }
       },
       builder: (context, state) {
         return MyTapToHideKeyboard(
@@ -134,67 +163,83 @@ class _ServicesPageState extends State<ServicesPage> {
                         spacerS,
                         const Text('Contactos', style: AppTextStyle.h2Style),
                         spacerS,
-                        const MyInput(
+                        MyInput(
                           label: 'Nombre',
                           required: true,
                           hintText: 'Escribe tu nombre',
+                          onChanged: cubit.name,
+                          controller: tcName,
+                          textInputAction: TextInputAction.next,
+                          inputType: TextInputType.name,
+                          textCapitalization: TextCapitalization.words,
+                          hasError: state.status == FormStatus.error,
                         ),
-                        const MyInput(
+                        MyInput(
                           label: 'E-mail',
                           required: true,
-                          hintText: 'Escribe tu e-mail',
+                          hintText: 'Escribe tu email',
+                          controller: tcEmail,
+                          textInputAction: TextInputAction.next,
+                          inputType: TextInputType.emailAddress,
+                          onChanged: cubit.email,
+                          hasError: state.status == FormStatus.error,
                         ),
-                        const MyInput(
+                        MyInput(
                           label: 'Teléfono',
                           required: true,
-                          hintText: 'Escribe tu número de teléfono',
+                          hintText: '123 456 789',
+                          controller: tcPhone,
+                          textInputAction: TextInputAction.next,
+                          inputType: TextInputType.phone,
+                          onChanged: cubit.phone,
+                          inputFormatters: [
+                            MaskedInputFormatter('### ### ###'),
+                          ],
+                          hasError: state.status == FormStatus.error,
                         ),
-                        const MyInput(
+                        MyInput(
                           label: 'Provincia',
+                          required: true,
                           hintText: 'Escribe tu provincia',
+                          controller: tcProvince,
+                          textInputAction: TextInputAction.next,
+                          inputType: TextInputType.name,
+                          textCapitalization: TextCapitalization.words,
+                          hasError: state.status == FormStatus.error,
+                          onChanged: cubit.province,
                         ),
-                        const Text(
-                          'Categoria',
-                          style: AppTextStyle.inputLabelStyle,
-                        ),
-                        MyCustomDropdownButton(
-                          buttonElevation: 0,
-                          dropdownElevation: 2,
-                          buttonWidth: double.infinity,
-                          buttonHeight: 45,
-                          hint: 'Todos las categorias',
-                          dropdownItems: items
-                              .map((item) => DropdownMenuItem(
-                                    value: item,
-                                    child: Text(
-                                      item,
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                  ))
-                              .toList(),
-                          value: selectedValue,
-                          onChanged: (value) {
-                            setState(() {
-                              selectedValue = value;
-                            });
-                          },
+                        MyInput(
+                          label: 'Ciudad',
+                          hintText: 'Escribe tu ciudad',
+                          required: true,
+                          textInputAction: TextInputAction.next,
+                          controller: tcCity,
+                          inputType: TextInputType.name,
+                          textCapitalization: TextCapitalization.words,
+                          hasError: state.status == FormStatus.error,
+                          onChanged: cubit.ciudad,
                         ),
                         spacerS,
-                        const MyInput(
+                        MyInput(
                           label: 'Asunto',
                           required: true,
                           maxLines: 6,
+                          textInputAction: TextInputAction.newline,
+                          controller: tcMsg,
+                          onChanged: cubit.message,
                           inputType: TextInputType.multiline,
+                          hasError: state.status == FormStatus.error,
                         ),
                         spacerM,
                         MyButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            FocusScope.of(context).requestFocus(FocusNode());
+                            cubit.sendForm();
+                          },
                           text: 'Enviar',
                           width: double.infinity,
+                          isLoading: state.status == FormStatus.loading,
+                          disabled: !state.isCompleted,
                         ),
                         spacerXL,
                       ],

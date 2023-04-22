@@ -6,7 +6,7 @@ import 'package:vemare/app/data/my_account_repository.dart';
 import 'package:vemare/app/domain/model/trainings_event.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
-import 'package:vemare/app/view/_components/my_label_status/my_label_status.dart';
+import 'package:vemare/app/view/_components/my_filters/my_filters.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/personal_area/my_trainigs_and_events/bloc/my_trainigs_and_events_state.dart';
@@ -33,6 +33,7 @@ class MyTrainingAndEventsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.watch<MyTrainigsAndEventsCubit>();
     return Scaffold(
       body: MyBody(
         child: BlocBuilder<MyTrainigsAndEventsCubit, MyTrainigsAndEventsState>(
@@ -51,16 +52,22 @@ class MyTrainingAndEventsPage extends StatelessWidget {
                     ),
                   ),
                   spacerL,
-                  // MyIconButton(
-                  //   onPressed: () {},
-                  //   text: 'Aplicar filtros',
-                  //   icon: Image.asset(
-                  //     'assets/icons/Filtro.png',
-                  //     scale: 2,
-                  //   ),
-                  //   variant: MyButtonVariant.outlinedBold,
-                  // ),
-                  // spacerL,
+                  MyIconButton(
+                    onPressed: () {
+                      myFilters(context).then((filter) {
+                        if (filter != null) {
+                          cubit.getData(filter: filter);
+                        }
+                      });
+                    },
+                    text: 'Aplicar filtros',
+                    icon: Image.asset(
+                      'assets/icons/Filtro.png',
+                      scale: 2,
+                    ),
+                    variant: MyButtonVariant.outlinedBold,
+                  ),
+                  spacerL,
                   if (state.loading)
                     ...List.generate(4, (i) {
                       return const Padding(

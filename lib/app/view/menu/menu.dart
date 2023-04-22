@@ -13,7 +13,7 @@ import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/menu/bloc/menu_cubit.dart';
 import 'package:vemare/app/view/menu/bloc/menu_state.dart';
 import 'package:vemare/app/view/my_notifications/my_notifications_page.dart';
-import 'package:vemare/app/view/personal_area/SAT/sat_page.dart';
+import 'package:vemare/app/view/personal_area/SAT/page/sat_page.dart';
 import 'package:vemare/app/view/personal_area/modelo_347/modelo_347_page.dart';
 import 'package:vemare/app/view/personal_area/my_account/my_account_page.dart';
 import 'package:vemare/app/view/my_services/services/services_page.dart';
@@ -23,8 +23,6 @@ import 'package:vemare/app/view/personal_area/my_contracts/page/my_contracts_pag
 import 'package:vemare/app/view/personal_area/my_orders/my_orders/my_orders_page.dart';
 import 'package:vemare/app/view/personal_area/my_trainigs_and_events/my_trainigs_and_events_page.dart';
 import 'package:vemare/app/view/promotions/promotions_categories/promotions_page.dart';
-import 'package:vemare/app/view/shared/userbloc/user_cubit.dart';
-import 'package:vemare/app/view/shared/userbloc/user_state.dart';
 import 'package:vemare/app/view/shopping_cart/shopping_cart.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';

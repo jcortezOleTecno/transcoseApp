@@ -46,4 +46,12 @@ class ContratDetailCubit extends Cubit<ContratDetailState> {
       }
     });
   }
+
+  Future<void> downloadPDF() async {
+    emit(state.copyWith(loadingPDF: true));
+    await _contratsRepository.downloadPdfCrd(
+        codContrato: state.detail!.codigoContrato.toString(),
+        numProyecto: state.detail!.numeroProyecto.toString());
+    emit(state.copyWith(loadingPDF: false));
+  }
 }

@@ -4,6 +4,8 @@ import 'package:vemare/app/domain/model/albaran.dart';
 import 'package:vemare/app/domain/model/albaran_details.dart';
 import 'package:vemare/app/domain/model/expedition.dart';
 import 'package:vemare/app/domain/model/filter.dart';
+import 'package:vemare/app/domain/model/intervencion_detalle.dart';
+import 'package:vemare/app/domain/model/intervenciones.dart';
 import 'package:vemare/app/domain/model/modelo_347.dart';
 import 'package:vemare/app/domain/model/sat.dart';
 import 'package:vemare/app/domain/model/trainings_event.dart';
@@ -121,24 +123,38 @@ class MyAccountRepository {
     }
   }
 
-  Future<List<Sat>> getMySAT({Filter? filter}) async {
+  Future<List<Intervenciones>> getMySAT({Filter? filter}) async {
+    print(filter?.toJson());
     try {
       final dynamic res = await _apiClient.postRequest(
           '$BASE_API_URL/api/mi-cuenta/sat',
           body: filter?.toJson());
       print(res);
-      return (res["data"]["mensajes_sat"] as List).map(Sat.fromJson).toList();
+      return (res["datos"]["intervenciones"] as List)
+          .map(Intervenciones.fromJson)
+          .toList();
     } catch (e) {
       return [];
     }
   }
 
-  Future<List<TrainingsEvents>> getTrainingsEvents() async {
+  Future<IntervencionesDetalle> getMySATDetails(
+      {required String codigoIntervencion}) async {
+    final dynamic res = await _apiClient.postRequest(
+        '$BASE_API_URL/api/mi-cuenta/sat/detalle',
+        body: {"codigo_intervencion": codigoIntervencion});
+    print(res);
+    return IntervencionesDetalle.fromJson(res["intervencion"]);
+  }
+
+  Future<List<TrainingsEvents>> getTrainingsEvents({Filter? filter}) async {
     try {
-      final dynamic res = await _apiClient
-          .getRequest('$BASE_API_URL/api/eventos/formacionesEventos');
+      final dynamic res = await _apiClient.getRequest(
+          '$BASE_API_URL/api/eventos/formacionesEventos',
+          params: filter?.toJson());
       print(res);
-      return (res as List).map(TrainingsEvents.fromJson).toList();
+      print('##############');
+      return (res["data"] as List).map(TrainingsEvents.fromJson).toList();
     } catch (e) {
       return [];
     }

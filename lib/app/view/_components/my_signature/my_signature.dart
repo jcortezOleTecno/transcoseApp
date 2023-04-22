@@ -44,8 +44,8 @@ class _MySignatureState extends State<MySignature> {
   final SignatureController _controller = SignatureController(
     penStrokeWidth: 1.5,
     penColor: Colors.blue[900]!,
-    exportBackgroundColor: Colors.blue,
-    exportPenColor: Colors.black,
+    exportBackgroundColor: Colors.white,
+    exportPenColor: AppColor.primaryBlue,
   );
 
   String name = '';

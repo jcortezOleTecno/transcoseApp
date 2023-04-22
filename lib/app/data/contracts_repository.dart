@@ -1,3 +1,10 @@
+// import 'package:flutter_downloader/flutter_downloader.dart';
+import 'dart:io';
+
+import 'package:dio/dio.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/domain/model/contract_detail.dart';
 import 'package:vemare/app/domain/model/contract_millenium.dart';
 import 'package:vemare/app/domain/model/contract_pmp_detail.dart';
@@ -156,5 +163,21 @@ class ContratsRepository {
       body: body,
     );
     return ContratPmpDetail.fromJson(res["contrato"]);
+  }
+
+  Future<void> downloadPdfCrd({
+    required String codContrato,
+    required String numProyecto,
+  }) async {
+    final token = LocalDataRepository().authToken;
+    final Response res = await Dio().post(
+        '$BASE_API_URL/api/mi-cuenta/contratos_crd/imprimir',
+        data: {"codigo_contrato": codContrato, "numero_proyecto": numProyecto},
+        options: Options(headers: {'Authorization': 'Bearer $token'}));
+    final directory = await getApplicationDocumentsDirectory();
+    final savedDir = directory.path;
+    final file = File('$savedDir/contrato_$codContrato.pdf');
+    await file.writeAsBytes(List<int>.from(res.data.codeUnits));
+    await OpenFile.open(file.path);
   }
 }

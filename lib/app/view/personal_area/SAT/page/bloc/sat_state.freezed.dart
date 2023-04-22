@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$SatState {
   bool get loading => throw _privateConstructorUsedError;
-  List<Sat> get sats => throw _privateConstructorUsedError;
+  List<Intervenciones> get sats => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SatStateCopyWith<SatState> get copyWith =>
@@ -29,7 +29,7 @@ abstract class $SatStateCopyWith<$Res> {
   factory $SatStateCopyWith(SatState value, $Res Function(SatState) then) =
       _$SatStateCopyWithImpl<$Res, SatState>;
   @useResult
-  $Res call({bool loading, List<Sat> sats});
+  $Res call({bool loading, List<Intervenciones> sats});
 }
 
 /// @nodoc
@@ -56,7 +56,7 @@ class _$SatStateCopyWithImpl<$Res, $Val extends SatState>
       sats: null == sats
           ? _value.sats
           : sats // ignore: cast_nullable_to_non_nullable
-              as List<Sat>,
+              as List<Intervenciones>,
     ) as $Val);
   }
 }
@@ -68,7 +68,7 @@ abstract class _$$_SatStateCopyWith<$Res> implements $SatStateCopyWith<$Res> {
       __$$_SatStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool loading, List<Sat> sats});
+  $Res call({bool loading, List<Intervenciones> sats});
 }
 
 /// @nodoc
@@ -93,7 +93,7 @@ class __$$_SatStateCopyWithImpl<$Res>
       sats: null == sats
           ? _value._sats
           : sats // ignore: cast_nullable_to_non_nullable
-              as List<Sat>,
+              as List<Intervenciones>,
     ));
   }
 }
@@ -102,16 +102,17 @@ class __$$_SatStateCopyWithImpl<$Res>
 
 class _$_SatState implements _SatState {
   const _$_SatState(
-      {this.loading = false, final List<Sat> sats = const <Sat>[]})
+      {this.loading = false,
+      final List<Intervenciones> sats = const <Intervenciones>[]})
       : _sats = sats;
 
   @override
   @JsonKey()
   final bool loading;
-  final List<Sat> _sats;
+  final List<Intervenciones> _sats;
   @override
   @JsonKey()
-  List<Sat> get sats {
+  List<Intervenciones> get sats {
     if (_sats is EqualUnmodifiableListView) return _sats;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_sats);
@@ -143,13 +144,13 @@ class _$_SatState implements _SatState {
 }
 
 abstract class _SatState implements SatState {
-  const factory _SatState({final bool loading, final List<Sat> sats}) =
-      _$_SatState;
+  const factory _SatState(
+      {final bool loading, final List<Intervenciones> sats}) = _$_SatState;
 
   @override
   bool get loading;
   @override
-  List<Sat> get sats;
+  List<Intervenciones> get sats;
   @override
   @JsonKey(ignore: true)
   _$$_SatStateCopyWith<_$_SatState> get copyWith =>

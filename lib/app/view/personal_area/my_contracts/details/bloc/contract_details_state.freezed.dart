@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ContratDetailState {
   bool get loading => throw _privateConstructorUsedError;
+  bool get loadingPDF => throw _privateConstructorUsedError;
   ContratDetail? get detail => throw _privateConstructorUsedError;
   Contrats? get contract => throw _privateConstructorUsedError;
 
@@ -31,7 +32,11 @@ abstract class $ContratDetailStateCopyWith<$Res> {
           ContratDetailState value, $Res Function(ContratDetailState) then) =
       _$ContratDetailStateCopyWithImpl<$Res, ContratDetailState>;
   @useResult
-  $Res call({bool loading, ContratDetail? detail, Contrats? contract});
+  $Res call(
+      {bool loading,
+      bool loadingPDF,
+      ContratDetail? detail,
+      Contrats? contract});
 }
 
 /// @nodoc
@@ -48,6 +53,7 @@ class _$ContratDetailStateCopyWithImpl<$Res, $Val extends ContratDetailState>
   @override
   $Res call({
     Object? loading = null,
+    Object? loadingPDF = null,
     Object? detail = freezed,
     Object? contract = freezed,
   }) {
@@ -55,6 +61,10 @@ class _$ContratDetailStateCopyWithImpl<$Res, $Val extends ContratDetailState>
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      loadingPDF: null == loadingPDF
+          ? _value.loadingPDF
+          : loadingPDF // ignore: cast_nullable_to_non_nullable
               as bool,
       detail: freezed == detail
           ? _value.detail
@@ -76,7 +86,11 @@ abstract class _$$_ContratDetailStateCopyWith<$Res>
       __$$_ContratDetailStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool loading, ContratDetail? detail, Contrats? contract});
+  $Res call(
+      {bool loading,
+      bool loadingPDF,
+      ContratDetail? detail,
+      Contrats? contract});
 }
 
 /// @nodoc
@@ -91,6 +105,7 @@ class __$$_ContratDetailStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? loading = null,
+    Object? loadingPDF = null,
     Object? detail = freezed,
     Object? contract = freezed,
   }) {
@@ -98,6 +113,10 @@ class __$$_ContratDetailStateCopyWithImpl<$Res>
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      loadingPDF: null == loadingPDF
+          ? _value.loadingPDF
+          : loadingPDF // ignore: cast_nullable_to_non_nullable
               as bool,
       detail: freezed == detail
           ? _value.detail
@@ -115,11 +134,17 @@ class __$$_ContratDetailStateCopyWithImpl<$Res>
 
 class _$_ContratDetailState implements _ContratDetailState {
   const _$_ContratDetailState(
-      {this.loading = false, this.detail, this.contract});
+      {this.loading = false,
+      this.loadingPDF = false,
+      this.detail,
+      this.contract});
 
   @override
   @JsonKey()
   final bool loading;
+  @override
+  @JsonKey()
+  final bool loadingPDF;
   @override
   final ContratDetail? detail;
   @override
@@ -127,7 +152,7 @@ class _$_ContratDetailState implements _ContratDetailState {
 
   @override
   String toString() {
-    return 'ContratDetailState(loading: $loading, detail: $detail, contract: $contract)';
+    return 'ContratDetailState(loading: $loading, loadingPDF: $loadingPDF, detail: $detail, contract: $contract)';
   }
 
   @override
@@ -136,13 +161,16 @@ class _$_ContratDetailState implements _ContratDetailState {
         (other.runtimeType == runtimeType &&
             other is _$_ContratDetailState &&
             (identical(other.loading, loading) || other.loading == loading) &&
+            (identical(other.loadingPDF, loadingPDF) ||
+                other.loadingPDF == loadingPDF) &&
             (identical(other.detail, detail) || other.detail == detail) &&
             (identical(other.contract, contract) ||
                 other.contract == contract));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, loading, detail, contract);
+  int get hashCode =>
+      Object.hash(runtimeType, loading, loadingPDF, detail, contract);
 
   @JsonKey(ignore: true)
   @override
@@ -155,11 +183,14 @@ class _$_ContratDetailState implements _ContratDetailState {
 abstract class _ContratDetailState implements ContratDetailState {
   const factory _ContratDetailState(
       {final bool loading,
+      final bool loadingPDF,
       final ContratDetail? detail,
       final Contrats? contract}) = _$_ContratDetailState;
 
   @override
   bool get loading;
+  @override
+  bool get loadingPDF;
   @override
   ContratDetail? get detail;
   @override

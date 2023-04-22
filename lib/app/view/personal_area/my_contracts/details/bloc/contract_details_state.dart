@@ -8,6 +8,7 @@ part 'contract_details_state.freezed.dart';
 class ContratDetailState with _$ContratDetailState {
   const factory ContratDetailState({
     @Default(false) bool loading,
+    @Default(false) bool loadingPDF,
     ContratDetail? detail,
     Contrats? contract,
   }) = _ContratDetailState;

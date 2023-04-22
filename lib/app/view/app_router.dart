@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:vemare/app/domain/model/albaran.dart';
 import 'package:vemare/app/domain/model/budget.dart';
 import 'package:vemare/app/domain/model/category.dart';
-import 'package:vemare/app/domain/model/categoty_detail.dart';
 import 'package:vemare/app/domain/model/contrats.dart';
 import 'package:vemare/app/domain/model/events.dart';
 import 'package:vemare/app/domain/model/events_vemare.dart';
 import 'package:vemare/app/domain/model/formation.dart';
-import 'package:vemare/app/domain/model/galery.dart';
+import 'package:vemare/app/domain/model/intervenciones.dart';
 import 'package:vemare/app/domain/model/promotion.dart';
 import 'package:vemare/app/domain/model/services.dart';
 import 'package:vemare/app/domain/model/warranty.dart';
@@ -25,7 +24,8 @@ import 'package:vemare/app/view/my_services/events/other_events/other_event_page
 import 'package:vemare/app/view/my_services/events/other_events/other_events_list.dart';
 import 'package:vemare/app/view/news/news_page.dart';
 import 'package:vemare/app/view/our_history/our_history.dart';
-import 'package:vemare/app/view/personal_area/SAT/sat_page.dart';
+import 'package:vemare/app/view/personal_area/SAT/details/sat_detail.dart';
+import 'package:vemare/app/view/personal_area/SAT/page/sat_page.dart';
 import 'package:vemare/app/view/personal_area/modelo_347/modelo_347_page.dart';
 import 'package:vemare/app/view/personal_area/my_account/my_account_page.dart';
 import 'package:vemare/app/view/my_services/formations/detail_formation.dart';
@@ -352,6 +352,12 @@ abstract class AppRouter {
         return MaterialPageRoute<void>(
           settings: settings,
           builder: (_) => ContractPMPDetailPage.create(contrat!),
+        );
+      case SatDetailPage.route:
+        final data = settings.arguments as Intervenciones?;
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => SatDetailPage.create(data!),
         );
 
       default:

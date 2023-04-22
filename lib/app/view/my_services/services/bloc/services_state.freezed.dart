@@ -17,7 +17,14 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ServicesState {
   bool get loading => throw _privateConstructorUsedError;
+  FormStatus get status => throw _privateConstructorUsedError;
   List<Services> get services => throw _privateConstructorUsedError;
+  Name? get name => throw _privateConstructorUsedError;
+  Email? get email => throw _privateConstructorUsedError;
+  Phone? get phone => throw _privateConstructorUsedError;
+  Name? get provincia => throw _privateConstructorUsedError;
+  Name? get ciudad => throw _privateConstructorUsedError;
+  Observation? get message => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ServicesStateCopyWith<ServicesState> get copyWith =>
@@ -30,7 +37,16 @@ abstract class $ServicesStateCopyWith<$Res> {
           ServicesState value, $Res Function(ServicesState) then) =
       _$ServicesStateCopyWithImpl<$Res, ServicesState>;
   @useResult
-  $Res call({bool loading, List<Services> services});
+  $Res call(
+      {bool loading,
+      FormStatus status,
+      List<Services> services,
+      Name? name,
+      Email? email,
+      Phone? phone,
+      Name? provincia,
+      Name? ciudad,
+      Observation? message});
 }
 
 /// @nodoc
@@ -47,17 +63,52 @@ class _$ServicesStateCopyWithImpl<$Res, $Val extends ServicesState>
   @override
   $Res call({
     Object? loading = null,
+    Object? status = null,
     Object? services = null,
+    Object? name = freezed,
+    Object? email = freezed,
+    Object? phone = freezed,
+    Object? provincia = freezed,
+    Object? ciudad = freezed,
+    Object? message = freezed,
   }) {
     return _then(_value.copyWith(
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
               as bool,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as FormStatus,
       services: null == services
           ? _value.services
           : services // ignore: cast_nullable_to_non_nullable
               as List<Services>,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as Name?,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as Email?,
+      phone: freezed == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as Phone?,
+      provincia: freezed == provincia
+          ? _value.provincia
+          : provincia // ignore: cast_nullable_to_non_nullable
+              as Name?,
+      ciudad: freezed == ciudad
+          ? _value.ciudad
+          : ciudad // ignore: cast_nullable_to_non_nullable
+              as Name?,
+      message: freezed == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as Observation?,
     ) as $Val);
   }
 }
@@ -70,7 +121,16 @@ abstract class _$$_ServicesStateCopyWith<$Res>
       __$$_ServicesStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool loading, List<Services> services});
+  $Res call(
+      {bool loading,
+      FormStatus status,
+      List<Services> services,
+      Name? name,
+      Email? email,
+      Phone? phone,
+      Name? provincia,
+      Name? ciudad,
+      Observation? message});
 }
 
 /// @nodoc
@@ -85,17 +145,52 @@ class __$$_ServicesStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? loading = null,
+    Object? status = null,
     Object? services = null,
+    Object? name = freezed,
+    Object? email = freezed,
+    Object? phone = freezed,
+    Object? provincia = freezed,
+    Object? ciudad = freezed,
+    Object? message = freezed,
   }) {
     return _then(_$_ServicesState(
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
               as bool,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as FormStatus,
       services: null == services
           ? _value._services
           : services // ignore: cast_nullable_to_non_nullable
               as List<Services>,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as Name?,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as Email?,
+      phone: freezed == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as Phone?,
+      provincia: freezed == provincia
+          ? _value.provincia
+          : provincia // ignore: cast_nullable_to_non_nullable
+              as Name?,
+      ciudad: freezed == ciudad
+          ? _value.ciudad
+          : ciudad // ignore: cast_nullable_to_non_nullable
+              as Name?,
+      message: freezed == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as Observation?,
     ));
   }
 }
@@ -105,13 +200,23 @@ class __$$_ServicesStateCopyWithImpl<$Res>
 class _$_ServicesState extends _ServicesState {
   const _$_ServicesState(
       {this.loading = false,
-      final List<Services> services = const <Services>[]})
+      this.status = FormStatus.editing,
+      final List<Services> services = const <Services>[],
+      this.name,
+      this.email,
+      this.phone,
+      this.provincia,
+      this.ciudad,
+      this.message})
       : _services = services,
         super._();
 
   @override
   @JsonKey()
   final bool loading;
+  @override
+  @JsonKey()
+  final FormStatus status;
   final List<Services> _services;
   @override
   @JsonKey()
@@ -122,8 +227,21 @@ class _$_ServicesState extends _ServicesState {
   }
 
   @override
+  final Name? name;
+  @override
+  final Email? email;
+  @override
+  final Phone? phone;
+  @override
+  final Name? provincia;
+  @override
+  final Name? ciudad;
+  @override
+  final Observation? message;
+
+  @override
   String toString() {
-    return 'ServicesState(loading: $loading, services: $services)';
+    return 'ServicesState(loading: $loading, status: $status, services: $services, name: $name, email: $email, phone: $phone, provincia: $provincia, ciudad: $ciudad, message: $message)';
   }
 
   @override
@@ -132,12 +250,29 @@ class _$_ServicesState extends _ServicesState {
         (other.runtimeType == runtimeType &&
             other is _$_ServicesState &&
             (identical(other.loading, loading) || other.loading == loading) &&
-            const DeepCollectionEquality().equals(other._services, _services));
+            (identical(other.status, status) || other.status == status) &&
+            const DeepCollectionEquality().equals(other._services, _services) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.phone, phone) || other.phone == phone) &&
+            (identical(other.provincia, provincia) ||
+                other.provincia == provincia) &&
+            (identical(other.ciudad, ciudad) || other.ciudad == ciudad) &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, loading, const DeepCollectionEquality().hash(_services));
+      runtimeType,
+      loading,
+      status,
+      const DeepCollectionEquality().hash(_services),
+      name,
+      email,
+      phone,
+      provincia,
+      ciudad,
+      message);
 
   @JsonKey(ignore: true)
   @override
@@ -148,13 +283,35 @@ class _$_ServicesState extends _ServicesState {
 
 abstract class _ServicesState extends ServicesState {
   const factory _ServicesState(
-      {final bool loading, final List<Services> services}) = _$_ServicesState;
+      {final bool loading,
+      final FormStatus status,
+      final List<Services> services,
+      final Name? name,
+      final Email? email,
+      final Phone? phone,
+      final Name? provincia,
+      final Name? ciudad,
+      final Observation? message}) = _$_ServicesState;
   const _ServicesState._() : super._();
 
   @override
   bool get loading;
   @override
+  FormStatus get status;
+  @override
   List<Services> get services;
+  @override
+  Name? get name;
+  @override
+  Email? get email;
+  @override
+  Phone? get phone;
+  @override
+  Name? get provincia;
+  @override
+  Name? get ciudad;
+  @override
+  Observation? get message;
   @override
   @JsonKey(ignore: true)
   _$$_ServicesStateCopyWith<_$_ServicesState> get copyWith =>

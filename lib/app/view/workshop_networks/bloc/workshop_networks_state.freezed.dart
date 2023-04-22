@@ -19,6 +19,10 @@ mixin _$WorkshopNetworksState {
   WorkShop? get workShop => throw _privateConstructorUsedError;
   FormStatus get status => throw _privateConstructorUsedError;
   List<WorkShop> get workShops => throw _privateConstructorUsedError;
+  Name? get name => throw _privateConstructorUsedError;
+  Email? get email => throw _privateConstructorUsedError;
+  Phone? get phone => throw _privateConstructorUsedError;
+  Observation? get observation => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $WorkshopNetworksStateCopyWith<WorkshopNetworksState> get copyWith =>
@@ -31,7 +35,14 @@ abstract class $WorkshopNetworksStateCopyWith<$Res> {
           $Res Function(WorkshopNetworksState) then) =
       _$WorkshopNetworksStateCopyWithImpl<$Res, WorkshopNetworksState>;
   @useResult
-  $Res call({WorkShop? workShop, FormStatus status, List<WorkShop> workShops});
+  $Res call(
+      {WorkShop? workShop,
+      FormStatus status,
+      List<WorkShop> workShops,
+      Name? name,
+      Email? email,
+      Phone? phone,
+      Observation? observation});
 }
 
 /// @nodoc
@@ -51,6 +62,10 @@ class _$WorkshopNetworksStateCopyWithImpl<$Res,
     Object? workShop = freezed,
     Object? status = null,
     Object? workShops = null,
+    Object? name = freezed,
+    Object? email = freezed,
+    Object? phone = freezed,
+    Object? observation = freezed,
   }) {
     return _then(_value.copyWith(
       workShop: freezed == workShop
@@ -65,6 +80,22 @@ class _$WorkshopNetworksStateCopyWithImpl<$Res,
           ? _value.workShops
           : workShops // ignore: cast_nullable_to_non_nullable
               as List<WorkShop>,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as Name?,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as Email?,
+      phone: freezed == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as Phone?,
+      observation: freezed == observation
+          ? _value.observation
+          : observation // ignore: cast_nullable_to_non_nullable
+              as Observation?,
     ) as $Val);
   }
 }
@@ -77,7 +108,14 @@ abstract class _$$_WorkshopNetworksStateCopyWith<$Res>
       __$$_WorkshopNetworksStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({WorkShop? workShop, FormStatus status, List<WorkShop> workShops});
+  $Res call(
+      {WorkShop? workShop,
+      FormStatus status,
+      List<WorkShop> workShops,
+      Name? name,
+      Email? email,
+      Phone? phone,
+      Observation? observation});
 }
 
 /// @nodoc
@@ -94,6 +132,10 @@ class __$$_WorkshopNetworksStateCopyWithImpl<$Res>
     Object? workShop = freezed,
     Object? status = null,
     Object? workShops = null,
+    Object? name = freezed,
+    Object? email = freezed,
+    Object? phone = freezed,
+    Object? observation = freezed,
   }) {
     return _then(_$_WorkshopNetworksState(
       workShop: freezed == workShop
@@ -108,6 +150,22 @@ class __$$_WorkshopNetworksStateCopyWithImpl<$Res>
           ? _value._workShops
           : workShops // ignore: cast_nullable_to_non_nullable
               as List<WorkShop>,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as Name?,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as Email?,
+      phone: freezed == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as Phone?,
+      observation: freezed == observation
+          ? _value.observation
+          : observation // ignore: cast_nullable_to_non_nullable
+              as Observation?,
     ));
   }
 }
@@ -118,7 +176,11 @@ class _$_WorkshopNetworksState extends _WorkshopNetworksState {
   const _$_WorkshopNetworksState(
       {this.workShop,
       this.status = FormStatus.editing,
-      final List<WorkShop> workShops = const <WorkShop>[]})
+      final List<WorkShop> workShops = const <WorkShop>[],
+      this.name,
+      this.email,
+      this.phone,
+      this.observation})
       : _workShops = workShops,
         super._();
 
@@ -137,8 +199,17 @@ class _$_WorkshopNetworksState extends _WorkshopNetworksState {
   }
 
   @override
+  final Name? name;
+  @override
+  final Email? email;
+  @override
+  final Phone? phone;
+  @override
+  final Observation? observation;
+
+  @override
   String toString() {
-    return 'WorkshopNetworksState(workShop: $workShop, status: $status, workShops: $workShops)';
+    return 'WorkshopNetworksState(workShop: $workShop, status: $status, workShops: $workShops, name: $name, email: $email, phone: $phone, observation: $observation)';
   }
 
   @override
@@ -150,12 +221,24 @@ class _$_WorkshopNetworksState extends _WorkshopNetworksState {
                 other.workShop == workShop) &&
             (identical(other.status, status) || other.status == status) &&
             const DeepCollectionEquality()
-                .equals(other._workShops, _workShops));
+                .equals(other._workShops, _workShops) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.phone, phone) || other.phone == phone) &&
+            (identical(other.observation, observation) ||
+                other.observation == observation));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, workShop, status,
-      const DeepCollectionEquality().hash(_workShops));
+  int get hashCode => Object.hash(
+      runtimeType,
+      workShop,
+      status,
+      const DeepCollectionEquality().hash(_workShops),
+      name,
+      email,
+      phone,
+      observation);
 
   @JsonKey(ignore: true)
   @override
@@ -169,7 +252,11 @@ abstract class _WorkshopNetworksState extends WorkshopNetworksState {
   const factory _WorkshopNetworksState(
       {final WorkShop? workShop,
       final FormStatus status,
-      final List<WorkShop> workShops}) = _$_WorkshopNetworksState;
+      final List<WorkShop> workShops,
+      final Name? name,
+      final Email? email,
+      final Phone? phone,
+      final Observation? observation}) = _$_WorkshopNetworksState;
   const _WorkshopNetworksState._() : super._();
 
   @override
@@ -178,6 +265,14 @@ abstract class _WorkshopNetworksState extends WorkshopNetworksState {
   FormStatus get status;
   @override
   List<WorkShop> get workShops;
+  @override
+  Name? get name;
+  @override
+  Email? get email;
+  @override
+  Phone? get phone;
+  @override
+  Observation? get observation;
   @override
   @JsonKey(ignore: true)
   _$$_WorkshopNetworksStateCopyWith<_$_WorkshopNetworksState> get copyWith =>

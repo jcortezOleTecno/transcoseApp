@@ -13,4 +13,25 @@ class ServicesRepository {
         params: <String, dynamic>{'limit': '$limit'});
     return (res as List).map(Services.froJson).toList();
   }
+
+  Future<void> setForm({
+    required String name,
+    required String email,
+    required String phone,
+    required String province,
+    required String city,
+    required String message,
+  }) async {
+    final dynamic res = await _apiClient.postRequest(
+        '$BASE_API_URL/api/formulario_contacto',
+        body: <String, dynamic>{
+          "name": name,
+          "email": email,
+          "phone": phone,
+          "province": province,
+          "city": city,
+          "message": message,
+        });
+    print(res);
+  }
 }

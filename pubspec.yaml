@@ -30,7 +30,7 @@ dependencies:
   dropdown_search: ^5.0.5
   flutter_swiper_null_safety: ^1.0.2
   flutter_multi_formatter: ^2.10.2
-  file_picker: ^5.2.7
+  file_picker: ^4.6.1
   money_formatter: ^0.0.3
   cupertino_icons: ^1.0.2
   flutter_bloc: ^8.1.2
@@ -43,6 +43,10 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_rounded_date_picker: 3.0.2
+  # android_path_provider: ^0.3.0
+  # flutter_downloader: ^1.10.2
+  path_provider: ^2.0.14
+  open_file: ^3.2.1
   
   
  

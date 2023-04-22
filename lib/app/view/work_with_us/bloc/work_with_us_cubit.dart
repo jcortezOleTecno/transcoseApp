@@ -13,9 +13,16 @@ import 'package:vemare/app/view/work_with_us/bloc/work_with_us_state.dart';
 class WorkWithUsCubit extends Cubit<WorkWithUsState> {
   WorkWithUsCubit(
     this._workWithUsRepository,
-  ) : super(const WorkWithUsState());
+  ) : super(const WorkWithUsState()) {
+    getOptions();
+  }
 
   final WorkWithUsRepository _workWithUsRepository;
+
+  Future<void> getOptions() async {
+    var data = await _workWithUsRepository.getOpciones();
+    emit(state.copyWith(opciones: data));
+  }
 
   void email(String value) {
     try {
@@ -73,6 +80,14 @@ class WorkWithUsCubit extends Cubit<WorkWithUsState> {
     }
   }
 
+  void zone(String? zone) {
+    emit(state.copyWith(zone: zone));
+  }
+
+  void job(String? job) {
+    emit(state.copyWith(job: job));
+  }
+
   Future<void> attachFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
@@ -92,10 +107,13 @@ class WorkWithUsCubit extends Cubit<WorkWithUsState> {
     try {
       emit(state.copyWith(status: FormStatus.loading));
       String? message = await _workWithUsRepository.formRequest(
-          doc: state.doc!,
-          email: state.email!,
-          name: state.name!,
-          phone: state.phone!);
+        doc: state.doc!,
+        email: state.email!,
+        name: state.name!,
+        phone: state.phone!,
+        zone: state.zone!,
+        job: state.job!,
+      );
       emit(state.copyWith(
         status: FormStatus.done,
         message: message,

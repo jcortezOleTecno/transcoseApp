@@ -8,8 +8,14 @@ class BrandsRepository {
   BrandsRepository(this._apiClient);
 
   Future<List<Brand>> getBrands() async {
-    final dynamic res = await _apiClient.getRequest('$BASE_API_URL/api/marcas',
-        params: <String, dynamic>{'limit': '6'});
-    return (res as List).map(Brand.froJson).toList();
+    try {
+      final dynamic res = await _apiClient.getRequest(
+          '$BASE_API_URL/api/marcas',
+          params: <String, dynamic>{'limit': '6'});
+      return (res as List).map(Brand.froJson).toList();
+    } catch (e) {
+      print('ERROR $e');
+      return [];
+    }
   }
 }

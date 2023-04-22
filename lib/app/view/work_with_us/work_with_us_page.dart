@@ -7,6 +7,7 @@ import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
+import 'package:vemare/app/view/_components/my_dropdown_button/my_drop_down_button.dart';
 import 'package:vemare/app/view/_components/my_input/my_input.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/tap_to_hide_keyboard/tap_to_hide_keyboard.dart';
@@ -110,6 +111,52 @@ class WorkWithUsPage extends StatelessWidget {
                             onChanged: cubit.email,
                             hasError: state.status == FormStatus.error,
                           ),
+                          if (state.opciones?.zones != null) ...[
+                            const Text(
+                              '¿En cual zona te gustaria trabajar?',
+                              style: AppTextStyle.inputLabelStyle,
+                            ),
+                            MyCustomDropdownButton(
+                              buttonWidth: double.infinity,
+                              hint: 'Selecciona una zona',
+                              hintStyle: AppTextStyle.inputStyle,
+                              dropdownItems: state.opciones!.zones!
+                                  .map((item) => DropdownMenuItem(
+                                        value: item,
+                                        child: Text(item,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            style: AppTextStyle.inputStyle),
+                                      ))
+                                  .toList(),
+                              value: state.zone,
+                              onChanged: cubit.zone,
+                            )
+                          ],
+                          if (state.opciones?.jobs != null) ...[
+                            spacerL,
+                            const Text(
+                              '¿En cual puesto te gustaria trabajar?',
+                              style: AppTextStyle.inputLabelStyle,
+                            ),
+                            MyCustomDropdownButton(
+                              hint: 'Selecciona un puesto',
+                              buttonWidth: double.infinity,
+                              hintStyle: AppTextStyle.inputStyle,
+                              dropdownItems: state.opciones!.jobs!
+                                  .map((item) => DropdownMenuItem(
+                                        value: item,
+                                        child: Text(item,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            style: AppTextStyle.inputStyle),
+                                      ))
+                                  .toList(),
+                              value: state.job,
+                              onChanged: cubit.job,
+                            ),
+                            spacerL,
+                          ],
                           if (state.doc != null) ...[
                             spacerS,
                             Row(

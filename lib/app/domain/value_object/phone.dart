@@ -10,6 +10,6 @@ class Phone {
   late final String value;
 
   static bool isValid(String phone) {
-    return phone.isNotEmpty && phone.length == 9;
+    return phone.isNotEmpty && phone.length >= 9;
   }
 }

@@ -10,6 +10,8 @@ import 'package:vemare/app/domain/value_object/email.dart';
 import 'package:vemare/app/domain/value_object/name.dart';
 import 'package:vemare/app/domain/value_object/phone.dart';
 
+import '../domain/model/opciones.dart';
+
 class WorkWithUsRepository {
   final MyApiClient _apiClient;
 
@@ -20,19 +22,30 @@ class WorkWithUsRepository {
     required Name name,
     required Phone phone,
     required Email email,
+    required String zone,
+    required String job,
   }) async {
     String fileName = doc.path.split('/').last;
     dynamic res = await Dio().post('$BASE_API_URL/api/form_request',
         options: Options(headers: allHeaders),
         data: FormData.fromMap({
-          "file": await MultipartFile.fromFile(
+          "cv": await MultipartFile.fromFile(
             doc.path,
             filename: fileName,
           ),
           "name": name.value,
           "email": email.value,
           "phone": phone.value,
+          "zone": zone,
+          "job": job,
         }));
     return ApiResponse.fromJson(res.data).message;
+  }
+
+  Future<Opciones> getOpciones() async {
+    final dynamic res = await _apiClient.getRequest(
+      '$BASE_API_URL/api/trabaja_con_nosotros_opciones',
+    );
+    return Opciones.fromJson(res);
   }
 }

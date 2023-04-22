@@ -167,20 +167,33 @@ class _MyWarranty extends StatelessWidget {
               ),
             ),
             spacerM,
-            MyIconButton(
-              onPressed: () {
-                myFilters(context).then((filter) {
-                  if (filter != null) {
-                    cubit.getMyOrders(filter: filter);
-                  }
-                });
-              },
-              text: 'Aplicar filtros',
-              icon: Image.asset(
-                'assets/icons/Filtro.png',
-                scale: 2,
+            Visibility(
+              visible: state.statusWarranty != null,
+              replacement: const MyShimmer(
+                margin: EdgeInsets.zero,
+                height: 55,
+                borderRadius: 30,
               ),
-              variant: MyButtonVariant.outlinedBold,
+              child: MyIconButton(
+                onPressed: () {
+                  myFilters(context,
+                          estadosSustitucion:
+                              state.statusWarranty!.estadosSustitucion,
+                          estadosTramitacion:
+                              state.statusWarranty!.estadosTramitacion)
+                      .then((filter) {
+                    if (filter != null) {
+                      cubit.getMyWarranty(filter: filter);
+                    }
+                  });
+                },
+                text: 'Aplicar filtros',
+                icon: Image.asset(
+                  'assets/icons/Filtro.png',
+                  scale: 2,
+                ),
+                variant: MyButtonVariant.outlinedBold,
+              ),
             ),
             spacerL,
             if (state.loading)

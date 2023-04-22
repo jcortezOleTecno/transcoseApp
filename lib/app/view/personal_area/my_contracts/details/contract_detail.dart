@@ -11,7 +11,6 @@ import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_signature/my_signature.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/personal_area/widgets/item_card.dart';
-import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
@@ -48,7 +47,31 @@ class ContractDetailPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const MyBackButton(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const MyBackButton(),
+                      const Spacer(),
+                      if (!state.loading)
+                        TextButton.icon(
+                          onPressed: cubit.downloadPDF,
+                          label: state.loadingPDF
+                              ? const SizedBox(
+                                  height: 16,
+                                  width: 16,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 3,
+                                    color: AppColor.primaryBlue,
+                                  ))
+                              : const Icon(Icons.picture_as_pdf_outlined),
+                          icon: const Text(
+                            'Descargar',
+                            style: AppTextStyle.linkStyle,
+                          ),
+                        ),
+                      spacerS,
+                    ],
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Column(
