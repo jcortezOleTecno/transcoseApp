@@ -19,6 +19,7 @@ mixin _$AboutUsState {
   List<Library> get libraries => throw _privateConstructorUsedError;
   List<Pills> get pills => throw _privateConstructorUsedError;
   List<News> get news => throw _privateConstructorUsedError;
+  RedesSociales? get redes => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AboutUsStateCopyWith<AboutUsState> get copyWith =>
@@ -31,7 +32,11 @@ abstract class $AboutUsStateCopyWith<$Res> {
           AboutUsState value, $Res Function(AboutUsState) then) =
       _$AboutUsStateCopyWithImpl<$Res, AboutUsState>;
   @useResult
-  $Res call({List<Library> libraries, List<Pills> pills, List<News> news});
+  $Res call(
+      {List<Library> libraries,
+      List<Pills> pills,
+      List<News> news,
+      RedesSociales? redes});
 }
 
 /// @nodoc
@@ -50,6 +55,7 @@ class _$AboutUsStateCopyWithImpl<$Res, $Val extends AboutUsState>
     Object? libraries = null,
     Object? pills = null,
     Object? news = null,
+    Object? redes = freezed,
   }) {
     return _then(_value.copyWith(
       libraries: null == libraries
@@ -64,6 +70,10 @@ class _$AboutUsStateCopyWithImpl<$Res, $Val extends AboutUsState>
           ? _value.news
           : news // ignore: cast_nullable_to_non_nullable
               as List<News>,
+      redes: freezed == redes
+          ? _value.redes
+          : redes // ignore: cast_nullable_to_non_nullable
+              as RedesSociales?,
     ) as $Val);
   }
 }
@@ -76,7 +86,11 @@ abstract class _$$_AboutUsStateCopyWith<$Res>
       __$$_AboutUsStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Library> libraries, List<Pills> pills, List<News> news});
+  $Res call(
+      {List<Library> libraries,
+      List<Pills> pills,
+      List<News> news,
+      RedesSociales? redes});
 }
 
 /// @nodoc
@@ -93,6 +107,7 @@ class __$$_AboutUsStateCopyWithImpl<$Res>
     Object? libraries = null,
     Object? pills = null,
     Object? news = null,
+    Object? redes = freezed,
   }) {
     return _then(_$_AboutUsState(
       libraries: null == libraries
@@ -107,6 +122,10 @@ class __$$_AboutUsStateCopyWithImpl<$Res>
           ? _value._news
           : news // ignore: cast_nullable_to_non_nullable
               as List<News>,
+      redes: freezed == redes
+          ? _value.redes
+          : redes // ignore: cast_nullable_to_non_nullable
+              as RedesSociales?,
     ));
   }
 }
@@ -117,7 +136,8 @@ class _$_AboutUsState extends _AboutUsState {
   const _$_AboutUsState(
       {final List<Library> libraries = const <Library>[],
       final List<Pills> pills = const <Pills>[],
-      final List<News> news = const <News>[]})
+      final List<News> news = const <News>[],
+      this.redes})
       : _libraries = libraries,
         _pills = pills,
         _news = news,
@@ -151,8 +171,11 @@ class _$_AboutUsState extends _AboutUsState {
   }
 
   @override
+  final RedesSociales? redes;
+
+  @override
   String toString() {
-    return 'AboutUsState(libraries: $libraries, pills: $pills, news: $news)';
+    return 'AboutUsState(libraries: $libraries, pills: $pills, news: $news, redes: $redes)';
   }
 
   @override
@@ -163,7 +186,8 @@ class _$_AboutUsState extends _AboutUsState {
             const DeepCollectionEquality()
                 .equals(other._libraries, _libraries) &&
             const DeepCollectionEquality().equals(other._pills, _pills) &&
-            const DeepCollectionEquality().equals(other._news, _news));
+            const DeepCollectionEquality().equals(other._news, _news) &&
+            (identical(other.redes, redes) || other.redes == redes));
   }
 
   @override
@@ -171,7 +195,8 @@ class _$_AboutUsState extends _AboutUsState {
       runtimeType,
       const DeepCollectionEquality().hash(_libraries),
       const DeepCollectionEquality().hash(_pills),
-      const DeepCollectionEquality().hash(_news));
+      const DeepCollectionEquality().hash(_news),
+      redes);
 
   @JsonKey(ignore: true)
   @override
@@ -184,7 +209,8 @@ abstract class _AboutUsState extends AboutUsState {
   const factory _AboutUsState(
       {final List<Library> libraries,
       final List<Pills> pills,
-      final List<News> news}) = _$_AboutUsState;
+      final List<News> news,
+      final RedesSociales? redes}) = _$_AboutUsState;
   const _AboutUsState._() : super._();
 
   @override
@@ -193,6 +219,8 @@ abstract class _AboutUsState extends AboutUsState {
   List<Pills> get pills;
   @override
   List<News> get news;
+  @override
+  RedesSociales? get redes;
   @override
   @JsonKey(ignore: true)
   _$$_AboutUsStateCopyWith<_$_AboutUsState> get copyWith =>

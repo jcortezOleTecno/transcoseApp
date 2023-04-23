@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+import 'package:vemare/app/data/about_us_repository.dart';
 import 'package:vemare/app/data/library_repository.dart';
 import 'package:vemare/app/data/notices_repository.dart';
 import 'package:vemare/app/data/pills_repository.dart';
@@ -19,6 +22,8 @@ import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/app/view/where_we_are/where_we_are_page.dart';
 import 'package:vemare/config/service_locator.dart';
 
+import '../news/news_detail.dart';
+
 class AboutUsPage extends StatelessWidget {
   const AboutUsPage._();
 
@@ -30,6 +35,7 @@ class AboutUsPage extends StatelessWidget {
         getIt.get<LibraryRepository>(),
         getIt.get<PillsRepository>(),
         getIt.get<NoticesRepository>(),
+        getIt.get<AboutUsRepository>(),
       ),
       child: const AboutUsPage._(),
     );
@@ -39,28 +45,34 @@ class AboutUsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: MyBody(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(15),
-                child: Text('Sobre nosotros', style: AppTextStyle.h1Style),
+        child: BlocBuilder<AboutUsCubit, AboutUsState>(
+          builder: (context, state) {
+            return SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(15),
+                    child: Text('Sobre nosotros', style: AppTextStyle.h1Style),
+                  ),
+                  _OurHistory(),
+                  spacerL,
+                  _WhereWeAre(),
+                  if (state.redes != null) ...[
+                    spacerL,
+                    const _SocialNetworks(),
+                  ],
+                  spacerL,
+                  _News(),
+                  spacerM,
+                  _Library(),
+                  spacerL,
+                  _PillsVemare(),
+                  spacerL,
+                ],
               ),
-              _OurHistory(),
-              spacerL,
-              _WhereWeAre(),
-              spacerL,
-              const _SocialNetworks(),
-              spacerL,
-              _News(),
-              spacerM,
-              _Library(),
-              spacerL,
-              _PillsVemare(),
-              spacerL,
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
@@ -176,54 +188,62 @@ class _SocialNetworks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Redes Sociales', style: AppTextStyle.h1Style),
-          spacerM,
-          Center(
-            child: Wrap(
-              spacing: 20,
-              runSpacing: 20,
-              children: [
-                item('Facebook', width),
-                item('Instagram', width),
-                item('YouTube', width),
-                item('Twitter', width),
-                item('LinkedIn', width),
-              ],
-            ),
-          )
-        ],
-      ),
+    return BlocBuilder<AboutUsCubit, AboutUsState>(
+      builder: (context, state) {
+        return Container(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('Redes Sociales', style: AppTextStyle.h1Style),
+              spacerM,
+              Center(
+                child: Wrap(
+                  spacing: 20,
+                  runSpacing: 20,
+                  children: [
+                    item('Facebook', width, state.redes?.facebook ?? ''),
+                    item('Instagram', width, state.redes?.instagram ?? ''),
+                    item('YouTube', width, state.redes?.youtube ?? ''),
+                    item('LinkedIn', width, state.redes?.linkedin ?? ''),
+                  ],
+                ),
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 
-  Widget item(String text, double width) => SizedBox(
+  Widget item(String text, double width, String url) => SizedBox(
         width: width * .40,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppColor.blue100,
+        child: GestureDetector(
+          onTap: () {
+            launchUrlString(url, mode: LaunchMode.externalApplication);
+          },
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColor.blue100,
+                ),
+                height: 40,
+                width: 40,
+                child: Image.asset(
+                  'assets/icons/$text.png',
+                  scale: 2,
+                ),
               ),
-              height: 40,
-              width: 40,
-              child: Image.asset(
-                'assets/icons/$text.png',
-                scale: 2,
-              ),
-            ),
-            spacerS,
-            Text(
-              text,
-              style: AppTextStyle.linkStyle,
-            )
-          ],
+              spacerS,
+              Text(
+                text,
+                style: AppTextStyle.linkStyle,
+              )
+            ],
+          ),
         ),
       );
 }
@@ -258,7 +278,10 @@ class _News extends StatelessWidget {
                   img: state.news[i].image!,
                   title: state.news[i].title ?? '',
                   description: state.news[i].description ?? '',
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, NewsDetailPage.route,
+                        arguments: state.news[i]);
+                  },
                 ),
               ),
             );

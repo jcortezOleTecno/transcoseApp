@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/pills_repository.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
@@ -10,6 +11,9 @@ import 'package:vemare/app/view/pills/bloc/pills_cubit.dart';
 import 'package:vemare/app/view/pills/bloc/pills_state.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
+
+import '../login/login_page.dart';
+import 'pills_details.dart';
 
 class PillsPage extends StatelessWidget {
   const PillsPage._();
@@ -74,7 +78,24 @@ class _MostReadPills extends StatelessWidget {
                   img: state.pills[i].image!,
                   title: state.pills[i].title ?? '',
                   description: state.pills[i].subtitle ?? '',
-                  onPressed: () {},
+                  onPressed: () {
+                    if (LocalDataRepository().isLogged) {
+                      Navigator.pushNamed(context, PillsDetailPage.route,
+                          arguments: state.pills[i]);
+                    } else {
+                      Navigator.pushNamed(
+                        context,
+                        LoginPage.route,
+                        arguments:
+                            'Para acceder a las pildoras tienes que iniciar sesión',
+                      ).then((_) {
+                        if (LocalDataRepository().isLogged) {
+                          Navigator.pushNamed(context, PillsDetailPage.route,
+                              arguments: state.pills[i]);
+                        }
+                      });
+                    }
+                  },
                 ),
               ),
             );
@@ -111,9 +132,30 @@ class _Pills extends StatelessWidget {
                               margin: const EdgeInsets.only(bottom: 20),
                               // height: 350,
                               child: MyPillsCard(
-                                  title: e.title ?? '',
-                                  description: e.subtitle ?? '',
-                                  img: e.image!),
+                                title: e.title ?? '',
+                                description: e.subtitle ?? '',
+                                img: e.image!,
+                                onPressed: () {
+                                  if (LocalDataRepository().isLogged) {
+                                    Navigator.pushNamed(
+                                        context, PillsDetailPage.route,
+                                        arguments: e);
+                                  } else {
+                                    Navigator.pushNamed(
+                                      context,
+                                      LoginPage.route,
+                                      arguments:
+                                          'Para acceder a las pildoras tienes que iniciar sesión',
+                                    ).then((_) {
+                                      if (LocalDataRepository().isLogged) {
+                                        Navigator.pushNamed(
+                                            context, PillsDetailPage.route,
+                                            arguments: e);
+                                      }
+                                    });
+                                  }
+                                },
+                              ),
                             ))
                         .toList())
           ],

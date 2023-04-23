@@ -720,6 +720,7 @@ class _ContractMillenium extends StatelessWidget {
                                           mill.codigoContrato.toString(),
                                       codDocumento:
                                           e.codigoDocumento.toString(),
+                                      name: e.nombre ?? 'doc.pdf',
                                     ),
                               ),
                             ],
@@ -830,16 +831,22 @@ class _ContractRappel extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              Expanded(
-                                child: Item(
-                                    title: "COD. DOCUMENTO",
-                                    content:
-                                        e.codigoDocumento?.toString() ?? ''),
-                              ),
-                              Expanded(
-                                child: Item(
-                                    title: "AÑO",
-                                    content: e.anio?.toString() ?? ''),
+                              Item(
+                                  title: "COD. DOCUMENTO",
+                                  content: e.codigoDocumento?.toString() ?? ''),
+                              spacerS,
+                              Item(
+                                  title: "AÑO",
+                                  content: e.anio?.toString() ?? ''),
+                              const Spacer(),
+                              ButtonDownloadPdf(
+                                future: () => getIt
+                                    .get<ContratsRepository>()
+                                    .downloadPdfRappel(
+                                      codContrato:
+                                          rappel.codigoContrato.toString(),
+                                      name: e.nombre ?? '',
+                                    ),
                               ),
                             ],
                           ),

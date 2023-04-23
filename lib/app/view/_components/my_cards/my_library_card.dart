@@ -17,42 +17,45 @@ class MyLibraryCard extends StatelessWidget {
   final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 200,
-            width: double.infinity,
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 200,
+              width: double.infinity,
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Image.network(img, fit: BoxFit.cover),
             ),
-            child: Image.network(img, fit: BoxFit.cover),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: AppTextStyle.h3Style.copyWith(
-                    fontWeight: FontWeight.bold,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: AppTextStyle.h3Style.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                spacerS,
-                Text(
-                  description,
-                  maxLines: 4,
-                  overflow: TextOverflow.ellipsis,
-                  style: AppTextStyle.contentCard,
-                ),
-              ],
+                  spacerS,
+                  Text(
+                    description,
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTextStyle.contentCard,
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

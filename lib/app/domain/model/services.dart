@@ -5,6 +5,7 @@ class Services {
   final String? title;
   final String? slug;
   final String? tags;
+  final String? type;
   final String? subtitle;
   final String? description;
   final String? contentPage;
@@ -19,6 +20,7 @@ class Services {
     this.title,
     this.slug,
     this.tags,
+    this.type,
     this.subtitle,
     this.description,
     this.contentPage,
@@ -34,6 +36,7 @@ class Services {
       title: map['title'] as String?,
       slug: map['slug'] as String?,
       tags: map['tags'] as String?,
+      type: map['type'] as String?,
       subtitle: map['subtitle'] as String?,
       description: map['description'] as String?,
       contentPage: map['content_page'] as String?,
@@ -52,6 +55,7 @@ class Services {
       'title': title,
       'slug': slug,
       'tags': tags,
+      'type': type,
       'subtitle': subtitle,
       'description': description,
       'content_page': contentPage,

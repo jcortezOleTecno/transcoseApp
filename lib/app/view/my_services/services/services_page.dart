@@ -95,18 +95,18 @@ class _ServicesPageState extends State<ServicesPage> {
                     padding: EdgeInsets.symmetric(horizontal: 15),
                     child: Text('Servicios', style: AppTextStyle.h1Style),
                   ),
-                  spacerM,
-                  _CardService(
-                    title: 'Formaciones',
-                    onTap: () =>
-                        Navigator.pushNamed(context, FormationsPage.route),
-                    image: const AssetImage('assets/imgs/IMGformaciones.png'),
-                  ),
-                  _CardService(
-                    title: 'Eventos',
-                    onTap: () => Navigator.pushNamed(context, EventsPage.route),
-                    image: const AssetImage('assets/imgs/IMGeventos.png'),
-                  ),
+                  // spacerM,
+                  // _CardService(
+                  //   title: 'Formaciones',
+                  //   onTap: () =>
+                  //       Navigator.pushNamed(context, FormationsPage.route),
+                  //   image: const AssetImage('assets/imgs/IMGformaciones.png'),
+                  // ),
+                  // _CardService(
+                  //   title: 'Eventos',
+                  //   onTap: () => Navigator.pushNamed(context, EventsPage.route),
+                  //   image: const AssetImage('assets/imgs/IMGeventos.png'),
+                  // ),
                   state.loading
                       ? const MyShimmer(
                           margin: EdgeInsets.zero,
@@ -119,11 +119,19 @@ class _ServicesPageState extends State<ServicesPage> {
                                     title: e.title ?? '',
                                     image: NetworkImage(e.image!),
                                     onTap: () {
-                                      Navigator.pushNamed(
-                                        context,
-                                        ServiceGeneralPage.route,
-                                        arguments: e,
-                                      );
+                                      if (e.type == 'formacion') {
+                                        Navigator.pushNamed(
+                                            context, FormationsPage.route);
+                                      } else if (e.type == 'evento') {
+                                        Navigator.pushNamed(
+                                            context, EventsPage.route);
+                                      } else {
+                                        Navigator.pushNamed(
+                                          context,
+                                          ServiceGeneralPage.route,
+                                          arguments: e,
+                                        );
+                                      }
                                     },
                                   ))
                               .toList(),

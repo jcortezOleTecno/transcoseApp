@@ -48,9 +48,13 @@ class AuthRepository {
   }
 
   Future<List<Employee>> getEmployee() async {
-    final dynamic res =
-        await apiClient.getRequest('$BASE_API_URL/api/user/employee');
-    return (res['data'] as List<dynamic>).map(Employee.fromJson).toList();
+    try {
+      final dynamic res =
+          await apiClient.getRequest('$BASE_API_URL/api/user/employee');
+      return (res['data'] as List<dynamic>).map(Employee.fromJson).toList();
+    } catch (e) {
+      return <Employee>[];
+    }
   }
 
   // Future<bool> forgotPassword({required String email}) async {

@@ -135,7 +135,9 @@ class _ShoppingItem extends StatelessWidget {
                 child: RichText(
                   text: TextSpan(
                     style: AppTextStyle.defaultStyle.copyWith(
-                        fontWeight: FontWeight.w700, color: Colors.black),
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black,
+                        fontSize: 14),
                     children: [
                       TextSpan(
                         text: product.promotionName,
@@ -158,13 +160,14 @@ class _ShoppingItem extends StatelessWidget {
                     TextSpan(
                       text: ' IVA incluido ',
                       style: AppTextStyle.defaultStyle
-                          .copyWith(color: AppColor.neutral40),
+                          .copyWith(color: AppColor.neutral40, fontSize: 14),
                     ),
                   ],
                 ),
               ),
             ],
           )),
+          spacerS,
           Material(
             color: AppColor.error200,
             borderRadius: BorderRadius.circular(50),

@@ -8,6 +8,7 @@ import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/news/bloc/news_cubit.dart';
 import 'package:vemare/app/view/news/bloc/news_state.dart';
+import 'package:vemare/app/view/news/news_detail.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
 
@@ -32,7 +33,7 @@ class NewsPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              MyBackButton(),
+              const MyBackButton(),
               _MostReadNews(),
               spacerL,
               _News(),
@@ -74,7 +75,10 @@ class _MostReadNews extends StatelessWidget {
                   img: state.news[i].image!,
                   title: state.news[i].title ?? '',
                   description: state.news[i].description ?? '',
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, NewsDetailPage.route,
+                        arguments: state.news[i]);
+                  },
                 ),
               ),
             );
@@ -111,9 +115,15 @@ class _News extends StatelessWidget {
                               margin: const EdgeInsets.only(bottom: 20),
                               height: 400,
                               child: MyNewsCard(
-                                  title: e.title ?? '',
-                                  description: e.description ?? '',
-                                  img: e.image!),
+                                title: e.title ?? '',
+                                description: e.description ?? '',
+                                img: e.image!,
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                      context, NewsDetailPage.route,
+                                      arguments: e);
+                                },
+                              ),
                             ))
                         .toList())
           ],

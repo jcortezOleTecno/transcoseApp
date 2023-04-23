@@ -28,8 +28,8 @@ class OurHistoryPage extends StatelessWidget {
                     MyBackButton(),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15),
                   child: Text('Nuestra Historia', style: AppTextStyle.h1Style),
                 ),
                 ...state.articles.map((e) => _Article(e)).toList()

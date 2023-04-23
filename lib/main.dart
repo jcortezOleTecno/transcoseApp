@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_strategy/url_strategy.dart';
 import 'package:vemare/app/data/about_us_repository.dart';
 import 'package:vemare/app/data/auth_repository.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
@@ -22,6 +23,7 @@ void main() async {
   // await initializeDateFormatting();
   await LocalDataRepository().initPrefs();
   await ServiceLocator.setup();
+  setPathUrlStrategy();
   runApp(const MyApp());
 }
 

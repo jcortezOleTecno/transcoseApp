@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vemare/app/data/library_repository.dart';
+import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_cards/my_library_card.dart';
@@ -9,6 +10,8 @@ import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/library/bloc/library_cubit.dart';
 import 'package:vemare/app/view/library/bloc/library_state.dart';
+import 'package:vemare/app/view/library/library_detail.dart';
+import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
 
@@ -75,7 +78,24 @@ class _MostReadLibraries extends StatelessWidget {
                   img: state.library[i].image!,
                   title: state.library[i].title ?? '',
                   description: state.library[i].subtitle ?? '',
-                  onPressed: () {},
+                  onPressed: () {
+                    if (LocalDataRepository().isLogged) {
+                      Navigator.pushNamed(context, LibraryDetailPage.route,
+                          arguments: state.library[i]);
+                    } else {
+                      Navigator.pushNamed(
+                        context,
+                        LoginPage.route,
+                        arguments:
+                            'Para acceder a la biblioteca tienes que iniciar sesión',
+                      ).then((_) {
+                        if (LocalDataRepository().isLogged) {
+                          Navigator.pushNamed(context, LibraryDetailPage.route,
+                              arguments: state.library[i]);
+                        }
+                      });
+                    }
+                  },
                 ),
               ),
             );
@@ -111,9 +131,30 @@ class _Libraries extends StatelessWidget {
                                   const EdgeInsets.symmetric(horizontal: 10),
                               margin: const EdgeInsets.only(bottom: 20),
                               child: MyLibraryCard(
-                                  title: e.title ?? '',
-                                  description: e.subtitle ?? '',
-                                  img: e.image!),
+                                title: e.title ?? '',
+                                description: e.subtitle ?? '',
+                                img: e.image!,
+                                onPressed: () {
+                                  if (LocalDataRepository().isLogged) {
+                                    Navigator.pushNamed(
+                                        context, LibraryDetailPage.route,
+                                        arguments: e);
+                                  } else {
+                                    Navigator.pushNamed(
+                                      context,
+                                      LoginPage.route,
+                                      arguments:
+                                          'Para acceder a la biblioteca tienes que iniciar sesión',
+                                    ).then((_) {
+                                      if (LocalDataRepository().isLogged) {
+                                        Navigator.pushNamed(
+                                            context, LibraryDetailPage.route,
+                                            arguments: e);
+                                      }
+                                    });
+                                  }
+                                },
+                              ),
                             ))
                         .toList())
           ],

@@ -49,23 +49,7 @@ class ContractPMPDetailPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const MyBackButton(),
-                      const Spacer(),
-                      if (!state.loading)
-                        ButtonDownloadPdf(
-                          future: () =>
-                              getIt.get<ContratsRepository>().downloadPdfPmp(
-                                    codContrato:
-                                        state.detail!.codigoContrato.toString(),
-                                    codDocumento: '',
-                                  ),
-                        ),
-                      spacerS,
-                    ],
-                  ),
+                  const MyBackButton(),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Column(
@@ -129,6 +113,7 @@ class _Detail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final state = context.watch<ContratPMPDetailCubit>().state;
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
       padding: const EdgeInsets.all(15),
@@ -365,7 +350,53 @@ class _Detail extends StatelessWidget {
                             ],
                           ))
                       .toList()
-                ]
+                ],
+              if (detail.documentoFirmado != null) ...[
+                spacerS,
+                const MyDivider(),
+                Center(
+                  child: Text(
+                    'DOCUMENTO FIRMADO',
+                    style: AppTextStyle.defaultStyle
+                        .copyWith(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const MyDivider(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Item(
+                        title: "COD. DOCUMENTO",
+                        content: detail.documentoFirmado?.codigoDocumento
+                                ?.toString() ??
+                            ''),
+                    ButtonDownloadPdf(
+                      future: () => getIt
+                          .get<ContratsRepository>()
+                          .downloadPdfPmp(
+                              codContrato:
+                                  state.detail!.codigoContrato.toString(),
+                              codDocumento: detail
+                                  .documentoFirmado!.codigoDocumento!
+                                  .toString(),
+                              name:
+                                  detail.documentoFirmado?.nombre ?? 'Doc.pdf'),
+                    ),
+                  ],
+                ),
+                spacerS,
+                Item(
+                    title: "NOMBRE",
+                    content: detail.documentoFirmado?.nombre ?? ''),
+                spacerS,
+                Item(
+                    title: "DESCRIPCIÓN",
+                    content: detail.documentoFirmado?.descripcion ?? ''),
+                spacerS,
+                Item(
+                    title: "AÑO",
+                    content: detail.documentoFirmado?.anio?.toString() ?? ''),
+              ]
             ]
         ],
       ),

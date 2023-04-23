@@ -21,9 +21,11 @@ import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/home/bloc/home_cubit.dart';
 import 'package:vemare/app/view/home/bloc/home_state.dart';
+import 'package:vemare/app/view/my_services/events/events_page.dart';
 import 'package:vemare/app/view/my_services/formations/formations/formations_page.dart';
 import 'package:vemare/app/view/my_services/services/service_general.dart';
 import 'package:vemare/app/view/my_services/services/services_page.dart';
+import 'package:vemare/app/view/news/news_detail.dart';
 import 'package:vemare/app/view/news/news_page.dart';
 import 'package:vemare/app/view/our_products/product/product_page.dart';
 import 'package:vemare/app/view/our_products/type_of_vehicle_page.dart';
@@ -81,6 +83,7 @@ class _PageA extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.watch<HomeCubit>();
     return Stack(
       children: [
         const _Background(),
@@ -99,14 +102,16 @@ class _PageA extends StatelessWidget {
                     spacerM,
                     const Spacer(),
                     MyIconButton(
-                      onPressed: () {},
+                      onPressed: () =>
+                          cubit.openWhatsApp(phone: '+584261886623'),
                       text: 'Escribir un Whatsapp',
                       icon: const Icon(Icons.whatsapp),
                       variant: MyButtonVariant.outlinedBold,
                     ),
                     spacerM,
                     MyIconButton(
-                      onPressed: () {},
+                      onPressed: () =>
+                          cubit.openEmail(toEmail: 'vemare@gmail.com'),
                       text: 'Escribir un email',
                       icon: const Icon(Icons.mail_outline),
                       variant: MyButtonVariant.outlinedBold,
@@ -255,50 +260,56 @@ class _News extends StatelessWidget {
                 itemCount: state.notices.length,
                 controller:
                     PageController(initialPage: 0, viewportFraction: 0.9),
-                itemBuilder: (context, i) => Card(
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                  clipBehavior: Clip.antiAlias,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(state.notices[i].image!),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    child: Stack(
-                      children: [
-                        const MyFilterImage(),
-                        Padding(
-                          padding: const EdgeInsets.all(15),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              const MySpacer(height: 80),
-                              Row(
-                                children: [
-                                  Text(
-                                    state.notices[i].title ?? '',
-                                    style: AppTextStyle.h3Style.copyWith(
-                                        fontWeight: FontWeight.bold,
-                                        color: AppColor.white),
-                                  ),
-                                ],
-                              ),
-                              spacerS,
-                              Text(
-                                state.notices[i].description ?? '',
-                                maxLines: 4,
-                                overflow: TextOverflow.ellipsis,
-                                style: AppTextStyle.contentCard
-                                    .copyWith(color: Colors.white),
-                              ),
-                            ],
-                          ),
+                itemBuilder: (context, i) => GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, NewsDetailPage.route,
+                        arguments: state.notices[i]);
+                  },
+                  child: Card(
+                    margin:
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                    clipBehavior: Clip.antiAlias,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(state.notices[i].image!),
+                          fit: BoxFit.cover,
                         ),
-                      ],
+                      ),
+                      child: Stack(
+                        children: [
+                          const MyFilterImage(),
+                          Padding(
+                            padding: const EdgeInsets.all(15),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                const MySpacer(height: 80),
+                                Row(
+                                  children: [
+                                    Text(
+                                      state.notices[i].title ?? '',
+                                      style: AppTextStyle.h3Style.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColor.white),
+                                    ),
+                                  ],
+                                ),
+                                spacerS,
+                                Text(
+                                  state.notices[i].description ?? '',
+                                  maxLines: 4,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: AppTextStyle.contentCard
+                                      .copyWith(color: Colors.white),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -527,11 +538,17 @@ class _Servicios extends StatelessWidget {
                     PageController(initialPage: 0, viewportFraction: 0.9),
                 itemBuilder: (context, i) => GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      ServiceGeneralPage.route,
-                      arguments: state.services[i],
-                    );
+                    if (state.services[i].type == 'formacion') {
+                      Navigator.pushNamed(context, FormationsPage.route);
+                    } else if (state.services[i].type == 'evento') {
+                      Navigator.pushNamed(context, EventsPage.route);
+                    } else {
+                      Navigator.pushNamed(
+                        context,
+                        ServiceGeneralPage.route,
+                        arguments: state.services[i],
+                      );
+                    }
                   },
                   child: Card(
                     margin:

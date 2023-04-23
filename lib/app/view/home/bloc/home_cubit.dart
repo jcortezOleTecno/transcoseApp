@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/brands_repository.dart';
 import 'package:vemare/app/data/home_repository.dart';
 import 'package:vemare/app/data/notices_repository.dart';
@@ -78,5 +80,20 @@ class HomeCubit extends Cubit<HomeState> {
       notices: notices,
       brands: brands,
     ));
+  }
+
+  void openWhatsApp({
+    required String phone,
+  }) async {
+    String url = "https://wa.me/$phone?text=${Uri.parse('')}";
+    await launchUrlString(url, mode: LaunchMode.externalApplication);
+  }
+
+  void openEmail({
+    required String toEmail,
+  }) async {
+    String url =
+        "mailto:$toEmail?subject=${Uri.encodeQueryComponent('prueba')}&body=${Uri.encodeQueryComponent('')}";
+    await launchUrlString(url, mode: LaunchMode.externalApplication);
   }
 }

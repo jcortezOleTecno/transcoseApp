@@ -54,12 +54,12 @@ class WhereWeArePage extends StatelessWidget {
                     children: [
                       Text('¿Dónde estamos?', style: AppTextStyle.h1Style),
                       spacerM,
-                      MyInput(label: 'Ciudad', hintText: 'Escribe una ciudad'),
-                      MyInput(
-                          label: 'Código postal',
-                          hintText: 'Escribe una código postal'),
+                      // MyInput(label: 'Ciudad', hintText: 'Escribe una ciudad'),
+                      // MyInput(
+                      //     label: 'Código postal',
+                      //     hintText: 'Escribe una código postal'),
                       const _Map(),
-                      spacerM,
+                      spacerXL,
                       state.centers.isEmpty
                           ? const Padding(
                               padding: EdgeInsets.only(bottom: 20),
@@ -146,12 +146,6 @@ class _MapState extends State<_Map> {
   static const String accessToken =
       'sk.eyJ1IjoiYWJkaWVsY2FzdGxsIiwiYSI6ImNsZ2JjajB1MjAzemwzamxucXpjM2xrMjAifQ.7hl0kbOtMwMWTGgUGcG2iQ';
 
-  @override
-  void initState() {
-    context.read<WhereWeAreCubit>().requestPermission();
-    super.initState();
-  }
-
   final controller = MapController();
 
   @override
@@ -177,7 +171,7 @@ class _MapState extends State<_Map> {
                       enableScrollWheel: false,
                       maxZoom: 25,
                       minZoom: 5,
-                      zoom: 18,
+                      zoom: 14,
                       debugMultiFingerGestureWinner: true,
                       enableMultiFingerGestureRace: true,
                     ),

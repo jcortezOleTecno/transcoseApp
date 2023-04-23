@@ -174,8 +174,10 @@ class ContratsRepository {
     return ContratPmpDetail.fromJson(res["contrato"]);
   }
 
-  Future<void> downloadPdfCrd(
-      {required String codContrato, required String numProyecto}) async {
+  Future<void> downloadPdfCrd({
+    required String codContrato,
+    required String numProyecto,
+  }) async {
     final token = LocalDataRepository().authToken;
     final Response res = await Dio().post(
         '$BASE_API_URL/api/mi-cuenta/contratos_crd/imprimir',
@@ -188,8 +190,11 @@ class ContratsRepository {
     await OpenFile.open(file.path);
   }
 
-  Future<void> downloadPdfPmp(
-      {required String codContrato, required String codDocumento}) async {
+  Future<void> downloadPdfPmp({
+    required String codContrato,
+    required String codDocumento,
+    required String name,
+  }) async {
     final token = LocalDataRepository().authToken;
     final Response res = await Dio().post(
         '$BASE_API_URL/api/mi-cuenta/contratos_pmp/imprimir',
@@ -200,7 +205,7 @@ class ContratsRepository {
         options: Options(headers: {'Authorization': 'Bearer $token'}));
     final directory = await getApplicationDocumentsDirectory();
     final savedDir = directory.path;
-    final file = File('$savedDir/contrato_$codContrato.pdf');
+    final file = File('$savedDir/$name');
     await file.writeAsBytes(List<int>.from(res.data.codeUnits));
     await OpenFile.open(file.path);
   }
@@ -209,6 +214,7 @@ class ContratsRepository {
     required String anio,
     required String codContrato,
     required String codDocumento,
+    required String name,
   }) async {
     final token = LocalDataRepository().authToken;
     final Response res = await Dio().post(
@@ -216,12 +222,30 @@ class ContratsRepository {
         data: {
           "anio": anio,
           "codigo_contrato": codContrato,
-          "codigo_documento": codContrato
+          "codigo_documento": codDocumento
         },
         options: Options(headers: {'Authorization': 'Bearer $token'}));
+
     final directory = await getApplicationDocumentsDirectory();
     final savedDir = directory.path;
-    final file = File('$savedDir/contrato_$codContrato.pdf');
+    final file = File('$savedDir/$name');
+    await file.writeAsBytes(List<int>.from(res.data.codeUnits));
+    await OpenFile.open(file.path);
+  }
+
+  Future<void> downloadPdfRappel({
+    required String codContrato,
+    required String name,
+  }) async {
+    final token = LocalDataRepository().authToken;
+    final Response res = await Dio().post(
+        '$BASE_API_URL/api/mi-cuenta/contratos_rappel/imprimir',
+        data: {"codigo_contrato": codContrato},
+        options: Options(headers: {'Authorization': 'Bearer $token'}));
+
+    final directory = await getApplicationDocumentsDirectory();
+    final savedDir = directory.path;
+    final file = File('$savedDir/$name');
     await file.writeAsBytes(List<int>.from(res.data.codeUnits));
     await OpenFile.open(file.path);
   }

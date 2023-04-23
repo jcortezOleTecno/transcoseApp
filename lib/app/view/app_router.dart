@@ -7,6 +7,9 @@ import 'package:vemare/app/domain/model/events.dart';
 import 'package:vemare/app/domain/model/events_vemare.dart';
 import 'package:vemare/app/domain/model/formation.dart';
 import 'package:vemare/app/domain/model/intervenciones.dart';
+import 'package:vemare/app/domain/model/library.dart';
+import 'package:vemare/app/domain/model/notices.dart';
+import 'package:vemare/app/domain/model/pills.dart';
 import 'package:vemare/app/domain/model/promotion.dart';
 import 'package:vemare/app/domain/model/services.dart';
 import 'package:vemare/app/domain/model/warranty.dart';
@@ -22,6 +25,7 @@ import 'package:vemare/app/view/my_services/events/events_vemare/events_vemare_p
 import 'package:vemare/app/view/my_services/events/my_events/my_events_page.dart';
 import 'package:vemare/app/view/my_services/events/other_events/other_event_page.dart';
 import 'package:vemare/app/view/my_services/events/other_events/other_events_list.dart';
+import 'package:vemare/app/view/news/news_detail.dart';
 import 'package:vemare/app/view/news/news_page.dart';
 import 'package:vemare/app/view/our_history/our_history.dart';
 import 'package:vemare/app/view/personal_area/SAT/details/sat_detail.dart';
@@ -64,6 +68,8 @@ import 'package:vemare/app/view/work_with_us/work_with_us_page.dart';
 import 'package:vemare/app/view/workshop_networks/workshop_networks_page.dart';
 
 import '../domain/model/contrato_pmp.dart';
+import 'library/library_detail.dart';
+import 'pills/pills_details.dart';
 import 'promotions/promotion/promotion_page.dart';
 
 abstract class AppRouter {
@@ -358,6 +364,24 @@ abstract class AppRouter {
         return MaterialPageRoute<void>(
           settings: settings,
           builder: (_) => SatDetailPage.create(data!),
+        );
+      case NewsDetailPage.route:
+        final data = settings.arguments as News?;
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => NewsDetailPage(data!),
+        );
+      case LibraryDetailPage.route:
+        final data = settings.arguments as Library?;
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => LibraryDetailPage(data!),
+        );
+      case PillsDetailPage.route:
+        final data = settings.arguments as Pills?;
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => PillsDetailPage(data!),
         );
 
       default:

@@ -17,62 +17,65 @@ class MyPillsCard extends StatelessWidget {
   final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 200,
-            width: double.infinity,
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                Image.network(img, fit: BoxFit.cover),
-                Container(color: Colors.black38),
-                Center(
-                  child: Container(
-                    height: 55,
-                    width: 55,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white38,
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 200,
+              width: double.infinity,
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Image.network(img, fit: BoxFit.cover),
+                  Container(color: Colors.black38),
+                  Center(
+                    child: Container(
+                      height: 55,
+                      width: 55,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.white38,
+                      ),
+                      child: Image.asset(
+                        'assets/icons/play.png',
+                        scale: 2,
+                      ),
                     ),
-                    child: Image.asset(
-                      'assets/icons/play.png',
-                      scale: 2,
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: AppTextStyle.h3Style.copyWith(
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                )
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: AppTextStyle.h3Style.copyWith(
-                    fontWeight: FontWeight.bold,
+                  spacerS,
+                  Text(
+                    description,
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTextStyle.contentCard,
                   ),
-                ),
-                spacerS,
-                Text(
-                  description,
-                  maxLines: 4,
-                  overflow: TextOverflow.ellipsis,
-                  style: AppTextStyle.contentCard,
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
