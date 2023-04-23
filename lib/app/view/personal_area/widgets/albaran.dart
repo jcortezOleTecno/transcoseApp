@@ -173,8 +173,8 @@ class _ExpeditionButtonState extends State<ExpeditionButton> {
               ),
             )
           : Image.asset(
-              'assets/icons/options.png',
-              scale: 2,
+              'assets/icons/Truck.png',
+              scale: 3.5,
               color: AppColor.primaryBlue,
             ),
     );

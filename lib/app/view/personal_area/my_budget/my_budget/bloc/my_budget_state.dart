@@ -8,6 +8,7 @@ class BudgetState with _$BudgetState {
   const factory BudgetState({
     @Default(false) bool loading,
     @Default(<Budget>[]) List<Budget> budget,
+    String? filters,
   }) = _BudgetState;
   const BudgetState._();
 }

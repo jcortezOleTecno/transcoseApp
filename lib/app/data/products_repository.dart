@@ -9,10 +9,14 @@ class ProductsRepository {
   ProductsRepository(this._apiClient);
 
   Future<List<Category>> getProductsCategories({int limit = 0}) async {
-    final dynamic res = await _apiClient.getRequest(
-        '$BASE_API_URL/api/productos',
-        params: <String, dynamic>{'limit': '$limit'});
-    return (res as List).map(Category.fromJson).toList();
+    try {
+      final dynamic res = await _apiClient.getRequest(
+          '$BASE_API_URL/api/productos',
+          params: <String, dynamic>{'limit': '$limit'});
+      return (res as List).map(Category.fromJson).toList();
+    } catch (e) {
+      return [];
+    }
   }
 
   Future<CategoryDetail> getCategoryDetail(

@@ -1,5 +1,6 @@
 import 'package:vemare/app/data/_api_classes.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
+import 'package:vemare/app/domain/model/answer_with_filters.dart';
 import 'package:vemare/app/domain/model/budget.dart';
 import 'package:vemare/app/domain/model/budget_detail.dart';
 
@@ -10,7 +11,7 @@ class BudgetRepository {
 
   BudgetRepository(this._apiClient);
 
-  Future<List<Budget>> getBudget({
+  Future<AnswerWithFilters> getBudget({
     Filter? filter,
   }) async {
     print(filter?.toJson());
@@ -18,7 +19,10 @@ class BudgetRepository {
         '$BASE_API_URL/api/mi-cuenta/presupuestos',
         body: filter?.toJson());
     print(res);
-    return (res['data']['presupuestos'] as List).map(Budget.fromJson).toList();
+    return AnswerWithFilters(
+      filter: res["filters"],
+      data: (res['data']['presupuestos'] as List).map(Budget.fromJson).toList(),
+    );
   }
 
   Future<BudgetDetail> getBudgetDetail({

@@ -23,6 +23,9 @@ mixin _$MyContratsState {
   ContratoRappel? get rappel => throw _privateConstructorUsedError;
   String? get yearSelectMill => throw _privateConstructorUsedError;
   String? get yearSelectRappel => throw _privateConstructorUsedError;
+  String? get filtersCRD => throw _privateConstructorUsedError;
+  String? get filtersMILL => throw _privateConstructorUsedError;
+  String? get filtersRAPPEL => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MyContratsStateCopyWith<MyContratsState> get copyWith =>
@@ -42,7 +45,10 @@ abstract class $MyContratsStateCopyWith<$Res> {
       List<ContratoPmp> pmp,
       ContratoRappel? rappel,
       String? yearSelectMill,
-      String? yearSelectRappel});
+      String? yearSelectRappel,
+      String? filtersCRD,
+      String? filtersMILL,
+      String? filtersRAPPEL});
 }
 
 /// @nodoc
@@ -65,6 +71,9 @@ class _$MyContratsStateCopyWithImpl<$Res, $Val extends MyContratsState>
     Object? rappel = freezed,
     Object? yearSelectMill = freezed,
     Object? yearSelectRappel = freezed,
+    Object? filtersCRD = freezed,
+    Object? filtersMILL = freezed,
+    Object? filtersRAPPEL = freezed,
   }) {
     return _then(_value.copyWith(
       loading: null == loading
@@ -95,6 +104,18 @@ class _$MyContratsStateCopyWithImpl<$Res, $Val extends MyContratsState>
           ? _value.yearSelectRappel
           : yearSelectRappel // ignore: cast_nullable_to_non_nullable
               as String?,
+      filtersCRD: freezed == filtersCRD
+          ? _value.filtersCRD
+          : filtersCRD // ignore: cast_nullable_to_non_nullable
+              as String?,
+      filtersMILL: freezed == filtersMILL
+          ? _value.filtersMILL
+          : filtersMILL // ignore: cast_nullable_to_non_nullable
+              as String?,
+      filtersRAPPEL: freezed == filtersRAPPEL
+          ? _value.filtersRAPPEL
+          : filtersRAPPEL // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -114,7 +135,10 @@ abstract class _$$_MyContratsStateCopyWith<$Res>
       List<ContratoPmp> pmp,
       ContratoRappel? rappel,
       String? yearSelectMill,
-      String? yearSelectRappel});
+      String? yearSelectRappel,
+      String? filtersCRD,
+      String? filtersMILL,
+      String? filtersRAPPEL});
 }
 
 /// @nodoc
@@ -135,6 +159,9 @@ class __$$_MyContratsStateCopyWithImpl<$Res>
     Object? rappel = freezed,
     Object? yearSelectMill = freezed,
     Object? yearSelectRappel = freezed,
+    Object? filtersCRD = freezed,
+    Object? filtersMILL = freezed,
+    Object? filtersRAPPEL = freezed,
   }) {
     return _then(_$_MyContratsState(
       loading: null == loading
@@ -165,6 +192,18 @@ class __$$_MyContratsStateCopyWithImpl<$Res>
           ? _value.yearSelectRappel
           : yearSelectRappel // ignore: cast_nullable_to_non_nullable
               as String?,
+      filtersCRD: freezed == filtersCRD
+          ? _value.filtersCRD
+          : filtersCRD // ignore: cast_nullable_to_non_nullable
+              as String?,
+      filtersMILL: freezed == filtersMILL
+          ? _value.filtersMILL
+          : filtersMILL // ignore: cast_nullable_to_non_nullable
+              as String?,
+      filtersRAPPEL: freezed == filtersRAPPEL
+          ? _value.filtersRAPPEL
+          : filtersRAPPEL // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -179,7 +218,10 @@ class _$_MyContratsState implements _MyContratsState {
       final List<ContratoPmp> pmp = const <ContratoPmp>[],
       this.rappel,
       this.yearSelectMill,
-      this.yearSelectRappel})
+      this.yearSelectRappel,
+      this.filtersCRD,
+      this.filtersMILL,
+      this.filtersRAPPEL})
       : _crd = crd,
         _pmp = pmp;
 
@@ -212,10 +254,16 @@ class _$_MyContratsState implements _MyContratsState {
   final String? yearSelectMill;
   @override
   final String? yearSelectRappel;
+  @override
+  final String? filtersCRD;
+  @override
+  final String? filtersMILL;
+  @override
+  final String? filtersRAPPEL;
 
   @override
   String toString() {
-    return 'MyContratsState(loading: $loading, crd: $crd, mill: $mill, pmp: $pmp, rappel: $rappel, yearSelectMill: $yearSelectMill, yearSelectRappel: $yearSelectRappel)';
+    return 'MyContratsState(loading: $loading, crd: $crd, mill: $mill, pmp: $pmp, rappel: $rappel, yearSelectMill: $yearSelectMill, yearSelectRappel: $yearSelectRappel, filtersCRD: $filtersCRD, filtersMILL: $filtersMILL, filtersRAPPEL: $filtersRAPPEL)';
   }
 
   @override
@@ -231,7 +279,13 @@ class _$_MyContratsState implements _MyContratsState {
             (identical(other.yearSelectMill, yearSelectMill) ||
                 other.yearSelectMill == yearSelectMill) &&
             (identical(other.yearSelectRappel, yearSelectRappel) ||
-                other.yearSelectRappel == yearSelectRappel));
+                other.yearSelectRappel == yearSelectRappel) &&
+            (identical(other.filtersCRD, filtersCRD) ||
+                other.filtersCRD == filtersCRD) &&
+            (identical(other.filtersMILL, filtersMILL) ||
+                other.filtersMILL == filtersMILL) &&
+            (identical(other.filtersRAPPEL, filtersRAPPEL) ||
+                other.filtersRAPPEL == filtersRAPPEL));
   }
 
   @override
@@ -243,7 +297,10 @@ class _$_MyContratsState implements _MyContratsState {
       const DeepCollectionEquality().hash(_pmp),
       rappel,
       yearSelectMill,
-      yearSelectRappel);
+      yearSelectRappel,
+      filtersCRD,
+      filtersMILL,
+      filtersRAPPEL);
 
   @JsonKey(ignore: true)
   @override
@@ -260,7 +317,10 @@ abstract class _MyContratsState implements MyContratsState {
       final List<ContratoPmp> pmp,
       final ContratoRappel? rappel,
       final String? yearSelectMill,
-      final String? yearSelectRappel}) = _$_MyContratsState;
+      final String? yearSelectRappel,
+      final String? filtersCRD,
+      final String? filtersMILL,
+      final String? filtersRAPPEL}) = _$_MyContratsState;
 
   @override
   bool get loading;
@@ -276,6 +336,12 @@ abstract class _MyContratsState implements MyContratsState {
   String? get yearSelectMill;
   @override
   String? get yearSelectRappel;
+  @override
+  String? get filtersCRD;
+  @override
+  String? get filtersMILL;
+  @override
+  String? get filtersRAPPEL;
   @override
   @JsonKey(ignore: true)
   _$$_MyContratsStateCopyWith<_$_MyContratsState> get copyWith =>

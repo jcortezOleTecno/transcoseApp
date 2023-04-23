@@ -7,6 +7,7 @@ import 'package:vemare/app/domain/model/contrats.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
+import 'package:vemare/app/view/_components/my_download_button/my_download_button.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_signature/my_signature.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
@@ -53,21 +54,14 @@ class ContractDetailPage extends StatelessWidget {
                       const MyBackButton(),
                       const Spacer(),
                       if (!state.loading)
-                        TextButton.icon(
-                          onPressed: cubit.downloadPDF,
-                          label: state.loadingPDF
-                              ? const SizedBox(
-                                  height: 16,
-                                  width: 16,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 3,
-                                    color: AppColor.primaryBlue,
-                                  ))
-                              : const Icon(Icons.picture_as_pdf_outlined),
-                          icon: const Text(
-                            'Descargar',
-                            style: AppTextStyle.linkStyle,
-                          ),
+                        ButtonDownloadPdf(
+                          future: () =>
+                              getIt.get<ContratsRepository>().downloadPdfCrd(
+                                    codContrato:
+                                        state.detail!.codigoContrato.toString(),
+                                    numProyecto:
+                                        state.detail!.numeroProyecto.toString(),
+                                  ),
                         ),
                       spacerS,
                     ],
@@ -77,6 +71,7 @@ class ContractDetailPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
+                        const Text('Contrato CRD', style: AppTextStyle.h1Style),
                         Text(
                           LocalDataRepository().user?.name ?? '',
                           style: AppTextStyle.h3Style,

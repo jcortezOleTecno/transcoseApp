@@ -5,4 +5,9 @@ final yearsList = <String>[
   DateTime(DateTime.now().year - 3).year.toString(),
   DateTime(DateTime.now().year - 4).year.toString(),
   DateTime(DateTime.now().year - 5).year.toString(),
+  DateTime(DateTime.now().year - 6).year.toString(),
+  DateTime(DateTime.now().year - 7).year.toString(),
+  DateTime(DateTime.now().year - 8).year.toString(),
+  DateTime(DateTime.now().year - 9).year.toString(),
+  DateTime(DateTime.now().year - 10).year.toString(),
 ];

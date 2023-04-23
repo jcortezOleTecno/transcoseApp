@@ -16,12 +16,11 @@ class Item extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: AppTextStyle.defaultStyle),
+        Text(title, style: AppTextStyle.defaultStyle.copyWith(fontSize: 14)),
         Text(
           content,
-          style: AppTextStyle.defaultStyle.copyWith(
-            fontWeight: FontWeight.w700,
-          ),
+          style: AppTextStyle.defaultStyle
+              .copyWith(fontWeight: FontWeight.w700, fontSize: 13),
         )
       ],
     );

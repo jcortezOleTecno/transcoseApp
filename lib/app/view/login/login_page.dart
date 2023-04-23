@@ -96,6 +96,7 @@ class LoginPage extends StatelessWidget {
                         label: 'E-mail',
                         hintText: 'Escribe tu correo electrónico',
                         initialValue: state.initialEmail,
+                        inputType: TextInputType.emailAddress,
                         onChanged: cubit.email,
                         hasError: state.status == FormStatus.error,
                       );
@@ -107,6 +108,7 @@ class LoginPage extends StatelessWidget {
                     hintText: 'Escribe tu contraseña',
                     hideInput: true,
                     initialValue: state.initialPassword,
+                    inputType: TextInputType.visiblePassword,
                     onChanged: cubit.password,
                     hasError: state.status == FormStatus.error,
                   ),
@@ -132,7 +134,12 @@ class LoginPage extends StatelessWidget {
                   ),
                   spacerS,
                   MyButton(
-                    onPressed: state.isComplete ? cubit.login : () {},
+                    onPressed: state.isComplete
+                        ? () {
+                            FocusScope.of(context).requestFocus(FocusNode());
+                            cubit.login();
+                          }
+                        : () {},
                     text: 'Iniciar sesión',
                     isLoading: state.status == FormStatus.loading,
                   ),

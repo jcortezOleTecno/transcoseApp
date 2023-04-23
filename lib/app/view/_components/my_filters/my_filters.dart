@@ -80,7 +80,7 @@ Future<Filter?> myFilters(
                                         context: context,
                                         initialDate: DateTime.now(),
                                         firstDate:
-                                            DateTime(DateTime.now().year - 4),
+                                            DateTime(DateTime.now().year - 20),
                                         lastDate: DateTime.now()
                                             .add(const Duration(days: 1)),
                                         locale: const Locale('es', 'ES'),

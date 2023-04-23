@@ -13,6 +13,9 @@ class MyOrdersState with _$MyOrdersState {
     @Default(<Albaran>[]) List<Albaran> orders,
     @Default(<Albaran>[]) List<Albaran> bills,
     StatusWarranty? statusWarranty,
+    String? filterPedidos,
+    String? filterGarantias,
+    String? filterAbonos,
   }) = _MyOrdersState;
   const MyOrdersState._();
 }

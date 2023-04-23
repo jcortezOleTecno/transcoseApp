@@ -16,5 +16,8 @@ class MyContratsState with _$MyContratsState {
     ContratoRappel? rappel,
     String? yearSelectMill,
     String? yearSelectRappel,
+    String? filtersCRD,
+    String? filtersMILL,
+    String? filtersRAPPEL,
   }) = _MyContratsState;
 }

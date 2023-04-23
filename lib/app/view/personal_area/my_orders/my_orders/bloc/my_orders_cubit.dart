@@ -24,9 +24,15 @@ class MyOrdersCubit extends Cubit<MyOrdersState> {
     StatusWarranty? status;
 
     await Future.wait([
-      _myAccountRepository.getMyOrders().then(orders.addAll),
-      _myAccountRepository.getWarranties().then(guarantee.addAll),
-      _myAccountRepository.getMyBills().then(bills.addAll),
+      _myAccountRepository
+          .getMyOrders()
+          .then((v) => orders.addAll(v.data as List<Albaran>)),
+      _myAccountRepository
+          .getWarranties()
+          .then((v) => guarantee.addAll(v.data as List<Warranty>)),
+      _myAccountRepository
+          .getMyBills()
+          .then((v) => bills.addAll(v.data as List<Albaran>)),
       _myAccountRepository.getStatusWarranty().then((value) => status = value),
     ]);
 
@@ -41,19 +47,32 @@ class MyOrdersCubit extends Cubit<MyOrdersState> {
 
   Future<void> getMyOrders({Filter? filter}) async {
     emit(state.copyWith(loading: true));
+
     var data = await _myAccountRepository.getMyOrders(filter: filter);
-    emit(state.copyWith(orders: data, loading: false));
+    emit(state.copyWith(
+      orders: data.data as List<Albaran>,
+      loading: false,
+      filterPedidos: data.filter,
+    ));
   }
 
   Future<void> getMyWarranty({Filter? filter}) async {
     emit(state.copyWith(loading: true));
     var data = await _myAccountRepository.getWarranties(filter: filter);
-    emit(state.copyWith(guarantee: data, loading: false));
+    emit(state.copyWith(
+      guarantee: data.data as List<Warranty>,
+      filterGarantias: data.filter,
+      loading: false,
+    ));
   }
 
   Future<void> getMyBills({Filter? filter}) async {
     emit(state.copyWith(loading: true));
     var data = await _myAccountRepository.getMyBills(filter: filter);
-    emit(state.copyWith(bills: data, loading: false));
+    emit(state.copyWith(
+      bills: data.data as List<Albaran>,
+      loading: false,
+      filterAbonos: data.filter,
+    ));
   }
 }

@@ -68,6 +68,17 @@ class MyBudgetPage extends StatelessWidget {
                     ),
                     variant: MyButtonVariant.outlinedBold,
                   ),
+                  if (state.filters != null)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8),
+                      child: Center(
+                        child: Text(
+                          'Filtros aplicados: ${state.filters!}',
+                          style: AppTextStyle.defaultStyle,
+                        ),
+                      ),
+                    ),
+
                   spacerL,
                   if (state.loading) ...[
                     ...List.generate(2, (i) {

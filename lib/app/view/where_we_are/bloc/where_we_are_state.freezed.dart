@@ -16,7 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$WhereWeAreState {
+  bool get loading => throw _privateConstructorUsedError;
   List<Center> get centers => throw _privateConstructorUsedError;
+  LatLng? get location => throw _privateConstructorUsedError;
+  LatLng? get centerSelect => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $WhereWeAreStateCopyWith<WhereWeAreState> get copyWith =>
@@ -29,7 +32,11 @@ abstract class $WhereWeAreStateCopyWith<$Res> {
           WhereWeAreState value, $Res Function(WhereWeAreState) then) =
       _$WhereWeAreStateCopyWithImpl<$Res, WhereWeAreState>;
   @useResult
-  $Res call({List<Center> centers});
+  $Res call(
+      {bool loading,
+      List<Center> centers,
+      LatLng? location,
+      LatLng? centerSelect});
 }
 
 /// @nodoc
@@ -45,13 +52,28 @@ class _$WhereWeAreStateCopyWithImpl<$Res, $Val extends WhereWeAreState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? loading = null,
     Object? centers = null,
+    Object? location = freezed,
+    Object? centerSelect = freezed,
   }) {
     return _then(_value.copyWith(
+      loading: null == loading
+          ? _value.loading
+          : loading // ignore: cast_nullable_to_non_nullable
+              as bool,
       centers: null == centers
           ? _value.centers
           : centers // ignore: cast_nullable_to_non_nullable
               as List<Center>,
+      location: freezed == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as LatLng?,
+      centerSelect: freezed == centerSelect
+          ? _value.centerSelect
+          : centerSelect // ignore: cast_nullable_to_non_nullable
+              as LatLng?,
     ) as $Val);
   }
 }
@@ -64,7 +86,11 @@ abstract class _$$_WhereWeAreStateCopyWith<$Res>
       __$$_WhereWeAreStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Center> centers});
+  $Res call(
+      {bool loading,
+      List<Center> centers,
+      LatLng? location,
+      LatLng? centerSelect});
 }
 
 /// @nodoc
@@ -78,13 +104,28 @@ class __$$_WhereWeAreStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? loading = null,
     Object? centers = null,
+    Object? location = freezed,
+    Object? centerSelect = freezed,
   }) {
     return _then(_$_WhereWeAreState(
+      loading: null == loading
+          ? _value.loading
+          : loading // ignore: cast_nullable_to_non_nullable
+              as bool,
       centers: null == centers
           ? _value._centers
           : centers // ignore: cast_nullable_to_non_nullable
               as List<Center>,
+      location: freezed == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as LatLng?,
+      centerSelect: freezed == centerSelect
+          ? _value.centerSelect
+          : centerSelect // ignore: cast_nullable_to_non_nullable
+              as LatLng?,
     ));
   }
 }
@@ -92,10 +133,17 @@ class __$$_WhereWeAreStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_WhereWeAreState extends _WhereWeAreState {
-  const _$_WhereWeAreState({final List<Center> centers = const <Center>[]})
+  const _$_WhereWeAreState(
+      {this.loading = false,
+      final List<Center> centers = const <Center>[],
+      this.location,
+      this.centerSelect})
       : _centers = centers,
         super._();
 
+  @override
+  @JsonKey()
+  final bool loading;
   final List<Center> _centers;
   @override
   @JsonKey()
@@ -106,8 +154,13 @@ class _$_WhereWeAreState extends _WhereWeAreState {
   }
 
   @override
+  final LatLng? location;
+  @override
+  final LatLng? centerSelect;
+
+  @override
   String toString() {
-    return 'WhereWeAreState(centers: $centers)';
+    return 'WhereWeAreState(loading: $loading, centers: $centers, location: $location, centerSelect: $centerSelect)';
   }
 
   @override
@@ -115,12 +168,17 @@ class _$_WhereWeAreState extends _WhereWeAreState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_WhereWeAreState &&
-            const DeepCollectionEquality().equals(other._centers, _centers));
+            (identical(other.loading, loading) || other.loading == loading) &&
+            const DeepCollectionEquality().equals(other._centers, _centers) &&
+            (identical(other.location, location) ||
+                other.location == location) &&
+            (identical(other.centerSelect, centerSelect) ||
+                other.centerSelect == centerSelect));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_centers));
+  int get hashCode => Object.hash(runtimeType, loading,
+      const DeepCollectionEquality().hash(_centers), location, centerSelect);
 
   @JsonKey(ignore: true)
   @override
@@ -130,12 +188,21 @@ class _$_WhereWeAreState extends _WhereWeAreState {
 }
 
 abstract class _WhereWeAreState extends WhereWeAreState {
-  const factory _WhereWeAreState({final List<Center> centers}) =
-      _$_WhereWeAreState;
+  const factory _WhereWeAreState(
+      {final bool loading,
+      final List<Center> centers,
+      final LatLng? location,
+      final LatLng? centerSelect}) = _$_WhereWeAreState;
   const _WhereWeAreState._() : super._();
 
   @override
+  bool get loading;
+  @override
   List<Center> get centers;
+  @override
+  LatLng? get location;
+  @override
+  LatLng? get centerSelect;
   @override
   @JsonKey(ignore: true)
   _$$_WhereWeAreStateCopyWith<_$_WhereWeAreState> get copyWith =>

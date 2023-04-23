@@ -22,7 +22,9 @@ class MyContratsCubit extends Cubit<MyContratsState> {
     ContratoRappel? rappel;
 
     await Future.wait([
-      _contratsRepository.getContratsCRD().then((value) => crd.addAll(value)),
+      _contratsRepository
+          .getContratsCRD()
+          .then((value) => crd.addAll(value.data as List<Contrats>)),
       _contratsRepository.getContratMill().then((value) => mill = value),
       _contratsRepository.getContratsPMP().then((value) => pmp.addAll(value)),
       _contratsRepository.getContratReppel().then((value) => rappel = value),
@@ -41,7 +43,8 @@ class MyContratsCubit extends Cubit<MyContratsState> {
     emit(state.copyWith(loading: true));
     var data = await _contratsRepository.getContratsCRD(filter: filter);
     emit(state.copyWith(
-      crd: data,
+      crd: data.data as List<Contrats>,
+      filtersCRD: data.filter,
       loading: false,
     ));
   }

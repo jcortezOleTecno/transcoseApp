@@ -21,6 +21,9 @@ mixin _$MyOrdersState {
   List<Albaran> get orders => throw _privateConstructorUsedError;
   List<Albaran> get bills => throw _privateConstructorUsedError;
   StatusWarranty? get statusWarranty => throw _privateConstructorUsedError;
+  String? get filterPedidos => throw _privateConstructorUsedError;
+  String? get filterGarantias => throw _privateConstructorUsedError;
+  String? get filterAbonos => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MyOrdersStateCopyWith<MyOrdersState> get copyWith =>
@@ -38,7 +41,10 @@ abstract class $MyOrdersStateCopyWith<$Res> {
       List<Warranty> guarantee,
       List<Albaran> orders,
       List<Albaran> bills,
-      StatusWarranty? statusWarranty});
+      StatusWarranty? statusWarranty,
+      String? filterPedidos,
+      String? filterGarantias,
+      String? filterAbonos});
 }
 
 /// @nodoc
@@ -59,6 +65,9 @@ class _$MyOrdersStateCopyWithImpl<$Res, $Val extends MyOrdersState>
     Object? orders = null,
     Object? bills = null,
     Object? statusWarranty = freezed,
+    Object? filterPedidos = freezed,
+    Object? filterGarantias = freezed,
+    Object? filterAbonos = freezed,
   }) {
     return _then(_value.copyWith(
       loading: null == loading
@@ -81,6 +90,18 @@ class _$MyOrdersStateCopyWithImpl<$Res, $Val extends MyOrdersState>
           ? _value.statusWarranty
           : statusWarranty // ignore: cast_nullable_to_non_nullable
               as StatusWarranty?,
+      filterPedidos: freezed == filterPedidos
+          ? _value.filterPedidos
+          : filterPedidos // ignore: cast_nullable_to_non_nullable
+              as String?,
+      filterGarantias: freezed == filterGarantias
+          ? _value.filterGarantias
+          : filterGarantias // ignore: cast_nullable_to_non_nullable
+              as String?,
+      filterAbonos: freezed == filterAbonos
+          ? _value.filterAbonos
+          : filterAbonos // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -98,7 +119,10 @@ abstract class _$$_MyOrdersStateCopyWith<$Res>
       List<Warranty> guarantee,
       List<Albaran> orders,
       List<Albaran> bills,
-      StatusWarranty? statusWarranty});
+      StatusWarranty? statusWarranty,
+      String? filterPedidos,
+      String? filterGarantias,
+      String? filterAbonos});
 }
 
 /// @nodoc
@@ -117,6 +141,9 @@ class __$$_MyOrdersStateCopyWithImpl<$Res>
     Object? orders = null,
     Object? bills = null,
     Object? statusWarranty = freezed,
+    Object? filterPedidos = freezed,
+    Object? filterGarantias = freezed,
+    Object? filterAbonos = freezed,
   }) {
     return _then(_$_MyOrdersState(
       loading: null == loading
@@ -139,6 +166,18 @@ class __$$_MyOrdersStateCopyWithImpl<$Res>
           ? _value.statusWarranty
           : statusWarranty // ignore: cast_nullable_to_non_nullable
               as StatusWarranty?,
+      filterPedidos: freezed == filterPedidos
+          ? _value.filterPedidos
+          : filterPedidos // ignore: cast_nullable_to_non_nullable
+              as String?,
+      filterGarantias: freezed == filterGarantias
+          ? _value.filterGarantias
+          : filterGarantias // ignore: cast_nullable_to_non_nullable
+              as String?,
+      filterAbonos: freezed == filterAbonos
+          ? _value.filterAbonos
+          : filterAbonos // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -151,7 +190,10 @@ class _$_MyOrdersState extends _MyOrdersState {
       final List<Warranty> guarantee = const <Warranty>[],
       final List<Albaran> orders = const <Albaran>[],
       final List<Albaran> bills = const <Albaran>[],
-      this.statusWarranty})
+      this.statusWarranty,
+      this.filterPedidos,
+      this.filterGarantias,
+      this.filterAbonos})
       : _guarantee = guarantee,
         _orders = orders,
         _bills = bills,
@@ -189,10 +231,16 @@ class _$_MyOrdersState extends _MyOrdersState {
 
   @override
   final StatusWarranty? statusWarranty;
+  @override
+  final String? filterPedidos;
+  @override
+  final String? filterGarantias;
+  @override
+  final String? filterAbonos;
 
   @override
   String toString() {
-    return 'MyOrdersState(loading: $loading, guarantee: $guarantee, orders: $orders, bills: $bills, statusWarranty: $statusWarranty)';
+    return 'MyOrdersState(loading: $loading, guarantee: $guarantee, orders: $orders, bills: $bills, statusWarranty: $statusWarranty, filterPedidos: $filterPedidos, filterGarantias: $filterGarantias, filterAbonos: $filterAbonos)';
   }
 
   @override
@@ -206,7 +254,13 @@ class _$_MyOrdersState extends _MyOrdersState {
             const DeepCollectionEquality().equals(other._orders, _orders) &&
             const DeepCollectionEquality().equals(other._bills, _bills) &&
             (identical(other.statusWarranty, statusWarranty) ||
-                other.statusWarranty == statusWarranty));
+                other.statusWarranty == statusWarranty) &&
+            (identical(other.filterPedidos, filterPedidos) ||
+                other.filterPedidos == filterPedidos) &&
+            (identical(other.filterGarantias, filterGarantias) ||
+                other.filterGarantias == filterGarantias) &&
+            (identical(other.filterAbonos, filterAbonos) ||
+                other.filterAbonos == filterAbonos));
   }
 
   @override
@@ -216,7 +270,10 @@ class _$_MyOrdersState extends _MyOrdersState {
       const DeepCollectionEquality().hash(_guarantee),
       const DeepCollectionEquality().hash(_orders),
       const DeepCollectionEquality().hash(_bills),
-      statusWarranty);
+      statusWarranty,
+      filterPedidos,
+      filterGarantias,
+      filterAbonos);
 
   @JsonKey(ignore: true)
   @override
@@ -231,7 +288,10 @@ abstract class _MyOrdersState extends MyOrdersState {
       final List<Warranty> guarantee,
       final List<Albaran> orders,
       final List<Albaran> bills,
-      final StatusWarranty? statusWarranty}) = _$_MyOrdersState;
+      final StatusWarranty? statusWarranty,
+      final String? filterPedidos,
+      final String? filterGarantias,
+      final String? filterAbonos}) = _$_MyOrdersState;
   const _MyOrdersState._() : super._();
 
   @override
@@ -244,6 +304,12 @@ abstract class _MyOrdersState extends MyOrdersState {
   List<Albaran> get bills;
   @override
   StatusWarranty? get statusWarranty;
+  @override
+  String? get filterPedidos;
+  @override
+  String? get filterGarantias;
+  @override
+  String? get filterAbonos;
   @override
   @JsonKey(ignore: true)
   _$$_MyOrdersStateCopyWith<_$_MyOrdersState> get copyWith =>

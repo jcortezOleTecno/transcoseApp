@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$BudgetState {
   bool get loading => throw _privateConstructorUsedError;
   List<Budget> get budget => throw _privateConstructorUsedError;
+  String? get filters => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $BudgetStateCopyWith<BudgetState> get copyWith =>
@@ -30,7 +31,7 @@ abstract class $BudgetStateCopyWith<$Res> {
           BudgetState value, $Res Function(BudgetState) then) =
       _$BudgetStateCopyWithImpl<$Res, BudgetState>;
   @useResult
-  $Res call({bool loading, List<Budget> budget});
+  $Res call({bool loading, List<Budget> budget, String? filters});
 }
 
 /// @nodoc
@@ -48,6 +49,7 @@ class _$BudgetStateCopyWithImpl<$Res, $Val extends BudgetState>
   $Res call({
     Object? loading = null,
     Object? budget = null,
+    Object? filters = freezed,
   }) {
     return _then(_value.copyWith(
       loading: null == loading
@@ -58,6 +60,10 @@ class _$BudgetStateCopyWithImpl<$Res, $Val extends BudgetState>
           ? _value.budget
           : budget // ignore: cast_nullable_to_non_nullable
               as List<Budget>,
+      filters: freezed == filters
+          ? _value.filters
+          : filters // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -70,7 +76,7 @@ abstract class _$$_BudgetStateCopyWith<$Res>
       __$$_BudgetStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool loading, List<Budget> budget});
+  $Res call({bool loading, List<Budget> budget, String? filters});
 }
 
 /// @nodoc
@@ -86,6 +92,7 @@ class __$$_BudgetStateCopyWithImpl<$Res>
   $Res call({
     Object? loading = null,
     Object? budget = null,
+    Object? filters = freezed,
   }) {
     return _then(_$_BudgetState(
       loading: null == loading
@@ -96,6 +103,10 @@ class __$$_BudgetStateCopyWithImpl<$Res>
           ? _value._budget
           : budget // ignore: cast_nullable_to_non_nullable
               as List<Budget>,
+      filters: freezed == filters
+          ? _value.filters
+          : filters // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -104,7 +115,9 @@ class __$$_BudgetStateCopyWithImpl<$Res>
 
 class _$_BudgetState extends _BudgetState {
   const _$_BudgetState(
-      {this.loading = false, final List<Budget> budget = const <Budget>[]})
+      {this.loading = false,
+      final List<Budget> budget = const <Budget>[],
+      this.filters})
       : _budget = budget,
         super._();
 
@@ -121,8 +134,11 @@ class _$_BudgetState extends _BudgetState {
   }
 
   @override
+  final String? filters;
+
+  @override
   String toString() {
-    return 'BudgetState(loading: $loading, budget: $budget)';
+    return 'BudgetState(loading: $loading, budget: $budget, filters: $filters)';
   }
 
   @override
@@ -131,12 +147,13 @@ class _$_BudgetState extends _BudgetState {
         (other.runtimeType == runtimeType &&
             other is _$_BudgetState &&
             (identical(other.loading, loading) || other.loading == loading) &&
-            const DeepCollectionEquality().equals(other._budget, _budget));
+            const DeepCollectionEquality().equals(other._budget, _budget) &&
+            (identical(other.filters, filters) || other.filters == filters));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, loading, const DeepCollectionEquality().hash(_budget));
+  int get hashCode => Object.hash(runtimeType, loading,
+      const DeepCollectionEquality().hash(_budget), filters);
 
   @JsonKey(ignore: true)
   @override
@@ -146,14 +163,18 @@ class _$_BudgetState extends _BudgetState {
 }
 
 abstract class _BudgetState extends BudgetState {
-  const factory _BudgetState({final bool loading, final List<Budget> budget}) =
-      _$_BudgetState;
+  const factory _BudgetState(
+      {final bool loading,
+      final List<Budget> budget,
+      final String? filters}) = _$_BudgetState;
   const _BudgetState._() : super._();
 
   @override
   bool get loading;
   @override
   List<Budget> get budget;
+  @override
+  String? get filters;
   @override
   @JsonKey(ignore: true)
   _$$_BudgetStateCopyWith<_$_BudgetState> get copyWith =>

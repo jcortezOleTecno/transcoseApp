@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
+import 'package:vemare/app/domain/model/answer_with_filters.dart';
 import 'package:vemare/app/domain/model/contract_detail.dart';
 import 'package:vemare/app/domain/model/contract_millenium.dart';
 import 'package:vemare/app/domain/model/contract_pmp_detail.dart';
@@ -21,7 +22,7 @@ class ContratsRepository {
 
   ContratsRepository(this._apiClient);
 
-  Future<List<Contrats>> getContratsCRD({
+  Future<AnswerWithFilters> getContratsCRD({
     Filter? filter,
   }) async {
     final dynamic res = await _apiClient.postRequest(
@@ -29,9 +30,12 @@ class ContratsRepository {
       body: filter?.toJson(),
     );
     print(res);
-    return (res["data"]["contratos_crd"] as List)
-        .map(Contrats.fromJson)
-        .toList();
+    return AnswerWithFilters(
+      data: (res["data"]["contratos_crd"] as List)
+          .map(Contrats.fromJson)
+          .toList(),
+      filter: res["filters"],
+    );
   }
 
   Future<ContratDetail> getContratDetail(
@@ -109,12 +113,17 @@ class ContratsRepository {
   }
 
   Future<List<ContratoPmp>> getContratsPMP({Filter? filter}) async {
-    final dynamic res = await _apiClient.postRequest(
-      '$BASE_API_URL/api/mi-cuenta/contratos_pmp',
-      body: filter?.toJson(),
-    );
-    print(res);
-    return (res["contratos_pmp"] as List).map(ContratoPmp.fromJson).toList();
+    try {
+      final dynamic res = await _apiClient.postRequest(
+        '$BASE_API_URL/api/mi-cuenta/contratos_pmp',
+        body: filter?.toJson(),
+      );
+      print(res);
+      return (res["contratos_pmp"] as List).map(ContratoPmp.fromJson).toList();
+    } catch (e) {
+      print(e);
+      return [];
+    }
   }
 
   Future<ContratoRappel?> getContratReppel({String? anio}) async {
@@ -165,14 +174,50 @@ class ContratsRepository {
     return ContratPmpDetail.fromJson(res["contrato"]);
   }
 
-  Future<void> downloadPdfCrd({
-    required String codContrato,
-    required String numProyecto,
-  }) async {
+  Future<void> downloadPdfCrd(
+      {required String codContrato, required String numProyecto}) async {
     final token = LocalDataRepository().authToken;
     final Response res = await Dio().post(
         '$BASE_API_URL/api/mi-cuenta/contratos_crd/imprimir',
         data: {"codigo_contrato": codContrato, "numero_proyecto": numProyecto},
+        options: Options(headers: {'Authorization': 'Bearer $token'}));
+    final directory = await getApplicationDocumentsDirectory();
+    final savedDir = directory.path;
+    final file = File('$savedDir/contrato_$codContrato.pdf');
+    await file.writeAsBytes(List<int>.from(res.data.codeUnits));
+    await OpenFile.open(file.path);
+  }
+
+  Future<void> downloadPdfPmp(
+      {required String codContrato, required String codDocumento}) async {
+    final token = LocalDataRepository().authToken;
+    final Response res = await Dio().post(
+        '$BASE_API_URL/api/mi-cuenta/contratos_pmp/imprimir',
+        data: {
+          "codigo_contrato": codContrato,
+          "codigo_documento": codDocumento
+        },
+        options: Options(headers: {'Authorization': 'Bearer $token'}));
+    final directory = await getApplicationDocumentsDirectory();
+    final savedDir = directory.path;
+    final file = File('$savedDir/contrato_$codContrato.pdf');
+    await file.writeAsBytes(List<int>.from(res.data.codeUnits));
+    await OpenFile.open(file.path);
+  }
+
+  Future<void> downloadPdfMill({
+    required String anio,
+    required String codContrato,
+    required String codDocumento,
+  }) async {
+    final token = LocalDataRepository().authToken;
+    final Response res = await Dio().post(
+        '$BASE_API_URL/api/mi-cuenta/contratos_mll/imprimir',
+        data: {
+          "anio": anio,
+          "codigo_contrato": codContrato,
+          "codigo_documento": codContrato
+        },
         options: Options(headers: {'Authorization': 'Bearer $token'}));
     final directory = await getApplicationDocumentsDirectory();
     final savedDir = directory.path;

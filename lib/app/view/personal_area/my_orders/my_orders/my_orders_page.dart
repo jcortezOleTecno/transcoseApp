@@ -5,12 +5,14 @@ import 'package:vemare/app/data/my_account_repository.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_filters/my_filters.dart';
+import 'package:vemare/app/view/_components/my_filters_applied/my_filter_applied.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/personal_area/my_orders/my_orders/bloc/my_orders_cubit.dart';
 import 'package:vemare/app/view/personal_area/my_orders/my_orders/bloc/my_orders_state.dart';
 import 'package:vemare/app/view/personal_area/my_orders/warranty_details/warranty_details_page.dart';
 import 'package:vemare/app/view/personal_area/widgets/albaran.dart';
+import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
 import 'package:vemare/app/view/personal_area/widgets/warranty.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
@@ -54,7 +56,7 @@ class MyOrdersPage extends StatelessWidget {
                   tabs: [
                     Tab(text: 'Mis pedidos'),
                     Tab(text: 'Mis garantías'),
-                    Tab(text: 'Mis facturas'),
+                    Tab(text: 'Mis abonos'),
                   ],
                 ),
               ),
@@ -118,7 +120,11 @@ class _MyOrders extends StatelessWidget {
               ),
               variant: MyButtonVariant.outlinedBold,
             ),
+            if (state.filterPedidos != null)
+              FiltersAppliedWidget(state.filterPedidos!),
             spacerL,
+            if (!state.loading && state.orders.isEmpty)
+              const NoExistWidget('pedidos'),
             if (state.loading)
               ...List.generate(
                   3,
@@ -195,7 +201,11 @@ class _MyWarranty extends StatelessWidget {
                 variant: MyButtonVariant.outlinedBold,
               ),
             ),
+            if (state.filterGarantias != null)
+              FiltersAppliedWidget(state.filterGarantias!),
             spacerL,
+            if (!state.loading && state.guarantee.isEmpty)
+              const NoExistWidget('garantías'),
             if (state.loading)
               ...List.generate(
                   3,
@@ -239,7 +249,7 @@ class _MyBills extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
           children: [
             spacerS,
-            const Text('Mis facturas', style: AppTextStyle.h2Style),
+            const Text('Mis abonos', style: AppTextStyle.h2Style),
             Text(
               LocalDataRepository().user?.name ?? '',
               style: AppTextStyle.h3Style.copyWith(
@@ -262,7 +272,12 @@ class _MyBills extends StatelessWidget {
               ),
               variant: MyButtonVariant.outlinedBold,
             ),
+            if (state.filterAbonos != null)
+              FiltersAppliedWidget(state.filterAbonos!),
             spacerL,
+            if (!state.loading && state.bills.isEmpty)
+              const NoExistWidget('abonos'),
+            // spacerL,
             if (state.loading)
               ...List.generate(
                   3,

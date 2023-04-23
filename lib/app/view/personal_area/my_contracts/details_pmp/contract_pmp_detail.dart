@@ -8,6 +8,7 @@ import 'package:vemare/app/domain/utils/money_formatter.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
+import 'package:vemare/app/view/_components/my_download_button/my_download_button.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_signature/my_signature.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
@@ -48,12 +49,29 @@ class ContractPMPDetailPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const MyBackButton(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const MyBackButton(),
+                      const Spacer(),
+                      if (!state.loading)
+                        ButtonDownloadPdf(
+                          future: () =>
+                              getIt.get<ContratsRepository>().downloadPdfPmp(
+                                    codContrato:
+                                        state.detail!.codigoContrato.toString(),
+                                    codDocumento: '',
+                                  ),
+                        ),
+                      spacerS,
+                    ],
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
+                        const Text('Contrato PMP', style: AppTextStyle.h1Style),
                         Text(
                           LocalDataRepository().user?.name ?? '',
                           style: AppTextStyle.h3Style,
@@ -209,138 +227,146 @@ class _Detail extends StatelessWidget {
           Item(
               title: 'NUMERO DE CUOTAS',
               content: detail.numeroCuotas?.toString() ?? '0'),
-          if (detail.maquinas != null) ...[
-            spacerS,
-            Center(
-              child: Text(
-                'MAQUINAS',
-                style: AppTextStyle.defaultStyle
-                    .copyWith(fontWeight: FontWeight.bold),
-              ),
-            ),
-            const MyDivider(),
-            ...detail.maquinas!
-                .map(
-                  (e) => Column(
-                    children: [
-                      spacerS,
-                      Row(
-                        children: [
-                          Expanded(
-                              child:
-                                  Item(title: 'MARCA', content: e.marca ?? '')),
-                          Expanded(
-                              child: Item(
-                                  title: 'MODELO', content: e.modelo ?? '')),
-                        ],
-                      ),
-                      spacerS,
-                      Row(
-                        children: [
-                          Expanded(
-                              child: Item(
-                                  title: 'N° DE SERIE',
-                                  content: e.numeroSerie ?? '')),
-                          Expanded(
-                              child: Item(
-                                  title: 'AÑO',
-                                  content:
-                                      e.anioFabricacion?.toString() ?? '')),
-                        ],
-                      ),
-                      spacerS,
-                      Row(
-                        children: [
-                          Expanded(
-                              child: Item(title: 'PMP', content: e.pmp ?? '')),
-                          Expanded(
-                              child: Item(
-                                  title: 'N° DE PMP',
-                                  content: e.numeroPmp?.toString() ?? '')),
-                        ],
-                      ),
-                      spacerS,
-                      Row(
-                        children: [
-                          Expanded(
-                              child: Item(
-                                  title: 'TIPO DE EQUIPO TALLER',
-                                  content: e.tipoEquipoTaller ?? '')),
-                        ],
-                      ),
-                      spacerS,
-                      Row(
-                        children: [
-                          Expanded(
-                              child: Item(
-                                  title: 'FECHA INICIAL PMP',
-                                  content: e.fiPmp ?? '')),
-                          Expanded(
-                              child: Item(
-                                  title: 'FECHA FINAL PMP',
-                                  content: e.ffPmp ?? '')),
-                        ],
-                      ),
-                      spacerS,
-                      if (e != detail.maquinas!.last) const MyDivider(),
-                    ],
-                  ),
-                )
-                .toList(),
-            if (detail.servicions != null) ...[
+          if (detail.maquinas != null)
+            if (detail.maquinas!.isNotEmpty) ...[
               spacerS,
+              const MyDivider(),
               Center(
                 child: Text(
-                  'SERVICIOS',
+                  'MAQUINAS',
                   style: AppTextStyle.defaultStyle
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
               const MyDivider(),
-              ...detail.servicions!
-                  .map((e) => Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          spacerS,
-                          Text(
-                            e.nombre ?? '',
-                            style: AppTextStyle.defaultStyle
-                                .copyWith(fontWeight: FontWeight.bold),
-                          ),
-                          spacerS,
-                          Row(
+              ...detail.maquinas!
+                  .map(
+                    (e) => Column(
+                      children: [
+                        spacerS,
+                        Row(
+                          children: [
+                            Expanded(
+                                child: Item(
+                                    title: 'MARCA', content: e.marca ?? '')),
+                            Expanded(
+                                child: Item(
+                                    title: 'MODELO', content: e.modelo ?? '')),
+                          ],
+                        ),
+                        spacerS,
+                        Row(
+                          children: [
+                            Expanded(
+                                child: Item(
+                                    title: 'N° DE SERIE',
+                                    content: e.numeroSerie ?? '')),
+                            Expanded(
+                                child: Item(
+                                    title: 'AÑO',
+                                    content:
+                                        e.anioFabricacion?.toString() ?? '')),
+                          ],
+                        ),
+                        spacerS,
+                        Row(
+                          children: [
+                            Expanded(
+                                child:
+                                    Item(title: 'PMP', content: e.pmp ?? '')),
+                            Expanded(
+                                child: Item(
+                                    title: 'N° DE PMP',
+                                    content: e.numeroPmp?.toString() ?? '')),
+                          ],
+                        ),
+                        spacerS,
+                        Row(
+                          children: [
+                            Expanded(
+                                child: Item(
+                                    title: 'TIPO DE EQUIPO TALLER',
+                                    content: e.tipoEquipoTaller ?? '')),
+                          ],
+                        ),
+                        spacerS,
+                        Row(
+                          children: [
+                            Expanded(
+                                child: Item(
+                                    title: 'FECHA INICIAL PMP',
+                                    content: e.fiPmp ?? '')),
+                            Expanded(
+                                child: Item(
+                                    title: 'FECHA FINAL PMP',
+                                    content: e.ffPmp ?? '')),
+                          ],
+                        ),
+                        spacerS,
+                        if (e != detail.maquinas!.last) const MyDivider(),
+                      ],
+                    ),
+                  )
+                  .toList(),
+              if (detail.servicions != null)
+                if (detail.servicions!.isNotEmpty) ...[
+                  spacerS,
+                  const MyDivider(),
+                  Center(
+                    child: Text(
+                      'SERVICIOS',
+                      style: AppTextStyle.defaultStyle
+                          .copyWith(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  const MyDivider(),
+                  ...detail.servicions!
+                      .map((e) => Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Expanded(
-                                  child: Item(
-                                      title: 'MANTENIMIENTO',
-                                      content: fmf
-                                          .copyWith(
-                                              amount: e.importeMantenimiento)
-                                          .output
-                                          .symbolOnRight)),
-                              Expanded(
-                                  child: Item(
-                                      title: 'REPARACIÓN',
-                                      content: fmf
-                                          .copyWith(amount: e.importeReparacion)
-                                          .output
-                                          .symbolOnRight)),
-                              Expanded(
-                                  child: Item(
-                                      title: 'AVERIA',
-                                      content: fmf
-                                          .copyWith(amount: e.importeAveria)
-                                          .output
-                                          .symbolOnRight))
+                              spacerS,
+                              Text(
+                                e.nombre ?? '',
+                                style: AppTextStyle.defaultStyle
+                                    .copyWith(fontWeight: FontWeight.bold),
+                              ),
+                              spacerS,
+                              Row(
+                                children: [
+                                  Expanded(
+                                      child: Item(
+                                          title: 'MANTENIMIENTO',
+                                          content: fmf
+                                              .copyWith(
+                                                  amount:
+                                                      e.importeMantenimiento)
+                                              .output
+                                              .symbolOnRight)),
+                                  Expanded(
+                                      child: Item(
+                                          title: 'REPARACIÓN',
+                                          content: fmf
+                                              .copyWith(
+                                                  amount: e.importeReparacion)
+                                              .output
+                                              .symbolOnRight)),
+                                  Expanded(
+                                      child: Item(
+                                          title: 'AVERIA',
+                                          content: fmf
+                                              .copyWith(amount: e.importeAveria)
+                                              .output
+                                              .symbolOnRight))
+                                ],
+                              ),
+                              spacerS,
+                              if (e != detail.servicions!.last)
+                                const MyDivider(),
                             ],
-                          ),
-                          spacerS,
-                          if (e != detail.servicions!.last) const MyDivider(),
-                        ],
-                      ))
-                  .toList()
+                          ))
+                      .toList()
+                ]
             ]
-          ]
         ],
       ),
     );

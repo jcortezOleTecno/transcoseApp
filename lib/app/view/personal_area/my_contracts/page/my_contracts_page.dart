@@ -10,14 +10,17 @@ import 'package:vemare/app/domain/utils/money_formatter.dart';
 import 'package:vemare/app/domain/utils/year_list.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
+import 'package:vemare/app/view/_components/my_download_button/my_download_button.dart';
 import 'package:vemare/app/view/_components/my_dropdown_button/my_drop_down_button.dart';
 import 'package:vemare/app/view/_components/my_filters/my_filters.dart';
+import 'package:vemare/app/view/_components/my_filters_applied/my_filter_applied.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_signature/my_signature.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/details/contract_detail.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/details_pmp/contract_pmp_detail.dart';
 import 'package:vemare/app/view/personal_area/widgets/item_card.dart';
+import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
@@ -141,6 +144,7 @@ class _Rappel extends StatelessWidget {
                   height: 500,
                   borderRadius: 12,
                 ),
+              if (state.rappel == null) const NoExistWidget('contratos'),
               if (state.rappel != null && !state.loading)
                 Column(
                   children: [
@@ -224,6 +228,9 @@ class _PMP extends StatelessWidget {
                   height: 250,
                   borderRadius: 3,
                 );
+              }
+              if (state.pmp.isEmpty) {
+                return const NoExistWidget('contratos');
               }
               return Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -377,6 +384,14 @@ class _CRD extends StatelessWidget {
             ),
             variant: MyButtonVariant.outlinedBold,
           ),
+          BlocBuilder<MyContratsCubit, MyContratsState>(
+            builder: (context, state) {
+              if (state.filtersCRD != null) {
+                return FiltersAppliedWidget(state.filtersCRD!);
+              }
+              return const SizedBox();
+            },
+          ),
           spacerL,
           BlocBuilder<MyContratsCubit, MyContratsState>(
             builder: (context, state) {
@@ -386,6 +401,9 @@ class _CRD extends StatelessWidget {
                   height: 250,
                   borderRadius: 12,
                 );
+              }
+              if (state.crd.isEmpty) {
+                return const NoExistWidget('contratos');
               }
               return Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -448,6 +466,7 @@ class _Millenium extends StatelessWidget {
                   height: 500,
                   borderRadius: 12,
                 ),
+              if (state.mill == null) const NoExistWidget('contratos'),
               if (state.mill != null && !state.loading)
                 Column(
                   children: [
@@ -615,10 +634,17 @@ class _ContractMillenium extends StatelessWidget {
                         content: '${mill.porcentajeConsecucion ?? ''}%')),
               ],
             ),
-            spacerS,
-            Text('SERVICIOS CONTRATADOS',
-                style: AppTextStyle.defaultStyle
-                    .copyWith(fontWeight: FontWeight.bold)),
+            if (mill.serviciosContratados != null) ...[
+              spacerS,
+              const MyDivider(),
+              Visibility(
+                visible: mill.serviciosContratados!.isNotEmpty,
+                child: Text('SERVICIOS CONTRATADOS',
+                    style: AppTextStyle.defaultStyle
+                        .copyWith(fontWeight: FontWeight.bold)),
+              ),
+              const MyDivider()
+            ],
             spacerS,
             if (mill.serviciosContratados != null)
               ...mill.serviciosContratados!
@@ -658,6 +684,55 @@ class _ContractMillenium extends StatelessWidget {
                             ],
                           ),
                           if (e != mill.serviciosContratados!.last)
+                            const MyDivider(),
+                        ],
+                      ))
+                  .toList(),
+            if (mill.documentosFirmados != null) ...[
+              spacerS,
+              const MyDivider(),
+              Visibility(
+                visible: mill.documentosFirmados!.isNotEmpty,
+                child: Text('DOCUMENTOS FIRMADOS',
+                    style: AppTextStyle.defaultStyle
+                        .copyWith(fontWeight: FontWeight.bold)),
+              ),
+              const MyDivider()
+            ],
+            spacerS,
+            if (mill.documentosFirmados != null)
+              ...mill.documentosFirmados!
+                  .map((e) => Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Item(
+                                  title: "COD. DOCUMENTO",
+                                  content: e.codigoDocumento?.toString() ?? ''),
+                              ButtonDownloadPdf(
+                                future: () => getIt
+                                    .get<ContratsRepository>()
+                                    .downloadPdfMill(
+                                      anio: e.anio.toString(),
+                                      codContrato:
+                                          mill.codigoContrato.toString(),
+                                      codDocumento:
+                                          e.codigoDocumento.toString(),
+                                    ),
+                              ),
+                            ],
+                          ),
+                          spacerS,
+                          Item(title: "NOMBRE", content: e.nombre ?? ''),
+                          spacerS,
+                          Item(
+                              title: "DESCRIPCIÓN",
+                              content: e.descripcion ?? ''),
+                          spacerS,
+                          Item(title: "AÑO", content: e.anio?.toString() ?? ''),
+                          if (e != mill.documentosFirmados!.last)
                             const MyDivider(),
                         ],
                       ))
@@ -737,15 +812,16 @@ class _ContractRappel extends StatelessWidget {
               ],
             ),
             spacerS,
-            Row(
-              children: [],
-            ),
-            spacerS,
-            Center(
-              child: Text('DOCUMENTOS FIRMADOS',
-                  style: AppTextStyle.defaultStyle
-                      .copyWith(fontWeight: FontWeight.bold)),
-            ),
+            if (rappel.documentosFirmados != null)
+              if (rappel.documentosFirmados!.isNotEmpty) ...[
+                const MyDivider(),
+                Center(
+                  child: Text('DOCUMENTOS FIRMADOS',
+                      style: AppTextStyle.defaultStyle
+                          .copyWith(fontWeight: FontWeight.bold)),
+                ),
+                const MyDivider(),
+              ],
             spacerS,
             if (rappel.documentosFirmados != null)
               ...rappel.documentosFirmados!
@@ -769,6 +845,7 @@ class _ContractRappel extends StatelessWidget {
                           ),
                           spacerS,
                           Item(title: "NOMBRE", content: e.nombre ?? ''),
+                          spacerS,
                           Item(
                               title: "DESCRIPCION",
                               content: e.descripcion ?? ''),

@@ -15,7 +15,11 @@ class BudgetCubit extends Cubit<BudgetState> {
 
   Future<void> fetchData({Filter? filter}) async {
     emit(state.copyWith(loading: true));
-    List<Budget> budgets = await _budgetRepository.getBudget(filter: filter);
-    emit(state.copyWith(budget: budgets, loading: false));
+    var data = await _budgetRepository.getBudget(filter: filter);
+    emit(state.copyWith(
+      budget: data.data as List<Budget>,
+      filters: filter != null ? data.filter : null,
+      loading: false,
+    ));
   }
 }

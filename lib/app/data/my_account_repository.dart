@@ -2,6 +2,7 @@ import 'package:vemare/app/data/_api_classes.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/domain/model/albaran.dart';
 import 'package:vemare/app/domain/model/albaran_details.dart';
+import 'package:vemare/app/domain/model/answer_with_filters.dart';
 import 'package:vemare/app/domain/model/expedition.dart';
 import 'package:vemare/app/domain/model/filter.dart';
 import 'package:vemare/app/domain/model/intervencion_detalle.dart';
@@ -18,18 +19,18 @@ class MyAccountRepository {
 
   MyAccountRepository(this._apiClient);
 
-  Future<List<Albaran>> getMyOrders({Filter? filter}) async {
-    try {
-      final dynamic res = await _apiClient.postRequest(
-          '$BASE_API_URL/api/mi-cuenta/pedidos',
-          body: filter?.toJson() ?? {"anio": "2021", "trimestre": "1"});
-      print(res);
-      return (res["data"]["datos"]["albaranes"] as List)
-          .map(Albaran.fromJson)
-          .toList();
-    } catch (e) {
-      return [];
-    }
+  Future<AnswerWithFilters> getMyOrders({Filter? filter}) async {
+    final dynamic res = await _apiClient.postRequest(
+        '$BASE_API_URL/api/mi-cuenta/pedidos',
+        body: filter?.toJson() ?? {"anio": DateTime.now().year.toString()});
+    return AnswerWithFilters(
+      data: (res["data"]["status"] as bool)
+          ? (res["data"]["datos"]["albaranes"] as List)
+              .map(Albaran.fromJson)
+              .toList()
+          : <Albaran>[],
+      filter: res["filters"],
+    );
   }
 
   Future<List<AlbaranDetails>> getOrderDetail(
@@ -54,16 +55,18 @@ class MyAccountRepository {
     }
   }
 
-  Future<List<Warranty>> getWarranties({Filter? filter}) async {
+  Future<AnswerWithFilters> getWarranties({Filter? filter}) async {
     try {
       final dynamic res = await _apiClient.postRequest(
           '$BASE_API_URL/api/mi-cuenta/garantias',
           body: filter?.toJson());
-      return (res["data"]["datos"]["garantias"] as List)
-          .map(Warranty.fromJson)
-          .toList();
+      return AnswerWithFilters(
+          data: (res["data"]["datos"]["garantias"] as List)
+              .map(Warranty.fromJson)
+              .toList(),
+          filter: res['filters']);
     } catch (e) {
-      return [];
+      return AnswerWithFilters(data: []);
     }
   }
 
@@ -97,18 +100,19 @@ class MyAccountRepository {
     }
   }
 
-  Future<List<Albaran>> getMyBills({Filter? filter}) async {
-    try {
-      final dynamic res = await _apiClient.postRequest(
-          '$BASE_API_URL/api/mi-cuenta/abonos',
-          body: filter?.toJson() ?? {"anio": "2021", "trimestre": "1"});
-      print(res);
-      return (res["data"]["datos"]["albaranes"] as List)
-          .map(Albaran.fromJson)
-          .toList();
-    } catch (e) {
-      return [];
-    }
+  Future<AnswerWithFilters> getMyBills({Filter? filter}) async {
+    final dynamic res = await _apiClient.postRequest(
+        '$BASE_API_URL/api/mi-cuenta/abonos',
+        body: filter?.toJson() ?? {"anio": DateTime.now().year.toString()});
+    print(res);
+    return AnswerWithFilters(
+      data: (res["data"]["status"] as bool)
+          ? (res["data"]["datos"]["albaranes"] as List)
+              .map(Albaran.fromJson)
+              .toList()
+          : <Albaran>[],
+      filter: res["filters"],
+    );
   }
 
   Future<List<Modelo347>> getMy347({String? year}) async {
