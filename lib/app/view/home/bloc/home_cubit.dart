@@ -1,10 +1,11 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/brands_repository.dart';
+import 'package:vemare/app/data/encuestas_repository.dart';
 import 'package:vemare/app/data/home_repository.dart';
+import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/notices_repository.dart';
 import 'package:vemare/app/data/products_repository.dart';
 import 'package:vemare/app/data/promotion_repository.dart';
@@ -29,8 +30,10 @@ class HomeCubit extends Cubit<HomeState> {
     this._noticesRepository,
     this._brandsRepository,
     this._userCubit,
+    this._encuestasRepository,
   ) : super(const HomeState()) {
     fetchData();
+    encuesta();
   }
 
   final HomeRepository _homeRepository;
@@ -41,6 +44,7 @@ class HomeCubit extends Cubit<HomeState> {
   final NoticesRepository _noticesRepository;
   final BrandsRepository _brandsRepository;
   final UserCubit _userCubit;
+  final EncuestasRepository _encuestasRepository;
 
   Future<void> fetchData() async {
     emit(state.copyWith(loading: true));
@@ -80,6 +84,22 @@ class HomeCubit extends Cubit<HomeState> {
       notices: notices,
       brands: brands,
     ));
+  }
+
+  void encuesta() {
+    if (!LocalDataRepository().isLogged) return;
+    Timer.periodic(const Duration(seconds: 60), (timer) {
+      _encuestasRepository.getEncuestas().then((value) {
+        emit(state.copyWith(encuesta: value));
+        if (!state.showSurvey) {
+          emit(state.copyWith(encuesta: null));
+        }
+      });
+    });
+  }
+
+  void showSurvey() {
+    emit(state.copyWith(showSurvey: true));
   }
 
   void openWhatsApp({

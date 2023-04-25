@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:nested_scroll_views/nested_scroll_views.dart';
 import 'package:vemare/app/data/brands_repository.dart';
@@ -10,7 +11,9 @@ import 'package:vemare/app/data/promotion_repository.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/services_repository.dart';
 import 'package:vemare/app/data/workshops_repository.dart';
+import 'package:vemare/app/domain/model/encuesta.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
+import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_cards/my_promotions_card.dart';
 import 'package:vemare/app/view/_components/my_filter_image/my_filter_image.dart';
@@ -39,6 +42,9 @@ import 'package:vemare/app/view/work_with_us/work_with_us_page.dart';
 import 'package:vemare/app/view/workshop_networks/workshop_networks_page.dart';
 import 'package:vemare/config/service_locator.dart';
 
+import '../../data/encuestas_repository.dart';
+import '../_components/my_input/my_input.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage._();
 
@@ -55,6 +61,7 @@ class HomePage extends StatelessWidget {
         getIt.get<NoticesRepository>(),
         getIt.get<BrandsRepository>(),
         context.read<UserCubit>(),
+        getIt.get<EncuestasRepository>(),
       ),
       child: const HomePage._(),
     );
@@ -63,12 +70,110 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: MyBody(
-        child: NestedPageView(
-          scrollDirection: Axis.vertical,
-          children: const [
-            _PageA(),
-            _PageB(),
+        body: MyBody(
+      child: NestedPageView(
+        scrollDirection: Axis.vertical,
+        children: const [
+          _PageA(),
+          _PageB(),
+        ],
+      ),
+    ));
+  }
+}
+
+class EncuestaWidget extends StatefulWidget {
+  const EncuestaWidget(
+    this.data, {
+    Key? key,
+  }) : super(key: key);
+
+  final Encuestas data;
+
+  @override
+  State<EncuestaWidget> createState() => _EncuestaWidgetState();
+}
+
+class _EncuestaWidgetState extends State<EncuestaWidget> {
+  bool loading = false;
+  int? stars = 3;
+  String? comment;
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              children: [
+                const Spacer(),
+                IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: const Icon(Icons.close))
+              ],
+            ),
+            Text(
+              widget.data.dataEncuesta?.name ?? '',
+              textAlign: TextAlign.center,
+              style: AppTextStyle.h2Style,
+            ),
+            spacerS,
+            MyHtml(text: widget.data.dataEncuesta?.message ?? ''),
+            RatingBar.builder(
+              initialRating: 3,
+              minRating: 1,
+              direction: Axis.horizontal,
+              allowHalfRating: false,
+              itemCount: 5,
+              itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+              itemBuilder: (context, _) => const Icon(
+                Icons.star,
+                color: AppColor.primaryBlue,
+              ),
+              onRatingUpdate: (rating) {
+                stars = rating.toInt();
+              },
+            ),
+            spacerM,
+            MyInput(
+              label: 'Ayúdanos a mejorar:',
+              hintText: 'Escribe aquí...',
+              maxLines: 6,
+              textInputAction: TextInputAction.newline,
+              onChanged: (p) {
+                setState(() {
+                  comment = p;
+                });
+              },
+              inputType: TextInputType.multiline,
+            ),
+            spacerS,
+            MyButton(
+              onPressed: () async {
+                setState(() {
+                  loading = true;
+                });
+                var message = await getIt
+                    .get<EncuestasRepository>()
+                    .sendEncuestas(
+                        id: widget.data.dataEncuesta!.id!.toString(),
+                        stars: stars.toString(),
+                        comment: comment ?? '');
+                setState(() {
+                  loading = true;
+                });
+                // ignore: use_build_context_synchronously
+                Navigator.of(context).pop(message);
+              },
+              text: 'Aceptar',
+              width: double.infinity,
+              isLoading: loading,
+            ),
           ],
         ),
       ),
@@ -92,15 +197,22 @@ class _PageA extends StatelessWidget {
             child: BlocBuilder<HomeCubit, HomeState>(
               builder: (context, state) {
                 return Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const MySpacer(height: 200),
-                    Text(
-                      '¡Bienvenido${LocalDataRepository().isLogged ? ', ${LocalDataRepository().user?.responsibleName ?? ''}!' : '!'}',
-                      style: AppTextStyle.homeStyle,
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            const MySpacer(height: 200),
+                            Text(
+                              '¡Bienvenido${LocalDataRepository().isLogged ? ', ${LocalDataRepository().user?.responsibleName ?? ''}!' : '!'}',
+                              style: AppTextStyle.homeStyle,
+                            ),
+                            spacerM,
+                          ],
+                        ),
+                      ),
                     ),
-                    spacerM,
-                    const Spacer(),
                     MyIconButton(
                       onPressed: () =>
                           cubit.openWhatsApp(phone: '+584261886623'),
@@ -194,40 +306,68 @@ class _PageB extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: AppColor.white,
-      child: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 30),
-        // primary: true,
-        children: [
-          const _ProductsVemare(),
-          const _Promociones(),
-          const _Servicios(),
-          spacerL,
-          const _LastService(),
-          const _RedesTalleres(),
-          spacerL,
-          const _News(),
-          spacerL,
-          const _TrabajaConNosotros(),
-          spacerM,
-          Center(
-            child: TextButton.icon(
-              onPressed: () {
-                Navigator.pushNamed(context, WorkWithUsPage.route);
-              },
-              label: Image.asset(
-                'assets/icons/arrow_next.png',
-                scale: 2,
+    final cubit = context.watch<HomeCubit>();
+    return BlocConsumer<HomeCubit, HomeState>(
+      listenWhen: (p, c) {
+        return c.encuesta?.openModal == 1 &&
+            c.encuesta?.dataEncuesta?.id != p.encuesta?.dataEncuesta?.id;
+      },
+      listener: (context, state) {
+        if (state.encuesta?.openModal == 1) {
+          showDialog<String?>(
+            barrierDismissible: false,
+            context: context,
+            builder: (context) {
+              return EncuestaWidget(state.encuesta!);
+            },
+          ).then((value) {
+            cubit.showSurvey();
+            if (value != null) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(value),
+                behavior: SnackBarBehavior.floating,
+              ));
+            }
+          });
+        }
+      },
+      builder: (context, state) {
+        return Container(
+          color: AppColor.white,
+          child: ListView(
+            padding: const EdgeInsets.symmetric(vertical: 30),
+            // primary: true,
+            children: [
+              const _ProductsVemare(),
+              const _Promociones(),
+              const _Servicios(),
+              spacerL,
+              const _LastService(),
+              const _RedesTalleres(),
+              spacerL,
+              const _News(),
+              spacerL,
+              const _TrabajaConNosotros(),
+              spacerM,
+              Center(
+                child: TextButton.icon(
+                  onPressed: () {
+                    Navigator.pushNamed(context, WorkWithUsPage.route);
+                  },
+                  label: Image.asset(
+                    'assets/icons/arrow_next.png',
+                    scale: 2,
+                  ),
+                  icon: const Text(
+                    'Ver más',
+                    style: AppTextStyle.linkStyle,
+                  ),
+                ),
               ),
-              icon: const Text(
-                'Ver más',
-                style: AppTextStyle.linkStyle,
-              ),
-            ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

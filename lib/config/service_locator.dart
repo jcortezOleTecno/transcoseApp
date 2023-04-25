@@ -22,6 +22,7 @@ import 'package:vemare/app/data/work_with_us_repository.dart';
 import 'package:vemare/app/data/workshops_repository.dart';
 
 import '../app/data/contracts_repository.dart';
+import '../app/data/encuestas_repository.dart';
 import '../app/data/sat_repository.dart';
 
 final getIt = GetIt.instance;
@@ -49,6 +50,7 @@ abstract class ServiceLocator {
       ..registerFactory(() => MyAccountRepository(myApi))
       ..registerFactory(() => ContratsRepository(myApi))
       ..registerFactory(() => SatRepository(myApi))
+      ..registerFactory(() => EncuestasRepository(myApi))
       ..registerFactory(() => AboutUsRepository(myApi));
   }
 }

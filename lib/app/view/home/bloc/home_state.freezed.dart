@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$HomeState {
   bool get loading => throw _privateConstructorUsedError;
+  bool get showSurvey => throw _privateConstructorUsedError;
   List<HeroHome> get hero => throw _privateConstructorUsedError;
   List<Category> get promotions => throw _privateConstructorUsedError;
   List<Category> get products => throw _privateConstructorUsedError;
@@ -24,6 +25,7 @@ mixin _$HomeState {
   List<WorkShop> get workshop => throw _privateConstructorUsedError;
   List<News> get notices => throw _privateConstructorUsedError;
   List<Brand> get brands => throw _privateConstructorUsedError;
+  Encuestas? get encuesta => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeStateCopyWith<HomeState> get copyWith =>
@@ -37,13 +39,15 @@ abstract class $HomeStateCopyWith<$Res> {
   @useResult
   $Res call(
       {bool loading,
+      bool showSurvey,
       List<HeroHome> hero,
       List<Category> promotions,
       List<Category> products,
       List<Services> services,
       List<WorkShop> workshop,
       List<News> notices,
-      List<Brand> brands});
+      List<Brand> brands,
+      Encuestas? encuesta});
 }
 
 /// @nodoc
@@ -60,6 +64,7 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   @override
   $Res call({
     Object? loading = null,
+    Object? showSurvey = null,
     Object? hero = null,
     Object? promotions = null,
     Object? products = null,
@@ -67,11 +72,16 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     Object? workshop = null,
     Object? notices = null,
     Object? brands = null,
+    Object? encuesta = freezed,
   }) {
     return _then(_value.copyWith(
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      showSurvey: null == showSurvey
+          ? _value.showSurvey
+          : showSurvey // ignore: cast_nullable_to_non_nullable
               as bool,
       hero: null == hero
           ? _value.hero
@@ -101,6 +111,10 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.brands
           : brands // ignore: cast_nullable_to_non_nullable
               as List<Brand>,
+      encuesta: freezed == encuesta
+          ? _value.encuesta
+          : encuesta // ignore: cast_nullable_to_non_nullable
+              as Encuestas?,
     ) as $Val);
   }
 }
@@ -114,13 +128,15 @@ abstract class _$$_HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
   @useResult
   $Res call(
       {bool loading,
+      bool showSurvey,
       List<HeroHome> hero,
       List<Category> promotions,
       List<Category> products,
       List<Services> services,
       List<WorkShop> workshop,
       List<News> notices,
-      List<Brand> brands});
+      List<Brand> brands,
+      Encuestas? encuesta});
 }
 
 /// @nodoc
@@ -135,6 +151,7 @@ class __$$_HomeStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? loading = null,
+    Object? showSurvey = null,
     Object? hero = null,
     Object? promotions = null,
     Object? products = null,
@@ -142,11 +159,16 @@ class __$$_HomeStateCopyWithImpl<$Res>
     Object? workshop = null,
     Object? notices = null,
     Object? brands = null,
+    Object? encuesta = freezed,
   }) {
     return _then(_$_HomeState(
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      showSurvey: null == showSurvey
+          ? _value.showSurvey
+          : showSurvey // ignore: cast_nullable_to_non_nullable
               as bool,
       hero: null == hero
           ? _value._hero
@@ -176,6 +198,10 @@ class __$$_HomeStateCopyWithImpl<$Res>
           ? _value._brands
           : brands // ignore: cast_nullable_to_non_nullable
               as List<Brand>,
+      encuesta: freezed == encuesta
+          ? _value.encuesta
+          : encuesta // ignore: cast_nullable_to_non_nullable
+              as Encuestas?,
     ));
   }
 }
@@ -185,13 +211,15 @@ class __$$_HomeStateCopyWithImpl<$Res>
 class _$_HomeState extends _HomeState {
   const _$_HomeState(
       {this.loading = false,
+      this.showSurvey = false,
       final List<HeroHome> hero = const <HeroHome>[],
       final List<Category> promotions = const <Category>[],
       final List<Category> products = const <Category>[],
       final List<Services> services = const <Services>[],
       final List<WorkShop> workshop = const <WorkShop>[],
       final List<News> notices = const <News>[],
-      final List<Brand> brands = const <Brand>[]})
+      final List<Brand> brands = const <Brand>[],
+      this.encuesta})
       : _hero = hero,
         _promotions = promotions,
         _products = products,
@@ -204,6 +232,9 @@ class _$_HomeState extends _HomeState {
   @override
   @JsonKey()
   final bool loading;
+  @override
+  @JsonKey()
+  final bool showSurvey;
   final List<HeroHome> _hero;
   @override
   @JsonKey()
@@ -268,8 +299,11 @@ class _$_HomeState extends _HomeState {
   }
 
   @override
+  final Encuestas? encuesta;
+
+  @override
   String toString() {
-    return 'HomeState(loading: $loading, hero: $hero, promotions: $promotions, products: $products, services: $services, workshop: $workshop, notices: $notices, brands: $brands)';
+    return 'HomeState(loading: $loading, showSurvey: $showSurvey, hero: $hero, promotions: $promotions, products: $products, services: $services, workshop: $workshop, notices: $notices, brands: $brands, encuesta: $encuesta)';
   }
 
   @override
@@ -278,6 +312,8 @@ class _$_HomeState extends _HomeState {
         (other.runtimeType == runtimeType &&
             other is _$_HomeState &&
             (identical(other.loading, loading) || other.loading == loading) &&
+            (identical(other.showSurvey, showSurvey) ||
+                other.showSurvey == showSurvey) &&
             const DeepCollectionEquality().equals(other._hero, _hero) &&
             const DeepCollectionEquality()
                 .equals(other._promotions, _promotions) &&
@@ -285,20 +321,24 @@ class _$_HomeState extends _HomeState {
             const DeepCollectionEquality().equals(other._services, _services) &&
             const DeepCollectionEquality().equals(other._workshop, _workshop) &&
             const DeepCollectionEquality().equals(other._notices, _notices) &&
-            const DeepCollectionEquality().equals(other._brands, _brands));
+            const DeepCollectionEquality().equals(other._brands, _brands) &&
+            (identical(other.encuesta, encuesta) ||
+                other.encuesta == encuesta));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       loading,
+      showSurvey,
       const DeepCollectionEquality().hash(_hero),
       const DeepCollectionEquality().hash(_promotions),
       const DeepCollectionEquality().hash(_products),
       const DeepCollectionEquality().hash(_services),
       const DeepCollectionEquality().hash(_workshop),
       const DeepCollectionEquality().hash(_notices),
-      const DeepCollectionEquality().hash(_brands));
+      const DeepCollectionEquality().hash(_brands),
+      encuesta);
 
   @JsonKey(ignore: true)
   @override
@@ -310,17 +350,21 @@ class _$_HomeState extends _HomeState {
 abstract class _HomeState extends HomeState {
   const factory _HomeState(
       {final bool loading,
+      final bool showSurvey,
       final List<HeroHome> hero,
       final List<Category> promotions,
       final List<Category> products,
       final List<Services> services,
       final List<WorkShop> workshop,
       final List<News> notices,
-      final List<Brand> brands}) = _$_HomeState;
+      final List<Brand> brands,
+      final Encuestas? encuesta}) = _$_HomeState;
   const _HomeState._() : super._();
 
   @override
   bool get loading;
+  @override
+  bool get showSurvey;
   @override
   List<HeroHome> get hero;
   @override
@@ -335,6 +379,8 @@ abstract class _HomeState extends HomeState {
   List<News> get notices;
   @override
   List<Brand> get brands;
+  @override
+  Encuestas? get encuesta;
   @override
   @JsonKey(ignore: true)
   _$$_HomeStateCopyWith<_$_HomeState> get copyWith =>
