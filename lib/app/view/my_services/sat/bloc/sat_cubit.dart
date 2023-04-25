@@ -21,6 +21,7 @@ class SatCubit extends Cubit<SatState> {
             email: Email(LocalDataRepository().user!.email!),
             persona: Name(LocalDataRepository().user!.responsibleName!),
             poblacion: Name(LocalDataRepository().user!.webservice!.poblacion!),
+            cif: Name(LocalDataRepository().user!.webservice!.cif!),
           ),
         ) {
     getForm();
@@ -211,6 +212,24 @@ class SatCubit extends Cubit<SatState> {
     }
   }
 
+  void cif(String value) {
+    try {
+      emit(
+        state.copyWith(
+          status: FormStatus.editing,
+          cif: Name(value.trim()),
+        ),
+      );
+    } catch (_) {
+      emit(
+        state.copyWith(
+          status: FormStatus.editing,
+          cif: null,
+        ),
+      );
+    }
+  }
+
   void poblacion(String value) {
     try {
       emit(
@@ -301,7 +320,7 @@ class SatCubit extends Cubit<SatState> {
     emit(state.copyWith(status: FormStatus.loading));
     try {
       final data = {
-        "area": state.formSelect ?? '',
+        "area": state.formSelect == 'AD TALLER' ? 'TI' : state.formSelect ?? '',
         "tipo_maquina": state.tipoMaquina ?? '',
         "marca": state.marca?.value ?? '',
         "modelo": state.modelo?.value ?? '',
@@ -311,6 +330,7 @@ class SatCubit extends Cubit<SatState> {
         //datos fijos
         "cod_cliente": state.codCliente?.value,
         "razon_social": state.razonSocial?.value,
+        "cif": state.formSelect == 'AD TALLER' ? state.cif?.value ?? '' : '',
         "poblacion": state.poblacion?.value,
         "persona": state.persona?.value,
         "telefono": state.telefono?.value,

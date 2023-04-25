@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/shopping_cart_repository.dart';
 import 'package:vemare/app/domain/model/promotion.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
@@ -7,6 +8,7 @@ import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_counter_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_tienda_renting_button.dart';
+import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/promotions/detail_sale_rent/bloc/detail_sale_rent_cubit.dart';
 import 'package:vemare/app/view/promotions/detail_sale_rent/bloc/detail_sale_rent_state.dart';
@@ -71,10 +73,7 @@ class DetailSaleRent extends StatelessWidget {
                         style: AppTextStyle.h1Style,
                       ),
                       spacerS,
-                      Text(
-                        state.promotion!.description!,
-                        style: AppTextStyle.defaultStyle,
-                      ),
+                      MyHtml(text: state.promotion!.description ?? ''),
                       spacerM,
                       Center(
                         child: RichText(
@@ -99,10 +98,14 @@ class DetailSaleRent extends StatelessWidget {
                         increase: cubit.quantity,
                       ),
                       spacerL,
-                      MyButton(
-                        onPressed: cubit.addShoppingCard,
-                        isLoading: state.loading,
-                        text: 'Añadir al carrito',
+                      Visibility(
+                        visible: LocalDataRepository().isLogged,
+                        replacement: const MySpacer(height: 50),
+                        child: MyButton(
+                          onPressed: cubit.addShoppingCard,
+                          isLoading: state.loading,
+                          text: 'Añadir al carrito',
+                        ),
                       ),
                       spacerM,
                       MyButton(

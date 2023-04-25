@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:group_radio_button/group_radio_button.dart';
+import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_dialogs/my_dialogs.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/home/home_page.dart';
+import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/promotions/renting_store/card_payment_form.dart';
 import 'package:vemare/app/view/promotions/renting_store/payment_form.dart';
 import 'package:vemare/app/view/promotions/renting_store/widgets/promotion_description.dart';
@@ -102,25 +104,56 @@ class _Button extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
       child: MyButton(
         onPressed: () {
-          if (!widget.isStore) {
-            promotionDialog(context,
-                    title: 'Felicidades',
-                    content:
-                        'Tu comercial se pondrá en contacto contigo lo antes posible para ver los detalles de tu solicitud.')
-                .then((_) {
-              Navigator.pushNamedAndRemoveUntil(
+          if (LocalDataRepository().isLogged) {
+            if (!widget.isStore) {
+              promotionDialog(context,
+                      title: 'Felicidades',
+                      content:
+                          'Tu comercial se pondrá en contacto contigo lo antes posible para ver los detalles de tu solicitud.')
+                  .then((_) {
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  HomePage.route,
+                  (route) => false,
+                  arguments: true,
+                );
+              });
+            } else {
+              Navigator.pushNamed(
                 context,
-                HomePage.route,
-                (route) => false,
-                arguments: true,
+                PaymentPage.route,
+                arguments: type == 'Crédito',
               );
-            });
+            }
           } else {
             Navigator.pushNamed(
               context,
-              PaymentPage.route,
-              arguments: type == 'Crédito',
-            );
+              LoginPage.route,
+              arguments: '',
+            ).then((_) {
+              if (LocalDataRepository().isLogged) {
+                if (!widget.isStore) {
+                  promotionDialog(context,
+                          title: 'Felicidades',
+                          content:
+                              'Tu comercial se pondrá en contacto contigo lo antes posible para ver los detalles de tu solicitud.')
+                      .then((_) {
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      HomePage.route,
+                      (route) => false,
+                      arguments: true,
+                    );
+                  });
+                } else {
+                  Navigator.pushNamed(
+                    context,
+                    PaymentPage.route,
+                    arguments: type == 'Crédito',
+                  );
+                }
+              }
+            });
           }
         },
         text: 'Continuar',

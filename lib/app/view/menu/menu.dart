@@ -147,23 +147,25 @@ class __IconsAppbarState extends State<_IconsAppbar> {
             ),
           ),
         ),
-        spacerM,
-        InkWell(
-          onTap: () {
-            if (ModalRoute.of(context)!.settings.name !=
-                ShoppingCartPage.route) {
-              Navigator.pushNamed(context, ShoppingCartPage.route);
-            }
-            if (cubit.state.isOpenMenu) {
-              cubit.toggleMenu();
-            }
-          },
-          child: Image.asset(
-            'assets/icons/Bag.png',
-            color: Colors.white,
-            scale: 2,
+        if (LocalDataRepository().isLogged) ...[
+          spacerM,
+          InkWell(
+            onTap: () {
+              if (ModalRoute.of(context)!.settings.name !=
+                  ShoppingCartPage.route) {
+                Navigator.pushNamed(context, ShoppingCartPage.route);
+              }
+              if (cubit.state.isOpenMenu) {
+                cubit.toggleMenu();
+              }
+            },
+            child: Image.asset(
+              'assets/icons/Bag.png',
+              color: Colors.white,
+              scale: 2,
+            ),
           ),
-        ),
+        ],
         spacerM,
         InkWell(
           onTap: widget.menuFunc,
@@ -525,7 +527,6 @@ class _HeaderMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.read<MenuCubit>().state;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
       child: Row(
@@ -628,7 +629,7 @@ class _NotificationsMenu extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Divider(color: Colors.white),
+          const Divider(color: Colors.white),
           ListTile(
             leading: Image.asset('assets/icons/Notifications.png', scale: 2),
             title: Text(

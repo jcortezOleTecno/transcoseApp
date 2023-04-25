@@ -32,6 +32,7 @@ mixin _$SatState {
   String? get tipoIncidencia => throw _privateConstructorUsedError;
   Name? get codCliente => throw _privateConstructorUsedError;
   Name? get razonSocial => throw _privateConstructorUsedError;
+  Name? get cif => throw _privateConstructorUsedError;
   Name? get poblacion => throw _privateConstructorUsedError;
   Name? get persona => throw _privateConstructorUsedError;
   Phone? get telefono => throw _privateConstructorUsedError;
@@ -66,6 +67,7 @@ abstract class $SatStateCopyWith<$Res> {
       String? tipoIncidencia,
       Name? codCliente,
       Name? razonSocial,
+      Name? cif,
       Name? poblacion,
       Name? persona,
       Phone? telefono,
@@ -103,6 +105,7 @@ class _$SatStateCopyWithImpl<$Res, $Val extends SatState>
     Object? tipoIncidencia = freezed,
     Object? codCliente = freezed,
     Object? razonSocial = freezed,
+    Object? cif = freezed,
     Object? poblacion = freezed,
     Object? persona = freezed,
     Object? telefono = freezed,
@@ -175,6 +178,10 @@ class _$SatStateCopyWithImpl<$Res, $Val extends SatState>
           ? _value.razonSocial
           : razonSocial // ignore: cast_nullable_to_non_nullable
               as Name?,
+      cif: freezed == cif
+          ? _value.cif
+          : cif // ignore: cast_nullable_to_non_nullable
+              as Name?,
       poblacion: freezed == poblacion
           ? _value.poblacion
           : poblacion // ignore: cast_nullable_to_non_nullable
@@ -227,6 +234,7 @@ abstract class _$$_SatStateCopyWith<$Res> implements $SatStateCopyWith<$Res> {
       String? tipoIncidencia,
       Name? codCliente,
       Name? razonSocial,
+      Name? cif,
       Name? poblacion,
       Name? persona,
       Phone? telefono,
@@ -262,6 +270,7 @@ class __$$_SatStateCopyWithImpl<$Res>
     Object? tipoIncidencia = freezed,
     Object? codCliente = freezed,
     Object? razonSocial = freezed,
+    Object? cif = freezed,
     Object? poblacion = freezed,
     Object? persona = freezed,
     Object? telefono = freezed,
@@ -334,6 +343,10 @@ class __$$_SatStateCopyWithImpl<$Res>
           ? _value.razonSocial
           : razonSocial // ignore: cast_nullable_to_non_nullable
               as Name?,
+      cif: freezed == cif
+          ? _value.cif
+          : cif // ignore: cast_nullable_to_non_nullable
+              as Name?,
       poblacion: freezed == poblacion
           ? _value.poblacion
           : poblacion // ignore: cast_nullable_to_non_nullable
@@ -382,6 +395,7 @@ class _$_SatState extends _SatState {
       this.tipoIncidencia,
       this.codCliente,
       this.razonSocial,
+      this.cif,
       this.poblacion,
       this.persona,
       this.telefono,
@@ -458,6 +472,8 @@ class _$_SatState extends _SatState {
   @override
   final Name? razonSocial;
   @override
+  final Name? cif;
+  @override
   final Name? poblacion;
   @override
   final Name? persona;
@@ -472,7 +488,7 @@ class _$_SatState extends _SatState {
 
   @override
   String toString() {
-    return 'SatState(loading: $loading, dataForms: $dataForms, forms: $forms, tipoMaquinaValores: $tipoMaquinaValores, diasOcupados: $diasOcupados, status: $status, formSelect: $formSelect, tipoMaquina: $tipoMaquina, marca: $marca, modelo: $modelo, producto: $producto, numeroSerie: $numeroSerie, tipoAveria: $tipoAveria, tipoIncidencia: $tipoIncidencia, codCliente: $codCliente, razonSocial: $razonSocial, poblacion: $poblacion, persona: $persona, telefono: $telefono, email: $email, fechaCita: $fechaCita, franjaHoraria: $franjaHoraria)';
+    return 'SatState(loading: $loading, dataForms: $dataForms, forms: $forms, tipoMaquinaValores: $tipoMaquinaValores, diasOcupados: $diasOcupados, status: $status, formSelect: $formSelect, tipoMaquina: $tipoMaquina, marca: $marca, modelo: $modelo, producto: $producto, numeroSerie: $numeroSerie, tipoAveria: $tipoAveria, tipoIncidencia: $tipoIncidencia, codCliente: $codCliente, razonSocial: $razonSocial, cif: $cif, poblacion: $poblacion, persona: $persona, telefono: $telefono, email: $email, fechaCita: $fechaCita, franjaHoraria: $franjaHoraria)';
   }
 
   @override
@@ -507,6 +523,7 @@ class _$_SatState extends _SatState {
                 other.codCliente == codCliente) &&
             (identical(other.razonSocial, razonSocial) ||
                 other.razonSocial == razonSocial) &&
+            (identical(other.cif, cif) || other.cif == cif) &&
             (identical(other.poblacion, poblacion) ||
                 other.poblacion == poblacion) &&
             (identical(other.persona, persona) || other.persona == persona) &&
@@ -538,6 +555,7 @@ class _$_SatState extends _SatState {
         tipoIncidencia,
         codCliente,
         razonSocial,
+        cif,
         poblacion,
         persona,
         telefono,
@@ -571,6 +589,7 @@ abstract class _SatState extends SatState {
       final String? tipoIncidencia,
       final Name? codCliente,
       final Name? razonSocial,
+      final Name? cif,
       final Name? poblacion,
       final Name? persona,
       final Phone? telefono,
@@ -611,6 +630,8 @@ abstract class _SatState extends SatState {
   Name? get codCliente;
   @override
   Name? get razonSocial;
+  @override
+  Name? get cif;
   @override
   Name? get poblacion;
   @override

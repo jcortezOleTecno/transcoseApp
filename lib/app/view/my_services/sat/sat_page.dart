@@ -333,6 +333,16 @@ class _FormEquipamentoState extends State<FormEquipamento> {
                 hasError: state.status == FormStatus.error,
                 initialValue: state.razonSocial?.value ?? '',
               ),
+              if (state.formSelect != 'AD TALLER')
+                MyInput(
+                  label: 'CIF*',
+                  hintText: 'CIF',
+                  onChanged: cubit.cif,
+                  textInputAction: TextInputAction.next,
+                  textCapitalization: TextCapitalization.sentences,
+                  hasError: state.status == FormStatus.error,
+                  initialValue: state.cif?.value ?? '',
+                ),
               MyInput(
                 label: 'Población*',
                 hintText: 'Población',

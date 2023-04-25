@@ -26,6 +26,7 @@ class SatState with _$SatState {
     String? tipoIncidencia,
     Name? codCliente,
     Name? razonSocial,
+    Name? cif,
     Name? poblacion,
     Name? persona,
     Phone? telefono,
@@ -71,6 +72,7 @@ class SatState with _$SatState {
       tipoIncidencia != null &&
       codCliente != null &&
       razonSocial != null &&
+      cif != null &&
       poblacion != null &&
       persona != null &&
       telefono != null &&
