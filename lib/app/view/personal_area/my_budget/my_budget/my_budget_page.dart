@@ -12,6 +12,7 @@ import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/personal_area/my_budget/budget_detail/budget_detail.dart';
 import 'package:vemare/app/view/personal_area/my_budget/my_budget/bloc/my_budget_cubit.dart';
 import 'package:vemare/app/view/personal_area/my_budget/my_budget/bloc/my_budget_state.dart';
+import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
@@ -89,6 +90,8 @@ class MyBudgetPage extends StatelessWidget {
                       );
                     }),
                   ],
+                  if (!state.loading && state.budget.isEmpty)
+                    const NoExistWidget('presupuestos'),
                   if (!state.loading) ...state.budget.map((e) => _Budget(e)),
                   // MyIconButton(
                   //   onPressed: () {},

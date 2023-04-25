@@ -13,6 +13,7 @@ import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
 
+import '../widgets/no_contracts.dart';
 import 'bloc/modelo_347_cubit.dart';
 import 'bloc/modelo_347_state.dart';
 
@@ -83,6 +84,8 @@ class Modelo347Page extends StatelessWidget {
                         ),
                       );
                     }),
+                  if (!state.loading && state.modelos.isEmpty)
+                    const NoExistWidget('modelos 347'),
                   if (!state.loading)
                     ...state.modelos.map((e) => _Item(e)).toList(),
                 ],
