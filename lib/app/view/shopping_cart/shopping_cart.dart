@@ -62,6 +62,8 @@ class ShoppingCartPage extends StatelessWidget {
                                           margin: EdgeInsets.only(bottom: 15),
                                           height: 80,
                                         )),
+                              if (!state.loading && state.products.isEmpty)
+                                _CarEmpty(),
                               ListView.separated(
                                 itemCount: state.products.length,
                                 separatorBuilder: (context, i) =>
@@ -181,6 +183,25 @@ class _ShoppingItem extends StatelessWidget {
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class _CarEmpty extends StatelessWidget {
+  const _CarEmpty({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Padding(
+      padding: EdgeInsets.only(top: 100),
+      child: Center(
+        child: Text(
+          'Carrito vacío!',
+          style: AppTextStyle.h3Style,
+        ),
       ),
     );
   }

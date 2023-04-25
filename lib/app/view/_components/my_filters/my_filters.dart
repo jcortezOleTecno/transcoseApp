@@ -391,9 +391,11 @@ class ButtonFilter extends StatelessWidget {
       color: Colors.white,
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-      height: 40,
-      child:
-          Text(text, style: AppTextStyle.inputStyle.copyWith(color: textColor)),
+      height: 44,
+      child: Align(
+          alignment: Alignment.centerLeft,
+          child: Text(text,
+              style: AppTextStyle.inputStyle.copyWith(color: textColor))),
     ));
   }
 }

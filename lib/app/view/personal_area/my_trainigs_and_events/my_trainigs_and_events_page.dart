@@ -153,48 +153,48 @@ class _TrainingsAndEventCard extends StatelessWidget {
     );
   }
 
-  PopupMenuButton<dynamic> _popupMenu() {
-    return PopupMenuButton(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      constraints: const BoxConstraints(maxWidth: 130),
-      itemBuilder: (context) {
-        return [
-          PopupMenuItem(
-              child: Center(
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Editar',
-                  style: AppTextStyle.inputStyle
-                      .copyWith(color: AppColor.primaryBlue),
-                ),
-                spacerXs,
-                Image.asset('assets/icons/IconEdit.png', scale: 2)
-              ],
-            ),
-          )),
-          PopupMenuItem(
-              child: Center(
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Eliminar',
-                  style: AppTextStyle.inputStyle
-                      .copyWith(color: AppColor.error500),
-                ),
-                spacerXs,
-                Image.asset('assets/icons/Trash.png', scale: 2)
-              ],
-            ),
-          )),
-        ];
-      },
-      child: Image.asset(
-        'assets/icons/options.png',
-        scale: 2,
-      ),
-    );
-  }
+  // PopupMenuButton<dynamic> _popupMenu() {
+  //   return PopupMenuButton(
+  //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+  //     constraints: const BoxConstraints(maxWidth: 130),
+  //     itemBuilder: (context) {
+  //       return [
+  //         PopupMenuItem(
+  //             child: Center(
+  //           child: Row(
+  //             mainAxisSize: MainAxisSize.min,
+  //             children: [
+  //               Text(
+  //                 'Editar',
+  //                 style: AppTextStyle.inputStyle
+  //                     .copyWith(color: AppColor.primaryBlue),
+  //               ),
+  //               spacerXs,
+  //               Image.asset('assets/icons/IconEdit.png', scale: 2)
+  //             ],
+  //           ),
+  //         )),
+  //         PopupMenuItem(
+  //             child: Center(
+  //           child: Row(
+  //             mainAxisSize: MainAxisSize.min,
+  //             children: [
+  //               Text(
+  //                 'Eliminar',
+  //                 style: AppTextStyle.inputStyle
+  //                     .copyWith(color: AppColor.error500),
+  //               ),
+  //               spacerXs,
+  //               Image.asset('assets/icons/Trash.png', scale: 2)
+  //             ],
+  //           ),
+  //         )),
+  //       ];
+  //     },
+  //     child: Image.asset(
+  //       'assets/icons/options.png',
+  //       scale: 2,
+  //     ),
+  //   );
+  // }
 }

@@ -13,6 +13,7 @@ import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/tap_to_hide_keyboard/tap_to_hide_keyboard.dart';
 import 'package:vemare/app/view/my_services/events/events_page.dart';
 import 'package:vemare/app/view/my_services/formations/formations/formations_page.dart';
+import 'package:vemare/app/view/my_services/sat/sat_page.dart';
 import 'package:vemare/app/view/my_services/services/bloc/services_cubit.dart';
 import 'package:vemare/app/view/my_services/services/bloc/services_state.dart';
 import 'package:vemare/app/view/my_services/services/service_general.dart';
@@ -20,6 +21,8 @@ import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/app/view/workshop_networks/workshop_networks_page.dart';
 import 'package:vemare/config/service_locator.dart';
+
+import '../sat/sat_intro_page.dart';
 
 class ServicesPage extends StatefulWidget {
   const ServicesPage._();
@@ -108,11 +111,18 @@ class _ServicesPageState extends State<ServicesPage> {
                   //   image: const AssetImage('assets/imgs/IMGeventos.png'),
                   // ),
                   state.loading
-                      ? const MyShimmer(
-                          margin: EdgeInsets.zero,
-                          borderRadius: 0,
-                          height: 220,
-                        )
+                      ? Column(
+                          children: List.generate(
+                          4,
+                          (_) => const Padding(
+                            padding: EdgeInsets.only(bottom: 20),
+                            child: MyShimmer(
+                              margin: EdgeInsets.zero,
+                              borderRadius: 0,
+                              height: 220,
+                            ),
+                          ),
+                        ))
                       : Column(
                           children: state.services
                               .map((e) => _CardService(
@@ -145,15 +155,23 @@ class _ServicesPageState extends State<ServicesPage> {
                         const Text('Te ayudamos', style: AppTextStyle.h2Style),
                         spacerS,
                         Row(
-                          children: const [
+                          children: [
                             Expanded(
                                 child: _CardWeHelpYou(
-                                    name: 'SAT', img: 'assets/imgs/sat.png')),
+                              name: 'SAT',
+                              img: 'assets/imgs/sat.png',
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, SatIntroPage.route);
+                              },
+                            )),
                             spacerS,
                             Expanded(
                               child: _CardWeHelpYou(
-                                  name: 'Conexión remota',
-                                  img: 'assets/imgs/conexion_remota.png'),
+                                name: 'Conexión remota',
+                                img: 'assets/imgs/conexion_remota.png',
+                                onTap: () {},
+                              ),
                             ),
                           ],
                         ),
@@ -267,18 +285,18 @@ class _CardWeHelpYou extends StatelessWidget {
   const _CardWeHelpYou({
     required this.name,
     required this.img,
+    required this.onTap,
     Key? key,
   }) : super(key: key);
 
   final String name;
   final String img;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        // Navigator.pushNamed(context, ServiceGeneralPage.route);
-      },
+      onTap: onTap,
       child: Card(
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

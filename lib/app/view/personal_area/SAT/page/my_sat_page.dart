@@ -15,28 +15,28 @@ import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
 
-import 'bloc/sat_state.dart';
-import 'bloc/sat_cubit.dart';
+import 'bloc/my_sat_state.dart';
+import 'bloc/my_sat_cubit.dart';
 
-class SatPage extends StatelessWidget {
-  const SatPage._();
+class MySatPage extends StatelessWidget {
+  const MySatPage._();
   static const route = '/sat';
 
   static Widget create() {
     return BlocProvider(
-      create: (context) => SatCubit(
+      create: (context) => MySatCubit(
         getIt.get<MyAccountRepository>(),
       ),
-      child: const SatPage._(),
+      child: const MySatPage._(),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<SatCubit>();
+    final cubit = context.read<MySatCubit>();
     return Scaffold(
       body: MyBody(
-        child: BlocBuilder<SatCubit, SatState>(
+        child: BlocBuilder<MySatCubit, MySatState>(
           builder: (context, state) {
             return SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),

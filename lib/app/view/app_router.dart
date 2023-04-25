@@ -29,7 +29,7 @@ import 'package:vemare/app/view/news/news_detail.dart';
 import 'package:vemare/app/view/news/news_page.dart';
 import 'package:vemare/app/view/our_history/our_history.dart';
 import 'package:vemare/app/view/personal_area/SAT/details/sat_detail.dart';
-import 'package:vemare/app/view/personal_area/SAT/page/sat_page.dart';
+import 'package:vemare/app/view/personal_area/SAT/page/my_sat_page.dart';
 import 'package:vemare/app/view/personal_area/modelo_347/modelo_347_page.dart';
 import 'package:vemare/app/view/personal_area/my_account/my_account_page.dart';
 import 'package:vemare/app/view/my_services/formations/detail_formation.dart';
@@ -69,6 +69,8 @@ import 'package:vemare/app/view/workshop_networks/workshop_networks_page.dart';
 
 import '../domain/model/contrato_pmp.dart';
 import 'library/library_detail.dart';
+import 'my_services/sat/sat_intro_page.dart';
+import 'my_services/sat/sat_page.dart';
 import 'pills/pills_details.dart';
 import 'promotions/promotion/promotion_page.dart';
 
@@ -269,10 +271,10 @@ abstract class AppRouter {
           settings: settings,
           builder: (_) => MyTrainingAndEventsPage.create(),
         );
-      case SatPage.route:
+      case MySatPage.route:
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => SatPage.create(),
+          builder: (_) => MySatPage.create(),
         );
       case Modelo347Page.route:
         return MaterialPageRoute<void>(
@@ -382,6 +384,16 @@ abstract class AppRouter {
         return MaterialPageRoute<void>(
           settings: settings,
           builder: (_) => PillsDetailPage(data!),
+        );
+      case SatPage.route:
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => SatPage.create(),
+        );
+      case SatIntroPage.route:
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => const SatIntroPage(),
         );
 
       default:

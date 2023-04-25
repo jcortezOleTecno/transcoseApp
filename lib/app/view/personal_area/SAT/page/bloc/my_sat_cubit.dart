@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:vemare/app/data/my_account_repository.dart';
 import 'package:vemare/app/domain/model/filter.dart';
-import 'package:vemare/app/view/personal_area/SAT/page/bloc/sat_state.dart';
+import 'package:vemare/app/view/personal_area/SAT/page/bloc/my_sat_state.dart';
 
-class SatCubit extends Cubit<SatState> {
-  SatCubit(this._accountRepository) : super(const SatState()) {
+class MySatCubit extends Cubit<MySatState> {
+  MySatCubit(this._accountRepository) : super(const MySatState()) {
     getSats();
   }
 

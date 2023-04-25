@@ -13,7 +13,7 @@ import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/menu/bloc/menu_cubit.dart';
 import 'package:vemare/app/view/menu/bloc/menu_state.dart';
 import 'package:vemare/app/view/my_notifications/my_notifications_page.dart';
-import 'package:vemare/app/view/personal_area/SAT/page/sat_page.dart';
+import 'package:vemare/app/view/personal_area/SAT/page/my_sat_page.dart';
 import 'package:vemare/app/view/personal_area/modelo_347/modelo_347_page.dart';
 import 'package:vemare/app/view/personal_area/my_account/my_account_page.dart';
 import 'package:vemare/app/view/my_services/services/services_page.dart';
@@ -355,8 +355,8 @@ class _Menu extends StatelessWidget {
                             title: 'SAT',
                             onTap: () {
                               if (ModalRoute.of(context)!.settings.name !=
-                                  SatPage.route) {
-                                Navigator.pushNamed(context, SatPage.route);
+                                  MySatPage.route) {
+                                Navigator.pushNamed(context, MySatPage.route);
                               }
                               if (cubit.state.isOpenMenu) {
                                 cubit.toggleMenu();
@@ -433,28 +433,29 @@ class _Menu extends StatelessWidget {
                           )
                           .toList()),
                 spacerL,
-                ConfirmationSlider(
-                  onConfirmation: () async {
-                    final number = LocalDataRepository()
-                            .user!
-                            .webservice
-                            ?.centroReparto?[0]
-                            .telefonos ??
-                        '000000000';
-                    await launchUrlString('tel:$number');
-                  },
-                  backgroundColor: AppColor.blue,
-                  foregroundColor: AppColor.blue200,
-                  iconColor: AppColor.blue,
-                  text: 'Hacer pedido telefónico',
-                  sliderButtonContent: Image.asset(
-                    'assets/icons/arrow_next.png',
-                    scale: 2,
+                if (LocalDataRepository().isLogged)
+                  ConfirmationSlider(
+                    onConfirmation: () async {
+                      final number = LocalDataRepository()
+                              .user!
+                              .webservice
+                              ?.centroReparto?[0]
+                              .telefonos ??
+                          '000000000';
+                      await launchUrlString('tel:$number');
+                    },
+                    backgroundColor: AppColor.blue,
+                    foregroundColor: AppColor.blue200,
+                    iconColor: AppColor.blue,
+                    text: 'Hacer pedido telefónico',
+                    sliderButtonContent: Image.asset(
+                      'assets/icons/arrow_next.png',
+                      scale: 2,
+                    ),
+                    width: MediaQuery.of(context).size.width * .85,
+                    textStyle:
+                        AppTextStyle.linkStyle.copyWith(color: AppColor.white),
                   ),
-                  width: MediaQuery.of(context).size.width * .85,
-                  textStyle:
-                      AppTextStyle.linkStyle.copyWith(color: AppColor.white),
-                ),
                 spacerL,
               ],
             );
