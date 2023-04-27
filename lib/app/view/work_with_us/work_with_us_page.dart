@@ -92,14 +92,11 @@ class WorkWithUsPage extends StatelessWidget {
                           spacerS,
                           MyInput(
                             label: 'Teléfono',
-                            hintText: '654 321 987',
+                            hintText: '123456789',
                             required: true,
                             textInputAction: TextInputAction.next,
                             inputType: TextInputType.phone,
                             onChanged: cubit.phone,
-                            inputFormatters: [
-                              MaskedInputFormatter('### ### ###'),
-                            ],
                             hasError: state.status == FormStatus.error,
                           ),
                           spacerS,

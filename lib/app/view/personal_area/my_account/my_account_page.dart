@@ -58,10 +58,6 @@ class MyAccountPage extends StatelessWidget {
                   initialValue: LocalDataRepository().user?.email ?? '',
                 ),
                 MyInput(
-                  label: 'Contraseña',
-                  initialValue: '***********',
-                ),
-                MyInput(
                   label: 'CIF',
                   initialValue: LocalDataRepository().user?.cif ?? '',
                 ),

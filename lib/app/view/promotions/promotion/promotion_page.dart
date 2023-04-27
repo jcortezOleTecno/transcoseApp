@@ -17,11 +17,11 @@ import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
 
-class PromotionArgs {
+class SearchArgs {
   final Category? category;
   final String? query;
 
-  PromotionArgs({this.category, this.query});
+  SearchArgs({this.category, this.query});
 }
 
 class PromotionPage extends StatelessWidget {
@@ -29,7 +29,7 @@ class PromotionPage extends StatelessWidget {
 
   static const route = '/promotion';
 
-  static Widget create(PromotionArgs args) {
+  static Widget create(SearchArgs args) {
     return BlocProvider(
       create: (context) => PromotionCubit(
         getIt.get<PromotionRepository>(),
@@ -177,7 +177,12 @@ class _Card extends StatelessWidget {
                   ),
                   Text(
                     '${promotion.pvpOriginal}\$',
-                    style: AppTextStyle.h3Style,
+                    style: AppTextStyle.pvpOrinigal,
+                  ),
+                  spacerXs,
+                  Text(
+                    '${promotion.pvpLowered}\$',
+                    style: AppTextStyle.h2Style,
                   ),
                 ],
               ),

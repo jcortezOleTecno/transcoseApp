@@ -6,13 +6,16 @@ import 'package:vemare/app/domain/model/category.dart';
 import 'package:vemare/app/domain/model/categoty_detail.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
+import 'package:vemare/app/view/_components/my_dropdown_button/my_drop_down_button.dart';
 import 'package:vemare/app/view/_components/my_filter_image/my_filter_image.dart';
 import 'package:vemare/app/view/_components/my_input/my_input_search.dart';
+import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/tap_to_hide_keyboard/tap_to_hide_keyboard.dart';
 import 'package:vemare/app/view/our_products/detail_product/detail_product.dart';
 import 'package:vemare/app/view/our_products/product/bloc/product_cubit.dart';
 import 'package:vemare/app/view/our_products/search_my_product/search_my_product_page.dart';
+import 'package:vemare/app/view/promotions/promotion/promotion_page.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
@@ -24,36 +27,23 @@ class ProductPage extends StatelessWidget {
 
   static const route = '/products';
 
-  static Widget create(Category categoty) {
+  static Widget create(SearchArgs args) {
     return BlocProvider(
       create: (context) => ProductCubit(
         getIt.get<ProductsRepository>(),
-        categoty,
+        args.category,
+        args.query,
       ),
       child: const ProductPage._(),
     );
   }
 
-  // final List<String> items = [
-  //   'Item1',
-  //   'Item2',
-  //   'Item3',
-  //   'Item4',
-  //   'Item5',
-  //   'Item6',
-  //   'Item7',
-  //   'Item8',
-  // ];
-  // String? selectedValue;
-
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<ProductCubit>();
     return MyTapToHideKeyboard(
       child: Scaffold(
-        body: BlocConsumer<ProductCubit, ProductState>(
-          listener: (context, state) {
-            // TODO: implement listener
-          },
+        body: BlocBuilder<ProductCubit, ProductState>(
           builder: (context, state) {
             return MyBody(
               child: SingleChildScrollView(
@@ -68,20 +58,21 @@ class ProductPage extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              Container(
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: AppColor.blue100,
+                              if (state.category?.id != 0)
+                                Container(
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: AppColor.blue100,
+                                  ),
+                                  height: 60,
+                                  width: 60,
+                                  child: Image.network(
+                                    state.category!.image!,
+                                  ),
                                 ),
-                                height: 60,
-                                width: 60,
-                                child: Image.network(
-                                  state.category!.image!,
-                                ),
-                              ),
                               spacerS,
                               Text(
-                                state.category?.name ?? '',
+                                state.category?.name ?? 'Todas las categorias',
                                 style: AppTextStyle.h1Style,
                               ),
                             ],
@@ -92,55 +83,64 @@ class ProductPage extends StatelessWidget {
                             style: AppTextStyle.defaultStyle,
                           ),
                           spacerM,
-                          Center(
-                            child: TextButton.icon(
-                              onPressed: () {
-                                Navigator.pushNamed(
-                                    context, SearchMyProductPage.route,
-                                    arguments: state.category);
-                              },
-                              label: Image.asset(
-                                'assets/icons/arrow_next.png',
-                                scale: 2,
-                              ),
-                              icon: Text(
-                                'Buscar mi ${state.category?.name ?? ''}',
-                                style: AppTextStyle.linkStyle,
+                          if (state.category?.id != 0)
+                            Center(
+                              child: TextButton.icon(
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                      context, SearchMyProductPage.route,
+                                      arguments: state.category);
+                                },
+                                label: Image.asset(
+                                  'assets/icons/arrow_next.png',
+                                  scale: 2,
+                                ),
+                                icon: Text(
+                                  'Buscar mi ${state.category?.name ?? ''}',
+                                  style: AppTextStyle.linkStyle,
+                                ),
                               ),
                             ),
+                          spacerL,
+                          MyCustomDropdownButton(
+                            hint: 'Todas las categorias',
+                            hintStyle: AppTextStyle.inputStyle,
+                            dropdownItems: state.categories
+                                .map((item) => DropdownMenuItem<Category>(
+                                      value: item,
+                                      child: Text(
+                                        item.name ?? '',
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        style: AppTextStyle.inputStyle,
+                                      ),
+                                    ))
+                                .toList(),
+                            value: state.category,
+                            onChanged: cubit.category,
                           ),
                           spacerM,
-                          // MyCustomDropdownButton(
-                          //   hint: 'Todos los productos',
-                          //   dropdownItems: items
-                          //       .map((item) => DropdownMenuItem(
-                          //             value: item,
-                          //             child: Text(
-                          //               item,
-                          //               overflow: TextOverflow.ellipsis,
-                          //               maxLines: 1,
-                          //               style: const TextStyle(
-                          //                 fontSize: 14,
-                          //               ),
-                          //             ),
-                          //           ))
-                          //       .toList(),
-                          //   value: selectedValue,
-                          //   onChanged: (value) {
-                          //     setState(() {
-                          //       selectedValue = value;
-                          //     });
-                          //   },
-                          // ),
-                          // spacerM,
-                          const MySearchInput(),
+                          MySearchInput(
+                            initialValue: state.query,
+                            onChanged: cubit.query,
+                            onFieldSubmitted: (_) => cubit.search(),
+                            onTap: () => cubit.search(),
+                          ),
                         ],
                       ),
                     ),
                     spacerS,
-                    _listBrands(context, brands: state.brands),
+                    _listBrands(context, brands: state.details?.brands ?? []),
                     spacerS,
+                    if (state.loading)
+                      ...List.generate(
+                          3,
+                          (_) => const MyShimmer(
+                                height: 200,
+                                margin: EdgeInsets.fromLTRB(15, 0, 15, 20),
+                              )),
                     if (!state.loading && state.details != null)
+                      // _cardCategory(context, cat: state.details!),
                       ...state.details!.subcategories!
                           .map(
                             (e) => _cardCategory(context, cat: e),
@@ -180,7 +180,7 @@ class ProductPage extends StatelessWidget {
   }
 
   GestureDetector _cardCategory(BuildContext context,
-      {required CategoryDetail cat}) {
+      {required Subcategory cat}) {
     final state = context.read<ProductCubit>().state;
     return GestureDetector(
       onTap: () {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
@@ -45,12 +46,13 @@ class MyNewsCard extends StatelessWidget {
                     ),
                   ),
                   spacerS,
-                  Text(
-                    description,
-                    maxLines: 4,
-                    overflow: TextOverflow.ellipsis,
-                    style: AppTextStyle.contentCard,
-                  ),
+                  // Text(
+                  //   description,
+                  //   maxLines: 4,
+                  //   overflow: TextOverflow.ellipsis,
+                  //   style: AppTextStyle.contentCard,
+                  // ),
+                  MyHtml(text: description),
                   const Spacer(),
                   TextButton.icon(
                     onPressed: onPressed,

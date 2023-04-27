@@ -6,6 +6,7 @@ class ShoppingCardProduct {
     this.quantity,
     this.promotionName,
     this.promotionPrice,
+    this.promotionPriceLowered,
     this.image,
   });
 
@@ -15,6 +16,7 @@ class ShoppingCardProduct {
   int? quantity;
   String? promotionName;
   String? promotionPrice;
+  String? promotionPriceLowered;
   String? image;
 
   ShoppingCardProduct copyWith({
@@ -24,6 +26,7 @@ class ShoppingCardProduct {
     int? quantity,
     String? promotionName,
     String? promotionPrice,
+    String? promotionPriceLowered,
     String? image,
   }) =>
       ShoppingCardProduct(
@@ -33,6 +36,8 @@ class ShoppingCardProduct {
         quantity: quantity ?? this.quantity,
         promotionName: promotionName ?? this.promotionName,
         promotionPrice: promotionPrice ?? this.promotionPrice,
+        promotionPriceLowered:
+            promotionPriceLowered ?? this.promotionPriceLowered,
         image: image ?? this.image,
       );
 
@@ -43,6 +48,7 @@ class ShoppingCardProduct {
         quantity: json["quantity"] as int?,
         promotionName: json["promotion_name"] as String?,
         promotionPrice: json["promotion_price"] as String?,
+        promotionPriceLowered: json["promotion_price_lowered"] as String?,
         image: json["image"] as String?,
       );
 
@@ -53,6 +59,7 @@ class ShoppingCardProduct {
         "quantity": quantity,
         "promotion_name": promotionName,
         "promotion_price": promotionPrice,
+        "promotion_price_lowered": promotionPriceLowered,
         "image": image,
       };
 }

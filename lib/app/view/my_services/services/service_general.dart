@@ -40,7 +40,9 @@ class ServiceGeneralPage extends StatelessWidget {
                     spacerM,
                     Text(service.title ?? '', style: AppTextStyle.h2Style),
                     spacerS,
-                    MyHtml(text: service.contentPage ?? ''),
+                    MyHtml(
+                      text: service.contentPage ?? '',
+                    ),
                   ],
                 ),
               ),
@@ -53,15 +55,16 @@ class ServiceGeneralPage extends StatelessWidget {
                 ),
               ),
               spacerM,
-              Visibility(
-                visible: service.youtubeVideo != '',
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: MyVideoPlayer(
-                    video: service.youtubeVideo!,
+              if (service.youtubeVideo != null)
+                Visibility(
+                  visible: service.youtubeVideo != '',
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: MyVideoPlayer(
+                      video: service.youtubeVideo!,
+                    ),
                   ),
                 ),
-              ),
               spacerM,
             ],
           ),

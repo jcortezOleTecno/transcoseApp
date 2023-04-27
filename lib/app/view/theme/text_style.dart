@@ -55,6 +55,14 @@ abstract class AppTextStyle {
     fontWeight: FontWeight.w700,
     color: AppColor.black,
   );
+  static const TextStyle pvpOrinigal = TextStyle(
+    fontFamily: 'NunitoSans',
+    fontSize: 20,
+    fontWeight: FontWeight.w700,
+    decoration: TextDecoration.lineThrough,
+    decorationThickness: 2,
+    color: AppColor.neutral40,
+  );
   static const TextStyle contentCard = TextStyle(
     fontFamily: 'NunitoSans',
     fontSize: 16,

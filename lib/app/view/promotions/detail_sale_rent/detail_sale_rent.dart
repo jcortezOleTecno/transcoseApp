@@ -13,6 +13,7 @@ import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/promotions/detail_sale_rent/bloc/detail_sale_rent_cubit.dart';
 import 'package:vemare/app/view/promotions/detail_sale_rent/bloc/detail_sale_rent_state.dart';
 import 'package:vemare/app/view/promotions/renting_store/renting_store_page.dart';
+import 'package:vemare/app/view/shared/shopping_car_counter_bloc/car_counter_cubit.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
@@ -27,6 +28,7 @@ class DetailSaleRent extends StatelessWidget {
     return BlocProvider(
       create: (context) => DetailSaleRentCubit(
         getIt.get<ShoppingCardRepository>(),
+        context.read<CarCounterCubit>(),
         promotion,
       ),
       child: const DetailSaleRent._(),
@@ -81,7 +83,10 @@ class DetailSaleRent extends StatelessWidget {
                             style: AppTextStyle.h1Style,
                             children: [
                               TextSpan(
-                                text: '${state.promotion!.pvpOriginal!}\$',
+                                  text: '${state.promotion!.pvpOriginal!}\$',
+                                  style: AppTextStyle.pvpOrinigal),
+                              TextSpan(
+                                text: ' ${state.promotion!.pvpLowered!}\$',
                               ),
                               TextSpan(
                                 text: ' IVA incluido ',
@@ -112,7 +117,11 @@ class DetailSaleRent extends StatelessWidget {
                           onPressed: () => Navigator.pushNamed(
                                 context,
                                 RentingStorePage.route,
-                                arguments: state.isTienda,
+                                arguments: StoreArgs(
+                                  isTienda: state.isTienda,
+                                  promotion: state.promotion!,
+                                  quantity: state.quantity,
+                                ),
                               ),
                           text: state.isTienda ? 'Comprar' : 'Alquilar',
                           variant: MyButtonVariant.outlinedBold),
@@ -127,4 +136,31 @@ class DetailSaleRent extends StatelessWidget {
       ),
     );
   }
+}
+
+class StoreArgs {
+  final bool isTienda;
+  final bool isCredit;
+  final Promotion promotion;
+  final int quantity;
+
+  StoreArgs({
+    this.isCredit = false,
+    required this.isTienda,
+    required this.promotion,
+    required this.quantity,
+  });
+
+  StoreArgs copyWith({
+    bool? isTienda,
+    bool? isCredit,
+    Promotion? promotion,
+    int? quantity,
+  }) =>
+      StoreArgs(
+        isTienda: isTienda ?? this.isTienda,
+        isCredit: isCredit ?? this.isCredit,
+        promotion: promotion ?? this.promotion,
+        quantity: quantity ?? this.quantity,
+      );
 }

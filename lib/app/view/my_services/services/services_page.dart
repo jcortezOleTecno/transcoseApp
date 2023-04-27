@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/services_repository.dart';
 import 'package:vemare/app/domain/value_object/status.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
@@ -170,7 +171,10 @@ class _ServicesPageState extends State<ServicesPage> {
                               child: _CardWeHelpYou(
                                 name: 'Conexión remota',
                                 img: 'assets/imgs/conexion_remota.png',
-                                onTap: () {},
+                                onTap: () {
+                                  launchUrlString(
+                                      "https://get.teamviewer.com/vemare");
+                                },
                               ),
                             ),
                           ],
@@ -203,7 +207,7 @@ class _ServicesPageState extends State<ServicesPage> {
                         MyInput(
                           label: 'E-mail',
                           required: true,
-                          hintText: 'Escribe tu email',
+                          hintText: 'email@ejemplo.com',
                           controller: tcEmail,
                           textInputAction: TextInputAction.next,
                           inputType: TextInputType.emailAddress,
@@ -213,14 +217,11 @@ class _ServicesPageState extends State<ServicesPage> {
                         MyInput(
                           label: 'Teléfono',
                           required: true,
-                          hintText: '123 456 789',
+                          hintText: '123456789',
                           controller: tcPhone,
                           textInputAction: TextInputAction.next,
                           inputType: TextInputType.phone,
                           onChanged: cubit.phone,
-                          inputFormatters: [
-                            MaskedInputFormatter('### ### ###'),
-                          ],
                           hasError: state.status == FormStatus.error,
                         ),
                         MyInput(

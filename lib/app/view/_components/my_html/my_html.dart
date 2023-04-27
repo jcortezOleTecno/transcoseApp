@@ -25,7 +25,17 @@ class MyHtml extends StatelessWidget {
           fontWeight: fontWeight,
         ),
         "body": Style(
-          fontSize: FontSize(22),
+          fontSize: FontSize(32),
+          color: color,
+          fontWeight: fontWeight,
+        ),
+        "li": Style(
+          fontSize: FontSize(32),
+          color: color,
+          fontWeight: fontWeight,
+        ),
+        "b": Style(
+          fontSize: FontSize(30),
           color: color,
           fontWeight: fontWeight,
         ),

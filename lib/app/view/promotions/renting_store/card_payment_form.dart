@@ -7,12 +7,14 @@ import 'package:vemare/app/view/_components/my_input/my_input.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/tap_to_hide_keyboard/tap_to_hide_keyboard.dart';
 import 'package:vemare/app/view/home/home_page.dart';
+import 'package:vemare/app/view/promotions/detail_sale_rent/detail_sale_rent.dart';
 import 'package:vemare/app/view/promotions/renting_store/widgets/promotion_description.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
 class CardPaymentPage extends StatelessWidget {
-  const CardPaymentPage({super.key});
+  const CardPaymentPage(this.args, {super.key});
   static const route = '/card_form';
+  final StoreArgs args;
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +26,10 @@ class CardPaymentPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const MyBackButton(),
-                const PromotionDescription(
+                PromotionDescription(
                   title: 'Tienda',
+                  promotion: args.promotion,
+                  quantity: args.quantity,
                 ),
                 spacerL,
                 Padding(
@@ -91,12 +95,7 @@ class _Button extends StatelessWidget {
                   title: 'Felicidades',
                   content: 'La operación se ha realizado con éxito.')
               .then((_) {
-            Navigator.pushNamedAndRemoveUntil(
-              context,
-              HomePage.route,
-              (route) => false,
-              arguments: true,
-            );
+            Navigator.popUntil(context, ModalRoute.withName(HomePage.route));
           });
         },
         text: 'Continuar',

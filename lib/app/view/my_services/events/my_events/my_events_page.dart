@@ -7,6 +7,7 @@ import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/my_services/events/my_events/bloc/my_events_state.dart';
+import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
 
@@ -63,6 +64,10 @@ class MyEventsPage extends StatelessWidget {
                               ),
                             ),
                           );
+                        }
+
+                        if (!state.loading && state.eventsVemare.isEmpty) {
+                          return const NoExistWidget("eventos");
                         }
                         return Wrap(
                           runSpacing: 15,

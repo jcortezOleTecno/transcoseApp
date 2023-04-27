@@ -23,9 +23,7 @@ class PromotionCubit extends Cubit<PromotionState> {
     ];
 
     await Future.wait([
-      _promotionRepository
-          .getPromocionesCategories()
-          .then((v) => categories.addAll(v)),
+      _promotionRepository.getPromocionesCategories().then(categories.addAll),
       _promotionRepository
           .getPromociones(
               categotyId: state.categoryTemp?.id ?? 0,

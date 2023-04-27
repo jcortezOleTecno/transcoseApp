@@ -7,6 +7,7 @@ import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/shared/shopping_car_counter_bloc/car_counter_cubit.dart';
 import 'package:vemare/app/view/shopping_cart/bloc/shopping_card_cubit.dart';
 import 'package:vemare/app/view/shopping_cart/bloc/shopping_cart_state.dart';
 import 'package:vemare/app/view/theme/color.dart';
@@ -22,6 +23,7 @@ class ShoppingCartPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => ShoppingCardCubit(
         getIt.get<ShoppingCardRepository>(),
+        context.read<CarCounterCubit>(),
       ),
       child: const ShoppingCartPage._(),
     );
@@ -63,7 +65,7 @@ class ShoppingCartPage extends StatelessWidget {
                                           height: 80,
                                         )),
                               if (!state.loading && state.products.isEmpty)
-                                _CarEmpty(),
+                                const _CarEmpty(),
                               ListView.separated(
                                 itemCount: state.products.length,
                                 separatorBuilder: (context, i) =>
@@ -158,6 +160,10 @@ class _ShoppingItem extends StatelessWidget {
                   children: [
                     TextSpan(
                       text: '${product.promotionPrice}\$',
+                      style: AppTextStyle.pvpOrinigal.copyWith(fontSize: 14),
+                    ),
+                    TextSpan(
+                      text: ' ${product.promotionPriceLowered}\$',
                     ),
                     TextSpan(
                       text: ' IVA incluido ',

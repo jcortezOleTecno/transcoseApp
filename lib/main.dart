@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,19 +11,24 @@ import 'package:vemare/app/view/_components/no_scale_widget/no_scale_widget.dart
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:vemare/app/view/app_router.dart';
 import 'package:vemare/app/view/our_history/bloc/our_history_cubit.dart';
+import 'package:vemare/app/view/shared/notifications/push_notifications.dart';
+import 'package:vemare/app/view/shared/shopping_car_counter_bloc/car_counter_cubit.dart';
 import 'package:vemare/app/view/shared/userbloc/user_cubit.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/theme.dart';
 import 'package:vemare/config/service_locator.dart';
+
+import 'app/data/shopping_cart_repository.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 NavigatorState get navigator => navigatorKey.currentState!;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await initializeDateFormatting();
   await LocalDataRepository().initPrefs();
   await ServiceLocator.setup();
+  await Firebase.initializeApp();
+  PushNotificationsProvider().initNotifications();
   setPathUrlStrategy();
   runApp(const MyApp());
 }
@@ -52,6 +58,11 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => OurHistoryCubit(
             getIt.get<AboutUsRepository>(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => CarCounterCubit(
+            getIt.get<ShoppingCardRepository>(),
           ),
         )
       ],

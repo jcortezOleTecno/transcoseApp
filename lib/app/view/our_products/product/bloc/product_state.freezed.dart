@@ -17,8 +17,10 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ProductState {
   bool get loading => throw _privateConstructorUsedError;
-  List<Brand> get brands => throw _privateConstructorUsedError;
+  List<Category> get categories =>
+      throw _privateConstructorUsedError; // @Default(<Brand>[]) List<Brand> brands,
   Category? get category => throw _privateConstructorUsedError;
+  String? get query => throw _privateConstructorUsedError;
   CategoryDetail? get details => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -34,8 +36,9 @@ abstract class $ProductStateCopyWith<$Res> {
   @useResult
   $Res call(
       {bool loading,
-      List<Brand> brands,
+      List<Category> categories,
       Category? category,
+      String? query,
       CategoryDetail? details});
 }
 
@@ -53,8 +56,9 @@ class _$ProductStateCopyWithImpl<$Res, $Val extends ProductState>
   @override
   $Res call({
     Object? loading = null,
-    Object? brands = null,
+    Object? categories = null,
     Object? category = freezed,
+    Object? query = freezed,
     Object? details = freezed,
   }) {
     return _then(_value.copyWith(
@@ -62,14 +66,18 @@ class _$ProductStateCopyWithImpl<$Res, $Val extends ProductState>
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
               as bool,
-      brands: null == brands
-          ? _value.brands
-          : brands // ignore: cast_nullable_to_non_nullable
-              as List<Brand>,
+      categories: null == categories
+          ? _value.categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as List<Category>,
       category: freezed == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as Category?,
+      query: freezed == query
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String?,
       details: freezed == details
           ? _value.details
           : details // ignore: cast_nullable_to_non_nullable
@@ -88,8 +96,9 @@ abstract class _$$_ProductStateCopyWith<$Res>
   @useResult
   $Res call(
       {bool loading,
-      List<Brand> brands,
+      List<Category> categories,
       Category? category,
+      String? query,
       CategoryDetail? details});
 }
 
@@ -105,8 +114,9 @@ class __$$_ProductStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? loading = null,
-    Object? brands = null,
+    Object? categories = null,
     Object? category = freezed,
+    Object? query = freezed,
     Object? details = freezed,
   }) {
     return _then(_$_ProductState(
@@ -114,14 +124,18 @@ class __$$_ProductStateCopyWithImpl<$Res>
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
               as bool,
-      brands: null == brands
-          ? _value._brands
-          : brands // ignore: cast_nullable_to_non_nullable
-              as List<Brand>,
+      categories: null == categories
+          ? _value._categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as List<Category>,
       category: freezed == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as Category?,
+      query: freezed == query
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String?,
       details: freezed == details
           ? _value.details
           : details // ignore: cast_nullable_to_non_nullable
@@ -135,32 +149,36 @@ class __$$_ProductStateCopyWithImpl<$Res>
 class _$_ProductState extends _ProductState {
   const _$_ProductState(
       {this.loading = false,
-      final List<Brand> brands = const <Brand>[],
+      final List<Category> categories = const <Category>[],
       this.category,
+      this.query,
       this.details})
-      : _brands = brands,
+      : _categories = categories,
         super._();
 
   @override
   @JsonKey()
   final bool loading;
-  final List<Brand> _brands;
+  final List<Category> _categories;
   @override
   @JsonKey()
-  List<Brand> get brands {
-    if (_brands is EqualUnmodifiableListView) return _brands;
+  List<Category> get categories {
+    if (_categories is EqualUnmodifiableListView) return _categories;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_brands);
+    return EqualUnmodifiableListView(_categories);
   }
 
+// @Default(<Brand>[]) List<Brand> brands,
   @override
   final Category? category;
+  @override
+  final String? query;
   @override
   final CategoryDetail? details;
 
   @override
   String toString() {
-    return 'ProductState(loading: $loading, brands: $brands, category: $category, details: $details)';
+    return 'ProductState(loading: $loading, categories: $categories, category: $category, query: $query, details: $details)';
   }
 
   @override
@@ -169,15 +187,22 @@ class _$_ProductState extends _ProductState {
         (other.runtimeType == runtimeType &&
             other is _$_ProductState &&
             (identical(other.loading, loading) || other.loading == loading) &&
-            const DeepCollectionEquality().equals(other._brands, _brands) &&
+            const DeepCollectionEquality()
+                .equals(other._categories, _categories) &&
             (identical(other.category, category) ||
                 other.category == category) &&
+            (identical(other.query, query) || other.query == query) &&
             (identical(other.details, details) || other.details == details));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, loading,
-      const DeepCollectionEquality().hash(_brands), category, details);
+  int get hashCode => Object.hash(
+      runtimeType,
+      loading,
+      const DeepCollectionEquality().hash(_categories),
+      category,
+      query,
+      details);
 
   @JsonKey(ignore: true)
   @override
@@ -189,17 +214,20 @@ class _$_ProductState extends _ProductState {
 abstract class _ProductState extends ProductState {
   const factory _ProductState(
       {final bool loading,
-      final List<Brand> brands,
+      final List<Category> categories,
       final Category? category,
+      final String? query,
       final CategoryDetail? details}) = _$_ProductState;
   const _ProductState._() : super._();
 
   @override
   bool get loading;
   @override
-  List<Brand> get brands;
-  @override
+  List<Category> get categories;
+  @override // @Default(<Brand>[]) List<Brand> brands,
   Category? get category;
+  @override
+  String? get query;
   @override
   CategoryDetail? get details;
   @override

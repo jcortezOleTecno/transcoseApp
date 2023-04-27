@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -87,11 +88,13 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void encuesta() {
+    log('################   TIMER INIT   #################');
     if (!LocalDataRepository().isLogged) return;
     Timer.periodic(const Duration(seconds: 60), (timer) {
       _encuestasRepository.getEncuestas().then((value) {
         emit(state.copyWith(encuesta: value));
         if (!state.showSurvey) {
+          log('################   BORRADO   #################');
           emit(state.copyWith(encuesta: null));
         }
       });

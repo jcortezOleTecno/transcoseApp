@@ -55,7 +55,8 @@ class EventsVemarePage extends StatelessWidget {
               _MyEvents(
                   icon: true,
                   title: 'Mis Eventos',
-                  img: const AssetImage('assets/imgs/misEventosIMG.png'),
+                  img: Image.asset('assets/imgs/misEventosIMG.png',
+                      fit: BoxFit.cover),
                   onTap: () {
                     if (LocalDataRepository().isLogged) {
                       Navigator.pushNamed(context, MyEventsPage.route);
@@ -88,7 +89,15 @@ class EventsVemarePage extends StatelessWidget {
                                   const EdgeInsets.symmetric(horizontal: 15),
                               child: _MyEvents(
                                   borderRadius: BorderRadius.circular(12),
-                                  img: NetworkImage(e.image!),
+                                  img: (e.image != null)
+                                      ? Image.network(
+                                          e.image!,
+                                          fit: BoxFit.cover,
+                                        )
+                                      : Image.asset(
+                                          'assets/imgs/no_image.jpg',
+                                          fit: BoxFit.cover,
+                                        ),
                                   title: e.title ?? '',
                                   onTap: () {
                                     if (LocalDataRepository().isLogged) {
@@ -135,7 +144,7 @@ class _MyEvents extends StatelessWidget {
 
   final BorderRadiusGeometry? borderRadius;
   final String? title;
-  final ImageProvider<Object> img;
+  final Widget img;
   final bool icon;
   final void Function()? onTap;
 
@@ -150,10 +159,7 @@ class _MyEvents extends StatelessWidget {
         height: 220,
         width: double.infinity,
         child: Stack(fit: StackFit.expand, children: [
-          Image(
-            image: img,
-            fit: BoxFit.cover,
-          ),
+          img,
           const MyFilterImage(),
           Padding(
             padding: const EdgeInsets.all(20),

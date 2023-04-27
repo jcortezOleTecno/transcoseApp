@@ -20,10 +20,10 @@ class ProductsRepository {
   }
 
   Future<CategoryDetail> getCategoryDetail(
-      {required int id, String search = ''}) async {
+      {String? id, String search = ''}) async {
     final dynamic res = await _apiClient.getRequest(
         '$BASE_API_URL/api/productos/detalle',
         params: <String, dynamic>{'category_id': '$id', 'search': search});
-    return CategoryDetail.fromJson(res["data"]);
+    return CategoryDetail.fromJson(res);
   }
 }

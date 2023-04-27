@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vemare/app/domain/model/promotion.dart';
+import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
@@ -6,10 +8,14 @@ import 'package:vemare/app/view/theme/text_style.dart';
 class PromotionDescription extends StatelessWidget {
   const PromotionDescription({
     Key? key,
+    required this.promotion,
     required this.title,
+    required this.quantity,
   }) : super(key: key);
 
   final String title;
+  final Promotion promotion;
+  final int? quantity;
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +31,8 @@ class PromotionDescription extends StatelessWidget {
           spacerS,
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: const Image(
-              image: AssetImage('assets/imgs/promotionImg.png'),
+            child: Image(
+              image: NetworkImage(promotion.image!),
               height: 200,
               fit: BoxFit.cover,
             ),
@@ -35,23 +41,23 @@ class PromotionDescription extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Lorem ipsun', style: AppTextStyle.h2Style),
-              Text('1 unidad', style: AppTextStyle.defaultStyle),
+              Text(promotion.name ?? '', style: AppTextStyle.h2Style),
+              Text('$quantity unidad', style: AppTextStyle.defaultStyle),
             ],
           ),
           spacerS,
-          Text(
-            'Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.',
-            style: AppTextStyle.defaultStyle,
-          ),
+          MyHtml(text: promotion.description ?? ''),
           spacerM,
           Center(
             child: RichText(
               text: TextSpan(
                 style: AppTextStyle.h1Style,
                 children: [
-                  const TextSpan(
-                    text: '23\$',
+                  TextSpan(
+                      text: '${promotion.pvpOriginal}\$',
+                      style: AppTextStyle.pvpOrinigal),
+                  TextSpan(
+                    text: ' ${promotion.pvpLowered}\$',
                   ),
                   TextSpan(
                     text: ' IVA incluido ',

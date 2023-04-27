@@ -40,7 +40,10 @@ class MySearchInput extends StatelessWidget {
           contentPadding:
               const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
           suffixIcon: GestureDetector(
-            onTap: onTap,
+            onTap: () {
+              FocusScope.of(context).requestFocus(FocusNode());
+              onTap!();
+            },
             child: Image.asset(
               'assets/icons/searchIcon.png',
               scale: 2,

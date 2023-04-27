@@ -117,7 +117,7 @@ abstract class AppRouter {
           builder: (_) => OurProductsPage.create(typeVehicle!),
         );
       case ProductPage.route:
-        final cat = settings.arguments as Category?;
+        final cat = settings.arguments as SearchArgs?;
         return MaterialPageRoute<void>(
           settings: settings,
           builder: (_) => ProductPage.create(cat!),
@@ -140,7 +140,7 @@ abstract class AppRouter {
           builder: (_) => PromotionsPage.create(),
         );
       case PromotionPage.route:
-        final args = settings.arguments as PromotionArgs?;
+        final args = settings.arguments as SearchArgs?;
         return MaterialPageRoute<void>(
           settings: settings,
           builder: (_) => PromotionPage.create(args!),
@@ -152,21 +152,22 @@ abstract class AppRouter {
           builder: (_) => DetailSaleRent.create(promotion!),
         );
       case RentingStorePage.route:
-        final isStore = settings.arguments as bool?;
+        final args = settings.arguments as StoreArgs?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => RentingStorePage(isStore!),
+          builder: (_) => RentingStorePage(args!),
         );
       case CardPaymentPage.route:
+        final args = settings.arguments as StoreArgs?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const CardPaymentPage(),
+          builder: (_) => CardPaymentPage(args!),
         );
       case PaymentPage.route:
-        final isCredit = settings.arguments as bool?;
+        final args = settings.arguments as StoreArgs?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => PaymentPage(isCredit: isCredit!),
+          builder: (_) => PaymentPage(args!),
         );
       case ServicesPage.route:
         return MaterialPageRoute<void>(

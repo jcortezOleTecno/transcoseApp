@@ -16,6 +16,8 @@ import 'package:vemare/app/view/our_products/products_categories/bloc/our_produc
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
 
+import '../../promotions/promotion/promotion_page.dart';
+
 class OurProductsPage extends StatelessWidget {
   const OurProductsPage._(this.typeVehicle);
   final String? typeVehicle;
@@ -33,13 +35,9 @@ class OurProductsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
     final cubit = context.read<OurProductsCubit>();
     return MyTapToHideKeyboard(
-      child: BlocConsumer<OurProductsCubit, OurProductsState>(
-        listener: (context, state) {
-          // TODO: implement listener
-        },
+      child: BlocBuilder<OurProductsCubit, OurProductsState>(
         builder: (context, state) {
           return Scaffold(
             body: MyBody(
@@ -72,32 +70,40 @@ class OurProductsPage extends StatelessWidget {
                                   ))
                               .toList(),
                           value: state.category,
-                          onChanged: cubit.category,
+                          onChanged: (v) async {
+                            cubit.category(v);
 
-                          // dropdownWidth: width * .93,
+                            Navigator.pushNamed(
+                              context,
+                              ProductPage.route,
+                              arguments: SearchArgs(
+                                category: v,
+                              ),
+                            );
+                          },
                         ),
                         spacerM,
                         MySearchInput(
                           hintText: 'Buscar',
                           onFieldSubmitted: (query) {
-                            // Navigator.pushNamed(
-                            //   context,
-                            //   PromotionPage.route,
-                            //   arguments: PromotionArgs(
-                            //     category: state.categorySelected,
-                            //     query: query,
-                            //   ),
-                            // );
+                            Navigator.pushNamed(
+                              context,
+                              ProductPage.route,
+                              arguments: SearchArgs(
+                                category: state.category,
+                                query: query,
+                              ),
+                            );
                           },
                           onTap: () {
-                            // Navigator.pushNamed(
-                            //   context,
-                            //   PromotionPage.route,
-                            //   arguments: PromotionArgs(
-                            //     category: state.categorySelected,
-                            //     query: state.query ?? '',
-                            //   ),
-                            // );
+                            Navigator.pushNamed(
+                              context,
+                              ProductPage.route,
+                              arguments: SearchArgs(
+                                category: state.category,
+                                query: state.query,
+                              ),
+                            );
                           },
                           onChanged: cubit.query,
                         ),
@@ -116,7 +122,8 @@ class OurProductsPage extends StatelessWidget {
                                           content: e.subtitle ?? '',
                                           onTap: () => Navigator.pushNamed(
                                               context, ProductPage.route,
-                                              arguments: e),
+                                              arguments:
+                                                  SearchArgs(category: e)),
                                         ))
                                     .toList(),
                               )

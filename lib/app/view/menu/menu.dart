@@ -23,6 +23,8 @@ import 'package:vemare/app/view/personal_area/my_contracts/page/my_contracts_pag
 import 'package:vemare/app/view/personal_area/my_orders/my_orders/my_orders_page.dart';
 import 'package:vemare/app/view/personal_area/my_trainigs_and_events/my_trainigs_and_events_page.dart';
 import 'package:vemare/app/view/promotions/promotions_categories/promotions_page.dart';
+import 'package:vemare/app/view/shared/shopping_car_counter_bloc/car_counter_cubit.dart';
+import 'package:vemare/app/view/shared/shopping_car_counter_bloc/car_counter_state.dart';
 import 'package:vemare/app/view/shopping_cart/shopping_cart.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
@@ -64,9 +66,13 @@ class MyMenu extends StatelessWidget {
                   child: Row(
                     children: [
                       spacerM,
-                      SvgPicture.asset(
-                        'assets/icons/logo_splash.svg',
-                        width: 120,
+                      GestureDetector(
+                        onTap: () => Navigator.popUntil(
+                            context, ModalRoute.withName(HomePage.route)),
+                        child: SvgPicture.asset(
+                          'assets/icons/logo_splash.svg',
+                          width: 120,
+                        ),
                       ),
                       const Spacer(),
                       _IconsAppbar(
@@ -149,21 +155,44 @@ class __IconsAppbarState extends State<_IconsAppbar> {
         ),
         if (LocalDataRepository().isLogged) ...[
           spacerM,
-          InkWell(
-            onTap: () {
-              if (ModalRoute.of(context)!.settings.name !=
-                  ShoppingCartPage.route) {
-                Navigator.pushNamed(context, ShoppingCartPage.route);
-              }
-              if (cubit.state.isOpenMenu) {
-                cubit.toggleMenu();
-              }
+          BlocBuilder<CarCounterCubit, CarCounterState>(
+            builder: (context, state) {
+              return InkWell(
+                onTap: () {
+                  if (ModalRoute.of(context)!.settings.name !=
+                      ShoppingCartPage.route) {
+                    Navigator.pushNamed(context, ShoppingCartPage.route);
+                  }
+                  if (cubit.state.isOpenMenu) {
+                    cubit.toggleMenu();
+                  }
+                },
+                child: Stack(
+                  children: [
+                    SizedBox(
+                      width: 35,
+                      height: 35,
+                      child: Image.asset(
+                        'assets/icons/Bag.png',
+                        color: Colors.white,
+                        scale: 2,
+                      ),
+                    ),
+                    if (state.products != 0)
+                      Positioned(
+                        top: -3,
+                        right: 0,
+                        child: Text(
+                          state.products.toString(),
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.w700),
+                        ),
+                      )
+                  ],
+                ),
+              );
             },
-            child: Image.asset(
-              'assets/icons/Bag.png',
-              color: Colors.white,
-              scale: 2,
-            ),
           ),
         ],
         spacerM,

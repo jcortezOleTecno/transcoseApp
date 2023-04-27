@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -44,6 +45,7 @@ import 'package:vemare/config/service_locator.dart';
 
 import '../../data/encuestas_repository.dart';
 import '../_components/my_input/my_input.dart';
+import '../my_notifications/my_notifications_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage._();
@@ -95,6 +97,15 @@ class EncuestaWidget extends StatefulWidget {
 }
 
 class _EncuestaWidgetState extends State<EncuestaWidget> {
+  @override
+  void initState() {
+    FirebaseMessaging.instance.getInitialMessage().then((message) => {
+          if (message != null)
+            {Navigator.pushNamed(context, MyNotificationsPage.route)}
+        });
+    super.initState();
+  }
+
   bool loading = false;
   int? stars = 3;
   String? comment;
@@ -438,13 +449,19 @@ class _News extends StatelessWidget {
                                   ],
                                 ),
                                 spacerS,
-                                Text(
-                                  state.notices[i].description ?? '',
-                                  maxLines: 4,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: AppTextStyle.contentCard
-                                      .copyWith(color: Colors.white),
-                                ),
+                                Expanded(
+                                  child: MyHtml(
+                                    text: state.notices[i].subtitle ?? '',
+                                    color: Colors.white,
+                                  ),
+                                )
+                                // Text(
+                                //   state.notices[i].description ?? '',
+                                //   maxLines: 4,
+                                //   overflow: TextOverflow.ellipsis,
+                                //   style: AppTextStyle.contentCard
+                                //       .copyWith(color: Colors.white),
+                                // ),
                               ],
                             ),
                           ),
@@ -800,7 +817,7 @@ class _Promociones extends StatelessWidget {
                     Navigator.pushNamed(
                       context,
                       PromotionPage.route,
-                      arguments: PromotionArgs(
+                      arguments: SearchArgs(
                         category: state.promotions[i],
                       ),
                     );
@@ -862,7 +879,7 @@ class _ProductsVemare extends StatelessWidget {
                 itemBuilder: (context, i) => CardProducts(
                   onTap: () {
                     Navigator.pushNamed(context, ProductPage.route,
-                        arguments: state.products[i]);
+                        arguments: SearchArgs(category: state.products[i]));
                   },
                   margin: const EdgeInsets.symmetric(horizontal: 10),
                   icon: Image.network(state.products[i].image!),

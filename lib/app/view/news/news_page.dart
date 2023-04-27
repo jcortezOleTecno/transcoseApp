@@ -74,7 +74,7 @@ class _MostReadNews extends StatelessWidget {
                 itemBuilder: (context, i) => MyNewsCard(
                   img: state.news[i].image!,
                   title: state.news[i].title ?? '',
-                  description: state.news[i].description ?? '',
+                  description: state.news[i].subtitle ?? '',
                   onPressed: () {
                     Navigator.pushNamed(context, NewsDetailPage.route,
                         arguments: state.news[i]);
@@ -116,7 +116,7 @@ class _News extends StatelessWidget {
                               height: 400,
                               child: MyNewsCard(
                                 title: e.title ?? '',
-                                description: e.description ?? '',
+                                description: e.subtitle ?? '',
                                 img: e.image!,
                                 onPressed: () {
                                   Navigator.pushNamed(

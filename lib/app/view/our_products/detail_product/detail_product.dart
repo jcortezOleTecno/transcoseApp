@@ -9,7 +9,7 @@ import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
 class DetailProductPageArg {
-  final CategoryDetail cat;
+  final Subcategory cat;
   final String icon;
 
   DetailProductPageArg({required this.cat, required this.icon});
@@ -73,20 +73,19 @@ class DetailProductPage extends StatelessWidget {
                     child: Wrap(
                       alignment: WrapAlignment.start,
                       children: args.cat.brands!
-                          .map((e) => ClipRRect(
-                                child: Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(120),
-                                  ),
-                                  margin: const EdgeInsets.symmetric(
-                                      vertical: 10, horizontal: 10),
-                                  child: SizedBox(
-                                    height: width * .40,
-                                    width: width * .40,
-                                    child: Image.network(
-                                      e.image!,
-                                      fit: BoxFit.cover,
-                                    ),
+                          .map((e) => Card(
+                                clipBehavior: Clip.antiAlias,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(120),
+                                ),
+                                margin: const EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 10),
+                                child: SizedBox(
+                                  height: width * .40,
+                                  width: width * .40,
+                                  child: Image.network(
+                                    e.image!,
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
                               ))

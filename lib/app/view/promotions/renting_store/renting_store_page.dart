@@ -8,17 +8,18 @@ import 'package:vemare/app/view/_components/my_dialogs/my_dialogs.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/home/home_page.dart';
 import 'package:vemare/app/view/login/login_page.dart';
-import 'package:vemare/app/view/promotions/renting_store/card_payment_form.dart';
 import 'package:vemare/app/view/promotions/renting_store/payment_form.dart';
 import 'package:vemare/app/view/promotions/renting_store/widgets/promotion_description.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
+import '../detail_sale_rent/detail_sale_rent.dart';
+
 class RentingStorePage extends StatefulWidget {
-  const RentingStorePage(this.isStore, {super.key});
+  const RentingStorePage(this.args, {super.key});
   static const route = '/renting_store';
 
-  final bool isStore;
+  final StoreArgs args;
 
   @override
   State<RentingStorePage> createState() => _RentingStorePageState();
@@ -40,11 +41,13 @@ class _RentingStorePageState extends State<RentingStorePage> {
                   children: [
                     const MyBackButton(),
                     PromotionDescription(
-                      title: widget.isStore ? 'Tienda' : 'Renting',
+                      title: widget.args.isTienda ? 'Tienda' : 'Renting',
+                      promotion: widget.args.promotion,
+                      quantity: widget.args.quantity,
                     ),
                     spacerL,
                     Visibility(
-                      visible: widget.isStore,
+                      visible: widget.args.isTienda,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         child: Column(
@@ -80,7 +83,10 @@ class _RentingStorePageState extends State<RentingStorePage> {
                 ),
               ),
             ),
-            _Button(widget, type)
+            _Button(
+              widget.args.copyWith(isCredit: type == 'Crédito'),
+              selecType: type != null,
+            )
           ],
         ),
       ),
@@ -90,13 +96,13 @@ class _RentingStorePageState extends State<RentingStorePage> {
 
 class _Button extends StatelessWidget {
   const _Button(
-    this.widget,
-    this.type, {
+    this.args, {
+    required this.selecType,
     Key? key,
   }) : super(key: key);
 
-  final RentingStorePage widget;
-  final String? type;
+  final StoreArgs args;
+  final bool selecType;
 
   @override
   Widget build(BuildContext context) {
@@ -105,24 +111,20 @@ class _Button extends StatelessWidget {
       child: MyButton(
         onPressed: () {
           if (LocalDataRepository().isLogged) {
-            if (!widget.isStore) {
+            if (!args.isTienda) {
               promotionDialog(context,
                       title: 'Felicidades',
                       content:
                           'Tu comercial se pondrá en contacto contigo lo antes posible para ver los detalles de tu solicitud.')
                   .then((_) {
-                Navigator.pushNamedAndRemoveUntil(
-                  context,
-                  HomePage.route,
-                  (route) => false,
-                  arguments: true,
-                );
+                Navigator.popUntil(
+                    context, ModalRoute.withName(HomePage.route));
               });
             } else {
               Navigator.pushNamed(
                 context,
                 PaymentPage.route,
-                arguments: type == 'Crédito',
+                arguments: args,
               );
             }
           } else {
@@ -132,24 +134,20 @@ class _Button extends StatelessWidget {
               arguments: '',
             ).then((_) {
               if (LocalDataRepository().isLogged) {
-                if (!widget.isStore) {
+                if (!args.isTienda) {
                   promotionDialog(context,
                           title: 'Felicidades',
                           content:
                               'Tu comercial se pondrá en contacto contigo lo antes posible para ver los detalles de tu solicitud.')
                       .then((_) {
-                    Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      HomePage.route,
-                      (route) => false,
-                      arguments: true,
-                    );
+                    Navigator.popUntil(
+                        context, ModalRoute.withName(HomePage.route));
                   });
                 } else {
                   Navigator.pushNamed(
                     context,
                     PaymentPage.route,
-                    arguments: type == 'Crédito',
+                    arguments: args.isCredit,
                   );
                 }
               }
@@ -158,7 +156,7 @@ class _Button extends StatelessWidget {
         },
         text: 'Continuar',
         width: double.infinity,
-        disabled: widget.isStore && (type == null),
+        disabled: args.isTienda && !selecType,
       ),
     );
   }

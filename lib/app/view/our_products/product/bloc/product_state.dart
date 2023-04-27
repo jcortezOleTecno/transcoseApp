@@ -9,8 +9,10 @@ part 'product_state.freezed.dart';
 class ProductState with _$ProductState {
   const factory ProductState({
     @Default(false) bool loading,
-    @Default(<Brand>[]) List<Brand> brands,
+    @Default(<Category>[]) List<Category> categories,
+    // @Default(<Brand>[]) List<Brand> brands,
     Category? category,
+    String? query,
     CategoryDetail? details,
   }) = _ProductState;
   const ProductState._();

@@ -7,14 +7,16 @@ import 'package:vemare/app/view/_components/my_input/my_input.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/tap_to_hide_keyboard/tap_to_hide_keyboard.dart';
 import 'package:vemare/app/view/home/home_page.dart';
+import 'package:vemare/app/view/promotions/detail_sale_rent/detail_sale_rent.dart';
 import 'package:vemare/app/view/promotions/renting_store/card_payment_form.dart';
 import 'package:vemare/app/view/promotions/renting_store/widgets/promotion_description.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
 class PaymentPage extends StatelessWidget {
-  const PaymentPage({this.isCredit = false, super.key});
+  const PaymentPage(this.args, {super.key});
   static const route = '/payment_page';
-  final bool isCredit;
+
+  final StoreArgs args;
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +28,10 @@ class PaymentPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const MyBackButton(),
-                const PromotionDescription(
+                PromotionDescription(
                   title: 'Tienda',
+                  promotion: args.promotion,
+                  quantity: args.quantity,
                 ),
                 spacerL,
                 Padding(
@@ -36,7 +40,7 @@ class PaymentPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        !isCredit
+                        !args.isCredit
                             ? 'Datos de envío'
                             : 'Comprueba que los datos son correctos',
                         style: AppTextStyle.h3Style,
@@ -75,7 +79,7 @@ class PaymentPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      _Button(isCredit: isCredit)
+                      _Button(args: args)
                     ],
                   ),
                 ),
@@ -90,11 +94,11 @@ class PaymentPage extends StatelessWidget {
 
 class _Button extends StatelessWidget {
   const _Button({
-    required this.isCredit,
+    required this.args,
     Key? key,
   }) : super(key: key);
 
-  final bool isCredit;
+  final StoreArgs args;
 
   @override
   Widget build(BuildContext context) {
@@ -102,19 +106,15 @@ class _Button extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
       child: MyButton(
         onPressed: () {
-          if (!isCredit) {
-            Navigator.pushNamed(context, CardPaymentPage.route);
+          if (!args.isCredit) {
+            Navigator.pushNamed(context, CardPaymentPage.route,
+                arguments: args);
           } else {
             promotionDialog(context,
                     title: 'Felicidades',
                     content: 'La operación se ha realizado con éxito.')
                 .then((_) {
-              Navigator.pushNamedAndRemoveUntil(
-                context,
-                HomePage.route,
-                (route) => false,
-                arguments: true,
-              );
+              Navigator.popUntil(context, ModalRoute.withName(HomePage.route));
             });
           }
         },

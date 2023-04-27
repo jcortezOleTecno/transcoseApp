@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/workshops_repository.dart';
 import 'package:vemare/app/domain/model/workshop.dart';
 import 'package:vemare/app/domain/value_object/status.dart';
@@ -149,9 +150,9 @@ class _WorkshopNetworksPageState extends State<WorkshopNetworksPage> {
                             textInputAction: TextInputAction.next,
                             inputType: TextInputType.phone,
                             onChanged: cubit.phone,
-                            inputFormatters: [
-                              MaskedInputFormatter('### ### ###'),
-                            ],
+                            // inputFormatters: [
+                            //   MaskedInputFormatter('### ### ###'),
+                            // ],
                             hasError: state.status == FormStatus.error,
                           ),
                           MyInput(
@@ -242,7 +243,12 @@ class _Info extends StatelessWidget {
                       ),
                       spacerM,
                       MyIconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          launchUrlString(
+                            state.workShop?.externalLink ??
+                                'https://www.google.com',
+                          );
+                        },
                         text: 'Más detalles',
                         icon: Image.asset(
                           'assets/icons/link.png',

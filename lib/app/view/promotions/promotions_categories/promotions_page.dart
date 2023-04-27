@@ -33,10 +33,7 @@ class PromotionsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<PromotionsCubit>();
     return MyTapToHideKeyboard(
-      child: BlocConsumer<PromotionsCubit, PromotionsState>(
-        listener: (context, state) {
-          // TODO: implement listener
-        },
+      child: BlocBuilder<PromotionsCubit, PromotionsState>(
         builder: (context, state) {
           return Scaffold(
             body: MyBody(
@@ -44,7 +41,6 @@ class PromotionsPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // const MyBackButton(),
                     const Image(
                       image: AssetImage('assets/imgs/promotions_img.png'),
                       width: double.infinity,
@@ -80,7 +76,16 @@ class PromotionsPage extends StatelessWidget {
                                     ))
                                 .toList(),
                             value: state.categorySelected,
-                            onChanged: cubit.category,
+                            onChanged: (v) {
+                              cubit.category(v);
+                              Navigator.pushNamed(
+                                context,
+                                PromotionPage.route,
+                                arguments: SearchArgs(
+                                  category: v,
+                                ),
+                              );
+                            },
                           ),
                           spacerM,
                           MySearchInput(
@@ -89,7 +94,7 @@ class PromotionsPage extends StatelessWidget {
                               Navigator.pushNamed(
                                 context,
                                 PromotionPage.route,
-                                arguments: PromotionArgs(
+                                arguments: SearchArgs(
                                   category: state.categorySelected,
                                   query: query,
                                 ),
@@ -99,7 +104,7 @@ class PromotionsPage extends StatelessWidget {
                               Navigator.pushNamed(
                                 context,
                                 PromotionPage.route,
-                                arguments: PromotionArgs(
+                                arguments: SearchArgs(
                                   category: state.categorySelected,
                                   query: state.query ?? '',
                                 ),
@@ -123,7 +128,7 @@ class PromotionsPage extends StatelessWidget {
                                 Navigator.pushNamed(
                                   context,
                                   PromotionPage.route,
-                                  arguments: PromotionArgs(
+                                  arguments: SearchArgs(
                                     category: e,
                                   ),
                                 );
