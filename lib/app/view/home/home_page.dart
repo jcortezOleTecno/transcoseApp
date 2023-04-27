@@ -47,7 +47,7 @@ import '../../data/encuestas_repository.dart';
 import '../_components/my_input/my_input.dart';
 import '../my_notifications/my_notifications_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage._();
 
   static const route = '/home';
@@ -67,6 +67,20 @@ class HomePage extends StatelessWidget {
       ),
       child: const HomePage._(),
     );
+  }
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    FirebaseMessaging.instance.getInitialMessage().then((message) => {
+          if (message != null)
+            {Navigator.pushNamed(context, MyNotificationsPage.route)}
+        });
+    super.initState();
   }
 
   @override
@@ -97,15 +111,6 @@ class EncuestaWidget extends StatefulWidget {
 }
 
 class _EncuestaWidgetState extends State<EncuestaWidget> {
-  @override
-  void initState() {
-    FirebaseMessaging.instance.getInitialMessage().then((message) => {
-          if (message != null)
-            {Navigator.pushNamed(context, MyNotificationsPage.route)}
-        });
-    super.initState();
-  }
-
   bool loading = false;
   int? stars = 3;
   String? comment;

@@ -2,10 +2,15 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:vemare/app/view/my_notifications/my_notifications_page.dart';
 import 'package:vemare/main.dart';
 
 import 'notifications_util.dart';
+
+@pragma('vm:entry-point')
+void onDidReceiveBackgroundNotificationResponse(
+    NotificationResponse response) {}
 
 class PushNotificationsProvider {
   static final PushNotificationsProvider _instance =
@@ -24,7 +29,11 @@ class PushNotificationsProvider {
       },
       onDidReceiveNotificationResponse: (p0) {
         log('onDidReceiveNotificationResponse');
+
+        navigatorKey.currentState!.pushNamed(MyNotificationsPage.route);
       },
+      onDidReceiveBackgroundNotificationResponse:
+          onDidReceiveBackgroundNotificationResponse,
     );
 
     _initFirebaseMessage();

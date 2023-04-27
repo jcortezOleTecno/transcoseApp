@@ -1,4 +1,5 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:vemare/app/view/theme/color.dart';
 
 typedef NotificationAppLaunchDetailsCallback = Function(
   NotificationAppLaunchDetails,
@@ -8,6 +9,8 @@ class NotificationUtils {
   static void setupNotificationPlugin({
     DidReceiveLocalNotificationCallback? onDidReceiveLocalNotification,
     void Function(NotificationResponse)? onDidReceiveNotificationResponse,
+    void Function(NotificationResponse)?
+        onDidReceiveBackgroundNotificationResponse,
   }) async {
     final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
@@ -26,6 +29,8 @@ class NotificationUtils {
     await flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
       onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
+      onDidReceiveBackgroundNotificationResponse:
+          onDidReceiveBackgroundNotificationResponse,
     );
   }
 
@@ -43,14 +48,15 @@ class NotificationUtils {
     final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
     const androidPlatformChannelSpecifics = AndroidNotificationDetails(
-      'my_almacen_channel',
-      'my_almacen_channel name',
-      channelDescription: 'my_almacen_channel descripton',
+      'your_channel_id',
+      'your_channel_name',
+      channelDescription: 'your_channel_descripton',
       importance: Importance.max,
       priority: Priority.high,
       ticker: 'ticker',
       icon: "appicon",
       colorized: true,
+      color: AppColor.primaryBlue,
     );
 
     const iOSPlatformChannelSpecifics = DarwinNotificationDetails();
