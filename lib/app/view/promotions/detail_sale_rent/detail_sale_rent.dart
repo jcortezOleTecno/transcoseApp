@@ -83,10 +83,10 @@ class DetailSaleRent extends StatelessWidget {
                             style: AppTextStyle.h1Style,
                             children: [
                               TextSpan(
-                                  text: '${state.promotion!.pvpOriginal!}\$',
+                                  text: '${state.promotion!.pvpOriginal!}€',
                                   style: AppTextStyle.pvpOrinigal),
                               TextSpan(
-                                text: ' ${state.promotion!.pvpLowered!}\$',
+                                text: ' ${state.promotion!.pvpLowered!}€',
                               ),
                               TextSpan(
                                 text: ' IVA incluido ',

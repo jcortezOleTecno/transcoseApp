@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$WhereWeAreState {
   bool get loading => throw _privateConstructorUsedError;
+  bool get loadingCenters => throw _privateConstructorUsedError;
   List<Center> get centers => throw _privateConstructorUsedError;
   LatLng? get location => throw _privateConstructorUsedError;
   LatLng? get centerSelect => throw _privateConstructorUsedError;
@@ -34,6 +35,7 @@ abstract class $WhereWeAreStateCopyWith<$Res> {
   @useResult
   $Res call(
       {bool loading,
+      bool loadingCenters,
       List<Center> centers,
       LatLng? location,
       LatLng? centerSelect});
@@ -53,6 +55,7 @@ class _$WhereWeAreStateCopyWithImpl<$Res, $Val extends WhereWeAreState>
   @override
   $Res call({
     Object? loading = null,
+    Object? loadingCenters = null,
     Object? centers = null,
     Object? location = freezed,
     Object? centerSelect = freezed,
@@ -61,6 +64,10 @@ class _$WhereWeAreStateCopyWithImpl<$Res, $Val extends WhereWeAreState>
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      loadingCenters: null == loadingCenters
+          ? _value.loadingCenters
+          : loadingCenters // ignore: cast_nullable_to_non_nullable
               as bool,
       centers: null == centers
           ? _value.centers
@@ -88,6 +95,7 @@ abstract class _$$_WhereWeAreStateCopyWith<$Res>
   @useResult
   $Res call(
       {bool loading,
+      bool loadingCenters,
       List<Center> centers,
       LatLng? location,
       LatLng? centerSelect});
@@ -105,6 +113,7 @@ class __$$_WhereWeAreStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? loading = null,
+    Object? loadingCenters = null,
     Object? centers = null,
     Object? location = freezed,
     Object? centerSelect = freezed,
@@ -113,6 +122,10 @@ class __$$_WhereWeAreStateCopyWithImpl<$Res>
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      loadingCenters: null == loadingCenters
+          ? _value.loadingCenters
+          : loadingCenters // ignore: cast_nullable_to_non_nullable
               as bool,
       centers: null == centers
           ? _value._centers
@@ -135,6 +148,7 @@ class __$$_WhereWeAreStateCopyWithImpl<$Res>
 class _$_WhereWeAreState extends _WhereWeAreState {
   const _$_WhereWeAreState(
       {this.loading = false,
+      this.loadingCenters = false,
       final List<Center> centers = const <Center>[],
       this.location,
       this.centerSelect})
@@ -144,6 +158,9 @@ class _$_WhereWeAreState extends _WhereWeAreState {
   @override
   @JsonKey()
   final bool loading;
+  @override
+  @JsonKey()
+  final bool loadingCenters;
   final List<Center> _centers;
   @override
   @JsonKey()
@@ -160,7 +177,7 @@ class _$_WhereWeAreState extends _WhereWeAreState {
 
   @override
   String toString() {
-    return 'WhereWeAreState(loading: $loading, centers: $centers, location: $location, centerSelect: $centerSelect)';
+    return 'WhereWeAreState(loading: $loading, loadingCenters: $loadingCenters, centers: $centers, location: $location, centerSelect: $centerSelect)';
   }
 
   @override
@@ -169,6 +186,8 @@ class _$_WhereWeAreState extends _WhereWeAreState {
         (other.runtimeType == runtimeType &&
             other is _$_WhereWeAreState &&
             (identical(other.loading, loading) || other.loading == loading) &&
+            (identical(other.loadingCenters, loadingCenters) ||
+                other.loadingCenters == loadingCenters) &&
             const DeepCollectionEquality().equals(other._centers, _centers) &&
             (identical(other.location, location) ||
                 other.location == location) &&
@@ -177,7 +196,7 @@ class _$_WhereWeAreState extends _WhereWeAreState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, loading,
+  int get hashCode => Object.hash(runtimeType, loading, loadingCenters,
       const DeepCollectionEquality().hash(_centers), location, centerSelect);
 
   @JsonKey(ignore: true)
@@ -190,6 +209,7 @@ class _$_WhereWeAreState extends _WhereWeAreState {
 abstract class _WhereWeAreState extends WhereWeAreState {
   const factory _WhereWeAreState(
       {final bool loading,
+      final bool loadingCenters,
       final List<Center> centers,
       final LatLng? location,
       final LatLng? centerSelect}) = _$_WhereWeAreState;
@@ -197,6 +217,8 @@ abstract class _WhereWeAreState extends WhereWeAreState {
 
   @override
   bool get loading;
+  @override
+  bool get loadingCenters;
   @override
   List<Center> get centers;
   @override

@@ -54,10 +54,10 @@ class PromotionDescription extends StatelessWidget {
                 style: AppTextStyle.h1Style,
                 children: [
                   TextSpan(
-                      text: '${promotion.pvpOriginal}\$',
+                      text: '${promotion.pvpOriginal}€',
                       style: AppTextStyle.pvpOrinigal),
                   TextSpan(
-                    text: ' ${promotion.pvpLowered}\$',
+                    text: ' ${promotion.pvpLowered}€',
                   ),
                   TextSpan(
                     text: ' IVA incluido ',

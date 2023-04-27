@@ -8,6 +8,7 @@ part 'where_we_are_state.freezed.dart';
 class WhereWeAreState with _$WhereWeAreState {
   const factory WhereWeAreState({
     @Default(false) bool loading,
+    @Default(false) bool loadingCenters,
     @Default(<Center>[]) List<Center> centers,
     LatLng? location,
     LatLng? centerSelect,

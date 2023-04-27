@@ -159,11 +159,11 @@ class _ShoppingItem extends StatelessWidget {
                   style: AppTextStyle.titleCard,
                   children: [
                     TextSpan(
-                      text: '${product.promotionPrice}\$',
+                      text: '${product.promotionPrice}€',
                       style: AppTextStyle.pvpOrinigal.copyWith(fontSize: 14),
                     ),
                     TextSpan(
-                      text: ' ${product.promotionPriceLowered}\$',
+                      text: ' ${product.promotionPriceLowered}€',
                     ),
                     TextSpan(
                       text: ' IVA incluido ',

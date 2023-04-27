@@ -10,6 +10,7 @@ import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_input/my_input.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/app/view/where_we_are/bloc/where_we_are_cubit.dart';
 import 'package:vemare/app/view/where_we_are/bloc/where_we_are_state.dart';
@@ -32,6 +33,7 @@ class WhereWeArePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<WhereWeAreCubit>();
     return Scaffold(
       body: BlocConsumer<WhereWeAreCubit, WhereWeAreState>(
         listener: (context, state) {
@@ -54,25 +56,43 @@ class WhereWeArePage extends StatelessWidget {
                     children: [
                       Text('¿Dónde estamos?', style: AppTextStyle.h1Style),
                       spacerM,
-                      // MyInput(label: 'Ciudad', hintText: 'Escribe una ciudad'),
-                      // MyInput(
-                      //     label: 'Código postal',
-                      //     hintText: 'Escribe una código postal'),
+                      MyInput(
+                        label: 'Ciudad',
+                        hintText: 'Escribe una ciudad',
+                        textCapitalization: TextCapitalization.words,
+                        textInputAction: TextInputAction.search,
+                        onFieldSubmitted: (p0) {
+                          cubit.fetchData(city: p0);
+                        },
+                      ),
+                      MyInput(
+                        label: 'Código postal',
+                        hintText: 'Escribe una código postal',
+                        textInputAction: TextInputAction.search,
+                        onFieldSubmitted: (p0) {
+                          cubit.fetchData(postalCode: p0);
+                        },
+                      ),
                       const _Map(),
                       spacerXL,
-                      state.centers.isEmpty
-                          ? const Padding(
-                              padding: EdgeInsets.only(bottom: 20),
-                              child: MyShimmer(
-                                height: 250,
-                                margin: EdgeInsets.zero,
-                              ),
-                            )
-                          : Column(
-                              children: state.centers
-                                  .map((e) => _Item(center: e))
-                                  .toList(),
-                            )
+                      if (state.loadingCenters)
+                        const Padding(
+                          padding: EdgeInsets.only(bottom: 20),
+                          child: MyShimmer(
+                            height: 250,
+                            margin: EdgeInsets.zero,
+                          ),
+                        ),
+                      if (!state.loadingCenters && state.centers.isNotEmpty)
+                        Column(
+                          children: state.centers
+                              .map((e) => _Item(center: e))
+                              .toList(),
+                        ),
+                      if (!state.loadingCenters && state.centers.isEmpty) ...[
+                        const NoExistWidget('centros'),
+                        spacerXL,
+                      ]
                     ],
                   ),
                 )
@@ -100,6 +120,7 @@ class _Item extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 20),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               height: 180,

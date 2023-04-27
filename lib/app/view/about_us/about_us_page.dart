@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/about_us_repository.dart';
 import 'package:vemare/app/data/library_repository.dart';
@@ -277,7 +276,7 @@ class _News extends StatelessWidget {
                 itemBuilder: (context, i) => MyNewsCard(
                   img: state.news[i].image!,
                   title: state.news[i].title ?? '',
-                  description: state.news[i].description ?? '',
+                  description: state.news[i].subtitle ?? '',
                   onPressed: () {
                     Navigator.pushNamed(context, NewsDetailPage.route,
                         arguments: state.news[i]);

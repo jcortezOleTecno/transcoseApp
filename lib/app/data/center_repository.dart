@@ -7,9 +7,13 @@ class CenterRepository {
 
   CenterRepository(this._apiClient);
 
-  Future<List<Center>> getCenters({required int limit}) async {
-    final dynamic res = await _apiClient.getRequest('$BASE_API_URL/api/centros',
-        params: <String, dynamic>{'limit': '$limit'});
+  Future<List<Center>> getCenters(
+      {String city = '', String postalCode = ''}) async {
+    final dynamic res = await _apiClient
+        .getRequest('$BASE_API_URL/api/centros', params: <String, dynamic>{
+      'city': city,
+      'postal_code': postalCode,
+    });
     return (res as List).map(Center.fromJson).toList();
   }
 }

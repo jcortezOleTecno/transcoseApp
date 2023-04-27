@@ -13,11 +13,20 @@ class WhereWeAreCubit extends Cubit<WhereWeAreState> {
 
   final CenterRepository _centerRepository;
 
-  Future<void> fetchData() async {
-    List<Center> centers = await _centerRepository.getCenters(limit: 0);
-    final firstPosition = LatLng(double.parse(centers.first.latitude ?? '0'),
-        double.parse(centers.first.longitude ?? '0'));
-    emit(state.copyWith(centers: centers, centerSelect: firstPosition));
+  Future<void> fetchData({String? city, String? postalCode}) async {
+    emit(state.copyWith(loadingCenters: true));
+    List<Center> centers = await _centerRepository.getCenters(
+        city: city ?? '', postalCode: postalCode ?? '');
+    LatLng? firstPosition;
+    if (centers.isNotEmpty) {
+      firstPosition = LatLng(double.parse(centers.first.latitude ?? '0'),
+          double.parse(centers.first.longitude ?? '0'));
+    }
+    emit(state.copyWith(
+      centers: centers,
+      centerSelect: firstPosition ?? state.location,
+      loadingCenters: false,
+    ));
   }
 
   void centerGoMap(LatLng latLng) {
