@@ -31,4 +31,26 @@ class ShoppingCardCubit extends Cubit<ShoppingCardState> {
       ),
     );
   }
+
+  void buy() {
+    var total = 0.0;
+    for (var e in state.products) {
+      var totalTemp =
+          e.quantity!.toDouble() * double.parse(e.promotionPriceLowered!);
+      total = total + totalTemp;
+    }
+
+    emit(state.copyWith(buying: true, total: total));
+  }
+
+  void cancelBuy() {
+    emit(state.copyWith(buying: false, typePaySelected: false));
+  }
+
+  void typePaySelect(String value) {
+    emit(state.copyWith(
+      isCard: value == 'Tarjeta',
+      typePaySelected: true,
+    ));
+  }
 }

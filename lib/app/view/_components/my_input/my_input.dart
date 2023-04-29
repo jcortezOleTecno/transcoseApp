@@ -131,6 +131,7 @@ class _MyInputState extends State<MyInput> {
           textCapitalization: widget.textCapitalization,
           textInputAction: widget.textInputAction,
           decoration: underlinedInputDecoration.copyWith(
+            errorStyle: const TextStyle(height: 1.0),
             helperText: widget.helperText,
             enabledBorder: widget.hasError
                 ? underlinedInputDecoration.errorBorder

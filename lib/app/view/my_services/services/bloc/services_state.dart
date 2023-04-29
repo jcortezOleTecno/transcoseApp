@@ -25,7 +25,6 @@ class ServicesState with _$ServicesState {
 
   bool get isCompleted =>
       name != null &&
-      email != null &&
       phone != null &&
       provincia != null &&
       ciudad != null &&

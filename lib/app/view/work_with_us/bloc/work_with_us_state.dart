@@ -27,7 +27,6 @@ class WorkWithUsState with _$WorkWithUsState {
   bool get isComplete =>
       name != null &&
       phone != null &&
-      email != null &&
       doc != null &&
       zone != null &&
       job != null;

@@ -61,6 +61,7 @@ import 'package:vemare/app/view/promotions/renting_store/card_payment_form.dart'
 import 'package:vemare/app/view/promotions/renting_store/payment_form.dart';
 import 'package:vemare/app/view/promotions/renting_store/renting_store_page.dart';
 import 'package:vemare/app/view/register/register_page.dart';
+import 'package:vemare/app/view/shopping_cart/shipping_data_page.dart';
 import 'package:vemare/app/view/shopping_cart/shopping_cart.dart';
 import 'package:vemare/app/view/splash/splash_page.dart';
 import 'package:vemare/app/view/where_we_are/where_we_are_page.dart';
@@ -73,6 +74,7 @@ import 'my_services/sat/sat_intro_page.dart';
 import 'my_services/sat/sat_page.dart';
 import 'pills/pills_details.dart';
 import 'promotions/promotion/promotion_page.dart';
+import 'shopping_cart/data_pay.dart';
 
 abstract class AppRouter {
   static String get initialPage => SplashPage.route;
@@ -395,6 +397,18 @@ abstract class AppRouter {
         return MaterialPageRoute<void>(
           settings: settings,
           builder: (_) => const SatIntroPage(),
+        );
+      case ShippingDataPage.route:
+        final data = settings.arguments as ShoppingCarArgs?;
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => ShippingDataPage(data!),
+        );
+      case DataPayPage.route:
+        final data = settings.arguments as ShoppingCarArgs?;
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => DataPayPage(data!),
         );
 
       default:

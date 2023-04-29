@@ -10,7 +10,7 @@ class MyBackButton extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: TextButton.icon(
         onPressed: () {
-          Navigator.of(context).pop();
+          Navigator.of(context).maybePop();
         },
         icon: Image.asset(
           'assets/icons/arrow_back.png',

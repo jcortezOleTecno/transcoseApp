@@ -18,6 +18,10 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ShoppingCardState {
   bool get loading => throw _privateConstructorUsedError;
   bool get deleting => throw _privateConstructorUsedError;
+  bool get buying => throw _privateConstructorUsedError;
+  bool get isCard => throw _privateConstructorUsedError;
+  bool get typePaySelected => throw _privateConstructorUsedError;
+  double get total => throw _privateConstructorUsedError;
   List<ShoppingCardProduct> get products => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -31,7 +35,14 @@ abstract class $ShoppingCardStateCopyWith<$Res> {
           ShoppingCardState value, $Res Function(ShoppingCardState) then) =
       _$ShoppingCardStateCopyWithImpl<$Res, ShoppingCardState>;
   @useResult
-  $Res call({bool loading, bool deleting, List<ShoppingCardProduct> products});
+  $Res call(
+      {bool loading,
+      bool deleting,
+      bool buying,
+      bool isCard,
+      bool typePaySelected,
+      double total,
+      List<ShoppingCardProduct> products});
 }
 
 /// @nodoc
@@ -49,6 +60,10 @@ class _$ShoppingCardStateCopyWithImpl<$Res, $Val extends ShoppingCardState>
   $Res call({
     Object? loading = null,
     Object? deleting = null,
+    Object? buying = null,
+    Object? isCard = null,
+    Object? typePaySelected = null,
+    Object? total = null,
     Object? products = null,
   }) {
     return _then(_value.copyWith(
@@ -60,6 +75,22 @@ class _$ShoppingCardStateCopyWithImpl<$Res, $Val extends ShoppingCardState>
           ? _value.deleting
           : deleting // ignore: cast_nullable_to_non_nullable
               as bool,
+      buying: null == buying
+          ? _value.buying
+          : buying // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isCard: null == isCard
+          ? _value.isCard
+          : isCard // ignore: cast_nullable_to_non_nullable
+              as bool,
+      typePaySelected: null == typePaySelected
+          ? _value.typePaySelected
+          : typePaySelected // ignore: cast_nullable_to_non_nullable
+              as bool,
+      total: null == total
+          ? _value.total
+          : total // ignore: cast_nullable_to_non_nullable
+              as double,
       products: null == products
           ? _value.products
           : products // ignore: cast_nullable_to_non_nullable
@@ -76,7 +107,14 @@ abstract class _$$_ShoppingCardStateCopyWith<$Res>
       __$$_ShoppingCardStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool loading, bool deleting, List<ShoppingCardProduct> products});
+  $Res call(
+      {bool loading,
+      bool deleting,
+      bool buying,
+      bool isCard,
+      bool typePaySelected,
+      double total,
+      List<ShoppingCardProduct> products});
 }
 
 /// @nodoc
@@ -92,6 +130,10 @@ class __$$_ShoppingCardStateCopyWithImpl<$Res>
   $Res call({
     Object? loading = null,
     Object? deleting = null,
+    Object? buying = null,
+    Object? isCard = null,
+    Object? typePaySelected = null,
+    Object? total = null,
     Object? products = null,
   }) {
     return _then(_$_ShoppingCardState(
@@ -103,6 +145,22 @@ class __$$_ShoppingCardStateCopyWithImpl<$Res>
           ? _value.deleting
           : deleting // ignore: cast_nullable_to_non_nullable
               as bool,
+      buying: null == buying
+          ? _value.buying
+          : buying // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isCard: null == isCard
+          ? _value.isCard
+          : isCard // ignore: cast_nullable_to_non_nullable
+              as bool,
+      typePaySelected: null == typePaySelected
+          ? _value.typePaySelected
+          : typePaySelected // ignore: cast_nullable_to_non_nullable
+              as bool,
+      total: null == total
+          ? _value.total
+          : total // ignore: cast_nullable_to_non_nullable
+              as double,
       products: null == products
           ? _value._products
           : products // ignore: cast_nullable_to_non_nullable
@@ -117,6 +175,10 @@ class _$_ShoppingCardState extends _ShoppingCardState {
   const _$_ShoppingCardState(
       {this.loading = false,
       this.deleting = false,
+      this.buying = false,
+      this.isCard = false,
+      this.typePaySelected = false,
+      this.total = 0.0,
       final List<ShoppingCardProduct> products = const <ShoppingCardProduct>[]})
       : _products = products,
         super._();
@@ -127,6 +189,18 @@ class _$_ShoppingCardState extends _ShoppingCardState {
   @override
   @JsonKey()
   final bool deleting;
+  @override
+  @JsonKey()
+  final bool buying;
+  @override
+  @JsonKey()
+  final bool isCard;
+  @override
+  @JsonKey()
+  final bool typePaySelected;
+  @override
+  @JsonKey()
+  final double total;
   final List<ShoppingCardProduct> _products;
   @override
   @JsonKey()
@@ -138,7 +212,7 @@ class _$_ShoppingCardState extends _ShoppingCardState {
 
   @override
   String toString() {
-    return 'ShoppingCardState(loading: $loading, deleting: $deleting, products: $products)';
+    return 'ShoppingCardState(loading: $loading, deleting: $deleting, buying: $buying, isCard: $isCard, typePaySelected: $typePaySelected, total: $total, products: $products)';
   }
 
   @override
@@ -149,11 +223,23 @@ class _$_ShoppingCardState extends _ShoppingCardState {
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.deleting, deleting) ||
                 other.deleting == deleting) &&
+            (identical(other.buying, buying) || other.buying == buying) &&
+            (identical(other.isCard, isCard) || other.isCard == isCard) &&
+            (identical(other.typePaySelected, typePaySelected) ||
+                other.typePaySelected == typePaySelected) &&
+            (identical(other.total, total) || other.total == total) &&
             const DeepCollectionEquality().equals(other._products, _products));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, loading, deleting,
+  int get hashCode => Object.hash(
+      runtimeType,
+      loading,
+      deleting,
+      buying,
+      isCard,
+      typePaySelected,
+      total,
       const DeepCollectionEquality().hash(_products));
 
   @JsonKey(ignore: true)
@@ -168,6 +254,10 @@ abstract class _ShoppingCardState extends ShoppingCardState {
   const factory _ShoppingCardState(
       {final bool loading,
       final bool deleting,
+      final bool buying,
+      final bool isCard,
+      final bool typePaySelected,
+      final double total,
       final List<ShoppingCardProduct> products}) = _$_ShoppingCardState;
   const _ShoppingCardState._() : super._();
 
@@ -175,6 +265,14 @@ abstract class _ShoppingCardState extends ShoppingCardState {
   bool get loading;
   @override
   bool get deleting;
+  @override
+  bool get buying;
+  @override
+  bool get isCard;
+  @override
+  bool get typePaySelected;
+  @override
+  double get total;
   @override
   List<ShoppingCardProduct> get products;
   @override

@@ -53,14 +53,18 @@ const divider = Divider(
 
 class MyDivider extends StatelessWidget {
   const MyDivider({
+    this.height,
     Key? key,
   }) : super(key: key);
 
+  final double? height;
+
   @override
   Widget build(BuildContext context) {
-    return const Divider(
+    return Divider(
       thickness: 1.5,
       color: AppColor.blue100,
+      height: height,
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/services_repository.dart';
+import 'package:vemare/app/domain/utils/validators.dart';
 import 'package:vemare/app/domain/value_object/status.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
@@ -50,6 +51,7 @@ class _ServicesPageState extends State<ServicesPage> {
   late TextEditingController tcProvince;
   late TextEditingController tcCity;
   late TextEditingController tcMsg;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -99,18 +101,6 @@ class _ServicesPageState extends State<ServicesPage> {
                     padding: EdgeInsets.symmetric(horizontal: 15),
                     child: Text('Servicios', style: AppTextStyle.h1Style),
                   ),
-                  // spacerM,
-                  // _CardService(
-                  //   title: 'Formaciones',
-                  //   onTap: () =>
-                  //       Navigator.pushNamed(context, FormationsPage.route),
-                  //   image: const AssetImage('assets/imgs/IMGformaciones.png'),
-                  // ),
-                  // _CardService(
-                  //   title: 'Eventos',
-                  //   onTap: () => Navigator.pushNamed(context, EventsPage.route),
-                  //   image: const AssetImage('assets/imgs/IMGeventos.png'),
-                  // ),
                   state.loading
                       ? Column(
                           children: List.generate(
@@ -150,126 +140,138 @@ class _ServicesPageState extends State<ServicesPage> {
                   spacerS,
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text('Te ayudamos', style: AppTextStyle.h2Style),
-                        spacerS,
-                        Row(
-                          children: [
-                            Expanded(
-                                child: _CardWeHelpYou(
-                              name: 'SAT',
-                              img: 'assets/imgs/sat.png',
-                              onTap: () {
-                                Navigator.pushNamed(
-                                    context, SatIntroPage.route);
-                              },
-                            )),
-                            spacerS,
-                            Expanded(
-                              child: _CardWeHelpYou(
-                                name: 'Conexión remota',
-                                img: 'assets/imgs/conexion_remota.png',
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('Te ayudamos',
+                              style: AppTextStyle.h2Style),
+                          spacerS,
+                          Row(
+                            children: [
+                              Expanded(
+                                  child: _CardWeHelpYou(
+                                name: 'SAT',
+                                img: 'assets/imgs/sat.png',
                                 onTap: () {
-                                  launchUrlString(
-                                      "https://get.teamviewer.com/vemare");
+                                  Navigator.pushNamed(
+                                      context, SatIntroPage.route);
                                 },
+                              )),
+                              spacerS,
+                              Expanded(
+                                child: _CardWeHelpYou(
+                                  name: 'Conexión remota',
+                                  img: 'assets/imgs/conexion_remota.png',
+                                  onTap: () {
+                                    launchUrlString(
+                                        "https://get.teamviewer.com/vemare");
+                                  },
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        spacerM,
-                        const Text('Nuestras redes de talleres',
-                            style: AppTextStyle.h2Style),
-                        spacerS,
-                        _CardService(
-                          title: 'Redes de talleres',
-                          image: const AssetImage('assets/imgs/AD360IMG.png'),
-                          borderRadius: BorderRadius.circular(15),
-                          onTap: () => Navigator.pushNamed(
-                              context, WorkshopNetworksPage.route),
-                        ),
-                        spacerS,
-                        const Text('Contactos', style: AppTextStyle.h2Style),
-                        spacerS,
-                        MyInput(
-                          label: 'Nombre',
-                          required: true,
-                          hintText: 'Escribe tu nombre',
-                          onChanged: cubit.name,
-                          controller: tcName,
-                          textInputAction: TextInputAction.next,
-                          inputType: TextInputType.name,
-                          textCapitalization: TextCapitalization.words,
-                          hasError: state.status == FormStatus.error,
-                        ),
-                        MyInput(
-                          label: 'E-mail',
-                          required: true,
-                          hintText: 'email@ejemplo.com',
-                          controller: tcEmail,
-                          textInputAction: TextInputAction.next,
-                          inputType: TextInputType.emailAddress,
-                          onChanged: cubit.email,
-                          hasError: state.status == FormStatus.error,
-                        ),
-                        MyInput(
-                          label: 'Teléfono',
-                          required: true,
-                          hintText: '123456789',
-                          controller: tcPhone,
-                          textInputAction: TextInputAction.next,
-                          inputType: TextInputType.phone,
-                          onChanged: cubit.phone,
-                          hasError: state.status == FormStatus.error,
-                        ),
-                        MyInput(
-                          label: 'Provincia',
-                          required: true,
-                          hintText: 'Escribe tu provincia',
-                          controller: tcProvince,
-                          textInputAction: TextInputAction.next,
-                          inputType: TextInputType.name,
-                          textCapitalization: TextCapitalization.words,
-                          hasError: state.status == FormStatus.error,
-                          onChanged: cubit.province,
-                        ),
-                        MyInput(
-                          label: 'Ciudad',
-                          hintText: 'Escribe tu ciudad',
-                          required: true,
-                          textInputAction: TextInputAction.next,
-                          controller: tcCity,
-                          inputType: TextInputType.name,
-                          textCapitalization: TextCapitalization.words,
-                          hasError: state.status == FormStatus.error,
-                          onChanged: cubit.ciudad,
-                        ),
-                        spacerS,
-                        MyInput(
-                          label: 'Asunto',
-                          required: true,
-                          maxLines: 6,
-                          textInputAction: TextInputAction.newline,
-                          controller: tcMsg,
-                          onChanged: cubit.message,
-                          inputType: TextInputType.multiline,
-                          hasError: state.status == FormStatus.error,
-                        ),
-                        spacerM,
-                        MyButton(
-                          onPressed: () {
-                            FocusScope.of(context).requestFocus(FocusNode());
-                            cubit.sendForm();
-                          },
-                          text: 'Enviar',
-                          width: double.infinity,
-                          isLoading: state.status == FormStatus.loading,
-                          disabled: !state.isCompleted,
-                        ),
-                        spacerXL,
-                      ],
+                            ],
+                          ),
+                          spacerM,
+                          const Text('Nuestras redes de talleres',
+                              style: AppTextStyle.h2Style),
+                          spacerS,
+                          _CardService(
+                            title: 'Redes de talleres',
+                            image: const AssetImage('assets/imgs/AD360IMG.png'),
+                            borderRadius: BorderRadius.circular(15),
+                            onTap: () => Navigator.pushNamed(
+                                context, WorkshopNetworksPage.route),
+                          ),
+                          spacerS,
+                          const Text('Contactos', style: AppTextStyle.h2Style),
+                          spacerS,
+                          MyInput(
+                            label: 'Nombre',
+                            required: true,
+                            hintText: 'Escribe tu nombre',
+                            onChanged: cubit.name,
+                            controller: tcName,
+                            textInputAction: TextInputAction.next,
+                            inputType: TextInputType.name,
+                            textCapitalization: TextCapitalization.words,
+                            hasError: state.status == FormStatus.error,
+                            // validator: validateData,
+                          ),
+                          spacerXs,
+                          MyInput(
+                            label: 'E-mail',
+                            required: true,
+                            hintText: 'email@ejemplo.com',
+                            controller: tcEmail,
+                            textInputAction: TextInputAction.next,
+                            inputType: TextInputType.emailAddress,
+                            onChanged: cubit.email,
+                            hasError: state.status == FormStatus.error,
+                            validator: validateEmail,
+                          ),
+                          spacerXs,
+                          MyInput(
+                            label: 'Teléfono',
+                            required: true,
+                            hintText: '123456789',
+                            controller: tcPhone,
+                            textInputAction: TextInputAction.next,
+                            inputType: TextInputType.phone,
+                            onChanged: cubit.phone,
+                            hasError: state.status == FormStatus.error,
+                          ),
+                          spacerXs,
+                          MyInput(
+                            label: 'Provincia',
+                            required: true,
+                            hintText: 'Escribe tu provincia',
+                            controller: tcProvince,
+                            textInputAction: TextInputAction.next,
+                            inputType: TextInputType.name,
+                            textCapitalization: TextCapitalization.words,
+                            hasError: state.status == FormStatus.error,
+                            onChanged: cubit.province,
+                          ),
+                          spacerXs,
+                          MyInput(
+                            label: 'Ciudad',
+                            hintText: 'Escribe tu ciudad',
+                            required: true,
+                            textInputAction: TextInputAction.next,
+                            controller: tcCity,
+                            inputType: TextInputType.name,
+                            textCapitalization: TextCapitalization.words,
+                            hasError: state.status == FormStatus.error,
+                            onChanged: cubit.ciudad,
+                          ),
+                          spacerS,
+                          MyInput(
+                            label: 'Asunto',
+                            required: true,
+                            maxLines: 6,
+                            textInputAction: TextInputAction.newline,
+                            controller: tcMsg,
+                            onChanged: cubit.message,
+                            inputType: TextInputType.multiline,
+                            hasError: state.status == FormStatus.error,
+                          ),
+                          spacerM,
+                          MyButton(
+                            onPressed: () {
+                              FocusScope.of(context).requestFocus(FocusNode());
+                              if (_formKey.currentState!.validate()) {
+                                cubit.sendForm();
+                              }
+                            },
+                            text: 'Enviar',
+                            width: double.infinity,
+                            isLoading: state.status == FormStatus.loading,
+                            disabled: !state.isCompleted,
+                          ),
+                          spacerXL,
+                        ],
+                      ),
                     ),
                   ),
                 ],
