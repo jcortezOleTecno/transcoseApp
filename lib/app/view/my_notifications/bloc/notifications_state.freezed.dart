@@ -16,8 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$NotificationsState {
+  bool get loading => throw _privateConstructorUsedError;
   NotificationType get type => throw _privateConstructorUsedError;
-  List<int> get notifications => throw _privateConstructorUsedError;
+  List<Notification> get notifications => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NotificationsStateCopyWith<NotificationsState> get copyWith =>
@@ -30,7 +31,8 @@ abstract class $NotificationsStateCopyWith<$Res> {
           NotificationsState value, $Res Function(NotificationsState) then) =
       _$NotificationsStateCopyWithImpl<$Res, NotificationsState>;
   @useResult
-  $Res call({NotificationType type, List<int> notifications});
+  $Res call(
+      {bool loading, NotificationType type, List<Notification> notifications});
 }
 
 /// @nodoc
@@ -46,10 +48,15 @@ class _$NotificationsStateCopyWithImpl<$Res, $Val extends NotificationsState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? loading = null,
     Object? type = null,
     Object? notifications = null,
   }) {
     return _then(_value.copyWith(
+      loading: null == loading
+          ? _value.loading
+          : loading // ignore: cast_nullable_to_non_nullable
+              as bool,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -57,7 +64,7 @@ class _$NotificationsStateCopyWithImpl<$Res, $Val extends NotificationsState>
       notifications: null == notifications
           ? _value.notifications
           : notifications // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as List<Notification>,
     ) as $Val);
   }
 }
@@ -70,7 +77,8 @@ abstract class _$$_NotificationsStateCopyWith<$Res>
       __$$_NotificationsStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({NotificationType type, List<int> notifications});
+  $Res call(
+      {bool loading, NotificationType type, List<Notification> notifications});
 }
 
 /// @nodoc
@@ -84,10 +92,15 @@ class __$$_NotificationsStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? loading = null,
     Object? type = null,
     Object? notifications = null,
   }) {
     return _then(_$_NotificationsState(
+      loading: null == loading
+          ? _value.loading
+          : loading // ignore: cast_nullable_to_non_nullable
+              as bool,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -95,7 +108,7 @@ class __$$_NotificationsStateCopyWithImpl<$Res>
       notifications: null == notifications
           ? _value._notifications
           : notifications // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as List<Notification>,
     ));
   }
 }
@@ -104,17 +117,21 @@ class __$$_NotificationsStateCopyWithImpl<$Res>
 
 class _$_NotificationsState implements _NotificationsState {
   const _$_NotificationsState(
-      {this.type = NotificationType.general,
-      final List<int> notifications = const <int>[1, 2, 3, 4]})
+      {this.loading = false,
+      this.type = NotificationType.general,
+      final List<Notification> notifications = const <Notification>[]})
       : _notifications = notifications;
 
   @override
   @JsonKey()
-  final NotificationType type;
-  final List<int> _notifications;
+  final bool loading;
   @override
   @JsonKey()
-  List<int> get notifications {
+  final NotificationType type;
+  final List<Notification> _notifications;
+  @override
+  @JsonKey()
+  List<Notification> get notifications {
     if (_notifications is EqualUnmodifiableListView) return _notifications;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_notifications);
@@ -122,7 +139,7 @@ class _$_NotificationsState implements _NotificationsState {
 
   @override
   String toString() {
-    return 'NotificationsState(type: $type, notifications: $notifications)';
+    return 'NotificationsState(loading: $loading, type: $type, notifications: $notifications)';
   }
 
   @override
@@ -130,14 +147,15 @@ class _$_NotificationsState implements _NotificationsState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_NotificationsState &&
+            (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.type, type) || other.type == type) &&
             const DeepCollectionEquality()
                 .equals(other._notifications, _notifications));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, type, const DeepCollectionEquality().hash(_notifications));
+  int get hashCode => Object.hash(runtimeType, loading, type,
+      const DeepCollectionEquality().hash(_notifications));
 
   @JsonKey(ignore: true)
   @override
@@ -149,13 +167,16 @@ class _$_NotificationsState implements _NotificationsState {
 
 abstract class _NotificationsState implements NotificationsState {
   const factory _NotificationsState(
-      {final NotificationType type,
-      final List<int> notifications}) = _$_NotificationsState;
+      {final bool loading,
+      final NotificationType type,
+      final List<Notification> notifications}) = _$_NotificationsState;
 
+  @override
+  bool get loading;
   @override
   NotificationType get type;
   @override
-  List<int> get notifications;
+  List<Notification> get notifications;
   @override
   @JsonKey(ignore: true)
   _$$_NotificationsStateCopyWith<_$_NotificationsState> get copyWith =>

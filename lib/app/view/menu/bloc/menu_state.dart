@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:vemare/app/domain/model/user_data.dart';
+import 'package:vemare/app/domain/model/notification.dart';
 
 part 'menu_state.freezed.dart';
 
@@ -8,8 +8,7 @@ class MenuState with _$MenuState {
   const factory MenuState({
     @Default(false) bool isOpenMenu,
     @Default(false) bool isOpenNotification,
-    // @Default(false) bool isLogged,
-    // UserData? user,
+    @Default(<Notification>[]) List<Notification> notifications,
   }) = _MenuState;
 
   const MenuState._();

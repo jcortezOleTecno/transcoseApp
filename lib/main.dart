@@ -18,7 +18,9 @@ import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/theme.dart';
 import 'package:vemare/config/service_locator.dart';
 
+import 'app/data/notifications_repository.dart';
 import 'app/data/shopping_cart_repository.dart';
+import 'app/view/my_notifications/bloc/notifications_cubit.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 NavigatorState get navigator => navigatorKey.currentState!;
@@ -64,7 +66,7 @@ class MyApp extends StatelessWidget {
           create: (context) => CarCounterCubit(
             getIt.get<ShoppingCardRepository>(),
           ),
-        )
+        ),
       ],
       child: MaterialApp(
         title: 'Vemare',

@@ -1,23 +1,30 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vemare/app/data/notifications_repository.dart';
+import 'package:vemare/app/domain/model/notification.dart' as model;
 import 'package:vemare/app/domain/value_object/notifications_type.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
+import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/my_notifications/bloc/notifications_cubit.dart';
 import 'package:vemare/app/view/my_notifications/bloc/notifications_state.dart';
+import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:vemare/config/service_locator.dart';
 
 class MyNotificationsPage extends StatelessWidget {
-  const MyNotificationsPage._();
+  const MyNotificationsPage._({super.key});
   static const route = '/my_notifications';
 
   static Widget create() => BlocProvider(
-        create: (context) => NotificationsCubit(),
+        create: (context) => NotificationsCubit(
+          getIt.get<NotificationsRepository>(),
+        ),
         child: const MyNotificationsPage._(),
       );
 
@@ -25,37 +32,54 @@ class MyNotificationsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<NotificationsCubit>();
     return Scaffold(
-      body: BlocConsumer<NotificationsCubit, NotificationsState>(
-        listener: (context, state) {
-          // TODO: implement listener
-        },
+      body: BlocBuilder<NotificationsCubit, NotificationsState>(
         builder: (context, state) {
           return MyBody(
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  MyBackButton(),
+                  const MyBackButton(),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'Mis notificaciones',
                           style: AppTextStyle.h1Style,
                         ),
                         spacerM,
                         _SelectTypeNotifications(
-                          onTap: (p0) => print(p0),
+                          onTap: cubit.getNotificationsType,
                         ),
                         spacerM,
-                        ...List.generate(
-                          cubit.state.notifications.length,
-                          (i) => _MyNotificationCard(
-                            onDismissed: () => cubit.deleteNotification(i),
-                          ),
-                        ),
+                        if (state.loading)
+                          ...List.generate(
+                              3,
+                              (_) => const Padding(
+                                    padding: EdgeInsets.only(bottom: 20),
+                                    child: MyShimmer(
+                                        margin: EdgeInsets.zero, height: 120),
+                                  )),
+                        if (!state.loading && state.notifications.isEmpty)
+                          const NoExistWidget('notificaciones'),
+
+                        if (!state.loading)
+                          ...state.notifications.map(
+                            (e) => _MyNotificationCard(
+                              notification: e,
+                              onDismissed: () =>
+                                  cubit.deleteNotification(e.id!),
+                            ),
+                          )
+
+                        // ...List.generate(
+                        //   cubit.state.notifications.length,
+                        //   (i) => _MyNotificationCard(
+                        //     onDismissed: () => cubit.deleteNotification(i),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
@@ -93,15 +117,22 @@ class _SelectTypeNotificationsState extends State<_SelectTypeNotifications> {
           Row(
             children: [
               _item('General', type: NotificationType.general),
-              _item('Formaciones', type: NotificationType.formations),
+              _item('Categoría', type: NotificationType.category),
+              _item('Centros', type: NotificationType.center),
+            ],
+          ),
+          Row(
+            children: [
+              _item('Biblioteca', type: NotificationType.library),
+              _item('Píldoras', type: NotificationType.pills),
               _item('Eventos', type: NotificationType.events),
             ],
           ),
           Row(
             children: [
               _item('Promociones', type: NotificationType.promotions),
-              _item('Mi empresa', type: NotificationType.myBusiness),
-              _item('SAT', type: NotificationType.sat),
+              _item('Formaciones', type: NotificationType.formations),
+              _item('Eventos vemare', type: NotificationType.eventVemare),
             ],
           )
         ],
@@ -149,8 +180,10 @@ class _SelectTypeNotificationsState extends State<_SelectTypeNotifications> {
 }
 
 class _MyNotificationCard extends StatelessWidget {
-  const _MyNotificationCard({required this.onDismissed});
+  const _MyNotificationCard(
+      {required this.onDismissed, required this.notification});
   final Function() onDismissed;
+  final model.Notification notification;
 
   @override
   Widget build(BuildContext context) {
@@ -191,7 +224,7 @@ class _MyNotificationCard extends StatelessWidget {
                 child: Container(
                   height: 50,
                   width: 50,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       shape: BoxShape.circle, color: Colors.white30),
                   child: Image.asset(
                     'assets/icons/Trash.png',
@@ -229,7 +262,7 @@ class _MyNotificationCard extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              'Hay un nuevo curso en Lorem ipsum, que puede interesarte, que se corresponde con otras formaciones realizadas. ',
+                              notification.mensaje ?? '',
                               style: AppTextStyle.defaultStyle,
                             ),
                           ),
@@ -237,9 +270,7 @@ class _MyNotificationCard extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                timeago.format(
-                                    DateTime.now()
-                                        .subtract(const Duration(hours: 9)),
+                                timeago.format(DateTime(2023, 5, 8),
                                     locale: 'es'),
                                 style: const TextStyle(
                                     fontSize: 13, fontWeight: FontWeight.w600),

@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:slide_to_confirm/slide_to_confirm.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
+import 'package:vemare/app/data/notifications_repository.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/about_us/about_us_page.dart';
@@ -29,6 +30,9 @@ import 'package:vemare/app/view/shopping_cart/shopping_cart.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
+import 'package:vemare/config/service_locator.dart';
+
+import 'package:timeago/timeago.dart' as timeago;
 
 class MyMenu extends StatelessWidget {
   const MyMenu._({
@@ -37,7 +41,9 @@ class MyMenu extends StatelessWidget {
 
   static Widget create() {
     return BlocProvider(
-      create: (context) => MenuCubit(),
+      create: (context) => MenuCubit(
+        getIt.get<NotificationsRepository>(),
+      ),
       child: const MyMenu._(),
     );
   }
@@ -655,74 +661,108 @@ class _NotificationsMenu extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
       color: AppColor.primaryBlue,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Divider(color: Colors.white),
-          ListTile(
-            leading: Image.asset('assets/icons/Notifications.png', scale: 2),
-            title: Text(
-                'Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
-                style: AppTextStyle.inputStyle.copyWith(color: Colors.white)),
-            subtitle: Text(
-              'Hace 3 min',
-              style: AppTextStyle.inputStyle.copyWith(
-                color: Colors.white,
-                height: 2,
-                fontWeight: FontWeight.w700,
+      child: BlocBuilder<MenuCubit, MenuState>(
+        builder: (context, state) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (state.notifications.isNotEmpty)
+                ...state.notifications
+                    .map((e) => Column(
+                          children: [
+                            const Divider(color: Colors.white),
+                            ListTile(
+                              leading: Image.asset(
+                                  'assets/icons/Notifications.png',
+                                  scale: 2),
+                              title: Text(e.mensaje ?? '',
+                                  style: AppTextStyle.inputStyle
+                                      .copyWith(color: Colors.white)),
+                              subtitle: Text(
+                                timeago.format(DateTime(2023, 5, 8),
+                                    locale: 'es'),
+                                style: AppTextStyle.inputStyle.copyWith(
+                                  color: Colors.white,
+                                  height: 2,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ))
+                    .toList(),
+
+              /*const Divider(color: Colors.white),
+              ListTile(
+                leading:
+                    Image.asset('assets/icons/Notifications.png', scale: 2),
+                title: Text(
+                    'Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
+                    style:
+                        AppTextStyle.inputStyle.copyWith(color: Colors.white)),
+                subtitle: Text(
+                  'Hace 3 min',
+                  style: AppTextStyle.inputStyle.copyWith(
+                    color: Colors.white,
+                    height: 2,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
-            ),
-          ),
-          const Divider(color: Colors.white),
-          ListTile(
-            leading: Image.asset('assets/icons/Notifications.png', scale: 2),
-            title: Text(
-                'Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
-                style: AppTextStyle.inputStyle.copyWith(color: Colors.white)),
-            subtitle: Text(
-              'Hace 3 min',
-              style: AppTextStyle.inputStyle.copyWith(
-                color: Colors.white,
-                height: 2,
-                fontWeight: FontWeight.w700,
+              const Divider(color: Colors.white),
+              ListTile(
+                leading:
+                    Image.asset('assets/icons/Notifications.png', scale: 2),
+                title: Text(
+                    'Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
+                    style:
+                        AppTextStyle.inputStyle.copyWith(color: Colors.white)),
+                subtitle: Text(
+                  'Hace 3 min',
+                  style: AppTextStyle.inputStyle.copyWith(
+                    color: Colors.white,
+                    height: 2,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
-            ),
-          ),
-          const Divider(color: Colors.white),
-          Visibility(
-            visible: LocalDataRepository().isLogged,
-            child: SizedBox(
-              height: 60,
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: TextButton.icon(
-                    onPressed: () {
-                      if (ModalRoute.of(context)!.settings.name !=
-                          MyNotificationsPage.route) {
-                        Navigator.pushNamedAndRemoveUntil(
-                          context,
-                          MyNotificationsPage.route,
-                          ModalRoute.withName(HomePage.route),
-                        );
-                      }
-                      cubit.toggleNotification();
-                    },
-                    label: Image.asset(
-                      'assets/icons/arrow_next.png',
-                      scale: 2,
-                      color: Colors.white,
-                    ),
-                    icon: Text(
-                      'Ver mis notificaciones ',
-                      style: AppTextStyle.inputStyle.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    )),
-              ),
-            ),
-          )
-        ],
+              const Divider(color: Colors.white),*/
+              Visibility(
+                visible: LocalDataRepository().isLogged,
+                child: SizedBox(
+                  height: 60,
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: TextButton.icon(
+                        onPressed: () {
+                          if (ModalRoute.of(context)!.settings.name !=
+                              MyNotificationsPage.route) {
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              MyNotificationsPage.route,
+                              ModalRoute.withName(HomePage.route),
+                            );
+                          }
+                          cubit.toggleNotification();
+                        },
+                        label: Image.asset(
+                          'assets/icons/arrow_next.png',
+                          scale: 2,
+                          color: Colors.white,
+                        ),
+                        icon: Text(
+                          'Ver mis notificaciones ',
+                          style: AppTextStyle.inputStyle.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        )),
+                  ),
+                ),
+              )
+            ],
+          );
+        },
       ),
     );
   }

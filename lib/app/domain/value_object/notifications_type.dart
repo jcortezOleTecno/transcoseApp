@@ -1,8 +1,11 @@
 enum NotificationType {
   general,
-  formations,
+  category,
+  center,
+  library,
+  pills,
   events,
   promotions,
-  myBusiness,
-  sat,
+  formations,
+  eventVemare,
 }
