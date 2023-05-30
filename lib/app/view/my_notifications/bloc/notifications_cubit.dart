@@ -19,7 +19,7 @@ class NotificationsCubit extends Cubit<NotificationsState> {
     List<Notification> data =
         await _notificationsRepository.getNotifications(tipo: type);
     emit(state.copyWith(
-        notifications: data.where((e) => e.delete == 0).toList(),
+        notifications: data.where((e) => e.delete == 1).toList(),
         loading: false));
   }
 

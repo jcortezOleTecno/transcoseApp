@@ -145,9 +145,12 @@ class EnrollTrainingPage extends StatelessWidget {
                         color: AppColor.primaryBlue,
                       ),
                       spacerS,
-                      Text(
-                        horario.location ?? '',
-                        style: AppTextStyle.defaultStyle.copyWith(fontSize: 18),
+                      Expanded(
+                        child: Text(
+                          horario.location ?? '',
+                          style:
+                              AppTextStyle.defaultStyle.copyWith(fontSize: 18),
+                        ),
                       )
                     ],
                   ),
@@ -157,13 +160,15 @@ class EnrollTrainingPage extends StatelessWidget {
                     style: AppTextStyle.h3Style,
                   ),
                   spacerS,
-                  MyHtml(text: formation.description ?? ''),
+                  Expanded(
+                      child: SingleChildScrollView(
+                          child: MyHtml(text: formation.description ?? ''))),
                   // Text(
                   //   formation.description ?? '',
                   //   style: AppTextStyle.defaultStyle,
                   //   textAlign: TextAlign.center,
                   // ),
-                  const Spacer(),
+                  spacerM,
                   MyButton(
                     onPressed: () => Navigator.of(context).pop(true),
                     text: 'Confirmar horario',

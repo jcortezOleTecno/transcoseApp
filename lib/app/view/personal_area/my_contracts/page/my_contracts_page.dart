@@ -770,6 +770,13 @@ class _ContractRappel extends StatelessWidget {
                     child: Item(
                         title: 'COD. CONTRATO',
                         content: rappel.codigoContrato.toString())),
+                ButtonDownloadPdf(
+                  future: () =>
+                      getIt.get<ContratsRepository>().downloadPdfRappelDetalles(
+                            codContrato: rappel.codigoContrato.toString(),
+                            name: 'Rappel_${rappel.codigoContrato}.pdf',
+                          ),
+                ),
               ],
             ),
             spacerS,
@@ -845,6 +852,8 @@ class _ContractRappel extends StatelessWidget {
                                     .downloadPdfRappel(
                                       codContrato:
                                           rappel.codigoContrato.toString(),
+                                      codDocumento:
+                                          e.codigoDocumento.toString(),
                                       name: e.nombre ?? '',
                                     ),
                               ),

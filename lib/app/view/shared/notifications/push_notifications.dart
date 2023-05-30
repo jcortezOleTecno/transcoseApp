@@ -8,6 +8,8 @@ import 'package:vemare/main.dart';
 
 import 'notifications_util.dart';
 
+String? tokenFirebase;
+
 @pragma('vm:entry-point')
 void onDidReceiveBackgroundNotificationResponse(
     NotificationResponse response) {}
@@ -65,6 +67,7 @@ class PushNotificationsProvider {
     _messaging.getToken().then((token) {
       assert(token != null);
       log(token.toString());
+      tokenFirebase = token;
     });
   }
 

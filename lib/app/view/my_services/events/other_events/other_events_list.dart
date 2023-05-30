@@ -41,7 +41,7 @@ class OtherEventsListPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const Text('Otros eventos', style: AppTextStyle.h1Style),
+                    const Text('Eventos Vemare', style: AppTextStyle.h1Style),
                     spacerS,
                     const Text(
                         'Junto a nuestros proveedores creamos momentos únicos que ahora puedes consultar.',

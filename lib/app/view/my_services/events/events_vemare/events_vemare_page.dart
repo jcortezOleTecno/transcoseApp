@@ -43,7 +43,7 @@ class EventsVemarePage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: const [
-                    Text('Eventos Vemare', style: AppTextStyle.h1Style),
+                    Text('Eventos celebrados', style: AppTextStyle.h1Style),
                     spacerS,
                     Text(
                         'Encuentros, charlas, presentaciones... Infórmate sobre todos los eventos que creamos para nuestros clientes.',

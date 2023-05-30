@@ -18,9 +18,9 @@ import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/theme.dart';
 import 'package:vemare/config/service_locator.dart';
 
-import 'app/data/notifications_repository.dart';
 import 'app/data/shopping_cart_repository.dart';
-import 'app/view/my_notifications/bloc/notifications_cubit.dart';
+
+//fOQ12CKJS66VYA0Rjv_2oq:APA91bE2s-rZjnMA0oqY2LYGnKFzCVUXvVhyJsSd1mljiG0EzUmGJjq7fE_rMiqulTXzbzcJjdhTRjas1CDgfQuXNTQE-mpAdr1_HozCe57yaTB7E2VpIoRvmfAuQGSHWvFMThjakgZq
 
 final navigatorKey = GlobalKey<NavigatorState>();
 NavigatorState get navigator => navigatorKey.currentState!;

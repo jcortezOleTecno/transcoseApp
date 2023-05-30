@@ -34,7 +34,7 @@ class HomeCubit extends Cubit<HomeState> {
     this._encuestasRepository,
   ) : super(const HomeState()) {
     fetchData();
-    encuesta();
+    // encuesta();
   }
 
   final HomeRepository _homeRepository;
@@ -87,7 +87,7 @@ class HomeCubit extends Cubit<HomeState> {
     ));
   }
 
-  void encuesta() {
+  /*void encuesta() {
     log('################   TIMER INIT   #################');
     if (!LocalDataRepository().isLogged) return;
     Timer.periodic(const Duration(seconds: 60), (timer) {
@@ -99,7 +99,7 @@ class HomeCubit extends Cubit<HomeState> {
         }
       });
     });
-  }
+  }*/
 
   void showSurvey() {
     emit(state.copyWith(showSurvey: true));

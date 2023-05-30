@@ -157,8 +157,10 @@ class EnrollEventPage extends StatelessWidget {
                     style: AppTextStyle.h3Style,
                   ),
                   spacerS,
-                  MyHtml(text: event.description ?? ''),
-                  const Spacer(),
+                  Expanded(
+                      child: SingleChildScrollView(
+                          child: MyHtml(text: event.description ?? ''))),
+                  spacerM,
                   MyButton(
                     onPressed: () => Navigator.of(context).pop(true),
                     text: 'Confirmar horario',

@@ -18,6 +18,7 @@ import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/my_video_player/my_video_player.dart';
 import 'package:vemare/app/view/_components/tap_to_hide_keyboard/tap_to_hide_keyboard.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
+import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/app/view/workshop_networks/bloc/workshop_networks_cubit.dart';
 import 'package:vemare/app/view/workshop_networks/bloc/workshop_networks_state.dart';
@@ -68,14 +69,14 @@ class _WorkshopNetworksPageState extends State<WorkshopNetworksPage> {
     final cubit = context.read<WorkshopNetworksCubit>();
     return BlocConsumer<WorkshopNetworksCubit, WorkshopNetworksState>(
       listener: (context, state) {
-        if (state.status == FormStatus.done) {
-          tcName.clear();
-          tcEmail.clear();
-          tcPhone.clear();
-          tcObserv.clear();
-          ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Su solicitud ha sido enviada')));
-        }
+        // if (state.status == FormStatus.done) {
+        //   tcName.clear();
+        //   tcEmail.clear();
+        //   tcPhone.clear();
+        //   tcObserv.clear();
+        //   ScaffoldMessenger.of(context).showSnackBar(
+        //       const SnackBar(content: Text('Su solicitud ha sido enviada')));
+        // }
       },
       builder: (context, state) {
         return MyTapToHideKeyboard(
@@ -118,67 +119,73 @@ class _WorkshopNetworksPageState extends State<WorkshopNetworksPage> {
                     spacerL,
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text('Solicitar más información',
-                              style: AppTextStyle.h2Style),
-                          spacerS,
-                          MyInput(
-                            label: 'Nombre',
-                            required: true,
-                            onChanged: cubit.name,
-                            controller: tcName,
-                            textInputAction: TextInputAction.next,
-                            inputType: TextInputType.name,
-                            textCapitalization: TextCapitalization.words,
-                            hasError: state.status == FormStatus.error,
-                          ),
-                          MyInput(
-                            label: 'E-mail',
-                            required: true,
-                            controller: tcEmail,
-                            textInputAction: TextInputAction.next,
-                            inputType: TextInputType.emailAddress,
-                            onChanged: cubit.email,
-                            hasError: state.status == FormStatus.error,
-                          ),
-                          MyInput(
-                            label: 'Teléfono',
-                            required: true,
-                            controller: tcPhone,
-                            textInputAction: TextInputAction.next,
-                            inputType: TextInputType.phone,
-                            onChanged: cubit.phone,
-                            // inputFormatters: [
-                            //   MaskedInputFormatter('### ### ###'),
-                            // ],
-                            hasError: state.status == FormStatus.error,
-                          ),
-                          MyInput(
-                            label: 'Observaciones',
-                            required: true,
-                            maxLines: 6,
-                            controller: tcObserv,
-                            onChanged: cubit.observation,
-                            hasError: state.status == FormStatus.error,
-                            inputType: TextInputType.multiline,
-                          ),
-                          spacerM,
-                          MyButton(
-                            onPressed: () {
-                              FocusScope.of(context).requestFocus(FocusNode());
-                              cubit.sendForm();
-                            },
-                            text: 'Enviar',
-                            width: double.infinity,
-                            isLoading: state.status == FormStatus.loading,
-                            disabled: !state.isComplete,
-                          ),
-                          spacerXL,
-                        ],
+                      child: Visibility(
+                        visible: state.status != FormStatus.done,
+                        replacement: const MessageSentSuccesfullyWidget(),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text('Solicitar más información',
+                                style: AppTextStyle.h2Style),
+                            spacerS,
+                            MyInput(
+                              label: 'Nombre',
+                              required: true,
+                              onChanged: cubit.name,
+                              controller: tcName,
+                              textInputAction: TextInputAction.next,
+                              inputType: TextInputType.name,
+                              textCapitalization: TextCapitalization.words,
+                              hasError: state.status == FormStatus.error,
+                            ),
+                            MyInput(
+                              label: 'E-mail',
+                              required: true,
+                              controller: tcEmail,
+                              textInputAction: TextInputAction.next,
+                              inputType: TextInputType.emailAddress,
+                              onChanged: cubit.email,
+                              hasError: state.status == FormStatus.error,
+                            ),
+                            MyInput(
+                              label: 'Teléfono',
+                              required: true,
+                              controller: tcPhone,
+                              textInputAction: TextInputAction.next,
+                              inputType: TextInputType.phone,
+                              onChanged: cubit.phone,
+                              // inputFormatters: [
+                              //   MaskedInputFormatter('### ### ###'),
+                              // ],
+                              hasError: state.status == FormStatus.error,
+                            ),
+                            MyInput(
+                              label: 'Observaciones',
+                              required: true,
+                              maxLines: 6,
+                              controller: tcObserv,
+                              onChanged: cubit.observation,
+                              hasError: state.status == FormStatus.error,
+                              inputType: TextInputType.multiline,
+                            ),
+                            spacerM,
+                            MyButton(
+                              onPressed: () {
+                                FocusScope.of(context)
+                                    .requestFocus(FocusNode());
+                                cubit.sendForm();
+                              },
+                              text: 'Enviar',
+                              width: double.infinity,
+                              isLoading: state.status == FormStatus.loading,
+                              disabled: !state.isComplete,
+                            ),
+                            spacerXL,
+                          ],
+                        ),
                       ),
-                    )
+                    ),
+                    _Multimedia()
                   ],
                 ),
               ),
@@ -260,26 +267,77 @@ class _Info extends StatelessWidget {
                     ],
                   ),
                 ),
-                Visibility(
-                  visible: state.workShop?.gallery != null,
-                  child: MyImageGallery(
-                    isNetwork: true,
-                    title: 'Imágenes',
-                    imgs: state.workShop?.gallery
-                            ?.map((e) => e.imagen)
-                            .toList() ??
-                        [],
-                  ),
-                ),
-                Visibility(
-                  visible: state.workShop?.videoLink != null,
-                  child: MyVideoPlayer(video: state.workShop?.videoLink ?? ''),
-                ),
               ],
             ),
           ),
         );
       },
+    );
+  }
+}
+
+class _Multimedia extends StatelessWidget {
+  const _Multimedia({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<WorkshopNetworksCubit, WorkshopNetworksState>(
+      builder: (context, state) {
+        return Column(
+          children: [
+            Visibility(
+              visible: state.workShop?.gallery != null,
+              child: MyImageGallery(
+                isNetwork: true,
+                title: 'Imágenes',
+                imgs: state.workShop?.gallery?.map((e) => e.imagen).toList() ??
+                    [],
+              ),
+            ),
+            Visibility(
+              visible: state.workShop?.videoLink != null,
+              child: MyVideoPlayer(video: state.workShop?.videoLink ?? ''),
+            ),
+            spacerM,
+          ],
+        );
+      },
+    );
+  }
+}
+
+class MessageSentSuccesfullyWidget extends StatelessWidget {
+  const MessageSentSuccesfullyWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        const Text('Solicitar más información', style: AppTextStyle.h2Style),
+        spacerM,
+        Container(
+          height: 80,
+          width: 80,
+          decoration:
+              BoxDecoration(shape: BoxShape.circle, color: AppColor.success200),
+          child: Image.asset(
+            'assets/icons/Thumb_Up.png',
+            scale: 2,
+          ),
+        ),
+        const Center(
+            child: Text('¡Mensaje enviado con éxito!',
+                style: AppTextStyle.h2Style)),
+        spacerS,
+        const Center(
+            child: Text(
+          'Nuestro equipo Vemare contestará a tu email lo antes posible.',
+          style: AppTextStyle.defaultStyle,
+          textAlign: TextAlign.center,
+        )),
+        spacerM,
+      ],
     );
   }
 }

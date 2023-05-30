@@ -5,7 +5,9 @@ class Notification {
   int? itemId;
   String? mensaje;
   String? read;
+  String? elapsedTime;
   int? delete;
+  dynamic dataNotification;
 
   Notification({
     this.id,
@@ -14,7 +16,9 @@ class Notification {
     this.itemId,
     this.mensaje,
     this.read,
+    this.elapsedTime,
     this.delete,
+    this.dataNotification,
   });
 
   factory Notification.fromJson(dynamic json) => Notification(
@@ -24,7 +28,9 @@ class Notification {
         itemId: json["item_id"] as int?,
         mensaje: json["mensaje"] as String?,
         read: json["read"] as String?,
+        elapsedTime: json["elapsed_time"] as String?,
         delete: json["delete"] as int?,
+        dataNotification: json["data_notification"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -34,6 +40,8 @@ class Notification {
         "item_id": itemId,
         "mensaje": mensaje,
         "read": read,
+        "elapsed_time": elapsedTime,
         "delete": delete,
+        "data_notification": dataNotification,
       };
 }

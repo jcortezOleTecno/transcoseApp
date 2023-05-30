@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vemare/app/data/notifications_repository.dart';
+import 'package:vemare/app/domain/model/events.dart';
 import 'package:vemare/app/domain/model/notification.dart' as model;
 import 'package:vemare/app/domain/value_object/notifications_type.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
@@ -10,6 +11,8 @@ import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/my_notifications/bloc/notifications_cubit.dart';
 import 'package:vemare/app/view/my_notifications/bloc/notifications_state.dart';
+import 'package:vemare/app/view/my_services/events/events_vemare/event_detail_page.dart';
+import 'package:vemare/app/view/my_services/events/other_events/other_event_page.dart';
 import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
@@ -187,109 +190,121 @@ class _MyNotificationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 20),
-      child: Stack(
-        children: [
-          Container(
-            height: 120,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: AppColor.red,
-              borderRadius: BorderRadius.circular(12),
+    return GestureDetector(
+      onTap: () {
+        switch (notification.tipo) {
+          case 'Event':
+            print(notification.dataNotification);
+            Navigator.pushNamed(context, OtherEventPage.route,
+                arguments: Events.fromJson(notification.dataNotification));
+            break;
+          default:
+        }
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 20),
+        child: Stack(
+          children: [
+            Container(
+              height: 120,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: AppColor.red,
+                borderRadius: BorderRadius.circular(12),
+              ),
             ),
-          ),
-          Positioned.fill(
-            child: Dismissible(
-              key: UniqueKey(),
-              resizeDuration: const Duration(milliseconds: 100),
-              direction: DismissDirection.endToStart,
-              dismissThresholds: const {DismissDirection.endToStart: 0.3},
-              dragStartBehavior: DragStartBehavior.down,
-              onDismissed: (direction) {
-                if (direction == DismissDirection.endToStart) {
-                  onDismissed();
-                }
-              },
-              confirmDismiss: (direction) async {
-                return (direction == DismissDirection.endToStart);
-              },
-              background: Container(
-                padding: const EdgeInsets.only(right: 25),
-                alignment: Alignment.centerRight,
-                decoration: BoxDecoration(
-                  color: AppColor.red,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Container(
-                  height: 50,
-                  width: 50,
-                  decoration: const BoxDecoration(
-                      shape: BoxShape.circle, color: Colors.white30),
-                  child: Image.asset(
-                    'assets/icons/Trash.png',
-                    scale: 2,
-                    color: Colors.white,
+            Positioned.fill(
+              child: Dismissible(
+                key: UniqueKey(),
+                resizeDuration: const Duration(milliseconds: 100),
+                direction: DismissDirection.endToStart,
+                dismissThresholds: const {DismissDirection.endToStart: 0.3},
+                dragStartBehavior: DragStartBehavior.down,
+                onDismissed: (direction) {
+                  if (direction == DismissDirection.endToStart) {
+                    onDismissed();
+                  }
+                },
+                confirmDismiss: (direction) async {
+                  return (direction == DismissDirection.endToStart);
+                },
+                background: Container(
+                  padding: const EdgeInsets.only(right: 25),
+                  alignment: Alignment.centerRight,
+                  decoration: BoxDecoration(
+                    color: AppColor.red,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Container(
+                    height: 50,
+                    width: 50,
+                    decoration: const BoxDecoration(
+                        shape: BoxShape.circle, color: Colors.white30),
+                    child: Image.asset(
+                      'assets/icons/Trash.png',
+                      scale: 2,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
-              ),
-              child: Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12)),
-                margin: EdgeInsets.zero,
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        height: 50,
-                        width: 50,
-                        padding: const EdgeInsets.all(10),
-                        // margin: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: AppColor.blue100),
-                        child: Image.asset(
-                          'assets/icons/Notifications.png',
-                          scale: 2,
-                          color: AppColor.primaryBlue,
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12)),
+                  margin: EdgeInsets.zero,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 50,
+                          width: 50,
+                          padding: const EdgeInsets.all(10),
+                          // margin: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              color: AppColor.blue100),
+                          child: Image.asset(
+                            'assets/icons/Notifications.png',
+                            scale: 2,
+                            color: AppColor.primaryBlue,
+                          ),
                         ),
-                      ),
-                      spacerS,
-                      Expanded(
-                          child: Column(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              notification.mensaje ?? '',
-                              style: AppTextStyle.defaultStyle,
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                timeago.format(DateTime(2023, 5, 8),
-                                    locale: 'es'),
-                                style: const TextStyle(
-                                    fontSize: 13, fontWeight: FontWeight.w600),
+                        spacerS,
+                        Expanded(
+                            child: Column(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                notification.mensaje ?? '',
+                                style: AppTextStyle.defaultStyle,
                               ),
-                              Image.asset(
-                                'assets/icons/arrow_next.png',
-                                scale: 2,
-                              )
-                            ],
-                          ),
-                        ],
-                      )),
-                    ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  notification.elapsedTime ?? '',
+                                  style: const TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                Image.asset(
+                                  'assets/icons/arrow_next.png',
+                                  scale: 2,
+                                )
+                              ],
+                            ),
+                          ],
+                        )),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
