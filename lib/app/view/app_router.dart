@@ -13,6 +13,7 @@ import 'package:vemare/app/domain/model/pills.dart';
 import 'package:vemare/app/domain/model/promotion.dart';
 import 'package:vemare/app/domain/model/services.dart';
 import 'package:vemare/app/domain/model/warranty.dart';
+import 'package:vemare/app/domain/model/work_with_us.dart';
 import 'package:vemare/app/view/about_us/about_us_page.dart';
 import 'package:vemare/app/view/home/home_page.dart';
 import 'package:vemare/app/view/library/library_page.dart';
@@ -103,9 +104,10 @@ abstract class AppRouter {
           builder: (_) => HomePage.create(),
         );
       case WorkWithUsPage.route:
+        final workWithUs = settings.arguments as WorkWithUs?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => WorkWithUsPage.create(),
+          builder: (_) => WorkWithUsPage.create(workWithUs!),
         );
       case TypeOfVehiclePage.route:
         return MaterialPageRoute<void>(

@@ -4,6 +4,7 @@ import 'package:flutter_html/flutter_html.dart';
 class MyHtml extends StatelessWidget {
   const MyHtml({
     Key? key,
+    this.bodyFontSize,
     required this.text,
     this.color,
     this.fontWeight,
@@ -12,6 +13,7 @@ class MyHtml extends StatelessWidget {
   final String text;
   final Color? color;
   final FontWeight? fontWeight;
+  final double? bodyFontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class MyHtml extends StatelessWidget {
           fontWeight: fontWeight,
         ),
         "body": Style(
-          fontSize: FontSize(32),
+          fontSize: FontSize(bodyFontSize ?? 32),
           color: color,
           fontWeight: fontWeight,
         ),

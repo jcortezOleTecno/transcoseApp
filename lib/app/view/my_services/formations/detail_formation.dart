@@ -52,20 +52,20 @@ class DetailFormationPage extends StatelessWidget {
                               // Text(formation.description ?? '',
                               //     style: AppTextStyle.defaultStyle),
                               MyHtml(text: formation.description ?? ''),
-                              spacerM,
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    'assets/icons/locate.png',
-                                    scale: 2,
-                                  ),
-                                  spacerS,
-                                  const Text(
-                                    'Lugar de la formacion',
-                                    style: AppTextStyle.defaultStyle,
-                                  )
-                                ],
-                              ),
+                              // spacerM,
+                              // Row(
+                              //   children: [
+                              //     Image.asset(
+                              //       'assets/icons/locate.png',
+                              //       scale: 2,
+                              //     ),
+                              //     spacerS,
+                              //     const Text(
+                              //       'Lugar de la formacion',
+                              //       style: AppTextStyle.defaultStyle,
+                              //     )
+                              //   ],
+                              // ),
                             ],
                           ),
                           spacerS,

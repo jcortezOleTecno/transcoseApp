@@ -11,12 +11,14 @@ import 'package:vemare/app/data/notices_repository.dart';
 import 'package:vemare/app/data/products_repository.dart';
 import 'package:vemare/app/data/promotion_repository.dart';
 import 'package:vemare/app/data/services_repository.dart';
+import 'package:vemare/app/data/work_with_us_repository.dart';
 import 'package:vemare/app/data/workshops_repository.dart';
 import 'package:vemare/app/domain/model/brand.dart';
 import 'package:vemare/app/domain/model/hero.dart';
 import 'package:vemare/app/domain/model/notices.dart';
 import 'package:vemare/app/domain/model/category.dart';
 import 'package:vemare/app/domain/model/services.dart';
+import 'package:vemare/app/domain/model/work_with_us.dart';
 import 'package:vemare/app/domain/model/workshop.dart';
 import 'package:vemare/app/view/home/bloc/home_state.dart';
 import 'package:vemare/app/view/shared/userbloc/user_cubit.dart';
@@ -31,7 +33,8 @@ class HomeCubit extends Cubit<HomeState> {
     this._noticesRepository,
     this._brandsRepository,
     this._userCubit,
-    this._encuestasRepository,
+    this._workWithUsRepository,
+    // this._encuestasRepository,
   ) : super(const HomeState()) {
     fetchData();
     // encuesta();
@@ -45,7 +48,8 @@ class HomeCubit extends Cubit<HomeState> {
   final NoticesRepository _noticesRepository;
   final BrandsRepository _brandsRepository;
   final UserCubit _userCubit;
-  final EncuestasRepository _encuestasRepository;
+  final WorkWithUsRepository _workWithUsRepository;
+  // final EncuestasRepository _encuestasRepository;
 
   Future<void> fetchData() async {
     emit(state.copyWith(loading: true));
@@ -57,6 +61,7 @@ class HomeCubit extends Cubit<HomeState> {
     List<WorkShop> workShops = [];
     List<News> notices = [];
     List<Brand> brands = [];
+    WorkWithUs? workWithUs;
 
     if (_userCubit.state.employees.isEmpty) {
       unawaited(_userCubit.getEmployeesAndEnterprises());
@@ -73,6 +78,7 @@ class HomeCubit extends Cubit<HomeState> {
       _workShopsRepository.getWorkShops().then((v) => workShops = v),
       _noticesRepository.getNotices(limit: 3).then((v) => notices = v),
       _brandsRepository.getBrands().then((v) => brands = v),
+      _workWithUsRepository.getData().then((value) => workWithUs = value),
     ]);
 
     emit(state.copyWith(
@@ -84,6 +90,7 @@ class HomeCubit extends Cubit<HomeState> {
       workshop: workShops,
       notices: notices,
       brands: brands,
+      workWithUs: workWithUs,
     ));
   }
 

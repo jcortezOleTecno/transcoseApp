@@ -11,6 +11,7 @@ import 'package:vemare/app/data/products_repository.dart';
 import 'package:vemare/app/data/promotion_repository.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/services_repository.dart';
+import 'package:vemare/app/data/work_with_us_repository.dart';
 import 'package:vemare/app/data/workshops_repository.dart';
 import 'package:vemare/app/domain/model/encuesta.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
@@ -63,7 +64,7 @@ class HomePage extends StatefulWidget {
         getIt.get<NoticesRepository>(),
         getIt.get<BrandsRepository>(),
         context.read<UserCubit>(),
-        getIt.get<EncuestasRepository>(),
+        getIt.get<WorkWithUsRepository>(),
       ),
       child: const HomePage._(),
     );
@@ -368,7 +369,8 @@ class _PageB extends StatelessWidget {
               Center(
                 child: TextButton.icon(
                   onPressed: () {
-                    Navigator.pushNamed(context, WorkWithUsPage.route);
+                    Navigator.pushNamed(context, WorkWithUsPage.route,
+                        arguments: state.workWithUs);
                   },
                   label: Image.asset(
                     'assets/icons/arrow_next.png',
@@ -504,33 +506,44 @@ class _TrabajaConNosotros extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      // height: 230,
-      width: double.infinity,
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            child: Row(
-              children: const [
-                Text(
-                  'Trabaja con nosotros',
-                  style: AppTextStyle.h1Style,
-                  textAlign: TextAlign.left,
+    return BlocBuilder<HomeCubit, HomeState>(
+      builder: (context, state) {
+        return SizedBox(
+          // height: 230,
+          width: double.infinity,
+          child: Column(
+            children: [
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                child: Row(
+                  children: [
+                    Text(
+                      state.workWithUs?.title ?? '',
+                      style: AppTextStyle.h1Style,
+                      textAlign: TextAlign.left,
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              state.loading
+                  ? const MyShimmer(
+                      borderRadius: 12,
+                      margin: EdgeInsets.all(20),
+                      height: 200,
+                    )
+                  : ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image(
+                        image: NetworkImage(state.workWithUs?.image ?? ''),
+                        fit: BoxFit.cover,
+                        width: MediaQuery.of(context).size.width * .90,
+                      ),
+                    ),
+            ],
           ),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: Image(
-              image: const AssetImage('assets/imgs/trabaconnosotrosIMG.png'),
-              fit: BoxFit.cover,
-              width: MediaQuery.of(context).size.width * .90,
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
@@ -871,7 +884,7 @@ class _ProductsVemare extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 150,
+          height: 156,
           child: BlocBuilder<HomeCubit, HomeState>(
             builder: (context, state) {
               if (state.loading) {

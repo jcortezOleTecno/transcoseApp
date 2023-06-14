@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:vemare/app/domain/model/opciones.dart';
+import 'package:vemare/app/domain/model/work_with_us.dart';
 import 'package:vemare/app/domain/value_object/email.dart';
 import 'package:vemare/app/domain/value_object/name.dart';
 import 'package:vemare/app/domain/value_object/phone.dart';
@@ -21,6 +22,7 @@ class WorkWithUsState with _$WorkWithUsState {
     String? zone,
     String? job,
     Opciones? opciones,
+    WorkWithUs? workWithUs,
   }) = _WorkWithUsState;
   const WorkWithUsState._();
 

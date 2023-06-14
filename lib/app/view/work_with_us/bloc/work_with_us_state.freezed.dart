@@ -25,6 +25,7 @@ mixin _$WorkWithUsState {
   String? get zone => throw _privateConstructorUsedError;
   String? get job => throw _privateConstructorUsedError;
   Opciones? get opciones => throw _privateConstructorUsedError;
+  WorkWithUs? get workWithUs => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $WorkWithUsStateCopyWith<WorkWithUsState> get copyWith =>
@@ -46,7 +47,8 @@ abstract class $WorkWithUsStateCopyWith<$Res> {
       String? message,
       String? zone,
       String? job,
-      Opciones? opciones});
+      Opciones? opciones,
+      WorkWithUs? workWithUs});
 }
 
 /// @nodoc
@@ -71,6 +73,7 @@ class _$WorkWithUsStateCopyWithImpl<$Res, $Val extends WorkWithUsState>
     Object? zone = freezed,
     Object? job = freezed,
     Object? opciones = freezed,
+    Object? workWithUs = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -109,6 +112,10 @@ class _$WorkWithUsStateCopyWithImpl<$Res, $Val extends WorkWithUsState>
           ? _value.opciones
           : opciones // ignore: cast_nullable_to_non_nullable
               as Opciones?,
+      workWithUs: freezed == workWithUs
+          ? _value.workWithUs
+          : workWithUs // ignore: cast_nullable_to_non_nullable
+              as WorkWithUs?,
     ) as $Val);
   }
 }
@@ -130,7 +137,8 @@ abstract class _$$_WorkWithUsStateCopyWith<$Res>
       String? message,
       String? zone,
       String? job,
-      Opciones? opciones});
+      Opciones? opciones,
+      WorkWithUs? workWithUs});
 }
 
 /// @nodoc
@@ -153,6 +161,7 @@ class __$$_WorkWithUsStateCopyWithImpl<$Res>
     Object? zone = freezed,
     Object? job = freezed,
     Object? opciones = freezed,
+    Object? workWithUs = freezed,
   }) {
     return _then(_$_WorkWithUsState(
       status: null == status
@@ -191,6 +200,10 @@ class __$$_WorkWithUsStateCopyWithImpl<$Res>
           ? _value.opciones
           : opciones // ignore: cast_nullable_to_non_nullable
               as Opciones?,
+      workWithUs: freezed == workWithUs
+          ? _value.workWithUs
+          : workWithUs // ignore: cast_nullable_to_non_nullable
+              as WorkWithUs?,
     ));
   }
 }
@@ -207,7 +220,8 @@ class _$_WorkWithUsState extends _WorkWithUsState {
       this.message,
       this.zone,
       this.job,
-      this.opciones})
+      this.opciones,
+      this.workWithUs})
       : super._();
 
   @override
@@ -229,10 +243,12 @@ class _$_WorkWithUsState extends _WorkWithUsState {
   final String? job;
   @override
   final Opciones? opciones;
+  @override
+  final WorkWithUs? workWithUs;
 
   @override
   String toString() {
-    return 'WorkWithUsState(status: $status, name: $name, phone: $phone, email: $email, doc: $doc, message: $message, zone: $zone, job: $job, opciones: $opciones)';
+    return 'WorkWithUsState(status: $status, name: $name, phone: $phone, email: $email, doc: $doc, message: $message, zone: $zone, job: $job, opciones: $opciones, workWithUs: $workWithUs)';
   }
 
   @override
@@ -249,12 +265,14 @@ class _$_WorkWithUsState extends _WorkWithUsState {
             (identical(other.zone, zone) || other.zone == zone) &&
             (identical(other.job, job) || other.job == job) &&
             (identical(other.opciones, opciones) ||
-                other.opciones == opciones));
+                other.opciones == opciones) &&
+            (identical(other.workWithUs, workWithUs) ||
+                other.workWithUs == workWithUs));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, status, name, phone, email, doc,
-      message, zone, job, opciones);
+      message, zone, job, opciones, workWithUs);
 
   @JsonKey(ignore: true)
   @override
@@ -273,7 +291,8 @@ abstract class _WorkWithUsState extends WorkWithUsState {
       final String? message,
       final String? zone,
       final String? job,
-      final Opciones? opciones}) = _$_WorkWithUsState;
+      final Opciones? opciones,
+      final WorkWithUs? workWithUs}) = _$_WorkWithUsState;
   const _WorkWithUsState._() : super._();
 
   @override
@@ -294,6 +313,8 @@ abstract class _WorkWithUsState extends WorkWithUsState {
   String? get job;
   @override
   Opciones? get opciones;
+  @override
+  WorkWithUs? get workWithUs;
   @override
   @JsonKey(ignore: true)
   _$$_WorkWithUsStateCopyWith<_$_WorkWithUsState> get copyWith =>

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:vemare/app/data/work_with_us_repository.dart';
+import 'package:vemare/app/domain/model/work_with_us.dart';
 import 'package:vemare/app/domain/value_object/email.dart';
 import 'package:vemare/app/domain/value_object/name.dart';
 import 'package:vemare/app/domain/value_object/phone.dart';
@@ -11,9 +12,8 @@ import 'package:vemare/app/domain/value_object/status.dart';
 import 'package:vemare/app/view/work_with_us/bloc/work_with_us_state.dart';
 
 class WorkWithUsCubit extends Cubit<WorkWithUsState> {
-  WorkWithUsCubit(
-    this._workWithUsRepository,
-  ) : super(const WorkWithUsState()) {
+  WorkWithUsCubit(this._workWithUsRepository, WorkWithUs? workWithUs)
+      : super(WorkWithUsState(workWithUs: workWithUs)) {
     getOptions();
   }
 

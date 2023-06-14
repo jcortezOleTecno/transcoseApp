@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vemare/app/domain/model/formation.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
+import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/my_services/formations/detail_formation.dart';
 import 'package:vemare/app/view/theme/color.dart';
@@ -29,8 +30,10 @@ class SkillFormationPage extends StatelessWidget {
                   children: [
                     Text(formations.title ?? '', style: AppTextStyle.h1Style),
                     spacerS,
-                    Text(formations.description ?? '',
-                        style: AppTextStyle.defaultStyle),
+                    // Text(formations.description ?? '',
+                    //     style: AppTextStyle.defaultStyle),
+                    MyHtml(
+                        text: formations.description ?? '', bodyFontSize: 22),
                     spacerXL,
                     if (formations.formations != null)
                       ...formations.formations!.map((e) => _Item(e))
@@ -101,21 +104,21 @@ class _Item extends StatelessWidget {
               ),
               spacerS,
               Text(formation.subtitle ?? ' ', style: AppTextStyle.defaultStyle),
-              spacerS,
-              Row(
-                children: [
-                  Image.asset(
-                    'assets/icons/locate.png',
-                    scale: 2,
-                  ),
-                  spacerS,
-                  const Text(
-                    'Lugar de la formacion',
-                    style: AppTextStyle.defaultStyle,
-                  )
-                ],
-              ),
-              spacerS,
+              // spacerS,
+              // Row(
+              //   children: [
+              //     Image.asset(
+              //       'assets/icons/locate.png',
+              //       scale: 2,
+              //     ),
+              //     spacerS,
+              //     const Text(
+              //       'Lugar de la formacion',
+              //       style: AppTextStyle.defaultStyle,
+              //     )
+              //   ],
+              // ),
+              // spacerS,
             ]),
           )
         ]),

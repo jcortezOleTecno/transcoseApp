@@ -6,6 +6,7 @@ import 'package:vemare/app/data/_api.dart';
 import 'package:vemare/app/data/_api_classes.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/domain/model/api_response.dart';
+import 'package:vemare/app/domain/model/work_with_us.dart';
 import 'package:vemare/app/domain/value_object/email.dart';
 import 'package:vemare/app/domain/value_object/name.dart';
 import 'package:vemare/app/domain/value_object/phone.dart';
@@ -16,6 +17,13 @@ class WorkWithUsRepository {
   final MyApiClient _apiClient;
 
   WorkWithUsRepository(this._apiClient);
+
+  Future<WorkWithUs> getData() async {
+    final dynamic res = await _apiClient.getRequest(
+      '$BASE_API_URL/api/trabaja_con_nosotros',
+    );
+    return WorkWithUs.fromJson(res["data"]);
+  }
 
   Future<String?> formRequest({
     required File doc,

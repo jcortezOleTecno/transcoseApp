@@ -56,21 +56,21 @@ class EventsPage extends StatelessWidget {
                       },
                     ),
                     _Item(
-                      title: 'Eventos celebrados',
-                      img: 'assets/imgs/eventosVemareIMG.png',
-                      content:
-                          'Encuentros, charlas, presentaciones... Infórmate sobre todos los eventos que creamos para nuestros clientes.',
-                      onTap: () {
-                        Navigator.pushNamed(context, EventsVemarePage.route);
-                      },
-                    ),
-                    _Item(
                       title: 'Eventos Vemare',
                       img: 'assets/imgs/otrosEventosIMG.png',
                       content:
                           'Junto a nuestros proveedores creamos momentos únicos que ahora puedes consultar.',
                       onTap: () {
                         Navigator.pushNamed(context, OtherEventsListPage.route);
+                      },
+                    ),
+                    _Item(
+                      title: 'Eventos celebrados',
+                      img: 'assets/imgs/eventosVemareIMG.png',
+                      content:
+                          'Encuentros, charlas, presentaciones... Infórmate sobre todos los eventos que creamos para nuestros clientes.',
+                      onTap: () {
+                        Navigator.pushNamed(context, EventsVemarePage.route);
                       },
                     ),
                   ],
