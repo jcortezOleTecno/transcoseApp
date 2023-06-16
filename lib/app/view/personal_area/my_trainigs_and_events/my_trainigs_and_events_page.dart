@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/my_account_repository.dart';
+import 'package:vemare/app/domain/model/detail_event.dart';
 import 'package:vemare/app/domain/model/trainings_event.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
+import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_filters/my_filters.dart';
+import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/personal_area/my_trainigs_and_events/bloc/my_trainigs_and_events_state.dart';
@@ -125,7 +129,13 @@ class _TrainingsAndEventCard extends StatelessWidget {
               ),
               child: Padding(
                 padding: const EdgeInsets.all(15),
-                child: Item(title: 'NOMBRE', content: data.name ?? ''),
+                child: Row(
+                  children: [
+                    Expanded(
+                        child: Item(title: 'NOMBRE', content: data.name ?? '')),
+                    _popupMenu(context, data)
+                  ],
+                ),
               )),
           Container(
             padding: const EdgeInsets.all(15),
@@ -153,48 +163,163 @@ class _TrainingsAndEventCard extends StatelessWidget {
     );
   }
 
-  // PopupMenuButton<dynamic> _popupMenu() {
-  //   return PopupMenuButton(
-  //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-  //     constraints: const BoxConstraints(maxWidth: 130),
-  //     itemBuilder: (context) {
-  //       return [
-  //         PopupMenuItem(
-  //             child: Center(
-  //           child: Row(
-  //             mainAxisSize: MainAxisSize.min,
-  //             children: [
-  //               Text(
-  //                 'Editar',
-  //                 style: AppTextStyle.inputStyle
-  //                     .copyWith(color: AppColor.primaryBlue),
-  //               ),
-  //               spacerXs,
-  //               Image.asset('assets/icons/IconEdit.png', scale: 2)
-  //             ],
-  //           ),
-  //         )),
-  //         PopupMenuItem(
-  //             child: Center(
-  //           child: Row(
-  //             mainAxisSize: MainAxisSize.min,
-  //             children: [
-  //               Text(
-  //                 'Eliminar',
-  //                 style: AppTextStyle.inputStyle
-  //                     .copyWith(color: AppColor.error500),
-  //               ),
-  //               spacerXs,
-  //               Image.asset('assets/icons/Trash.png', scale: 2)
-  //             ],
-  //           ),
-  //         )),
-  //       ];
-  //     },
-  //     child: Image.asset(
-  //       'assets/icons/options.png',
-  //       scale: 2,
-  //     ),
-  //   );
-  // }
+  PopupMenuButton<dynamic> _popupMenu(
+      BuildContext context, TrainingsEvents data) {
+    return PopupMenuButton(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      constraints: const BoxConstraints(maxWidth: 200),
+      onSelected: (value) {
+        switch (value) {
+          case 1:
+            getIt<MyAccountRepository>()
+                .getDetail(id: data.id?.toString() ?? '', type: data.tipo!)
+                .then(
+              (value) {
+                _dialogDetail(context, value);
+              },
+            );
+            break;
+          case 2:
+            context
+                .read<MyTrainigsAndEventsCubit>()
+                .cancelRegistration(data.id!);
+            break;
+        }
+      },
+      itemBuilder: (context) {
+        return [
+          PopupMenuItem(
+              value: 1,
+              child: Center(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Ver detalles',
+                      style: AppTextStyle.inputStyle
+                          .copyWith(color: AppColor.primaryBlue),
+                    ),
+                    spacerXs,
+                    Image.asset('assets/icons/IconEdit.png', scale: 2)
+                  ],
+                ),
+              )),
+          PopupMenuItem(
+              value: 2,
+              child: Center(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Cancelar asistencia',
+                      style: AppTextStyle.inputStyle
+                          .copyWith(color: AppColor.error500),
+                    ),
+                    spacerXs,
+                    Image.asset('assets/icons/Trash.png', scale: 2)
+                  ],
+                ),
+              )),
+        ];
+      },
+      child: Image.asset(
+        'assets/icons/options.png',
+        scale: 2,
+      ),
+    );
+  }
+
+  Future<bool?> _dialogDetail(
+    BuildContext context,
+    DetailEvent data,
+  ) {
+    return showDialog<bool>(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return Dialog(
+            insetPadding: const EdgeInsets.fromLTRB(20, 25, 20, 20),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            child: Container(
+              padding: const EdgeInsets.all(20),
+              width: double.infinity,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const MySpacer(height: 15),
+                  Container(
+                    height: 50,
+                    width: 50,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColor.blue100,
+                    ),
+                    child: Image.asset('assets/icons/calendar.png', scale: 2),
+                  ),
+                  spacerM,
+                  RichText(
+                    text: TextSpan(
+                      style: AppTextStyle.h3Style,
+                      children: [
+                        TextSpan(
+                          text: data.date ?? '',
+                        ),
+                        TextSpan(
+                          text: ' • ${data.time} - ${data.endTime}',
+                          style: AppTextStyle.defaultStyle
+                              .copyWith(color: AppColor.neutral40),
+                        ),
+                      ],
+                    ),
+                  ),
+                  spacerS,
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Image.asset(
+                        'assets/icons/locate.png',
+                        scale: 2,
+                        color: AppColor.primaryBlue,
+                      ),
+                      spacerS,
+                      Text(
+                        data.location ?? '',
+                        style: AppTextStyle.defaultStyle,
+                      )
+                    ],
+                  ),
+                  spacerM,
+                  if (data.googleMeet != null) ...[
+                    MyButton(
+                      onPressed: () async {
+                        await launchUrlString(data.googleMeet!);
+                        // await launchUrlString("https://www.google.com.ve");
+                      },
+                      text: 'Ir a Google meet',
+                      variant: MyButtonVariant.link,
+                    ),
+                    spacerM,
+                  ],
+                  Text(
+                    data.title ?? '',
+                    style: AppTextStyle.h3Style,
+                  ),
+                  spacerS,
+                  Expanded(
+                      child: SingleChildScrollView(
+                          child: MyHtml(text: data.description ?? ''))),
+                  spacerM,
+                  MyButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    text: 'Aceptar',
+                    width: double.infinity,
+                    variant: MyButtonVariant.outlinedBold,
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
 }

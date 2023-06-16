@@ -20,4 +20,9 @@ class MyTrainigsAndEventsCubit extends Cubit<MyTrainigsAndEventsState> {
       loading: false,
     ));
   }
+
+  Future<void> cancelRegistration(int id) async {
+    await _accountRepository.cancelRegistration(id: id.toString());
+    emit(state.copyWith(data: state.data.where((e) => e.id != id).toList()));
+  }
 }

@@ -3,6 +3,7 @@ import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/domain/model/albaran.dart';
 import 'package:vemare/app/domain/model/albaran_details.dart';
 import 'package:vemare/app/domain/model/answer_with_filters.dart';
+import 'package:vemare/app/domain/model/detail_event.dart';
 import 'package:vemare/app/domain/model/expedition.dart';
 import 'package:vemare/app/domain/model/filter.dart';
 import 'package:vemare/app/domain/model/intervencion_detalle.dart';
@@ -196,5 +197,20 @@ class MyAccountRepository {
       "ejercicio": ejercicio,
     });
     return Expedicion.fromJson(res["data"]);
+  }
+
+  Future<DetailEvent> getDetail(
+      {required String id, required String type}) async {
+    final dynamic res = await _apiClient.getRequest(
+        '$BASE_API_URL/api/eventos/formacionesEventos/detalles',
+        params: {"id": id, "type": type});
+    return DetailEvent.fromJson(res);
+  }
+
+  Future<void> cancelRegistration({required String id}) async {
+    final dynamic res = await _apiClient.postRequest(
+        '$BASE_API_URL/api/eventos/formacionesEventos/cancelar',
+        body: {"id": id});
+    print(res);
   }
 }

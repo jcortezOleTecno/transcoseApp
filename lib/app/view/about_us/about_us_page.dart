@@ -196,18 +196,10 @@ class _SocialNetworks extends StatelessWidget {
             children: [
               const Text('Redes Sociales', style: AppTextStyle.h1Style),
               spacerM,
-              Center(
-                child: Wrap(
-                  spacing: 20,
-                  runSpacing: 20,
-                  children: [
-                    item('Facebook', width, state.redes?.facebook ?? ''),
-                    item('Instagram', width, state.redes?.instagram ?? ''),
-                    item('YouTube', width, state.redes?.youtube ?? ''),
-                    item('LinkedIn', width, state.redes?.linkedin ?? ''),
-                  ],
-                ),
-              )
+              item('Facebook', width, state.redes?.facebook ?? ''),
+              item('Instagram', width, state.redes?.instagram ?? ''),
+              item('YouTube', width, state.redes?.youtube ?? ''),
+              item('LinkedIn', width, state.redes?.linkedin ?? ''),
             ],
           ),
         );
@@ -215,33 +207,47 @@ class _SocialNetworks extends StatelessWidget {
     );
   }
 
-  Widget item(String text, double width, String url) => SizedBox(
-        width: width * .40,
-        child: GestureDetector(
-          onTap: () {
-            launchUrlString(url, mode: LaunchMode.externalApplication);
-          },
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColor.blue100,
-                ),
-                height: 40,
-                width: 40,
-                child: Image.asset(
-                  'assets/icons/$text.png',
-                  scale: 2,
-                ),
+  Widget item(String text, double width, String url) => Card(
+        margin: const EdgeInsets.only(bottom: 15),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SizedBox(
+            width: width,
+            child: GestureDetector(
+              onTap: () {
+                launchUrlString(url, mode: LaunchMode.externalApplication);
+              },
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColor.blue100,
+                    ),
+                    height: 40,
+                    width: 40,
+                    child: Image.asset(
+                      'assets/icons/$text.png',
+                      scale: 2,
+                    ),
+                  ),
+                  spacerS,
+                  Expanded(
+                    child: Text(
+                      text,
+                      style: AppTextStyle.linkStyle,
+                    ),
+                  ),
+                  Image.asset(
+                    'assets/icons/arrow_next.png',
+                    scale: 2,
+                  ),
+                  spacerS,
+                ],
               ),
-              spacerS,
-              Text(
-                text,
-                style: AppTextStyle.linkStyle,
-              )
-            ],
+            ),
           ),
         ),
       );

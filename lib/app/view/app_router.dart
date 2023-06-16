@@ -43,7 +43,7 @@ import 'package:vemare/app/view/our_products/detail_product/detail_product.dart'
 import 'package:vemare/app/view/our_products/products_categories/our_products_page.dart';
 import 'package:vemare/app/view/our_products/product/product_page.dart';
 import 'package:vemare/app/view/our_products/search_my_product/search_my_product_page.dart';
-import 'package:vemare/app/view/our_products/type_of_vehicle_page.dart';
+import 'package:vemare/app/view/our_products/type_of_vehicle/type_of_vehicle_page.dart';
 import 'package:vemare/app/view/personal_area/my_budget/budget_detail/budget_detail.dart';
 import 'package:vemare/app/view/personal_area/my_budget/my_budget/my_budget_page.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/details/contract_detail.dart';
@@ -112,7 +112,7 @@ abstract class AppRouter {
       case TypeOfVehiclePage.route:
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const TypeOfVehiclePage(),
+          builder: (_) => TypeOfVehiclePage.create(),
         );
       case OurProductsPage.route:
         final typeVehicle = settings.arguments as String?;
