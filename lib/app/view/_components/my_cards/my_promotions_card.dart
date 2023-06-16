@@ -28,7 +28,7 @@ class MySingleCard extends StatelessWidget {
           margin:
               margin ?? const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
           child: Padding(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.all(10),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -52,7 +52,7 @@ class MySingleCard extends StatelessWidget {
                         title,
                         style: AppTextStyle.linkStyle,
                       ),
-                      spacerXs,
+                      // spacerXs,
                       MyHtml(text: content, bodyFontSize: 22),
                       // Text(
                       //   content,

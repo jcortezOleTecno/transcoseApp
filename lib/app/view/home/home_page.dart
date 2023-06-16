@@ -820,7 +820,7 @@ class _Promociones extends StatelessWidget {
               );
             }
             return SizedBox(
-              height: 148,
+              height: 150,
               child: PageView.builder(
                 itemCount: state.promotions.length,
                 controller:
