@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:vemare/app/domain/model/services.dart';
+import 'package:vemare/app/domain/model/we_help_you.dart';
 import 'package:vemare/app/domain/value_object/email.dart';
 import 'package:vemare/app/domain/value_object/name.dart';
 import 'package:vemare/app/domain/value_object/observation.dart';
@@ -20,6 +21,7 @@ class ServicesState with _$ServicesState {
     Name? provincia,
     Name? ciudad,
     Observation? message,
+    WeHelpYou? weHelpYou,
   }) = _ServicesState;
   const ServicesState._();
 

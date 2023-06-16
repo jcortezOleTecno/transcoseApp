@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:vemare/app/data/services_repository.dart';
 import 'package:vemare/app/domain/model/services.dart';
+import 'package:vemare/app/domain/model/we_help_you.dart';
 import 'package:vemare/app/domain/value_object/email.dart';
 import 'package:vemare/app/domain/value_object/name.dart';
 import 'package:vemare/app/domain/value_object/observation.dart';
@@ -20,7 +21,12 @@ class ServicesCubit extends Cubit<ServicesState> {
   Future<void> fetchData() async {
     emit(state.copyWith(loading: true));
     List<Services> services = await _servicesRepository.getServices(limit: 0);
-    emit(state.copyWith(services: services, loading: false));
+    WeHelpYou? weHelpYou = await _servicesRepository.getWeHelpYou();
+    emit(state.copyWith(
+      services: services,
+      loading: false,
+      weHelpYou: weHelpYou,
+    ));
   }
 
   void name(String value) {

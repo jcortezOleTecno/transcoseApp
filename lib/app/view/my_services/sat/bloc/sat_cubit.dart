@@ -15,13 +15,27 @@ class SatCubit extends Cubit<SatState> {
           SatState(
             forms: ['EQUIPAMENTO', 'PINTURA', 'AD TALLER'],
             formSelect: 'EQUIPAMENTO',
-            codCliente: Name(LocalDataRepository().user!.code!),
-            razonSocial: Name(LocalDataRepository().user!.name!),
-            telefono: Phone(LocalDataRepository().user!.phone!),
-            email: Email(LocalDataRepository().user!.email!),
-            persona: Name(LocalDataRepository().user!.responsibleName!),
-            poblacion: Name(LocalDataRepository().user!.webservice!.poblacion!),
-            cif: Name(LocalDataRepository().user!.webservice!.cif!),
+            codCliente: LocalDataRepository().isLogged
+                ? Name(LocalDataRepository().user!.code!)
+                : null,
+            razonSocial: LocalDataRepository().isLogged
+                ? Name(LocalDataRepository().user?.name ?? '')
+                : null,
+            telefono: LocalDataRepository().isLogged
+                ? Phone(LocalDataRepository().user?.phone ?? '')
+                : null,
+            email: LocalDataRepository().isLogged
+                ? Email(LocalDataRepository().user?.email ?? '')
+                : null,
+            persona: LocalDataRepository().isLogged
+                ? Name(LocalDataRepository().user?.responsibleName ?? '')
+                : null,
+            poblacion: LocalDataRepository().isLogged
+                ? Name(LocalDataRepository().user?.webservice?.poblacion ?? '')
+                : null,
+            cif: LocalDataRepository().isLogged
+                ? Name(LocalDataRepository().user?.webservice?.cif ?? '')
+                : null,
           ),
         ) {
     getForm();
@@ -34,19 +48,21 @@ class SatCubit extends Cubit<SatState> {
 
     List<SatForms> data = [];
     List<String> diasOcupados = [];
-    await Future.wait([
-      _satRepository.getSatForms().then(data.addAll),
-      _satRepository.diasOcupados().then(diasOcupados.addAll),
-    ]);
     List<DateTime> fechas = [];
-    for (var e in diasOcupados) {
-      List<String> fechaSplit = e.split('/');
-      DateTime fecha = DateTime(
-        int.parse(fechaSplit[2]), // año
-        int.parse(fechaSplit[1]), // mes
-        int.parse(fechaSplit[0]), // día
-      );
-      fechas.add(fecha);
+    // await Future.wait([
+    await _satRepository.getSatForms().then(data.addAll);
+    if (LocalDataRepository().isLogged) {
+      await _satRepository.diasOcupados().then(diasOcupados.addAll);
+      // ]);
+      for (var e in diasOcupados) {
+        List<String> fechaSplit = e.split('/');
+        DateTime fecha = DateTime(
+          int.parse(fechaSplit[2]), // año
+          int.parse(fechaSplit[1]), // mes
+          int.parse(fechaSplit[0]), // día
+        );
+        fechas.add(fecha);
+      }
     }
     emit(state.copyWith(
       dataForms: data,

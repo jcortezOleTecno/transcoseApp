@@ -36,6 +36,13 @@ class FormationsPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Container(
+                alignment: Alignment.center,
+                width: double.infinity,
+                height: 220,
+                color: Colors.blueGrey[100],
+                child: Text('IMAGEN DE BANNER'),
+              ),
               const MyBackButton(),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),

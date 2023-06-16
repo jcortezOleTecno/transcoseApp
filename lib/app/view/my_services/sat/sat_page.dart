@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/sat_repository.dart';
 import 'package:vemare/app/domain/model/sat_forms.dart';
 import 'package:vemare/app/domain/value_object/status.dart';
@@ -322,7 +323,7 @@ class _FormEquipamentoState extends State<FormEquipamento> {
                 textCapitalization: TextCapitalization.sentences,
                 hasError: state.status == FormStatus.error,
                 initialValue: state.codCliente?.value ?? '',
-                enabled: false,
+                // enabled: false,
               ),
               MyInput(
                 label: 'Razón social*',
@@ -379,62 +380,101 @@ class _FormEquipamentoState extends State<FormEquipamento> {
                 hasError: state.status == FormStatus.error,
                 initialValue: state.email?.value ?? '',
               ),
-              const Text('Cuando le gustaría que le visitaramos?*',
-                  style: AppTextStyle.inputLabelStyle),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  ButtonFilter(
-                    text: state.fechaCita == null
-                        ? 'Cuando le gustaría que le visitaramos?'
-                        : state.fechaCita!,
-                    onPressed: () async {
-                      FocusScope.of(context).requestFocus(FocusNode());
+              if (LocalDataRepository().isLogged) ...[
+                const Text('Cuando le gustaría que le visitaramos?*',
+                    style: AppTextStyle.inputLabelStyle),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    ButtonFilter(
+                      text: state.fechaCita == null
+                          ? 'Cuando le gustaría que le visitaramos?'
+                          : state.fechaCita!,
+                      onPressed: () async {
+                        FocusScope.of(context).requestFocus(FocusNode());
 
-                      showRoundedDatePicker(
-                        context: context,
-                        initialDate:
-                            DateTime.now().add(const Duration(days: 2)),
-                        firstDate: DateTime.now(),
-                        lastDate: DateTime(DateTime.now().year + 1),
-                        locale: const Locale('es', 'ES'),
-                        height: 340,
-                        borderRadius: 16,
-                        theme: AppTheme.light,
-                        listDateDisabled: [...state.diasOcupados],
-                        selectableDayPredicate: (DateTime day) {
-                          return !(day.weekday == DateTime.saturday ||
-                              day.weekday == DateTime.sunday);
-                        },
-                      ).then((date) {
-                        if (date != null) {
-                          cubit.fechaCita(DateFormat.yMd('es').format(date));
+                        DateTime initialDate = DateTime(DateTime.now().year,
+                            DateTime.now().month, DateTime.now().day);
+
+                        while (initialDate.weekday == DateTime.saturday ||
+                            initialDate.weekday == DateTime.sunday ||
+                            state.diasOcupados.contains(initialDate)) {
+                          initialDate =
+                              initialDate.add(const Duration(days: 1));
                         }
-                      });
-                    },
-                    textColor: state.fechaCita == null
-                        ? Colors.grey[600]!
-                        : Colors.black,
-                  ),
-                ],
-              ),
-              spacerS,
-              const Text('En que franja horaria?*',
-                  style: AppTextStyle.inputLabelStyle),
-              StringRadioButtons(
-                reset: state.status == FormStatus.done,
-                options: state
-                        .dataForms[state.formSelect == 'EQUIPAMENTO'
-                            ? 0
-                            : state.formSelect == 'PINTURA'
-                                ? 1
-                                : 2]
-                        .datosFormulario
-                        ?.franjaHoraria
-                        ?.valores ??
-                    [],
-                onSelectionChanged: cubit.franjaHoraria,
-              ),
+
+                        showRoundedDatePicker(
+                                context: context,
+                                initialDate: initialDate,
+                                customWeekDays: [
+                                  "L",
+                                  "M",
+                                  "M",
+                                  "J",
+                                  "V",
+                                  "S",
+                                  "D"
+                                ],
+
+                                //     DateTime.now().add(const Duration(days: 2)),
+                                firstDate: DateTime.now(),
+                                lastDate: DateTime(DateTime.now().year + 1),
+                                locale: const Locale('es'),
+                                height: 340,
+                                borderRadius: 16,
+                                theme: AppTheme.light,
+                                listDateDisabled: LocalDataRepository().isLogged
+                                    ? [...state.diasOcupados]
+                                    : null,
+                                selectableDayPredicate: (DateTime day) {
+                                  // return !(day.weekday == DateTime.saturday ||
+                                  //     day.weekday == DateTime.sunday);
+                                  // Verificar si el día es sábado o domingo
+                                  if (day.weekday == DateTime.saturday ||
+                                      day.weekday == DateTime.sunday) {
+                                    return false; // Días no seleccionables
+                                  }
+
+                                  // Verificar si el día está en la lista de días ocupados
+                                  if (state.diasOcupados.contains(day)) {
+                                    return false; // Días no seleccionables
+                                  }
+
+                                  return true; // Días seleccionables
+                                },
+                                styleDatePicker: MaterialRoundedDatePickerStyle(
+                                    textStyleDayHeader:
+                                        TextStyle(locale: Locale('es', 'ES'))))
+                            .then((date) {
+                          if (date != null) {
+                            cubit.fechaCita(DateFormat.yMd('es').format(date));
+                          }
+                        });
+                      },
+                      textColor: state.fechaCita == null
+                          ? Colors.grey[600]!
+                          : Colors.black,
+                    ),
+                  ],
+                ),
+                spacerS,
+                const Text('En que franja horaria?*',
+                    style: AppTextStyle.inputLabelStyle),
+                StringRadioButtons(
+                  reset: state.status == FormStatus.done,
+                  options: state
+                          .dataForms[state.formSelect == 'EQUIPAMENTO'
+                              ? 0
+                              : state.formSelect == 'PINTURA'
+                                  ? 1
+                                  : 2]
+                          .datosFormulario
+                          ?.franjaHoraria
+                          ?.valores ??
+                      [],
+                  onSelectionChanged: cubit.franjaHoraria,
+                ),
+              ],
               spacerS,
               MyButton(
                 onPressed: () async {

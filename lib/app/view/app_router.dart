@@ -13,6 +13,7 @@ import 'package:vemare/app/domain/model/pills.dart';
 import 'package:vemare/app/domain/model/promotion.dart';
 import 'package:vemare/app/domain/model/services.dart';
 import 'package:vemare/app/domain/model/warranty.dart';
+import 'package:vemare/app/domain/model/we_help_you.dart';
 import 'package:vemare/app/domain/model/work_with_us.dart';
 import 'package:vemare/app/view/about_us/about_us_page.dart';
 import 'package:vemare/app/view/home/home_page.dart';
@@ -396,9 +397,10 @@ abstract class AppRouter {
           builder: (_) => SatPage.create(),
         );
       case SatIntroPage.route:
+        final data = settings.arguments as WeHelpYouData?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const SatIntroPage(),
+          builder: (_) => SatIntroPage(data!),
         );
       case ShippingDataPage.route:
         final data = settings.arguments as ShoppingCarArgs?;

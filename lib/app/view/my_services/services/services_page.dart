@@ -151,24 +151,47 @@ class _ServicesPageState extends State<ServicesPage> {
                           Row(
                             children: [
                               Expanded(
-                                  child: _CardWeHelpYou(
-                                name: 'SAT',
-                                img: 'assets/imgs/sat.png',
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      context, SatIntroPage.route);
-                                },
-                              )),
+                                  child: state.loading
+                                      ? const MyShimmer(
+                                          margin: EdgeInsets.zero,
+                                          height: 210,
+                                          borderRadius: 12,
+                                        )
+                                      : _CardWeHelpYou(
+                                          name:
+                                              state.weHelpYou?.sat?.title ?? '',
+                                          img:
+                                              state.weHelpYou?.sat?.image ?? '',
+                                          onTap: () {
+                                            Navigator.pushNamed(
+                                                context, SatIntroPage.route,
+                                                arguments:
+                                                    state.weHelpYou?.sat);
+                                          },
+                                        )),
                               spacerS,
                               Expanded(
-                                child: _CardWeHelpYou(
-                                  name: 'Conexión remota',
-                                  img: 'assets/imgs/conexion_remota.png',
-                                  onTap: () {
-                                    launchUrlString(
-                                        "https://get.teamviewer.com/vemare");
-                                  },
-                                ),
+                                child: state.loading
+                                    ? const MyShimmer(
+                                        margin: EdgeInsets.zero,
+                                        height: 210,
+                                        borderRadius: 12,
+                                      )
+                                    : _CardWeHelpYou(
+                                        name: state.weHelpYou?.remoteConnection
+                                                ?.title ??
+                                            '',
+                                        img: state.weHelpYou?.remoteConnection
+                                                ?.image ??
+                                            '',
+                                        onTap: () {
+                                          launchUrlString(state
+                                                  .weHelpYou
+                                                  ?.remoteConnection
+                                                  ?.externalLink ??
+                                              '');
+                                        },
+                                      ),
                               ),
                             ],
                           ),
@@ -307,8 +330,9 @@ class _CardWeHelpYou extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Image(
-              image: AssetImage(img),
+              image: NetworkImage(img),
               fit: BoxFit.cover,
+              height: 150,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),

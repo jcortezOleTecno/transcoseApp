@@ -10,6 +10,7 @@ class MySingleCard extends StatelessWidget {
     required this.title,
     required this.content,
     this.margin,
+    this.iconFormation,
     this.onTap,
     Key? key,
   }) : super(key: key);
@@ -17,6 +18,7 @@ class MySingleCard extends StatelessWidget {
   final EdgeInsetsGeometry? margin;
   final void Function()? onTap;
   final Widget? icon;
+  final Widget? iconFormation;
   final String title;
   final String content;
 
@@ -47,6 +49,16 @@ class MySingleCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      if (iconFormation != null)
+                        Container(
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColor.blue100,
+                          ),
+                          height: 40,
+                          width: 40,
+                          child: iconFormation,
+                        ),
                       spacerXs,
                       Text(
                         title,

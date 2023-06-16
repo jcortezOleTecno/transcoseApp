@@ -142,24 +142,24 @@ class __IconsAppbarState extends State<_IconsAppbar> {
     final cubit = context.read<MenuCubit>();
     return Row(
       children: [
-        spacerM,
-        InkWell(
-          onTap: widget.notificationsFunc,
-          child: Visibility(
-            visible: !widget.isOpenNotifications,
-            replacement: Image.asset(
-              'assets/icons/Close.png',
-              color: Colors.white,
-              scale: 2,
-            ),
-            child: Image.asset(
-              'assets/icons/notificationOn.png',
-              color: Colors.white,
-              scale: 2,
+        if (LocalDataRepository().isLogged) ...[
+          spacerM,
+          InkWell(
+            onTap: widget.notificationsFunc,
+            child: Visibility(
+              visible: !widget.isOpenNotifications,
+              replacement: Image.asset(
+                'assets/icons/Close.png',
+                color: Colors.white,
+                scale: 2,
+              ),
+              child: Image.asset(
+                'assets/icons/notificationOn.png',
+                color: Colors.white,
+                scale: 2,
+              ),
             ),
           ),
-        ),
-        if (LocalDataRepository().isLogged) ...[
           spacerM,
           BlocBuilder<CarCounterCubit, CarCounterState>(
             builder: (context, state) {

@@ -48,9 +48,10 @@ class SatState with _$SatState {
       razonSocial != null &&
       poblacion != null &&
       persona != null &&
-      telefono != null &&
+      telefono !=
+          null && /*
       fechaCita != null &&
-      franjaHoraria != null &&
+      franjaHoraria != null &&*/
       email != null;
 
   bool get pinturaComplete =>
@@ -62,9 +63,10 @@ class SatState with _$SatState {
       razonSocial != null &&
       poblacion != null &&
       persona != null &&
-      telefono != null &&
+      telefono !=
+          null && /*
       fechaCita != null &&
-      franjaHoraria != null &&
+      franjaHoraria != null &&*/
       email != null;
 
   bool get tallerComplete =>
@@ -75,8 +77,9 @@ class SatState with _$SatState {
       cif != null &&
       poblacion != null &&
       persona != null &&
-      telefono != null &&
+      telefono !=
+          null && /*
       fechaCita != null &&
-      franjaHoraria != null &&
+      franjaHoraria != null &&*/
       email != null;
 }

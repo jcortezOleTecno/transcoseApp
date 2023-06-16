@@ -25,6 +25,7 @@ mixin _$ServicesState {
   Name? get provincia => throw _privateConstructorUsedError;
   Name? get ciudad => throw _privateConstructorUsedError;
   Observation? get message => throw _privateConstructorUsedError;
+  WeHelpYou? get weHelpYou => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ServicesStateCopyWith<ServicesState> get copyWith =>
@@ -46,7 +47,8 @@ abstract class $ServicesStateCopyWith<$Res> {
       Phone? phone,
       Name? provincia,
       Name? ciudad,
-      Observation? message});
+      Observation? message,
+      WeHelpYou? weHelpYou});
 }
 
 /// @nodoc
@@ -71,6 +73,7 @@ class _$ServicesStateCopyWithImpl<$Res, $Val extends ServicesState>
     Object? provincia = freezed,
     Object? ciudad = freezed,
     Object? message = freezed,
+    Object? weHelpYou = freezed,
   }) {
     return _then(_value.copyWith(
       loading: null == loading
@@ -109,6 +112,10 @@ class _$ServicesStateCopyWithImpl<$Res, $Val extends ServicesState>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as Observation?,
+      weHelpYou: freezed == weHelpYou
+          ? _value.weHelpYou
+          : weHelpYou // ignore: cast_nullable_to_non_nullable
+              as WeHelpYou?,
     ) as $Val);
   }
 }
@@ -130,7 +137,8 @@ abstract class _$$_ServicesStateCopyWith<$Res>
       Phone? phone,
       Name? provincia,
       Name? ciudad,
-      Observation? message});
+      Observation? message,
+      WeHelpYou? weHelpYou});
 }
 
 /// @nodoc
@@ -153,6 +161,7 @@ class __$$_ServicesStateCopyWithImpl<$Res>
     Object? provincia = freezed,
     Object? ciudad = freezed,
     Object? message = freezed,
+    Object? weHelpYou = freezed,
   }) {
     return _then(_$_ServicesState(
       loading: null == loading
@@ -191,6 +200,10 @@ class __$$_ServicesStateCopyWithImpl<$Res>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as Observation?,
+      weHelpYou: freezed == weHelpYou
+          ? _value.weHelpYou
+          : weHelpYou // ignore: cast_nullable_to_non_nullable
+              as WeHelpYou?,
     ));
   }
 }
@@ -207,7 +220,8 @@ class _$_ServicesState extends _ServicesState {
       this.phone,
       this.provincia,
       this.ciudad,
-      this.message})
+      this.message,
+      this.weHelpYou})
       : _services = services,
         super._();
 
@@ -238,10 +252,12 @@ class _$_ServicesState extends _ServicesState {
   final Name? ciudad;
   @override
   final Observation? message;
+  @override
+  final WeHelpYou? weHelpYou;
 
   @override
   String toString() {
-    return 'ServicesState(loading: $loading, status: $status, services: $services, name: $name, email: $email, phone: $phone, provincia: $provincia, ciudad: $ciudad, message: $message)';
+    return 'ServicesState(loading: $loading, status: $status, services: $services, name: $name, email: $email, phone: $phone, provincia: $provincia, ciudad: $ciudad, message: $message, weHelpYou: $weHelpYou)';
   }
 
   @override
@@ -258,7 +274,9 @@ class _$_ServicesState extends _ServicesState {
             (identical(other.provincia, provincia) ||
                 other.provincia == provincia) &&
             (identical(other.ciudad, ciudad) || other.ciudad == ciudad) &&
-            (identical(other.message, message) || other.message == message));
+            (identical(other.message, message) || other.message == message) &&
+            (identical(other.weHelpYou, weHelpYou) ||
+                other.weHelpYou == weHelpYou));
   }
 
   @override
@@ -272,7 +290,8 @@ class _$_ServicesState extends _ServicesState {
       phone,
       provincia,
       ciudad,
-      message);
+      message,
+      weHelpYou);
 
   @JsonKey(ignore: true)
   @override
@@ -291,7 +310,8 @@ abstract class _ServicesState extends ServicesState {
       final Phone? phone,
       final Name? provincia,
       final Name? ciudad,
-      final Observation? message}) = _$_ServicesState;
+      final Observation? message,
+      final WeHelpYou? weHelpYou}) = _$_ServicesState;
   const _ServicesState._() : super._();
 
   @override
@@ -312,6 +332,8 @@ abstract class _ServicesState extends ServicesState {
   Name? get ciudad;
   @override
   Observation? get message;
+  @override
+  WeHelpYou? get weHelpYou;
   @override
   @JsonKey(ignore: true)
   _$$_ServicesStateCopyWith<_$_ServicesState> get copyWith =>
