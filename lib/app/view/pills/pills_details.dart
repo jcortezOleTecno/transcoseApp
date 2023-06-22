@@ -22,7 +22,10 @@ class PillsDetailPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const MyBackButton(),
-              MyVideoPlayer(video: pill.videoPreview!),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: MyVideoPlayer(video: pill.vimeoLink!),
+              ),
               Padding(
                 padding: const EdgeInsets.all(15),
                 child: Column(

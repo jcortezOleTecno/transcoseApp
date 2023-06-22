@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:vemare/app/data/library_repository.dart';
-import 'package:vemare/app/domain/model/library.dart';
 import 'package:vemare/app/view/library/bloc/library_state.dart';
 
 class LibraryCubit extends Cubit<LibraryState> {
@@ -13,7 +12,10 @@ class LibraryCubit extends Cubit<LibraryState> {
   final LibraryRepository _noticesRepository;
 
   Future<void> fetchData() async {
-    List<Library> library = await _noticesRepository.getLibraries(limit: 0);
-    emit(state.copyWith(library: library));
+    LibraryResponse res = await _noticesRepository.getLibraries(limit: 0);
+    emit(state.copyWith(
+      library: res.library,
+      mostRead: res.mostRead,
+    ));
   }
 }

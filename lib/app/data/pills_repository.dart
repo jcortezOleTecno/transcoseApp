@@ -7,10 +7,20 @@ class PillsRepository {
 
   PillsRepository(this._apiClient);
 
-  Future<List<Pills>> getPills({required int limit}) async {
+  Future<PillsResponse> getPills({required int limit}) async {
     final dynamic res = await _apiClient.getRequest(
         '$BASE_API_URL/api/pildoras',
         params: <String, dynamic>{'limit': '$limit'});
-    return (res as List).map(Pills.fromJson).toList();
+    return PillsResponse(
+      pills: (res["data"] as List).map(Pills.fromJson).toList(),
+      mostRead: (res["most_read"] as List).map(Pills.fromJson).toList(),
+    );
   }
+}
+
+class PillsResponse {
+  final List<Pills> mostRead;
+  final List<Pills> pills;
+
+  PillsResponse({required this.mostRead, required this.pills});
 }

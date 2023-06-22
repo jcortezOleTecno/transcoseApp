@@ -59,7 +59,7 @@ class EventsPage extends StatelessWidget {
                       title: 'Eventos Vemare',
                       img: 'assets/imgs/otrosEventosIMG.png',
                       content:
-                          'Junto a nuestros proveedores creamos momentos únicos que ahora puedes consultar.',
+                          'Encuentros, charlas, presentaciones... Infórmate sobre todos los eventos que creamos para nuestros clientes.',
                       onTap: () {
                         Navigator.pushNamed(context, OtherEventsListPage.route);
                       },
@@ -68,9 +68,25 @@ class EventsPage extends StatelessWidget {
                       title: 'Eventos celebrados',
                       img: 'assets/imgs/eventosVemareIMG.png',
                       content:
-                          'Encuentros, charlas, presentaciones... Infórmate sobre todos los eventos que creamos para nuestros clientes.',
+                          'Junto a nuestros proveedores creamos momentos únicos que ahora puedes consultar.',
                       onTap: () {
-                        Navigator.pushNamed(context, EventsVemarePage.route);
+                        //Navigator.pushNamed(context, EventsVemarePage.route);
+
+                        if (LocalDataRepository().isLogged) {
+                          Navigator.pushNamed(context, EventsVemarePage.route);
+                        } else {
+                          Navigator.pushNamed(
+                            context,
+                            LoginPage.route,
+                            arguments:
+                                'Para acceder a la información de los eventos tienes que iniciar sesión.',
+                          ).then((_) {
+                            if (LocalDataRepository().isLogged) {
+                              Navigator.pushNamed(
+                                  context, EventsVemarePage.route);
+                            }
+                          });
+                        }
                       },
                     ),
                   ],

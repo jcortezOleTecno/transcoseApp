@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/domain/model/services.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
+import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_gallery/my_galery.dart';
 import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/my_video_player/my_video_player.dart';
+import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
 class ServiceGeneralPage extends StatelessWidget {
@@ -46,6 +49,24 @@ class ServiceGeneralPage extends StatelessWidget {
                   ],
                 ),
               ),
+              if (service.externalLink != null) ...[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: MyIconButton(
+                    onPressed: () {
+                      launchUrlString(
+                        service.externalLink ?? 'https://www.google.com',
+                      );
+                    },
+                    text: service.buttonText ?? '',
+                    icon: Image.asset(
+                      'assets/icons/link.png',
+                      scale: 2,
+                    ),
+                    variant: MyButtonVariant.outlinedBold,
+                  ),
+                ),
+              ],
               spacerM,
               Visibility(
                 visible: service.gallery != null,

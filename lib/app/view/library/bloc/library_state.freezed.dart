@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$LibraryState {
   List<Library> get library => throw _privateConstructorUsedError;
+  List<Library> get mostRead => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LibraryStateCopyWith<LibraryState> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $LibraryStateCopyWith<$Res> {
           LibraryState value, $Res Function(LibraryState) then) =
       _$LibraryStateCopyWithImpl<$Res, LibraryState>;
   @useResult
-  $Res call({List<Library> library});
+  $Res call({List<Library> library, List<Library> mostRead});
 }
 
 /// @nodoc
@@ -46,11 +47,16 @@ class _$LibraryStateCopyWithImpl<$Res, $Val extends LibraryState>
   @override
   $Res call({
     Object? library = null,
+    Object? mostRead = null,
   }) {
     return _then(_value.copyWith(
       library: null == library
           ? _value.library
           : library // ignore: cast_nullable_to_non_nullable
+              as List<Library>,
+      mostRead: null == mostRead
+          ? _value.mostRead
+          : mostRead // ignore: cast_nullable_to_non_nullable
               as List<Library>,
     ) as $Val);
   }
@@ -64,7 +70,7 @@ abstract class _$$_LibraryStateCopyWith<$Res>
       __$$_LibraryStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Library> library});
+  $Res call({List<Library> library, List<Library> mostRead});
 }
 
 /// @nodoc
@@ -79,11 +85,16 @@ class __$$_LibraryStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? library = null,
+    Object? mostRead = null,
   }) {
     return _then(_$_LibraryState(
       library: null == library
           ? _value._library
           : library // ignore: cast_nullable_to_non_nullable
+              as List<Library>,
+      mostRead: null == mostRead
+          ? _value._mostRead
+          : mostRead // ignore: cast_nullable_to_non_nullable
               as List<Library>,
     ));
   }
@@ -92,8 +103,11 @@ class __$$_LibraryStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_LibraryState extends _LibraryState {
-  const _$_LibraryState({final List<Library> library = const <Library>[]})
+  const _$_LibraryState(
+      {final List<Library> library = const <Library>[],
+      final List<Library> mostRead = const <Library>[]})
       : _library = library,
+        _mostRead = mostRead,
         super._();
 
   final List<Library> _library;
@@ -105,9 +119,18 @@ class _$_LibraryState extends _LibraryState {
     return EqualUnmodifiableListView(_library);
   }
 
+  final List<Library> _mostRead;
+  @override
+  @JsonKey()
+  List<Library> get mostRead {
+    if (_mostRead is EqualUnmodifiableListView) return _mostRead;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_mostRead);
+  }
+
   @override
   String toString() {
-    return 'LibraryState(library: $library)';
+    return 'LibraryState(library: $library, mostRead: $mostRead)';
   }
 
   @override
@@ -115,12 +138,15 @@ class _$_LibraryState extends _LibraryState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_LibraryState &&
-            const DeepCollectionEquality().equals(other._library, _library));
+            const DeepCollectionEquality().equals(other._library, _library) &&
+            const DeepCollectionEquality().equals(other._mostRead, _mostRead));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_library));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_library),
+      const DeepCollectionEquality().hash(_mostRead));
 
   @JsonKey(ignore: true)
   @override
@@ -130,11 +156,15 @@ class _$_LibraryState extends _LibraryState {
 }
 
 abstract class _LibraryState extends LibraryState {
-  const factory _LibraryState({final List<Library> library}) = _$_LibraryState;
+  const factory _LibraryState(
+      {final List<Library> library,
+      final List<Library> mostRead}) = _$_LibraryState;
   const _LibraryState._() : super._();
 
   @override
   List<Library> get library;
+  @override
+  List<Library> get mostRead;
   @override
   @JsonKey(ignore: true)
   _$$_LibraryStateCopyWith<_$_LibraryState> get copyWith =>

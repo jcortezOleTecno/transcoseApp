@@ -22,12 +22,12 @@ class MyHtml extends StatelessWidget {
       style: {
         // tables will have the below background color
         "p": Style(
-          fontSize: FontSize(26),
+          fontSize: FontSize(24),
           color: color,
           fontWeight: fontWeight,
         ),
         "body": Style(
-          fontSize: FontSize(bodyFontSize ?? 32),
+          fontSize: FontSize(bodyFontSize ?? 22),
           color: color,
           fontWeight: fontWeight,
         ),
@@ -37,10 +37,13 @@ class MyHtml extends StatelessWidget {
           fontWeight: fontWeight,
         ),
         "b": Style(
-          fontSize: FontSize(30),
+          fontSize: FontSize(22),
           color: color,
           fontWeight: fontWeight,
         ),
+        "hr": Style(
+          margin: Margins.symmetric(vertical: 0),
+        )
       },
     );
   }

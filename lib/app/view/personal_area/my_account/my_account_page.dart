@@ -50,11 +50,11 @@ class MyAccountPage extends StatelessWidget {
                   initialValue: LocalDataRepository().user?.name ?? '',
                 ),
                 MyInput(
-                  label: 'Teléfono',
+                  label: 'Teléfono*',
                   initialValue: LocalDataRepository().user?.phone,
                 ),
                 MyInput(
-                  label: 'E-mail',
+                  label: 'E-mail*',
                   initialValue: LocalDataRepository().user?.email ?? '',
                 ),
                 MyInput(

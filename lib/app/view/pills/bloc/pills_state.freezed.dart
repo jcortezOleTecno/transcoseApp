@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$PillsState {
+  List<Pills> get mostRead => throw _privateConstructorUsedError;
   List<Pills> get pills => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -29,7 +30,7 @@ abstract class $PillsStateCopyWith<$Res> {
           PillsState value, $Res Function(PillsState) then) =
       _$PillsStateCopyWithImpl<$Res, PillsState>;
   @useResult
-  $Res call({List<Pills> pills});
+  $Res call({List<Pills> mostRead, List<Pills> pills});
 }
 
 /// @nodoc
@@ -45,9 +46,14 @@ class _$PillsStateCopyWithImpl<$Res, $Val extends PillsState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? mostRead = null,
     Object? pills = null,
   }) {
     return _then(_value.copyWith(
+      mostRead: null == mostRead
+          ? _value.mostRead
+          : mostRead // ignore: cast_nullable_to_non_nullable
+              as List<Pills>,
       pills: null == pills
           ? _value.pills
           : pills // ignore: cast_nullable_to_non_nullable
@@ -64,7 +70,7 @@ abstract class _$$_PillsStateCopyWith<$Res>
       __$$_PillsStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Pills> pills});
+  $Res call({List<Pills> mostRead, List<Pills> pills});
 }
 
 /// @nodoc
@@ -78,9 +84,14 @@ class __$$_PillsStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? mostRead = null,
     Object? pills = null,
   }) {
     return _then(_$_PillsState(
+      mostRead: null == mostRead
+          ? _value._mostRead
+          : mostRead // ignore: cast_nullable_to_non_nullable
+              as List<Pills>,
       pills: null == pills
           ? _value._pills
           : pills // ignore: cast_nullable_to_non_nullable
@@ -92,9 +103,21 @@ class __$$_PillsStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_PillsState extends _PillsState {
-  const _$_PillsState({final List<Pills> pills = const <Pills>[]})
-      : _pills = pills,
+  const _$_PillsState(
+      {final List<Pills> mostRead = const <Pills>[],
+      final List<Pills> pills = const <Pills>[]})
+      : _mostRead = mostRead,
+        _pills = pills,
         super._();
+
+  final List<Pills> _mostRead;
+  @override
+  @JsonKey()
+  List<Pills> get mostRead {
+    if (_mostRead is EqualUnmodifiableListView) return _mostRead;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_mostRead);
+  }
 
   final List<Pills> _pills;
   @override
@@ -107,7 +130,7 @@ class _$_PillsState extends _PillsState {
 
   @override
   String toString() {
-    return 'PillsState(pills: $pills)';
+    return 'PillsState(mostRead: $mostRead, pills: $pills)';
   }
 
   @override
@@ -115,12 +138,15 @@ class _$_PillsState extends _PillsState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_PillsState &&
+            const DeepCollectionEquality().equals(other._mostRead, _mostRead) &&
             const DeepCollectionEquality().equals(other._pills, _pills));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_pills));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_mostRead),
+      const DeepCollectionEquality().hash(_pills));
 
   @JsonKey(ignore: true)
   @override
@@ -130,9 +156,12 @@ class _$_PillsState extends _PillsState {
 }
 
 abstract class _PillsState extends PillsState {
-  const factory _PillsState({final List<Pills> pills}) = _$_PillsState;
+  const factory _PillsState(
+      {final List<Pills> mostRead, final List<Pills> pills}) = _$_PillsState;
   const _PillsState._() : super._();
 
+  @override
+  List<Pills> get mostRead;
   @override
   List<Pills> get pills;
   @override

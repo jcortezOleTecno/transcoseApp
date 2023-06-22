@@ -185,7 +185,7 @@ class _WorkshopNetworksPageState extends State<WorkshopNetworksPage> {
                         ),
                       ),
                     ),
-                    _Multimedia()
+                    const _Multimedia()
                   ],
                 ),
               ),
@@ -296,7 +296,10 @@ class _Multimedia extends StatelessWidget {
             ),
             Visibility(
               visible: state.workShop?.videoLink != null,
-              child: MyVideoPlayer(video: state.workShop?.videoLink ?? ''),
+              child: Padding(
+                padding: const EdgeInsets.all(15),
+                child: MyVideoPlayer(video: state.workShop?.videoLink ?? ''),
+              ),
             ),
             spacerM,
           ],

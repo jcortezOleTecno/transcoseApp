@@ -7,10 +7,19 @@ class NoticesRepository {
 
   NoticesRepository(this._apiClient);
 
-  Future<List<News>> getNotices({int limit = 0}) async {
+  Future<NoticesResponse> getNotices({int limit = 0}) async {
     final dynamic res = await _apiClient.getRequest(
         '$BASE_API_URL/api/noticias',
         params: <String, dynamic>{'limit': '$limit'});
-    return (res as List).map(News.froJson).toList();
+    return NoticesResponse(
+        news: (res["data"] as List).map(News.froJson).toList(),
+        mostRead: (res["most_read"] as List).map(News.froJson).toList());
   }
+}
+
+class NoticesResponse {
+  final List<News> mostRead;
+  final List<News> news;
+
+  NoticesResponse({required this.mostRead, required this.news});
 }

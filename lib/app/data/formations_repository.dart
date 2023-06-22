@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:vemare/app/data/_api.dart';
 import 'package:vemare/app/data/_api_classes.dart';
@@ -27,6 +28,8 @@ class FormationsRepository {
       'employee': idsEmployees?.join(',').toString() ?? "",
       'persons': persons?.map((e) => e.toEnrollData()).toList(),
     };
+
+    log(jsonEncode(data));
 
     await _apiClient.postRequest('$BASE_API_URL/api/formaciones/inscripcion',
         body: jsonEncode(data),

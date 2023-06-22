@@ -11,7 +11,6 @@ import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/my_notifications/bloc/notifications_cubit.dart';
 import 'package:vemare/app/view/my_notifications/bloc/notifications_state.dart';
-import 'package:vemare/app/view/my_services/events/events_vemare/event_detail_page.dart';
 import 'package:vemare/app/view/my_services/events/other_events/other_event_page.dart';
 import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
 import 'package:vemare/app/view/theme/color.dart';
@@ -120,24 +119,16 @@ class _SelectTypeNotificationsState extends State<_SelectTypeNotifications> {
           Row(
             children: [
               _item('General', type: NotificationType.general),
-              _item('Categoría', type: NotificationType.category),
-              _item('Centros', type: NotificationType.center),
-            ],
-          ),
-          Row(
-            children: [
-              _item('Biblioteca', type: NotificationType.library),
-              _item('Píldoras', type: NotificationType.pills),
               _item('Eventos', type: NotificationType.events),
+              _item('SAT', type: NotificationType.sat),
             ],
           ),
           Row(
             children: [
-              _item('Promociones', type: NotificationType.promotions),
               _item('Formaciones', type: NotificationType.formations),
-              _item('Eventos vemare', type: NotificationType.eventVemare),
+              _item('Promoción', type: NotificationType.promotions),
             ],
-          )
+          ),
         ],
       ),
     );

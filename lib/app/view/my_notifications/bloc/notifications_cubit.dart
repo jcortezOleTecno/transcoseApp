@@ -38,18 +38,7 @@ class NotificationsCubit extends Cubit<NotificationsState> {
       case NotificationType.general:
         await getNotifications();
         break;
-      case NotificationType.category:
-        await getNotifications(type: 'Category');
-        break;
-      case NotificationType.center:
-        await getNotifications(type: 'Center');
-        break;
-      case NotificationType.library:
-        await getNotifications(type: 'Library');
-        break;
-      case NotificationType.pills:
-        await getNotifications(type: 'Pills');
-        break;
+
       case NotificationType.events:
         await getNotifications(type: 'Event');
         break;
@@ -59,8 +48,8 @@ class NotificationsCubit extends Cubit<NotificationsState> {
       case NotificationType.formations:
         await getNotifications(type: 'Formation');
         break;
-      case NotificationType.eventVemare:
-        await getNotifications(type: 'EventVemare');
+      case NotificationType.sat:
+        await getNotifications(type: 'SAT');
         break;
       default:
         await getNotifications();

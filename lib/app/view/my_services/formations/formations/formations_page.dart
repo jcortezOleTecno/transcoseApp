@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/formations_repository.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
@@ -40,8 +41,7 @@ class FormationsPage extends StatelessWidget {
                 alignment: Alignment.center,
                 width: double.infinity,
                 height: 220,
-                color: Colors.blueGrey[100],
-                child: Text('IMAGEN DE BANNER'),
+                child: Image.asset("assets/imgs/banner-formaciones.jpg"),
               ),
               const MyBackButton(),
               Padding(
@@ -72,31 +72,38 @@ class FormationsPage extends StatelessWidget {
                           children: state.formations
                               .map(
                                 (e) => MySingleCard(
+                                  iconFormation: Image.network(e.image!),
                                   title: e.title ?? '',
                                   content: e.description ?? '',
                                   margin: const EdgeInsets.only(bottom: 15),
                                   onTap: () {
-                                    if (LocalDataRepository().isLogged) {
-                                      Navigator.pushNamed(
-                                        context,
-                                        SkillFormationPage.route,
-                                        arguments: e,
+                                    if (e.type == 'ONLINE') {
+                                      launchUrlString(
+                                        e.externalLink ?? '',
                                       );
                                     } else {
-                                      Navigator.pushNamed(
-                                        context,
-                                        LoginPage.route,
-                                        arguments:
-                                            'Inicia sesión para conocer más detalles de esta formación',
-                                      ).then((_) {
-                                        if (LocalDataRepository().isLogged) {
-                                          Navigator.pushNamed(
-                                            context,
-                                            SkillFormationPage.route,
-                                            arguments: e,
-                                          );
-                                        }
-                                      });
+                                      if (LocalDataRepository().isLogged) {
+                                        Navigator.pushNamed(
+                                          context,
+                                          SkillFormationPage.route,
+                                          arguments: e,
+                                        );
+                                      } else {
+                                        Navigator.pushNamed(
+                                          context,
+                                          LoginPage.route,
+                                          arguments:
+                                              'Inicia sesión para conocer más detalles de esta formación',
+                                        ).then((_) {
+                                          if (LocalDataRepository().isLogged) {
+                                            Navigator.pushNamed(
+                                              context,
+                                              SkillFormationPage.route,
+                                              arguments: e,
+                                            );
+                                          }
+                                        });
+                                      }
                                     }
                                   },
                                 ),

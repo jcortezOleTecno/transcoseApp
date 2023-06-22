@@ -6,6 +6,7 @@ part 'pills_state.freezed.dart';
 @freezed
 class PillsState with _$PillsState {
   const factory PillsState({
+    @Default(<Pills>[]) List<Pills> mostRead,
     @Default(<Pills>[]) List<Pills> pills,
   }) = _PillsState;
   const PillsState._();

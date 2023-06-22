@@ -302,6 +302,7 @@ class _Background extends StatelessWidget {
                             spacerS,
                             MyHtml(
                               text: state.hero[i].description ?? '',
+                              bodyFontSize: 20,
                               color: Colors.white,
                             ),
                           ],
@@ -444,31 +445,22 @@ class _News extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                const MySpacer(height: 80),
-                                Row(
-                                  children: [
-                                    Text(
-                                      state.notices[i].title ?? '',
-                                      style: AppTextStyle.h3Style.copyWith(
-                                          fontWeight: FontWeight.bold,
-                                          color: AppColor.white),
-                                    ),
-                                  ],
+                                Spacer(),
+                                // const MySpacer(height: 80),
+                                Text(
+                                  state.notices[i].title ?? '',
+                                  style: AppTextStyle.h3Style.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColor.white),
                                 ),
                                 spacerS,
-                                Expanded(
-                                  child: MyHtml(
-                                    text: state.notices[i].subtitle ?? '',
-                                    color: Colors.white,
-                                  ),
+                                Text(
+                                  state.notices[i].subtitle ?? '',
+                                  maxLines: 4,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: AppTextStyle.contentCard
+                                      .copyWith(color: Colors.white),
                                 )
-                                // Text(
-                                //   state.notices[i].description ?? '',
-                                //   maxLines: 4,
-                                //   overflow: TextOverflow.ellipsis,
-                                //   style: AppTextStyle.contentCard
-                                //       .copyWith(color: Colors.white),
-                                // ),
                               ],
                             ),
                           ),
@@ -635,6 +627,7 @@ class _LastService extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     const Spacer(),
                     Row(
@@ -653,23 +646,13 @@ class _LastService extends StatelessWidget {
                       ],
                     ),
                     spacerXs,
-                    Expanded(
-                      child: Column(
-                        children: [
-                          SizedBox(
-                              child: MyHtml(
-                            text: state.services.last.subtitle ?? '',
-                            color: Colors.white,
-                          ) /*Text(
-                            state.services.last.description ?? '',
-                            style: AppTextStyle.contentCard.copyWith(
-                              color: AppColor.white,
-                              fontSize: 18,
-                              height: 1.8,
-                            ),*/
-                              // )
-                              )
-                        ],
+                    Text(
+                      state.services.last.description ?? '',
+                      textAlign: TextAlign.left,
+                      style: AppTextStyle.contentCard.copyWith(
+                        color: AppColor.white,
+                        fontSize: 18,
+                        height: 1.8,
                       ),
                     )
                   ],

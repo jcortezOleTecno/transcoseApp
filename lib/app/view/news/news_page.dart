@@ -60,24 +60,24 @@ class _MostReadNews extends StatelessWidget {
         ),
         BlocBuilder<NewsCubit, NewsState>(
           builder: (context, state) {
-            if (state.news.isEmpty) {
+            if (state.mostRead.isEmpty) {
               return const MyShimmer(height: 400);
             }
             return SizedBox(
               height: 400,
               child: PageView.builder(
-                itemCount: state.news.length,
+                itemCount: state.mostRead.length,
                 controller: PageController(
                   initialPage: 0,
                   viewportFraction: 0.9,
                 ),
                 itemBuilder: (context, i) => MyNewsCard(
-                  img: state.news[i].image!,
-                  title: state.news[i].title ?? '',
-                  description: state.news[i].subtitle ?? '',
+                  img: state.mostRead[i].image!,
+                  title: state.mostRead[i].title ?? '',
+                  description: state.mostRead[i].subtitle ?? '',
                   onPressed: () {
                     Navigator.pushNamed(context, NewsDetailPage.route,
-                        arguments: state.news[i]);
+                        arguments: state.mostRead[i]);
                   },
                 ),
               ),

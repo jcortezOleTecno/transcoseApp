@@ -63,25 +63,25 @@ class _MostReadLibraries extends StatelessWidget {
         ),
         BlocBuilder<LibraryCubit, LibraryState>(
           builder: (context, state) {
-            if (state.library.isEmpty) {
+            if (state.mostRead.isEmpty) {
               return const MyShimmer(height: 400);
             }
             return SizedBox(
               height: 350,
               child: PageView.builder(
-                itemCount: state.library.length,
+                itemCount: state.mostRead.length,
                 controller: PageController(
                   initialPage: 0,
                   viewportFraction: 0.9,
                 ),
                 itemBuilder: (context, i) => MyLibraryCard(
-                  img: state.library[i].image!,
-                  title: state.library[i].title ?? '',
-                  description: state.library[i].subtitle ?? '',
+                  img: state.mostRead[i].image!,
+                  title: state.mostRead[i].title ?? '',
+                  description: state.mostRead[i].subtitle ?? '',
                   onPressed: () {
                     if (LocalDataRepository().isLogged) {
                       Navigator.pushNamed(context, LibraryDetailPage.route,
-                          arguments: state.library[i]);
+                          arguments: state.mostRead[i]);
                     } else {
                       Navigator.pushNamed(
                         context,
@@ -91,7 +91,7 @@ class _MostReadLibraries extends StatelessWidget {
                       ).then((_) {
                         if (LocalDataRepository().isLogged) {
                           Navigator.pushNamed(context, LibraryDetailPage.route,
-                              arguments: state.library[i]);
+                              arguments: state.mostRead[i]);
                         }
                       });
                     }

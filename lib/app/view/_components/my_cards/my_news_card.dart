@@ -37,7 +37,7 @@ class MyNewsCard extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(15),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
                     title,
@@ -46,13 +46,13 @@ class MyNewsCard extends StatelessWidget {
                     ),
                   ),
                   spacerS,
-                  // Text(
-                  //   description,
-                  //   maxLines: 4,
-                  //   overflow: TextOverflow.ellipsis,
-                  //   style: AppTextStyle.contentCard,
-                  // ),
-                  MyHtml(text: description),
+                  Text(
+                    description,
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTextStyle.contentCard,
+                  ),
+                  // MyHtml(text: description),
                   const Spacer(),
                   TextButton.icon(
                     onPressed: onPressed,

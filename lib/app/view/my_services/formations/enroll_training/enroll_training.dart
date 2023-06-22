@@ -117,9 +117,13 @@ class EnrollTrainingPage extends StatelessWidget {
                     child: Image.asset('assets/icons/calendar.png', scale: 2),
                   ),
                   spacerM,
+                  const Text(
+                    'Fecha de inicio',
+                    style: AppTextStyle.titleCard,
+                  ),
                   RichText(
                     text: TextSpan(
-                      style: AppTextStyle.h3Style,
+                      style: AppTextStyle.titleCard,
                       children: [
                         TextSpan(
                           text: DateFormat.MMMMd('es')
@@ -135,6 +139,31 @@ class EnrollTrainingPage extends StatelessWidget {
                       ],
                     ),
                   ),
+                  spacerS,
+                  if (horario.endDate != null) ...[
+                    const Text(
+                      'Fecha de fin',
+                      style: AppTextStyle.titleCard,
+                    ),
+                    RichText(
+                      text: TextSpan(
+                        style: AppTextStyle.titleCard,
+                        children: [
+                          TextSpan(
+                            text: DateFormat.MMMMd('es')
+                                .format(horario.endDate!)
+                                .toUpperCase(),
+                          ),
+                          TextSpan(
+                            text:
+                                ' - ${DateFormat.jm().format(DateFormat.j('es').parse(horario.endTime!))}',
+                            style: AppTextStyle.defaultStyle
+                                .copyWith(color: AppColor.neutral40),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                   spacerS,
                   Row(
                     mainAxisSize: MainAxisSize.min,
@@ -412,7 +441,7 @@ class EnrollTrainingPage extends StatelessWidget {
                       text: 'Confirmar inscripciones',
                       isLoading: loading,
                       width: double.infinity,
-                      disabled: selectedEmployees.isEmpty && people.isEmpty,
+                      // disabled: selectedEmployees.isEmpty && people.isEmpty,
                     ),
                     spacerS,
                     MyButton(

@@ -44,7 +44,7 @@ class OtherEventsListPage extends StatelessWidget {
                     const Text('Eventos Vemare', style: AppTextStyle.h1Style),
                     spacerS,
                     const Text(
-                        'Junto a nuestros proveedores creamos momentos únicos que ahora puedes consultar.',
+                        'Encuentros, charlas, presentaciones... Infórmate sobre todos los eventos que creamos para nuestros clientes.',
                         style: AppTextStyle.defaultStyle),
                     spacerL,
                     BlocBuilder<OtherEventsCubit, OtherEventsState>(

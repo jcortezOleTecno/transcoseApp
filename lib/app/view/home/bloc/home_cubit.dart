@@ -76,7 +76,7 @@ class HomeCubit extends Cubit<HomeState> {
           .then((v) => promotions = v),
       _servicesRepository.getServices().then((v) => services = v),
       _workShopsRepository.getWorkShops().then((v) => workShops = v),
-      _noticesRepository.getNotices(limit: 3).then((v) => notices = v),
+      _noticesRepository.getNotices(limit: 3).then((v) => notices = v.news),
       _brandsRepository.getBrands().then((v) => brands = v),
       _workWithUsRepository.getData().then((value) => workWithUs = value),
     ]);

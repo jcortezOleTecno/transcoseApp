@@ -462,7 +462,7 @@ class _Menu extends StatelessWidget {
                                   number: e.telefono == ''
                                       ? '000000000'
                                       : e.telefono ?? '000000000'),
-                              title: e.nombre ?? '',
+                              title: e.tipoComercial ?? '',
                               subtitle: e.telefono == ''
                                   ? '000 000 000'
                                   : '${e.telefono?.split('').getRange(0, 3).join()}  ${e.telefono?.split('').getRange(3, 6).join()}  ${e.telefono?.split('').getRange(6, 9).join()}',

@@ -48,6 +48,7 @@ class DetailFormationPage extends StatelessWidget {
                             children: [
                               Text(formation.title ?? '',
                                   style: AppTextStyle.h2Style),
+
                               spacerS,
                               // Text(formation.description ?? '',
                               //     style: AppTextStyle.defaultStyle),

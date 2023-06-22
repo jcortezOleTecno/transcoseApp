@@ -1,7 +1,5 @@
-import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
-import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
-import 'package:video_player/video_player.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class MyVideoPlayer extends StatefulWidget {
   const MyVideoPlayer({
@@ -16,72 +14,40 @@ class MyVideoPlayer extends StatefulWidget {
 }
 
 class _MyVideoPlayerState extends State<MyVideoPlayer> {
-  late VideoPlayerController _videoPlayerController;
-  ChewieController? _chewieController;
+  late YoutubePlayerController controller;
 
   @override
   void initState() {
-    _initializePlayer();
+    controller = YoutubePlayerController(
+        initialVideoId: YoutubePlayer.convertUrlToId(widget.video)!,
+        flags: const YoutubePlayerFlags(autoPlay: true));
     super.initState();
   }
 
-  Future<void> _initializePlayer() async {
-    _videoPlayerController = VideoPlayerController.network(widget.video,
-        httpHeaders: <String, String>{'Accept': 'application/json'});
-
-    await _videoPlayerController.initialize();
-    setState(() {
-      _createChewieController();
-    });
-  }
-
-  void _createChewieController() {
-    _chewieController = ChewieController(
-      videoPlayerController: _videoPlayerController,
-      autoPlay: false,
-      looping: false,
-      hideControlsTimer: const Duration(seconds: 5),
-      showOptions: false,
-    );
-  }
-
-  Future<void> toggleVideo() async {
-    await _videoPlayerController.pause();
-    await _initializePlayer();
+  @override
+  void deactivate() {
+    controller.pause();
+    super.deactivate();
   }
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-        aspectRatio: 16 / 9,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: Stack(
-            fit: StackFit.expand,
-            clipBehavior: Clip.antiAlias,
-            children: [
-              Positioned.fill(
-                child: Center(
-                  child: _videoPlayerController.value.isInitialized
-                      ? _chewieController != null
-                          ? Chewie(
-                              controller: _chewieController!,
-                            )
-                          : Container()
-                      : const MyShimmer(
-                          height: 250,
-                        ),
-                ),
-              ),
-            ],
-          ),
-        ));
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(12),
+      child: YoutubePlayer(
+        controller: controller,
+        showVideoProgressIndicator: false,
+        bottomActions: [
+          CurrentPosition(),
+          ProgressBar(isExpanded: true),
+        ],
+      ),
+    );
   }
 
   @override
   void dispose() {
-    _videoPlayerController.dispose();
-    _chewieController?.dispose();
+    controller.dispose();
     super.dispose();
   }
 }

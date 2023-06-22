@@ -7,10 +7,20 @@ class LibraryRepository {
 
   LibraryRepository(this._apiClient);
 
-  Future<List<Library>> getLibraries({required int limit}) async {
+  Future<LibraryResponse> getLibraries({required int limit}) async {
     final dynamic res = await _apiClient.getRequest(
         '$BASE_API_URL/api/articulos',
         params: <String, dynamic>{'limit': '$limit'});
-    return (res as List).map(Library.fromJson).toList();
+    return LibraryResponse(
+      library: (res["data"] as List).map(Library.fromJson).toList(),
+      mostRead: (res["most_read"] as List).map(Library.fromJson).toList(),
+    );
   }
+}
+
+class LibraryResponse {
+  final List<Library> mostRead;
+  final List<Library> library;
+
+  LibraryResponse({required this.mostRead, required this.library});
 }

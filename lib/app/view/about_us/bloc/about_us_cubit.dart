@@ -31,9 +31,11 @@ class AboutUsCubit extends Cubit<AboutUsState> {
     RedesSociales? redes;
 
     await Future.wait([
-      _libraryRepository.getLibraries(limit: 2).then((v) => libraries = v),
-      _pillsRepository.getPills(limit: 2).then((v) => pills = v),
-      _noticesRepository.getNotices().then((v) => news = v),
+      _libraryRepository
+          .getLibraries(limit: 2)
+          .then((v) => libraries = v.library),
+      _pillsRepository.getPills(limit: 2).then((v) => pills = v.pills),
+      _noticesRepository.getNotices().then((v) => news = v.news),
       _aboutUsRepository.getSocialNetwork().then((value) => redes = value),
     ]);
 

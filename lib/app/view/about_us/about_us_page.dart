@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/about_us_repository.dart';
 import 'package:vemare/app/data/library_repository.dart';
+import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/notices_repository.dart';
 import 'package:vemare/app/data/pills_repository.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
@@ -15,12 +16,14 @@ import 'package:vemare/app/view/about_us/bloc/about_us_state.dart';
 import 'package:vemare/app/view/library/library_page.dart';
 import 'package:vemare/app/view/news/news_page.dart';
 import 'package:vemare/app/view/our_history/our_history.dart';
+import 'package:vemare/app/view/pills/pills_details.dart';
 import 'package:vemare/app/view/pills/pills_page.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/app/view/where_we_are/where_we_are_page.dart';
 import 'package:vemare/config/service_locator.dart';
 
+import '../login/login_page.dart';
 import '../news/news_detail.dart';
 
 class AboutUsPage extends StatelessWidget {
@@ -389,39 +392,62 @@ class _PillsVemare extends StatelessWidget {
               spacerS,
               state.pills.isEmpty
                   ? const MyShimmer(
-                      height: 440,
+                      height: 220,
                       margin: EdgeInsets.zero,
                     )
                   : Column(
                       children: List.generate(state.pills.length, (i) {
-                        return Card(
-                          margin: const EdgeInsets.only(bottom: 20),
-                          clipBehavior: Clip.antiAlias,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12)),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Image.network(
-                                state.pills[i].image ?? '',
-                                width: double.infinity,
-                                height: 220,
-                                fit: BoxFit.cover,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(15),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(state.pills[i].title ?? '',
-                                        style: AppTextStyle.titleCard),
-                                    spacerXs,
-                                    Text(state.pills[i].subtitle ?? '',
-                                        style: AppTextStyle.defaultStyle),
-                                  ],
+                        return GestureDetector(
+                          onTap: () {
+                            if (LocalDataRepository().isLogged) {
+                              Navigator.pushNamed(
+                                  context, PillsDetailPage.route,
+                                  arguments: state.pills[i]);
+                            } else {
+                              Navigator.pushNamed(
+                                context,
+                                LoginPage.route,
+                                arguments:
+                                    'Para acceder a las pildoras tienes que iniciar sesión',
+                              ).then((_) {
+                                if (LocalDataRepository().isLogged) {
+                                  Navigator.pushNamed(
+                                      context, PillsDetailPage.route,
+                                      arguments: state.pills[i]);
+                                }
+                              });
+                            }
+                          },
+                          child: Card(
+                            margin: const EdgeInsets.only(bottom: 20),
+                            clipBehavior: Clip.antiAlias,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12)),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Image.network(
+                                  state.pills[i].image ?? '',
+                                  width: double.infinity,
+                                  height: 220,
+                                  fit: BoxFit.cover,
                                 ),
-                              )
-                            ],
+                                Padding(
+                                  padding: const EdgeInsets.all(15),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(state.pills[i].title ?? '',
+                                          style: AppTextStyle.titleCard),
+                                      spacerXs,
+                                      Text(state.pills[i].subtitle ?? '',
+                                          style: AppTextStyle.defaultStyle),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         );
                       }),

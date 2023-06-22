@@ -66,8 +66,8 @@ class _Article extends StatelessWidget {
             children: [
               Text(
                 article.title ?? '',
-                style: AppTextStyle.defaultStyle
-                    .copyWith(fontWeight: FontWeight.bold),
+                style:
+                    AppTextStyle.h2Style.copyWith(fontWeight: FontWeight.bold),
               ),
               spacerXs,
               MyHtml(text: article.description ?? ''),

@@ -7,6 +7,7 @@ part 'library_state.freezed.dart';
 class LibraryState with _$LibraryState {
   const factory LibraryState({
     @Default(<Library>[]) List<Library> library,
+    @Default(<Library>[]) List<Library> mostRead,
   }) = _LibraryState;
   const LibraryState._();
 }

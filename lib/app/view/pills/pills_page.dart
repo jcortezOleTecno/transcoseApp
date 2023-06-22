@@ -63,25 +63,25 @@ class _MostReadPills extends StatelessWidget {
         ),
         BlocBuilder<PillsCubit, PillsState>(
           builder: (context, state) {
-            if (state.pills.isEmpty) {
-              return const MyShimmer(height: 400);
+            if (state.mostRead.isEmpty) {
+              return const MyShimmer(height: 200);
             }
             return SizedBox(
               height: 350,
               child: PageView.builder(
-                itemCount: state.pills.length,
+                itemCount: state.mostRead.length,
                 controller: PageController(
                   initialPage: 0,
                   viewportFraction: 0.9,
                 ),
                 itemBuilder: (context, i) => MyPillsCard(
-                  img: state.pills[i].image!,
-                  title: state.pills[i].title ?? '',
-                  description: state.pills[i].subtitle ?? '',
+                  img: state.mostRead[i].image!,
+                  title: state.mostRead[i].title ?? '',
+                  description: state.mostRead[i].subtitle ?? '',
                   onPressed: () {
                     if (LocalDataRepository().isLogged) {
                       Navigator.pushNamed(context, PillsDetailPage.route,
-                          arguments: state.pills[i]);
+                          arguments: state.mostRead[i]);
                     } else {
                       Navigator.pushNamed(
                         context,
@@ -91,7 +91,7 @@ class _MostReadPills extends StatelessWidget {
                       ).then((_) {
                         if (LocalDataRepository().isLogged) {
                           Navigator.pushNamed(context, PillsDetailPage.route,
-                              arguments: state.pills[i]);
+                              arguments: state.mostRead[i]);
                         }
                       });
                     }
