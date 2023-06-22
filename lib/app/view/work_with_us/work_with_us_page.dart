@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:vemare/app/data/work_with_us_repository.dart';
 import 'package:vemare/app/domain/model/work_with_us.dart';
 import 'package:vemare/app/domain/utils/validators.dart';
@@ -12,6 +11,7 @@ import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_dropdown_button/my_drop_down_button.dart';
 import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_input/my_input.dart';
+import 'package:vemare/app/view/_components/my_network_image/my_network_image.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/tap_to_hide_keyboard/tap_to_hide_keyboard.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
@@ -64,8 +64,8 @@ class _WorkWithUsPageState extends State<WorkWithUsPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const MyBackButton(),
-                        Image(
-                          image: NetworkImage(state.workWithUs?.image ?? ''),
+                        MyNetworkImage(
+                          image: state.workWithUs?.image ?? '',
                           height: 240,
                           width: double.infinity,
                           fit: BoxFit.cover,

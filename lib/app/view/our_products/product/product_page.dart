@@ -82,26 +82,26 @@ class ProductPage extends StatelessWidget {
                             state.category?.subtitle ?? '',
                             style: AppTextStyle.defaultStyle,
                           ),
-                          spacerM,
-                          if (state.category?.id != 0)
-                            Center(
-                              child: TextButton.icon(
-                                onPressed: () {
-                                  Navigator.pushNamed(
-                                      context, SearchMyProductPage.route,
-                                      arguments: state.category);
-                                },
-                                label: Image.asset(
-                                  'assets/icons/arrow_next.png',
-                                  scale: 2,
-                                ),
-                                icon: Text(
-                                  'Buscar mi ${state.category?.name ?? ''}',
-                                  style: AppTextStyle.linkStyle,
-                                ),
-                              ),
-                            ),
                           spacerL,
+                          // if (state.category?.id != 0)
+                          //   Center(
+                          //     child: TextButton.icon(
+                          //       onPressed: () {
+                          //         Navigator.pushNamed(
+                          //             context, SearchMyProductPage.route,
+                          //             arguments: state.category);
+                          //       },
+                          //       label: Image.asset(
+                          //         'assets/icons/arrow_next.png',
+                          //         scale: 2,
+                          //       ),
+                          //       icon: Text(
+                          //         'Buscar mi ${state.category?.name ?? ''}',
+                          //         style: AppTextStyle.linkStyle,
+                          //       ),
+                          //     ),
+                          //   ),
+                          // spacerL,
                           MyCustomDropdownButton(
                             hint: 'Todas las categorias',
                             hintStyle: AppTextStyle.inputStyle,
@@ -211,7 +211,7 @@ class ProductPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const MySpacer(height: 60),
+                    const Spacer(),
                     Row(
                       children: [
                         Text(
@@ -230,7 +230,7 @@ class ProductPage extends StatelessWidget {
                     ),
                     spacerS,
                     Text(
-                      cat.description ?? '',
+                      cat.subtitle ?? '',
                       maxLines: 4,
                       overflow: TextOverflow.ellipsis,
                       style: AppTextStyle.contentCard

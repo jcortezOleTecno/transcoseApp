@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vemare/app/domain/model/categoty_detail.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
+import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_input/my_input_search.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/tap_to_hide_keyboard/tap_to_hide_keyboard.dart';
@@ -57,10 +58,11 @@ class DetailProductPage extends StatelessWidget {
                         ],
                       ),
                       spacerM,
-                      Text(
-                        args.cat.description ?? '',
-                        style: AppTextStyle.defaultStyle,
-                      ),
+                      MyHtml(text: args.cat.description ?? ''),
+                      // Text(
+                      //   args.cat.description ?? '',
+                      //   style: AppTextStyle.defaultStyle,
+                      // ),
                       spacerM,
                       spacerM,
                       const MySearchInput(),

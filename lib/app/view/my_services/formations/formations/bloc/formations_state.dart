@@ -9,7 +9,7 @@ class FormationsState with _$FormationsState {
   const factory FormationsState({
     @Default(false) bool loading,
     @Default(FormStatus.editing) FormStatus status,
-    @Default(<Formations>[]) List<Formations> formations,
+    @Default(<TrainigGroup>[]) List<TrainigGroup> formations,
   }) = _FormationsState;
   const FormationsState._();
 }

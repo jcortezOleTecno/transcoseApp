@@ -175,13 +175,14 @@ class _Card extends StatelessWidget {
                       style: AppTextStyle.defaultStyle,
                     ),
                   ),
-                  Text(
-                    '${promotion.pvpOriginal}€',
-                    style: AppTextStyle.pvpOrinigal,
-                  ),
+                  if (promotion.pvpLowered != null)
+                    Text(
+                      '${promotion.pvpOriginal}€',
+                      style: AppTextStyle.pvpOrinigal,
+                    ),
                   spacerXs,
                   Text(
-                    '${promotion.pvpLowered}€',
+                    '${promotion.pvpLowered ?? promotion.pvpOriginal}€',
                     style: AppTextStyle.h2Style,
                   ),
                 ],

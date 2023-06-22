@@ -4,6 +4,7 @@ import 'package:vemare/app/data/products_repository.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_filter_image/my_filter_image.dart';
 import 'package:vemare/app/view/_components/my_listile/my_listile.dart';
+import 'package:vemare/app/view/_components/my_network_image/my_network_image.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/our_products/products_categories/our_products_page.dart';
@@ -93,10 +94,11 @@ class TypeVehicleCard extends StatelessWidget {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            Image(
-              image: NetworkImage(img),
-              fit: BoxFit.cover,
-            ),
+            MyNetworkImage(image: img, fit: BoxFit.cover),
+            // Image(
+            //   image: NetworkImage(img),
+            //   fit: BoxFit.cover,
+            // ),
             const MyFilterImage(),
             Padding(
               padding: const EdgeInsets.all(15),

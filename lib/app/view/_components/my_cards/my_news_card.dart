@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vemare/app/view/_components/my_html/my_html.dart';
+import 'package:vemare/app/view/_components/my_network_image/my_network_image.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
@@ -24,14 +24,10 @@ class MyNewsCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Column(
         children: [
-          Container(
+          SizedBox(
+            width: double.infinity,
             height: 200,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(img),
-                fit: BoxFit.cover,
-              ),
-            ),
+            child: MyNetworkImage(image: img, fit: BoxFit.cover),
           ),
           Expanded(
             child: Padding(

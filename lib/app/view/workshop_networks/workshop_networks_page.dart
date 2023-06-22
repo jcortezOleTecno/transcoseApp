@@ -117,74 +117,75 @@ class _WorkshopNetworksPageState extends State<WorkshopNetworksPage> {
                     ),
                     const _Info(),
                     spacerL,
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: Visibility(
-                        visible: state.status != FormStatus.done,
-                        replacement: const MessageSentSuccesfullyWidget(),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text('Solicitar más información',
-                                style: AppTextStyle.h2Style),
-                            spacerS,
-                            MyInput(
-                              label: 'Nombre',
-                              required: true,
-                              onChanged: cubit.name,
-                              controller: tcName,
-                              textInputAction: TextInputAction.next,
-                              inputType: TextInputType.name,
-                              textCapitalization: TextCapitalization.words,
-                              hasError: state.status == FormStatus.error,
-                            ),
-                            MyInput(
-                              label: 'E-mail',
-                              required: true,
-                              controller: tcEmail,
-                              textInputAction: TextInputAction.next,
-                              inputType: TextInputType.emailAddress,
-                              onChanged: cubit.email,
-                              hasError: state.status == FormStatus.error,
-                            ),
-                            MyInput(
-                              label: 'Teléfono',
-                              required: true,
-                              controller: tcPhone,
-                              textInputAction: TextInputAction.next,
-                              inputType: TextInputType.phone,
-                              onChanged: cubit.phone,
-                              // inputFormatters: [
-                              //   MaskedInputFormatter('### ### ###'),
-                              // ],
-                              hasError: state.status == FormStatus.error,
-                            ),
-                            MyInput(
-                              label: 'Observaciones',
-                              required: true,
-                              maxLines: 6,
-                              controller: tcObserv,
-                              onChanged: cubit.observation,
-                              hasError: state.status == FormStatus.error,
-                              inputType: TextInputType.multiline,
-                            ),
-                            spacerM,
-                            MyButton(
-                              onPressed: () {
-                                FocusScope.of(context)
-                                    .requestFocus(FocusNode());
-                                cubit.sendForm();
-                              },
-                              text: 'Enviar',
-                              width: double.infinity,
-                              isLoading: state.status == FormStatus.loading,
-                              disabled: !state.isComplete,
-                            ),
-                            spacerXL,
-                          ],
+                    if (state.workShop != null)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: Visibility(
+                          visible: state.status != FormStatus.done,
+                          replacement: const MessageSentSuccesfullyWidget(),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text('Solicitar más información',
+                                  style: AppTextStyle.h2Style),
+                              spacerS,
+                              MyInput(
+                                label: 'Nombre',
+                                required: true,
+                                onChanged: cubit.name,
+                                controller: tcName,
+                                textInputAction: TextInputAction.next,
+                                inputType: TextInputType.name,
+                                textCapitalization: TextCapitalization.words,
+                                hasError: state.status == FormStatus.error,
+                              ),
+                              MyInput(
+                                label: 'E-mail',
+                                required: true,
+                                controller: tcEmail,
+                                textInputAction: TextInputAction.next,
+                                inputType: TextInputType.emailAddress,
+                                onChanged: cubit.email,
+                                hasError: state.status == FormStatus.error,
+                              ),
+                              MyInput(
+                                label: 'Teléfono',
+                                required: true,
+                                controller: tcPhone,
+                                textInputAction: TextInputAction.next,
+                                inputType: TextInputType.phone,
+                                onChanged: cubit.phone,
+                                // inputFormatters: [
+                                //   MaskedInputFormatter('### ### ###'),
+                                // ],
+                                hasError: state.status == FormStatus.error,
+                              ),
+                              MyInput(
+                                label: 'Observaciones',
+                                required: true,
+                                maxLines: 6,
+                                controller: tcObserv,
+                                onChanged: cubit.observation,
+                                hasError: state.status == FormStatus.error,
+                                inputType: TextInputType.multiline,
+                              ),
+                              spacerM,
+                              MyButton(
+                                onPressed: () {
+                                  FocusScope.of(context)
+                                      .requestFocus(FocusNode());
+                                  cubit.sendForm();
+                                },
+                                text: 'Enviar',
+                                width: double.infinity,
+                                isLoading: state.status == FormStatus.loading,
+                                disabled: !state.isComplete,
+                              ),
+                              spacerXL,
+                            ],
+                          ),
                         ),
                       ),
-                    ),
                     const _Multimedia()
                   ],
                 ),

@@ -5,6 +5,7 @@ import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_html/my_html.dart';
+import 'package:vemare/app/view/_components/my_network_image/my_network_image.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/my_services/formations/enroll_training/enroll_training.dart';
@@ -36,8 +37,8 @@ class DetailFormationPage extends StatelessWidget {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(12),
-                            child: Image.network(
-                              formation.image!,
+                            child: MyNetworkImage(
+                              image: formation.image!,
                               fit: BoxFit.cover,
                               height: 250,
                             ),
@@ -70,6 +71,18 @@ class DetailFormationPage extends StatelessWidget {
                             ],
                           ),
                           spacerS,
+                          if (formation.horario
+                                  ?.where((e) => e.isRegistered!)
+                                  .isNotEmpty ??
+                              false) ...[
+                            const Text(
+                              'Más información',
+                              style: AppTextStyle.h3Style,
+                            ),
+                            spacerS,
+                            MyHtml(
+                                text: formation.informationForRegistrants ?? '')
+                          ]
                         ],
                       ),
                     ),

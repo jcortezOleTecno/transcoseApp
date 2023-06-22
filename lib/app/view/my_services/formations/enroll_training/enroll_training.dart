@@ -64,20 +64,31 @@ class EnrollTrainingPage extends StatelessWidget {
                     MyCalendar(
                       dates: formation.horario ?? [],
                       onSelectedDate: (horario) {
-                        _dialogConfirmSchedule(context, horario).then((v) {
-                          if (v!) {
-                            _dialogEnrollEmployee(context).then((v) {
-                              if (v!) {
-                                _dialogCongratulations(context, horario)
-                                    .then((_) {
-                                  Navigator.of(context).pop();
-                                });
-                              }
-                            });
-                          }
-                        });
+                        if (horario.date!.isBefore(DateTime.now())) {
+                          _dialogConfirmSchedule(context, horario,
+                              isResume: true);
+                        } else {
+                          _dialogConfirmSchedule(context, horario).then((v) {
+                            if (v ?? false) {
+                              _dialogEnrollEmployee(context).then((v) {
+                                if (v ?? false) {
+                                  _dialogCongratulations(context, horario)
+                                      .then((_) {
+                                    Navigator.of(context).pop();
+                                  });
+                                }
+                              });
+                            }
+                          });
+                        }
+                      },
+                      onSelectedDateRegistered: (horario) {
+                        _dialogConfirmSchedule(context, horario,
+                            isResume: true);
                       },
                     ),
+                    spacerS,
+                    const ColorsGuide()
                   ],
                 ),
               )
@@ -88,10 +99,8 @@ class EnrollTrainingPage extends StatelessWidget {
     );
   }
 
-  Future<bool?> _dialogConfirmSchedule(
-    BuildContext context,
-    Horario horario,
-  ) {
+  Future<bool?> _dialogConfirmSchedule(BuildContext context, Horario horario,
+      {bool isResume = false}) {
     return showDialog<bool>(
         context: context,
         barrierDismissible: false,
@@ -192,24 +201,21 @@ class EnrollTrainingPage extends StatelessWidget {
                   Expanded(
                       child: SingleChildScrollView(
                           child: MyHtml(text: formation.description ?? ''))),
-                  // Text(
-                  //   formation.description ?? '',
-                  //   style: AppTextStyle.defaultStyle,
-                  //   textAlign: TextAlign.center,
-                  // ),
                   spacerM,
                   MyButton(
                     onPressed: () => Navigator.of(context).pop(true),
-                    text: 'Confirmar horario',
+                    text: isResume ? 'Aceptar' : 'Confirmar horario',
                     width: double.infinity,
                   ),
-                  spacerS,
-                  MyButton(
-                    onPressed: () => Navigator.of(context).pop(false),
-                    text: 'Volver',
-                    width: double.infinity,
-                    variant: MyButtonVariant.outlinedBold,
-                  ),
+                  if (!isResume) ...[
+                    spacerS,
+                    MyButton(
+                      onPressed: () => Navigator.of(context).pop(false),
+                      text: 'Volver',
+                      width: double.infinity,
+                      variant: MyButtonVariant.outlinedBold,
+                    ),
+                  ]
                 ],
               ),
             ),
@@ -687,6 +693,54 @@ class EnrollTrainingPage extends StatelessWidget {
           },
         );
       },
+    );
+  }
+}
+
+class ColorsGuide extends StatelessWidget {
+  const ColorsGuide({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text("Guía de colores", style: AppTextStyle.titleCard),
+        legend(color: AppColor.primaryBlue, text: 'Día actual'),
+        legend(color: AppColor.success500, text: 'En tu centro más cercano'),
+        legend(color: AppColor.red, text: 'Otros centros'),
+        legend(
+            color: AppColor.success500,
+            isSolid: true,
+            text: 'Formación ya inscrita'),
+        spacerM,
+      ],
+    );
+  }
+
+  Widget legend(
+      {required Color color, required String text, bool isSolid = false}) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10),
+      child: Row(
+        children: [
+          Container(
+            height: 20,
+            width: 20,
+            decoration: BoxDecoration(
+                color: isSolid ? color : null,
+                shape: BoxShape.circle,
+                border: Border.all(color: color, width: 2)),
+          ),
+          spacerS,
+          Text(
+            text,
+            style: AppTextStyle.defaultStyle,
+          ),
+        ],
+      ),
     );
   }
 }

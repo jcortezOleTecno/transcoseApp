@@ -17,6 +17,7 @@ import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_input/my_input.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/my_services/events/other_events/enroll_event/bloc/enroll_event_cubit.dart';
+import 'package:vemare/app/view/my_services/formations/enroll_training/enroll_training.dart';
 import 'package:vemare/app/view/shared/userbloc/user_cubit.dart';
 import 'package:vemare/app/view/shared/userbloc/user_state.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
@@ -62,20 +63,31 @@ class EnrollEventPage extends StatelessWidget {
                     MyCalendar(
                       dates: event.horario ?? [],
                       onSelectedDate: (horario) {
-                        _dialogConfirmSchedule(context, horario).then((v) {
-                          if (v!) {
-                            _dialogEnrollEmployee(context).then((v) {
-                              if (v!) {
-                                _dialogCongratulations(context, horario)
-                                    .then((_) {
-                                  Navigator.of(context).pop();
-                                });
-                              }
-                            });
-                          }
-                        });
+                        if (horario.date!.isBefore(DateTime.now())) {
+                          _dialogConfirmSchedule(context, horario,
+                              isResume: true);
+                        } else {
+                          _dialogConfirmSchedule(context, horario).then((v) {
+                            if (v ?? false) {
+                              _dialogEnrollEmployee(context).then((v) {
+                                if (v ?? false) {
+                                  _dialogCongratulations(context, horario)
+                                      .then((_) {
+                                    Navigator.of(context).pop();
+                                  });
+                                }
+                              });
+                            }
+                          });
+                        }
+                      },
+                      onSelectedDateRegistered: (horario) {
+                        _dialogConfirmSchedule(context, horario,
+                            isResume: true);
                       },
                     ),
+                    spacerS,
+                    const ColorsGuide()
 
                     //TEST
                   ],
@@ -88,10 +100,8 @@ class EnrollEventPage extends StatelessWidget {
     );
   }
 
-  Future<bool?> _dialogConfirmSchedule(
-    BuildContext context,
-    Horario horario,
-  ) {
+  Future<bool?> _dialogConfirmSchedule(BuildContext context, Horario horario,
+      {bool isResume = false}) {
     return showDialog<bool>(
         context: context,
         barrierDismissible: false,
@@ -163,16 +173,18 @@ class EnrollEventPage extends StatelessWidget {
                   spacerM,
                   MyButton(
                     onPressed: () => Navigator.of(context).pop(true),
-                    text: 'Confirmar horario',
+                    text: isResume ? 'Aceptar' : 'Confirmar horario',
                     width: double.infinity,
                   ),
-                  spacerS,
-                  MyButton(
-                    onPressed: () => Navigator.of(context).pop(false),
-                    text: 'Volver',
-                    width: double.infinity,
-                    variant: MyButtonVariant.outlinedBold,
-                  ),
+                  if (!isResume) ...[
+                    spacerS,
+                    MyButton(
+                      onPressed: () => Navigator.of(context).pop(false),
+                      text: 'Volver',
+                      width: double.infinity,
+                      variant: MyButtonVariant.outlinedBold,
+                    ),
+                  ]
                 ],
               ),
             ),
@@ -650,5 +662,97 @@ class EnrollEventPage extends StatelessWidget {
         );
       },
     );
+  }
+
+  Future<bool?> _dialogResume(
+    BuildContext context,
+    Horario horario,
+  ) {
+    return showDialog<bool>(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return Dialog(
+            insetPadding: const EdgeInsets.fromLTRB(20, 25, 20, 20),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            child: Container(
+              padding: const EdgeInsets.all(20),
+              width: double.infinity,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const MySpacer(height: 15),
+                  Container(
+                    height: 50,
+                    width: 50,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColor.blue100,
+                    ),
+                    child: Image.asset('assets/icons/calendar.png', scale: 2),
+                  ),
+                  spacerM,
+                  RichText(
+                    text: TextSpan(
+                      style: AppTextStyle.h3Style,
+                      children: [
+                        TextSpan(
+                          text: DateFormat.MMMMd('es')
+                              .format(horario.date!)
+                              .toUpperCase(),
+                        ),
+                        TextSpan(
+                          text:
+                              ' - ${DateFormat.jm().format(DateFormat.j('es').parse(horario.time!))}',
+                          style: AppTextStyle.defaultStyle
+                              .copyWith(color: AppColor.neutral40),
+                        ),
+                      ],
+                    ),
+                  ),
+                  spacerS,
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Image.asset(
+                        'assets/icons/locate.png',
+                        scale: 2,
+                        color: AppColor.primaryBlue,
+                      ),
+                      spacerS,
+                      Text(
+                        horario.location ?? '',
+                        style: AppTextStyle.defaultStyle,
+                      )
+                    ],
+                  ),
+                  spacerM,
+                  Text(
+                    event.title ?? '',
+                    style: AppTextStyle.h3Style,
+                  ),
+                  spacerS,
+                  Expanded(
+                      child: SingleChildScrollView(
+                          child: MyHtml(text: event.description ?? ''))),
+                  spacerM,
+                  MyButton(
+                    onPressed: () => Navigator.of(context).pop(true),
+                    text: 'Confirmar horario',
+                    width: double.infinity,
+                  ),
+                  spacerS,
+                  MyButton(
+                    onPressed: () => Navigator.of(context).pop(false),
+                    text: 'Volver',
+                    width: double.infinity,
+                    variant: MyButtonVariant.outlinedBold,
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
   }
 }

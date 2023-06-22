@@ -14,7 +14,8 @@ class FormationsCubit extends Cubit<FormationsState> {
 
   Future<void> fetchData() async {
     emit(state.copyWith(loading: true));
-    List<Formations> formations = await _formationsRepository.getFormations();
+    List<TrainigGroup> formations =
+        await _formationsRepository.getTrainingGroup();
     emit(state.copyWith(formations: formations, loading: false));
   }
 }

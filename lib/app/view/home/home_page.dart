@@ -22,6 +22,7 @@ import 'package:vemare/app/view/_components/my_filter_image/my_filter_image.dart
 import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_listile/my_listile.dart';
 import 'package:vemare/app/view/_components/my_cards/my_products_card.dart';
+import 'package:vemare/app/view/_components/my_network_image/my_network_image.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/home/bloc/home_cubit.dart';
@@ -277,15 +278,19 @@ class _Background extends StatelessWidget {
                 itemBuilder: (context, i) {
                   return Stack(
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
+                      SizedBox(
+                        /*decoration: BoxDecoration(
                           image: DecorationImage(
                             image: NetworkImage(state.hero[i].image ?? ''),
                             fit: BoxFit.cover,
                           ),
-                        ),
+                        ),*/
                         width: size.width,
                         height: size.height - 80,
+                        child: MyNetworkImage(
+                          image: state.hero[i].image!,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                       const MyFilterImage(),
                       Padding(
@@ -430,42 +435,39 @@ class _News extends StatelessWidget {
                     clipBehavior: Clip.antiAlias,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: NetworkImage(state.notices[i].image!),
+                    child: Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        MyNetworkImage(
+                          image: state.notices[i].image!,
                           fit: BoxFit.cover,
+                          height: 220,
                         ),
-                      ),
-                      child: Stack(
-                        children: [
-                          const MyFilterImage(),
-                          Padding(
-                            padding: const EdgeInsets.all(15),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Spacer(),
-                                // const MySpacer(height: 80),
-                                Text(
-                                  state.notices[i].title ?? '',
-                                  style: AppTextStyle.h3Style.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColor.white),
-                                ),
-                                spacerS,
-                                Text(
-                                  state.notices[i].subtitle ?? '',
-                                  maxLines: 4,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: AppTextStyle.contentCard
-                                      .copyWith(color: Colors.white),
-                                )
-                              ],
-                            ),
+                        const MyFilterImage(),
+                        Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              const Spacer(),
+                              Text(
+                                state.notices[i].title ?? '',
+                                style: AppTextStyle.h3Style.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColor.white),
+                              ),
+                              spacerS,
+                              Text(
+                                state.notices[i].subtitle ?? '',
+                                maxLines: 4,
+                                overflow: TextOverflow.ellipsis,
+                                style: AppTextStyle.contentCard
+                                    .copyWith(color: Colors.white),
+                              )
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -526,10 +528,11 @@ class _TrabajaConNosotros extends StatelessWidget {
                     )
                   : ClipRRect(
                       borderRadius: BorderRadius.circular(12),
-                      child: Image(
-                        image: NetworkImage(state.workWithUs?.image ?? ''),
+                      child: MyNetworkImage(
+                        image: state.workWithUs?.image ?? '',
                         fit: BoxFit.cover,
                         width: MediaQuery.of(context).size.width * .90,
+                        height: 200,
                       ),
                     ),
             ],
@@ -573,7 +576,10 @@ class _RedesTalleres extends StatelessWidget {
               children: state.workshop
                   .map(
                     (e) => MyListile(
-                      icon: Image.network(e.image!, fit: BoxFit.cover),
+                      icon: MyNetworkImage(
+                        image: e.image ?? '',
+                        fit: BoxFit.cover,
+                      ), //Image.network(e.image!, fit: BoxFit.cover),
                       title: e.name ?? '',
                       onTap: () => Navigator.pushNamed(
                         context,
@@ -619,10 +625,15 @@ class _LastService extends StatelessWidget {
             height: MediaQuery.of(context).size.width * .80,
             width: double.infinity,
             child: Stack(fit: StackFit.expand, children: [
-              Image(
-                image: NetworkImage(state.services.last.image!),
+              MyNetworkImage(
+                image: state.services.last.image ?? '',
                 fit: BoxFit.cover,
+                height: MediaQuery.of(context).size.width * .80,
               ),
+              // Image(
+              //   image: NetworkImage(state.services.last.image!),
+              //   fit: BoxFit.cover,
+              // ),
               const MyFilterImage(),
               Padding(
                 padding: const EdgeInsets.all(20),
@@ -717,9 +728,10 @@ class _Servicios extends StatelessWidget {
                     child: Stack(
                       fit: StackFit.expand,
                       children: [
-                        Image(
-                          image: NetworkImage(state.services[i].image!),
+                        MyNetworkImage(
+                          image: state.services[i].image!,
                           fit: BoxFit.cover,
+                          height: 225,
                         ),
                         const MyFilterImage(),
                         Padding(

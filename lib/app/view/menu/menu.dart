@@ -269,7 +269,7 @@ class _Menu extends StatelessWidget {
                   },
                 ),
                 _MenuItem(
-                  title: 'Promociones y Alquiler',
+                  title: 'Promociones',
                   onTap: () {
                     if (ModalRoute.of(context)!.settings.name !=
                         PromotionsPage.route) {

@@ -39,7 +39,7 @@ import 'package:vemare/app/view/my_services/formations/enroll_training/enroll_tr
 import 'package:vemare/app/view/my_services/formations/formations/formations_page.dart';
 import 'package:vemare/app/view/my_services/services/service_general.dart';
 import 'package:vemare/app/view/my_services/services/services_page.dart';
-import 'package:vemare/app/view/my_services/formations/skillful_formation.dart';
+import 'package:vemare/app/view/my_services/formations/skillful_formation/skillful_formation.dart';
 import 'package:vemare/app/view/our_products/detail_product/detail_product.dart';
 import 'package:vemare/app/view/our_products/products_categories/our_products_page.dart';
 import 'package:vemare/app/view/our_products/product/product_page.dart';
@@ -191,10 +191,10 @@ abstract class AppRouter {
           builder: (_) => FormationsPage.create(),
         );
       case SkillFormationPage.route:
-        final Formations? formations = settings.arguments as Formations?;
+        final TrainigGroup? formations = settings.arguments as TrainigGroup?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => SkillFormationPage(formations!),
+          builder: (_) => SkillFormationPage.create(formations!),
         );
       case AboutUsPage.route:
         return MaterialPageRoute<void>(

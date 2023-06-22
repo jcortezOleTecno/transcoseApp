@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$FormationsState {
   bool get loading => throw _privateConstructorUsedError;
   FormStatus get status => throw _privateConstructorUsedError;
-  List<Formations> get formations => throw _privateConstructorUsedError;
+  List<TrainigGroup> get formations => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FormationsStateCopyWith<FormationsState> get copyWith =>
@@ -31,7 +31,7 @@ abstract class $FormationsStateCopyWith<$Res> {
           FormationsState value, $Res Function(FormationsState) then) =
       _$FormationsStateCopyWithImpl<$Res, FormationsState>;
   @useResult
-  $Res call({bool loading, FormStatus status, List<Formations> formations});
+  $Res call({bool loading, FormStatus status, List<TrainigGroup> formations});
 }
 
 /// @nodoc
@@ -63,7 +63,7 @@ class _$FormationsStateCopyWithImpl<$Res, $Val extends FormationsState>
       formations: null == formations
           ? _value.formations
           : formations // ignore: cast_nullable_to_non_nullable
-              as List<Formations>,
+              as List<TrainigGroup>,
     ) as $Val);
   }
 }
@@ -76,7 +76,7 @@ abstract class _$$_FormationsStateCopyWith<$Res>
       __$$_FormationsStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool loading, FormStatus status, List<Formations> formations});
+  $Res call({bool loading, FormStatus status, List<TrainigGroup> formations});
 }
 
 /// @nodoc
@@ -106,7 +106,7 @@ class __$$_FormationsStateCopyWithImpl<$Res>
       formations: null == formations
           ? _value._formations
           : formations // ignore: cast_nullable_to_non_nullable
-              as List<Formations>,
+              as List<TrainigGroup>,
     ));
   }
 }
@@ -117,7 +117,7 @@ class _$_FormationsState extends _FormationsState {
   const _$_FormationsState(
       {this.loading = false,
       this.status = FormStatus.editing,
-      final List<Formations> formations = const <Formations>[]})
+      final List<TrainigGroup> formations = const <TrainigGroup>[]})
       : _formations = formations,
         super._();
 
@@ -127,10 +127,10 @@ class _$_FormationsState extends _FormationsState {
   @override
   @JsonKey()
   final FormStatus status;
-  final List<Formations> _formations;
+  final List<TrainigGroup> _formations;
   @override
   @JsonKey()
-  List<Formations> get formations {
+  List<TrainigGroup> get formations {
     if (_formations is EqualUnmodifiableListView) return _formations;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_formations);
@@ -167,7 +167,7 @@ abstract class _FormationsState extends FormationsState {
   const factory _FormationsState(
       {final bool loading,
       final FormStatus status,
-      final List<Formations> formations}) = _$_FormationsState;
+      final List<TrainigGroup> formations}) = _$_FormationsState;
   const _FormationsState._() : super._();
 
   @override
@@ -175,7 +175,7 @@ abstract class _FormationsState extends FormationsState {
   @override
   FormStatus get status;
   @override
-  List<Formations> get formations;
+  List<TrainigGroup> get formations;
   @override
   @JsonKey(ignore: true)
   _$$_FormationsStateCopyWith<_$_FormationsState> get copyWith =>

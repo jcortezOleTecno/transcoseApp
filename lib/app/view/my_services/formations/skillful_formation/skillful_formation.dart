@@ -1,49 +1,79 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vemare/app/data/formations_repository.dart';
 import 'package:vemare/app/domain/model/formation.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_html/my_html.dart';
+import 'package:vemare/app/view/_components/my_network_image/my_network_image.dart';
+import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/my_services/formations/detail_formation.dart';
+import 'package:vemare/app/view/my_services/formations/skillful_formation/bloc/skillful_formation_cubit.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
+import 'package:vemare/config/service_locator.dart';
+
+import 'bloc/skillful_formation_state.dart';
 
 class SkillFormationPage extends StatelessWidget {
-  const SkillFormationPage(this.formations, {super.key});
+  const SkillFormationPage._();
   static const route = '/skill_formation';
 
-  final Formations formations;
+  static Widget create(TrainigGroup trainingGroup) {
+    return BlocProvider(
+      create: (context) => SkillfulFormationCubit(
+        getIt<FormationsRepository>(),
+        trainingGroup,
+      ),
+      child: const SkillFormationPage._(),
+    );
+  }
+
+  // final TrainigGroup formations;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: MyBody(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const MyBackButton(),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(formations.title ?? '', style: AppTextStyle.h1Style),
-                    spacerS,
-                    // Text(formations.description ?? '',
-                    //     style: AppTextStyle.defaultStyle),
-                    MyHtml(
-                        text: formations.description ?? '', bodyFontSize: 22),
-                    spacerXL,
-                    if (formations.formations != null)
-                      ...formations.formations!.map((e) => _Item(e))
-                  ],
-                ),
+    return BlocBuilder<SkillfulFormationCubit, SkillfulFormationState>(
+      builder: (context, state) {
+        return Scaffold(
+          body: MyBody(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const MyBackButton(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(state.trainigGroup?.title ?? '',
+                            style: AppTextStyle.h1Style),
+                        spacerS,
+                        // Text(formations.description ?? '',
+                        //     style: AppTextStyle.defaultStyle),
+                        MyHtml(
+                            text: state.trainigGroup?.description ?? '',
+                            bodyFontSize: 22),
+                        spacerXL,
+                        if (state.loading)
+                          ...List.generate(
+                              2,
+                              (_) => const MyShimmer(
+                                    height: 230,
+                                    margin: EdgeInsets.only(bottom: 20),
+                                  )),
+                        ...state.formations.map((e) => _Item(e))
+                      ],
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
@@ -73,8 +103,8 @@ class _Item extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(children: [
-          Image.network(
-            formation.image ?? '',
+          MyNetworkImage(
+            image: formation.image ?? '',
             width: double.infinity,
             height: 150,
             fit: BoxFit.cover,

@@ -3,6 +3,7 @@ import 'package:vemare/app/domain/model/notices.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_html/my_html.dart';
+import 'package:vemare/app/view/_components/my_network_image/my_network_image.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
 import '../_components/my_spacer/my_spacer.dart';
@@ -22,8 +23,8 @@ class NewsDetailPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const MyBackButton(),
-              Image.network(
-                news.image!,
+              MyNetworkImage(
+                image: news.image!,
                 height: 250,
                 width: double.infinity,
                 fit: BoxFit.cover,

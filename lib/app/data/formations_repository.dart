@@ -12,10 +12,18 @@ class FormationsRepository {
 
   FormationsRepository(this._apiClient);
 
-  Future<List<Formations>> getFormations() async {
+  Future<List<TrainigGroup>> getTrainingGroup() async {
     final dynamic res =
-        await _apiClient.getRequest('$BASE_API_URL/api/formaciones');
-    return (res as List).map(Formations.fromJson).toList();
+        await _apiClient.getRequest('$BASE_API_URL/api/grupos-formativos');
+    return (res as List).map(TrainigGroup.fromJson).toList();
+  }
+
+  Future<List<Formation>> getFormations(int formationGroupId) async {
+    final dynamic res = await _apiClient.getRequest(
+      '$BASE_API_URL/api/formaciones',
+      params: {"formation_group_id": formationGroupId.toString()},
+    );
+    return (res as List).map(Formation.fromJson).toList();
   }
 
   Future<void> enrollFormations({

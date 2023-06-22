@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vemare/app/view/_components/my_network_image/my_network_image.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
@@ -34,7 +35,11 @@ class MyPillsCard extends StatelessWidget {
               child: Stack(
                 fit: StackFit.expand,
                 children: [
-                  Image.network(img, fit: BoxFit.cover),
+                  MyNetworkImage(
+                    image: img,
+                    fit: BoxFit.cover,
+                  ),
+                  // Image.network(img, fit: BoxFit.cover),
                   Container(color: Colors.black38),
                   Center(
                     child: Container(

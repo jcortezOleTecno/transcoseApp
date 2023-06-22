@@ -11,7 +11,7 @@ import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/my_services/formations/formations/bloc/formations_cubit.dart';
 import 'package:vemare/app/view/my_services/formations/formations/bloc/formations_state.dart';
-import 'package:vemare/app/view/my_services/formations/skillful_formation.dart';
+import 'package:vemare/app/view/my_services/formations/skillful_formation/skillful_formation.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
 
