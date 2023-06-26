@@ -197,7 +197,8 @@ class _SocialNetworks extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Redes Sociales', style: AppTextStyle.h1Style),
+              const Text('Nuestras redes sociales',
+                  style: AppTextStyle.h1Style),
               spacerM,
               item('Facebook', width, state.redes?.facebook ?? ''),
               item('Instagram', width, state.redes?.instagram ?? ''),

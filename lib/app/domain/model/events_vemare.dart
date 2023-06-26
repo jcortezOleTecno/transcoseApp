@@ -1,7 +1,7 @@
 import 'package:vemare/app/domain/model/galery.dart';
 
-class EventsVemare {
-  EventsVemare({
+class EventsHeld {
+  EventsHeld({
     this.id,
     this.title,
     this.slug,
@@ -10,6 +10,7 @@ class EventsVemare {
     this.date,
     this.image,
     this.gallery,
+    this.videos,
   });
 
   int? id;
@@ -20,8 +21,9 @@ class EventsVemare {
   DateTime? date;
   String? image;
   List<Gallery>? gallery;
+  List<Video>? videos;
 
-  EventsVemare copyWith({
+  EventsHeld copyWith({
     int? id,
     String? title,
     String? slug,
@@ -30,8 +32,9 @@ class EventsVemare {
     DateTime? date,
     String? image,
     List<Gallery>? gallery,
+    List<Video>? videos,
   }) =>
-      EventsVemare(
+      EventsHeld(
         id: id ?? this.id,
         title: title ?? this.title,
         slug: slug ?? this.slug,
@@ -40,9 +43,10 @@ class EventsVemare {
         date: date ?? this.date,
         image: image ?? this.image,
         gallery: gallery ?? this.gallery,
+        videos: videos ?? this.videos,
       );
 
-  factory EventsVemare.fromJson(dynamic json) => EventsVemare(
+  factory EventsHeld.fromJson(dynamic json) => EventsHeld(
         id: json["id"] as int?,
         title: json["title"] as String?,
         slug: json["slug"] as String?,
@@ -54,6 +58,9 @@ class EventsVemare {
             ? []
             : List<Gallery>.from(
                 json["gallery"]!.map((x) => Gallery.fromJson(x))),
+        videos: json["videos"] == null
+            ? []
+            : List<Video>.from(json["videos"]!.map((x) => Video.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -68,5 +75,52 @@ class EventsVemare {
         "gallery": gallery == null
             ? []
             : List<dynamic>.from(gallery!.map((x) => x.toJson())),
+        "videos": videos == null
+            ? []
+            : List<dynamic>.from(videos!.map((x) => x.toJson())),
+      };
+}
+
+class Video {
+  int? id;
+  int? eventVemareId;
+  String? link;
+  String? name;
+  String? description;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+
+  Video({
+    this.id,
+    this.eventVemareId,
+    this.link,
+    this.name,
+    this.description,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  factory Video.fromJson(Map<String, dynamic> json) => Video(
+        id: json["id"],
+        eventVemareId: json["event_vemare_id"],
+        link: json["link"],
+        name: json["name"],
+        description: json["description"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "event_vemare_id": eventVemareId,
+        "link": link,
+        "name": name,
+        "description": description,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
       };
 }

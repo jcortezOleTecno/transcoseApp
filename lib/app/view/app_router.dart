@@ -320,7 +320,7 @@ abstract class AppRouter {
           builder: (_) => MyEventsPage.create(),
         );
       case EventDetailPage.route:
-        final event = settings.arguments as EventsVemare?;
+        final event = settings.arguments as EventsHeld?;
         return MaterialPageRoute<void>(
           settings: settings,
           builder: (_) => EventDetailPage(event!),

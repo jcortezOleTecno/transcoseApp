@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$OtherEventsState {
   bool get loading => throw _privateConstructorUsedError;
   List<Events> get events => throw _privateConstructorUsedError;
+  HeaderEvents? get header => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $OtherEventsStateCopyWith<OtherEventsState> get copyWith =>
@@ -30,7 +31,7 @@ abstract class $OtherEventsStateCopyWith<$Res> {
           OtherEventsState value, $Res Function(OtherEventsState) then) =
       _$OtherEventsStateCopyWithImpl<$Res, OtherEventsState>;
   @useResult
-  $Res call({bool loading, List<Events> events});
+  $Res call({bool loading, List<Events> events, HeaderEvents? header});
 }
 
 /// @nodoc
@@ -48,6 +49,7 @@ class _$OtherEventsStateCopyWithImpl<$Res, $Val extends OtherEventsState>
   $Res call({
     Object? loading = null,
     Object? events = null,
+    Object? header = freezed,
   }) {
     return _then(_value.copyWith(
       loading: null == loading
@@ -58,6 +60,10 @@ class _$OtherEventsStateCopyWithImpl<$Res, $Val extends OtherEventsState>
           ? _value.events
           : events // ignore: cast_nullable_to_non_nullable
               as List<Events>,
+      header: freezed == header
+          ? _value.header
+          : header // ignore: cast_nullable_to_non_nullable
+              as HeaderEvents?,
     ) as $Val);
   }
 }
@@ -70,7 +76,7 @@ abstract class _$$_OtherEventsStateCopyWith<$Res>
       __$$_OtherEventsStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool loading, List<Events> events});
+  $Res call({bool loading, List<Events> events, HeaderEvents? header});
 }
 
 /// @nodoc
@@ -86,6 +92,7 @@ class __$$_OtherEventsStateCopyWithImpl<$Res>
   $Res call({
     Object? loading = null,
     Object? events = null,
+    Object? header = freezed,
   }) {
     return _then(_$_OtherEventsState(
       loading: null == loading
@@ -96,6 +103,10 @@ class __$$_OtherEventsStateCopyWithImpl<$Res>
           ? _value._events
           : events // ignore: cast_nullable_to_non_nullable
               as List<Events>,
+      header: freezed == header
+          ? _value.header
+          : header // ignore: cast_nullable_to_non_nullable
+              as HeaderEvents?,
     ));
   }
 }
@@ -104,7 +115,9 @@ class __$$_OtherEventsStateCopyWithImpl<$Res>
 
 class _$_OtherEventsState extends _OtherEventsState {
   const _$_OtherEventsState(
-      {this.loading = false, final List<Events> events = const <Events>[]})
+      {this.loading = false,
+      final List<Events> events = const <Events>[],
+      this.header})
       : _events = events,
         super._();
 
@@ -121,8 +134,11 @@ class _$_OtherEventsState extends _OtherEventsState {
   }
 
   @override
+  final HeaderEvents? header;
+
+  @override
   String toString() {
-    return 'OtherEventsState(loading: $loading, events: $events)';
+    return 'OtherEventsState(loading: $loading, events: $events, header: $header)';
   }
 
   @override
@@ -131,12 +147,13 @@ class _$_OtherEventsState extends _OtherEventsState {
         (other.runtimeType == runtimeType &&
             other is _$_OtherEventsState &&
             (identical(other.loading, loading) || other.loading == loading) &&
-            const DeepCollectionEquality().equals(other._events, _events));
+            const DeepCollectionEquality().equals(other._events, _events) &&
+            (identical(other.header, header) || other.header == header));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, loading, const DeepCollectionEquality().hash(_events));
+  int get hashCode => Object.hash(runtimeType, loading,
+      const DeepCollectionEquality().hash(_events), header);
 
   @JsonKey(ignore: true)
   @override
@@ -147,13 +164,17 @@ class _$_OtherEventsState extends _OtherEventsState {
 
 abstract class _OtherEventsState extends OtherEventsState {
   const factory _OtherEventsState(
-      {final bool loading, final List<Events> events}) = _$_OtherEventsState;
+      {final bool loading,
+      final List<Events> events,
+      final HeaderEvents? header}) = _$_OtherEventsState;
   const _OtherEventsState._() : super._();
 
   @override
   bool get loading;
   @override
   List<Events> get events;
+  @override
+  HeaderEvents? get header;
   @override
   @JsonKey(ignore: true)
   _$$_OtherEventsStateCopyWith<_$_OtherEventsState> get copyWith =>

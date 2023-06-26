@@ -5,6 +5,7 @@ import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_filter_image/my_filter_image.dart';
+import 'package:vemare/app/view/_components/my_network_image/my_network_image.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/login/login_page.dart';
@@ -40,16 +41,20 @@ class EventsVemarePage extends StatelessWidget {
               const MyBackButton(),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text('Eventos celebrados', style: AppTextStyle.h1Style),
-                    spacerS,
-                    Text(
-                        'Junto a nuestros proveedores creamos momentos únicos que ahora puedes consultar.',
-                        style: AppTextStyle.defaultStyle),
-                    spacerXL,
-                  ],
+                child: BlocBuilder<EventsVemareCubit, EventsVemareState>(
+                  builder: (context, state) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(state.header?.title ?? '',
+                            style: AppTextStyle.h1Style),
+                        spacerS,
+                        Text(state.header?.description ?? '',
+                            style: AppTextStyle.defaultStyle),
+                        spacerXL,
+                      ],
+                    );
+                  },
                 ),
               ),
               // _MyEvents(
@@ -90,9 +95,10 @@ class EventsVemarePage extends StatelessWidget {
                               child: _MyEvents(
                                   borderRadius: BorderRadius.circular(12),
                                   img: (e.image != null)
-                                      ? Image.network(
-                                          e.image!,
+                                      ? MyNetworkImage(
+                                          image: e.image!,
                                           fit: BoxFit.cover,
+                                          height: 220,
                                         )
                                       : Image.asset(
                                           'assets/imgs/no_image.jpg',

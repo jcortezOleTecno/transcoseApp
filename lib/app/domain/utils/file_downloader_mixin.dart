@@ -1,7 +1,9 @@
+import 'dart:developer';
 import 'dart:io';
 
-// import 'package:android_path_provider/android_path_provider.dart';
+import 'package:android_path_provider/android_path_provider.dart';
 // import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 
@@ -18,10 +20,9 @@ mixin FileDownloader {
 
     String savedDir = await prepareSaveDir(localPath);
 
-    final token = LocalDataRepository().authToken;
+    log(fileName);
 
     // FlutterDownloader.enqueue(
-    //   headers: {'Accept': 'application/json', 'Authorization': 'Bearer $token'},
     //   url: url,
     //   savedDir: savedDir,
     //   showNotification: true,
@@ -46,7 +47,7 @@ mixin FileDownloader {
 
     if (Platform.isAndroid) {
       try {
-        // externalStorageDirPath = await AndroidPathProvider.downloadsPath;
+        externalStorageDirPath = await AndroidPathProvider.downloadsPath;
       } catch (_) {
         final directory = await getExternalStorageDirectory();
         externalStorageDirPath = directory?.path;

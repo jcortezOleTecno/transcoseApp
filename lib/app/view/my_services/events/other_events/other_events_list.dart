@@ -38,46 +38,51 @@ class OtherEventsListPage extends StatelessWidget {
               const MyBackButton(),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const Text('Eventos Vemare', style: AppTextStyle.h1Style),
-                    spacerS,
-                    const Text(
-                        'Encuentros, charlas, presentaciones... Infórmate sobre todos los eventos que creamos para nuestros clientes.',
-                        style: AppTextStyle.defaultStyle),
-                    spacerL,
-                    BlocBuilder<OtherEventsCubit, OtherEventsState>(
-                      builder: (context, state) {
-                        if (state.loading) {
-                          return Wrap(
-                            alignment: WrapAlignment.spaceBetween,
-                            runSpacing: 15,
-                            spacing: 15,
-                            crossAxisAlignment: WrapCrossAlignment.center,
-                            children: List.generate(
-                              4,
-                              (_) => MyShimmer(
-                                borderRadius: 12,
-                                margin: EdgeInsets.zero,
-                                width: MediaQuery.of(context).size.width * .44,
-                                height: 220,
-                              ),
-                            ),
-                          );
-                        }
-                        return Wrap(
-                            alignment: WrapAlignment.spaceBetween,
-                            runSpacing: 15,
-                            spacing: 15,
-                            crossAxisAlignment: WrapCrossAlignment.center,
-                            children: state.events
-                                .map((e) => _MyEventCard(e))
-                                .toList());
-                      },
-                    ),
-                    spacerL,
-                  ],
+                child: BlocBuilder<OtherEventsCubit, OtherEventsState>(
+                  builder: (context, state) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(state.header?.title ?? '',
+                            style: AppTextStyle.h1Style),
+                        spacerS,
+                        Text(state.header?.description ?? '',
+                            style: AppTextStyle.defaultStyle),
+                        spacerL,
+                        BlocBuilder<OtherEventsCubit, OtherEventsState>(
+                          builder: (context, state) {
+                            if (state.loading) {
+                              return Wrap(
+                                alignment: WrapAlignment.spaceBetween,
+                                runSpacing: 15,
+                                spacing: 15,
+                                crossAxisAlignment: WrapCrossAlignment.center,
+                                children: List.generate(
+                                  4,
+                                  (_) => MyShimmer(
+                                    borderRadius: 12,
+                                    margin: EdgeInsets.zero,
+                                    width:
+                                        MediaQuery.of(context).size.width * .44,
+                                    height: 220,
+                                  ),
+                                ),
+                              );
+                            }
+                            return Wrap(
+                                alignment: WrapAlignment.spaceBetween,
+                                runSpacing: 15,
+                                spacing: 15,
+                                crossAxisAlignment: WrapCrossAlignment.center,
+                                children: state.events
+                                    .map((e) => _MyEventCard(e))
+                                    .toList());
+                          },
+                        ),
+                        spacerL,
+                      ],
+                    );
+                  },
                 ),
               ),
             ],

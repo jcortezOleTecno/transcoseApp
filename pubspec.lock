@@ -22,6 +22,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.2.0"
+  android_path_provider:
+    dependency: "direct main"
+    description:
+      name: android_path_provider
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.0"
   animate_do:
     dependency: "direct main"
     description:
@@ -364,12 +371,19 @@ packages:
     source: hosted
     version: "0.7.0"
   flutter_cache_manager:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_cache_manager
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.3.0"
+  flutter_downloader:
+    dependency: "direct main"
+    description:
+      name: flutter_downloader
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.10.4"
   flutter_html:
     dependency: "direct main"
     description:

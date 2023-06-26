@@ -43,6 +43,9 @@ class MyHtml extends StatelessWidget {
         ),
         "hr": Style(
           margin: Margins.symmetric(vertical: 0),
+        ),
+        "span": Style(
+          fontSize: FontSize(23),
         )
       },
     );

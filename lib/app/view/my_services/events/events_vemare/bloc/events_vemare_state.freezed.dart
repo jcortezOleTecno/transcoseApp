@@ -17,7 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$EventsVemareState {
   bool get loading => throw _privateConstructorUsedError;
-  List<EventsVemare> get eventsVemare => throw _privateConstructorUsedError;
+  List<EventsHeld> get eventsVemare => throw _privateConstructorUsedError;
+  HeaderEvents? get header => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $EventsVemareStateCopyWith<EventsVemareState> get copyWith =>
@@ -30,7 +31,8 @@ abstract class $EventsVemareStateCopyWith<$Res> {
           EventsVemareState value, $Res Function(EventsVemareState) then) =
       _$EventsVemareStateCopyWithImpl<$Res, EventsVemareState>;
   @useResult
-  $Res call({bool loading, List<EventsVemare> eventsVemare});
+  $Res call(
+      {bool loading, List<EventsHeld> eventsVemare, HeaderEvents? header});
 }
 
 /// @nodoc
@@ -48,6 +50,7 @@ class _$EventsVemareStateCopyWithImpl<$Res, $Val extends EventsVemareState>
   $Res call({
     Object? loading = null,
     Object? eventsVemare = null,
+    Object? header = freezed,
   }) {
     return _then(_value.copyWith(
       loading: null == loading
@@ -57,7 +60,11 @@ class _$EventsVemareStateCopyWithImpl<$Res, $Val extends EventsVemareState>
       eventsVemare: null == eventsVemare
           ? _value.eventsVemare
           : eventsVemare // ignore: cast_nullable_to_non_nullable
-              as List<EventsVemare>,
+              as List<EventsHeld>,
+      header: freezed == header
+          ? _value.header
+          : header // ignore: cast_nullable_to_non_nullable
+              as HeaderEvents?,
     ) as $Val);
   }
 }
@@ -70,7 +77,8 @@ abstract class _$$_EventsVemareStateCopyWith<$Res>
       __$$_EventsVemareStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool loading, List<EventsVemare> eventsVemare});
+  $Res call(
+      {bool loading, List<EventsHeld> eventsVemare, HeaderEvents? header});
 }
 
 /// @nodoc
@@ -86,6 +94,7 @@ class __$$_EventsVemareStateCopyWithImpl<$Res>
   $Res call({
     Object? loading = null,
     Object? eventsVemare = null,
+    Object? header = freezed,
   }) {
     return _then(_$_EventsVemareState(
       loading: null == loading
@@ -95,7 +104,11 @@ class __$$_EventsVemareStateCopyWithImpl<$Res>
       eventsVemare: null == eventsVemare
           ? _value._eventsVemare
           : eventsVemare // ignore: cast_nullable_to_non_nullable
-              as List<EventsVemare>,
+              as List<EventsHeld>,
+      header: freezed == header
+          ? _value.header
+          : header // ignore: cast_nullable_to_non_nullable
+              as HeaderEvents?,
     ));
   }
 }
@@ -105,25 +118,29 @@ class __$$_EventsVemareStateCopyWithImpl<$Res>
 class _$_EventsVemareState extends _EventsVemareState {
   const _$_EventsVemareState(
       {this.loading = false,
-      final List<EventsVemare> eventsVemare = const <EventsVemare>[]})
+      final List<EventsHeld> eventsVemare = const <EventsHeld>[],
+      this.header})
       : _eventsVemare = eventsVemare,
         super._();
 
   @override
   @JsonKey()
   final bool loading;
-  final List<EventsVemare> _eventsVemare;
+  final List<EventsHeld> _eventsVemare;
   @override
   @JsonKey()
-  List<EventsVemare> get eventsVemare {
+  List<EventsHeld> get eventsVemare {
     if (_eventsVemare is EqualUnmodifiableListView) return _eventsVemare;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_eventsVemare);
   }
 
   @override
+  final HeaderEvents? header;
+
+  @override
   String toString() {
-    return 'EventsVemareState(loading: $loading, eventsVemare: $eventsVemare)';
+    return 'EventsVemareState(loading: $loading, eventsVemare: $eventsVemare, header: $header)';
   }
 
   @override
@@ -133,12 +150,13 @@ class _$_EventsVemareState extends _EventsVemareState {
             other is _$_EventsVemareState &&
             (identical(other.loading, loading) || other.loading == loading) &&
             const DeepCollectionEquality()
-                .equals(other._eventsVemare, _eventsVemare));
+                .equals(other._eventsVemare, _eventsVemare) &&
+            (identical(other.header, header) || other.header == header));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, loading, const DeepCollectionEquality().hash(_eventsVemare));
+  int get hashCode => Object.hash(runtimeType, loading,
+      const DeepCollectionEquality().hash(_eventsVemare), header);
 
   @JsonKey(ignore: true)
   @override
@@ -151,13 +169,16 @@ class _$_EventsVemareState extends _EventsVemareState {
 abstract class _EventsVemareState extends EventsVemareState {
   const factory _EventsVemareState(
       {final bool loading,
-      final List<EventsVemare> eventsVemare}) = _$_EventsVemareState;
+      final List<EventsHeld> eventsVemare,
+      final HeaderEvents? header}) = _$_EventsVemareState;
   const _EventsVemareState._() : super._();
 
   @override
   bool get loading;
   @override
-  List<EventsVemare> get eventsVemare;
+  List<EventsHeld> get eventsVemare;
+  @override
+  HeaderEvents? get header;
   @override
   @JsonKey(ignore: true)
   _$$_EventsVemareStateCopyWith<_$_EventsVemareState> get copyWith =>

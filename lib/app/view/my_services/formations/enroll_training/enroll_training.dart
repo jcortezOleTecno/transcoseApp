@@ -39,6 +39,7 @@ class EnrollTrainingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // final state = context.read<SubjectBloc>()
     return Scaffold(
       body: MyBody(
         child: SingleChildScrollView(
@@ -64,7 +65,10 @@ class EnrollTrainingPage extends StatelessWidget {
                     MyCalendar(
                       dates: formation.horario ?? [],
                       onSelectedDate: (horario) {
-                        if (horario.date!.isBefore(DateTime.now())) {
+                        if (horario.date!.isBefore(DateTime.now()) ||
+                            formation.horario!
+                                .where((e) => (e.isRegistered ?? false))
+                                .isNotEmpty) {
                           _dialogConfirmSchedule(context, horario,
                               isResume: true);
                         } else {

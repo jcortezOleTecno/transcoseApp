@@ -4,6 +4,7 @@ import 'package:vemare/app/data/_api_classes.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/domain/model/events.dart';
 import 'package:vemare/app/domain/model/events_vemare.dart';
+import 'package:vemare/app/domain/model/header_events_held.dart';
 
 import '../domain/model/employee.dart';
 import '../domain/model/my_event.dart';
@@ -14,16 +15,28 @@ class EventsRepository {
 
   EventsRepository(this._apiClient);
 
-  Future<List<EventsVemare>> getEventsVemare() async {
+  Future<List<EventsHeld>> getEventsVemare() async {
     final dynamic res =
         await _apiClient.getRequest('$BASE_API_URL/api/eventos_vemare');
-    return (res as List).map(EventsVemare.fromJson).toList();
+    return (res as List).map(EventsHeld.fromJson).toList();
   }
 
   Future<List<Events>> getEvents() async {
     final dynamic res =
         await _apiClient.getRequest('$BASE_API_URL/api/eventos');
     return (res as List).map(Events.fromJson).toList();
+  }
+
+  Future<HeaderEvents> getHeaderEventsHeld() async {
+    final dynamic res = await _apiClient
+        .getRequest('$BASE_API_URL/api/header-eventos-celebrados');
+    return HeaderEvents.fromJson(res);
+  }
+
+  Future<HeaderEvents> getHeaderEventsVemare() async {
+    final dynamic res =
+        await _apiClient.getRequest('$BASE_API_URL/api/header-eventos-vemare');
+    return HeaderEvents.fromJson(res);
   }
 
   Future<List<MyEvents>> getMyEvents() async {
