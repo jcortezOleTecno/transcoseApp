@@ -8,6 +8,7 @@ class MyNewsCard extends StatelessWidget {
     required this.title,
     required this.description,
     required this.img,
+    this.isExpanded = false,
     this.onPressed,
     Key? key,
   }) : super(key: key);
@@ -15,6 +16,7 @@ class MyNewsCard extends StatelessWidget {
   final String img;
   final String title;
   final String description;
+  final bool isExpanded;
   final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
@@ -29,40 +31,38 @@ class MyNewsCard extends StatelessWidget {
             height: 200,
             child: MyNetworkImage(image: img, fit: BoxFit.cover),
           ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text(
-                    title,
-                    style: AppTextStyle.h3Style.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  title,
+                  style: AppTextStyle.h3Style.copyWith(
+                    fontWeight: FontWeight.bold,
                   ),
-                  spacerS,
-                  Text(
-                    description,
-                    maxLines: 4,
-                    overflow: TextOverflow.ellipsis,
-                    style: AppTextStyle.contentCard,
+                ),
+                spacerXs,
+                Text(
+                  description,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTextStyle.contentCard,
+                ),
+                // MyHtml(text: description),
+                // if (isExpanded) const Spacer(),
+                TextButton.icon(
+                  onPressed: onPressed,
+                  label: Image.asset(
+                    'assets/icons/arrow_next.png',
+                    scale: 2,
                   ),
-                  // MyHtml(text: description),
-                  const Spacer(),
-                  TextButton.icon(
-                    onPressed: onPressed,
-                    label: Image.asset(
-                      'assets/icons/arrow_next.png',
-                      scale: 2,
-                    ),
-                    icon: const Text(
-                      'Leer más',
-                      style: AppTextStyle.linkStyle,
-                    ),
+                  icon: const Text(
+                    'Leer más',
+                    style: AppTextStyle.linkStyle,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ],

@@ -273,10 +273,10 @@ class _News extends StatelessWidget {
         BlocBuilder<AboutUsCubit, AboutUsState>(
           builder: (context, state) {
             if (state.news.isEmpty) {
-              return const MyShimmer(height: 220);
+              return const MyShimmer(height: 350);
             }
             return SizedBox(
-              height: 400,
+              height: 350,
               child: PageView.builder(
                 itemCount: state.news.length,
                 controller: PageController(

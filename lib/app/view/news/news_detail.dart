@@ -38,6 +38,11 @@ class NewsDetailPage extends StatelessWidget {
                       news.title ?? '',
                       style: AppTextStyle.h2Style,
                     ),
+                    spacerXs,
+                    Text(
+                      news.subtitle ?? '',
+                      style: AppTextStyle.defaultStyle,
+                    ),
                     spacerS,
                     MyHtml(text: news.description ?? '')
                   ],

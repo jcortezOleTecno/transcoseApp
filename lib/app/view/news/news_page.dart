@@ -61,10 +61,10 @@ class _MostReadNews extends StatelessWidget {
         BlocBuilder<NewsCubit, NewsState>(
           builder: (context, state) {
             if (state.mostRead.isEmpty) {
-              return const MyShimmer(height: 400);
+              return const MyShimmer(height: 350);
             }
             return SizedBox(
-              height: 400,
+              height: 350,
               child: PageView.builder(
                 itemCount: state.mostRead.length,
                 controller: PageController(
@@ -72,6 +72,7 @@ class _MostReadNews extends StatelessWidget {
                   viewportFraction: 0.9,
                 ),
                 itemBuilder: (context, i) => MyNewsCard(
+                  isExpanded: true,
                   img: state.mostRead[i].image!,
                   title: state.mostRead[i].title ?? '',
                   description: state.mostRead[i].subtitle ?? '',
@@ -104,7 +105,7 @@ class _News extends StatelessWidget {
             spacerS,
             state.news.isEmpty
                 ? const MyShimmer(
-                    height: 400,
+                    height: 350,
                     margin: EdgeInsets.symmetric(horizontal: 20),
                   )
                 : Column(
@@ -113,7 +114,7 @@ class _News extends StatelessWidget {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 10),
                               margin: const EdgeInsets.only(bottom: 20),
-                              height: 400,
+                              // height: 400,
                               child: MyNewsCard(
                                 title: e.title ?? '',
                                 description: e.subtitle ?? '',
