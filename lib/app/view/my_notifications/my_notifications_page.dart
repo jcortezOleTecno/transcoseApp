@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vemare/app/data/notifications_repository.dart';
 import 'package:vemare/app/domain/model/events.dart';
+import 'package:vemare/app/domain/model/formation.dart';
 import 'package:vemare/app/domain/model/notification.dart' as model;
 import 'package:vemare/app/domain/value_object/notifications_type.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
@@ -12,7 +13,9 @@ import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/my_notifications/bloc/notifications_cubit.dart';
 import 'package:vemare/app/view/my_notifications/bloc/notifications_state.dart';
 import 'package:vemare/app/view/my_services/events/other_events/other_event_page.dart';
+import 'package:vemare/app/view/my_services/formations/detail_formation.dart';
 import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
+import 'package:vemare/app/view/shared/notifications_counter_bloc/notifications_cubit.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
@@ -182,16 +185,7 @@ class _MyNotificationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        switch (notification.tipo) {
-          case 'Event':
-            print(notification.dataNotification);
-            Navigator.pushNamed(context, OtherEventPage.route,
-                arguments: Events.fromJson(notification.dataNotification));
-            break;
-          default:
-        }
-      },
+      onTap: () => _onTap(context),
       child: Padding(
         padding: const EdgeInsets.only(bottom: 20),
         child: Stack(
@@ -255,10 +249,27 @@ class _MyNotificationCard extends StatelessWidget {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(50),
                               color: AppColor.blue100),
-                          child: Image.asset(
-                            'assets/icons/Notifications.png',
-                            scale: 2,
-                            color: AppColor.primaryBlue,
+                          child: Stack(
+                            fit: StackFit.expand,
+                            children: [
+                              Image.asset(
+                                'assets/icons/Notifications.png',
+                                scale: 2,
+                                color: AppColor.primaryBlue,
+                              ),
+                              if (notification.read != 'visto')
+                                Positioned(
+                                    right: 6,
+                                    top: 7,
+                                    child: Container(
+                                      height: 6.5,
+                                      width: 6.5,
+                                      decoration: const BoxDecoration(
+                                        color: Colors.red,
+                                        shape: BoxShape.circle,
+                                      ),
+                                    ))
+                            ],
                           ),
                         ),
                         spacerS,
@@ -298,5 +309,31 @@ class _MyNotificationCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _onTap(BuildContext context) {
+    switch (notification.tipo) {
+      case 'Formation':
+        print(notification.dataNotification);
+        if (notification.read != 'visto') {
+          context
+              .read<NotificationsCounterCubit>()
+              .deleteNotification(notification.id!);
+        }
+        Navigator.pushNamed(context, DetailFormationPage.route,
+            arguments: Formation.fromJson(notification.dataNotification));
+        break;
+      case 'Event':
+        print(notification.dataNotification);
+        if (notification.read != 'visto') {
+          context
+              .read<NotificationsCounterCubit>()
+              .deleteNotification(notification.id!);
+        }
+        Navigator.pushNamed(context, OtherEventPage.route,
+            arguments: Events.fromJson(notification.dataNotification));
+        break;
+      default:
+    }
   }
 }

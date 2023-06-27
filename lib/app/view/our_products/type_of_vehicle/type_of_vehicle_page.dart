@@ -64,7 +64,9 @@ class TypeOfVehiclePage extends StatelessWidget {
                               context, OurProductsPage.route,
                               arguments: e.name),
                           child: TypeVehicleCard(
-                              title: e.name ?? '', img: e.image ?? ''),
+                              title: e.name ?? '',
+                              img: e.image ?? '',
+                              subtitle: e.subtitle ?? ''),
                         ),
                       ),
                     )
@@ -79,9 +81,14 @@ class TypeOfVehiclePage extends StatelessWidget {
 }
 
 class TypeVehicleCard extends StatelessWidget {
-  const TypeVehicleCard({required this.title, required this.img, Key? key})
+  const TypeVehicleCard(
+      {required this.title,
+      required this.subtitle,
+      required this.img,
+      Key? key})
       : super(key: key);
   final String title;
+  final String subtitle;
   final String img;
   @override
   Widget build(BuildContext context) {
@@ -109,10 +116,20 @@ class TypeVehicleCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
-                        child: Text(
-                          title,
-                          style: AppTextStyle.h2Style
-                              .copyWith(color: AppColor.white),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              title,
+                              style: AppTextStyle.h2Style
+                                  .copyWith(color: AppColor.white),
+                            ),
+                            Text(
+                              subtitle,
+                              style: AppTextStyle.titleCard
+                                  .copyWith(color: AppColor.white),
+                            ),
+                          ],
                         ),
                       ),
                       Image.asset(

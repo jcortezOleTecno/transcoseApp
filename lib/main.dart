@@ -13,12 +13,14 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:vemare/app/view/app_router.dart';
 import 'package:vemare/app/view/our_history/bloc/our_history_cubit.dart';
 import 'package:vemare/app/view/shared/notifications/push_notifications.dart';
+import 'package:vemare/app/view/shared/notifications_counter_bloc/notifications_cubit.dart';
 import 'package:vemare/app/view/shared/shopping_car_counter_bloc/car_counter_cubit.dart';
 import 'package:vemare/app/view/shared/userbloc/user_cubit.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/theme.dart';
 import 'package:vemare/config/service_locator.dart';
 
+import 'app/data/notifications_repository.dart';
 import 'app/data/shopping_cart_repository.dart';
 
 //fOQ12CKJS66VYA0Rjv_2oq:APA91bE2s-rZjnMA0oqY2LYGnKFzCVUXvVhyJsSd1mljiG0EzUmGJjq7fE_rMiqulTXzbzcJjdhTRjas1CDgfQuXNTQE-mpAdr1_HozCe57yaTB7E2VpIoRvmfAuQGSHWvFMThjakgZq
@@ -68,6 +70,11 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => CarCounterCubit(
             getIt.get<ShoppingCardRepository>(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => NotificationsCounterCubit(
+            getIt.get<NotificationsRepository>(),
           ),
         ),
       ],

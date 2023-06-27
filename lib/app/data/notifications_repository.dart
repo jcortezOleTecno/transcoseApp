@@ -29,6 +29,7 @@ class NotificationsRepository {
     final dynamic res = await _apiClient.getRequest(
         '$BASE_API_URL/api/notificaciones/delete',
         params: <String, dynamic>{'id': id});
+    print('BORRADO   ####################');
     print(res);
   }
 

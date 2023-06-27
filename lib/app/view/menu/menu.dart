@@ -24,6 +24,8 @@ import 'package:vemare/app/view/personal_area/my_contracts/page/my_contracts_pag
 import 'package:vemare/app/view/personal_area/my_orders/my_orders/my_orders_page.dart';
 import 'package:vemare/app/view/personal_area/my_trainigs_and_events/my_trainigs_and_events_page.dart';
 import 'package:vemare/app/view/promotions/promotions_categories/promotions_page.dart';
+import 'package:vemare/app/view/shared/notifications_counter_bloc/notifications_cubit.dart';
+import 'package:vemare/app/view/shared/notifications_counter_bloc/notifications_state.dart';
 import 'package:vemare/app/view/shared/shopping_car_counter_bloc/car_counter_cubit.dart';
 import 'package:vemare/app/view/shared/shopping_car_counter_bloc/car_counter_state.dart';
 import 'package:vemare/app/view/shopping_cart/shopping_cart.dart';
@@ -144,21 +146,50 @@ class __IconsAppbarState extends State<_IconsAppbar> {
       children: [
         if (LocalDataRepository().isLogged) ...[
           spacerM,
-          InkWell(
-            onTap: widget.notificationsFunc,
-            child: Visibility(
-              visible: !widget.isOpenNotifications,
-              replacement: Image.asset(
-                'assets/icons/Close.png',
-                color: Colors.white,
-                scale: 2,
-              ),
-              child: Image.asset(
-                'assets/icons/notificationOn.png',
-                color: Colors.white,
-                scale: 2,
-              ),
-            ),
+          BlocBuilder<NotificationsCounterCubit, NotificationsCounterState>(
+            builder: (context, state) {
+              return InkWell(
+                onTap: widget.notificationsFunc,
+                child: Visibility(
+                  visible: !widget.isOpenNotifications,
+                  replacement: Image.asset(
+                    'assets/icons/Close.png',
+                    color: Colors.white,
+                    scale: 2,
+                  ),
+                  child: Stack(
+                    children: [
+                      SizedBox(
+                        width: 35,
+                        height: 35,
+                        child: Image.asset(
+                          'assets/icons/Notifications.png',
+                          color: Colors.white,
+                          scale: 2,
+                        ),
+                      ),
+                      if (state.notifications != 0)
+                        Positioned(
+                          top: -3,
+                          right: 0,
+                          child: Text(
+                            state.notifications.toString(),
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        )
+                    ],
+                  ),
+                  /*Image.asset(
+                    'assets/icons/notificationOn.png',
+                    color: Colors.white,
+                    scale: 2,
+                  ),*/
+                ),
+              );
+            },
           ),
           spacerM,
           BlocBuilder<CarCounterCubit, CarCounterState>(
@@ -666,15 +697,31 @@ class _NotificationsMenu extends StatelessWidget {
           return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (state.notifications.isNotEmpty)
+              if (state.notifications.where((e) => e.delete == 0).isNotEmpty)
                 ...state.notifications
+                    .where((e) => e.delete == 0)
                     .map((e) => Column(
                           children: [
                             const Divider(color: Colors.white),
                             ListTile(
-                              leading: Image.asset(
-                                  'assets/icons/Notifications.png',
-                                  scale: 2),
+                              leading: Stack(
+                                children: [
+                                  Image.asset('assets/icons/Notifications.png',
+                                      scale: 2),
+                                  if (e.read != 'visto')
+                                    Positioned(
+                                        right: 3,
+                                        top: 3,
+                                        child: Container(
+                                          height: 6.5,
+                                          width: 6.5,
+                                          decoration: const BoxDecoration(
+                                            color: Colors.red,
+                                            shape: BoxShape.circle,
+                                          ),
+                                        ))
+                                ],
+                              ),
                               title: Text(e.mensaje ?? '',
                                   style: AppTextStyle.inputStyle
                                       .copyWith(color: Colors.white)),
@@ -691,42 +738,6 @@ class _NotificationsMenu extends StatelessWidget {
                           ],
                         ))
                     .toList(),
-
-              /*const Divider(color: Colors.white),
-              ListTile(
-                leading:
-                    Image.asset('assets/icons/Notifications.png', scale: 2),
-                title: Text(
-                    'Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
-                    style:
-                        AppTextStyle.inputStyle.copyWith(color: Colors.white)),
-                subtitle: Text(
-                  'Hace 3 min',
-                  style: AppTextStyle.inputStyle.copyWith(
-                    color: Colors.white,
-                    height: 2,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-              const Divider(color: Colors.white),
-              ListTile(
-                leading:
-                    Image.asset('assets/icons/Notifications.png', scale: 2),
-                title: Text(
-                    'Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
-                    style:
-                        AppTextStyle.inputStyle.copyWith(color: Colors.white)),
-                subtitle: Text(
-                  'Hace 3 min',
-                  style: AppTextStyle.inputStyle.copyWith(
-                    color: Colors.white,
-                    height: 2,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-              const Divider(color: Colors.white),*/
               Visibility(
                 visible: LocalDataRepository().isLogged,
                 child: SizedBox(

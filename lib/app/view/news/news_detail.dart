@@ -30,7 +30,7 @@ class NewsDetailPage extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
               Padding(
-                padding: const EdgeInsets.all(15),
+                padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -44,9 +44,12 @@ class NewsDetailPage extends StatelessWidget {
                       style: AppTextStyle.defaultStyle,
                     ),
                     spacerS,
-                    MyHtml(text: news.description ?? '')
                   ],
                 ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: MyHtml(text: news.description ?? ''),
               )
             ],
           ),
