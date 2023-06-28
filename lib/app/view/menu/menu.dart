@@ -75,8 +75,10 @@ class MyMenu extends StatelessWidget {
                     children: [
                       spacerM,
                       GestureDetector(
-                        onTap: () => Navigator.popUntil(
-                            context, ModalRoute.withName(HomePage.route)),
+                        onTap: () => Navigator.pushNamedAndRemoveUntil(
+                            context, HomePage.route, (route) => false),
+                        // onTap: () => Navigator.popUntil(
+                        //     context, ModalRoute.withName(HomePage.route)),
                         child: SvgPicture.asset(
                           'assets/icons/logo_splash.svg',
                           width: 120,

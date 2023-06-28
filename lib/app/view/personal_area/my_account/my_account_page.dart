@@ -46,7 +46,7 @@ class MyAccountPage extends StatelessWidget {
                 ),
                 spacerM,
                 MyInput(
-                  label: 'Nombre',
+                  label: 'Nombre*',
                   initialValue: LocalDataRepository().user?.name ?? '',
                 ),
                 MyInput(
@@ -58,21 +58,30 @@ class MyAccountPage extends StatelessWidget {
                   initialValue: LocalDataRepository().user?.email ?? '',
                 ),
                 MyInput(
-                  label: 'CIF',
+                  // label: 'CIF',
+                  label: 'Código',
                   initialValue: LocalDataRepository().user?.cif ?? '',
                 ),
+                // MyInput(
+                //   label: 'ID',
+                //   initialValue:
+                //       LocalDataRepository().user?.parentId.toString() ?? '',
+                // ),
                 MyInput(
-                  label: 'ID',
-                  initialValue:
-                      LocalDataRepository().user?.parentId.toString() ?? '',
-                ),
-                MyInput(
-                  label: 'Dirección de envío',
+                  label: 'Dirección',
                   initialValue: LocalDataRepository().user?.address ?? '',
                 ),
                 MyInput(
-                  label: 'Dirección de facturación',
-                  initialValue: LocalDataRepository().user?.address ?? '',
+                  label: 'Ciudad',
+                  initialValue: LocalDataRepository().user?.city ?? '',
+                ),
+                MyInput(
+                  label: 'Provincia',
+                  initialValue: LocalDataRepository().user?.province ?? '',
+                ),
+                MyInput(
+                  label: 'Código Postal',
+                  initialValue: LocalDataRepository().user?.postalCode ?? '',
                 ),
                 MyButton(onPressed: () {}, text: 'Guardar cambios'),
                 spacerS,

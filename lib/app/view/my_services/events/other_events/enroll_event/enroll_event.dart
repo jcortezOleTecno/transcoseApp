@@ -416,7 +416,7 @@ class EnrollEventPage extends StatelessWidget {
                       text: 'Confirmar inscripciones',
                       width: double.infinity,
                       isLoading: loading,
-                      disabled: selectedEmployees.isEmpty && people.isEmpty,
+                      // disabled: selectedEmployees.isEmpty && people.isEmpty,
                     ),
                     spacerS,
                     MyButton(

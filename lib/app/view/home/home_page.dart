@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
-import 'package:nested_scroll_views/nested_scroll_views.dart';
+import 'package:nested_scroll_views/material.dart';
 import 'package:vemare/app/data/brands_repository.dart';
 import 'package:vemare/app/data/home_repository.dart';
 import 'package:vemare/app/data/notices_repository.dart';
@@ -76,8 +76,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late PageController controller;
+
   @override
   void initState() {
+    controller = PageController();
     FirebaseMessaging.instance.getInitialMessage().then((message) => {
           if (message != null)
             {Navigator.pushNamed(context, MyNotificationsPage.route)}
@@ -90,6 +93,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         body: MyBody(
       child: NestedPageView(
+        controller: controller,
         scrollDirection: Axis.vertical,
         wantKeepAlive: false,
         restorationId: 'id',
@@ -102,7 +106,7 @@ class _HomePageState extends State<HomePage> {
     ));
   }
 }
-
+/*
 class EncuestaWidget extends StatefulWidget {
   const EncuestaWidget(
     this.data, {
@@ -200,7 +204,7 @@ class _EncuestaWidgetState extends State<EncuestaWidget> {
       ),
     );
   }
-}
+}*/
 
 class _PageA extends StatelessWidget {
   const _PageA({
@@ -339,7 +343,7 @@ class _PageB extends StatelessWidget {
             c.encuesta?.dataEncuesta?.id != p.encuesta?.dataEncuesta?.id;
       },
       listener: (context, state) {
-        if (state.encuesta?.openModal == 1) {
+        /*if (state.encuesta?.openModal == 1) {
           showDialog<String?>(
             barrierDismissible: false,
             context: context,
@@ -355,12 +359,13 @@ class _PageB extends StatelessWidget {
               ));
             }
           });
-        }
+        }*/
       },
       builder: (context, state) {
         return Container(
           color: AppColor.white,
           child: ListView(
+            addAutomaticKeepAlives: false,
             padding: const EdgeInsets.symmetric(vertical: 30),
             // primary: true,
             children: [
