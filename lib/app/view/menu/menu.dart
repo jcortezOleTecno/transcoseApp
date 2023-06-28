@@ -605,7 +605,7 @@ class _HeaderMenu extends StatelessWidget {
             decoration: const BoxDecoration(
               color: Colors.red,
               image: DecorationImage(
-                  image: AssetImage('assets/imgs/edificios.jpg'),
+                  image: AssetImage('assets/imgs/profile_default.png'),
                   fit: BoxFit.cover),
               shape: BoxShape.circle,
             ),

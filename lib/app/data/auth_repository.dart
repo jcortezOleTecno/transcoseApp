@@ -62,6 +62,18 @@ class AuthRepository {
     }
   }
 
+  Future<void> getUser() async {
+    final dynamic res = await apiClient.getRequest('$BASE_API_URL/api/user');
+    final user = UserData.froJson(res['user']);
+    LocalDataRepository().user = user;
+  }
+
+  Future<void> updateUser() async {
+    final dynamic res = await apiClient.getRequest('$BASE_API_URL/api/user');
+    final user = UserData.froJson(res['user']);
+    LocalDataRepository().user = user;
+  }
+
   // Future<bool> forgotPassword({required String email}) async {
   //   final dynamic res = await apiClient.postRequest(
   //     '$BASE_API_URL/api/users/forgot-password?Email=$email',
