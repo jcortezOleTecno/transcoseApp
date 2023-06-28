@@ -91,6 +91,9 @@ class _HomePageState extends State<HomePage> {
         body: MyBody(
       child: NestedPageView(
         scrollDirection: Axis.vertical,
+        wantKeepAlive: false,
+        restorationId: 'id',
+        padEnds: false,
         children: const [
           _PageA(),
           _PageB(),

@@ -57,6 +57,7 @@ class _MyCalendarState extends State<MyCalendar> {
             shape: BoxShape.circle,
           ),
         ),
+        startingDayOfWeek: StartingDayOfWeek.monday,
         selectedDayPredicate: (day) {
           if (widget.dates
               .where((e) => isSameDay(e.date, day))

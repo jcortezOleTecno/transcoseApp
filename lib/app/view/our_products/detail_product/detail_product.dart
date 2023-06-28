@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vemare/app/domain/model/brand.dart';
 import 'package:vemare/app/domain/model/categoty_detail.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
@@ -16,12 +17,25 @@ class DetailProductPageArg {
   DetailProductPageArg({required this.cat, required this.icon});
 }
 
-class DetailProductPage extends StatelessWidget {
+class DetailProductPage extends StatefulWidget {
   const DetailProductPage(this.args, {super.key});
 
   final DetailProductPageArg args;
 
   static const route = '/details_products';
+
+  @override
+  State<DetailProductPage> createState() => _DetailProductPageState();
+}
+
+class _DetailProductPageState extends State<DetailProductPage> {
+  List<Brand>? brandsTemp;
+
+  @override
+  void initState() {
+    brandsTemp = widget.args.cat.brands;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,33 +62,44 @@ class DetailProductPage extends StatelessWidget {
                             ),
                             height: 60,
                             width: 60,
-                            child: Image.network(args.icon),
+                            child: Image.network(widget.args.icon),
                           ),
                           spacerS,
                           Text(
-                            args.cat.name ?? '',
+                            widget.args.cat.name ?? '',
                             style: AppTextStyle.h1Style,
                           ),
                         ],
                       ),
                       spacerM,
-                      MyHtml(text: args.cat.description ?? ''),
+                      MyHtml(text: widget.args.cat.description ?? ''),
                       // Text(
                       //   args.cat.description ?? '',
                       //   style: AppTextStyle.defaultStyle,
                       // ),
                       spacerM,
-                      spacerM,
-                      const MySearchInput(),
+                      // spacerM,
+                      MySearchInput(
+                        hintText: 'Buscar',
+                        onChanged: (p0) {
+                          setState(() {
+                            brandsTemp = widget.args.cat.brands!
+                                .where((e) => e.name!
+                                    .toLowerCase()
+                                    .contains(p0.toLowerCase()))
+                                .toList();
+                          });
+                        },
+                      ),
                     ],
                   ),
                 ),
                 spacerS,
-                if (args.cat.brands != null)
+                if (brandsTemp != null)
                   Center(
                     child: Wrap(
                       alignment: WrapAlignment.start,
-                      children: args.cat.brands!
+                      children: brandsTemp!
                           .map((e) => Card(
                                 clipBehavior: Clip.antiAlias,
                                 shape: RoundedRectangleBorder(

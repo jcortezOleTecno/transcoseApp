@@ -53,7 +53,7 @@ class MyEventsPage extends StatelessWidget {
                             alignment: WrapAlignment.spaceBetween,
                             runSpacing: 15,
                             spacing: 15,
-                            crossAxisAlignment: WrapCrossAlignment.center,
+                            // crossAxisAlignment: WrapCrossAlignment.center,
                             children: List.generate(
                               4,
                               (_) => MyShimmer(

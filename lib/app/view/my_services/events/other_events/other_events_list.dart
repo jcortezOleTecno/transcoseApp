@@ -73,7 +73,7 @@ class OtherEventsListPage extends StatelessWidget {
                                 alignment: WrapAlignment.spaceBetween,
                                 runSpacing: 15,
                                 spacing: 15,
-                                crossAxisAlignment: WrapCrossAlignment.center,
+                                // crossAxisAlignment: WrapCrossAlignment.center,
                                 children: state.events
                                     .map((e) => _MyEventCard(e))
                                     .toList());

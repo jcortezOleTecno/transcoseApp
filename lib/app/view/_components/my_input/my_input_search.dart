@@ -42,7 +42,9 @@ class MySearchInput extends StatelessWidget {
           suffixIcon: GestureDetector(
             onTap: () {
               FocusScope.of(context).requestFocus(FocusNode());
-              onTap!();
+              if (onTap != null) {
+                onTap!();
+              }
             },
             child: Image.asset(
               'assets/icons/searchIcon.png',
