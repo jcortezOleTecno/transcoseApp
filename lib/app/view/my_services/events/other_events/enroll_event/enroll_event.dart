@@ -25,7 +25,7 @@ import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
 
-class EnrollEventPage extends StatelessWidget {
+class EnrollEventPage extends StatefulWidget {
   const EnrollEventPage._(this.event);
   static const route = '/enroll_event';
 
@@ -41,6 +41,11 @@ class EnrollEventPage extends StatelessWidget {
   }
 
   @override
+  State<EnrollEventPage> createState() => _EnrollEventPageState();
+}
+
+class _EnrollEventPageState extends State<EnrollEventPage> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: MyBody(
@@ -55,25 +60,29 @@ class EnrollEventPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      event.title ?? '',
+                      widget.event.title ?? '',
                       style: AppTextStyle.h1Style,
                     ),
                     spacerM,
 
                     MyCalendar(
-                      dates: event.horario ?? [],
+                      dates: widget.event.horario ?? [],
                       onSelectedDate: (horario) {
-                        if (horario.date!.isBefore(DateTime.now())) {
+                        if (horario.date!.isBefore(DateTime(DateTime.now().year,
+                            DateTime.now().month, DateTime.now().day))) {
                           _dialogConfirmSchedule(context, horario,
                               isResume: true);
                         } else {
                           _dialogConfirmSchedule(context, horario).then((v) {
                             if (v ?? false) {
-                              _dialogEnrollEmployee(context).then((v) {
+                              _dialogEnrollEmployee(context, horario).then((v) {
                                 if (v ?? false) {
                                   _dialogCongratulations(context, horario)
                                       .then((_) {
                                     Navigator.of(context).pop();
+                                    // Navigator.of(context).pop();
+                                    // Navigator.of(context).pop();
+                                    // Navigator.of(context).pop();
                                   });
                                 }
                               });
@@ -163,16 +172,18 @@ class EnrollEventPage extends StatelessWidget {
                   ),
                   spacerM,
                   Text(
-                    event.title ?? '',
+                    widget.event.title ?? '',
                     style: AppTextStyle.h3Style,
                   ),
                   spacerS,
                   Expanded(
                       child: SingleChildScrollView(
-                          child: MyHtml(text: event.description ?? ''))),
+                          child: MyHtml(text: widget.event.description ?? ''))),
                   spacerM,
                   MyButton(
-                    onPressed: () => Navigator.of(context).pop(true),
+                    onPressed: () {
+                      Navigator.of(context).pop(true);
+                    },
                     text: isResume ? 'Aceptar' : 'Confirmar horario',
                     width: double.infinity,
                   ),
@@ -192,7 +203,7 @@ class EnrollEventPage extends StatelessWidget {
         });
   }
 
-  Future<bool?> _dialogEnrollEmployee(BuildContext ctx) {
+  Future<bool?> _dialogEnrollEmployee(BuildContext ctx, Horario date) {
     var selectedEmployees = <Employee>[];
     List<Employee> people = [];
     bool loading = false;
@@ -404,19 +415,23 @@ class EnrollEventPage extends StatelessWidget {
                         });
                         cubit
                             .enrollEvent(
-                                id: event.id!,
+                                dateId: date.dateId,
                                 idsEmployees: selectedEmployees
                                     .map((e) => e.id!)
                                     .toList(),
                                 persons: people)
                             .then((value) {
+                          setState(() {
+                            widget.event.horario!
+                                .firstWhere((e) => e.dateId == date.dateId)
+                                .isRegistered = true;
+                          });
                           Navigator.of(context).pop(true);
                         });
                       },
                       text: 'Confirmar inscripciones',
                       width: double.infinity,
                       isLoading: loading,
-                      // disabled: selectedEmployees.isEmpty && people.isEmpty,
                     ),
                     spacerS,
                     MyButton(
@@ -626,7 +641,7 @@ class EnrollEventPage extends StatelessWidget {
                                   text: 'Hemos confirmado tu formación en',
                                 ),
                                 TextSpan(
-                                  text: ' ${event.title ?? ''} ',
+                                  text: ' ${widget.event.title ?? ''} ',
                                   style: AppTextStyle.defaultStyle
                                       .copyWith(fontWeight: FontWeight.bold),
                                 ),
@@ -729,13 +744,13 @@ class EnrollEventPage extends StatelessWidget {
                   ),
                   spacerM,
                   Text(
-                    event.title ?? '',
+                    widget.event.title ?? '',
                     style: AppTextStyle.h3Style,
                   ),
                   spacerS,
                   Expanded(
                       child: SingleChildScrollView(
-                          child: MyHtml(text: event.description ?? ''))),
+                          child: MyHtml(text: widget.event.description ?? ''))),
                   spacerM,
                   MyButton(
                     onPressed: () => Navigator.of(context).pop(true),

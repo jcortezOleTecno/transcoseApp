@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:vemare/app/data/auth_repository.dart';
 import 'package:vemare/app/data/brands_repository.dart';
 import 'package:vemare/app/data/encuestas_repository.dart';
 import 'package:vemare/app/data/home_repository.dart';
@@ -34,6 +35,7 @@ class HomeCubit extends Cubit<HomeState> {
     this._brandsRepository,
     this._userCubit,
     this._workWithUsRepository,
+    // this._authRepository,
     // this._encuestasRepository,
   ) : super(const HomeState()) {
     fetchData();
@@ -49,6 +51,7 @@ class HomeCubit extends Cubit<HomeState> {
   final BrandsRepository _brandsRepository;
   final UserCubit _userCubit;
   final WorkWithUsRepository _workWithUsRepository;
+  // final AuthRepository _authRepository;
   // final EncuestasRepository _encuestasRepository;
 
   Future<void> fetchData() async {
@@ -67,6 +70,7 @@ class HomeCubit extends Cubit<HomeState> {
       unawaited(_userCubit.getEmployeesAndEnterprises());
     }
     await Future.wait([
+      // _authRepository.getUser(),
       _homeRepository.getHero().then((v) => hero = v),
       _productsRepository
           .getProductsCategories(limit: 3)

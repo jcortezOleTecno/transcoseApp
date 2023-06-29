@@ -2,11 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:vemare/app/data/auth_repository.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/home/home_page.dart';
 import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/theme/color.dart';
+import 'package:vemare/config/service_locator.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -23,9 +25,11 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     final logged = LocalDataRepository().isLogged;
-    Future.delayed(const Duration(milliseconds: 3500), () {
+    Future.delayed(const Duration(milliseconds: 3500), () async {
       if (logged) {
-        Navigator.pushReplacementNamed(context, HomePage.route);
+        await getIt.get<AuthRepository>().getUser().then((_) {
+          Navigator.pushReplacementNamed(context, HomePage.route);
+        });
       } else {
         Navigator.pushReplacementNamed(context, LoginPage.route);
       }

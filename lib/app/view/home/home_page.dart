@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:nested_scroll_views/material.dart';
+import 'package:vemare/app/data/auth_repository.dart';
 import 'package:vemare/app/data/brands_repository.dart';
 import 'package:vemare/app/data/home_repository.dart';
 import 'package:vemare/app/data/notices_repository.dart';
@@ -66,6 +67,7 @@ class HomePage extends StatefulWidget {
         getIt.get<BrandsRepository>(),
         context.read<UserCubit>(),
         getIt.get<WorkWithUsRepository>(),
+        // getIt.get<AuthRepository>(),
       ),
       child: const HomePage._(),
     );
@@ -230,7 +232,7 @@ class _PageA extends StatelessWidget {
                           children: [
                             const MySpacer(height: 200),
                             Text(
-                              '¡Bienvenido${LocalDataRepository().isLogged ? ', ${LocalDataRepository().user?.responsibleName ?? ''}!' : '!'}',
+                              '¡Bienvenido${LocalDataRepository().isLogged ? ', ${LocalDataRepository().user?.name ?? ''}!' : '!'}',
                               style: AppTextStyle.homeStyle,
                             ),
                             spacerM,

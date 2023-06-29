@@ -46,12 +46,12 @@ class EventsRepository {
   }
 
   Future<void> enrollEvents({
-    required int eventId,
+    required int dateId,
     required List<int>? idsEmployees,
     List<Employee>? persons,
   }) async {
     final data = {
-      'date_id': eventId,
+      'date_id': dateId,
       'employee': idsEmployees?.join(',').toString() ?? "",
       'persons': persons?.map((e) => e.toEnrollData()).toList(),
     };

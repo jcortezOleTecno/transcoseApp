@@ -64,7 +64,7 @@ class AuthRepository {
 
   Future<void> getUser() async {
     final dynamic res = await apiClient.getRequest('$BASE_API_URL/api/user');
-    final user = UserData.froJson(res['user']);
+    final user = UserData.froJson(res['data']);
     LocalDataRepository().user = user;
   }
 

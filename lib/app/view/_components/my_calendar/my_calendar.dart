@@ -51,7 +51,7 @@ class _MyCalendarState extends State<MyCalendar> {
               shape: BoxShape.circle,
               color: Colors.white,
               border: Border.all(color: AppColor.primaryBlue, width: 2)),
-          isTodayHighlighted: true,
+          isTodayHighlighted: false,
           selectedDecoration: const BoxDecoration(
             color: AppColor.primaryBlue,
             shape: BoxShape.circle,
@@ -159,6 +159,23 @@ class _MyCalendarState extends State<MyCalendar> {
                 day.day.toString(),
                 style: AppTextStyle.linkStyle
                     .copyWith(fontSize: 15, color: AppColor.red),
+              ),
+            ),
+          );
+        }
+        if (isSameDay(DateTime.now(), day)) {
+          return Center(
+            child: Container(
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                  border: Border.all(color: AppColor.primaryBlue, width: 2)),
+              height: 40,
+              width: 40,
+              child: Text(
+                day.day.toString(),
+                style: AppTextStyle.linkStyle.copyWith(fontSize: 15),
               ),
             ),
           );

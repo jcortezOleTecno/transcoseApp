@@ -13,14 +13,18 @@ class CarCounterCubit extends Cubit<CarCounterState> {
 
   Future<void> getProducts() async {
     var data = await _shoppingCardRepository.getProducts();
-    addProduct(quantity: data.length);
+    int counter = 0;
+    for (var e in data) {
+      counter = e.quantity! + counter;
+    }
+    addProduct(quantity: counter);
   }
 
   void addProduct({required int quantity}) {
     emit(state.copyWith(products: quantity));
   }
 
-  void deleteProduct() {
-    emit(state.copyWith(products: state.products - 1));
+  void deleteProduct(int quantity) {
+    emit(state.copyWith(products: state.products - quantity));
   }
 }

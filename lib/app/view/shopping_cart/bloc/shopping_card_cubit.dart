@@ -19,17 +19,22 @@ class ShoppingCardCubit extends Cubit<ShoppingCardState> {
   Future<void> fetchData() async {
     emit(state.copyWith(loading: true));
     var products = await _shoppingCardRepository.getProducts();
-    int counter = 0;
+    int counterTemp = 0;
+    for (var e in products) {
+      counterTemp = e.quantity! + counterTemp;
+    }
 
-    emit(state.copyWith(products: products, loading: false));
+    emit(state.copyWith(
+        products: products, counter: counterTemp, loading: false));
   }
 
-  Future<void> deleteProduct(int id) async {
+  Future<void> deleteProduct({required int id, required int quantity}) async {
     unawaited(_shoppingCardRepository.shoppingDelete(id: id));
-    _carCounterCubit.deleteProduct();
+    _carCounterCubit.deleteProduct(quantity);
     emit(
       state.copyWith(
         products: state.products.where((e) => e.id != id).toList(),
+        counter: state.counter - quantity,
       ),
     );
   }

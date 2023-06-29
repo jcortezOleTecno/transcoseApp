@@ -23,7 +23,7 @@ import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
 
-class EnrollTrainingPage extends StatelessWidget {
+class EnrollTrainingPage extends StatefulWidget {
   const EnrollTrainingPage._(this.formation);
   static const route = '/enroll_training';
   final Formation formation;
@@ -37,6 +37,11 @@ class EnrollTrainingPage extends StatelessWidget {
     );
   }
 
+  @override
+  State<EnrollTrainingPage> createState() => _EnrollTrainingPageState();
+}
+
+class _EnrollTrainingPageState extends State<EnrollTrainingPage> {
   @override
   Widget build(BuildContext context) {
     // final state = context.read<SubjectBloc>()
@@ -53,7 +58,7 @@ class EnrollTrainingPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      formation.title ?? '',
+                      widget.formation.title ?? '',
                       style: AppTextStyle.h1Style,
                     ),
                     spacerS,
@@ -63,18 +68,16 @@ class EnrollTrainingPage extends StatelessWidget {
                     ),
                     spacerXL,
                     MyCalendar(
-                      dates: formation.horario ?? [],
+                      dates: widget.formation.horario ?? [],
                       onSelectedDate: (horario) {
-                        if (horario.date!.isBefore(DateTime.now()) ||
-                            formation.horario!
-                                .where((e) => (e.isRegistered ?? false))
-                                .isNotEmpty) {
+                        if (horario.date!.isBefore(DateTime(DateTime.now().year,
+                            DateTime.now().month, DateTime.now().day))) {
                           _dialogConfirmSchedule(context, horario,
                               isResume: true);
                         } else {
                           _dialogConfirmSchedule(context, horario).then((v) {
                             if (v ?? false) {
-                              _dialogEnrollEmployee(context).then((v) {
+                              _dialogEnrollEmployee(context, horario).then((v) {
                                 if (v ?? false) {
                                   _dialogCongratulations(context, horario)
                                       .then((_) {
@@ -198,13 +201,14 @@ class EnrollTrainingPage extends StatelessWidget {
                   ),
                   spacerM,
                   Text(
-                    formation.title ?? '',
+                    widget.formation.title ?? '',
                     style: AppTextStyle.h3Style,
                   ),
                   spacerS,
                   Expanded(
                       child: SingleChildScrollView(
-                          child: MyHtml(text: formation.description ?? ''))),
+                          child: MyHtml(
+                              text: widget.formation.description ?? ''))),
                   spacerM,
                   MyButton(
                     onPressed: () => Navigator.of(context).pop(true),
@@ -227,7 +231,7 @@ class EnrollTrainingPage extends StatelessWidget {
         });
   }
 
-  Future<bool?> _dialogEnrollEmployee(BuildContext ctx) {
+  Future<bool?> _dialogEnrollEmployee(BuildContext ctx, Horario date) {
     var selectedEmployees = <Employee>[];
     List<Employee> people = [];
     bool loading = false;
@@ -439,12 +443,18 @@ class EnrollTrainingPage extends StatelessWidget {
                         });
                         cubit
                             .enrullFormation(
-                          id: formation.id!,
+                          id: date.dateId,
                           idsEmployees:
                               selectedEmployees.map((e) => e.id!).toList(),
                           persons: people,
                         )
                             .then((value) {
+                          setState(() {
+                            widget.formation.horario!
+                                .firstWhere((e) => e.dateId == date.dateId)
+                                .isRegistered = true;
+                          });
+
                           Navigator.of(context).pop(true);
                         });
                       },
@@ -662,7 +672,7 @@ class EnrollTrainingPage extends StatelessWidget {
                                   text: 'Hemos confirmado tu formación en',
                                 ),
                                 TextSpan(
-                                  text: ' ${formation.title ?? ''} ',
+                                  text: ' ${widget.formation.title ?? ''} ',
                                   style: AppTextStyle.defaultStyle
                                       .copyWith(fontWeight: FontWeight.bold),
                                 ),

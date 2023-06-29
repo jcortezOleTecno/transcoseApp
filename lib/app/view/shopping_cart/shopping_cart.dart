@@ -59,7 +59,7 @@ class ShoppingCartPage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Carrito${state.products.isNotEmpty ? ' (${state.products.length})' : ''}',
+                                  'Carrito${state.products.isNotEmpty ? ' (${state.counter})' : ''}',
                                   style: AppTextStyle.h1Style,
                                 ),
                                 // spacerM,
@@ -148,8 +148,7 @@ class _BuyData extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text('Productos', style: AppTextStyle.defaultStyle),
-              Text('x${state.products.length}',
-                  style: AppTextStyle.defaultStyle),
+              Text('x${state.counter}', style: AppTextStyle.defaultStyle),
             ],
           ),
           spacerS,
@@ -278,7 +277,10 @@ class ShoppingItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(50),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(50),
-                  onTap: () => cubit.deleteProduct(product.id!),
+                  onTap: () => cubit.deleteProduct(
+                    id: product.id!,
+                    quantity: product.quantity!,
+                  ),
                   child: Padding(
                     padding: const EdgeInsets.all(12),
                     child: Image.asset('assets/icons/Trash.png', scale: 2),
