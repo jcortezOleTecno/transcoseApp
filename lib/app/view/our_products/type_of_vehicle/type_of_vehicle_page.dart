@@ -62,7 +62,7 @@ class TypeOfVehiclePage extends StatelessWidget {
                         child: GestureDetector(
                           onTap: () => Navigator.pushNamed(
                               context, OurProductsPage.route,
-                              arguments: e.name),
+                              arguments: e),
                           child: TypeVehicleCard(
                               title: e.name ?? '',
                               img: e.image ?? '',

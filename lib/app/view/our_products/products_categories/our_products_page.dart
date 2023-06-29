@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vemare/app/data/products_repository.dart';
 import 'package:vemare/app/domain/model/category.dart';
+import 'package:vemare/app/domain/model/type_of_vehicle.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_dropdown_button/my_drop_down_button.dart';
@@ -19,17 +20,18 @@ import 'package:vemare/config/service_locator.dart';
 import '../../promotions/promotion/promotion_page.dart';
 
 class OurProductsPage extends StatelessWidget {
-  const OurProductsPage._(this.typeVehicle);
-  final String? typeVehicle;
+  const OurProductsPage._();
+  // final TypeOfVehicle? typeVehicle;
 
   static const route = '/our_products';
 
-  static Widget create(String? typeVehicle) {
+  static Widget create(TypeOfVehicle? typeVehicle) {
     return BlocProvider(
       create: (context) => OurProductsCubit(
         getIt.get<ProductsRepository>(),
+        typeVehicle,
       ),
-      child: OurProductsPage._(typeVehicle),
+      child: const OurProductsPage._(),
     );
   }
 
@@ -51,7 +53,7 @@ class OurProductsPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Text(typeVehicle ?? ''),
+                        Text(state.typeOfVehicle?.name ?? ''),
                         const Text(
                           'Nuestros productos',
                           style: AppTextStyle.h1Style,

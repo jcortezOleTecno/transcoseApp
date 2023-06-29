@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$OurProductsState {
   List<Category> get categories => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
+  TypeOfVehicle? get typeOfVehicle => throw _privateConstructorUsedError;
   Category? get category => throw _privateConstructorUsedError;
   String? get query => throw _privateConstructorUsedError;
 
@@ -35,6 +36,7 @@ abstract class $OurProductsStateCopyWith<$Res> {
   $Res call(
       {List<Category> categories,
       bool loading,
+      TypeOfVehicle? typeOfVehicle,
       Category? category,
       String? query});
 }
@@ -54,6 +56,7 @@ class _$OurProductsStateCopyWithImpl<$Res, $Val extends OurProductsState>
   $Res call({
     Object? categories = null,
     Object? loading = null,
+    Object? typeOfVehicle = freezed,
     Object? category = freezed,
     Object? query = freezed,
   }) {
@@ -66,6 +69,10 @@ class _$OurProductsStateCopyWithImpl<$Res, $Val extends OurProductsState>
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
               as bool,
+      typeOfVehicle: freezed == typeOfVehicle
+          ? _value.typeOfVehicle
+          : typeOfVehicle // ignore: cast_nullable_to_non_nullable
+              as TypeOfVehicle?,
       category: freezed == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
@@ -89,6 +96,7 @@ abstract class _$$_OurProductsStateCopyWith<$Res>
   $Res call(
       {List<Category> categories,
       bool loading,
+      TypeOfVehicle? typeOfVehicle,
       Category? category,
       String? query});
 }
@@ -106,6 +114,7 @@ class __$$_OurProductsStateCopyWithImpl<$Res>
   $Res call({
     Object? categories = null,
     Object? loading = null,
+    Object? typeOfVehicle = freezed,
     Object? category = freezed,
     Object? query = freezed,
   }) {
@@ -118,6 +127,10 @@ class __$$_OurProductsStateCopyWithImpl<$Res>
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
               as bool,
+      typeOfVehicle: freezed == typeOfVehicle
+          ? _value.typeOfVehicle
+          : typeOfVehicle // ignore: cast_nullable_to_non_nullable
+              as TypeOfVehicle?,
       category: freezed == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
@@ -136,6 +149,7 @@ class _$_OurProductsState extends _OurProductsState {
   const _$_OurProductsState(
       {final List<Category> categories = const <Category>[],
       this.loading = false,
+      this.typeOfVehicle,
       this.category,
       this.query})
       : _categories = categories,
@@ -154,13 +168,15 @@ class _$_OurProductsState extends _OurProductsState {
   @JsonKey()
   final bool loading;
   @override
+  final TypeOfVehicle? typeOfVehicle;
+  @override
   final Category? category;
   @override
   final String? query;
 
   @override
   String toString() {
-    return 'OurProductsState(categories: $categories, loading: $loading, category: $category, query: $query)';
+    return 'OurProductsState(categories: $categories, loading: $loading, typeOfVehicle: $typeOfVehicle, category: $category, query: $query)';
   }
 
   @override
@@ -171,6 +187,8 @@ class _$_OurProductsState extends _OurProductsState {
             const DeepCollectionEquality()
                 .equals(other._categories, _categories) &&
             (identical(other.loading, loading) || other.loading == loading) &&
+            (identical(other.typeOfVehicle, typeOfVehicle) ||
+                other.typeOfVehicle == typeOfVehicle) &&
             (identical(other.category, category) ||
                 other.category == category) &&
             (identical(other.query, query) || other.query == query));
@@ -181,6 +199,7 @@ class _$_OurProductsState extends _OurProductsState {
       runtimeType,
       const DeepCollectionEquality().hash(_categories),
       loading,
+      typeOfVehicle,
       category,
       query);
 
@@ -195,6 +214,7 @@ abstract class _OurProductsState extends OurProductsState {
   const factory _OurProductsState(
       {final List<Category> categories,
       final bool loading,
+      final TypeOfVehicle? typeOfVehicle,
       final Category? category,
       final String? query}) = _$_OurProductsState;
   const _OurProductsState._() : super._();
@@ -203,6 +223,8 @@ abstract class _OurProductsState extends OurProductsState {
   List<Category> get categories;
   @override
   bool get loading;
+  @override
+  TypeOfVehicle? get typeOfVehicle;
   @override
   Category? get category;
   @override

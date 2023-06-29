@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/domain/model/sat_forms.dart';
@@ -12,11 +13,12 @@ class SatRepository {
   SatRepository(this._apiClient);
 
   Future<List<SatForms>> getSatForms() async {
-    // final cliente = LocalDataRepository().user!.code;
+    final cliente = LocalDataRepository().user?.code;
     try {
       final dynamic res = await _apiClient.getRequest(
-        '$BASE_API_URL/api/formularios_sat', /*params: <String, dynamic>{'cliente': cliente}*/
-      );
+          '$BASE_API_URL/api/formularios_sat',
+          params: <String, dynamic>{'cliente': cliente});
+      log(jsonEncode(res));
       return (res as List).map(SatForms.fromJson).toList();
     } catch (e) {
       print('ERROR $e');

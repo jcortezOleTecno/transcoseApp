@@ -1,12 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:vemare/app/data/products_repository.dart';
 import 'package:vemare/app/domain/model/category.dart';
+import 'package:vemare/app/domain/model/type_of_vehicle.dart';
 import 'package:vemare/app/view/our_products/products_categories/bloc/our_products_state.dart';
 
 class OurProductsCubit extends Cubit<OurProductsState> {
-  OurProductsCubit(
-    this._productsRepository,
-  ) : super(const OurProductsState()) {
+  OurProductsCubit(this._productsRepository, TypeOfVehicle? typeOfVehicle)
+      : super(OurProductsState(typeOfVehicle: typeOfVehicle)) {
     fetchData();
   }
 
@@ -18,7 +18,8 @@ class OurProductsCubit extends Cubit<OurProductsState> {
 
     await Future.wait([
       _productsRepository
-          .getProductsCategories()
+          .getProductsCategories(
+              vehicletypesid: state.typeOfVehicle?.id?.toString() ?? '')
           .then((v) => categories.addAll(v))
     ]);
 

@@ -31,7 +31,7 @@ class SatCubit extends Cubit<SatState> {
                 ? Name(LocalDataRepository().user?.responsibleName ?? '')
                 : null,
             poblacion: LocalDataRepository().isLogged
-                ? Name(LocalDataRepository().user?.webservice?.poblacion ?? '')
+                ? Name(LocalDataRepository().user?.city ?? '')
                 : null,
             cif: LocalDataRepository().isLogged
                 ? Name(LocalDataRepository().user?.webservice?.cif ?? '')
@@ -351,8 +351,8 @@ class SatCubit extends Cubit<SatState> {
         "persona": state.persona?.value,
         "telefono": state.telefono?.value,
         "email": state.email?.value,
-        "fecha_cita": state.fechaCita!,
-        "franja_horaria": state.franjaHoraria!,
+        "fecha_cita": state.fechaCita ?? '',
+        "franja_horaria": state.franjaHoraria ?? '',
       };
       var res = await _satRepository.sendSatForms(data);
 

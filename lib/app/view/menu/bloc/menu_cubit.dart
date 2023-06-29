@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/notifications_repository.dart';
 import 'package:vemare/app/domain/model/notification.dart';
 import 'package:vemare/app/view/menu/bloc/menu_state.dart';
@@ -11,6 +12,7 @@ class MenuCubit extends Cubit<MenuState> {
   final NotificationsRepository _notificationsRepository;
 
   Future<void> getNotifications() async {
+    if (!LocalDataRepository().isLogged) return;
     List<Notification> data =
         await _notificationsRepository.getNotifications(limit: '2');
     emit(state.copyWith(notifications: data));

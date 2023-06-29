@@ -12,6 +12,7 @@ import 'package:vemare/app/domain/model/notices.dart';
 import 'package:vemare/app/domain/model/pills.dart';
 import 'package:vemare/app/domain/model/promotion.dart';
 import 'package:vemare/app/domain/model/services.dart';
+import 'package:vemare/app/domain/model/type_of_vehicle.dart';
 import 'package:vemare/app/domain/model/warranty.dart';
 import 'package:vemare/app/domain/model/we_help_you.dart';
 import 'package:vemare/app/domain/model/work_with_us.dart';
@@ -116,7 +117,7 @@ abstract class AppRouter {
           builder: (_) => TypeOfVehiclePage.create(),
         );
       case OurProductsPage.route:
-        final typeVehicle = settings.arguments as String?;
+        final typeVehicle = settings.arguments as TypeOfVehicle?;
         return MaterialPageRoute<void>(
           settings: settings,
           builder: (_) => OurProductsPage.create(typeVehicle!),

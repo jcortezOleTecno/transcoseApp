@@ -125,17 +125,17 @@ class SatPage extends StatelessWidget {
               ),
               spacerS,
               Text(
-                state.fechaCita!,
+                state.fechaCita ?? 'Enviado',
                 style: AppTextStyle.h1Style,
               ),
               spacerS,
               Text(
-                state.franjaHoraria!,
+                state.franjaHoraria ?? '',
                 style: AppTextStyle.defaultStyle,
               ),
               spacerM,
               const Text(
-                'Su solicitud ha quedado registrada. Confirmaremos tu cita lo antes posible, o te propondremos una nueva fecha',
+                'Su solicitud ha quedado registrada. Confirmaremos por e-mail tu cita lo antes posible o te propondremos una nueva fecha',
                 textAlign: TextAlign.center,
                 style: AppTextStyle.defaultStyle,
               ),
@@ -316,6 +316,7 @@ class _FormEquipamentoState extends State<FormEquipamento> {
               ),
               spacerS,
               MyInput(
+                key: const Key('Código cliente'),
                 label: 'Código cliente*',
                 hintText: 'Código cliente',
                 onChanged: cubit.codigoCliente,
@@ -326,6 +327,7 @@ class _FormEquipamentoState extends State<FormEquipamento> {
                 // enabled: false,
               ),
               MyInput(
+                key: const Key('Razón social'),
                 label: 'Razón social*',
                 hintText: 'Razón social',
                 onChanged: cubit.razonSocial,
@@ -334,17 +336,20 @@ class _FormEquipamentoState extends State<FormEquipamento> {
                 hasError: state.status == FormStatus.error,
                 initialValue: state.razonSocial?.value ?? '',
               ),
-              if (state.formSelect != 'AD TALLER')
+              if (state.formSelect == 'AD TALLER')
                 MyInput(
+                  key: const Key('CIF'),
                   label: 'CIF*',
                   hintText: 'CIF',
                   onChanged: cubit.cif,
                   textInputAction: TextInputAction.next,
                   textCapitalization: TextCapitalization.sentences,
                   hasError: state.status == FormStatus.error,
-                  initialValue: state.cif?.value ?? '',
+                  initialValue:
+                      LocalDataRepository().user?.webservice?.cif ?? '',
                 ),
               MyInput(
+                key: const Key('poblacion'),
                 label: 'Población*',
                 hintText: 'Población',
                 onChanged: cubit.poblacion,
@@ -354,6 +359,7 @@ class _FormEquipamentoState extends State<FormEquipamento> {
                 initialValue: state.poblacion?.value ?? '',
               ),
               MyInput(
+                key: const Key('persona'),
                 label: 'Persona*',
                 hintText: 'Persona',
                 onChanged: cubit.persona,
