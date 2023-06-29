@@ -45,10 +45,7 @@ class PromotionPage extends StatelessWidget {
     final cubit = context.read<PromotionCubit>();
     return MyTapToHideKeyboard(
       child: Scaffold(
-        body: BlocConsumer<PromotionCubit, PromotionState>(
-          listener: (context, state) {
-            // TODO: implement listener
-          },
+        body: BlocBuilder<PromotionCubit, PromotionState>(
           builder: (context, state) {
             return MyBody(
               child: SingleChildScrollView(
@@ -85,6 +82,7 @@ class PromotionPage extends StatelessWidget {
                           ),
                           spacerM,
                           MySearchInput(
+                            hintText: 'Buscar por proveedor...',
                             initialValue: state.query,
                             onChanged: cubit.query,
                             onFieldSubmitted: (_) => cubit.search(),
@@ -175,16 +173,18 @@ class _Card extends StatelessWidget {
                       style: AppTextStyle.defaultStyle,
                     ),
                   ),
-                  if (promotion.pvpLowered != null)
+                  if (!promotion.informative) ...[
+                    if (promotion.pvpLowered != null)
+                      Text(
+                        '${promotion.pvpOriginal}€',
+                        style: AppTextStyle.pvpOrinigal,
+                      ),
+                    spacerXs,
                     Text(
-                      '${promotion.pvpOriginal}€',
-                      style: AppTextStyle.pvpOrinigal,
+                      '${promotion.pvpLowered ?? promotion.pvpOriginal}€',
+                      style: AppTextStyle.h2Style,
                     ),
-                  spacerXs,
-                  Text(
-                    '${promotion.pvpLowered ?? promotion.pvpOriginal}€',
-                    style: AppTextStyle.h2Style,
-                  ),
+                  ]
                 ],
               ),
             )

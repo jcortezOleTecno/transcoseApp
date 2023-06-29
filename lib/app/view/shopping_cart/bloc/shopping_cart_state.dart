@@ -12,6 +12,7 @@ class ShoppingCardState with _$ShoppingCardState {
     @Default(false) bool isCard,
     @Default(false) bool typePaySelected,
     @Default(0.0) double total,
+    @Default(0) int counter,
     @Default(<ShoppingCardProduct>[]) List<ShoppingCardProduct> products,
   }) = _ShoppingCardState;
   const ShoppingCardState._();

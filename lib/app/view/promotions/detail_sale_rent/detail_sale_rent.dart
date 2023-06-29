@@ -59,7 +59,24 @@ class DetailSaleRent extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      MyTiendaRentingButton(isTienda: cubit.isTienda),
+                      state.promotion!.informative
+                          ? Container(
+                              clipBehavior: Clip.antiAlias,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                color: AppColor.primaryBlue,
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: AppColor.neutral40),
+                              ),
+                              alignment: Alignment.center,
+                              child: Text(
+                                'Información',
+                                style: AppTextStyle.buttonTextStyle.copyWith(
+                                  color: AppColor.white,
+                                ),
+                              ),
+                            )
+                          : MyTiendaRentingButton(isTienda: cubit.isTienda),
                       spacerM,
                       ClipRRect(
                         borderRadius: BorderRadius.circular(12),
@@ -77,58 +94,60 @@ class DetailSaleRent extends StatelessWidget {
                       spacerS,
                       MyHtml(text: state.promotion!.description ?? ''),
                       spacerM,
-                      Center(
-                        child: RichText(
-                          text: TextSpan(
-                            style: AppTextStyle.h1Style,
-                            children: [
-                              if (state.promotion?.pvpLowered != null)
+                      if (!state.promotion!.informative) ...[
+                        Center(
+                          child: RichText(
+                            text: TextSpan(
+                              style: AppTextStyle.h1Style,
+                              children: [
+                                if (state.promotion?.pvpLowered != null)
+                                  TextSpan(
+                                      text:
+                                          '${(int.parse(state.promotion?.pvpOriginal ?? '0') * (state.quantity))}€',
+                                      style: AppTextStyle.pvpOrinigal),
                                 TextSpan(
-                                    text:
-                                        '${(int.parse(state.promotion?.pvpOriginal ?? '0') * (state.quantity))}€',
-                                    style: AppTextStyle.pvpOrinigal),
-                              TextSpan(
-                                text:
-                                    ' ${(int.parse(state.promotion?.pvpLowered ?? '0') * (state.quantity))}€',
-                              ),
-                              TextSpan(
-                                text: ' IVA incluido ',
-                                style: AppTextStyle.defaultStyle
-                                    .copyWith(color: AppColor.neutral40),
-                              ),
-                            ],
+                                  text:
+                                      ' ${(int.parse(state.promotion?.pvpLowered ?? '0') * (state.quantity))}€',
+                                ),
+                                TextSpan(
+                                  text: ' IVA incluido ',
+                                  style: AppTextStyle.defaultStyle
+                                      .copyWith(color: AppColor.neutral40),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      spacerM,
-                      MyCounterButton(
-                        decrease: cubit.quantity,
-                        increase: cubit.quantity,
-                      ),
-                      spacerL,
-                      Visibility(
-                        visible: LocalDataRepository().isLogged,
-                        replacement: const MySpacer(height: 50),
-                        child: MyButton(
-                          onPressed: cubit.addShoppingCard,
-                          isLoading: state.loading,
-                          text: 'Añadir al carrito',
+                        spacerM,
+                        MyCounterButton(
+                          decrease: cubit.quantity,
+                          increase: cubit.quantity,
                         ),
-                      ),
-                      spacerM,
-                      MyButton(
-                          onPressed: () => Navigator.pushNamed(
-                                context,
-                                RentingStorePage.route,
-                                arguments: StoreArgs(
-                                  isTienda: state.isTienda,
-                                  promotion: state.promotion!,
-                                  quantity: state.quantity,
+                        spacerL,
+                        Visibility(
+                          visible: LocalDataRepository().isLogged,
+                          replacement: const MySpacer(height: 50),
+                          child: MyButton(
+                            onPressed: cubit.addShoppingCard,
+                            isLoading: state.loading,
+                            text: 'Añadir al carrito',
+                          ),
+                        ),
+                        spacerM,
+                        MyButton(
+                            onPressed: () => Navigator.pushNamed(
+                                  context,
+                                  RentingStorePage.route,
+                                  arguments: StoreArgs(
+                                    isTienda: state.isTienda,
+                                    promotion: state.promotion!,
+                                    quantity: state.quantity,
+                                  ),
                                 ),
-                              ),
-                          text: state.isTienda ? 'Comprar' : 'Alquilar',
-                          variant: MyButtonVariant.outlinedBold),
-                      spacerL,
+                            text: state.isTienda ? 'Comprar' : 'Alquilar',
+                            variant: MyButtonVariant.outlinedBold),
+                        spacerL,
+                      ]
                     ],
                   ),
                 )

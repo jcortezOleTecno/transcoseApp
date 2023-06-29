@@ -19,6 +19,8 @@ class ShoppingCardCubit extends Cubit<ShoppingCardState> {
   Future<void> fetchData() async {
     emit(state.copyWith(loading: true));
     var products = await _shoppingCardRepository.getProducts();
+    int counter = 0;
+
     emit(state.copyWith(products: products, loading: false));
   }
 

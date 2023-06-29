@@ -89,7 +89,7 @@ class PromotionsPage extends StatelessWidget {
                           ),
                           spacerM,
                           MySearchInput(
-                            hintText: 'Buscar',
+                            hintText: 'Buscar por proveedor...',
                             onFieldSubmitted: (query) {
                               Navigator.pushNamed(
                                 context,

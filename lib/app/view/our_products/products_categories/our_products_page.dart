@@ -84,7 +84,7 @@ class OurProductsPage extends StatelessWidget {
                         ),
                         spacerM,
                         MySearchInput(
-                          hintText: 'Buscar',
+                          hintText: 'Buscar por palabras claves',
                           onFieldSubmitted: (query) {
                             Navigator.pushNamed(
                               context,

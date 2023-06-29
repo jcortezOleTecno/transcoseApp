@@ -22,6 +22,7 @@ mixin _$ShoppingCardState {
   bool get isCard => throw _privateConstructorUsedError;
   bool get typePaySelected => throw _privateConstructorUsedError;
   double get total => throw _privateConstructorUsedError;
+  int get counter => throw _privateConstructorUsedError;
   List<ShoppingCardProduct> get products => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -42,6 +43,7 @@ abstract class $ShoppingCardStateCopyWith<$Res> {
       bool isCard,
       bool typePaySelected,
       double total,
+      int counter,
       List<ShoppingCardProduct> products});
 }
 
@@ -64,6 +66,7 @@ class _$ShoppingCardStateCopyWithImpl<$Res, $Val extends ShoppingCardState>
     Object? isCard = null,
     Object? typePaySelected = null,
     Object? total = null,
+    Object? counter = null,
     Object? products = null,
   }) {
     return _then(_value.copyWith(
@@ -91,6 +94,10 @@ class _$ShoppingCardStateCopyWithImpl<$Res, $Val extends ShoppingCardState>
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
               as double,
+      counter: null == counter
+          ? _value.counter
+          : counter // ignore: cast_nullable_to_non_nullable
+              as int,
       products: null == products
           ? _value.products
           : products // ignore: cast_nullable_to_non_nullable
@@ -114,6 +121,7 @@ abstract class _$$_ShoppingCardStateCopyWith<$Res>
       bool isCard,
       bool typePaySelected,
       double total,
+      int counter,
       List<ShoppingCardProduct> products});
 }
 
@@ -134,6 +142,7 @@ class __$$_ShoppingCardStateCopyWithImpl<$Res>
     Object? isCard = null,
     Object? typePaySelected = null,
     Object? total = null,
+    Object? counter = null,
     Object? products = null,
   }) {
     return _then(_$_ShoppingCardState(
@@ -161,6 +170,10 @@ class __$$_ShoppingCardStateCopyWithImpl<$Res>
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
               as double,
+      counter: null == counter
+          ? _value.counter
+          : counter // ignore: cast_nullable_to_non_nullable
+              as int,
       products: null == products
           ? _value._products
           : products // ignore: cast_nullable_to_non_nullable
@@ -179,6 +192,7 @@ class _$_ShoppingCardState extends _ShoppingCardState {
       this.isCard = false,
       this.typePaySelected = false,
       this.total = 0.0,
+      this.counter = 0,
       final List<ShoppingCardProduct> products = const <ShoppingCardProduct>[]})
       : _products = products,
         super._();
@@ -201,6 +215,9 @@ class _$_ShoppingCardState extends _ShoppingCardState {
   @override
   @JsonKey()
   final double total;
+  @override
+  @JsonKey()
+  final int counter;
   final List<ShoppingCardProduct> _products;
   @override
   @JsonKey()
@@ -212,7 +229,7 @@ class _$_ShoppingCardState extends _ShoppingCardState {
 
   @override
   String toString() {
-    return 'ShoppingCardState(loading: $loading, deleting: $deleting, buying: $buying, isCard: $isCard, typePaySelected: $typePaySelected, total: $total, products: $products)';
+    return 'ShoppingCardState(loading: $loading, deleting: $deleting, buying: $buying, isCard: $isCard, typePaySelected: $typePaySelected, total: $total, counter: $counter, products: $products)';
   }
 
   @override
@@ -228,6 +245,7 @@ class _$_ShoppingCardState extends _ShoppingCardState {
             (identical(other.typePaySelected, typePaySelected) ||
                 other.typePaySelected == typePaySelected) &&
             (identical(other.total, total) || other.total == total) &&
+            (identical(other.counter, counter) || other.counter == counter) &&
             const DeepCollectionEquality().equals(other._products, _products));
   }
 
@@ -240,6 +258,7 @@ class _$_ShoppingCardState extends _ShoppingCardState {
       isCard,
       typePaySelected,
       total,
+      counter,
       const DeepCollectionEquality().hash(_products));
 
   @JsonKey(ignore: true)
@@ -258,6 +277,7 @@ abstract class _ShoppingCardState extends ShoppingCardState {
       final bool isCard,
       final bool typePaySelected,
       final double total,
+      final int counter,
       final List<ShoppingCardProduct> products}) = _$_ShoppingCardState;
   const _ShoppingCardState._() : super._();
 
@@ -273,6 +293,8 @@ abstract class _ShoppingCardState extends ShoppingCardState {
   bool get typePaySelected;
   @override
   double get total;
+  @override
+  int get counter;
   @override
   List<ShoppingCardProduct> get products;
   @override

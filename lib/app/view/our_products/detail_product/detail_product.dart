@@ -80,7 +80,7 @@ class _DetailProductPageState extends State<DetailProductPage> {
                       spacerM,
                       // spacerM,
                       MySearchInput(
-                        hintText: 'Buscar',
+                        hintText: 'Buscar por proveedor',
                         onChanged: (p0) {
                           setState(() {
                             brandsTemp = widget.args.cat.brands!

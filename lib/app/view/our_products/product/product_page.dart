@@ -121,7 +121,7 @@ class ProductPage extends StatelessWidget {
                           ),
                           spacerM,
                           MySearchInput(
-                            hintText: 'Buscar por proveedor',
+                            hintText: 'Buscar por palabras claves',
                             initialValue: state.query,
                             onChanged: cubit.query,
                             onFieldSubmitted: (_) => cubit.search(),
