@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:vemare/app/data/products_repository.dart';
-import 'package:vemare/app/domain/model/brand.dart';
 import 'package:vemare/app/domain/model/category.dart';
 import 'package:vemare/app/domain/model/categoty_detail.dart';
 import 'package:vemare/app/view/our_products/product/bloc/product_state.dart';

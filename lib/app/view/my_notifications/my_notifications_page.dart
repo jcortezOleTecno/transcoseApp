@@ -23,7 +23,7 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'package:vemare/config/service_locator.dart';
 
 class MyNotificationsPage extends StatelessWidget {
-  const MyNotificationsPage._({super.key});
+  const MyNotificationsPage._();
   static const route = '/my_notifications';
 
   static Widget create() => BlocProvider(

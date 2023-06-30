@@ -39,10 +39,7 @@ class ContractDetailPage extends StatelessWidget {
     final cubit = context.read<ContratDetailCubit>();
     return Scaffold(
       body: MyBody(
-        child: BlocConsumer<ContratDetailCubit, ContratDetailState>(
-          listener: (context, state) {
-            // TODO: implement listener
-          },
+        child: BlocBuilder<ContratDetailCubit, ContratDetailState>(
           builder: (context, state) {
             return SingleChildScrollView(
               child: Column(

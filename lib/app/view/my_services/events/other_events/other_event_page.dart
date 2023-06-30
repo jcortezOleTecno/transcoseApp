@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:vemare/app/domain/model/events.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';

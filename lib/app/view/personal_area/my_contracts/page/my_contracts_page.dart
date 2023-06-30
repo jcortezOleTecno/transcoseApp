@@ -190,7 +190,7 @@ class _PMP extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<MyContratsCubit>();
+    // final cubit = context.read<MyContratsCubit>();
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(15, 25, 15, 0),
       child: Column(

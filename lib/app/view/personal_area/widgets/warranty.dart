@@ -3,7 +3,6 @@ import 'package:intl/intl.dart';
 import 'package:vemare/app/domain/model/warranty.dart';
 import 'package:vemare/app/domain/model/warranty_details.dart';
 import 'package:vemare/app/domain/utils/money_formatter.dart';
-import 'package:vemare/app/view/_components/my_label_status/my_label_status.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/personal_area/widgets/item_card.dart';
 import 'package:vemare/app/view/theme/color.dart';
@@ -27,7 +26,8 @@ class WarrantyCard extends StatelessWidget {
           child: Column(
             children: [
               ListTile(
-                title: Text('N° de GARANTÍA', style: AppTextStyle.defaultStyle),
+                title: const Text('N° de GARANTÍA',
+                    style: AppTextStyle.defaultStyle),
                 subtitle: Text(warranty.numero?.toString() ?? '0000000000',
                     style: AppTextStyle.defaultStyle.copyWith(
                         fontWeight: FontWeight.bold, color: Colors.black)),
@@ -45,7 +45,7 @@ class WarrantyCard extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('FECHA', style: AppTextStyle.defaultStyle),
+                          const Text('FECHA', style: AppTextStyle.defaultStyle),
                           Text(
                               DateFormat.yMd('es')
                                   .format(warranty.fechaAlta!)

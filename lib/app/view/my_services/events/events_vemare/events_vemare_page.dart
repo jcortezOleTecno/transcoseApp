@@ -12,7 +12,6 @@ import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/my_services/events/events_vemare/event_detail_page.dart';
 import 'package:vemare/app/view/my_services/events/events_vemare/bloc/events_vemare_cubit.dart';
 import 'package:vemare/app/view/my_services/events/events_vemare/bloc/events_vemare_state.dart';
-import 'package:vemare/app/view/my_services/events/my_events/my_events_page.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';

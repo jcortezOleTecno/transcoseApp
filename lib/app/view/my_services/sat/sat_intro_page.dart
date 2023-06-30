@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/domain/model/we_help_you.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_html/my_html.dart';
-import 'package:vemare/app/view/login/login_page.dart';
-
 import '../../_components/my_spacer/my_spacer.dart';
 import '../../theme/text_style.dart';
 import 'sat_page.dart';

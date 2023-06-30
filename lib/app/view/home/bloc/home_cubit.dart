@@ -1,13 +1,9 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import 'package:vemare/app/data/auth_repository.dart';
 import 'package:vemare/app/data/brands_repository.dart';
-import 'package:vemare/app/data/encuestas_repository.dart';
 import 'package:vemare/app/data/home_repository.dart';
-import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/notices_repository.dart';
 import 'package:vemare/app/data/products_repository.dart';
 import 'package:vemare/app/data/promotion_repository.dart';
@@ -35,8 +31,6 @@ class HomeCubit extends Cubit<HomeState> {
     this._brandsRepository,
     this._userCubit,
     this._workWithUsRepository,
-    // this._authRepository,
-    // this._encuestasRepository,
   ) : super(const HomeState()) {
     fetchData();
     // encuesta();
@@ -51,8 +45,6 @@ class HomeCubit extends Cubit<HomeState> {
   final BrandsRepository _brandsRepository;
   final UserCubit _userCubit;
   final WorkWithUsRepository _workWithUsRepository;
-  // final AuthRepository _authRepository;
-  // final EncuestasRepository _encuestasRepository;
 
   Future<void> fetchData() async {
     emit(state.copyWith(loading: true));
@@ -70,7 +62,6 @@ class HomeCubit extends Cubit<HomeState> {
       unawaited(_userCubit.getEmployeesAndEnterprises());
     }
     await Future.wait([
-      // _authRepository.getUser(),
       _homeRepository.getHero().then((v) => hero = v),
       _productsRepository
           .getProductsCategories(limit: 3)

@@ -35,10 +35,7 @@ class WhereWeArePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<WhereWeAreCubit>();
     return Scaffold(
-      body: BlocConsumer<WhereWeAreCubit, WhereWeAreState>(
-        listener: (context, state) {
-          // TODO: implement listener
-        },
+      body: BlocBuilder<WhereWeAreCubit, WhereWeAreState>(
         builder: (context, state) {
           return MyBody(
             child: ListView(
@@ -54,7 +51,8 @@ class WhereWeArePage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text('¿Dónde estamos?', style: AppTextStyle.h1Style),
+                      const Text('¿Dónde estamos?',
+                          style: AppTextStyle.h1Style),
                       spacerM,
                       MyInput(
                         label: 'Ciudad',

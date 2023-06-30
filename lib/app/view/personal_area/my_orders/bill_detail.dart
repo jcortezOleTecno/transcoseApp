@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
-import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_label_status/my_label_status.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/theme/color.dart';
@@ -18,12 +17,12 @@ class BillDetailPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            MyBackButton(),
+            const MyBackButton(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
+                children: const [
                   Text(
                     'N° DEL PRESUPUESTO',
                     style: AppTextStyle.defaultStyle,
@@ -62,13 +61,13 @@ class _DetailBill extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
+          const Text(
             'Detalles de la factura',
             style: AppTextStyle.titleCard,
           ),
           spacerM,
           Row(
-            children: [
+            children: const [
               Expanded(child: Text('FECHA', style: AppTextStyle.defaultStyle)),
               Expanded(
                   child: Text('IMPORTE', style: AppTextStyle.defaultStyle)),
@@ -94,7 +93,7 @@ class _DetailBill extends StatelessWidget {
           ),
           spacerM,
           Row(
-            children: [
+            children: const [
               Expanded(
                   child: Text('SUCURSAL', style: AppTextStyle.defaultStyle)),
               Expanded(
@@ -122,7 +121,7 @@ class _DetailBill extends StatelessWidget {
           ),
           spacerM,
           Row(
-            children: [
+            children: const [
               Expanded(
                   child: Text('TRAMITACIÓN', style: AppTextStyle.defaultStyle)),
               Expanded(
@@ -149,7 +148,7 @@ class _DetailBill extends StatelessWidget {
             ],
           ),
           spacerM,
-          Text('SITUCAIÓN', style: AppTextStyle.defaultStyle),
+          const Text('SITUCAIÓN', style: AppTextStyle.defaultStyle),
           Text('???',
               style: AppTextStyle.defaultStyle
                   .copyWith(fontWeight: FontWeight.bold)),

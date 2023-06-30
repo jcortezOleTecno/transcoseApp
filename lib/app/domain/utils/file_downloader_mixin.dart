@@ -2,10 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:android_path_provider/android_path_provider.dart';
-// import 'package:flutter_downloader/flutter_downloader.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:vemare/app/data/local_data_repository.dart';
 
 mixin FileDownloader {
   Future downloadFile({required String url, required String name}) async {
@@ -18,7 +15,7 @@ mixin FileDownloader {
 
     if (localPath == null) return;
 
-    String savedDir = await prepareSaveDir(localPath);
+    // String savedDir = await prepareSaveDir(localPath);
 
     log(fileName);
 

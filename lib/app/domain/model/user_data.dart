@@ -14,6 +14,7 @@ class UserData {
   final int? roleId;
   final int? parentId;
   final String? status;
+  String? logo;
   final int? accessMillenniumProgram;
   Webservice? webservice;
 
@@ -33,6 +34,7 @@ class UserData {
     this.roleId,
     this.parentId,
     this.status,
+    this.logo,
     this.accessMillenniumProgram,
     this.webservice,
   });
@@ -54,6 +56,7 @@ class UserData {
       roleId: map["role_id"] as int?,
       parentId: map["parent_id"] as int?,
       status: map["status"] as String?,
+      logo: map["logo"] as String?,
       accessMillenniumProgram: map["access_millennium_program"] as int?,
       webservice: map["webservice"] == null
           ? null
@@ -78,6 +81,7 @@ class UserData {
       'role_id': roleId,
       'parent_id': parentId,
       'status': status,
+      'logo': logo,
       'access_millennium_program': accessMillenniumProgram,
       "webservice": webservice?.toJson(),
     };

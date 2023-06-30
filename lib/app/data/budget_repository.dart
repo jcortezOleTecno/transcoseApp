@@ -14,11 +14,9 @@ class BudgetRepository {
   Future<AnswerWithFilters> getBudget({
     Filter? filter,
   }) async {
-    print(filter?.toJson());
     final dynamic res = await _apiClient.postRequest(
         '$BASE_API_URL/api/mi-cuenta/presupuestos',
         body: filter?.toJson());
-    print(res);
     return AnswerWithFilters(
       filter: res["filters"],
       data: (res['data']['presupuestos'] as List).map(Budget.fromJson).toList(),

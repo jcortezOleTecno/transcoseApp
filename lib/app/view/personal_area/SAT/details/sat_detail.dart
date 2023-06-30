@@ -4,7 +4,6 @@ import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/my_account_repository.dart';
 import 'package:vemare/app/domain/model/intervencion_detalle.dart';
 import 'package:vemare/app/domain/model/intervenciones.dart';
-import 'package:vemare/app/domain/utils/money_formatter.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
@@ -34,13 +33,9 @@ class SatDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<SatDetailCubit>();
     return Scaffold(
       body: MyBody(
-        child: BlocConsumer<SatDetailCubit, SatDetailState>(
-          listener: (context, state) {
-            // TODO: implement listener
-          },
+        child: BlocBuilder<SatDetailCubit, SatDetailState>(
           builder: (context, state) {
             return SingleChildScrollView(
               child: Column(

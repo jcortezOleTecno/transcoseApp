@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:vemare/app/domain/model/events_vemare.dart';
 import 'package:vemare/app/domain/model/galery.dart';
 import 'package:vemare/app/domain/utils/download_and_save_file.dart';
-import 'package:vemare/app/domain/utils/file_downloader_mixin.dart';
 import 'package:vemare/app/domain/value_object/status.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';

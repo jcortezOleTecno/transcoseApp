@@ -46,24 +46,24 @@ class PaymentPage extends StatelessWidget {
                         style: AppTextStyle.h3Style,
                       ),
                       spacerM,
-                      MyInput(
+                      const MyInput(
                         label: 'Nombre',
                         initialValue: 'jorge',
                       ),
-                      MyInput(
+                      const MyInput(
                         label: 'E-mail',
                         initialValue: 'jorgegarciafrndz@gmail.com',
                       ),
-                      MyInput(
+                      const MyInput(
                         label: 'Dirección',
                         initialValue: 'Calle de cádiz 12, Portal 1 4º B',
                       ),
-                      MyInput(
+                      const MyInput(
                         label: 'Provincia',
                         initialValue: 'Madrid',
                       ),
                       Row(
-                        children: [
+                        children: const [
                           Expanded(
                             child: MyInput(
                               label: 'Ciudad',

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:vemare/app/data/_api_classes.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
@@ -27,14 +30,14 @@ class AuthRepository {
   }
 
   Future<void> registerEnterprise(Map<String, dynamic> data) async {
-    final dynamic res = await apiClient.postRequest(
+    await apiClient.postRequest(
       '$BASE_API_URL/api/register',
       body: data,
     );
   }
 
   Future<void> registerEmployee(Map<String, dynamic> data) async {
-    final dynamic res = await apiClient.postRequest(
+    await apiClient.postRequest(
       '$BASE_API_URL/api/register-employee',
       body: data,
     );
@@ -62,23 +65,54 @@ class AuthRepository {
     }
   }
 
-  Future<void> getUser() async {
+  Future<UserData> getUser() async {
     final dynamic res = await apiClient.getRequest('$BASE_API_URL/api/user');
     final user = UserData.froJson(res['data']);
     LocalDataRepository().user = user;
+    return user;
   }
 
-  Future<void> updateUser() async {
-    final dynamic res = await apiClient.getRequest('$BASE_API_URL/api/user');
-    final user = UserData.froJson(res['user']);
-    LocalDataRepository().user = user;
+  Future<String?> updateUser({
+    File? logo,
+    String? name,
+    String? email,
+    String? code,
+    String? cif,
+    String? phone,
+    String? address,
+    String? city,
+    String? province,
+    String? postalCode,
+  }) async {
+    String fileName = 'logo.png';
+    var token = LocalDataRepository().authToken;
+    Response res = await Dio().post('$BASE_API_URL/api/user/update',
+        options: Options(headers: {
+          'Authorization': 'Bearer $token',
+          'Accept': 'application/json',
+        }),
+        data: FormData.fromMap({
+          "logo": logo != null
+              ? await MultipartFile.fromFile(
+                  logo.path,
+                  filename: fileName,
+                )
+              : "",
+          "name": name ?? "",
+          "email": email ?? "",
+          "code": code ?? "",
+          "cif": cif ?? "",
+          "phone": phone ?? "",
+          "address": address ?? "",
+          "city": city ?? "",
+          "province": province ?? "",
+          "postalCode": postalCode ?? "",
+        }));
+
+    print(res.data);
+
+    // await getUser();
+
+    return (res.data["message"] as String);
   }
-
-  // Future<bool> forgotPassword({required String email}) async {
-  //   final dynamic res = await apiClient.postRequest(
-  //     '$BASE_API_URL/api/users/forgot-password?Email=$email',
-  //   );
-  //   return true;
-  // }
-
 }

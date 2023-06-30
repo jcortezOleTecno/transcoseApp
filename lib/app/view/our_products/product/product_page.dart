@@ -14,7 +14,6 @@ import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/tap_to_hide_keyboard/tap_to_hide_keyboard.dart';
 import 'package:vemare/app/view/our_products/detail_product/detail_product.dart';
 import 'package:vemare/app/view/our_products/product/bloc/product_cubit.dart';
-import 'package:vemare/app/view/our_products/search_my_product/search_my_product_page.dart';
 import 'package:vemare/app/view/promotions/promotion/promotion_page.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';

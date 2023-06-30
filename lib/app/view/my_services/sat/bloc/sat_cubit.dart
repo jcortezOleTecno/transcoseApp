@@ -354,7 +354,7 @@ class SatCubit extends Cubit<SatState> {
         "fecha_cita": state.fechaCita ?? '',
         "franja_horaria": state.franjaHoraria ?? '',
       };
-      var res = await _satRepository.sendSatForms(data);
+      await _satRepository.sendSatForms(data);
 
       emit(state.copyWith(status: FormStatus.done));
     } catch (e) {

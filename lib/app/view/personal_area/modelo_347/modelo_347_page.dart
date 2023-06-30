@@ -35,10 +35,7 @@ class Modelo347Page extends StatelessWidget {
     final cubit = context.read<Modelo347Cubit>();
     return Scaffold(
       body: MyBody(
-        child: BlocConsumer<Modelo347Cubit, Modelo347State>(
-          listener: (context, state) {
-            // TODO: implement listener
-          },
+        child: BlocBuilder<Modelo347Cubit, Modelo347State>(
           builder: (context, state) {
             return SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),

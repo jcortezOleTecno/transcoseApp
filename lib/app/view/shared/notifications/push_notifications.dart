@@ -22,7 +22,7 @@ class PushNotificationsProvider {
 
   PushNotificationsProvider._internal();
 
-  FirebaseMessaging _messaging = FirebaseMessaging.instance;
+  final FirebaseMessaging _messaging = FirebaseMessaging.instance;
 
   void initNotifications() {
     NotificationUtils.setupNotificationPlugin(

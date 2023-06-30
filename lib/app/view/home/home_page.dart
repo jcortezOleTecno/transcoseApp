@@ -1,10 +1,8 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:nested_scroll_views/material.dart';
-import 'package:vemare/app/data/auth_repository.dart';
 import 'package:vemare/app/data/brands_repository.dart';
 import 'package:vemare/app/data/home_repository.dart';
 import 'package:vemare/app/data/notices_repository.dart';
@@ -14,9 +12,7 @@ import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/services_repository.dart';
 import 'package:vemare/app/data/work_with_us_repository.dart';
 import 'package:vemare/app/data/workshops_repository.dart';
-import 'package:vemare/app/domain/model/encuesta.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
-import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_cards/my_promotions_card.dart';
 import 'package:vemare/app/view/_components/my_filter_image/my_filter_image.dart';
@@ -46,8 +42,6 @@ import 'package:vemare/app/view/work_with_us/work_with_us_page.dart';
 import 'package:vemare/app/view/workshop_networks/workshop_networks_page.dart';
 import 'package:vemare/config/service_locator.dart';
 
-import '../../data/encuestas_repository.dart';
-import '../_components/my_input/my_input.dart';
 import '../my_notifications/my_notifications_page.dart';
 
 class HomePage extends StatefulWidget {

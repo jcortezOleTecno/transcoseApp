@@ -118,7 +118,6 @@ class ContratsRepository {
         '$BASE_API_URL/api/mi-cuenta/contratos_pmp',
         body: filter?.toJson(),
       );
-      print(res);
       return (res["contratos_pmp"] as List).map(ContratoPmp.fromJson).toList();
     } catch (e) {
       print(e);

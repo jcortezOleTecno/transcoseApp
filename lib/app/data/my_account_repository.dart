@@ -9,7 +9,6 @@ import 'package:vemare/app/domain/model/filter.dart';
 import 'package:vemare/app/domain/model/intervencion_detalle.dart';
 import 'package:vemare/app/domain/model/intervenciones.dart';
 import 'package:vemare/app/domain/model/modelo_347.dart';
-import 'package:vemare/app/domain/model/sat.dart';
 import 'package:vemare/app/domain/model/trainings_event.dart';
 import 'package:vemare/app/domain/model/warranty.dart';
 import 'package:vemare/app/domain/model/warranty_details.dart';

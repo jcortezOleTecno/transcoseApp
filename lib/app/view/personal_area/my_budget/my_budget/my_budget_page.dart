@@ -35,10 +35,7 @@ class MyBudgetPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<BudgetCubit>();
     return Scaffold(
-      body: BlocConsumer<BudgetCubit, BudgetState>(
-        listener: (context, state) {
-          // TODO: implement listener
-        },
+      body: BlocBuilder<BudgetCubit, BudgetState>(
         builder: (context, state) {
           return MyBody(
             child: SingleChildScrollView(
@@ -143,9 +140,10 @@ class _Budget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             ListTile(
-              leading: Icon(Icons.check_box_outline_blank, color: Colors.black),
-              title:
-                  Text('N° DEL PRESUPUESTO', style: AppTextStyle.defaultStyle),
+              leading: const Icon(Icons.check_box_outline_blank,
+                  color: Colors.black),
+              title: const Text('N° DEL PRESUPUESTO',
+                  style: AppTextStyle.defaultStyle),
               subtitle: Text(budget.numero ?? '',
                   style: AppTextStyle.defaultStyle.copyWith(
                       fontWeight: FontWeight.bold, color: Colors.black)),

@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:vemare/app/data/auth_repository.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/domain/utils/image_util.dart';
 import 'package:vemare/app/domain/utils/validators.dart';
+import 'package:vemare/app/domain/value_object/status.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
@@ -12,9 +16,12 @@ import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/tap_to_hide_keyboard/tap_to_hide_keyboard.dart';
 import 'package:vemare/app/view/personal_area/my_account/bloc/my_account_cubit.dart';
 import 'package:vemare/app/view/personal_area/my_account/bloc/my_account_state.dart';
+import 'package:vemare/app/view/shared/userbloc/user_state.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
+
+import '../../shared/userbloc/user_cubit.dart';
 
 class MyAccountPage extends StatefulWidget {
   const MyAccountPage._();
@@ -22,7 +29,9 @@ class MyAccountPage extends StatefulWidget {
 
   static Widget create() {
     return BlocProvider(
-      create: (context) => MyAccountCubit(),
+      create: (context) => MyAccountCubit(
+        getIt.get<AuthRepository>(),
+      ),
       child: const MyAccountPage._(),
     );
   }
@@ -33,16 +42,63 @@ class MyAccountPage extends StatefulWidget {
 
 class _MyAccountPageState extends State<MyAccountPage> {
   final _formKey = GlobalKey<FormState>();
+  late TextEditingController tcName;
+  late TextEditingController tcPhone;
+  late TextEditingController tcEmail;
+  late TextEditingController tcCIF;
+  late TextEditingController tcCode;
+  late TextEditingController tcAddress;
+  late TextEditingController tcCity;
+  late TextEditingController tcProvince;
+  late TextEditingController tcPostalCode;
+
+  @override
+  void initState() {
+    tcName = TextEditingController();
+    tcPhone = TextEditingController();
+    tcEmail = TextEditingController();
+    tcCIF = TextEditingController();
+    tcCode = TextEditingController();
+    tcAddress = TextEditingController();
+    tcCity = TextEditingController();
+    tcProvince = TextEditingController();
+    tcPostalCode = TextEditingController();
+    discardChanges();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    tcName.dispose();
+    tcPhone.dispose();
+    tcEmail.dispose();
+    tcCIF.dispose();
+    tcCode.dispose();
+    tcAddress.dispose();
+    tcCity.dispose();
+    tcProvince.dispose();
+    tcPostalCode.dispose();
+    super.dispose();
+  }
+
+  void discardChanges() {
+    tcName.text = LocalDataRepository().user?.name ?? '';
+    tcPhone.text = LocalDataRepository().user?.phone ?? '';
+    tcEmail.text = LocalDataRepository().user?.email ?? '';
+    tcCIF.text = LocalDataRepository().user?.cif ?? '';
+    tcCode.text = LocalDataRepository().user?.code ?? '';
+    tcAddress.text = LocalDataRepository().user?.address ?? '';
+    tcCity.text = LocalDataRepository().user?.city ?? '';
+    tcProvince.text = LocalDataRepository().user?.province ?? '';
+    tcPostalCode.text = LocalDataRepository().user?.postalCode ?? '';
+  }
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<MyAccountCubit>();
     return MyTapToHideKeyboard(
       child: Scaffold(
-        body: MyBody(
-            child: BlocConsumer<MyAccountCubit, MyAccountState>(
-          listener: (context, state) {
-            // TODO: implement listener
-          },
+        body: MyBody(child: BlocBuilder<MyAccountCubit, MyAccountState>(
           builder: (context, state) {
             return SingleChildScrollView(
               padding: const EdgeInsets.fromLTRB(15, 25, 15, 0),
@@ -53,67 +109,88 @@ class _MyAccountPageState extends State<MyAccountPage> {
                   children: [
                     const Text('Mi Cuenta', style: AppTextStyle.h1Style),
                     spacerXs,
-                    Text(
-                      LocalDataRepository().user?.name ?? '',
-                      style: AppTextStyle.h3Style.copyWith(
-                        fontWeight: FontWeight.normal,
-                      ),
+                    BlocBuilder<UserCubit, UserState>(
+                      builder: (context, state) {
+                        return Text(
+                          state.user?.name ?? '',
+                          style: AppTextStyle.h3Style.copyWith(
+                            fontWeight: FontWeight.normal,
+                          ),
+                        );
+                      },
                     ),
                     spacerM,
-                    ImageProfile(),
+                    const ImageProfile(),
                     spacerM,
                     MyInput(
                       label: 'Nombre*',
-                      initialValue: LocalDataRepository().user?.name ?? '',
                       validator: validateData,
+                      onChanged: cubit.name,
+                      controller: tcName,
                     ),
                     MyInput(
-                      label: 'Teléfono*',
-                      initialValue: LocalDataRepository().user?.phone,
+                      label: 'Teléfono móvil*',
                       validator: validateData,
+                      onChanged: cubit.phone,
+                      controller: tcPhone,
                     ),
                     MyInput(
                       label: 'E-mail*',
-                      initialValue: LocalDataRepository().user?.email ?? '',
                       validator: validateEmail,
+                      onChanged: cubit.email,
+                      controller: tcEmail,
                     ),
                     MyInput(
-                      // label: 'CIF',
-                      label: 'Código',
-                      initialValue: LocalDataRepository().user?.cif ?? '',
+                      label: 'CIF',
+                      onChanged: cubit.cif,
+                      controller: tcCIF,
                     ),
-                    // MyInput(
-                    //   label: 'ID',
-                    //   initialValue:
-                    //       LocalDataRepository().user?.parentId.toString() ?? '',
-                    // ),
+                    MyInput(
+                      label: 'Código',
+                      onChanged: cubit.code,
+                      controller: tcCode,
+                    ),
                     MyInput(
                       label: 'Dirección',
-                      initialValue: LocalDataRepository().user?.address ?? '',
+                      onChanged: cubit.address,
+                      controller: tcAddress,
                     ),
                     MyInput(
                       label: 'Ciudad',
-                      initialValue: LocalDataRepository().user?.city ?? '',
+                      onChanged: cubit.city,
+                      controller: tcCity,
                     ),
                     MyInput(
                       label: 'Provincia',
-                      initialValue: LocalDataRepository().user?.province ?? '',
+                      onChanged: cubit.province,
+                      controller: tcProvince,
                     ),
                     MyInput(
                       label: 'Código Postal',
-                      initialValue:
-                          LocalDataRepository().user?.postalCode ?? '',
+                      onChanged: cubit.postalCode,
+                      controller: tcPostalCode,
                     ),
                     MyButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            FocusScope.of(context).requestFocus(FocusNode());
-                          }
-                        },
-                        text: 'Guardar cambios'),
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          FocusScope.of(context).requestFocus(FocusNode());
+                          cubit.updateUser().then((v) {
+                            if (v != null) {
+                              unawaited(context.read<UserCubit>().getUser());
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(content: Text(v)));
+                            }
+                          });
+                        }
+                      },
+                      text: 'Guardar cambios',
+                      isLoading: state.status == FormStatus.loading,
+                    ),
                     spacerS,
                     MyButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        discardChanges();
+                      },
                       text: 'Descartar cambios',
                       variant: MyButtonVariant.outlinedBold,
                     ),
@@ -137,6 +214,7 @@ class ImageProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<MyAccountCubit>();
+    final userState = context.read<UserCubit>().state;
     return BlocBuilder<MyAccountCubit, MyAccountState>(
       builder: (context, state) {
         return Column(
@@ -150,11 +228,16 @@ class ImageProfile extends StatelessWidget {
               ),
               child: state.foto != null
                   ? Image.file(state.foto!, fit: BoxFit.cover)
-                  : Image.asset(
-                      'assets/imgs/profile_default.png',
-                      fit: BoxFit.cover,
-                      scale: 2,
-                    ),
+                  : userState.user?.logo != null
+                      ? Image.network(
+                          userState.user!.logo!,
+                          fit: BoxFit.cover,
+                        )
+                      : Image.asset(
+                          'assets/imgs/profile_default.png',
+                          fit: BoxFit.cover,
+                          scale: 2,
+                        ),
             ),
             SizedBox(
               width: 220,

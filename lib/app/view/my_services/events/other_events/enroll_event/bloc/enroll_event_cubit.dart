@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:vemare/app/data/events_repository.dart';
 import 'package:vemare/app/domain/model/employee.dart';
-import 'package:vemare/app/domain/model/formation.dart';
 import 'package:vemare/app/view/my_services/events/other_events/enroll_event/bloc/enroll_event_state.dart';
 
 class EnrollEventCubit extends Cubit<EnrollEventState> {

@@ -28,6 +28,7 @@ import 'package:vemare/app/view/shared/notifications_counter_bloc/notifications_
 import 'package:vemare/app/view/shared/notifications_counter_bloc/notifications_state.dart';
 import 'package:vemare/app/view/shared/shopping_car_counter_bloc/car_counter_cubit.dart';
 import 'package:vemare/app/view/shared/shopping_car_counter_bloc/car_counter_state.dart';
+import 'package:vemare/app/view/shared/userbloc/user_cubit.dart';
 import 'package:vemare/app/view/shopping_cart/shopping_cart.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
@@ -35,6 +36,8 @@ import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
 
 import 'package:timeago/timeago.dart' as timeago;
+
+import '../shared/userbloc/user_state.dart';
 
 class MyMenu extends StatelessWidget {
   const MyMenu._({
@@ -595,58 +598,60 @@ class _HeaderMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
-      child: Row(
-        children: [
-          Container(
-            height: 60,
-            width: 60,
-            decoration: const BoxDecoration(
-              color: Colors.red,
-              image: DecorationImage(
-                  image: AssetImage('assets/imgs/profile_default.png'),
-                  fit: BoxFit.cover),
-              shape: BoxShape.circle,
-            ),
-          ),
-          spacerM,
-          Expanded(
-              child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+    return BlocBuilder<UserCubit, UserState>(
+      builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
+          child: Row(
             children: [
-              Text(
-                LocalDataRepository().user?.name ?? '',
-                style: AppTextStyle.menuStyle,
+              Container(
+                clipBehavior: Clip.antiAlias,
+                height: 60,
+                width: 60,
+                decoration: const BoxDecoration(shape: BoxShape.circle),
+                child: state.user?.logo == null
+                    ? Image.asset('assets/imgs/profile_default.png')
+                    : Image.network(state.user!.logo!),
               ),
-              spacerS,
-              Row(
+              spacerM,
+              Expanded(
+                  child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Expanded(
-                    child: Text(
-                      '${LocalDataRepository().user?.responsibleName ?? ''} ${LocalDataRepository().user?.responsibleLastname ?? ''}',
-                      style: AppTextStyle.menuStyle
-                          .copyWith(fontWeight: FontWeight.normal),
-                    ),
+                  Text(
+                    state.user?.name ?? '',
+                    style: AppTextStyle.menuStyle,
                   ),
                   spacerS,
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(30),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 4, vertical: 2),
-                      color: AppColor.white,
-                      child: Text('GERENTE',
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          '${state.user?.responsibleName ?? ''} ${state.user?.responsibleLastname ?? ''}',
                           style: AppTextStyle.menuStyle
-                              .copyWith(color: AppColor.primaryBlue)),
-                    ),
+                              .copyWith(fontWeight: FontWeight.normal),
+                        ),
+                      ),
+                      spacerS,
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(30),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 4, vertical: 2),
+                          color: AppColor.white,
+                          child: Text('GERENTE',
+                              style: AppTextStyle.menuStyle
+                                  .copyWith(color: AppColor.primaryBlue)),
+                        ),
+                      )
+                    ],
                   )
                 ],
-              )
+              ))
             ],
-          ))
-        ],
-      ),
+          ),
+        );
+      },
     );
   }
 }

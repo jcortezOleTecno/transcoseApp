@@ -3,11 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vemare/app/data/budget_repository.dart';
 import 'package:vemare/app/domain/model/budget.dart';
 import 'package:vemare/app/domain/model/budget_detail.dart';
-import 'package:vemare/app/domain/utils/money_formatter.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
-import 'package:vemare/app/view/_components/my_label_status/my_label_status.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_signature/my_signature.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
@@ -36,10 +34,7 @@ class BudgetDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<BudgetDetailCubit>();
     return Scaffold(
-      body: BlocConsumer<BudgetDetailCubit, BudgetDetailState>(
-        listener: (context, state) {
-          // TODO: implement listener
-        },
+      body: BlocBuilder<BudgetDetailCubit, BudgetDetailState>(
         builder: (context, state) {
           return MyBody(
             child: Column(
@@ -55,7 +50,7 @@ class BudgetDetailPage extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              Text(
+                              const Text(
                                 'N° DEL PRESUPUESTO',
                                 style: AppTextStyle.defaultStyle,
                               ),

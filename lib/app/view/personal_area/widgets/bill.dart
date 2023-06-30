@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:vemare/app/view/_components/my_label_status/my_label_status.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 
-import 'package:vemare/app/view/personal_area/widgets/albaran.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
@@ -46,7 +45,7 @@ class Bill extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             'N° DE FACTURA',
                             style: AppTextStyle.defaultStyle,
                           ),
@@ -58,7 +57,7 @@ class Bill extends StatelessWidget {
                         ],
                       ),
                     ),
-                    MyLabelStatus.subscribe(),
+                    const MyLabelStatus.subscribe(),
                     spacerM,
                     Image.asset('assets/icons/arrow_next.png', scale: 2),
                   ],
@@ -83,7 +82,7 @@ class Bill extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: RichText(
-                      text: TextSpan(
+                      text: const TextSpan(
                         style: TextStyle(color: Colors.black),
                         children: [
                           TextSpan(
@@ -128,7 +127,8 @@ class BillCard extends StatelessWidget {
           child: Column(
             children: [
               ListTile(
-                title: Text('N° de FACTURA', style: AppTextStyle.defaultStyle),
+                title: const Text('N° de FACTURA',
+                    style: AppTextStyle.defaultStyle),
                 subtitle: Text('0000000000000000',
                     style: AppTextStyle.defaultStyle.copyWith(
                         fontWeight: FontWeight.bold, color: Colors.black)),
@@ -139,7 +139,7 @@ class BillCard extends StatelessWidget {
                 ),
               ),
               spacerS,
-              MyLabelStatus.subscribe(),
+              const MyLabelStatus.subscribe(),
               spacerS,
             ],
           ),
