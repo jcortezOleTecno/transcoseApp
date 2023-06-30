@@ -150,7 +150,7 @@ class _WhereWeAre extends StatelessWidget {
         width: double.infinity,
         child: Stack(fit: StackFit.expand, children: [
           const Image(
-            image: AssetImage('assets/imgs/donde_estamos.png'),
+            image: AssetImage('assets/imgs/DondeEstamos.jpeg'),
             fit: BoxFit.cover,
           ),
           const MyFilterImage(),

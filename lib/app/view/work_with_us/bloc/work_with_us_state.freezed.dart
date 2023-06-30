@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$WorkWithUsState {
   FormStatus get status => throw _privateConstructorUsedError;
+  bool get acceptPolicy => throw _privateConstructorUsedError;
   Name? get name => throw _privateConstructorUsedError;
   Phone? get phone => throw _privateConstructorUsedError;
   Email? get email => throw _privateConstructorUsedError;
@@ -40,6 +41,7 @@ abstract class $WorkWithUsStateCopyWith<$Res> {
   @useResult
   $Res call(
       {FormStatus status,
+      bool acceptPolicy,
       Name? name,
       Phone? phone,
       Email? email,
@@ -65,6 +67,7 @@ class _$WorkWithUsStateCopyWithImpl<$Res, $Val extends WorkWithUsState>
   @override
   $Res call({
     Object? status = null,
+    Object? acceptPolicy = null,
     Object? name = freezed,
     Object? phone = freezed,
     Object? email = freezed,
@@ -80,6 +83,10 @@ class _$WorkWithUsStateCopyWithImpl<$Res, $Val extends WorkWithUsState>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormStatus,
+      acceptPolicy: null == acceptPolicy
+          ? _value.acceptPolicy
+          : acceptPolicy // ignore: cast_nullable_to_non_nullable
+              as bool,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -130,6 +137,7 @@ abstract class _$$_WorkWithUsStateCopyWith<$Res>
   @useResult
   $Res call(
       {FormStatus status,
+      bool acceptPolicy,
       Name? name,
       Phone? phone,
       Email? email,
@@ -153,6 +161,7 @@ class __$$_WorkWithUsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? status = null,
+    Object? acceptPolicy = null,
     Object? name = freezed,
     Object? phone = freezed,
     Object? email = freezed,
@@ -168,6 +177,10 @@ class __$$_WorkWithUsStateCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormStatus,
+      acceptPolicy: null == acceptPolicy
+          ? _value.acceptPolicy
+          : acceptPolicy // ignore: cast_nullable_to_non_nullable
+              as bool,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -213,6 +226,7 @@ class __$$_WorkWithUsStateCopyWithImpl<$Res>
 class _$_WorkWithUsState extends _WorkWithUsState {
   const _$_WorkWithUsState(
       {this.status = FormStatus.editing,
+      this.acceptPolicy = false,
       this.name,
       this.phone,
       this.email,
@@ -227,6 +241,9 @@ class _$_WorkWithUsState extends _WorkWithUsState {
   @override
   @JsonKey()
   final FormStatus status;
+  @override
+  @JsonKey()
+  final bool acceptPolicy;
   @override
   final Name? name;
   @override
@@ -248,7 +265,7 @@ class _$_WorkWithUsState extends _WorkWithUsState {
 
   @override
   String toString() {
-    return 'WorkWithUsState(status: $status, name: $name, phone: $phone, email: $email, doc: $doc, message: $message, zone: $zone, job: $job, opciones: $opciones, workWithUs: $workWithUs)';
+    return 'WorkWithUsState(status: $status, acceptPolicy: $acceptPolicy, name: $name, phone: $phone, email: $email, doc: $doc, message: $message, zone: $zone, job: $job, opciones: $opciones, workWithUs: $workWithUs)';
   }
 
   @override
@@ -257,6 +274,8 @@ class _$_WorkWithUsState extends _WorkWithUsState {
         (other.runtimeType == runtimeType &&
             other is _$_WorkWithUsState &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(other.acceptPolicy, acceptPolicy) ||
+                other.acceptPolicy == acceptPolicy) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.phone, phone) || other.phone == phone) &&
             (identical(other.email, email) || other.email == email) &&
@@ -271,8 +290,8 @@ class _$_WorkWithUsState extends _WorkWithUsState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, name, phone, email, doc,
-      message, zone, job, opciones, workWithUs);
+  int get hashCode => Object.hash(runtimeType, status, acceptPolicy, name,
+      phone, email, doc, message, zone, job, opciones, workWithUs);
 
   @JsonKey(ignore: true)
   @override
@@ -284,6 +303,7 @@ class _$_WorkWithUsState extends _WorkWithUsState {
 abstract class _WorkWithUsState extends WorkWithUsState {
   const factory _WorkWithUsState(
       {final FormStatus status,
+      final bool acceptPolicy,
       final Name? name,
       final Phone? phone,
       final Email? email,
@@ -297,6 +317,8 @@ abstract class _WorkWithUsState extends WorkWithUsState {
 
   @override
   FormStatus get status;
+  @override
+  bool get acceptPolicy;
   @override
   Name? get name;
   @override

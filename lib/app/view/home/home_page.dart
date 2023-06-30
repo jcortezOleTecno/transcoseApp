@@ -332,7 +332,7 @@ class _PageB extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.watch<HomeCubit>();
+    // final cubit = context.watch<HomeCubit>();
     return BlocConsumer<HomeCubit, HomeState>(
       listenWhen: (p, c) {
         return c.encuesta?.openModal == 1 &&
@@ -376,22 +376,23 @@ class _PageB extends StatelessWidget {
               spacerL,
               const _TrabajaConNosotros(),
               spacerM,
-              Center(
-                child: TextButton.icon(
-                  onPressed: () {
-                    Navigator.pushNamed(context, WorkWithUsPage.route,
-                        arguments: state.workWithUs);
-                  },
-                  label: Image.asset(
-                    'assets/icons/arrow_next.png',
-                    scale: 2,
-                  ),
-                  icon: const Text(
-                    'Ver más',
-                    style: AppTextStyle.linkStyle,
+              if (!state.loading)
+                Center(
+                  child: TextButton.icon(
+                    onPressed: () {
+                      Navigator.pushNamed(context, WorkWithUsPage.route,
+                          arguments: state.workWithUs);
+                    },
+                    label: Image.asset(
+                      'assets/icons/arrow_next.png',
+                      scale: 2,
+                    ),
+                    icon: const Text(
+                      'Ver más',
+                      style: AppTextStyle.linkStyle,
+                    ),
                   ),
                 ),
-              ),
             ],
           ),
         );

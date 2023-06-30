@@ -41,7 +41,8 @@ class NewsDetailPage extends StatelessWidget {
                     spacerXs,
                     Text(
                       news.subtitle ?? '',
-                      style: AppTextStyle.defaultStyle,
+                      style: AppTextStyle.defaultStyle
+                          .copyWith(fontWeight: FontWeight.bold),
                     ),
                     spacerS,
                   ],

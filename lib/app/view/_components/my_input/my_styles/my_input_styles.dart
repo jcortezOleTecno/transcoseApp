@@ -4,7 +4,7 @@ import 'package:vemare/app/view/theme/text_style.dart';
 
 InputDecoration get underlinedInputDecoration => InputDecoration(
       // hoverColor: AppColor.blueGray,
-      helperText: '',
+      // helperText: '',
       errorBorder: UnderlineInputBorder(
         borderRadius: BorderRadius.circular(4),
         borderSide: const BorderSide(color: AppColor.error),

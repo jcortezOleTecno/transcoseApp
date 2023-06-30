@@ -198,7 +198,8 @@ class _ServicesPageState extends State<ServicesPage> {
                           spacerS,
                           _CardService(
                             title: 'Redes de talleres',
-                            image: const AssetImage('assets/imgs/AD360IMG.png'),
+                            image: const AssetImage(
+                                'assets/imgs/Card-RedesTaller.png'),
                             borderRadius: BorderRadius.circular(15),
                             onTap: () => Navigator.pushNamed(
                                 context, WorkshopNetworksPage.route),

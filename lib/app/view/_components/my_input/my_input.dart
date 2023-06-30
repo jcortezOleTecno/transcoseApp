@@ -1,3 +1,4 @@
+import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vemare/app/view/_components/my_input/my_styles/my_input_styles.dart';
@@ -132,7 +133,7 @@ class _MyInputState extends State<MyInput> {
           textInputAction: widget.textInputAction,
           decoration: underlinedInputDecoration.copyWith(
             errorStyle: const TextStyle(height: 1.0),
-            helperText: widget.helperText,
+            helperText: '',
             enabledBorder: widget.hasError
                 ? underlinedInputDecoration.errorBorder
                 : underlinedInputDecoration.enabledBorder,

@@ -14,6 +14,7 @@ part 'work_with_us_state.freezed.dart';
 class WorkWithUsState with _$WorkWithUsState {
   const factory WorkWithUsState({
     @Default(FormStatus.editing) FormStatus status,
+    @Default(false) bool acceptPolicy,
     Name? name,
     Phone? phone,
     Email? email,
@@ -31,5 +32,6 @@ class WorkWithUsState with _$WorkWithUsState {
       phone != null &&
       doc != null &&
       zone != null &&
-      job != null;
+      job != null &&
+      acceptPolicy;
 }

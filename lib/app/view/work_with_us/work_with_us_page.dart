@@ -20,6 +20,8 @@ import 'package:vemare/app/view/work_with_us/bloc/work_with_us_cubit.dart';
 import 'package:vemare/app/view/work_with_us/bloc/work_with_us_state.dart';
 import 'package:vemare/config/service_locator.dart';
 
+import '../theme/color.dart';
+
 class WorkWithUsPage extends StatefulWidget {
   const WorkWithUsPage._();
 
@@ -207,6 +209,10 @@ class _WorkWithUsPageState extends State<WorkWithUsPage> {
                                   ),
                                   variant: MyButtonVariant.outlinedBold,
                                 ),
+                                spacerM,
+                                ProtectionPolicy(
+                                  onChange: cubit.acceptPolicy,
+                                ),
                                 spacerS,
                                 MyButton(
                                   onPressed: () {
@@ -234,6 +240,63 @@ class _WorkWithUsPageState extends State<WorkWithUsPage> {
           ),
         );
       },
+    );
+  }
+}
+
+class ProtectionPolicy extends StatefulWidget {
+  const ProtectionPolicy({
+    required this.onChange,
+    Key? key,
+  }) : super(key: key);
+
+  final Function(bool) onChange;
+
+  @override
+  State<ProtectionPolicy> createState() => _ProtectionPolicyState();
+}
+
+class _ProtectionPolicyState extends State<ProtectionPolicy> {
+  bool accept = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const Text(
+          'De conformidad con el REGLAMENTO (UE) 2016/679 DEL PARLAMENTO EUROPEO, le informamos que los datos y documentos que usted nos proporciona a través de los formularios de solicitud de empleo y a través de su currículum vitae, serán utilizados para poder participar en la selección del puesto de trabajo que usted nos solicita, sin que puedan ser utilizados para otra finalidad. Estos datos serán incorporados en un fichero cuyo responsable es VEMARE, S.L.Si no fuera seleccionado en este proceso, mantendremos sus datos personales con posterioridad, durante dos años, a fin de poder utilizarlos en futuros procesos de selección.En cualquier momento, usted puede ejercer los derechos de acceso, rectificación, supresión y oposición, limitar el tratamiento de sus datos, o directamente oponerse al tratamiento, o ejercer el derecho a la portabilidad de los mismos. Todo ello, mediante escrito, acompañado de copia de documento oficial que le identifique, dirigido al RESPONSABLE del fichero. En caso de disconformidad con el tratamiento, también tiene derecho a presentar una reclamación ante la Agencia Española de Protección de Datos.',
+          textAlign: TextAlign.center,
+        ),
+        CheckboxListTile(
+          onChanged: (value) {
+            setState(() {
+              accept = value!;
+            });
+            widget.onChange(value!);
+          },
+          value: accept,
+          title: RichText(
+            text: const TextSpan(
+              style: TextStyle(color: Colors.black),
+              children: [
+                TextSpan(
+                  text: 'Estoy de acuerdo con la',
+                ),
+                TextSpan(
+                  text: ' política de protección de alto.',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ),
+          controlAffinity: ListTileControlAffinity.leading,
+          activeColor: AppColor.white,
+          contentPadding: EdgeInsets.zero,
+          checkColor: AppColor.blue,
+          checkboxShape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+        ),
+      ],
     );
   }
 }

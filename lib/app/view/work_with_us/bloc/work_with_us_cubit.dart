@@ -99,6 +99,10 @@ class WorkWithUsCubit extends Cubit<WorkWithUsState> {
     }
   }
 
+  void acceptPolicy(bool value) {
+    emit(state.copyWith(acceptPolicy: value));
+  }
+
   void deleteDoc() {
     emit(state.copyWith(doc: null, status: FormStatus.editing));
   }
