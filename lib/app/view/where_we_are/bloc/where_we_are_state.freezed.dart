@@ -18,7 +18,10 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$WhereWeAreState {
   bool get loading => throw _privateConstructorUsedError;
   bool get loadingCenters => throw _privateConstructorUsedError;
+  bool get loadingData => throw _privateConstructorUsedError;
   List<Center> get centers => throw _privateConstructorUsedError;
+  List<String> get countries => throw _privateConstructorUsedError;
+  List<String> get postalCodes => throw _privateConstructorUsedError;
   LatLng? get location => throw _privateConstructorUsedError;
   LatLng? get centerSelect => throw _privateConstructorUsedError;
 
@@ -36,7 +39,10 @@ abstract class $WhereWeAreStateCopyWith<$Res> {
   $Res call(
       {bool loading,
       bool loadingCenters,
+      bool loadingData,
       List<Center> centers,
+      List<String> countries,
+      List<String> postalCodes,
       LatLng? location,
       LatLng? centerSelect});
 }
@@ -56,7 +62,10 @@ class _$WhereWeAreStateCopyWithImpl<$Res, $Val extends WhereWeAreState>
   $Res call({
     Object? loading = null,
     Object? loadingCenters = null,
+    Object? loadingData = null,
     Object? centers = null,
+    Object? countries = null,
+    Object? postalCodes = null,
     Object? location = freezed,
     Object? centerSelect = freezed,
   }) {
@@ -69,10 +78,22 @@ class _$WhereWeAreStateCopyWithImpl<$Res, $Val extends WhereWeAreState>
           ? _value.loadingCenters
           : loadingCenters // ignore: cast_nullable_to_non_nullable
               as bool,
+      loadingData: null == loadingData
+          ? _value.loadingData
+          : loadingData // ignore: cast_nullable_to_non_nullable
+              as bool,
       centers: null == centers
           ? _value.centers
           : centers // ignore: cast_nullable_to_non_nullable
               as List<Center>,
+      countries: null == countries
+          ? _value.countries
+          : countries // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      postalCodes: null == postalCodes
+          ? _value.postalCodes
+          : postalCodes // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       location: freezed == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
@@ -96,7 +117,10 @@ abstract class _$$_WhereWeAreStateCopyWith<$Res>
   $Res call(
       {bool loading,
       bool loadingCenters,
+      bool loadingData,
       List<Center> centers,
+      List<String> countries,
+      List<String> postalCodes,
       LatLng? location,
       LatLng? centerSelect});
 }
@@ -114,7 +138,10 @@ class __$$_WhereWeAreStateCopyWithImpl<$Res>
   $Res call({
     Object? loading = null,
     Object? loadingCenters = null,
+    Object? loadingData = null,
     Object? centers = null,
+    Object? countries = null,
+    Object? postalCodes = null,
     Object? location = freezed,
     Object? centerSelect = freezed,
   }) {
@@ -127,10 +154,22 @@ class __$$_WhereWeAreStateCopyWithImpl<$Res>
           ? _value.loadingCenters
           : loadingCenters // ignore: cast_nullable_to_non_nullable
               as bool,
+      loadingData: null == loadingData
+          ? _value.loadingData
+          : loadingData // ignore: cast_nullable_to_non_nullable
+              as bool,
       centers: null == centers
           ? _value._centers
           : centers // ignore: cast_nullable_to_non_nullable
               as List<Center>,
+      countries: null == countries
+          ? _value._countries
+          : countries // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      postalCodes: null == postalCodes
+          ? _value._postalCodes
+          : postalCodes // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       location: freezed == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
@@ -149,10 +188,15 @@ class _$_WhereWeAreState extends _WhereWeAreState {
   const _$_WhereWeAreState(
       {this.loading = false,
       this.loadingCenters = false,
+      this.loadingData = false,
       final List<Center> centers = const <Center>[],
+      final List<String> countries = const <String>[],
+      final List<String> postalCodes = const <String>[],
       this.location,
       this.centerSelect})
       : _centers = centers,
+        _countries = countries,
+        _postalCodes = postalCodes,
         super._();
 
   @override
@@ -161,6 +205,9 @@ class _$_WhereWeAreState extends _WhereWeAreState {
   @override
   @JsonKey()
   final bool loadingCenters;
+  @override
+  @JsonKey()
+  final bool loadingData;
   final List<Center> _centers;
   @override
   @JsonKey()
@@ -170,6 +217,24 @@ class _$_WhereWeAreState extends _WhereWeAreState {
     return EqualUnmodifiableListView(_centers);
   }
 
+  final List<String> _countries;
+  @override
+  @JsonKey()
+  List<String> get countries {
+    if (_countries is EqualUnmodifiableListView) return _countries;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_countries);
+  }
+
+  final List<String> _postalCodes;
+  @override
+  @JsonKey()
+  List<String> get postalCodes {
+    if (_postalCodes is EqualUnmodifiableListView) return _postalCodes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_postalCodes);
+  }
+
   @override
   final LatLng? location;
   @override
@@ -177,7 +242,7 @@ class _$_WhereWeAreState extends _WhereWeAreState {
 
   @override
   String toString() {
-    return 'WhereWeAreState(loading: $loading, loadingCenters: $loadingCenters, centers: $centers, location: $location, centerSelect: $centerSelect)';
+    return 'WhereWeAreState(loading: $loading, loadingCenters: $loadingCenters, loadingData: $loadingData, centers: $centers, countries: $countries, postalCodes: $postalCodes, location: $location, centerSelect: $centerSelect)';
   }
 
   @override
@@ -188,7 +253,13 @@ class _$_WhereWeAreState extends _WhereWeAreState {
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.loadingCenters, loadingCenters) ||
                 other.loadingCenters == loadingCenters) &&
+            (identical(other.loadingData, loadingData) ||
+                other.loadingData == loadingData) &&
             const DeepCollectionEquality().equals(other._centers, _centers) &&
+            const DeepCollectionEquality()
+                .equals(other._countries, _countries) &&
+            const DeepCollectionEquality()
+                .equals(other._postalCodes, _postalCodes) &&
             (identical(other.location, location) ||
                 other.location == location) &&
             (identical(other.centerSelect, centerSelect) ||
@@ -196,8 +267,16 @@ class _$_WhereWeAreState extends _WhereWeAreState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, loading, loadingCenters,
-      const DeepCollectionEquality().hash(_centers), location, centerSelect);
+  int get hashCode => Object.hash(
+      runtimeType,
+      loading,
+      loadingCenters,
+      loadingData,
+      const DeepCollectionEquality().hash(_centers),
+      const DeepCollectionEquality().hash(_countries),
+      const DeepCollectionEquality().hash(_postalCodes),
+      location,
+      centerSelect);
 
   @JsonKey(ignore: true)
   @override
@@ -210,7 +289,10 @@ abstract class _WhereWeAreState extends WhereWeAreState {
   const factory _WhereWeAreState(
       {final bool loading,
       final bool loadingCenters,
+      final bool loadingData,
       final List<Center> centers,
+      final List<String> countries,
+      final List<String> postalCodes,
       final LatLng? location,
       final LatLng? centerSelect}) = _$_WhereWeAreState;
   const _WhereWeAreState._() : super._();
@@ -220,7 +302,13 @@ abstract class _WhereWeAreState extends WhereWeAreState {
   @override
   bool get loadingCenters;
   @override
+  bool get loadingData;
+  @override
   List<Center> get centers;
+  @override
+  List<String> get countries;
+  @override
+  List<String> get postalCodes;
   @override
   LatLng? get location;
   @override

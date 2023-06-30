@@ -6,11 +6,9 @@ import 'package:latlong2/latlong.dart';
 // import 'package:searchfield/searchfield.dart' as search;
 import 'package:vemare/app/data/center_repository.dart';
 import 'package:vemare/app/domain/model/center.dart' as w;
-import 'package:vemare/app/domain/utils/postal_codes.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_html/my_html.dart';
-import 'package:vemare/app/view/_components/my_input/my_input.dart';
 import 'package:vemare/app/view/_components/my_input/my_input_autocomplete.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
@@ -20,7 +18,6 @@ import 'package:vemare/app/view/where_we_are/bloc/where_we_are_cubit.dart';
 import 'package:vemare/app/view/where_we_are/bloc/where_we_are_state.dart';
 import 'package:vemare/config/service_locator.dart';
 
-import '../../domain/utils/countries.dart';
 import '../theme/color.dart';
 
 class WhereWeArePage extends StatefulWidget {
@@ -87,36 +84,46 @@ class _WhereWeArePageState extends State<WhereWeArePage> {
                       const Text('¿Dónde estamos?',
                           style: AppTextStyle.h1Style),
                       spacerM,
-                      MyInputAutoComplete(
-                        keyComplete: keyCity,
-                        suggestions: countries,
-                        hintText: 'Escribe una ciudad',
-                        label: 'Ciudad',
-                        textInputAction: TextInputAction.search,
-                        textCapitalization: TextCapitalization.words,
-                        textChanged: (_) => tcCode.clear(),
-                        textSubmitted: (city) {
-                          cubit.fetchData(city: city);
-                          tcCode.clear();
-                        },
-                        controller: tcCity,
-                      ),
+                      state.loadingData
+                          ? const MyShimmer(
+                              height: 66,
+                              margin: EdgeInsets.zero,
+                              borderRadius: 4)
+                          : MyInputAutoComplete(
+                              keyComplete: keyCity,
+                              suggestions: state.countries,
+                              hintText: 'Escribe una ciudad',
+                              label: 'Ciudad',
+                              textInputAction: TextInputAction.search,
+                              textCapitalization: TextCapitalization.words,
+                              textChanged: (_) => tcCode.clear(),
+                              textSubmitted: (city) {
+                                cubit.fetchData(city: city);
+                                tcCode.clear();
+                              },
+                              controller: tcCity,
+                            ),
                       spacerS,
-                      MyInputAutoComplete(
-                        keyComplete: keyCodes,
-                        suggestions: postalCodes,
-                        hintText: 'Escribe un código postal',
-                        label: 'Código postal',
-                        textInputAction: TextInputAction.search,
-                        inputType: TextInputType.number,
-                        textCapitalization: TextCapitalization.words,
-                        textChanged: (_) => tcCity.clear(),
-                        textSubmitted: (code) {
-                          cubit.fetchData(postalCode: code);
-                          tcCity.clear();
-                        },
-                        controller: tcCode,
-                      ),
+                      state.loadingData
+                          ? const MyShimmer(
+                              height: 66,
+                              margin: EdgeInsets.zero,
+                              borderRadius: 4)
+                          : MyInputAutoComplete(
+                              keyComplete: keyCodes,
+                              suggestions: state.postalCodes,
+                              hintText: 'Escribe un código postal',
+                              label: 'Código postal',
+                              textInputAction: TextInputAction.search,
+                              inputType: TextInputType.number,
+                              textCapitalization: TextCapitalization.words,
+                              textChanged: (_) => tcCity.clear(),
+                              textSubmitted: (code) {
+                                cubit.fetchData(postalCode: code);
+                                tcCity.clear();
+                              },
+                              controller: tcCode,
+                            ),
                       spacerM,
                       const _Map(),
                       spacerXL,

@@ -17,6 +17,7 @@ class Center {
     this.address,
     this.province,
     this.city,
+    this.postalCode,
     this.description,
     this.longitude,
     this.latitude,
@@ -32,41 +33,11 @@ class Center {
   String? address;
   String? province;
   String? city;
+  String? postalCode;
   String? description;
   String? longitude;
   String? latitude;
   String? image;
-
-  Center copyWith({
-    int? id,
-    String? name,
-    String? slug,
-    String? tags,
-    String? email,
-    String? phone,
-    String? address,
-    String? province,
-    String? city,
-    String? description,
-    String? longitude,
-    String? latitude,
-    String? image,
-  }) =>
-      Center(
-        id: id ?? this.id,
-        name: name ?? this.name,
-        slug: slug ?? this.slug,
-        tags: tags ?? this.tags,
-        email: email ?? this.email,
-        phone: phone ?? this.phone,
-        address: address ?? this.address,
-        province: province ?? this.province,
-        city: city ?? this.city,
-        description: description ?? this.description,
-        longitude: longitude ?? this.longitude,
-        latitude: latitude ?? this.latitude,
-        image: image ?? this.image,
-      );
 
   factory Center.fromJson(dynamic json) => Center(
         id: json["id"] as int,
@@ -78,6 +49,7 @@ class Center {
         address: json["address"] as String?,
         province: json["province"] as String?,
         city: json["city"] as String?,
+        postalCode: json["postal_code"] as String?,
         description: json["description"] as String?,
         longitude: json["longitude"] as String?,
         latitude: json["latitude"] as String?,
@@ -94,6 +66,7 @@ class Center {
         "address": address,
         "province": province,
         "city": city,
+        "postal_code": postalCode,
         "description": description,
         "longitude": longitude,
         "latitude": latitude,
