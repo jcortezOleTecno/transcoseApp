@@ -10,6 +10,7 @@ class MySingleCard extends StatelessWidget {
     required this.title,
     required this.content,
     this.margin,
+    this.isHtml = true,
     this.iconFormation,
     this.onTap,
     Key? key,
@@ -21,6 +22,7 @@ class MySingleCard extends StatelessWidget {
   final Widget? iconFormation;
   final String title;
   final String content;
+  final bool isHtml;
 
   @override
   Widget build(BuildContext context) {
@@ -64,12 +66,13 @@ class MySingleCard extends StatelessWidget {
                         title,
                         style: AppTextStyle.linkStyle,
                       ),
-                      // spacerXs,
-                      MyHtml(text: content, bodyFontSize: 22),
-                      // Text(
-                      //   content,
-                      //   style: AppTextStyle.contentCard,
-                      // )
+                      spacerXs,
+                      isHtml
+                          ? MyHtml(text: content, bodyFontSize: 22)
+                          : Text(
+                              content,
+                              style: AppTextStyle.contentCard,
+                            )
                     ],
                   ),
                 )

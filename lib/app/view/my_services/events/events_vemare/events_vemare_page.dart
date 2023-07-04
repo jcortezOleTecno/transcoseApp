@@ -174,10 +174,12 @@ class _MyEvents extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      title ?? '',
-                      style: AppTextStyle.linkStyle
-                          .copyWith(color: AppColor.white, fontSize: 22),
+                    Expanded(
+                      child: Text(
+                        title ?? '',
+                        style: AppTextStyle.linkStyle
+                            .copyWith(color: AppColor.white, fontSize: 22),
+                      ),
                     ),
                     Visibility(
                       visible: icon,

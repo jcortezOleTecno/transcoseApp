@@ -104,9 +104,11 @@ class ShoppingCartPage extends StatelessWidget {
                               : Navigator.pushNamed(
                                   context, ShippingDataPage.route,
                                   arguments: ShoppingCarArgs(
-                                      products: state.products,
-                                      total: state.total,
-                                      isCard: state.isCard));
+                                    products: state.products,
+                                    total: state.total,
+                                    isCard: state.isCard,
+                                    counter: state.counter,
+                                  ));
                         },
                         text: state.typePaySelected ? 'Continuar' : 'Comprar'),
                   ),
@@ -243,18 +245,32 @@ class ShoppingItem extends StatelessWidget {
                   ),
                 ),
               ),
+
+              /*
+               if (promotion.pvpLowered != null)
+                      Text(
+                        '${promotion.pvpOriginal}€',
+                        style: AppTextStyle.pvpOrinigal,
+                      ),
+                    spacerXs,
+                    Text(
+                      '${promotion.pvpLowered ?? promotion.pvpOriginal}€',
+                      style: AppTextStyle.h2Style,
+                    ),
+              */
               RichText(
                 text: TextSpan(
                   style: AppTextStyle.titleCard,
                   children: [
+                    if (product.promotionPriceLowered != null)
+                      TextSpan(
+                        text:
+                            '${(int.parse(product.promotionPrice ?? '0') * (product.quantity ?? 0))}€',
+                        style: AppTextStyle.pvpOrinigal.copyWith(fontSize: 14),
+                      ),
                     TextSpan(
                       text:
-                          '${(int.parse(product.promotionPrice ?? '0') * (product.quantity ?? 0))}€',
-                      style: AppTextStyle.pvpOrinigal.copyWith(fontSize: 14),
-                    ),
-                    TextSpan(
-                      text:
-                          ' ${(int.parse(product.promotionPriceLowered ?? '0') * (product.quantity ?? 0))}€',
+                          ' ${(int.parse(product.promotionPriceLowered ?? product.promotionPrice ?? '0') * (product.quantity ?? 0))}€',
                     ),
                     TextSpan(
                       text: ' IVA incluido ',

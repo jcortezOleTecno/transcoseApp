@@ -4,6 +4,7 @@ import 'package:vemare/app/domain/model/article_abou_us.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_html/my_html.dart';
+import 'package:vemare/app/view/_components/my_network_image/my_network_image.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/our_history/bloc/our_history_cubit.dart';
 import 'package:vemare/app/view/our_history/bloc/our_history_state.dart';
@@ -55,8 +56,11 @@ class _Article extends StatelessWidget {
         spacerM,
         Visibility(
           visible: article.image != null && article.image != "",
-          child: Image.network(article.image!,
-              width: double.infinity, fit: BoxFit.cover, height: 220),
+          child: MyNetworkImage(
+              image: article.image!,
+              width: double.infinity,
+              fit: BoxFit.cover,
+              height: 220),
         ),
         spacerM,
         Padding(

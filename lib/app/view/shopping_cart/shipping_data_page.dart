@@ -17,11 +17,13 @@ class ShoppingCarArgs {
   final List<ShoppingCardProduct> products;
   final double total;
   final bool isCard;
+  final int counter;
 
   ShoppingCarArgs({
     required this.products,
     required this.total,
     required this.isCard,
+    required this.counter,
   });
 }
 
@@ -44,7 +46,7 @@ class ShippingDataPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Carrito (${args.products.length})',
+                      'Carrito${args.products.isNotEmpty ? ' (${args.counter})' : ''}',
                       style: AppTextStyle.h1Style,
                     ),
                     ListView.separated(
@@ -71,7 +73,7 @@ class ShippingDataPage extends StatelessWidget {
                       children: [
                         const Text('Productos',
                             style: AppTextStyle.defaultStyle),
-                        Text('x${args.products.length}',
+                        Text('x${args.counter}',
                             style: AppTextStyle.defaultStyle),
                       ],
                     ),
@@ -232,6 +234,17 @@ class _Item extends StatelessWidget {
                 text: TextSpan(
                   style: AppTextStyle.titleCard,
                   children: [
+                    if (product.promotionPriceLowered != null)
+                      TextSpan(
+                        text:
+                            '${(int.parse(product.promotionPrice ?? '0') * (product.quantity ?? 0))}€',
+                        style: AppTextStyle.pvpOrinigal.copyWith(fontSize: 14),
+                      ),
+                    TextSpan(
+                      text:
+                          ' ${(int.parse(product.promotionPriceLowered ?? product.promotionPrice ?? '0') * (product.quantity ?? 0))}€',
+                    ),
+                    /*
                     TextSpan(
                       text: '${product.promotionPrice}€',
                       style: AppTextStyle.pvpOrinigal.copyWith(fontSize: 14),
@@ -239,6 +252,7 @@ class _Item extends StatelessWidget {
                     TextSpan(
                       text: ' ${product.promotionPriceLowered}€',
                     ),
+                    */
                     TextSpan(
                       text: ' IVA incluido ',
                       style: AppTextStyle.defaultStyle

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class MyHtml extends StatelessWidget {
   const MyHtml({
@@ -47,6 +48,9 @@ class MyHtml extends StatelessWidget {
         "span": Style(
           fontSize: FontSize(23),
         )
+      },
+      onLinkTap: (url, context, attributes, element) {
+        launchUrlString(url ?? '');
       },
     );
   }

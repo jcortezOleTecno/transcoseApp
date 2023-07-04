@@ -129,12 +129,12 @@ class _DownloadButtonState extends State<DownloadButton> {
           setState(() {
             status = FormStatus.loading;
           });
-          var temp = Uri.parse(widget.galery.imagen);
-          String name = temp.pathSegments.last;
-          print(name);
+          // var temp = Uri.parse(widget.galery.imagen);
+          // String name = temp.pathSegments.last;
+          // print(name);
 
           await downloadAndSaveFile(widget.galery.imagen).then((v) {
-            if (v) {
+            if (v ?? false) {
               setState(() {
                 status = FormStatus.done;
               });

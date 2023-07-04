@@ -57,7 +57,9 @@ class Promotion {
         tags: json["tags"] as String?,
         subtitle: json["subtitle"] as String?,
         pvpOriginal: json["pvp_original"] as String?,
-        pvpLowered: json["pvp_lowered"] as String?,
+        pvpLowered: (json["pvp_lowered"] as String?) == "0"
+            ? null
+            : json["pvp_lowered"] as String?,
         description: json["description"] as String?,
         renting: json["renting"] as int?,
         image: json["image"] as String?,

@@ -827,6 +827,7 @@ class _Promociones extends StatelessWidget {
                     PageController(initialPage: 0, viewportFraction: 0.9),
                 itemBuilder: (context, i) => MySingleCard(
                   title: state.promotions[i].name ?? '',
+                  isHtml: false,
                   content: state.promotions[i].subtitle ?? '',
                   icon: Image.network(
                     state.promotions[i].image ?? '',
