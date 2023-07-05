@@ -235,16 +235,16 @@ class _PageA extends StatelessWidget {
                       ),
                     ),
                     MyIconButton(
-                      onPressed: () =>
-                          cubit.openWhatsApp(phone: '+584261886623'),
+                      onPressed: () => cubit.openWhatsApp(
+                          phone: state.heroButtons?.whatsapp ?? ''),
                       text: 'Escribir un Whatsapp',
                       icon: const Icon(Icons.whatsapp),
                       variant: MyButtonVariant.outlinedBold,
                     ),
                     spacerM,
                     MyIconButton(
-                      onPressed: () =>
-                          cubit.openEmail(toEmail: 'vemare@gmail.com'),
+                      onPressed: () => cubit.openEmail(
+                          toEmail: state.heroButtons?.email ?? ''),
                       text: 'Escribir un email',
                       icon: const Icon(Icons.mail_outline),
                       variant: MyButtonVariant.outlinedBold,

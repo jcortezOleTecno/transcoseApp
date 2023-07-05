@@ -26,6 +26,7 @@ mixin _$HomeState {
   List<News> get notices => throw _privateConstructorUsedError;
   List<Brand> get brands => throw _privateConstructorUsedError;
   Encuestas? get encuesta => throw _privateConstructorUsedError;
+  HeroButtons? get heroButtons => throw _privateConstructorUsedError;
   WorkWithUs? get workWithUs => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -49,6 +50,7 @@ abstract class $HomeStateCopyWith<$Res> {
       List<News> notices,
       List<Brand> brands,
       Encuestas? encuesta,
+      HeroButtons? heroButtons,
       WorkWithUs? workWithUs});
 }
 
@@ -75,6 +77,7 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     Object? notices = null,
     Object? brands = null,
     Object? encuesta = freezed,
+    Object? heroButtons = freezed,
     Object? workWithUs = freezed,
   }) {
     return _then(_value.copyWith(
@@ -118,6 +121,10 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.encuesta
           : encuesta // ignore: cast_nullable_to_non_nullable
               as Encuestas?,
+      heroButtons: freezed == heroButtons
+          ? _value.heroButtons
+          : heroButtons // ignore: cast_nullable_to_non_nullable
+              as HeroButtons?,
       workWithUs: freezed == workWithUs
           ? _value.workWithUs
           : workWithUs // ignore: cast_nullable_to_non_nullable
@@ -144,6 +151,7 @@ abstract class _$$_HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
       List<News> notices,
       List<Brand> brands,
       Encuestas? encuesta,
+      HeroButtons? heroButtons,
       WorkWithUs? workWithUs});
 }
 
@@ -168,6 +176,7 @@ class __$$_HomeStateCopyWithImpl<$Res>
     Object? notices = null,
     Object? brands = null,
     Object? encuesta = freezed,
+    Object? heroButtons = freezed,
     Object? workWithUs = freezed,
   }) {
     return _then(_$_HomeState(
@@ -211,6 +220,10 @@ class __$$_HomeStateCopyWithImpl<$Res>
           ? _value.encuesta
           : encuesta // ignore: cast_nullable_to_non_nullable
               as Encuestas?,
+      heroButtons: freezed == heroButtons
+          ? _value.heroButtons
+          : heroButtons // ignore: cast_nullable_to_non_nullable
+              as HeroButtons?,
       workWithUs: freezed == workWithUs
           ? _value.workWithUs
           : workWithUs // ignore: cast_nullable_to_non_nullable
@@ -233,6 +246,7 @@ class _$_HomeState extends _HomeState {
       final List<News> notices = const <News>[],
       final List<Brand> brands = const <Brand>[],
       this.encuesta,
+      this.heroButtons,
       this.workWithUs})
       : _hero = hero,
         _promotions = promotions,
@@ -315,11 +329,13 @@ class _$_HomeState extends _HomeState {
   @override
   final Encuestas? encuesta;
   @override
+  final HeroButtons? heroButtons;
+  @override
   final WorkWithUs? workWithUs;
 
   @override
   String toString() {
-    return 'HomeState(loading: $loading, showSurvey: $showSurvey, hero: $hero, promotions: $promotions, products: $products, services: $services, workshop: $workshop, notices: $notices, brands: $brands, encuesta: $encuesta, workWithUs: $workWithUs)';
+    return 'HomeState(loading: $loading, showSurvey: $showSurvey, hero: $hero, promotions: $promotions, products: $products, services: $services, workshop: $workshop, notices: $notices, brands: $brands, encuesta: $encuesta, heroButtons: $heroButtons, workWithUs: $workWithUs)';
   }
 
   @override
@@ -340,6 +356,8 @@ class _$_HomeState extends _HomeState {
             const DeepCollectionEquality().equals(other._brands, _brands) &&
             (identical(other.encuesta, encuesta) ||
                 other.encuesta == encuesta) &&
+            (identical(other.heroButtons, heroButtons) ||
+                other.heroButtons == heroButtons) &&
             (identical(other.workWithUs, workWithUs) ||
                 other.workWithUs == workWithUs));
   }
@@ -357,6 +375,7 @@ class _$_HomeState extends _HomeState {
       const DeepCollectionEquality().hash(_notices),
       const DeepCollectionEquality().hash(_brands),
       encuesta,
+      heroButtons,
       workWithUs);
 
   @JsonKey(ignore: true)
@@ -378,6 +397,7 @@ abstract class _HomeState extends HomeState {
       final List<News> notices,
       final List<Brand> brands,
       final Encuestas? encuesta,
+      final HeroButtons? heroButtons,
       final WorkWithUs? workWithUs}) = _$_HomeState;
   const _HomeState._() : super._();
 
@@ -401,6 +421,8 @@ abstract class _HomeState extends HomeState {
   List<Brand> get brands;
   @override
   Encuestas? get encuesta;
+  @override
+  HeroButtons? get heroButtons;
   @override
   WorkWithUs? get workWithUs;
   @override

@@ -167,6 +167,7 @@ class CentroReparto {
     this.poblacion,
     this.telefonos,
     this.movil,
+    this.email,
     this.horario,
   });
 
@@ -176,6 +177,7 @@ class CentroReparto {
   String? poblacion;
   String? telefonos;
   String? movil;
+  String? email;
   String? horario;
 
   factory CentroReparto.fromJson(Map<String, dynamic> json) => CentroReparto(
@@ -185,6 +187,7 @@ class CentroReparto {
         poblacion: json["poblacion"],
         telefonos: json["telefonos"],
         movil: json["movil"],
+        email: json["email"],
         horario: json["horario"],
       );
 
@@ -195,6 +198,7 @@ class CentroReparto {
         "poblacion": poblacion,
         "telefonos": telefonos,
         "movil": movil,
+        "email": email,
         "horario": horario,
       };
 }

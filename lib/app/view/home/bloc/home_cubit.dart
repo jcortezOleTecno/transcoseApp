@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/brands_repository.dart';
 import 'package:vemare/app/data/home_repository.dart';
+import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/notices_repository.dart';
 import 'package:vemare/app/data/products_repository.dart';
 import 'package:vemare/app/data/promotion_repository.dart';
@@ -12,6 +13,7 @@ import 'package:vemare/app/data/work_with_us_repository.dart';
 import 'package:vemare/app/data/workshops_repository.dart';
 import 'package:vemare/app/domain/model/brand.dart';
 import 'package:vemare/app/domain/model/hero.dart';
+import 'package:vemare/app/domain/model/hero_buttons.dart';
 import 'package:vemare/app/domain/model/notices.dart';
 import 'package:vemare/app/domain/model/category.dart';
 import 'package:vemare/app/domain/model/services.dart';
@@ -49,6 +51,22 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> fetchData() async {
     emit(state.copyWith(loading: true));
 
+    HeroButtons? heroButtons;
+    if (LocalDataRepository().isLogged) {
+      heroButtons = HeroButtons(
+        email:
+            LocalDataRepository().user?.webservice?.centroReparto?[0].email ??
+                "",
+        whatsapp:
+            LocalDataRepository().user?.webservice?.centroReparto?[0].movil ??
+                "",
+      );
+    } else {
+      heroButtons = await _homeRepository.getHeroButtons();
+    }
+
+    emit(state.copyWith(heroButtons: heroButtons));
+
     List<HeroHome> hero = [];
     List<Category> products = [];
     List<Category> promotions = [];
@@ -75,10 +93,10 @@ class HomeCubit extends Cubit<HomeState> {
       _brandsRepository.getBrands().then((v) => brands = v),
       _workWithUsRepository.getData().then((value) => workWithUs = value),
     ]);
-
     emit(state.copyWith(
       loading: false,
       hero: hero,
+      // heroButtons: heroButtons,
       promotions: promotions,
       products: products,
       services: services,
