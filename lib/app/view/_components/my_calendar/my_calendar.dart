@@ -102,26 +102,6 @@ class _MyCalendarState extends State<MyCalendar> {
     return CalendarBuilders(
       defaultBuilder: (context, day, focusedDay) {
         if (widget.dates
-            .where((e) => isSameDay(e.date, day) && e.centerReference!)
-            .toList()
-            .isNotEmpty) {
-          return Center(
-            child: Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white,
-                  border: Border.all(color: AppColor.success500, width: 2)),
-              height: 40,
-              width: 40,
-              child: Text(
-                day.day.toString(),
-                style: AppTextStyle.linkStyle.copyWith(fontSize: 15),
-              ),
-            ),
-          );
-        }
-        if (widget.dates
             .where((e) => isSameDay(e.date, day) && e.isRegistered!)
             .toList()
             .isNotEmpty) {
@@ -138,6 +118,26 @@ class _MyCalendarState extends State<MyCalendar> {
                 day.day.toString(),
                 style: AppTextStyle.linkStyle
                     .copyWith(fontSize: 15, color: Colors.white),
+              ),
+            ),
+          );
+        }
+        if (widget.dates
+            .where((e) => isSameDay(e.date, day) && e.centerReference!)
+            .toList()
+            .isNotEmpty) {
+          return Center(
+            child: Container(
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                  border: Border.all(color: AppColor.success500, width: 2)),
+              height: 40,
+              width: 40,
+              child: Text(
+                day.day.toString(),
+                style: AppTextStyle.linkStyle.copyWith(fontSize: 15),
               ),
             ),
           );

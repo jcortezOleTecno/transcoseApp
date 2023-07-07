@@ -60,20 +60,21 @@ class OtherEventPage extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(15),
-              child: MyButton(
-                width: double.infinity,
-                onPressed: () {
-                  Navigator.pushNamed(
-                    context,
-                    EnrollEventPage.route,
-                    arguments: event,
-                  );
-                },
-                text: 'Continuar',
+            if (event.horario?.isNotEmpty ?? false)
+              Padding(
+                padding: const EdgeInsets.all(15),
+                child: MyButton(
+                  width: double.infinity,
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      EnrollEventPage.route,
+                      arguments: event,
+                    );
+                  },
+                  text: 'Continuar',
+                ),
               ),
-            ),
           ],
         ),
       ),

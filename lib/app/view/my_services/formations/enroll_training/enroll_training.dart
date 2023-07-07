@@ -63,7 +63,7 @@ class _EnrollTrainingPageState extends State<EnrollTrainingPage> {
                     ),
                     spacerS,
                     const Text(
-                      'Selecciona un area de formación',
+                      'Selecciona una fecha',
                       style: AppTextStyle.defaultStyle,
                     ),
                     spacerXL,
