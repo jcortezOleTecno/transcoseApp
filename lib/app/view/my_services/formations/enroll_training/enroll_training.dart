@@ -212,7 +212,7 @@ class _EnrollTrainingPageState extends State<EnrollTrainingPage> {
                   spacerM,
                   MyButton(
                     onPressed: () => Navigator.of(context).pop(true),
-                    text: isResume ? 'Aceptar' : 'Confirmar horario',
+                    text: isResume ? 'Aceptar' : 'Inscribir asistentes',
                     width: double.infinity,
                   ),
                   if (!isResume) ...[

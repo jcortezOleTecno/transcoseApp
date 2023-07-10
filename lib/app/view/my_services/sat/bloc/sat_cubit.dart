@@ -19,22 +19,22 @@ class SatCubit extends Cubit<SatState> {
                 ? Name(LocalDataRepository().user!.code!)
                 : null,
             razonSocial: LocalDataRepository().isLogged
-                ? Name(LocalDataRepository().user?.name ?? '')
+                ? Name(LocalDataRepository().user?.name ?? ' ')
                 : null,
             telefono: LocalDataRepository().isLogged
-                ? Phone(LocalDataRepository().user?.phone ?? '')
+                ? Phone(LocalDataRepository().user?.phone ?? ' ')
                 : null,
             email: LocalDataRepository().isLogged
-                ? Email(LocalDataRepository().user?.email ?? '')
+                ? Email(LocalDataRepository().user?.email ?? ' ')
                 : null,
             persona: LocalDataRepository().isLogged
-                ? Name(LocalDataRepository().user?.responsibleName ?? '')
+                ? Name(LocalDataRepository().user?.responsibleName ?? ' ')
                 : null,
             poblacion: LocalDataRepository().isLogged
-                ? Name(LocalDataRepository().user?.city ?? '')
+                ? Name(LocalDataRepository().user?.city ?? ' ')
                 : null,
             cif: LocalDataRepository().isLogged
-                ? Name(LocalDataRepository().user?.webservice?.cif ?? '')
+                ? Name(LocalDataRepository().user?.webservice?.cif ?? ' ')
                 : null,
           ),
         ) {

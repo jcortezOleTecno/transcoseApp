@@ -31,8 +31,13 @@ class UserCubit extends Cubit<UserState> {
   }
 
   Future<void> getUser() async {
+    print(' =========================>>   GETUSER');
     if (!LocalDataRepository().isLogged) return;
     UserData? user = await _authRepository.getUser();
     emit(state.copyWith(user: user));
+  }
+
+  void deleteUser() {
+    emit(state.copyWith(user: null));
   }
 }

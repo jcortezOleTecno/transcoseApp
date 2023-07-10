@@ -92,6 +92,7 @@ class LoginCubit extends Cubit<LoginState> {
           ..deleteLoginDataEmail()
           ..deleteLoginDataPassword();
       }
+      unawaited(_userCubit.getUser());
       unawaited(_userCubit.getEmployeesAndEnterprises());
 
       emit(

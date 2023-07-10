@@ -55,7 +55,7 @@ class Modelo347Page extends StatelessWidget {
                     style: AppTextStyle.inputLabelStyle,
                   ),
                   MyCustomDropdownButton(
-                      hint: '2021',
+                      hint: DateTime(DateTime.now().year - 1).year.toString(),
                       hintStyle: AppTextStyle.inputStyle,
                       dropdownItems: yearsList
                           .map((item) => DropdownMenuItem(

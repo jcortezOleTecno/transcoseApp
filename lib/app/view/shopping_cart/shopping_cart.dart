@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/shopping_cart_repository.dart';
 import 'package:vemare/app/domain/model/shopping_card_product.dart';
 import 'package:vemare/app/domain/utils/money_formatter.dart';
@@ -181,7 +182,13 @@ class _BuyData extends StatelessWidget {
             style: AppTextStyle.inputLabelStyle,
           ),
           StringRadioButtons(
-            options: const ['Crédito', 'Tarjeta'],
+            options: (LocalDataRepository()
+                        .user
+                        ?.webservice
+                        ?.permiteComprasCredito ??
+                    false)
+                ? ['Crédito', 'Tarjeta']
+                : ['Tarjeta'],
             onSelectionChanged: cubit.typePaySelect,
           )
         ],

@@ -10,10 +10,12 @@ import 'package:vemare/app/view/_components/my_button/my_counter_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_tienda_renting_button.dart';
 import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/promotions/detail_sale_rent/bloc/detail_sale_rent_cubit.dart';
 import 'package:vemare/app/view/promotions/detail_sale_rent/bloc/detail_sale_rent_state.dart';
 import 'package:vemare/app/view/promotions/renting_store/renting_store_page.dart';
 import 'package:vemare/app/view/shared/shopping_car_counter_bloc/car_counter_cubit.dart';
+import 'package:vemare/app/view/shared/userbloc/user_cubit.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
@@ -38,6 +40,8 @@ class DetailSaleRent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<DetailSaleRentCubit>();
+    final user = context.read<UserCubit>().state.user;
+    print(user);
     return Scaffold(
       body: BlocConsumer<DetailSaleRentCubit, DetailSaleRentState>(
         listenWhen: (p, c) => p.adds != c.adds,
@@ -59,7 +63,7 @@ class DetailSaleRent extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      state.promotion!.informative
+                      (state.promotion!.informative || user == null)
                           ? Container(
                               clipBehavior: Clip.antiAlias,
                               height: 40,
@@ -95,35 +99,38 @@ class DetailSaleRent extends StatelessWidget {
                       MyHtml(text: state.promotion!.description ?? ''),
                       spacerM,
                       if (!state.promotion!.informative) ...[
-                        Center(
-                          child: RichText(
-                            text: TextSpan(
-                              style: AppTextStyle.h1Style,
-                              children: [
-                                if (state.promotion?.pvpLowered != null)
+                        if (user != null)
+                          Center(
+                            child: RichText(
+                              text: TextSpan(
+                                style: AppTextStyle.h1Style,
+                                children: [
+                                  if (state.promotion?.pvpLowered != null)
+                                    TextSpan(
+                                        text:
+                                            '${(int.parse(state.promotion?.pvpOriginal ?? '0') * (state.quantity))}€',
+                                        style: AppTextStyle.pvpOrinigal),
                                   TextSpan(
-                                      text:
-                                          '${(int.parse(state.promotion?.pvpOriginal ?? '0') * (state.quantity))}€',
-                                      style: AppTextStyle.pvpOrinigal),
-                                TextSpan(
-                                  text:
-                                      ' ${(int.parse(state.promotion?.pvpLowered ?? state.promotion?.pvpOriginal ?? '0') * (state.quantity))}€',
-                                ),
-                                TextSpan(
-                                  text: ' IVA incluido ',
-                                  style: AppTextStyle.defaultStyle
-                                      .copyWith(color: AppColor.neutral40),
-                                ),
-                              ],
+                                    text:
+                                        ' ${(int.parse(state.promotion?.pvpLowered ?? state.promotion?.pvpOriginal ?? '0') * (state.quantity))}€',
+                                  ),
+                                  TextSpan(
+                                    text: ' IVA incluido ',
+                                    style: AppTextStyle.defaultStyle
+                                        .copyWith(color: AppColor.neutral40),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        spacerM,
-                        MyCounterButton(
-                          decrease: cubit.quantity,
-                          increase: cubit.quantity,
-                        ),
-                        spacerL,
+                        if (user != null) ...[
+                          spacerM,
+                          MyCounterButton(
+                            decrease: cubit.quantity,
+                            increase: cubit.quantity,
+                          ),
+                          spacerL,
+                        ],
                         Visibility(
                           visible: LocalDataRepository().isLogged,
                           replacement: const MySpacer(height: 50),
@@ -135,7 +142,9 @@ class DetailSaleRent extends StatelessWidget {
                         ),
                         spacerM,
                         MyButton(
-                            onPressed: () => Navigator.pushNamed(
+                            onPressed: () {
+                              if (LocalDataRepository().isLogged) {
+                                Navigator.pushNamed(
                                   context,
                                   RentingStorePage.route,
                                   arguments: StoreArgs(
@@ -143,8 +152,43 @@ class DetailSaleRent extends StatelessWidget {
                                     promotion: state.promotion!,
                                     quantity: state.quantity,
                                   ),
-                                ),
-                            text: state.isTienda ? 'Comprar' : 'Alquilar',
+                                );
+                              } else {
+                                Navigator.pushNamed(
+                                  context,
+                                  LoginPage.route,
+                                  arguments:
+                                      'Para acceder a las promociones tienes que iniciar sesión.',
+                                ).then((_) {
+                                  if (LocalDataRepository().isLogged) {
+                                    Navigator.pushNamed(
+                                      context,
+                                      RentingStorePage.route,
+                                      arguments: StoreArgs(
+                                        isTienda: state.isTienda,
+                                        promotion: state.promotion!,
+                                        quantity: state.quantity,
+                                      ),
+                                    );
+                                  }
+                                });
+                              }
+
+                              // Navigator.pushNamed(
+                              //   context,
+                              //   RentingStorePage.route,
+                              //   arguments: StoreArgs(
+                              //     isTienda: state.isTienda,
+                              //     promotion: state.promotion!,
+                              //     quantity: state.quantity,
+                              //   ),
+                              // );
+                            },
+                            text: user == null
+                                ? 'Iniciar sesión'
+                                : state.isTienda
+                                    ? 'Comprar'
+                                    : 'Alquilar',
                             variant: MyButtonVariant.outlinedBold),
                         spacerL,
                       ]

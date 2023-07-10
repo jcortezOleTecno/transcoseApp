@@ -5,7 +5,9 @@ import 'modelo_347_state.dart';
 
 class Modelo347Cubit extends Cubit<Modelo347State> {
   Modelo347Cubit(this._accountRepository) : super(const Modelo347State()) {
-    getMy347();
+    getMy347(
+      year: DateTime(DateTime.now().year - 1).year.toString(),
+    );
   }
 
   final MyAccountRepository _accountRepository;

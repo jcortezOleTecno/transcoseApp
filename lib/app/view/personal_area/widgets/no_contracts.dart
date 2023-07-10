@@ -16,7 +16,7 @@ class NoExistWidget extends StatelessWidget {
       padding: EdgeInsets.only(top: paddingTop ?? 100),
       child: Center(
         child: Text(
-          'No existen $text',
+          'No tienes $text',
           style: AppTextStyle.h3Style,
         ),
       ),

@@ -37,51 +37,57 @@ class MyEventsPage extends StatelessWidget {
               const MyBackButton(),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const Text('Mis eventos', style: AppTextStyle.h1Style),
-                    spacerS,
-                    const Text(
-                        'Consulta las fechas y toda la información de tus próximos eventos y no te pierdas ningún detalle.',
-                        style: AppTextStyle.defaultStyle),
-                    spacerL,
-                    BlocBuilder<MyEventsCubit, MyEventsState>(
-                      builder: (context, state) {
-                        if (state.loading) {
-                          return Wrap(
-                            alignment: WrapAlignment.spaceBetween,
-                            runSpacing: 15,
-                            spacing: 15,
-                            // crossAxisAlignment: WrapCrossAlignment.center,
-                            children: List.generate(
-                              4,
-                              (_) => MyShimmer(
-                                borderRadius: 12,
-                                margin: EdgeInsets.zero,
-                                width: MediaQuery.of(context).size.width * .44,
-                                height: 220,
-                              ),
-                            ),
-                          );
-                        }
+                child: BlocBuilder<MyEventsCubit, MyEventsState>(
+                  builder: (context, state) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        const Text('Mis eventos', style: AppTextStyle.h1Style),
+                        spacerS,
+                        if (state.eventsVemare.isNotEmpty)
+                          const Text(
+                              'Consulta las fechas y toda la información de tus próximos eventos y no te pierdas ningún detalle.',
+                              style: AppTextStyle.defaultStyle),
+                        spacerL,
+                        BlocBuilder<MyEventsCubit, MyEventsState>(
+                          builder: (context, state) {
+                            if (state.loading) {
+                              return Wrap(
+                                alignment: WrapAlignment.spaceBetween,
+                                runSpacing: 15,
+                                spacing: 15,
+                                // crossAxisAlignment: WrapCrossAlignment.center,
+                                children: List.generate(
+                                  4,
+                                  (_) => MyShimmer(
+                                    borderRadius: 12,
+                                    margin: EdgeInsets.zero,
+                                    width:
+                                        MediaQuery.of(context).size.width * .44,
+                                    height: 220,
+                                  ),
+                                ),
+                              );
+                            }
 
-                        if (!state.loading && state.eventsVemare.isEmpty) {
-                          return const NoExistWidget("eventos");
-                        }
-                        return Wrap(
-                          runSpacing: 15,
-                          spacing: 15,
-                          alignment: WrapAlignment.spaceBetween,
-                          crossAxisAlignment: WrapCrossAlignment.center,
-                          children: state.eventsVemare
-                              .map((e) => _MyEventCard(e))
-                              .toList(),
-                        );
-                      },
-                    ),
-                    spacerL,
-                  ],
+                            if (!state.loading && state.eventsVemare.isEmpty) {
+                              return const NoExistWidget("eventos contratados");
+                            }
+                            return Wrap(
+                              runSpacing: 15,
+                              spacing: 15,
+                              alignment: WrapAlignment.spaceBetween,
+                              crossAxisAlignment: WrapCrossAlignment.center,
+                              children: state.eventsVemare
+                                  .map((e) => _MyEventCard(e))
+                                  .toList(),
+                            );
+                          },
+                        ),
+                        spacerL,
+                      ],
+                    );
+                  },
                 ),
               ),
             ],

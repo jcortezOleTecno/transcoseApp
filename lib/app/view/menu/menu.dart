@@ -461,6 +461,7 @@ class _Menu extends StatelessWidget {
                       divider,
                       ListTile(
                         onTap: () {
+                          context.read<UserCubit>().deleteUser();
                           LocalDataRepository().logOut().then((_) {
                             Navigator.pushNamedAndRemoveUntil(
                                 ctx, LoginPage.route, (route) => false);
@@ -614,7 +615,10 @@ class _HeaderMenu extends StatelessWidget {
                 decoration: const BoxDecoration(shape: BoxShape.circle),
                 child: state.user?.logo == null
                     ? Image.asset('assets/imgs/profile_default.png')
-                    : Image.network(state.user!.logo!),
+                    : Image.network(
+                        state.user!.logo!,
+                        fit: BoxFit.cover,
+                      ),
               ),
               spacerM,
               Expanded(

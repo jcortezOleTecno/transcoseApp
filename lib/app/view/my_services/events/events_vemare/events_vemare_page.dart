@@ -56,28 +56,6 @@ class EventsVemarePage extends StatelessWidget {
                   },
                 ),
               ),
-              // _MyEvents(
-              //     icon: true,
-              //     title: 'Mis Eventos',
-              //     img: Image.asset('assets/imgs/misEventosIMG.png',
-              //         fit: BoxFit.cover),
-              //     onTap: () {
-              //       if (LocalDataRepository().isLogged) {
-              //         Navigator.pushNamed(context, MyEventsPage.route);
-              //       } else {
-              //         Navigator.pushNamed(
-              //           context,
-              //           LoginPage.route,
-              //           arguments:
-              //               'Para acceder a la información de los eventos tienes que iniciar sesión.',
-              //         ).then((_) {
-              //           if (LocalDataRepository().isLogged) {
-              //             Navigator.pushNamed(context, MyEventsPage.route);
-              //           }
-              //         });
-              //       }
-              //     }),
-              // spacerS,
               BlocBuilder<EventsVemareCubit, EventsVemareState>(
                 builder: (context, state) {
                   if (state.loading) {

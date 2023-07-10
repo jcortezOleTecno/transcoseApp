@@ -53,6 +53,29 @@ class PromotionDescription extends StatelessWidget {
               text: TextSpan(
                 style: AppTextStyle.h1Style,
                 children: [
+                  if (promotion.pvpLowered != null)
+                    TextSpan(
+                        text:
+                            '${(int.parse(promotion.pvpOriginal ?? '0') * (quantity!))}€',
+                        style: AppTextStyle.pvpOrinigal),
+                  TextSpan(
+                    text:
+                        ' ${(int.parse(promotion.pvpLowered ?? promotion.pvpOriginal ?? '0') * (quantity!))}€',
+                  ),
+                  TextSpan(
+                    text: ' IVA incluido ',
+                    style: AppTextStyle.defaultStyle
+                        .copyWith(color: AppColor.neutral40),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          /*Center(
+            child: RichText(
+              text: TextSpan(
+                style: AppTextStyle.h1Style,
+                children: [
                   TextSpan(
                       text: '${promotion.pvpOriginal}€',
                       style: AppTextStyle.pvpOrinigal),
@@ -67,7 +90,7 @@ class PromotionDescription extends StatelessWidget {
                 ],
               ),
             ),
-          ),
+          ),*/
         ],
       ),
     );

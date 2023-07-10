@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/promotion_repository.dart';
 import 'package:vemare/app/domain/model/category.dart';
 import 'package:vemare/app/domain/model/promotion.dart';
@@ -173,7 +174,8 @@ class _Card extends StatelessWidget {
                       style: AppTextStyle.defaultStyle,
                     ),
                   ),
-                  if (!promotion.informative) ...[
+                  if (!promotion.informative &&
+                      LocalDataRepository().isLogged) ...[
                     if (promotion.pvpLowered != null)
                       Text(
                         '${promotion.pvpOriginal}€',

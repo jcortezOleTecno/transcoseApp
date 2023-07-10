@@ -132,7 +132,10 @@ class _TrainingsAndEventCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Expanded(
-                        child: Item(title: 'NOMBRE', content: data.name ?? '')),
+                        child: Text(
+                      data.name ?? '',
+                      style: AppTextStyle.defaultStyle,
+                    )),
                     _popupMenu(context, data)
                   ],
                 ),

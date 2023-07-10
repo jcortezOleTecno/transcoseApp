@@ -101,6 +101,11 @@ class Webservice {
     this.comerciales,
     this.centroReparto,
     this.otrosCodigos,
+    this.permiteComprasCredito,
+    this.latitud,
+    this.longitud,
+    this.millennium,
+    this.convencion,
   });
 
   int? codigo;
@@ -114,6 +119,11 @@ class Webservice {
   List<Comerciale>? comerciales;
   List<CentroReparto>? centroReparto;
   List<OtrosCodigo>? otrosCodigos;
+  bool? permiteComprasCredito;
+  double? latitud;
+  double? longitud;
+  bool? millennium;
+  bool? convencion;
 
   factory Webservice.fromJson(Map<String, dynamic> json) => Webservice(
         codigo: json["codigo"],
@@ -136,6 +146,11 @@ class Webservice {
             ? []
             : List<OtrosCodigo>.from(
                 json["otros_codigos"]!.map((x) => OtrosCodigo.fromJson(x))),
+        permiteComprasCredito: json["permite_compras_credito"],
+        latitud: json["latitud"]?.toDouble(),
+        longitud: json["longitud"]?.toDouble(),
+        millennium: json["millennium"],
+        convencion: json["convencion"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -156,6 +171,11 @@ class Webservice {
         "otros_codigos": otrosCodigos == null
             ? []
             : List<dynamic>.from(otrosCodigos!.map((x) => x.toJson())),
+        "permite_compras_credito": permiteComprasCredito,
+        "latitud": latitud,
+        "longitud": longitud,
+        "millennium": millennium,
+        "convencion": convencion,
       };
 }
 

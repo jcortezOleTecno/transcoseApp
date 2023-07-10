@@ -69,7 +69,13 @@ class _RentingStorePageState extends State<RentingStorePage> {
                                   type = value!;
                                 });
                               },
-                              items: const ['Crédito', 'Tarjeta'],
+                              items: (LocalDataRepository()
+                                          .user
+                                          ?.webservice
+                                          ?.permiteComprasCredito ??
+                                      false)
+                                  ? ['Crédito', 'Tarjeta']
+                                  : ['Tarjeta'],
                               itemBuilder: (value) => RadioButtonBuilder(
                                 value!,
                                 textPosition: RadioButtonTextPosition.right,

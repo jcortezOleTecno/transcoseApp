@@ -61,7 +61,24 @@ class EventsPage extends StatelessWidget {
                       content:
                           'Encuentros, charlas, presentaciones... Infórmate sobre todos los eventos que creamos para nuestros clientes.',
                       onTap: () {
-                        Navigator.pushNamed(context, OtherEventsListPage.route);
+                        // Navigator.pushNamed(context, OtherEventsListPage.route);
+
+                        if (LocalDataRepository().isLogged) {
+                          Navigator.pushNamed(
+                              context, OtherEventsListPage.route);
+                        } else {
+                          Navigator.pushNamed(
+                            context,
+                            LoginPage.route,
+                            arguments:
+                                'Para acceder a la información de los eventos tienes que iniciar sesión.',
+                          ).then((_) {
+                            if (LocalDataRepository().isLogged) {
+                              Navigator.pushNamed(
+                                  context, OtherEventsListPage.route);
+                            }
+                          });
+                        }
                       },
                     ),
                     _Item(

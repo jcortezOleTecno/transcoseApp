@@ -30,6 +30,9 @@ class _MyTiendaRentingButtonState extends State<MyTiendaRentingButton> {
         child: Row(children: [
           Expanded(
             child: InkWell(
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  bottomLeft: Radius.circular(10)),
               onTap: () {
                 setState(() {
                   isTienda = true;
@@ -50,6 +53,9 @@ class _MyTiendaRentingButtonState extends State<MyTiendaRentingButton> {
           ),
           Expanded(
             child: InkWell(
+              borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(10),
+                  bottomRight: Radius.circular(10)),
               onTap: () {
                 setState(() {
                   isTienda = false;
