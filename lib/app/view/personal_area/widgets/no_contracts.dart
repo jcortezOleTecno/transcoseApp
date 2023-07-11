@@ -23,3 +23,27 @@ class NoExistWidget extends StatelessWidget {
     );
   }
 }
+
+class NoResultWidget extends StatelessWidget {
+  const NoResultWidget(
+    this.text, {
+    this.paddingTop,
+    Key? key,
+  }) : super(key: key);
+  final String text;
+  final double? paddingTop;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(top: paddingTop ?? 100),
+      child: Center(
+        child: Text(
+          text,
+          textAlign: TextAlign.center,
+          style: AppTextStyle.h3Style,
+        ),
+      ),
+    );
+  }
+}

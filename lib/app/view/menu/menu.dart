@@ -481,34 +481,42 @@ class _Menu extends StatelessWidget {
                   ),
                 ),
                 divider,
-                if (LocalDataRepository().isLogged)
-                  _MenuItemExpand(
-                      title: 'Mis contactos Vemare',
-                      icon: Image.asset(
-                        'assets/icons/Phone.png',
-                        scale: 2,
-                        color: AppColor.white,
-                      ),
-                      children: LocalDataRepository()
-                          .user!
-                          .webservice!
-                          .comerciales!
-                          .map((e) {
-                        if ((e.telefono == null || e.telefono == '')) {
-                          return const SizedBox();
-                        } else {
-                          return _MenuItem(
-                            onTap: () => _callDialog(context,
-                                number: e.telefono == ''
-                                    ? '000000000'
-                                    : e.telefono ?? '000000000'),
-                            title: e.tipoComercial ?? '',
-                            subtitle: e.telefono == ''
-                                ? '000 000 000'
-                                : '${e.telefono?.split('').getRange(0, 3).join()}  ${e.telefono?.split('').getRange(3, 6).join()}  ${e.telefono?.split('').getRange(6, 9).join()}',
-                          );
-                        }
-                      }).toList()),
+                _MenuItemExpand(
+                    title: 'Mis contactos Vemare',
+                    icon: Image.asset(
+                      'assets/icons/Phone.png',
+                      scale: 2,
+                      color: AppColor.white,
+                    ),
+                    children: !LocalDataRepository().isLogged
+                        ? [
+                            _MenuItem(
+                              onTap: () =>
+                                  _callDialog(context, number: '916496020'),
+                              title: 'Contacto',
+                              subtitle: '916 496 020',
+                            )
+                          ]
+                        : LocalDataRepository()
+                            .user!
+                            .webservice!
+                            .comerciales!
+                            .map((e) {
+                            if ((e.telefono == null || e.telefono == '')) {
+                              return const SizedBox();
+                            } else {
+                              return _MenuItem(
+                                onTap: () => _callDialog(context,
+                                    number: e.telefono == ''
+                                        ? '000000000'
+                                        : e.telefono ?? '000000000'),
+                                title: e.tipoComercial ?? '',
+                                subtitle: e.telefono == ''
+                                    ? '000 000 000'
+                                    : '${e.telefono?.split('').getRange(0, 3).join()}  ${e.telefono?.split('').getRange(3, 6).join()}  ${e.telefono?.split('').getRange(6, 9).join()}',
+                              );
+                            }
+                          }).toList()),
                 spacerL,
                 if (LocalDataRepository().isLogged)
                   ConfirmationSlider(
@@ -548,9 +556,7 @@ class _Menu extends StatelessWidget {
       builder: (context) {
         return CupertinoAlertDialog(
           content: Text(
-            number == null
-                ? ''
-                : '${number.split('').getRange(0, 3).join()} ${number.split('').getRange(3, 6).join()} ${number.split('').getRange(6, 9).join()}',
+            '${number.split('').getRange(0, 3).join()} ${number.split('').getRange(3, 6).join()} ${number.split('').getRange(6, 9).join()}',
             style: AppTextStyle.h3Style,
           ),
           actions: [

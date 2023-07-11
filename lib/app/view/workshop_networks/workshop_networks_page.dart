@@ -132,6 +132,7 @@ class _WorkshopNetworksPageState extends State<WorkshopNetworksPage> {
                                 label: 'Nombre',
                                 required: true,
                                 onChanged: cubit.name,
+                                hintText: 'Escribe tu nombre',
                                 controller: tcName,
                                 textInputAction: TextInputAction.next,
                                 inputType: TextInputType.name,
@@ -140,6 +141,7 @@ class _WorkshopNetworksPageState extends State<WorkshopNetworksPage> {
                               ),
                               MyInput(
                                 label: 'E-mail',
+                                hintText: 'Escribe tu e-mail',
                                 required: true,
                                 controller: tcEmail,
                                 textInputAction: TextInputAction.next,
@@ -149,6 +151,7 @@ class _WorkshopNetworksPageState extends State<WorkshopNetworksPage> {
                               ),
                               MyInput(
                                 label: 'Teléfono',
+                                hintText: 'Escribe tu teléfono',
                                 required: true,
                                 controller: tcPhone,
                                 textInputAction: TextInputAction.next,

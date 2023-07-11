@@ -42,6 +42,24 @@ class EventsVemarePage extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: BlocBuilder<EventsVemareCubit, EventsVemareState>(
                   builder: (context, state) {
+                    if (state.loading) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          MyShimmer(
+                            height: 35,
+                            margin: EdgeInsets.symmetric(horizontal: 15),
+                            width: 150,
+                          ),
+                          spacerM,
+                          MyShimmer(
+                            height: 36,
+                            margin: EdgeInsets.symmetric(horizontal: 15),
+                          ),
+                          spacerL,
+                        ],
+                      );
+                    }
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -59,9 +77,18 @@ class EventsVemarePage extends StatelessWidget {
               BlocBuilder<EventsVemareCubit, EventsVemareState>(
                 builder: (context, state) {
                   if (state.loading) {
-                    return const MyShimmer(
-                      height: 220,
-                      margin: EdgeInsets.symmetric(horizontal: 15),
+                    return Column(
+                      children: const [
+                        MyShimmer(
+                          height: 220,
+                          margin: EdgeInsets.symmetric(horizontal: 15),
+                        ),
+                        spacerM,
+                        MyShimmer(
+                          height: 220,
+                          margin: EdgeInsets.symmetric(horizontal: 15),
+                        ),
+                      ],
                     );
                   }
                   return Column(

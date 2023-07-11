@@ -71,7 +71,8 @@ class MyEventsPage extends StatelessWidget {
                             }
 
                             if (!state.loading && state.eventsVemare.isEmpty) {
-                              return const NoExistWidget("eventos contratados");
+                              return const NoResultWidget(
+                                  "Actualmente no tienes contratado este servicio. Si quieres más información contacta con tu comercial habitual");
                             }
                             return Wrap(
                               runSpacing: 15,
