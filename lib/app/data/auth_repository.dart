@@ -8,6 +8,7 @@ import 'package:vemare/app/domain/model/employee.dart';
 import 'package:vemare/app/domain/model/enterprise.dart';
 import 'package:vemare/app/domain/model/user_data.dart';
 import 'package:vemare/app/domain/model/user_rol.dart';
+import 'package:vemare/app/domain/model/vemare_contacts.dart';
 import 'package:vemare/app/view/shared/notifications/push_notifications.dart';
 
 class AuthRepository {
@@ -114,5 +115,19 @@ class AuthRepository {
     // await getUser();
 
     return (res.data["message"] as String);
+  }
+
+  // Future<List<String>> getEnterprisesSearch({required String term}) async {
+  //   final dynamic res = await apiClient.getRequest(
+  //       '$BASE_API_URL/api/user/enterprises',
+  //       params: {"term": term});
+  //   return (res as List).map((e) => e["value"] as String).toList();
+  // }
+
+  Future<VemareContacts> getVemareContacts() async {
+    final dynamic res = await apiClient.getRequest(
+        '$BASE_API_URL/api/mis_contactos_vemare',
+        params: {"code": LocalDataRepository().user?.code ?? ''});
+    return VemareContacts.fromJson(res);
   }
 }

@@ -1,3 +1,4 @@
+import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,6 +10,7 @@ import 'package:vemare/app/domain/value_object/status.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_dropdown_button/my_drop_down_button.dart';
 import 'package:vemare/app/view/_components/my_input/my_input.dart';
+import 'package:vemare/app/view/_components/my_input/my_input_autocomplete.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/tap_to_hide_keyboard/tap_to_hide_keyboard.dart';
 import 'package:vemare/app/view/register/bloc/register_cubit.dart';
@@ -39,6 +41,7 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   bool isEmpresa = true;
   String type = 'Empresa';
+  GlobalKey<AutoCompleteTextFieldState<String>> key = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +120,22 @@ class _RegisterPageState extends State<RegisterPage> {
                           hasError: state.status == FormStatus.error,
                           onChanged: cubit.name,
                         )
-                      : Column(
+                      : MyInputAutoComplete(
+                          keyComplete: key,
+                          suggestions:
+                              state.enterprises.map((e) => e.name).toList(),
+                          hintText: 'Escribe una empresa',
+                          label: 'Nombre de la empresa *',
+                          textInputAction: TextInputAction.search,
+                          textCapitalization: TextCapitalization.words,
+                          textSubmitted: (name) {
+                            var enterprise = state.enterprises
+                                .firstWhere((e) => e.name == name);
+                            cubit.enterprise(enterprise);
+                          },
+                        ),
+
+                  /*Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             const Text('Nombre de la empresa *',
@@ -140,7 +158,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             ),
                             spacerM,
                           ],
-                        ),
+                        )*/
                   spacerS,
                   Visibility(
                     visible: isEmpresa,

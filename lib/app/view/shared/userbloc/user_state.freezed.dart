@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$UserState {
   List<Employee> get employees => throw _privateConstructorUsedError;
   List<Enterprise> get enterprises => throw _privateConstructorUsedError;
+  VemareContacts? get contacts => throw _privateConstructorUsedError;
   UserData? get user => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -31,7 +32,10 @@ abstract class $UserStateCopyWith<$Res> {
       _$UserStateCopyWithImpl<$Res, UserState>;
   @useResult
   $Res call(
-      {List<Employee> employees, List<Enterprise> enterprises, UserData? user});
+      {List<Employee> employees,
+      List<Enterprise> enterprises,
+      VemareContacts? contacts,
+      UserData? user});
 }
 
 /// @nodoc
@@ -49,6 +53,7 @@ class _$UserStateCopyWithImpl<$Res, $Val extends UserState>
   $Res call({
     Object? employees = null,
     Object? enterprises = null,
+    Object? contacts = freezed,
     Object? user = freezed,
   }) {
     return _then(_value.copyWith(
@@ -60,6 +65,10 @@ class _$UserStateCopyWithImpl<$Res, $Val extends UserState>
           ? _value.enterprises
           : enterprises // ignore: cast_nullable_to_non_nullable
               as List<Enterprise>,
+      contacts: freezed == contacts
+          ? _value.contacts
+          : contacts // ignore: cast_nullable_to_non_nullable
+              as VemareContacts?,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -76,7 +85,10 @@ abstract class _$$_UserStateCopyWith<$Res> implements $UserStateCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {List<Employee> employees, List<Enterprise> enterprises, UserData? user});
+      {List<Employee> employees,
+      List<Enterprise> enterprises,
+      VemareContacts? contacts,
+      UserData? user});
 }
 
 /// @nodoc
@@ -92,6 +104,7 @@ class __$$_UserStateCopyWithImpl<$Res>
   $Res call({
     Object? employees = null,
     Object? enterprises = null,
+    Object? contacts = freezed,
     Object? user = freezed,
   }) {
     return _then(_$_UserState(
@@ -103,6 +116,10 @@ class __$$_UserStateCopyWithImpl<$Res>
           ? _value._enterprises
           : enterprises // ignore: cast_nullable_to_non_nullable
               as List<Enterprise>,
+      contacts: freezed == contacts
+          ? _value.contacts
+          : contacts // ignore: cast_nullable_to_non_nullable
+              as VemareContacts?,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -117,6 +134,7 @@ class _$_UserState extends _UserState {
   const _$_UserState(
       {final List<Employee> employees = const <Employee>[],
       final List<Enterprise> enterprises = const <Enterprise>[],
+      this.contacts,
       this.user})
       : _employees = employees,
         _enterprises = enterprises,
@@ -141,11 +159,13 @@ class _$_UserState extends _UserState {
   }
 
   @override
+  final VemareContacts? contacts;
+  @override
   final UserData? user;
 
   @override
   String toString() {
-    return 'UserState(employees: $employees, enterprises: $enterprises, user: $user)';
+    return 'UserState(employees: $employees, enterprises: $enterprises, contacts: $contacts, user: $user)';
   }
 
   @override
@@ -157,6 +177,8 @@ class _$_UserState extends _UserState {
                 .equals(other._employees, _employees) &&
             const DeepCollectionEquality()
                 .equals(other._enterprises, _enterprises) &&
+            (identical(other.contacts, contacts) ||
+                other.contacts == contacts) &&
             (identical(other.user, user) || other.user == user));
   }
 
@@ -165,6 +187,7 @@ class _$_UserState extends _UserState {
       runtimeType,
       const DeepCollectionEquality().hash(_employees),
       const DeepCollectionEquality().hash(_enterprises),
+      contacts,
       user);
 
   @JsonKey(ignore: true)
@@ -178,6 +201,7 @@ abstract class _UserState extends UserState {
   const factory _UserState(
       {final List<Employee> employees,
       final List<Enterprise> enterprises,
+      final VemareContacts? contacts,
       final UserData? user}) = _$_UserState;
   const _UserState._() : super._();
 
@@ -185,6 +209,8 @@ abstract class _UserState extends UserState {
   List<Employee> get employees;
   @override
   List<Enterprise> get enterprises;
+  @override
+  VemareContacts? get contacts;
   @override
   UserData? get user;
   @override

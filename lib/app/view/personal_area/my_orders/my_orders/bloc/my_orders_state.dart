@@ -16,6 +16,9 @@ class MyOrdersState with _$MyOrdersState {
     String? filterPedidos,
     String? filterGarantias,
     String? filterAbonos,
+    int? totalImporteCliente,
+    int? totalImporteGarantias,
+    int? totalImporteVemare,
   }) = _MyOrdersState;
   const MyOrdersState._();
 }

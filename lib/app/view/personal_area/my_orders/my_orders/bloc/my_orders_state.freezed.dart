@@ -24,6 +24,9 @@ mixin _$MyOrdersState {
   String? get filterPedidos => throw _privateConstructorUsedError;
   String? get filterGarantias => throw _privateConstructorUsedError;
   String? get filterAbonos => throw _privateConstructorUsedError;
+  int? get totalImporteCliente => throw _privateConstructorUsedError;
+  int? get totalImporteGarantias => throw _privateConstructorUsedError;
+  int? get totalImporteVemare => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MyOrdersStateCopyWith<MyOrdersState> get copyWith =>
@@ -44,7 +47,10 @@ abstract class $MyOrdersStateCopyWith<$Res> {
       StatusWarranty? statusWarranty,
       String? filterPedidos,
       String? filterGarantias,
-      String? filterAbonos});
+      String? filterAbonos,
+      int? totalImporteCliente,
+      int? totalImporteGarantias,
+      int? totalImporteVemare});
 }
 
 /// @nodoc
@@ -68,6 +74,9 @@ class _$MyOrdersStateCopyWithImpl<$Res, $Val extends MyOrdersState>
     Object? filterPedidos = freezed,
     Object? filterGarantias = freezed,
     Object? filterAbonos = freezed,
+    Object? totalImporteCliente = freezed,
+    Object? totalImporteGarantias = freezed,
+    Object? totalImporteVemare = freezed,
   }) {
     return _then(_value.copyWith(
       loading: null == loading
@@ -102,6 +111,18 @@ class _$MyOrdersStateCopyWithImpl<$Res, $Val extends MyOrdersState>
           ? _value.filterAbonos
           : filterAbonos // ignore: cast_nullable_to_non_nullable
               as String?,
+      totalImporteCliente: freezed == totalImporteCliente
+          ? _value.totalImporteCliente
+          : totalImporteCliente // ignore: cast_nullable_to_non_nullable
+              as int?,
+      totalImporteGarantias: freezed == totalImporteGarantias
+          ? _value.totalImporteGarantias
+          : totalImporteGarantias // ignore: cast_nullable_to_non_nullable
+              as int?,
+      totalImporteVemare: freezed == totalImporteVemare
+          ? _value.totalImporteVemare
+          : totalImporteVemare // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -122,7 +143,10 @@ abstract class _$$_MyOrdersStateCopyWith<$Res>
       StatusWarranty? statusWarranty,
       String? filterPedidos,
       String? filterGarantias,
-      String? filterAbonos});
+      String? filterAbonos,
+      int? totalImporteCliente,
+      int? totalImporteGarantias,
+      int? totalImporteVemare});
 }
 
 /// @nodoc
@@ -144,6 +168,9 @@ class __$$_MyOrdersStateCopyWithImpl<$Res>
     Object? filterPedidos = freezed,
     Object? filterGarantias = freezed,
     Object? filterAbonos = freezed,
+    Object? totalImporteCliente = freezed,
+    Object? totalImporteGarantias = freezed,
+    Object? totalImporteVemare = freezed,
   }) {
     return _then(_$_MyOrdersState(
       loading: null == loading
@@ -178,6 +205,18 @@ class __$$_MyOrdersStateCopyWithImpl<$Res>
           ? _value.filterAbonos
           : filterAbonos // ignore: cast_nullable_to_non_nullable
               as String?,
+      totalImporteCliente: freezed == totalImporteCliente
+          ? _value.totalImporteCliente
+          : totalImporteCliente // ignore: cast_nullable_to_non_nullable
+              as int?,
+      totalImporteGarantias: freezed == totalImporteGarantias
+          ? _value.totalImporteGarantias
+          : totalImporteGarantias // ignore: cast_nullable_to_non_nullable
+              as int?,
+      totalImporteVemare: freezed == totalImporteVemare
+          ? _value.totalImporteVemare
+          : totalImporteVemare // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -193,7 +232,10 @@ class _$_MyOrdersState extends _MyOrdersState {
       this.statusWarranty,
       this.filterPedidos,
       this.filterGarantias,
-      this.filterAbonos})
+      this.filterAbonos,
+      this.totalImporteCliente,
+      this.totalImporteGarantias,
+      this.totalImporteVemare})
       : _guarantee = guarantee,
         _orders = orders,
         _bills = bills,
@@ -237,10 +279,16 @@ class _$_MyOrdersState extends _MyOrdersState {
   final String? filterGarantias;
   @override
   final String? filterAbonos;
+  @override
+  final int? totalImporteCliente;
+  @override
+  final int? totalImporteGarantias;
+  @override
+  final int? totalImporteVemare;
 
   @override
   String toString() {
-    return 'MyOrdersState(loading: $loading, guarantee: $guarantee, orders: $orders, bills: $bills, statusWarranty: $statusWarranty, filterPedidos: $filterPedidos, filterGarantias: $filterGarantias, filterAbonos: $filterAbonos)';
+    return 'MyOrdersState(loading: $loading, guarantee: $guarantee, orders: $orders, bills: $bills, statusWarranty: $statusWarranty, filterPedidos: $filterPedidos, filterGarantias: $filterGarantias, filterAbonos: $filterAbonos, totalImporteCliente: $totalImporteCliente, totalImporteGarantias: $totalImporteGarantias, totalImporteVemare: $totalImporteVemare)';
   }
 
   @override
@@ -260,7 +308,13 @@ class _$_MyOrdersState extends _MyOrdersState {
             (identical(other.filterGarantias, filterGarantias) ||
                 other.filterGarantias == filterGarantias) &&
             (identical(other.filterAbonos, filterAbonos) ||
-                other.filterAbonos == filterAbonos));
+                other.filterAbonos == filterAbonos) &&
+            (identical(other.totalImporteCliente, totalImporteCliente) ||
+                other.totalImporteCliente == totalImporteCliente) &&
+            (identical(other.totalImporteGarantias, totalImporteGarantias) ||
+                other.totalImporteGarantias == totalImporteGarantias) &&
+            (identical(other.totalImporteVemare, totalImporteVemare) ||
+                other.totalImporteVemare == totalImporteVemare));
   }
 
   @override
@@ -273,7 +327,10 @@ class _$_MyOrdersState extends _MyOrdersState {
       statusWarranty,
       filterPedidos,
       filterGarantias,
-      filterAbonos);
+      filterAbonos,
+      totalImporteCliente,
+      totalImporteGarantias,
+      totalImporteVemare);
 
   @JsonKey(ignore: true)
   @override
@@ -291,7 +348,10 @@ abstract class _MyOrdersState extends MyOrdersState {
       final StatusWarranty? statusWarranty,
       final String? filterPedidos,
       final String? filterGarantias,
-      final String? filterAbonos}) = _$_MyOrdersState;
+      final String? filterAbonos,
+      final int? totalImporteCliente,
+      final int? totalImporteGarantias,
+      final int? totalImporteVemare}) = _$_MyOrdersState;
   const _MyOrdersState._() : super._();
 
   @override
@@ -310,6 +370,12 @@ abstract class _MyOrdersState extends MyOrdersState {
   String? get filterGarantias;
   @override
   String? get filterAbonos;
+  @override
+  int? get totalImporteCliente;
+  @override
+  int? get totalImporteGarantias;
+  @override
+  int? get totalImporteVemare;
   @override
   @JsonKey(ignore: true)
   _$$_MyOrdersStateCopyWith<_$_MyOrdersState> get copyWith =>

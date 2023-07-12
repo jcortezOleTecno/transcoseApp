@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/my_account_repository.dart';
+import 'package:vemare/app/domain/utils/money_formatter.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_filters/my_filters.dart';
@@ -204,6 +205,8 @@ class _MyWarranty extends StatelessWidget {
             if (state.filterGarantias != null)
               FiltersAppliedWidget(state.filterGarantias!),
             spacerL,
+            if (state.guarantee.isNotEmpty && !state.loading) const _Total(),
+            spacerL,
             if (!state.loading && state.guarantee.isEmpty)
               const NoExistWidget('garantías'),
             if (state.loading)
@@ -229,6 +232,73 @@ class _MyWarranty extends StatelessWidget {
                   )
                   .toList(),
           ],
+        );
+      },
+    );
+  }
+}
+
+class _Total extends StatelessWidget {
+  const _Total({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<MyOrdersCubit, MyOrdersState>(
+      builder: (context, state) {
+        return Card(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          child: Padding(
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    const Expanded(
+                        child: Text(
+                      'TOTAL IMPORTE VEMARE:',
+                      style: TextStyle(fontWeight: FontWeight.w700),
+                    )),
+                    Text(fmf
+                        .copyWith(amount: state.totalImporteVemare!.toDouble())
+                        .output
+                        .symbolOnRight),
+                  ],
+                ),
+                spacerS,
+                Row(
+                  children: [
+                    const Expanded(
+                        child: Text(
+                      'TOTAL IMPORTE CLIENTE:',
+                      style: TextStyle(fontWeight: FontWeight.w700),
+                    )),
+                    Text(fmf
+                        .copyWith(amount: state.totalImporteCliente!.toDouble())
+                        .output
+                        .symbolOnRight),
+                  ],
+                ),
+                spacerS,
+                Row(
+                  children: [
+                    const Expanded(
+                        child: Text(
+                      'TOTAL IMPORTE GARANTÍAS:',
+                      style: TextStyle(fontWeight: FontWeight.w700),
+                    )),
+                    Text(fmf
+                        .copyWith(
+                            amount: state.totalImporteGarantias!.toDouble())
+                        .output
+                        .symbolOnRight),
+                  ],
+                )
+              ],
+            ),
+          ),
         );
       },
     );

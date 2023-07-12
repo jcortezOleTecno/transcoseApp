@@ -22,17 +22,23 @@ class MyOrdersCubit extends Cubit<MyOrdersState> {
     List<Warranty> guarantee = [];
     List<Albaran> bills = [];
     StatusWarranty? status;
+    int? totalImporteVemare;
+    int? totalImporteCliente;
+    int? totalImporteGarantias;
 
     await Future.wait([
       _myAccountRepository
           .getMyOrders()
           .then((v) => orders.addAll(v.data as List<Albaran>)),
-      _myAccountRepository
-          .getWarranties()
-          .then((v) => guarantee.addAll(v.data as List<Warranty>)),
-      _myAccountRepository
-          .getMyBills()
-          .then((v) => bills.addAll(v.data as List<Albaran>)),
+      _myAccountRepository.getWarranties().then((v) {
+        guarantee.addAll(v.data as List<Warranty>);
+        totalImporteVemare = v.totalImporteVemare;
+        totalImporteCliente = v.totalImporteCliente;
+        totalImporteGarantias = v.totalImporteGarantia;
+      }),
+      _myAccountRepository.getMyBills().then((v) {
+        bills.addAll(v.data as List<Albaran>);
+      }),
       _myAccountRepository.getStatusWarranty().then((value) => status = value),
     ]);
 
@@ -41,6 +47,9 @@ class MyOrdersCubit extends Cubit<MyOrdersState> {
       guarantee: guarantee,
       bills: bills,
       statusWarranty: status,
+      totalImporteCliente: totalImporteCliente,
+      totalImporteVemare: totalImporteVemare,
+      totalImporteGarantias: totalImporteGarantias,
       loading: false,
     ));
   }
@@ -62,6 +71,9 @@ class MyOrdersCubit extends Cubit<MyOrdersState> {
     emit(state.copyWith(
       guarantee: data.data as List<Warranty>,
       filterGarantias: data.filter,
+      totalImporteCliente: data.totalImporteCliente,
+      totalImporteVemare: data.totalImporteVemare,
+      totalImporteGarantias: data.totalImporteGarantia,
       loading: false,
     ));
   }

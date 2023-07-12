@@ -4,6 +4,7 @@ import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/domain/model/employee.dart';
 import 'package:vemare/app/domain/model/enterprise.dart';
 import 'package:vemare/app/domain/model/user_data.dart';
+import 'package:vemare/app/domain/model/vemare_contacts.dart';
 import 'package:vemare/app/view/shared/userbloc/user_state.dart';
 
 class UserCubit extends Cubit<UserState> {
@@ -31,7 +32,8 @@ class UserCubit extends Cubit<UserState> {
   }
 
   Future<void> getUser() async {
-    print(' =========================>>   GETUSER');
+    VemareContacts? contacts = await _authRepository.getVemareContacts();
+    emit(state.copyWith(contacts: contacts));
     if (!LocalDataRepository().isLogged) return;
     UserData? user = await _authRepository.getUser();
     emit(state.copyWith(user: user));

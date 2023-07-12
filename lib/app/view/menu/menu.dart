@@ -481,65 +481,54 @@ class _Menu extends StatelessWidget {
                   ),
                 ),
                 divider,
-                _MenuItemExpand(
-                    title: 'Mis contactos Vemare',
-                    icon: Image.asset(
-                      'assets/icons/Phone.png',
-                      scale: 2,
-                      color: AppColor.white,
-                    ),
-                    children: !LocalDataRepository().isLogged
-                        ? [
-                            _MenuItem(
-                              onTap: () =>
-                                  _callDialog(context, number: '916496020'),
-                              title: 'Contacto',
-                              subtitle: '916 496 020',
-                            )
-                          ]
-                        : LocalDataRepository()
-                            .user!
-                            .webservice!
-                            .comerciales!
-                            .map((e) {
-                            if ((e.telefono == null || e.telefono == '')) {
-                              return const SizedBox();
-                            } else {
-                              return _MenuItem(
-                                onTap: () => _callDialog(context,
-                                    number: e.telefono == ''
-                                        ? '000000000'
-                                        : e.telefono ?? '000000000'),
-                                title: e.tipoComercial ?? '',
-                                subtitle: e.telefono == ''
-                                    ? '000 000 000'
-                                    : '${e.telefono?.split('').getRange(0, 3).join()}  ${e.telefono?.split('').getRange(3, 6).join()}  ${e.telefono?.split('').getRange(6, 9).join()}',
-                              );
-                            }
-                          }).toList()),
+                BlocBuilder<UserCubit, UserState>(
+                  builder: (context, state) {
+                    return _MenuItemExpand(
+                        title: 'Mis contactos Vemare',
+                        icon: Image.asset(
+                          'assets/icons/Phone.png',
+                          scale: 2,
+                          color: AppColor.white,
+                        ),
+                        children: state.contacts!.comerciales!.map((e) {
+                          if (e.phone == null || e.phone == '') {
+                            return const SizedBox();
+                          }
+                          return _MenuItem(
+                            onTap: () => _callDialog(context,
+                                number: e.phone == ''
+                                    ? '000000000'
+                                    : e.phone ?? '000000000'),
+                            title: e.name ?? '',
+                            subtitle: e.phone == ''
+                                ? '000 000 000'
+                                : '${e.phone?.split('').getRange(0, 3).join()}  ${e.phone?.split('').getRange(3, 6).join()}  ${e.phone?.split('').getRange(6, 9).join()}',
+                          );
+                        }).toList());
+                  },
+                ),
                 spacerL,
                 if (LocalDataRepository().isLogged)
-                  ConfirmationSlider(
-                    onConfirmation: () async {
-                      final number = LocalDataRepository()
-                              .user!
-                              .webservice
-                              ?.centroReparto?[0]
-                              .telefonos ??
-                          '000000000';
-                      await launchUrlString('tel:$number');
+                  BlocBuilder<UserCubit, UserState>(
+                    builder: (context, state) {
+                      return ConfirmationSlider(
+                        onConfirmation: () async {
+                          await launchUrlString(
+                              'tel:${state.contacts?.centroReparto?.phone ?? '000000000'}');
+                        },
+                        backgroundColor: AppColor.blue,
+                        foregroundColor: AppColor.blue200,
+                        iconColor: AppColor.blue,
+                        text: 'Hacer pedido telefónico',
+                        sliderButtonContent: Image.asset(
+                          'assets/icons/arrow_next.png',
+                          scale: 2,
+                        ),
+                        width: MediaQuery.of(context).size.width * .85,
+                        textStyle: AppTextStyle.linkStyle
+                            .copyWith(color: AppColor.white),
+                      );
                     },
-                    backgroundColor: AppColor.blue,
-                    foregroundColor: AppColor.blue200,
-                    iconColor: AppColor.blue,
-                    text: 'Hacer pedido telefónico',
-                    sliderButtonContent: Image.asset(
-                      'assets/icons/arrow_next.png',
-                      scale: 2,
-                    ),
-                    width: MediaQuery.of(context).size.width * .85,
-                    textStyle:
-                        AppTextStyle.linkStyle.copyWith(color: AppColor.white),
                   ),
                 spacerL,
               ],

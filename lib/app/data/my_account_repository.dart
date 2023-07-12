@@ -61,10 +61,17 @@ class MyAccountRepository {
           '$BASE_API_URL/api/mi-cuenta/garantias',
           body: filter?.toJson());
       return AnswerWithFilters(
-          data: (res["data"]["datos"]["garantias"] as List)
-              .map(Warranty.fromJson)
-              .toList(),
-          filter: res['filters']);
+        data: (res["data"]["datos"]["garantias"] as List)
+            .map(Warranty.fromJson)
+            .toList(),
+        filter: res['filters'],
+        totalImporteCliente:
+            res["data"]["datos"]["total_importe_cliente"] as int?,
+        totalImporteVemare:
+            res["data"]["datos"]["total_importe_vemare"] as int?,
+        totalImporteGarantia:
+            res["data"]["datos"]["total_importe_garantias"] as int?,
+      );
     } catch (e) {
       return AnswerWithFilters(data: []);
     }
