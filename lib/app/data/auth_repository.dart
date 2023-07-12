@@ -30,6 +30,26 @@ class AuthRepository {
     LocalDataRepository().user = user;
   }
 
+  Future<String?> recoverPassword({required String email}) async {
+    final body = <String, dynamic>{'email': email};
+    final dynamic res = await apiClient
+        .postRequest('$BASE_API_URL/api/recovery-password', body: body);
+    return res["message"];
+  }
+
+  /*
+  ERROR=>
+  {
+    "error": "error",
+    "message": "Lo sentimos, no hemos podido encontrar ningún usuario registrado con el correo electrónico ingresado. Por favor, asegúrate de que el correo electrónico ingresado sea el correcto e inténtalo de nuevo."
+}
+SUCCESS
+{
+    "response": "success",
+    "message": "Se ha enviado un correo a empresa@gmail.com para restablecer la contraseña. Por favor, revisa tu bandeja de entrada e sigue las instrucciones. Si necesitas ayuda, contáctanos."
+}
+  */
+
   Future<void> registerEnterprise(Map<String, dynamic> data) async {
     await apiClient.postRequest(
       '$BASE_API_URL/api/register',

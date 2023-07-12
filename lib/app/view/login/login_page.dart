@@ -11,6 +11,7 @@ import 'package:vemare/app/view/_components/tap_to_hide_keyboard/tap_to_hide_key
 import 'package:vemare/app/view/home/home_page.dart';
 import 'package:vemare/app/view/login/bloc/login_cubit.dart';
 import 'package:vemare/app/view/login/bloc/login_state.dart';
+import 'package:vemare/app/view/recover_password/recover_password_page.dart';
 import 'package:vemare/app/view/register/register_page.dart';
 import 'package:vemare/app/view/shared/userbloc/user_cubit.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
@@ -113,7 +114,9 @@ class LoginPage extends StatelessWidget {
                     hasError: state.status == FormStatus.error,
                   ),
                   MyButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, RecoverPasswordPage.route);
+                    },
                     text: 'He olvidado mi contraseña',
                     variant: MyButtonVariant.containedSecondary,
                   ),

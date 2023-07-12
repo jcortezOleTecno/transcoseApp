@@ -77,6 +77,7 @@ import 'my_services/sat/sat_intro_page.dart';
 import 'my_services/sat/sat_page.dart';
 import 'pills/pills_details.dart';
 import 'promotions/promotion/promotion_page.dart';
+import 'recover_password/recover_password_page.dart';
 import 'shopping_cart/data_pay.dart';
 
 abstract class AppRouter {
@@ -94,6 +95,11 @@ abstract class AppRouter {
         return MaterialPageRoute<void>(
           settings: settings,
           builder: (_) => LoginPage.create(msgGoBack: msgGoBack),
+        );
+      case RecoverPasswordPage.route:
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => RecoverPasswordPage.create(),
         );
       case RegisterPage.route:
         return MaterialPageRoute<void>(
