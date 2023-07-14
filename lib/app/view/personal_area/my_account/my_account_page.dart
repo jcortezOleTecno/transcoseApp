@@ -239,24 +239,26 @@ class ImageProfile extends StatelessWidget {
                           scale: 2,
                         ),
             ),
-            SizedBox(
-              width: 220,
-              child: MyIconButton(
-                onPressed: () {
-                  ImageUtil.getImagePicker(
-                    context,
-                    ImageSource.gallery,
-                    cubit.updatePhoto,
-                  );
-                },
-                text: 'Cargar otra imagen',
-                icon: Image.asset(
-                  'assets/icons/mas.png',
-                  scale: 2,
-                ),
-                variant: MyButtonVariant.link,
-              ),
-            )
+            LocalDataRepository().user?.role?.id == 2
+                ? SizedBox(
+                    width: 220,
+                    child: MyIconButton(
+                      onPressed: () {
+                        ImageUtil.getImagePicker(
+                          context,
+                          ImageSource.gallery,
+                          cubit.updatePhoto,
+                        );
+                      },
+                      text: 'Cargar otra imagen',
+                      icon: Image.asset(
+                        'assets/icons/mas.png',
+                        scale: 2,
+                      ),
+                      variant: MyButtonVariant.link,
+                    ),
+                  )
+                : spacerXL
           ],
         );
       },

@@ -120,19 +120,22 @@ class _RegisterPageState extends State<RegisterPage> {
                           hasError: state.status == FormStatus.error,
                           onChanged: cubit.name,
                         )
-                      : MyInputAutoComplete(
-                          keyComplete: key,
-                          suggestions:
-                              state.enterprises.map((e) => e.name).toList(),
-                          hintText: 'Escribe una empresa',
-                          label: 'Nombre de la empresa *',
-                          textInputAction: TextInputAction.search,
-                          textCapitalization: TextCapitalization.words,
-                          textSubmitted: (name) {
-                            var enterprise = state.enterprises
-                                .firstWhere((e) => e.name == name);
-                            cubit.enterprise(enterprise);
-                          },
+                      : Padding(
+                          padding: const EdgeInsets.only(bottom: 21),
+                          child: MyInputAutoComplete(
+                            keyComplete: key,
+                            suggestions:
+                                state.enterprises.map((e) => e.name).toList(),
+                            hintText: 'Nombre de la empresa',
+                            label: 'Nombre de la empresa *',
+                            textInputAction: TextInputAction.search,
+                            textCapitalization: TextCapitalization.words,
+                            textSubmitted: (name) {
+                              var enterprise = state.enterprises
+                                  .firstWhere((e) => e.name == name);
+                              cubit.enterprise(enterprise);
+                            },
+                          ),
                         ),
 
                   /*Column(
@@ -159,42 +162,41 @@ class _RegisterPageState extends State<RegisterPage> {
                             spacerM,
                           ],
                         )*/
-                  spacerS,
-                  Visibility(
-                    visible: isEmpresa,
-                    replacement: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        const Text('Rol profesional *',
-                            style: AppTextStyle.inputLabelStyle),
-                        MyCustomDropdownButton<UserRol>(
-                          hint: 'Seleccione una opción',
-                          value: state.selectedRol,
-                          dropdownItems: state.roles
-                              .map((item) => DropdownMenuItem(
-                                    value: item,
-                                    child: Text(
-                                      item.name,
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
-                                      style: AppTextStyle.inputStyle,
-                                    ),
-                                  ))
-                              .toList(),
-                          onChanged: cubit.rol,
-                        ),
-                        spacerM,
-                      ],
-                    ),
-                    child: MyInput(
-                      label: 'CIF',
-                      hintText: 'Código de identificación fiscal',
-                      required: true,
-                      onChanged: cubit.cif,
-                      hasError: state.status == FormStatus.error,
-                    ),
-                  ),
-                  spacerS,
+                  // spacerS,
+                  // Visibility(
+                  //   visible: isEmpresa,
+                  //   replacement: Column(
+                  //     crossAxisAlignment: CrossAxisAlignment.stretch,
+                  //     children: [
+                  //       const Text('Rol profesional *',
+                  //           style: AppTextStyle.inputLabelStyle),
+                  //       MyCustomDropdownButton<UserRol>(
+                  //         hint: 'Seleccione una opción',
+                  //         value: state.selectedRol,
+                  //         dropdownItems: state.roles
+                  //             .map((item) => DropdownMenuItem(
+                  //                   value: item,
+                  //                   child: Text(
+                  //                     item.name,
+                  //                     overflow: TextOverflow.ellipsis,
+                  //                     maxLines: 1,
+                  //                     style: AppTextStyle.inputStyle,
+                  //                   ),
+                  //                 ))
+                  //             .toList(),
+                  //         onChanged: cubit.rol,
+                  //       ),
+                  //       spacerM,
+                  //     ],
+                  //   ),
+                  //   child: MyInput(
+                  //     label: 'CIF',
+                  //     hintText: 'Código de identificación fiscal',
+                  //     required: true,
+                  //     onChanged: cubit.cif,
+                  //     hasError: state.status == FormStatus.error,
+                  //   ),
+                  // ),
                   MyInput(
                     label: 'E-mail',
                     hintText: 'Dirección de correo electrónico',

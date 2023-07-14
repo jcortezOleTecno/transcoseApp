@@ -1,3 +1,5 @@
+import 'role.dart';
+
 class UserData {
   final String? name;
   final String? email;
@@ -11,7 +13,7 @@ class UserData {
   final String? postalCode;
   final String? responsibleName;
   final String? responsibleLastname;
-  final int? roleId;
+  final Role? role;
   final int? parentId;
   final String? status;
   String? logo;
@@ -31,7 +33,7 @@ class UserData {
     this.postalCode,
     this.responsibleName,
     this.responsibleLastname,
-    this.roleId,
+    this.role,
     this.parentId,
     this.status,
     this.logo,
@@ -53,7 +55,7 @@ class UserData {
       postalCode: map["postal_code"] as String?,
       responsibleName: map["responsible_name"] as String?,
       responsibleLastname: map["responsible_lastname"] as String?,
-      roleId: map["role_id"] as int?,
+      role: map["role"] == null ? null : Role.fromJson(map["role"]),
       parentId: map["parent_id"] as int?,
       status: map["status"] as String?,
       logo: map["logo"] as String?,
@@ -78,7 +80,7 @@ class UserData {
       'postal_code': postalCode,
       'responsible_name': responsibleName,
       'responsible_lastname': responsibleLastname,
-      'role_id': roleId,
+      "role": role?.toJson(),
       'parent_id': parentId,
       'status': status,
       'logo': logo,

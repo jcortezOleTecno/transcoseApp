@@ -47,7 +47,11 @@ class MyHtml extends StatelessWidget {
         ),
         "span": Style(
           fontSize: FontSize(23),
-        )
+        ),
+        "br": Style(
+          lineHeight: const LineHeight(0.2, units: "px"),
+          whiteSpace: WhiteSpace.normal,
+        ),
       },
       onLinkTap: (url, context, attributes, element) {
         launchUrlString(url ?? '');

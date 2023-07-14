@@ -72,7 +72,10 @@ class MyEventsPage extends StatelessWidget {
 
                             if (!state.loading && state.eventsVemare.isEmpty) {
                               return const NoResultWidget(
-                                  "Actualmente no tienes contratado este servicio. Si quieres más información contacta con tu comercial habitual");
+                                "Actualmente no tienes contratado este servicio. ",
+                                subTittle:
+                                    "Si quieres más información contacta con tu comercial habitual",
+                              );
                             }
                             return Wrap(
                               runSpacing: 15,

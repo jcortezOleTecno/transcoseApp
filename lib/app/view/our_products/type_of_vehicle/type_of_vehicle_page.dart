@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vemare/app/data/products_repository.dart';
+import 'package:vemare/app/domain/model/category.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_filter_image/my_filter_image.dart';
 import 'package:vemare/app/view/_components/my_network_image/my_network_image.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/our_products/product/product_page.dart';
 import 'package:vemare/app/view/our_products/products_categories/our_products_page.dart';
 import 'package:vemare/app/view/our_products/type_of_vehicle/bloc/type_of_vehicle_state.dart';
+import 'package:vemare/app/view/promotions/promotion/promotion_page.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
@@ -18,10 +21,11 @@ class TypeOfVehiclePage extends StatelessWidget {
   const TypeOfVehiclePage._();
   static const route = '/type_of_vehicle';
 
-  static Widget create() {
+  static Widget create(Category? category) {
     return BlocProvider(
       create: (context) => TypeOfVehicleCubit(
         getIt<ProductsRepository>(),
+        category,
       ),
       child: const TypeOfVehiclePage._(),
     );
@@ -70,6 +74,24 @@ class TypeOfVehiclePage extends StatelessWidget {
                       ),
                     )
                     .toList(),
+                if (state.category != null)
+                  ...state.category!.typeVehicle!
+                      .map(
+                        (e) => Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: GestureDetector(
+                            onTap: () => Navigator.pushNamed(
+                                context, ProductPage.route,
+                                arguments:
+                                    SearchArgs(category: state.category)),
+                            child: TypeVehicleCard(
+                                title: e.name ?? '',
+                                img: e.image ?? '',
+                                subtitle: e.subtitle ?? ''),
+                          ),
+                        ),
+                      )
+                      .toList(),
               ],
             ),
           ));

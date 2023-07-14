@@ -21,6 +21,5 @@ class WorkshopNetworksState with _$WorkshopNetworksState {
   }) = _WorkshopNetworksState;
   const WorkshopNetworksState._();
 
-  bool get isComplete =>
-      name != null && email != null && phone != null && observation != null;
+  bool get isComplete => name != null && email != null && phone != null;
 }

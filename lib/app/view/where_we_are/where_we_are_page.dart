@@ -198,10 +198,13 @@ class _Item extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(center.name ?? '', style: AppTextStyle.titleCard),
-                  spacerS,
-                  MyHtml(text: center.description ?? '')
+                  // spacerS,
                 ],
               ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: MyHtml(text: center.description ?? ''),
             )
           ],
         ),

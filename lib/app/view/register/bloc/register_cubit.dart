@@ -17,10 +17,11 @@ class RegisterCubit extends Cubit<RegisterState> {
   final AuthRepository _authRepository;
 
   Future<void> getUserOpt() async {
-    var roles = await _authRepository.getUserRoles();
+    print("================>>   getEnterprise");
+    // var roles = await _authRepository.getUserRoles();
     var enterprises = await _authRepository.getEnterprise();
     emit(state.copyWith(
-      roles: roles,
+      // roles: roles,
       enterprises: enterprises,
     ));
   }
@@ -29,9 +30,9 @@ class RegisterCubit extends Cubit<RegisterState> {
     emit(state.copyWith(selectedEnterprise: enterprise!));
   }
 
-  void rol(UserRol? rol) {
-    emit(state.copyWith(selectedRol: rol!));
-  }
+  // void rol(UserRol? rol) {
+  //   emit(state.copyWith(selectedRol: rol!));
+  // }
 
   void name(String name) {
     emit(state.copyWith(status: FormStatus.editing, name: name));
@@ -152,7 +153,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         "parent_id": state.selectedEnterprise!.id.toString(),
         "name": state.responsibleName,
         "lastname": state.responsibleLastName,
-        "role_id": state.selectedRol!.id.toString(),
+        // "role_id": state.selectedRol!.id.toString(),
         "phone": state.phone,
         "email": state.email!.value,
         "password": state.password!.value,

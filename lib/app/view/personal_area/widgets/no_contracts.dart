@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
 class NoExistWidget extends StatelessWidget {
@@ -26,11 +28,13 @@ class NoExistWidget extends StatelessWidget {
 
 class NoResultWidget extends StatelessWidget {
   const NoResultWidget(
-    this.text, {
+    this.tittle, {
+    this.subTittle,
     this.paddingTop,
     Key? key,
   }) : super(key: key);
-  final String text;
+  final String tittle;
+  final String? subTittle;
   final double? paddingTop;
 
   @override
@@ -38,10 +42,38 @@ class NoResultWidget extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(top: paddingTop ?? 100),
       child: Center(
-        child: Text(
-          text,
-          textAlign: TextAlign.center,
-          style: AppTextStyle.h3Style,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Container(
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColor.blue100,
+                ),
+                height: 50,
+                width: 50,
+                child: Image.asset(
+                  'assets/icons/emoji-sad.png',
+                  color: AppColor.primaryBlue,
+                  scale: 2,
+                ),
+              ),
+            ),
+            spacerM,
+            Text(
+              tittle,
+              textAlign: TextAlign.center,
+              style: AppTextStyle.h3Style,
+            ),
+            spacerXs,
+            Text(
+              subTittle ?? '',
+              textAlign: TextAlign.center,
+              style: AppTextStyle.defaultStyle,
+            ),
+          ],
         ),
       ),
     );

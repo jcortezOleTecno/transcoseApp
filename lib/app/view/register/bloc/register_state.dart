@@ -53,7 +53,7 @@ class RegisterState with _$RegisterState {
       responsibleName != '' &&
       responsibleLastName != null &&
       responsibleLastName != '' &&
-      selectedRol != null &&
+      // selectedRol != null &&
       phone != null &&
       phone != '' &&
       email != null &&

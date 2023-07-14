@@ -60,11 +60,16 @@ class SatState with _$SatState {
       tipoAveria != null &&
       tipoIncidencia != null &&
       codCliente != null &&
+      codCliente?.value != ' ' &&
       razonSocial != null &&
+      razonSocial!.value != ' ' &&
       poblacion != null &&
+      poblacion!.value != ' ' &&
       persona != null &&
-      telefono !=
-          null && /*
+      persona!.value != ' ' &&
+      telefono != null &&
+      telefono!.value != ' ' &&
+      /*
       fechaCita != null &&
       franjaHoraria != null &&*/
       email != null;

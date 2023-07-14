@@ -164,8 +164,8 @@ class _WorkshopNetworksPageState extends State<WorkshopNetworksPage> {
                               ),
                               MyInput(
                                 label: 'Observaciones',
-                                required: true,
                                 maxLines: 6,
+                                hintText: 'Escribe aquí',
                                 controller: tcObserv,
                                 onChanged: cubit.observation,
                                 hasError: state.status == FormStatus.error,

@@ -4,6 +4,7 @@ import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_html/my_html.dart';
+import 'package:vemare/app/view/_components/my_network_image/my_network_image.dart';
 import '../../_components/my_spacer/my_spacer.dart';
 import '../../theme/text_style.dart';
 import 'sat_page.dart';
@@ -22,8 +23,8 @@ class SatIntroPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const MyBackButton(),
-            Image.network(
-              sat.image ?? '',
+            MyNetworkImage(
+              image: sat.image ?? '',
               height: 250,
               width: double.infinity,
               fit: BoxFit.cover,
@@ -40,10 +41,6 @@ class SatIntroPage extends StatelessWidget {
                     ),
                     spacerS,
                     MyHtml(text: sat.description ?? '')
-                    /*Text(
-                      '''Nuestro Servicio de Asistencia Técnica, siempre preparado para ofrecerte el mejor servicio. 
-Seleccione la sección correspondiente a la consulta que desea realizar, y rellene los datos solicitados. Contactaremos con usted en el menor tiempo posible para solventar su incidencia.''',
-                    ),*/
                   ],
                 ),
               ),

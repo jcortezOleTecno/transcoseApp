@@ -164,9 +164,11 @@ class _EnrollEventPageState extends State<EnrollEventPage> {
                         color: AppColor.primaryBlue,
                       ),
                       spacerS,
-                      Text(
-                        horario.location ?? '',
-                        style: AppTextStyle.defaultStyle,
+                      Expanded(
+                        child: Text(
+                          horario.location ?? '',
+                          style: AppTextStyle.defaultStyle,
+                        ),
                       )
                     ],
                   ),

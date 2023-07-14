@@ -483,6 +483,9 @@ class _Menu extends StatelessWidget {
                 divider,
                 BlocBuilder<UserCubit, UserState>(
                   builder: (context, state) {
+                    if (state.contacts == null) {
+                      return const SizedBox();
+                    }
                     return _MenuItemExpand(
                         title: 'Mis contactos Vemare',
                         icon: Image.asset(
@@ -641,7 +644,13 @@ class _HeaderMenu extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 4, vertical: 2),
                           color: AppColor.white,
-                          child: Text('GERENTE',
+                          child: Text(
+                              LocalDataRepository()
+                                      .user
+                                      ?.role
+                                      ?.name
+                                      ?.toUpperCase() ??
+                                  '',
                               style: AppTextStyle.menuStyle
                                   .copyWith(color: AppColor.primaryBlue)),
                         ),

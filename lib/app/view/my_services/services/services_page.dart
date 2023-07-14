@@ -271,6 +271,7 @@ class _ServicesPageState extends State<ServicesPage> {
                             label: 'Asunto',
                             required: true,
                             maxLines: 6,
+                            hintText: 'Escribe aquí',
                             textInputAction: TextInputAction.newline,
                             controller: tcMsg,
                             onChanged: cubit.message,

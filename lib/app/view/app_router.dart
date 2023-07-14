@@ -118,9 +118,10 @@ abstract class AppRouter {
           builder: (_) => WorkWithUsPage.create(workWithUs!),
         );
       case TypeOfVehiclePage.route:
+        final category = settings.arguments as Category?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => TypeOfVehiclePage.create(),
+          builder: (_) => TypeOfVehiclePage.create(category),
         );
       case OurProductsPage.route:
         final typeVehicle = settings.arguments as TypeOfVehicle?;

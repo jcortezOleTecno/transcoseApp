@@ -292,6 +292,7 @@ class _FormEquipamentoState extends State<FormEquipamento> {
                 label: 'Tipo averia',
                 required: true,
                 maxLines: 6,
+                hintText: "Escribe aquí",
                 textInputAction: TextInputAction.newline,
                 controller: tctipoAveria,
                 onChanged: cubit.tipoAveria,
@@ -360,7 +361,7 @@ class _FormEquipamentoState extends State<FormEquipamento> {
               ),
               MyInput(
                 key: const Key('persona'),
-                label: 'Persona*',
+                label: 'Persona de contacto*',
                 hintText: 'Persona',
                 onChanged: cubit.persona,
                 textInputAction: TextInputAction.next,
@@ -398,6 +399,8 @@ class _FormEquipamentoState extends State<FormEquipamento> {
                           : state.fechaCita!,
                       onPressed: () async {
                         FocusScope.of(context).requestFocus(FocusNode());
+
+                        await Future.delayed(const Duration(milliseconds: 200));
 
                         DateTime initialDate = DateTime(DateTime.now().year,
                             DateTime.now().month, DateTime.now().day);
