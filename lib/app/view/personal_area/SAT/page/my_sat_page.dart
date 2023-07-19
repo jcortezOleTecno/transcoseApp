@@ -8,6 +8,7 @@ import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_filters/my_filters.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/access_denied/access_denied_page.dart';
 import 'package:vemare/app/view/personal_area/SAT/details/sat_detail.dart';
 import 'package:vemare/app/view/personal_area/widgets/item_card.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
@@ -34,56 +35,62 @@ class MySatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<MySatCubit>();
+    final permissions = LocalDataRepository().user?.permissions;
+    final isEmpleado = LocalDataRepository().user?.role?.id == 4;
+
     return Scaffold(
       body: MyBody(
-        child: BlocBuilder<MySatCubit, MySatState>(
-          builder: (context, state) {
-            return SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const Text('SAT', style: AppTextStyle.h1Style),
-                  Text(
-                    LocalDataRepository().user?.name ?? '',
-                    style: AppTextStyle.h3Style.copyWith(
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                  spacerM,
-                  MyIconButton(
-                    onPressed: () {
-                      myFilters(context, status: true).then((filter) {
-                        if (filter != null) {
-                          cubit.getSats(filter: filter);
-                        }
-                      });
-                    },
-                    text: 'Aplicar filtros',
-                    icon: Image.asset(
-                      'assets/icons/Filtro.png',
-                      scale: 2,
-                    ),
-                    variant: MyButtonVariant.outlinedBold,
-                  ),
-                  spacerL,
-                  if (state.loading)
-                    ...List.generate(2, (i) {
-                      return const Padding(
-                        padding: EdgeInsets.only(bottom: 20),
-                        child: MyShimmer(
-                          height: 310,
-                          margin: EdgeInsets.zero,
+        child: permissions!.where((e) => e.id == 4).isEmpty && isEmpleado
+            ? const AccessDeniedWidget()
+            : BlocBuilder<MySatCubit, MySatState>(
+                builder: (context, state) {
+                  return SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 25),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        const Text('SAT', style: AppTextStyle.h1Style),
+                        Text(
+                          LocalDataRepository().user?.name ?? '',
+                          style: AppTextStyle.h3Style.copyWith(
+                            fontWeight: FontWeight.normal,
+                          ),
                         ),
-                      );
-                    }),
-                  if (!state.loading)
-                    ...state.sats.map((e) => _SATCard(e)).toList(),
-                ],
+                        spacerM,
+                        MyIconButton(
+                          onPressed: () {
+                            myFilters(context, status: true).then((filter) {
+                              if (filter != null) {
+                                cubit.getSats(filter: filter);
+                              }
+                            });
+                          },
+                          text: 'Aplicar filtros',
+                          icon: Image.asset(
+                            'assets/icons/Filtro.png',
+                            scale: 2,
+                          ),
+                          variant: MyButtonVariant.outlinedBold,
+                        ),
+                        spacerL,
+                        if (state.loading)
+                          ...List.generate(2, (i) {
+                            return const Padding(
+                              padding: EdgeInsets.only(bottom: 20),
+                              child: MyShimmer(
+                                height: 310,
+                                margin: EdgeInsets.zero,
+                              ),
+                            );
+                          }),
+                        if (!state.loading)
+                          ...state.sats.map((e) => _SATCard(e)).toList(),
+                      ],
+                    ),
+                  );
+                },
               ),
-            );
-          },
-        ),
       ),
     );
   }

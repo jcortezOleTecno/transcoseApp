@@ -9,6 +9,7 @@ import 'package:vemare/app/view/_components/my_filters/my_filters.dart';
 import 'package:vemare/app/view/_components/my_filters_applied/my_filter_applied.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/access_denied/access_denied_page.dart';
 import 'package:vemare/app/view/personal_area/my_orders/my_orders/bloc/my_orders_cubit.dart';
 import 'package:vemare/app/view/personal_area/my_orders/my_orders/bloc/my_orders_state.dart';
 import 'package:vemare/app/view/personal_area/my_orders/warranty_details/warranty_details_page.dart';
@@ -92,62 +93,70 @@ class _MyOrders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<MyOrdersCubit>();
-    return BlocBuilder<MyOrdersCubit, MyOrdersState>(
-      builder: (context, state) {
-        return ListView(
-          padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
-          children: [
-            spacerS,
-            const Text('Mis pedidos', style: AppTextStyle.h2Style),
-            Text(
-              LocalDataRepository().user?.name ?? '',
-              style: AppTextStyle.h3Style.copyWith(
-                fontWeight: FontWeight.normal,
-              ),
-            ),
-            spacerM,
-            MyIconButton(
-              onPressed: () {
-                myFilters(context).then((filter) {
-                  if (filter != null) {
-                    cubit.getMyOrders(filter: filter);
-                  }
-                });
-              },
-              text: 'Aplicar filtros',
-              icon: Image.asset(
-                'assets/icons/Filtro.png',
-                scale: 2,
-              ),
-              variant: MyButtonVariant.outlinedBold,
-            ),
-            if (state.filterPedidos != null)
-              FiltersAppliedWidget(state.filterPedidos!),
-            spacerL,
-            if (!state.loading && state.orders.isEmpty)
-              const NoExistWidget('pedidos'),
-            if (state.loading)
-              ...List.generate(
-                  3,
-                  (_) => const Padding(
-                        padding: EdgeInsets.only(bottom: 20),
-                        child: MyShimmer(height: 230, margin: EdgeInsets.zero),
-                      )),
-            if (!state.loading)
-              ...state.orders.map((e) => AlbaranCard(e)).toList(),
-            // MyIconButton(
-            //   onPressed: () {},
-            //   text: 'Firmar',
-            //   icon: Image.asset(
-            //     'assets/icons/firma.png',
-            //     scale: 2,
-            //   ),
-            // ),
-            // spacerM?,
-          ],
-        );
-      },
-    );
+    final permissions = LocalDataRepository().user?.permissions;
+    final isEmpleado = LocalDataRepository().user?.role?.id == 4;
+    return permissions!.where((e) => e.id == 7).isEmpty && isEmpleado
+        ? const Padding(
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+            child: AccessDeniedWidget(),
+          )
+        : BlocBuilder<MyOrdersCubit, MyOrdersState>(
+            builder: (context, state) {
+              return ListView(
+                padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+                children: [
+                  spacerS,
+                  const Text('Mis pedidos', style: AppTextStyle.h2Style),
+                  Text(
+                    LocalDataRepository().user?.name ?? '',
+                    style: AppTextStyle.h3Style.copyWith(
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                  spacerM,
+                  MyIconButton(
+                    onPressed: () {
+                      myFilters(context).then((filter) {
+                        if (filter != null) {
+                          cubit.getMyOrders(filter: filter);
+                        }
+                      });
+                    },
+                    text: 'Aplicar filtros',
+                    icon: Image.asset(
+                      'assets/icons/Filtro.png',
+                      scale: 2,
+                    ),
+                    variant: MyButtonVariant.outlinedBold,
+                  ),
+                  if (state.filterPedidos != null)
+                    FiltersAppliedWidget(state.filterPedidos!),
+                  spacerL,
+                  if (!state.loading && state.orders.isEmpty)
+                    const NoExistWidget('pedidos'),
+                  if (state.loading)
+                    ...List.generate(
+                        3,
+                        (_) => const Padding(
+                              padding: EdgeInsets.only(bottom: 20),
+                              child: MyShimmer(
+                                  height: 230, margin: EdgeInsets.zero),
+                            )),
+                  if (!state.loading)
+                    ...state.orders.map((e) => AlbaranCard(e)).toList(),
+                  // MyIconButton(
+                  //   onPressed: () {},
+                  //   text: 'Firmar',
+                  //   icon: Image.asset(
+                  //     'assets/icons/firma.png',
+                  //     scale: 2,
+                  //   ),
+                  // ),
+                  // spacerM?,
+                ],
+              );
+            },
+          );
   }
 }
 
@@ -159,82 +168,91 @@ class _MyWarranty extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<MyOrdersCubit>();
+    final permissions = LocalDataRepository().user?.permissions;
+    final isEmpleado = LocalDataRepository().user?.role?.id == 4;
 
-    return BlocBuilder<MyOrdersCubit, MyOrdersState>(
-      builder: (context, state) {
-        return ListView(
-          padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
-          children: [
-            spacerS,
-            const Text('Mis garantías', style: AppTextStyle.h2Style),
-            Text(
-              LocalDataRepository().user?.name ?? '',
-              style: AppTextStyle.h3Style.copyWith(
-                fontWeight: FontWeight.normal,
-              ),
-            ),
-            spacerM,
-            Visibility(
-              visible: state.statusWarranty != null,
-              replacement: const MyShimmer(
-                margin: EdgeInsets.zero,
-                height: 55,
-                borderRadius: 30,
-              ),
-              child: MyIconButton(
-                onPressed: () {
-                  myFilters(context,
-                          estadosSustitucion:
-                              state.statusWarranty!.estadosSustitucion,
-                          estadosTramitacion:
-                              state.statusWarranty!.estadosTramitacion)
-                      .then((filter) {
-                    if (filter != null) {
-                      cubit.getMyWarranty(filter: filter);
-                    }
-                  });
-                },
-                text: 'Aplicar filtros',
-                icon: Image.asset(
-                  'assets/icons/Filtro.png',
-                  scale: 2,
-                ),
-                variant: MyButtonVariant.outlinedBold,
-              ),
-            ),
-            if (state.filterGarantias != null)
-              FiltersAppliedWidget(state.filterGarantias!),
-            spacerL,
-            if (state.guarantee.isNotEmpty && !state.loading) const _Total(),
-            spacerL,
-            if (!state.loading && state.guarantee.isEmpty)
-              const NoExistWidget('garantías'),
-            if (state.loading)
-              ...List.generate(
-                  3,
-                  (_) => const Padding(
-                        padding: EdgeInsets.only(bottom: 20),
-                        child: MyShimmer(height: 160, margin: EdgeInsets.zero),
-                      )),
-            if (!state.loading)
-              ...state.guarantee
-                  .map(
-                    (e) => WarrantyCard(
-                      e,
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          WarrantyDetailPage.route,
-                          arguments: e,
-                        );
-                      },
+    return permissions!.where((e) => e.id == 12).isEmpty && isEmpleado
+        ? const Padding(
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+            child: AccessDeniedWidget(),
+          )
+        : BlocBuilder<MyOrdersCubit, MyOrdersState>(
+            builder: (context, state) {
+              return ListView(
+                padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+                children: [
+                  spacerS,
+                  const Text('Mis garantías', style: AppTextStyle.h2Style),
+                  Text(
+                    LocalDataRepository().user?.name ?? '',
+                    style: AppTextStyle.h3Style.copyWith(
+                      fontWeight: FontWeight.normal,
                     ),
-                  )
-                  .toList(),
-          ],
-        );
-      },
-    );
+                  ),
+                  spacerM,
+                  Visibility(
+                    visible: state.statusWarranty != null,
+                    replacement: const MyShimmer(
+                      margin: EdgeInsets.zero,
+                      height: 55,
+                      borderRadius: 30,
+                    ),
+                    child: MyIconButton(
+                      onPressed: () {
+                        myFilters(context,
+                                estadosSustitucion:
+                                    state.statusWarranty!.estadosSustitucion,
+                                estadosTramitacion:
+                                    state.statusWarranty!.estadosTramitacion)
+                            .then((filter) {
+                          if (filter != null) {
+                            cubit.getMyWarranty(filter: filter);
+                          }
+                        });
+                      },
+                      text: 'Aplicar filtros',
+                      icon: Image.asset(
+                        'assets/icons/Filtro.png',
+                        scale: 2,
+                      ),
+                      variant: MyButtonVariant.outlinedBold,
+                    ),
+                  ),
+                  if (state.filterGarantias != null)
+                    FiltersAppliedWidget(state.filterGarantias!),
+                  spacerL,
+                  if (state.guarantee.isNotEmpty && !state.loading)
+                    const _Total(),
+                  spacerL,
+                  if (!state.loading && state.guarantee.isEmpty)
+                    const NoExistWidget('garantías'),
+                  if (state.loading)
+                    ...List.generate(
+                        3,
+                        (_) => const Padding(
+                              padding: EdgeInsets.only(bottom: 20),
+                              child: MyShimmer(
+                                  height: 160, margin: EdgeInsets.zero),
+                            )),
+                  if (!state.loading)
+                    ...state.guarantee
+                        .map(
+                          (e) => WarrantyCard(
+                            e,
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                WarrantyDetailPage.route,
+                                arguments: e,
+                              );
+                            },
+                          ),
+                        )
+                        .toList(),
+                ],
+              );
+            },
+          );
   }
 }
 
@@ -313,53 +331,62 @@ class _MyBills extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<MyOrdersCubit>();
-    return BlocBuilder<MyOrdersCubit, MyOrdersState>(
-      builder: (context, state) {
-        return ListView(
-          padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
-          children: [
-            spacerS,
-            const Text('Mis abonos', style: AppTextStyle.h2Style),
-            Text(
-              LocalDataRepository().user?.name ?? '',
-              style: AppTextStyle.h3Style.copyWith(
-                fontWeight: FontWeight.normal,
-              ),
-            ),
-            spacerM,
-            MyIconButton(
-              onPressed: () {
-                myFilters(context).then((filter) {
-                  if (filter != null) {
-                    cubit.getMyBills(filter: filter);
-                  }
-                });
-              },
-              text: 'Aplicar filtros',
-              icon: Image.asset(
-                'assets/icons/Filtro.png',
-                scale: 2,
-              ),
-              variant: MyButtonVariant.outlinedBold,
-            ),
-            if (state.filterAbonos != null)
-              FiltersAppliedWidget(state.filterAbonos!),
-            spacerL,
-            if (!state.loading && state.bills.isEmpty)
-              const NoExistWidget('abonos'),
-            // spacerL,
-            if (state.loading)
-              ...List.generate(
-                  3,
-                  (_) => const Padding(
-                        padding: EdgeInsets.only(bottom: 20),
-                        child: MyShimmer(height: 230, margin: EdgeInsets.zero),
-                      )),
-            if (!state.loading)
-              ...state.bills.map((e) => AlbaranCard(e)).toList(),
-          ],
-        );
-      },
-    );
+    final permissions = LocalDataRepository().user?.permissions;
+    final isEmpleado = LocalDataRepository().user?.role?.id == 4;
+
+    return permissions!.where((e) => e.id == 10).isEmpty && isEmpleado
+        ? const Padding(
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+            child: AccessDeniedWidget(),
+          )
+        : BlocBuilder<MyOrdersCubit, MyOrdersState>(
+            builder: (context, state) {
+              return ListView(
+                padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+                children: [
+                  spacerS,
+                  const Text('Mis abonos', style: AppTextStyle.h2Style),
+                  Text(
+                    LocalDataRepository().user?.name ?? '',
+                    style: AppTextStyle.h3Style.copyWith(
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                  spacerM,
+                  MyIconButton(
+                    onPressed: () {
+                      myFilters(context).then((filter) {
+                        if (filter != null) {
+                          cubit.getMyBills(filter: filter);
+                        }
+                      });
+                    },
+                    text: 'Aplicar filtros',
+                    icon: Image.asset(
+                      'assets/icons/Filtro.png',
+                      scale: 2,
+                    ),
+                    variant: MyButtonVariant.outlinedBold,
+                  ),
+                  if (state.filterAbonos != null)
+                    FiltersAppliedWidget(state.filterAbonos!),
+                  spacerL,
+                  if (!state.loading && state.bills.isEmpty)
+                    const NoExistWidget('abonos'),
+                  // spacerL,
+                  if (state.loading)
+                    ...List.generate(
+                        3,
+                        (_) => const Padding(
+                              padding: EdgeInsets.only(bottom: 20),
+                              child: MyShimmer(
+                                  height: 230, margin: EdgeInsets.zero),
+                            )),
+                  if (!state.loading)
+                    ...state.bills.map((e) => AlbaranCard(e)).toList(),
+                ],
+              );
+            },
+          );
   }
 }

@@ -17,6 +17,7 @@ import 'package:vemare/app/view/_components/my_filters_applied/my_filter_applied
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_signature/my_signature.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/access_denied/access_denied_page.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/details/contract_detail.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/details_pmp/contract_pmp_detail.dart';
 import 'package:vemare/app/view/personal_area/widgets/item_card.dart';
@@ -44,51 +45,56 @@ class MyContractsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final permissions = LocalDataRepository().user?.permissions;
+    final isEmpleado = LocalDataRepository().user?.role?.id == 4;
+
     return Scaffold(
       body: MyBody(
-        child: DefaultTabController(
-          length: 4,
-          child: Column(
-            children: const [
-              spacerS,
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: TabBar(
-                  labelColor: AppColor.primaryBlue,
-                  indicatorColor: AppColor.primaryBlue,
-                  indicatorWeight: 2.5,
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                  unselectedLabelStyle:
-                      TextStyle(fontWeight: FontWeight.normal),
-                  unselectedLabelColor: AppColor.neutral20,
-                  tabs: [
-                    Tab(text: 'CRD'),
-                    Tab(text: 'Millenium'),
-                    Tab(text: 'PMP'),
-                    Tab(text: 'Rappel'),
+        child: permissions!.where((e) => e.id == 9).isEmpty && isEmpleado
+            ? const AccessDeniedWidget()
+            : DefaultTabController(
+                length: 4,
+                child: Column(
+                  children: const [
+                    spacerS,
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      child: TabBar(
+                        labelColor: AppColor.primaryBlue,
+                        indicatorColor: AppColor.primaryBlue,
+                        indicatorWeight: 2.5,
+                        indicatorSize: TabBarIndicatorSize.tab,
+                        labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                        unselectedLabelStyle:
+                            TextStyle(fontWeight: FontWeight.normal),
+                        unselectedLabelColor: AppColor.neutral20,
+                        tabs: [
+                          Tab(text: 'CRD'),
+                          Tab(text: 'Millenium'),
+                          Tab(text: 'PMP'),
+                          Tab(text: 'Rappel'),
+                        ],
+                      ),
+                    ),
+                    Divider(
+                      height: 0,
+                      thickness: 2,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    Expanded(
+                      child: TabBarView(
+                        children: [
+                          _CRD(),
+                          _Millenium(),
+                          _PMP(),
+                          _Rappel(),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
-              Divider(
-                height: 0,
-                thickness: 2,
-                indent: 15,
-                endIndent: 15,
-              ),
-              Expanded(
-                child: TabBarView(
-                  children: [
-                    _CRD(),
-                    _Millenium(),
-                    _PMP(),
-                    _Rappel(),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }

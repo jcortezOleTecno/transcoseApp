@@ -901,7 +901,9 @@ class _ProductsVemare extends StatelessWidget {
                         arguments: state.products[i]);
                   },
                   margin: const EdgeInsets.symmetric(horizontal: 10),
-                  icon: Image.network(state.products[i].image!),
+                  icon: state.products[i].image != null
+                      ? Image.network(state.products[i].image!)
+                      : const SizedBox(),
                   title: state.products[i].name ?? '',
                   content: state.products[i].subtitle ?? '',
                 ),

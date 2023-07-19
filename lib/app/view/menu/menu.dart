@@ -9,6 +9,7 @@ import 'package:vemare/app/data/notifications_repository.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/about_us/about_us_page.dart';
+import 'package:vemare/app/view/access_denied/access_denied_page.dart';
 import 'package:vemare/app/view/home/home_page.dart';
 import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/menu/bloc/menu_cubit.dart';
@@ -267,6 +268,7 @@ class _Menu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<MenuCubit>();
+    final permissions = LocalDataRepository().user?.permissions;
     return Container(
       color: AppColor.primaryBlue,
       child: SingleChildScrollView(

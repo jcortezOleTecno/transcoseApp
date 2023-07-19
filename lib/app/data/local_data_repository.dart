@@ -64,7 +64,7 @@ class LocalDataRepository {
   UserData? get user {
     final data = _localStorage.getString('@auth_user');
     if (data != null) {
-      return UserData.froJson(jsonDecode(data));
+      return UserData.fromJson(jsonDecode(data));
     }
     return null;
   }

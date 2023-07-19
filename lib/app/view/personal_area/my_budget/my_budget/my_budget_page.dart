@@ -9,6 +9,7 @@ import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_filters/my_filters.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/access_denied/access_denied_page.dart';
 import 'package:vemare/app/view/personal_area/my_budget/budget_detail/budget_detail.dart';
 import 'package:vemare/app/view/personal_area/my_budget/my_budget/bloc/my_budget_cubit.dart';
 import 'package:vemare/app/view/personal_area/my_budget/my_budget/bloc/my_budget_state.dart';
@@ -34,73 +35,81 @@ class MyBudgetPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<BudgetCubit>();
+    final permissions = LocalDataRepository().user?.permissions;
+    final isEmpleado = LocalDataRepository().user?.role?.id == 4;
+
     return Scaffold(
       body: BlocBuilder<BudgetCubit, BudgetState>(
         builder: (context, state) {
           return MyBody(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const Text('Mis presupuestos', style: AppTextStyle.h1Style),
-                  Text(
-                    LocalDataRepository().user?.name ?? '',
-                    style: AppTextStyle.h3Style.copyWith(
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                  spacerM,
-                  MyIconButton(
-                    onPressed: () {
-                      myFilters(context).then((filter) {
-                        if (filter != null) {
-                          cubit.fetchData(filter: filter);
-                        }
-                      });
-                    },
-                    text: 'Aplicar filtros',
-                    icon: Image.asset(
-                      'assets/icons/Filtro.png',
-                      scale: 2,
-                    ),
-                    variant: MyButtonVariant.outlinedBold,
-                  ),
-                  if (state.filters != null)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: Center(
-                        child: Text(
-                          'Filtros aplicados: ${state.filters!}',
-                          style: AppTextStyle.defaultStyle,
+            child: permissions!.where((e) => e.id == 11).isEmpty && isEmpleado
+                ? const AccessDeniedWidget()
+                : SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 25),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        const Text('Mis presupuestos',
+                            style: AppTextStyle.h1Style),
+                        Text(
+                          LocalDataRepository().user?.name ?? '',
+                          style: AppTextStyle.h3Style.copyWith(
+                            fontWeight: FontWeight.normal,
+                          ),
                         ),
-                      ),
-                    ),
+                        spacerM,
+                        MyIconButton(
+                          onPressed: () {
+                            myFilters(context).then((filter) {
+                              if (filter != null) {
+                                cubit.fetchData(filter: filter);
+                              }
+                            });
+                          },
+                          text: 'Aplicar filtros',
+                          icon: Image.asset(
+                            'assets/icons/Filtro.png',
+                            scale: 2,
+                          ),
+                          variant: MyButtonVariant.outlinedBold,
+                        ),
+                        if (state.filters != null)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8),
+                            child: Center(
+                              child: Text(
+                                'Filtros aplicados: ${state.filters!}',
+                                style: AppTextStyle.defaultStyle,
+                              ),
+                            ),
+                          ),
 
-                  spacerL,
-                  if (state.loading) ...[
-                    ...List.generate(2, (i) {
-                      return const MyShimmer(
-                        height: 170,
-                        borderRadius: 12,
-                        margin: EdgeInsets.only(bottom: 20),
-                      );
-                    }),
-                  ],
-                  if (!state.loading && state.budget.isEmpty)
-                    const NoExistWidget('presupuestos'),
-                  if (!state.loading) ...state.budget.map((e) => _Budget(e)),
-                  // MyIconButton(
-                  //   onPressed: () {},
-                  //   text: 'Firmar',
-                  //   icon: Image.asset(
-                  //     'assets/icons/firma.png',
-                  //     scale: 2,
-                  //   ),
-                  // ),
-                ],
-              ),
-            ),
+                        spacerL,
+                        if (state.loading) ...[
+                          ...List.generate(2, (i) {
+                            return const MyShimmer(
+                              height: 170,
+                              borderRadius: 12,
+                              margin: EdgeInsets.only(bottom: 20),
+                            );
+                          }),
+                        ],
+                        if (!state.loading && state.budget.isEmpty)
+                          const NoExistWidget('presupuestos'),
+                        if (!state.loading)
+                          ...state.budget.map((e) => _Budget(e)),
+                        // MyIconButton(
+                        //   onPressed: () {},
+                        //   text: 'Firmar',
+                        //   icon: Image.asset(
+                        //     'assets/icons/firma.png',
+                        //     scale: 2,
+                        //   ),
+                        // ),
+                      ],
+                    ),
+                  ),
           );
         },
       ),

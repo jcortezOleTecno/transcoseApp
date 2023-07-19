@@ -25,7 +25,7 @@ class AuthRepository {
     final dynamic res =
         await apiClient.postRequest('$BASE_API_URL/api/login', body: body);
     LocalDataRepository().authToken = res["access_token"];
-    final user = UserData.froJson(res['user']);
+    final user = UserData.fromJson(res['user']);
     LocalDataRepository().isLogged = true;
     LocalDataRepository().user = user;
   }
@@ -88,7 +88,7 @@ SUCCESS
 
   Future<UserData> getUser() async {
     final dynamic res = await apiClient.getRequest('$BASE_API_URL/api/user');
-    final user = UserData.froJson(res['data']);
+    final user = UserData.fromJson(res['data']);
     LocalDataRepository().user = user;
     return user;
   }

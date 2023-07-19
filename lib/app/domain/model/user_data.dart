@@ -14,6 +14,7 @@ class UserData {
   final String? responsibleName;
   final String? responsibleLastname;
   final Role? role;
+  final List<Permission>? permissions;
   final int? parentId;
   final String? status;
   String? logo;
@@ -34,6 +35,7 @@ class UserData {
     this.responsibleName,
     this.responsibleLastname,
     this.role,
+    this.permissions,
     this.parentId,
     this.status,
     this.logo,
@@ -41,7 +43,7 @@ class UserData {
     this.webservice,
   });
 
-  factory UserData.froJson(dynamic map) {
+  factory UserData.fromJson(dynamic map) {
     return UserData(
       name: map["name"] as String?,
       email: map["email"] as String?,
@@ -56,6 +58,10 @@ class UserData {
       responsibleName: map["responsible_name"] as String?,
       responsibleLastname: map["responsible_lastname"] as String?,
       role: map["role"] == null ? null : Role.fromJson(map["role"]),
+      permissions: map["permissions"] == null
+          ? []
+          : List<Permission>.from(
+              map["permissions"]!.map((x) => Permission.fromJson(x))),
       parentId: map["parent_id"] as int?,
       status: map["status"] as String?,
       logo: map["logo"] as String?,
@@ -82,12 +88,35 @@ class UserData {
       'responsible_lastname': responsibleLastname,
       "role": role?.toJson(),
       'parent_id': parentId,
+      "permissions": permissions == null
+          ? []
+          : List<dynamic>.from(permissions!.map((x) => x.toJson())),
       'status': status,
       'logo': logo,
       'access_millennium_program': accessMillenniumProgram,
       "webservice": webservice?.toJson(),
     };
   }
+}
+
+class Permission {
+  int? id;
+  String? name;
+
+  Permission({
+    this.id,
+    this.name,
+  });
+
+  factory Permission.fromJson(Map<String, dynamic> json) => Permission(
+        id: json["id"],
+        name: json["name"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+      };
 }
 
 class Webservice {

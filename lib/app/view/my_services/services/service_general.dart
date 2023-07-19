@@ -6,6 +6,7 @@ import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_gallery/my_galery.dart';
 import 'package:vemare/app/view/_components/my_html/my_html.dart';
+import 'package:vemare/app/view/_components/my_network_image/my_network_image.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/my_video_player/my_video_player.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
@@ -33,12 +34,17 @@ class ServiceGeneralPage extends StatelessWidget {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(12),
-                      child: Image(
+                      child: MyNetworkImage(
+                          image: service.image!,
+                          fit: BoxFit.cover,
+                          height: 240,
+                          width: double.infinity),
+                      /*Image(
                         image: NetworkImage(service.image!),
                         height: 240,
                         width: double.infinity,
                         fit: BoxFit.cover,
-                      ),
+                      ),*/
                     ),
                     spacerM,
                     Text(service.title ?? '', style: AppTextStyle.h2Style),

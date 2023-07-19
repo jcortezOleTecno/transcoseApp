@@ -8,6 +8,7 @@ import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_dropdown_button/my_drop_down_button.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/access_denied/access_denied_page.dart';
 import 'package:vemare/app/view/personal_area/widgets/item_card.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
@@ -33,63 +34,71 @@ class Modelo347Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<Modelo347Cubit>();
+    final permissions = LocalDataRepository().user?.permissions;
+    final isEmpleado = LocalDataRepository().user?.role?.id == 4;
+
     return Scaffold(
       body: MyBody(
-        child: BlocBuilder<Modelo347Cubit, Modelo347State>(
-          builder: (context, state) {
-            return SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const Text('Modelo 347', style: AppTextStyle.h1Style),
-                  Text(
-                    LocalDataRepository().user?.name ?? '',
-                    style: AppTextStyle.h3Style.copyWith(
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                  spacerL,
-                  const Text(
-                    'Filtrar por año',
-                    style: AppTextStyle.inputLabelStyle,
-                  ),
-                  MyCustomDropdownButton(
-                      hint: DateTime(DateTime.now().year - 1).year.toString(),
-                      hintStyle: AppTextStyle.inputStyle,
-                      dropdownItems: yearsList
-                          .map((item) => DropdownMenuItem(
-                                value: item,
-                                child: Text(item,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                    style: AppTextStyle.inputStyle),
-                              ))
-                          .toList(),
-                      value: state.yearSelect,
-                      onChanged: (value) {
-                        cubit.getMy347(year: value);
-                      }),
-                  spacerM,
-                  if (state.loading)
-                    ...List.generate(4, (i) {
-                      return const Padding(
-                        padding: EdgeInsets.only(bottom: 20),
-                        child: MyShimmer(
-                          height: 75,
-                          margin: EdgeInsets.zero,
+        child: permissions!.where((e) => e.id == 8).isEmpty && isEmpleado
+            ? const AccessDeniedWidget()
+            : BlocBuilder<Modelo347Cubit, Modelo347State>(
+                builder: (context, state) {
+                  return SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 25),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        const Text('Modelo 347', style: AppTextStyle.h1Style),
+                        Text(
+                          LocalDataRepository().user?.name ?? '',
+                          style: AppTextStyle.h3Style.copyWith(
+                            fontWeight: FontWeight.normal,
+                          ),
                         ),
-                      );
-                    }),
-                  if (!state.loading && state.modelos.isEmpty)
-                    const NoExistWidget('modelos 347'),
-                  if (!state.loading)
-                    ...state.modelos.map((e) => _Item(e)).toList(),
-                ],
+                        spacerL,
+                        const Text(
+                          'Filtrar por año',
+                          style: AppTextStyle.inputLabelStyle,
+                        ),
+                        MyCustomDropdownButton(
+                            hint: DateTime(DateTime.now().year - 1)
+                                .year
+                                .toString(),
+                            hintStyle: AppTextStyle.inputStyle,
+                            dropdownItems: yearsList
+                                .map((item) => DropdownMenuItem(
+                                      value: item,
+                                      child: Text(item,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                          style: AppTextStyle.inputStyle),
+                                    ))
+                                .toList(),
+                            value: state.yearSelect,
+                            onChanged: (value) {
+                              cubit.getMy347(year: value);
+                            }),
+                        spacerM,
+                        if (state.loading)
+                          ...List.generate(4, (i) {
+                            return const Padding(
+                              padding: EdgeInsets.only(bottom: 20),
+                              child: MyShimmer(
+                                height: 75,
+                                margin: EdgeInsets.zero,
+                              ),
+                            );
+                          }),
+                        if (!state.loading && state.modelos.isEmpty)
+                          const NoExistWidget('modelos 347'),
+                        if (!state.loading)
+                          ...state.modelos.map((e) => _Item(e)).toList(),
+                      ],
+                    ),
+                  );
+                },
               ),
-            );
-          },
-        ),
       ),
     );
   }
