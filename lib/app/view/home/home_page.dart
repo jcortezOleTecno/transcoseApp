@@ -238,7 +238,10 @@ class _PageA extends StatelessWidget {
                       onPressed: () => cubit.openWhatsApp(
                           phone: state.heroButtons?.whatsapp ?? ''),
                       text: 'Escribir un Whatsapp',
-                      icon: const Icon(Icons.whatsapp),
+                      icon: Image.asset(
+                        'assets/icons/Whatsapp-.png',
+                        scale: 1.5,
+                      ),
                       variant: MyButtonVariant.outlinedBold,
                     ),
                     spacerM,

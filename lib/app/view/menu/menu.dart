@@ -640,23 +640,24 @@ class _HeaderMenu extends StatelessWidget {
                         ),
                       ),
                       spacerS,
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(30),
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 4, vertical: 2),
-                          color: AppColor.white,
-                          child: Text(
-                              LocalDataRepository()
-                                      .user
-                                      ?.role
-                                      ?.name
-                                      ?.toUpperCase() ??
-                                  '',
-                              style: AppTextStyle.menuStyle
-                                  .copyWith(color: AppColor.primaryBlue)),
-                        ),
-                      )
+                      if (LocalDataRepository().user?.role != null)
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(30),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 4, vertical: 2),
+                            color: AppColor.white,
+                            child: Text(
+                                LocalDataRepository()
+                                        .user
+                                        ?.role
+                                        ?.name
+                                        ?.toUpperCase() ??
+                                    '',
+                                style: AppTextStyle.menuStyle
+                                    .copyWith(color: AppColor.primaryBlue)),
+                          ),
+                        )
                     ],
                   )
                 ],

@@ -64,6 +64,8 @@ dependencies:
   autocomplete_textfield: ^2.0.1
   # image_downloader:
   gallery_saver: ^2.3.2
+  data_table_2: ^2.3.0
+  # horizontal_data_table: ^4.1.4
   
   
  

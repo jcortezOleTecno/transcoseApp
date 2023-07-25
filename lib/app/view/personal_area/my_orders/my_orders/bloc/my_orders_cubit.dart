@@ -54,14 +54,14 @@ class MyOrdersCubit extends Cubit<MyOrdersState> {
     ));
   }
 
-  Future<void> getMyOrders({Filter? filter}) async {
-    emit(state.copyWith(loading: true));
+  Future<void> getMyOrders({Filter? filter, bool reset = false}) async {
+    emit(state.copyWith(loading: true, filterPedidos: null));
 
     var data = await _myAccountRepository.getMyOrders(filter: filter);
     emit(state.copyWith(
       orders: data.data as List<Albaran>,
       loading: false,
-      filterPedidos: data.filter,
+      filterPedidos: reset ? null : data.filter,
     ));
   }
 

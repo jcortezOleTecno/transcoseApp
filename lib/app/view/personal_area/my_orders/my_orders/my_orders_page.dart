@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:horizontal_data_table/horizontal_data_table.dart';
+import 'package:intl/intl.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/my_account_repository.dart';
+import 'package:vemare/app/domain/model/albaran.dart';
 import 'package:vemare/app/domain/utils/money_formatter.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
@@ -10,6 +13,7 @@ import 'package:vemare/app/view/_components/my_filters_applied/my_filter_applied
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/access_denied/access_denied_page.dart';
+import 'package:vemare/app/view/personal_area/my_orders/my_orders/bloc/my_data.dart';
 import 'package:vemare/app/view/personal_area/my_orders/my_orders/bloc/my_orders_cubit.dart';
 import 'package:vemare/app/view/personal_area/my_orders/my_orders/bloc/my_orders_state.dart';
 import 'package:vemare/app/view/personal_area/my_orders/warranty_details/warranty_details_page.dart';
@@ -20,6 +24,9 @@ import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
+import 'package:data_table_2/data_table_2.dart';
+
+import '../albaran_details/albaran_detail.dart';
 
 class MyOrdersPage extends StatelessWidget {
   const MyOrdersPage._();
@@ -55,6 +62,7 @@ class MyOrdersPage extends StatelessWidget {
                   unselectedLabelStyle:
                       TextStyle(fontWeight: FontWeight.normal),
                   unselectedLabelColor: AppColor.neutral20,
+                  // physics: NeverScrollableScrollPhysics(),
                   tabs: [
                     Tab(text: 'Mis pedidos'),
                     Tab(text: 'Mis garantías'),
@@ -70,6 +78,7 @@ class MyOrdersPage extends StatelessWidget {
               ),
               Expanded(
                 child: TabBarView(
+                  physics: NeverScrollableScrollPhysics(),
                   children: [
                     _MyOrders(),
                     _MyWarranty(),
@@ -102,61 +111,162 @@ class _MyOrders extends StatelessWidget {
           )
         : BlocBuilder<MyOrdersCubit, MyOrdersState>(
             builder: (context, state) {
-              return ListView(
+              return Padding(
                 padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
-                children: [
-                  spacerS,
-                  const Text('Mis pedidos', style: AppTextStyle.h2Style),
-                  Text(
-                    LocalDataRepository().user?.name ?? '',
-                    style: AppTextStyle.h3Style.copyWith(
-                      fontWeight: FontWeight.normal,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    spacerS,
+                    const Text('Mis pedidos', style: AppTextStyle.h2Style),
+                    Text(
+                      LocalDataRepository().user?.name ?? '',
+                      style: AppTextStyle.h3Style.copyWith(
+                        fontWeight: FontWeight.normal,
+                      ),
                     ),
-                  ),
-                  spacerM,
-                  MyIconButton(
-                    onPressed: () {
-                      myFilters(context).then((filter) {
-                        if (filter != null) {
-                          cubit.getMyOrders(filter: filter);
-                        }
-                      });
-                    },
-                    text: 'Aplicar filtros',
-                    icon: Image.asset(
-                      'assets/icons/Filtro.png',
-                      scale: 2,
+                    spacerS,
+                    MyIconButton(
+                      onPressed: () {
+                        myFilters(context).then((filter) {
+                          if (filter != null) {
+                            cubit.getMyOrders(filter: filter);
+                          }
+                        });
+                      },
+                      text: state.filterPedidos != null
+                          ? 'Modificar filtros'
+                          : 'Aplicar filtros',
+                      icon: Image.asset(
+                        'assets/icons/Filtro.png',
+                        scale: 2,
+                      ),
+                      variant: MyButtonVariant.outlinedBold,
                     ),
-                    variant: MyButtonVariant.outlinedBold,
-                  ),
-                  if (state.filterPedidos != null)
-                    FiltersAppliedWidget(state.filterPedidos!),
-                  spacerL,
-                  if (!state.loading && state.orders.isEmpty)
-                    const NoExistWidget('pedidos'),
-                  if (state.loading)
-                    ...List.generate(
-                        3,
-                        (_) => const Padding(
-                              padding: EdgeInsets.only(bottom: 20),
-                              child: MyShimmer(
-                                  height: 230, margin: EdgeInsets.zero),
-                            )),
-                  if (!state.loading)
-                    ...state.orders.map((e) => AlbaranCard(e)).toList(),
-                  // MyIconButton(
-                  //   onPressed: () {},
-                  //   text: 'Firmar',
-                  //   icon: Image.asset(
-                  //     'assets/icons/firma.png',
-                  //     scale: 2,
-                  //   ),
-                  // ),
-                  // spacerM?,
-                ],
+                    if (state.filterPedidos != null)
+                      FiltersAppliedWidget(state.filterPedidos!,
+                          onTap: () => cubit.getMyOrders(reset: true)),
+                    spacerS,
+                    if (!state.loading && state.orders.isEmpty)
+                      const NoExistWidget('pedidos'),
+                    if (state.loading)
+                      const Expanded(
+                          child: MyShimmer.full(
+                        borderRadius: 10,
+                        margin: EdgeInsets.only(bottom: 20),
+                      )),
+                    if (!state.loading && state.orders.isNotEmpty)
+                      Builder(builder: (context) {
+                        final DataTableSource _data =
+                            MyDataOrders(state.orders);
+                        return Expanded(
+                          child: Card(
+                            margin: const EdgeInsets.only(bottom: 20),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
+                                  child: Column(
+                                    children: [
+                                      spacerM,
+                                      const Text(
+                                        'Pedidos',
+                                        style: AppTextStyle.h3Style,
+                                      ),
+                                      Text('${state.orders.length} Total'),
+                                      // spacerM,
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  child: PaginatedDataTable2(
+                                    columnSpacing: 12,
+                                    horizontalMargin: 12,
+                                    minWidth: 1000,
+                                    // smRatio: 0.5,
+                                    columns: const [
+                                      DataColumn2(
+                                        label: Text('N° DOCUMENTO'),
+                                        fixedWidth: 100,
+                                        // size: ColumnSize.L,
+                                      ),
+                                      DataColumn2(
+                                        label: Text('FECHA'),
+                                        fixedWidth: 80,
+                                        // size: ColumnSize.L,
+                                      ),
+                                      DataColumn2(
+                                        label: Text('CONTADOR'),
+                                        fixedWidth: 80,
+                                        // size: ColumnSize.L,
+                                      ),
+                                      DataColumn2(
+                                        label: Text('MODO DE ENTREGA'),
+                                        fixedWidth: 125,
+                                        // size: ColumnSize.L,
+                                      ),
+                                      DataColumn2(
+                                        label: Text('ALMACÉN'),
+                                        fixedWidth: 80,
+                                        // size: ColumnSize.L,
+                                      ),
+                                      DataColumn2(
+                                        label: Text('IMPORTE'),
+                                        fixedWidth: 100,
+                                        // size: ColumnSize.L,
+                                      ),
+                                      DataColumn2(
+                                        label: Text('ESTADO'),
+                                        fixedWidth: 170,
+                                        // size: ColumnSize.L,
+                                      ),
+                                    ],
+                                    source: _data,
+                                  ),
+                                ),
+                                spacerS,
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                  ],
+                ),
               );
             },
           );
+  }
+
+  onTap(BuildContext context, Albaran albaran) {
+    return Navigator.of(context).pushNamed(
+      AlbaranDetailPage.route,
+      arguments: albaran,
+    );
+  }
+}
+
+class StatusLabelWidget extends StatelessWidget {
+  const StatusLabelWidget(this.facturado, {super.key});
+
+  final bool facturado;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30),
+        color: facturado ? AppColor.success200 : AppColor.error200,
+      ),
+      child: Text(
+        facturado ? '• Facturado' : '• No Facturado',
+        style: AppTextStyle.inputLabelStyle.copyWith(
+            color: facturado ? AppColor.success500 : AppColor.error500),
+      ),
+    );
   }
 }
 
@@ -178,7 +288,133 @@ class _MyWarranty extends StatelessWidget {
           )
         : BlocBuilder<MyOrdersCubit, MyOrdersState>(
             builder: (context, state) {
-              return ListView(
+              return Padding(
+                padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    spacerS,
+                    const Text('Mis garantías', style: AppTextStyle.h2Style),
+                    Text(
+                      LocalDataRepository().user?.name ?? '',
+                      style: AppTextStyle.h3Style.copyWith(
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                    spacerS,
+                    MyIconButton(
+                      onPressed: () {
+                        myFilters(context).then((filter) {
+                          if (filter != null) {
+                            cubit.getMyOrders(filter: filter);
+                          }
+                        });
+                      },
+                      text: state.filterPedidos != null
+                          ? 'Modificar filtros'
+                          : 'Aplicar filtros',
+                      icon: Image.asset(
+                        'assets/icons/Filtro.png',
+                        scale: 2,
+                      ),
+                      variant: MyButtonVariant.outlinedBold,
+                    ),
+                    if (state.filterPedidos != null)
+                      FiltersAppliedWidget(state.filterPedidos!,
+                          onTap: () => cubit.getMyOrders(reset: true)),
+                    spacerS,
+                    if (!state.loading && state.orders.isEmpty)
+                      const NoExistWidget('pedidos'),
+                    if (state.loading)
+                      const Expanded(
+                          child: MyShimmer.full(
+                        borderRadius: 10,
+                        margin: EdgeInsets.only(bottom: 20),
+                      )),
+                    if (!state.loading && state.orders.isNotEmpty)
+                      Builder(builder: (context) {
+                        final DataTableSource _data =
+                            MyDataOrders(state.orders);
+                        return Expanded(
+                          child: Card(
+                            margin: const EdgeInsets.only(bottom: 20),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
+                                  child: Column(
+                                    children: [
+                                      spacerM,
+                                      const Text(
+                                        'Pedidos',
+                                        style: AppTextStyle.h3Style,
+                                      ),
+                                      Text('${state.orders.length} Total'),
+                                      // spacerM,
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  child: PaginatedDataTable2(
+                                    columnSpacing: 12,
+                                    horizontalMargin: 12,
+                                    minWidth: 1000,
+                                    // smRatio: 0.5,
+                                    columns: const [
+                                      DataColumn2(
+                                        label: Text('N° DOCUMENTO'),
+                                        fixedWidth: 100,
+                                        // size: ColumnSize.L,
+                                      ),
+                                      DataColumn2(
+                                        label: Text('FECHA'),
+                                        fixedWidth: 80,
+                                        // size: ColumnSize.L,
+                                      ),
+                                      DataColumn2(
+                                        label: Text('CONTADOR'),
+                                        fixedWidth: 80,
+                                        // size: ColumnSize.L,
+                                      ),
+                                      DataColumn2(
+                                        label: Text('MODO DE ENTREGA'),
+                                        fixedWidth: 125,
+                                        // size: ColumnSize.L,
+                                      ),
+                                      DataColumn2(
+                                        label: Text('ALMACÉN'),
+                                        fixedWidth: 80,
+                                        // size: ColumnSize.L,
+                                      ),
+                                      DataColumn2(
+                                        label: Text('IMPORTE'),
+                                        fixedWidth: 100,
+                                        // size: ColumnSize.L,
+                                      ),
+                                      DataColumn2(
+                                        label: Text('ESTADO'),
+                                        fixedWidth: 170,
+                                        // size: ColumnSize.L,
+                                      ),
+                                    ],
+                                    source: _data,
+                                  ),
+                                ),
+                                spacerS,
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                  ],
+                ),
+              );
+
+              /* ListView(
                 padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
                 children: [
                   spacerS,
@@ -250,7 +486,7 @@ class _MyWarranty extends StatelessWidget {
                         )
                         .toList(),
                 ],
-              );
+              );*/
             },
           );
   }
