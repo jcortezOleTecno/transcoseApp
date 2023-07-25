@@ -65,12 +65,12 @@ class MyOrdersCubit extends Cubit<MyOrdersState> {
     ));
   }
 
-  Future<void> getMyWarranty({Filter? filter}) async {
-    emit(state.copyWith(loading: true));
+  Future<void> getMyWarranty({Filter? filter, bool reset = false}) async {
+    emit(state.copyWith(loading: true, filterGarantias: null));
     var data = await _myAccountRepository.getWarranties(filter: filter);
     emit(state.copyWith(
       guarantee: data.data as List<Warranty>,
-      filterGarantias: data.filter,
+      filterGarantias: reset ? null : data.filter,
       totalImporteCliente: data.totalImporteCliente,
       totalImporteVemare: data.totalImporteVemare,
       totalImporteGarantias: data.totalImporteGarantia,
@@ -78,13 +78,13 @@ class MyOrdersCubit extends Cubit<MyOrdersState> {
     ));
   }
 
-  Future<void> getMyBills({Filter? filter}) async {
-    emit(state.copyWith(loading: true));
+  Future<void> getMyBills({Filter? filter, bool reset = false}) async {
+    emit(state.copyWith(loading: true, filterAbonos: null));
     var data = await _myAccountRepository.getMyBills(filter: filter);
     emit(state.copyWith(
       bills: data.data as List<Albaran>,
       loading: false,
-      filterAbonos: data.filter,
+      filterAbonos: reset ? null : data.filter,
     ));
   }
 }

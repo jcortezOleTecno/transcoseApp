@@ -1,13 +1,17 @@
+import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/my_account_repository.dart';
 import 'package:vemare/app/domain/model/albaran.dart';
 import 'package:vemare/app/domain/model/albaran_details.dart';
 import 'package:vemare/app/domain/utils/money_formatter.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
+import 'package:vemare/app/view/_components/my_input/my_input.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/_components/user_name/user_name.dart';
 import 'package:vemare/app/view/personal_area/my_orders/albaran_details/bloc/albaran_details_cubit.dart';
 import 'package:vemare/app/view/personal_area/my_orders/albaran_details/bloc/albaran_details_state.dart';
 import 'package:vemare/app/view/personal_area/widgets/item_card.dart';
@@ -15,20 +19,29 @@ import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
 
+class AlbaranDetailArg {
+  final Albaran albaran;
+  final String title;
+
+  AlbaranDetailArg({required this.albaran, required this.title});
+}
+
 class AlbaranDetailPage extends StatelessWidget {
-  const AlbaranDetailPage._();
+  const AlbaranDetailPage._(this.title);
 
   static const route = '/albaran_detail';
 
-  static Widget create(Albaran albaran) {
+  static Widget create(AlbaranDetailArg arg) {
     return BlocProvider(
       create: (context) => AlbaranDetailCubit(
         getIt.get<MyAccountRepository>(),
-        albaran,
+        arg.albaran,
       ),
-      child: const AlbaranDetailPage._(),
+      child: AlbaranDetailPage._(arg.title),
     );
   }
+
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -46,18 +59,86 @@ class AlbaranDetailPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        const Text('Documento', style: AppTextStyle.h3Style),
+                        Text('Detalle de $title', style: AppTextStyle.h3Style),
                         spacerXs,
-                        Text(state.albaran?.documento?.toString() ?? '000',
-                            style: AppTextStyle.h2Style),
+                        const UserName(),
                         spacerM,
                         _AlbaranDetails(state),
                         spacerM,
-                        const Divider(
-                          thickness: 1.5,
-                          color: AppColor.blue100,
-                        ),
-                        spacerM,
+                        Builder(builder: (context) {
+                          final DataTableSource _data = _MyData(state.details);
+                          return SizedBox(
+                            height: 500,
+                            child: Card(
+                              margin: const EdgeInsets.only(bottom: 20),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 15),
+                                    child: Column(
+                                      children: [
+                                        spacerS,
+                                        const Text(
+                                          'Filas',
+                                          style: AppTextStyle.h3Style,
+                                        ),
+                                        Text('${state.details.length} Total'),
+                                        // spacerM,
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: PaginatedDataTable2(
+                                      columnSpacing: 12,
+                                      horizontalMargin: 12,
+                                      wrapInCard: false,
+                                      minWidth: 1000,
+                                      // smRatio: 0.5,
+                                      columns: const [
+                                        DataColumn2(
+                                          label: Text('CONTADOR'),
+                                          fixedWidth: 80,
+                                          // size: ColumnSize.L,
+                                        ),
+                                        DataColumn2(
+                                          label: Text('DOCUMENTO'),
+                                          fixedWidth: 100,
+                                          // size: ColumnSize.L,
+                                        ),
+                                        DataColumn2(
+                                          label: Text('LÍNEA'),
+                                          fixedWidth: 80,
+                                          // size: ColumnSize.L,
+                                        ),
+                                        DataColumn2(
+                                          label: Text('REFERENCIA'),
+                                          fixedWidth: 125,
+                                          // size: ColumnSize.L,
+                                        ),
+                                        DataColumn2(
+                                          label: Text('CANTIDAD'),
+                                          fixedWidth: 80,
+                                          // size: ColumnSize.L,
+                                        ),
+                                        DataColumn2(
+                                          label: Text('DESCRIPCIÓN'),
+                                          fixedWidth: 200,
+                                          // size: ColumnSize.L,
+                                        ),
+                                      ],
+                                      source: _data,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        }),
+                        /*spacerM,
                         const Text('Productos', style: AppTextStyle.h2Style),
                         spacerM,
                         if (state.loading)
@@ -68,7 +149,7 @@ class AlbaranDetailPage extends StatelessWidget {
                         if (!state.loading)
                           ...state.details
                               .map((e) => _ProductsCard(e))
-                              .toList(),
+                              .toList(),*/
                       ],
                     ),
                   )
@@ -149,29 +230,67 @@ class _AlbaranDetails extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Text(
-            'Detalle del albarán',
+            'Detalle',
             style: AppTextStyle.titleCard,
           ),
           spacerM,
-          Row(
-            children: [
-              Expanded(
-                child: Item(
-                    title: 'UNIDADES',
-                    content: state.details.length.toString()),
-              ),
-              Expanded(
-                child: Item(
-                    title: 'IMPORTE',
-                    content: fmf
-                        .copyWith(amount: state.albaran!.totalImporte ?? 0.0)
-                        .output
-                        .symbolOnRight),
-              )
-            ],
+          MyInput(
+            label: 'Cliente',
+            initialValue: LocalDataRepository().user!.code,
+            readOnly: true,
+          ),
+          MyInput(
+            label: 'Contador',
+            initialValue: state.albaran?.contador ?? '',
+            readOnly: true,
+          ),
+          MyInput(
+            label: 'Documento',
+            initialValue: state.albaran?.documento.toString() ?? '',
+            readOnly: true,
+          ),
+          MyInput(
+            label: 'Ejercicio',
+            initialValue: state.albaran?.ejercicio.toString() ?? '',
+            readOnly: true,
+          ),
+          MyInput(
+            label: 'Tipo de documento',
+            initialValue: state.albaran?.tipoAlbaran ?? '',
+            readOnly: true,
           ),
         ],
       ),
     );
   }
+}
+
+class _MyData extends DataTableSource {
+  final List<AlbaranDetails> data;
+
+  _MyData(this.data);
+
+  @override
+  DataRow? getRow(int index) {
+    return DataRow(cells: [
+      DataCell(Text(data[index].contador ?? '')),
+      DataCell(Text(data[index].documento.toString())),
+      DataCell(Text(data[index].linea.toString())),
+      DataCell(Text(data[index].referencia ?? '')),
+      DataCell(Text(data[index].cantidad.toString())),
+      DataCell(Text(data[index].descripcionReferencia ?? '')),
+    ]);
+  }
+
+  @override
+  // TODO: implement isRowCountApproximate
+  bool get isRowCountApproximate => false;
+
+  @override
+  // TODO: implement rowCount
+  int get rowCount => data.length;
+
+  @override
+  // TODO: implement selectedRowCount
+  int get selectedRowCount => 0;
 }

@@ -259,16 +259,12 @@ abstract class AppRouter {
           settings: settings,
           builder: (_) => MyOrdersPage.create(),
         );
-      case OrderDetailPage.route:
-        return MaterialPageRoute<void>(
-          settings: settings,
-          builder: (_) => const OrderDetailPage(),
-        );
+
       case AlbaranDetailPage.route:
-        final Albaran? albaran = settings.arguments as Albaran?;
+        final arg = settings.arguments as AlbaranDetailArg?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => AlbaranDetailPage.create(albaran!),
+          builder: (_) => AlbaranDetailPage.create(arg!),
         );
       case WarrantyDetailPage.route:
         final Warranty? warranty = settings.arguments as Warranty?;
@@ -276,11 +272,7 @@ abstract class AppRouter {
           settings: settings,
           builder: (_) => WarrantyDetailPage.create(warranty!),
         );
-      case BillDetailPage.route:
-        return MaterialPageRoute<void>(
-          settings: settings,
-          builder: (_) => const BillDetailPage(),
-        );
+
       case MyTrainingAndEventsPage.route:
         return MaterialPageRoute<void>(
           settings: settings,

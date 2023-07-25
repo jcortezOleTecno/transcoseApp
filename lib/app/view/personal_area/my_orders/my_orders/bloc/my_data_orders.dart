@@ -11,15 +11,16 @@ import '../my_orders_page.dart';
 
 class MyDataOrders extends DataTableSource {
   final List<Albaran> data;
+  final String title;
 
-  MyDataOrders(this.data);
+  MyDataOrders(this.data, this.title);
 
   @override
   DataRow? getRow(int index) {
     return DataRow(
         onLongPress: () => navigator.pushNamed(
               AlbaranDetailPage.route,
-              arguments: data[index],
+              arguments: AlbaranDetailArg(albaran: data[index], title: title),
             ),
         cells: [
           DataCell(Text(data[index].documento.toString())),

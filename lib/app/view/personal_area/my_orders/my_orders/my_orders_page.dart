@@ -12,8 +12,10 @@ import 'package:vemare/app/view/_components/my_filters/my_filters.dart';
 import 'package:vemare/app/view/_components/my_filters_applied/my_filter_applied.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/_components/user_name/user_name.dart';
 import 'package:vemare/app/view/access_denied/access_denied_page.dart';
-import 'package:vemare/app/view/personal_area/my_orders/my_orders/bloc/my_data.dart';
+import 'package:vemare/app/view/personal_area/my_orders/my_orders/bloc/my_data_orders.dart';
+import 'package:vemare/app/view/personal_area/my_orders/my_orders/bloc/my_data_warranty.dart';
 import 'package:vemare/app/view/personal_area/my_orders/my_orders/bloc/my_orders_cubit.dart';
 import 'package:vemare/app/view/personal_area/my_orders/my_orders/bloc/my_orders_state.dart';
 import 'package:vemare/app/view/personal_area/my_orders/warranty_details/warranty_details_page.dart';
@@ -111,19 +113,14 @@ class _MyOrders extends StatelessWidget {
           )
         : BlocBuilder<MyOrdersCubit, MyOrdersState>(
             builder: (context, state) {
-              return Padding(
+              return SingleChildScrollView(
                 padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     spacerS,
                     const Text('Mis pedidos', style: AppTextStyle.h2Style),
-                    Text(
-                      LocalDataRepository().user?.name ?? '',
-                      style: AppTextStyle.h3Style.copyWith(
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
+                    const UserName(),
                     spacerS,
                     MyIconButton(
                       onPressed: () {
@@ -149,16 +146,18 @@ class _MyOrders extends StatelessWidget {
                     if (!state.loading && state.orders.isEmpty)
                       const NoExistWidget('pedidos'),
                     if (state.loading)
-                      const Expanded(
+                      const SizedBox(
+                          height: 400,
                           child: MyShimmer.full(
-                        borderRadius: 10,
-                        margin: EdgeInsets.only(bottom: 20),
-                      )),
+                            borderRadius: 10,
+                            margin: EdgeInsets.only(bottom: 20),
+                          )),
                     if (!state.loading && state.orders.isNotEmpty)
                       Builder(builder: (context) {
                         final DataTableSource _data =
-                            MyDataOrders(state.orders);
-                        return Expanded(
+                            MyDataOrders(state.orders, 'pedido');
+                        return SizedBox(
+                          height: 500,
                           child: Card(
                             margin: const EdgeInsets.only(bottom: 20),
                             shape: RoundedRectangleBorder(
@@ -171,7 +170,7 @@ class _MyOrders extends StatelessWidget {
                                       horizontal: 15),
                                   child: Column(
                                     children: [
-                                      spacerM,
+                                      spacerS,
                                       const Text(
                                         'Pedidos',
                                         style: AppTextStyle.h3Style,
@@ -183,6 +182,7 @@ class _MyOrders extends StatelessWidget {
                                 ),
                                 Expanded(
                                   child: PaginatedDataTable2(
+                                    wrapInCard: false,
                                     columnSpacing: 12,
                                     horizontalMargin: 12,
                                     minWidth: 1000,
@@ -227,7 +227,6 @@ class _MyOrders extends StatelessWidget {
                                     source: _data,
                                   ),
                                 ),
-                                spacerS,
                               ],
                             ),
                           ),
@@ -288,29 +287,24 @@ class _MyWarranty extends StatelessWidget {
           )
         : BlocBuilder<MyOrdersCubit, MyOrdersState>(
             builder: (context, state) {
-              return Padding(
+              return SingleChildScrollView(
                 padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     spacerS,
                     const Text('Mis garantías', style: AppTextStyle.h2Style),
-                    Text(
-                      LocalDataRepository().user?.name ?? '',
-                      style: AppTextStyle.h3Style.copyWith(
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
+                    const UserName(),
                     spacerS,
                     MyIconButton(
                       onPressed: () {
                         myFilters(context).then((filter) {
                           if (filter != null) {
-                            cubit.getMyOrders(filter: filter);
+                            cubit.getMyWarranty(filter: filter);
                           }
                         });
                       },
-                      text: state.filterPedidos != null
+                      text: state.filterGarantias != null
                           ? 'Modificar filtros'
                           : 'Aplicar filtros',
                       icon: Image.asset(
@@ -319,23 +313,29 @@ class _MyWarranty extends StatelessWidget {
                       ),
                       variant: MyButtonVariant.outlinedBold,
                     ),
-                    if (state.filterPedidos != null)
-                      FiltersAppliedWidget(state.filterPedidos!,
-                          onTap: () => cubit.getMyOrders(reset: true)),
+                    if (state.filterGarantias != null)
+                      FiltersAppliedWidget(state.filterGarantias!,
+                          onTap: () => cubit.getMyWarranty(reset: true)),
                     spacerS,
-                    if (!state.loading && state.orders.isEmpty)
-                      const NoExistWidget('pedidos'),
+                    // spacerL,
+                    if (state.guarantee.isNotEmpty && !state.loading)
+                      const _Total(),
+                    spacerS,
+                    if (!state.loading && state.guarantee.isEmpty)
+                      const NoExistWidget('garantías'),
                     if (state.loading)
-                      const Expanded(
+                      const SizedBox(
+                          height: 400,
                           child: MyShimmer.full(
-                        borderRadius: 10,
-                        margin: EdgeInsets.only(bottom: 20),
-                      )),
-                    if (!state.loading && state.orders.isNotEmpty)
+                            borderRadius: 10,
+                            margin: EdgeInsets.only(bottom: 20),
+                          )),
+                    if (!state.loading && state.guarantee.isNotEmpty)
                       Builder(builder: (context) {
                         final DataTableSource _data =
-                            MyDataOrders(state.orders);
-                        return Expanded(
+                            MyDataWarranty(state.guarantee);
+                        return SizedBox(
+                          height: 500,
                           child: Card(
                             margin: const EdgeInsets.only(bottom: 20),
                             shape: RoundedRectangleBorder(
@@ -347,26 +347,29 @@ class _MyWarranty extends StatelessWidget {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 15),
                                   child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      spacerM,
+                                      spacerS,
                                       const Text(
-                                        'Pedidos',
+                                        'Garantías',
                                         style: AppTextStyle.h3Style,
                                       ),
-                                      Text('${state.orders.length} Total'),
+                                      Text('${state.guarantee.length} Total'),
                                       // spacerM,
                                     ],
                                   ),
                                 ),
                                 Expanded(
                                   child: PaginatedDataTable2(
+                                    wrapInCard: false,
                                     columnSpacing: 12,
                                     horizontalMargin: 12,
                                     minWidth: 1000,
                                     // smRatio: 0.5,
                                     columns: const [
                                       DataColumn2(
-                                        label: Text('N° DOCUMENTO'),
+                                        label: Text('NÚMERO'),
                                         fixedWidth: 100,
                                         // size: ColumnSize.L,
                                       ),
@@ -376,35 +379,44 @@ class _MyWarranty extends StatelessWidget {
                                         // size: ColumnSize.L,
                                       ),
                                       DataColumn2(
-                                        label: Text('CONTADOR'),
+                                        label: Text('CENTRO'),
                                         fixedWidth: 80,
                                         // size: ColumnSize.L,
                                       ),
                                       DataColumn2(
-                                        label: Text('MODO DE ENTREGA'),
-                                        fixedWidth: 125,
-                                        // size: ColumnSize.L,
-                                      ),
-                                      DataColumn2(
-                                        label: Text('ALMACÉN'),
+                                        label: Text('VISAR'),
                                         fixedWidth: 80,
                                         // size: ColumnSize.L,
                                       ),
                                       DataColumn2(
                                         label: Text('IMPORTE'),
+                                        fixedWidth: 80,
+                                        // size: ColumnSize.L,
+                                      ),
+                                      DataColumn2(
+                                        label: Text('LÍNEA'),
                                         fixedWidth: 100,
                                         // size: ColumnSize.L,
                                       ),
                                       DataColumn2(
-                                        label: Text('ESTADO'),
-                                        fixedWidth: 170,
+                                        label: Text('FIRMADO'),
+                                        fixedWidth: 80,
+                                        // size: ColumnSize.L,
+                                      ),
+                                      DataColumn2(
+                                        label: Text('ESTADO SU'),
+                                        fixedWidth: 120,
+                                        // size: ColumnSize.L,
+                                      ),
+                                      DataColumn2(
+                                        label: Text('ESTADO TR'),
+                                        fixedWidth: 120,
                                         // size: ColumnSize.L,
                                       ),
                                     ],
                                     source: _data,
                                   ),
                                 ),
-                                spacerS,
                               ],
                             ),
                           ),
@@ -505,7 +517,7 @@ class _Total extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           child: Padding(
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.all(10),
             child: Column(
               children: [
                 Row(
@@ -577,7 +589,130 @@ class _MyBills extends StatelessWidget {
           )
         : BlocBuilder<MyOrdersCubit, MyOrdersState>(
             builder: (context, state) {
-              return ListView(
+              return SingleChildScrollView(
+                padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    spacerS,
+                    const Text('Mis abonos', style: AppTextStyle.h2Style),
+                    const UserName(),
+                    spacerS,
+                    MyIconButton(
+                      onPressed: () {
+                        myFilters(context).then((filter) {
+                          if (filter != null) {
+                            cubit.getMyBills(filter: filter);
+                          }
+                        });
+                      },
+                      text: state.filterAbonos != null
+                          ? 'Modificar filtros'
+                          : 'Aplicar filtros',
+                      icon: Image.asset(
+                        'assets/icons/Filtro.png',
+                        scale: 2,
+                      ),
+                      variant: MyButtonVariant.outlinedBold,
+                    ),
+                    if (state.filterAbonos != null)
+                      FiltersAppliedWidget(state.filterAbonos!,
+                          onTap: () => cubit.getMyBills(reset: true)),
+                    spacerS,
+                    if (!state.loading && state.bills.isEmpty)
+                      const NoExistWidget('abonos'),
+                    if (state.loading)
+                      const SizedBox(
+                          height: 400,
+                          child: MyShimmer.full(
+                            borderRadius: 10,
+                            margin: EdgeInsets.only(bottom: 20),
+                          )),
+                    if (!state.loading && state.bills.isNotEmpty)
+                      Builder(builder: (context) {
+                        final DataTableSource _data =
+                            MyDataOrders(state.bills, 'abono');
+                        return SizedBox(
+                          height: 500,
+                          child: Card(
+                            margin: const EdgeInsets.only(bottom: 20),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
+                                  child: Column(
+                                    children: [
+                                      spacerS,
+                                      const Text(
+                                        'Abonos',
+                                        style: AppTextStyle.h3Style,
+                                      ),
+                                      Text('${state.bills.length} Total'),
+                                      // spacerM,
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  child: PaginatedDataTable2(
+                                    columnSpacing: 12,
+                                    horizontalMargin: 12,
+                                    wrapInCard: false,
+                                    minWidth: 1000,
+                                    // smRatio: 0.5,
+                                    columns: const [
+                                      DataColumn2(
+                                        label: Text('N° DOCUMENTO'),
+                                        fixedWidth: 100,
+                                        // size: ColumnSize.L,
+                                      ),
+                                      DataColumn2(
+                                        label: Text('FECHA'),
+                                        fixedWidth: 80,
+                                        // size: ColumnSize.L,
+                                      ),
+                                      DataColumn2(
+                                        label: Text('CONTADOR'),
+                                        fixedWidth: 80,
+                                        // size: ColumnSize.L,
+                                      ),
+                                      DataColumn2(
+                                        label: Text('MODO DE ENTREGA'),
+                                        fixedWidth: 125,
+                                        // size: ColumnSize.L,
+                                      ),
+                                      DataColumn2(
+                                        label: Text('ALMACÉN'),
+                                        fixedWidth: 80,
+                                        // size: ColumnSize.L,
+                                      ),
+                                      DataColumn2(
+                                        label: Text('IMPORTE'),
+                                        fixedWidth: 100,
+                                        // size: ColumnSize.L,
+                                      ),
+                                      DataColumn2(
+                                        label: Text('ESTADO'),
+                                        fixedWidth: 170,
+                                        // size: ColumnSize.L,
+                                      ),
+                                    ],
+                                    source: _data,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                  ],
+                ),
+              );
+
+              /*ListView(
                 padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
                 children: [
                   spacerS,
@@ -621,7 +756,7 @@ class _MyBills extends StatelessWidget {
                   if (!state.loading)
                     ...state.bills.map((e) => AlbaranCard(e)).toList(),
                 ],
-              );
+              );*/
             },
           );
   }

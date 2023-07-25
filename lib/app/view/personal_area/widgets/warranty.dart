@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/domain/model/warranty.dart';
 import 'package:vemare/app/domain/model/warranty_details.dart';
 import 'package:vemare/app/domain/utils/money_formatter.dart';
+import 'package:vemare/app/view/_components/my_input/my_input.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/personal_area/widgets/item_card.dart';
 import 'package:vemare/app/view/theme/color.dart';
@@ -113,100 +115,140 @@ class WarrantyDetail extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Text(
-            'Detalle de la garantía',
+            'Detalle',
             style: AppTextStyle.titleCard,
           ),
           spacerM,
-          Row(
-            children: [
-              Expanded(
-                child: Item(
-                    title: "FECHA",
-                    content: DateFormat.yMd().format(warranty.fechaAlta!)),
-              ),
-              Expanded(
-                child: Item(
-                    title: "IMPORTE",
-                    content: fmf
-                        .copyWith(
-                            amount: double.parse(warranty.importe ?? '0.0'))
-                        .output
-                        .symbolOnRight),
-              ),
-            ],
+          MyInput(
+            label: 'Cliente',
+            initialValue: LocalDataRepository().user?.code,
+            readOnly: true,
           ),
-          spacerS,
-          Row(
-            children: [
-              Expanded(
-                child: Item(
-                    title: "CENTRO REPARTO",
-                    content: warranty.centroReparto ?? ''),
-              ),
-              Expanded(
-                child: Item(
-                    title: "ESTADO SUSTITUCIÓN",
-                    content: warranty.estadoSu ?? ''),
-              ),
-            ],
+          MyInput(
+            label: 'Código de garantía',
+            initialValue: warranty.codigoGarantia.toString(),
+            readOnly: true,
           ),
-          spacerS,
-          Row(
-            children: [
-              Expanded(
-                child: Item(
-                    title: "IMPORTE VEMARE",
-                    content: fmf
-                        .copyWith(
-                            amount:
-                                double.parse(detail?.importeVemare ?? '0.0'))
-                        .output
-                        .symbolOnRight),
-              ),
-              Expanded(
-                child: Item(
-                    title: "IMPORTE CLIENTE",
-                    content: fmf
-                        .copyWith(
-                            amount:
-                                double.parse(detail?.importeCliente ?? '0.0'))
-                        .output
-                        .symbolOnRight),
-              ),
-            ],
+          MyInput(
+            label: 'Fecha',
+            initialValue: DateFormat.yMd().format(warranty.fechaAlta!),
+            readOnly: true,
           ),
-          spacerS,
-          Row(
-            children: [
-              Expanded(
-                child: Item(title: "FIRMADO", content: detail?.firmado ?? 'No'),
-              ),
-              Expanded(
-                child: Item(
-                    title: "PERMITE FIRMA", content: warranty.visar ?? 'No'),
-              ),
-            ],
+          MyInput(
+            label: 'Número',
+            initialValue: warranty.numero.toString(),
+            readOnly: true,
           ),
-          if (warranty.firmado == 'Si') ...[
-            spacerS,
-            Row(
-              children: [
-                Expanded(
-                  child: Item(
-                      title: "QUIEN FIRMA", content: warranty.quienFirma ?? ''),
-                ),
-                Expanded(
-                  child:
-                      Item(title: "NIF", content: warranty.nifQuienFirma ?? ''),
-                ),
-              ],
-            ),
-            Text(warranty.fechaFirma ?? '',
-                style: AppTextStyle.defaultStyle.copyWith(
-                  fontWeight: FontWeight.w700,
-                  color: Colors.grey,
-                ))
-          ]
+          MyInput(
+            label: 'Centro de reparto',
+            initialValue: warranty.centroReparto,
+            readOnly: true,
+          ),
+          MyInput(
+            label: 'Estado de la sustitución',
+            initialValue: warranty.estadoSu,
+            readOnly: true,
+          ),
+          MyInput(
+            label: 'Estado de la tramitación',
+            initialValue: warranty.estadoTr,
+            readOnly: true,
+          ),
+          MyInput(
+            label: 'Importe',
+            initialValue: fmf
+                .copyWith(amount: double.parse(warranty.importe ?? '0.0'))
+                .output
+                .symbolOnRight,
+            readOnly: true,
+          ),
+          MyInput(
+            label: 'Visar',
+            initialValue: warranty.visar,
+            readOnly: true,
+          ),
+          MyInput(
+            label: 'Firmado',
+            initialValue: warranty.firmado,
+            readOnly: true,
+          ),
+          // MyInput(
+          //   label: 'Firmado',
+          //   initialValue: warranty.,
+          //   readOnly: true,
+          // ),
+
+          // Row(
+          //   children: [
+          //     Expanded(
+          //       child: Item(
+          //           title: "CENTRO REPARTO",
+          //           content: warranty.centroReparto ?? ''),
+          //     ),
+          //     Expanded(
+          //       child: Item(
+          //           title: "ESTADO SUSTITUCIÓN",
+          //           content: warranty.estadoSu ?? ''),
+          //     ),
+          //   ],
+          // ),
+          // spacerS,
+          // Row(
+          //   children: [
+          //     Expanded(
+          //       child: Item(
+          //           title: "IMPORTE VEMARE",
+          //           content: fmf
+          //               .copyWith(
+          //                   amount:
+          //                       double.parse(detail?.importeVemare ?? '0.0'))
+          //               .output
+          //               .symbolOnRight),
+          //     ),
+          //     Expanded(
+          //       child: Item(
+          //           title: "IMPORTE CLIENTE",
+          //           content: fmf
+          //               .copyWith(
+          //                   amount:
+          //                       double.parse(detail?.importeCliente ?? '0.0'))
+          //               .output
+          //               .symbolOnRight),
+          //     ),
+          //   ],
+          // ),
+          // spacerS,
+          // Row(
+          //   children: [
+          //     Expanded(
+          //       child: Item(title: "FIRMADO", content: detail?.firmado ?? 'No'),
+          //     ),
+          //     Expanded(
+          //       child: Item(
+          //           title: "PERMITE FIRMA", content: warranty.visar ?? 'No'),
+          //     ),
+          //   ],
+          // ),
+          // if (warranty.firmado == 'Si') ...[
+          //   spacerS,
+          //   Row(
+          //     children: [
+          //       Expanded(
+          //         child: Item(
+          //             title: "QUIEN FIRMA", content: warranty.quienFirma ?? ''),
+          //       ),
+          //       Expanded(
+          //         child:
+          //             Item(title: "NIF", content: warranty.nifQuienFirma ?? ''),
+          //       ),
+          //     ],
+          //   ),
+          //   Text(warranty.fechaFirma ?? '',
+          //       style: AppTextStyle.defaultStyle.copyWith(
+          //         fontWeight: FontWeight.w700,
+          //         color: Colors.grey,
+          //       ))
+          // ]
 
           // spacerM,
           // MyLabelStatus.pending()
