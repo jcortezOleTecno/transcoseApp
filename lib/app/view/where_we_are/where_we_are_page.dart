@@ -3,16 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 // import 'package:searchfield/searchfield.dart' as search;
 import 'package:vemare/app/data/center_repository.dart';
 import 'package:vemare/app/domain/model/center.dart' as w;
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
+import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_input/my_input_autocomplete.dart';
+import 'package:vemare/app/view/_components/my_network_image/my_network_image.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
+import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/app/view/where_we_are/bloc/where_we_are_cubit.dart';
 import 'package:vemare/app/view/where_we_are/bloc/where_we_are_state.dart';
@@ -186,9 +190,9 @@ class _Item extends StatelessWidget {
                     topRight: Radius.circular(12),
                     topLeft: Radius.circular(12)),
               ),
-              child: Image.network(
-                center.image!,
-                scale: 2,
+              child: MyNetworkImage(
+                image: center.image!,
+                height: 180,
                 fit: BoxFit.cover,
               ),
             ),
@@ -197,18 +201,124 @@ class _Item extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(center.name ?? '', style: AppTextStyle.titleCard),
+                  Text(center.name ?? '', style: AppTextStyle.h3Style),
+                  if (center.exclusiveSale ?? false) ...[
+                    spacerXs,
+                    Text('Venta exclusiva a profesionales.',
+                        style: AppTextStyle.titleCard
+                            .copyWith(color: AppColor.error)),
+                  ],
+                  spacerS,
+                  Text(
+                      '${center.postalCode}, ${center.city}, ${center.province}, España',
+                      style: AppTextStyle.defaultStyle),
+                  spacerS,
+                  _phone(),
+                  spacerS,
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.mail_outline_outlined,
+                        color: AppColor.primaryBlue,
+                      ),
+                      spacerS,
+                      GestureDetector(
+                        onTap: () {
+                          cubit.openEmail(toEmail: center.email ?? '');
+                        },
+                        child: Text(
+                          center.email ?? '',
+                          style: AppTextStyle.linkStyle,
+                        ),
+                      ),
+                    ],
+                  ),
+                  if (center.url != null) ...[
+                    spacerS,
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.phone_iphone_rounded,
+                          color: AppColor.primaryBlue,
+                        ),
+                        spacerS,
+                        GestureDetector(
+                          onTap: () {
+                            launchUrlString(center.url ?? '',
+                                mode: LaunchMode.externalApplication);
+                          },
+                          child: Text(
+                            center.url ?? '',
+                            style: AppTextStyle.linkStyle,
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
                   // spacerS,
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: MyHtml(text: center.description ?? ''),
-            )
           ],
         ),
       ),
+    );
+  }
+
+  Widget _phone() {
+    if (center.phone!.contains('/')) {
+      List<String> phones = center.phone!.split("/");
+      return Row(
+        children: [
+          Image.asset(
+            'assets/icons/Phone.png',
+            color: AppColor.primaryBlue,
+            scale: 2,
+          ),
+          spacerS,
+          GestureDetector(
+            onTap: () async {
+              await launchUrlString('tel:${phones[0]}');
+            },
+            child: Text(
+              phones[0],
+              style: AppTextStyle.linkStyle,
+            ),
+          ),
+          const Text(
+            ' / ',
+            style: AppTextStyle.linkStyle,
+          ),
+          GestureDetector(
+            onTap: () async {
+              await launchUrlString('tel:${phones[1]}');
+            },
+            child: Text(
+              phones[1],
+              style: AppTextStyle.linkStyle,
+            ),
+          ),
+        ],
+      );
+    }
+    return Row(
+      children: [
+        Image.asset(
+          'assets/icons/Phone.png',
+          color: AppColor.primaryBlue,
+          scale: 2,
+        ),
+        spacerS,
+        GestureDetector(
+          onTap: () async {
+            await launchUrlString('tel:${center.phone}');
+          },
+          child: Text(
+            center.phone ?? '',
+            style: AppTextStyle.linkStyle,
+          ),
+        )
+      ],
     );
   }
 }
