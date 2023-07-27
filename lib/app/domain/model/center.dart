@@ -22,6 +22,8 @@ class Center {
     this.longitude,
     this.latitude,
     this.image,
+    this.exclusiveSale,
+    this.url,
   });
 
   int id;
@@ -38,6 +40,8 @@ class Center {
   String? longitude;
   String? latitude;
   String? image;
+  bool? exclusiveSale;
+  String? url;
 
   factory Center.fromJson(dynamic json) => Center(
         id: json["id"] as int,
@@ -54,6 +58,8 @@ class Center {
         longitude: json["longitude"] as String?,
         latitude: json["latitude"] as String?,
         image: json["image"] as String?,
+        exclusiveSale: json["exclusive_sale"] as bool?,
+        url: json["url"] as String?,
       );
 
   Map<String, dynamic> toJson() => {
@@ -71,5 +77,7 @@ class Center {
         "longitude": longitude,
         "latitude": latitude,
         "image": image,
+        "exclusive_sale": exclusiveSale,
+        "url": url,
       };
 }
