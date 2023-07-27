@@ -66,8 +66,6 @@ PODS:
     - GoogleUtilities/UserDefaults (~> 7.8)
     - nanopb (< 2.30910.0, >= 2.30908.0)
   - Flutter (1.0.0)
-  - flutter_downloader (0.0.1):
-    - Flutter
   - flutter_inappwebview (0.0.1):
     - Flutter
     - flutter_inappwebview/Core (= 0.0.1)
@@ -145,7 +143,6 @@ DEPENDENCIES:
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
   - Flutter (from `Flutter`)
-  - flutter_downloader (from `.symlinks/plugins/flutter_downloader/ios`)
   - flutter_inappwebview (from `.symlinks/plugins/flutter_inappwebview/ios`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - gallery_saver (from `.symlinks/plugins/gallery_saver/ios`)
@@ -188,8 +185,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_messaging/ios"
   Flutter:
     :path: Flutter
-  flutter_downloader:
-    :path: ".symlinks/plugins/flutter_downloader/ios"
   flutter_inappwebview:
     :path: ".symlinks/plugins/flutter_inappwebview/ios"
   flutter_local_notifications:
@@ -229,7 +224,6 @@ SPEC CHECKSUMS:
   FirebaseInstallations: 7b99ef103f013624444c614397038219c45f8e63
   FirebaseMessaging: bb2c4f6422a753038fe137d90ae7c1af57251316
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  flutter_downloader: b7301ae057deadd4b1650dc7c05375f10ff12c39
   flutter_inappwebview: bfd58618f49dc62f2676de690fc6dcda1d6c3721
   flutter_local_notifications: 0c0b1ae97e741e1521e4c1629a459d04b9aec743
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
@@ -253,6 +247,6 @@ SPEC CHECKSUMS:
   video_player_avfoundation: 81e49bb3d9fb63dccf9fa0f6d877dc3ddbeac126
   wakelock: d0fc7c864128eac40eba1617cb5264d9c940b46f
 
-PODFILE CHECKSUM: 896c9d012feb0181f5fa1d98bc61a16196c195b0
+PODFILE CHECKSUM: 2f7205127d78c9570d2cacdbc3544ac41488e196
 
 COCOAPODS: 1.12.1

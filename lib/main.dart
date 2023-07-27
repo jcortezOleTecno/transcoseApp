@@ -3,7 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
+// import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:vemare/app/data/about_us_repository.dart';
 import 'package:vemare/app/data/auth_repository.dart';
@@ -34,7 +34,7 @@ void main() async {
   await ServiceLocator.setup();
   await Firebase.initializeApp();
   // Initialize FlutterDownloader
-  await FlutterDownloader.initialize(debug: false);
+  // await FlutterDownloader.initialize();
   PushNotificationsProvider().initNotifications();
   setPathUrlStrategy();
   runApp(const MyApp());

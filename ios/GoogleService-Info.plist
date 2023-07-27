@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>578147292338-383erb6044r4idbdh5crcppkmajca2q0.apps.googleusercontent.com</string>
+	<string>578147292338-l069tjtvefnt5fcunoveeo1mnrtknanl.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.578147292338-383erb6044r4idbdh5crcppkmajca2q0</string>
+	<string>com.googleusercontent.apps.578147292338-l069tjtvefnt5fcunoveeo1mnrtknanl</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>578147292338-4d3b36ro9vl0ujekjbippk2cf9krgb8h.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.vemare.app.vemare</string>
+	<string>com.vemare.app</string>
 	<key>PROJECT_ID</key>
 	<string>appwebvemarecorporativa</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:578147292338:ios:493e1d921fee2f9ebc25ab</string>
+	<string>1:578147292338:ios:4337e0a2172546dfbc25ab</string>
 </dict>
 </plist>
