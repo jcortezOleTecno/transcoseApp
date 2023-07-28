@@ -13,14 +13,14 @@ class MyBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var paddingTop = MediaQuery.of(context).padding.top;
     return Stack(
       children: [
         Padding(
           padding: padding ?? EdgeInsets.zero,
           child: Column(
             children: [
-              SizedBox(
-                  height: 80 + MediaQuery.of(context).viewPadding.vertical),
+              SizedBox(height: 80 + paddingTop),
               Expanded(child: child),
             ],
           ),

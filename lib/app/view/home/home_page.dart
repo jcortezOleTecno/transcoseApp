@@ -91,7 +91,8 @@ class _HomePageState extends State<HomePage> {
       child: NestedPageView(
         controller: controller,
         scrollDirection: Axis.vertical,
-        wantKeepAlive: false,
+        physics: const BouncingScrollPhysics(),
+        wantKeepAlive: true,
         restorationId: 'id',
         padEnds: false,
         children: const [
