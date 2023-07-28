@@ -102,14 +102,9 @@ class ShoppingCartPage extends StatelessWidget {
                         onPressed: () {
                           !state.buying
                               ? cubit.buy()
-                              : Navigator.pushNamed(
-                                  context, ShippingDataPage.route,
-                                  arguments: ShoppingCarArgs(
-                                    products: state.products,
-                                    total: state.total,
-                                    isCard: state.isCard,
-                                    counter: state.counter,
-                                  ));
+                              :
+                              //TODO: Implementar pago con endpoint
+                              print("PAGAR");
                         },
                         text: state.typePaySelected ? 'Continuar' : 'Comprar'),
                   ),
@@ -271,13 +266,13 @@ class ShoppingItem extends StatelessWidget {
                   children: [
                     if (product.promotionPriceLowered != null)
                       TextSpan(
-                        text:
-                            '${(int.parse(product.promotionPrice ?? '0') * (product.quantity ?? 0))}€',
+                        text: myFormatMoney((product.promotionPrice ?? 0.0) *
+                            (product.quantity ?? 0)),
                         style: AppTextStyle.pvpOrinigal.copyWith(fontSize: 14),
                       ),
                     TextSpan(
                       text:
-                          ' ${(int.parse(product.promotionPriceLowered ?? product.promotionPrice ?? '0') * (product.quantity ?? 0))}€',
+                          ' ${myFormatMoney((product.promotionPriceLowered ?? product.promotionPrice ?? 0) * (product.quantity ?? 0))}',
                     ),
                     TextSpan(
                       text: ' IVA incluido ',

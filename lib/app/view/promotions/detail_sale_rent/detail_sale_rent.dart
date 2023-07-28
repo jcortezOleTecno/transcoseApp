@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/shopping_cart_repository.dart';
 import 'package:vemare/app/domain/model/promotion.dart';
+import 'package:vemare/app/domain/utils/money_formatter.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
@@ -107,13 +108,14 @@ class DetailSaleRent extends StatelessWidget {
                                 children: [
                                   if (state.promotion?.pvpLowered != null)
                                     TextSpan(
-                                        text:
-                                            '${(int.parse(state.promotion?.pvpOriginal ?? '0') * (state.quantity))}€',
+                                        text: myFormatMoney(
+                                            ((state.promotion?.pvpOriginal ??
+                                                    0) *
+                                                (state.quantity.toDouble()))),
                                         style: AppTextStyle.pvpOrinigal),
                                   TextSpan(
-                                    text:
-                                        ' ${(int.parse(state.promotion?.pvpLowered ?? state.promotion?.pvpOriginal ?? '0') * (state.quantity))}€',
-                                  ),
+                                      text:
+                                          ' ${myFormatMoney((state.promotion?.pvpLowered ?? state.promotion?.pvpOriginal ?? 0.0) * (state.quantity.toDouble()))}'),
                                   TextSpan(
                                     text: ' IVA incluido ',
                                     style: AppTextStyle.defaultStyle

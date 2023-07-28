@@ -9,9 +9,9 @@ class ShoppingCardRepository {
 
   Future<List<ShoppingCardProduct>> getProducts() async {
     final dynamic res = await _apiClient
-        .getRequest('$BASE_API_URL/api/promociones/listado_carrito');
+        .getRequest('$BASE_API_URL/api/promociones/obtener_carrito');
     print(res);
-    return (res as List).map(ShoppingCardProduct.fromJson).toList();
+    return (res['items'] as List).map(ShoppingCardProduct.fromJson).toList();
   }
 
   Future<String?> shoppingDelete({required int id}) async {

@@ -11,3 +11,7 @@ final fmf = MoneyFormatter(
     compactFormatType: CompactFormatType.short,
   ),
 );
+
+String myFormatMoney(double value) {
+  return fmf.copyWith(amount: value).output.symbolOnRight;
+}

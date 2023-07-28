@@ -118,20 +118,22 @@ class _Button extends StatelessWidget {
         onPressed: () {
           if (LocalDataRepository().isLogged) {
             if (!args.isTienda) {
-              promotionDialog(context,
-                      title: 'Felicidades',
-                      content:
-                          'Tu comercial se pondrá en contacto contigo lo antes posible para ver los detalles de tu solicitud.')
-                  .then((_) {
-                Navigator.popUntil(
-                    context, ModalRoute.withName(HomePage.route));
-              });
+              // promotionDialog(context,
+              //         title: 'Felicidades',
+              //         content:
+              //             'Tu comercial se pondrá en contacto contigo lo antes posible para ver los detalles de tu solicitud.')
+              //     .then((_) {
+              //   Navigator.popUntil(
+              //       context, ModalRoute.withName(HomePage.route));
+              // });
             } else {
-              Navigator.pushNamed(
-                context,
-                PaymentPage.route,
-                arguments: args,
-              );
+              //TODO: Implementar endpoint de pago
+              print("PAGAR");
+              // Navigator.pushNamed(
+              //   context,
+              //   PaymentPage.route,
+              //   arguments: args,
+              // );
             }
           } else {
             Navigator.pushNamed(
@@ -141,20 +143,23 @@ class _Button extends StatelessWidget {
             ).then((_) {
               if (LocalDataRepository().isLogged) {
                 if (!args.isTienda) {
-                  promotionDialog(context,
-                          title: 'Felicidades',
-                          content:
-                              'Tu comercial se pondrá en contacto contigo lo antes posible para ver los detalles de tu solicitud.')
-                      .then((_) {
-                    Navigator.popUntil(
-                        context, ModalRoute.withName(HomePage.route));
-                  });
+                  // promotionDialog(context,
+                  //         title: 'Felicidades',
+                  //         content:
+                  //             'Tu comercial se pondrá en contacto contigo lo antes posible para ver los detalles de tu solicitud.')
+                  //     .then((_) {
+                  //   Navigator.popUntil(
+                  //       context, ModalRoute.withName(HomePage.route));
+                  // });
                 } else {
-                  Navigator.pushNamed(
-                    context,
-                    PaymentPage.route,
-                    arguments: args.isCredit,
-                  );
+                  //TODO: Implementar endpoint de pago
+                  print("PAGAR");
+
+                  // Navigator.pushNamed(
+                  //   context,
+                  //   PaymentPage.route,
+                  //   arguments: args.isCredit,
+                  // );
                 }
               }
             });

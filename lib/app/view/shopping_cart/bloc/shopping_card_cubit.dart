@@ -42,8 +42,8 @@ class ShoppingCardCubit extends Cubit<ShoppingCardState> {
   void buy() {
     var total = 0.0;
     for (var e in state.products) {
-      var totalTemp = e.quantity!.toDouble() *
-          double.parse(e.promotionPriceLowered ?? e.promotionPrice!);
+      var totalTemp = (e.quantity!.toDouble()) *
+          (e.promotionPriceLowered ?? e.promotionPrice ?? 0.0);
       total = total + totalTemp;
     }
 

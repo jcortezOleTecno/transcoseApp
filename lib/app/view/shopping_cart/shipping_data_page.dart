@@ -235,29 +235,21 @@ class _Item extends StatelessWidget {
                   style: AppTextStyle.titleCard,
                   children: [
                     if (product.promotionPriceLowered != null)
+                      //   TextSpan(
+                      //     text:
+                      //         '${(int.parse(product.promotionPrice ?? '0') * (product.quantity ?? 0))}€',
+                      //     style: AppTextStyle.pvpOrinigal.copyWith(fontSize: 14),
+                      //   ),
+                      // TextSpan(
+                      //   text:
+                      //       ' ${(int.parse(product.promotionPriceLowered ?? product.promotionPrice ?? '0') * (product.quantity ?? 0))}€',
+                      // ),
+
                       TextSpan(
-                        text:
-                            '${(int.parse(product.promotionPrice ?? '0') * (product.quantity ?? 0))}€',
-                        style: AppTextStyle.pvpOrinigal.copyWith(fontSize: 14),
+                        text: ' IVA incluido ',
+                        style: AppTextStyle.defaultStyle
+                            .copyWith(color: AppColor.neutral40, fontSize: 14),
                       ),
-                    TextSpan(
-                      text:
-                          ' ${(int.parse(product.promotionPriceLowered ?? product.promotionPrice ?? '0') * (product.quantity ?? 0))}€',
-                    ),
-                    /*
-                    TextSpan(
-                      text: '${product.promotionPrice}€',
-                      style: AppTextStyle.pvpOrinigal.copyWith(fontSize: 14),
-                    ),
-                    TextSpan(
-                      text: ' ${product.promotionPriceLowered}€',
-                    ),
-                    */
-                    TextSpan(
-                      text: ' IVA incluido ',
-                      style: AppTextStyle.defaultStyle
-                          .copyWith(color: AppColor.neutral40, fontSize: 14),
-                    ),
                   ],
                 ),
               ),

@@ -4,6 +4,7 @@ import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/promotion_repository.dart';
 import 'package:vemare/app/domain/model/category.dart';
 import 'package:vemare/app/domain/model/promotion.dart';
+import 'package:vemare/app/domain/utils/money_formatter.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_dropdown_button/my_drop_down_button.dart';
@@ -178,12 +179,13 @@ class _Card extends StatelessWidget {
                       LocalDataRepository().isLogged) ...[
                     if (promotion.pvpLowered != null)
                       Text(
-                        '${promotion.pvpOriginal}€',
+                        myFormatMoney(promotion.pvpOriginal ?? 0.0),
                         style: AppTextStyle.pvpOrinigal,
                       ),
                     spacerXs,
                     Text(
-                      '${promotion.pvpLowered ?? promotion.pvpOriginal}€',
+                      myFormatMoney(
+                          promotion.pvpLowered ?? promotion.pvpOriginal ?? 0.0),
                       style: AppTextStyle.h2Style,
                     ),
                   ]

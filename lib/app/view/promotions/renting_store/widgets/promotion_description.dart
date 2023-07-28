@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vemare/app/domain/model/promotion.dart';
+import 'package:vemare/app/domain/utils/money_formatter.dart';
 import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/theme/color.dart';
@@ -55,12 +56,12 @@ class PromotionDescription extends StatelessWidget {
                 children: [
                   if (promotion.pvpLowered != null)
                     TextSpan(
-                        text:
-                            '${(int.parse(promotion.pvpOriginal ?? '0') * (quantity!))}€',
+                        text: myFormatMoney((promotion.pvpOriginal ?? 0) *
+                            (quantity!.toDouble())),
                         style: AppTextStyle.pvpOrinigal),
                   TextSpan(
                     text:
-                        ' ${(int.parse(promotion.pvpLowered ?? promotion.pvpOriginal ?? '0') * (quantity!))}€',
+                        ' ${myFormatMoney((promotion.pvpLowered ?? promotion.pvpOriginal ?? 0) * (quantity!.toDouble()))}',
                   ),
                   TextSpan(
                     text: ' IVA incluido ',
