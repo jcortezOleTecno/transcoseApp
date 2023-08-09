@@ -1,7 +1,6 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/my_account_repository.dart';
 import 'package:vemare/app/domain/model/warranty.dart';
 import 'package:vemare/app/domain/model/warranty_details.dart';
@@ -111,7 +110,7 @@ class _Products extends StatelessWidget {
           );
         }
         return Builder(builder: (context) {
-          final DataTableSource _data =
+          final DataTableSource data =
               DataReferencias(state.details!.referencias!);
           return Card(
             margin: const EdgeInsets.only(bottom: 20),
@@ -175,7 +174,7 @@ class _Products extends StatelessWidget {
                         // size: ColumnSize.L,
                       ),
                     ],
-                    source: _data,
+                    source: data,
                   ),
                 ),
                 spacerS,
@@ -257,14 +256,12 @@ class DataReferencias extends DataTableSource {
   }
 
   @override
-  // TODO: implement isRowCountApproximate
+  //
   bool get isRowCountApproximate => false;
 
   @override
-  // TODO: implement rowCount
   int get rowCount => data.length;
 
   @override
-  // TODO: implement selectedRowCount
   int get selectedRowCount => 0;
 }

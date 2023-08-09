@@ -412,6 +412,7 @@ class _FormEquipamentoState extends State<FormEquipamento> {
                               initialDate.add(const Duration(days: 1));
                         }
 
+                        // ignore: use_build_context_synchronously
                         showRoundedDatePicker(
                                 context: context,
                                 initialDate: initialDate,
@@ -452,8 +453,8 @@ class _FormEquipamentoState extends State<FormEquipamento> {
                                   return true; // Días seleccionables
                                 },
                                 styleDatePicker: MaterialRoundedDatePickerStyle(
-                                    textStyleDayHeader:
-                                        TextStyle(locale: Locale('es', 'ES'))))
+                                    textStyleDayHeader: const TextStyle(
+                                        locale: Locale('es', 'ES'))))
                             .then((date) {
                           if (date != null) {
                             cubit.fechaCita(DateFormat.yMd('es').format(date));

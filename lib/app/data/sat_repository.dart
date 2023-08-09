@@ -21,13 +21,11 @@ class SatRepository {
       log(jsonEncode(res));
       return (res as List).map(SatForms.fromJson).toList();
     } catch (e) {
-      print('ERROR $e');
       return <SatForms>[];
     }
   }
 
   Future<String> sendSatForms(Map<String, dynamic> data) async {
-    print(data);
     final dynamic res = await _apiClient
         .postRequest('$BASE_API_URL/api/formularios_sat/enviar', body: data);
     return (res['mensaje'] as String);

@@ -23,7 +23,7 @@ import 'package:vemare/config/service_locator.dart';
 import 'bloc/my_trainigs_and_events_cubit.dart';
 
 class MyTrainingAndEventsPage extends StatelessWidget {
-  const MyTrainingAndEventsPage._({super.key});
+  const MyTrainingAndEventsPage._();
   static const route = '/my_trainings_and_events';
 
   static Widget create() {

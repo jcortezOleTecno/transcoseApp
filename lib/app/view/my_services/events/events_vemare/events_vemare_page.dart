@@ -148,6 +148,7 @@ class _MyEvents extends StatelessWidget {
     this.onTap,
     this.title,
     required this.img,
+    // ignore: unused_element
     this.icon = false,
     Key? key,
   }) : super(key: key);

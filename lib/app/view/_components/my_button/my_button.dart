@@ -56,7 +56,7 @@ class MyButton extends StatelessWidget {
                     text,
                     style: Theme.of(context)
                         .textTheme
-                        .button
+                        .labelLarge
                         ?.merge(style.textStyle),
                   ),
           ),

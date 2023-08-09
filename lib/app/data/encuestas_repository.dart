@@ -11,7 +11,6 @@ class EncuestasRepository {
   Future<Encuestas> getEncuestas() async {
     final dynamic res =
         await _apiClient.postRequest('$BASE_API_URL/api/verificar-encuesta');
-    print(res);
     return Encuestas.fromJson(res);
   }
 
@@ -30,7 +29,6 @@ class EncuestasRepository {
 
       return res["message"];
     } catch (e) {
-      print('ERROR $e');
       return 'Error';
     }
   }

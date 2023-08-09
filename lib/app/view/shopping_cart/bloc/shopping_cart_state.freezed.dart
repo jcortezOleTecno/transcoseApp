@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ShoppingCardState {
   bool get loading => throw _privateConstructorUsedError;
+  FormStatus get status => throw _privateConstructorUsedError;
   bool get deleting => throw _privateConstructorUsedError;
   bool get buying => throw _privateConstructorUsedError;
   bool get isCard => throw _privateConstructorUsedError;
@@ -24,6 +25,7 @@ mixin _$ShoppingCardState {
   double get total => throw _privateConstructorUsedError;
   int get counter => throw _privateConstructorUsedError;
   List<ShoppingCardProduct> get products => throw _privateConstructorUsedError;
+  PayResponse? get payResponse => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ShoppingCardStateCopyWith<ShoppingCardState> get copyWith =>
@@ -38,13 +40,15 @@ abstract class $ShoppingCardStateCopyWith<$Res> {
   @useResult
   $Res call(
       {bool loading,
+      FormStatus status,
       bool deleting,
       bool buying,
       bool isCard,
       bool typePaySelected,
       double total,
       int counter,
-      List<ShoppingCardProduct> products});
+      List<ShoppingCardProduct> products,
+      PayResponse? payResponse});
 }
 
 /// @nodoc
@@ -61,6 +65,7 @@ class _$ShoppingCardStateCopyWithImpl<$Res, $Val extends ShoppingCardState>
   @override
   $Res call({
     Object? loading = null,
+    Object? status = null,
     Object? deleting = null,
     Object? buying = null,
     Object? isCard = null,
@@ -68,12 +73,17 @@ class _$ShoppingCardStateCopyWithImpl<$Res, $Val extends ShoppingCardState>
     Object? total = null,
     Object? counter = null,
     Object? products = null,
+    Object? payResponse = freezed,
   }) {
     return _then(_value.copyWith(
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
               as bool,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as FormStatus,
       deleting: null == deleting
           ? _value.deleting
           : deleting // ignore: cast_nullable_to_non_nullable
@@ -102,6 +112,10 @@ class _$ShoppingCardStateCopyWithImpl<$Res, $Val extends ShoppingCardState>
           ? _value.products
           : products // ignore: cast_nullable_to_non_nullable
               as List<ShoppingCardProduct>,
+      payResponse: freezed == payResponse
+          ? _value.payResponse
+          : payResponse // ignore: cast_nullable_to_non_nullable
+              as PayResponse?,
     ) as $Val);
   }
 }
@@ -116,13 +130,15 @@ abstract class _$$_ShoppingCardStateCopyWith<$Res>
   @useResult
   $Res call(
       {bool loading,
+      FormStatus status,
       bool deleting,
       bool buying,
       bool isCard,
       bool typePaySelected,
       double total,
       int counter,
-      List<ShoppingCardProduct> products});
+      List<ShoppingCardProduct> products,
+      PayResponse? payResponse});
 }
 
 /// @nodoc
@@ -137,6 +153,7 @@ class __$$_ShoppingCardStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? loading = null,
+    Object? status = null,
     Object? deleting = null,
     Object? buying = null,
     Object? isCard = null,
@@ -144,12 +161,17 @@ class __$$_ShoppingCardStateCopyWithImpl<$Res>
     Object? total = null,
     Object? counter = null,
     Object? products = null,
+    Object? payResponse = freezed,
   }) {
     return _then(_$_ShoppingCardState(
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
               as bool,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as FormStatus,
       deleting: null == deleting
           ? _value.deleting
           : deleting // ignore: cast_nullable_to_non_nullable
@@ -178,6 +200,10 @@ class __$$_ShoppingCardStateCopyWithImpl<$Res>
           ? _value._products
           : products // ignore: cast_nullable_to_non_nullable
               as List<ShoppingCardProduct>,
+      payResponse: freezed == payResponse
+          ? _value.payResponse
+          : payResponse // ignore: cast_nullable_to_non_nullable
+              as PayResponse?,
     ));
   }
 }
@@ -187,19 +213,24 @@ class __$$_ShoppingCardStateCopyWithImpl<$Res>
 class _$_ShoppingCardState extends _ShoppingCardState {
   const _$_ShoppingCardState(
       {this.loading = false,
+      this.status = FormStatus.editing,
       this.deleting = false,
       this.buying = false,
       this.isCard = false,
       this.typePaySelected = false,
       this.total = 0.0,
       this.counter = 0,
-      final List<ShoppingCardProduct> products = const <ShoppingCardProduct>[]})
+      final List<ShoppingCardProduct> products = const <ShoppingCardProduct>[],
+      this.payResponse})
       : _products = products,
         super._();
 
   @override
   @JsonKey()
   final bool loading;
+  @override
+  @JsonKey()
+  final FormStatus status;
   @override
   @JsonKey()
   final bool deleting;
@@ -228,8 +259,11 @@ class _$_ShoppingCardState extends _ShoppingCardState {
   }
 
   @override
+  final PayResponse? payResponse;
+
+  @override
   String toString() {
-    return 'ShoppingCardState(loading: $loading, deleting: $deleting, buying: $buying, isCard: $isCard, typePaySelected: $typePaySelected, total: $total, counter: $counter, products: $products)';
+    return 'ShoppingCardState(loading: $loading, status: $status, deleting: $deleting, buying: $buying, isCard: $isCard, typePaySelected: $typePaySelected, total: $total, counter: $counter, products: $products, payResponse: $payResponse)';
   }
 
   @override
@@ -238,6 +272,7 @@ class _$_ShoppingCardState extends _ShoppingCardState {
         (other.runtimeType == runtimeType &&
             other is _$_ShoppingCardState &&
             (identical(other.loading, loading) || other.loading == loading) &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.deleting, deleting) ||
                 other.deleting == deleting) &&
             (identical(other.buying, buying) || other.buying == buying) &&
@@ -246,20 +281,24 @@ class _$_ShoppingCardState extends _ShoppingCardState {
                 other.typePaySelected == typePaySelected) &&
             (identical(other.total, total) || other.total == total) &&
             (identical(other.counter, counter) || other.counter == counter) &&
-            const DeepCollectionEquality().equals(other._products, _products));
+            const DeepCollectionEquality().equals(other._products, _products) &&
+            (identical(other.payResponse, payResponse) ||
+                other.payResponse == payResponse));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       loading,
+      status,
       deleting,
       buying,
       isCard,
       typePaySelected,
       total,
       counter,
-      const DeepCollectionEquality().hash(_products));
+      const DeepCollectionEquality().hash(_products),
+      payResponse);
 
   @JsonKey(ignore: true)
   @override
@@ -272,17 +311,21 @@ class _$_ShoppingCardState extends _ShoppingCardState {
 abstract class _ShoppingCardState extends ShoppingCardState {
   const factory _ShoppingCardState(
       {final bool loading,
+      final FormStatus status,
       final bool deleting,
       final bool buying,
       final bool isCard,
       final bool typePaySelected,
       final double total,
       final int counter,
-      final List<ShoppingCardProduct> products}) = _$_ShoppingCardState;
+      final List<ShoppingCardProduct> products,
+      final PayResponse? payResponse}) = _$_ShoppingCardState;
   const _ShoppingCardState._() : super._();
 
   @override
   bool get loading;
+  @override
+  FormStatus get status;
   @override
   bool get deleting;
   @override
@@ -297,6 +340,8 @@ abstract class _ShoppingCardState extends ShoppingCardState {
   int get counter;
   @override
   List<ShoppingCardProduct> get products;
+  @override
+  PayResponse? get payResponse;
   @override
   @JsonKey(ignore: true)
   _$$_ShoppingCardStateCopyWith<_$_ShoppingCardState> get copyWith =>

@@ -25,7 +25,7 @@ class MyCTAButton extends StatelessWidget {
       text,
       style: Theme.of(context)
           .textTheme
-          .bodyText1
+          .bodyLarge
           ?.copyWith(color: customColor ?? AppColor.blue),
     );
     final iconWidget = Icon(
@@ -37,8 +37,8 @@ class MyCTAButton extends StatelessWidget {
     return TextButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        primary: Colors.transparent,
-        onPrimary: AppColor.blue,
+        foregroundColor: AppColor.blue,
+        backgroundColor: Colors.transparent,
         shape: semiRoundedShape,
       ),
       child: Row(

@@ -22,6 +22,8 @@ import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
 
+import '../../_components/my_network_image/my_network_image.dart';
+
 class DetailSaleRent extends StatelessWidget {
   const DetailSaleRent._();
 
@@ -42,7 +44,6 @@ class DetailSaleRent extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<DetailSaleRentCubit>();
     final user = context.read<UserCubit>().state.user;
-    print(user);
     return Scaffold(
       body: BlocConsumer<DetailSaleRentCubit, DetailSaleRentState>(
         listenWhen: (p, c) => p.adds != c.adds,
@@ -85,9 +86,10 @@ class DetailSaleRent extends StatelessWidget {
                       spacerM,
                       ClipRRect(
                         borderRadius: BorderRadius.circular(12),
-                        child: Image(
-                          image: NetworkImage(state.promotion!.image!),
+                        child: MyNetworkImage(
+                          image: state.promotion!.image!,
                           height: 200,
+                          width: double.infinity,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -204,6 +206,10 @@ class DetailSaleRent extends StatelessWidget {
       ),
     );
   }
+
+  // _comprar(DetailSaleRentCubit cubit) {
+  //   return print("COMPRAR");
+  // }
 }
 
 class StoreArgs {

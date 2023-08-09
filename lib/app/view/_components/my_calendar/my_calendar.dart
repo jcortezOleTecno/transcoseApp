@@ -23,7 +23,7 @@ class MyCalendar extends StatefulWidget {
 
 class _MyCalendarState extends State<MyCalendar> {
   DateTime? _selectedDay;
-  DateTime? _focusedDay;
+  // DateTime? _focusedDay;
 
   @override
   Widget build(BuildContext context) {

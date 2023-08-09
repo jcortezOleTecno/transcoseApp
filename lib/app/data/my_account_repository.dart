@@ -100,7 +100,6 @@ class MyAccountRepository {
       final dynamic res = await _apiClient.postRequest(
           '$BASE_API_URL/api/mi-cuenta/garantias/firmar',
           body: body);
-      print(res);
       return res["type"] == 'error' ? false : true;
     } catch (e) {
       return false;
@@ -111,7 +110,6 @@ class MyAccountRepository {
     final dynamic res = await _apiClient.postRequest(
         '$BASE_API_URL/api/mi-cuenta/abonos',
         body: filter?.toJson() ?? {"anio": DateTime.now().year.toString()});
-    print(res);
     return AnswerWithFilters(
       data: (res["data"]["status"] as bool)
           ? (res["data"]["datos"]["albaranes"] as List)
@@ -127,7 +125,6 @@ class MyAccountRepository {
       final dynamic res = await _apiClient.postRequest(
           '$BASE_API_URL/api/mi-cuenta/mis347',
           body: {"year": year ?? "2021"});
-      print(res);
       return (res["data"] as List).map(Modelo347.fromJson).toList();
     } catch (e) {
       return [];
@@ -135,12 +132,10 @@ class MyAccountRepository {
   }
 
   Future<List<Intervenciones>> getMySAT({Filter? filter}) async {
-    print(filter?.toJson());
     try {
       final dynamic res = await _apiClient.postRequest(
           '$BASE_API_URL/api/mi-cuenta/sat',
           body: filter?.toJson());
-      print(res);
       return (res["datos"]["intervenciones"] as List)
           .map(Intervenciones.fromJson)
           .toList();
@@ -154,7 +149,6 @@ class MyAccountRepository {
     final dynamic res = await _apiClient.postRequest(
         '$BASE_API_URL/api/mi-cuenta/sat/detalle',
         body: {"codigo_intervencion": codigoIntervencion});
-    print(res);
     return IntervencionesDetalle.fromJson(res["intervencion"]);
   }
 
@@ -163,8 +157,6 @@ class MyAccountRepository {
       final dynamic res = await _apiClient.getRequest(
           '$BASE_API_URL/api/eventos/formacionesEventos',
           params: filter?.toJson());
-      print(res);
-      print('##############');
       return (res["data"] as List).map(TrainingsEvents.fromJson).toList();
     } catch (e) {
       return [];
@@ -214,9 +206,8 @@ class MyAccountRepository {
   }
 
   Future<void> cancelRegistration({required String id}) async {
-    final dynamic res = await _apiClient.postRequest(
+    await _apiClient.postRequest(
         '$BASE_API_URL/api/eventos/formacionesEventos/cancelar',
         body: {"id": id});
-    print(res);
   }
 }

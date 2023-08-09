@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/center_repository.dart';
 import 'package:vemare/app/domain/model/center.dart';

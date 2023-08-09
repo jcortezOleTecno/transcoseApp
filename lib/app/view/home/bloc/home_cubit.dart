@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import 'package:vemare/app/data/auth_repository.dart';
 import 'package:vemare/app/data/brands_repository.dart';
 import 'package:vemare/app/data/home_repository.dart';
 import 'package:vemare/app/data/local_data_repository.dart';

@@ -20,8 +20,6 @@ class UserCubit extends Cubit<UserState> {
     List<Employee> employees = [];
     List<Enterprise> enterprises = [];
 
-    print("#################   getEmployeesAndEnterprises");
-
     await Future.wait([
       _authRepository.getEmployee().then((v) => employees = v),
       _authRepository.getEnterprise().then((v) => enterprises = v),

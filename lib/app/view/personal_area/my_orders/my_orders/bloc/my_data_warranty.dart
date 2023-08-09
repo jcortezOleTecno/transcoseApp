@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:vemare/app/domain/model/warranty.dart';
 import 'package:vemare/app/domain/utils/money_formatter.dart';
-import 'package:vemare/app/view/personal_area/my_orders/albaran_details/albaran_detail.dart';
 import 'package:vemare/app/view/personal_area/my_orders/warranty_details/warranty_details_page.dart';
 import 'package:vemare/main.dart';
 

@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vemare/app/view/theme/color.dart';
@@ -9,7 +11,6 @@ abstract class AppTheme {
       fontFamily: 'NunitoSans',
       brightness: Brightness.light,
       splashColor: AppColor.primary,
-      accentColor: AppColor.primary,
       primaryColor: AppColor.primary,
       textTheme: textTheme,
       iconTheme: iconTheme,
@@ -38,7 +39,9 @@ abstract class AppTheme {
       bottomSheetTheme: const BottomSheetThemeData(
         backgroundColor: Colors.transparent,
       ),
-      colorScheme: colorScheme.copyWith(secondary: AppColor.primary),
+      colorScheme: colorScheme
+          .copyWith(secondary: AppColor.primary)
+          .copyWith(secondary: AppColor.primary),
     );
   }
 

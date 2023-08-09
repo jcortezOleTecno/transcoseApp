@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:vemare/app/data/formations_repository.dart';
 import 'package:vemare/app/domain/model/employee.dart';
@@ -19,7 +21,7 @@ class EnrollTrainingCubit extends Cubit<EnrollTrainingState> {
       await _formationsRepository.enrollFormations(
           dateId: id, idsEmployees: idsEmployees, persons: persons);
     } catch (e) {
-      print(e);
+      log(e.toString());
     }
   }
 }

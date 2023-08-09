@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:vemare/app/data/_api_classes.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/domain/model/answer_with_filters.dart';
@@ -33,7 +35,6 @@ class BudgetRepository {
           'numero_proyecto': numeroProyecto,
           'codigo_presupuesto': codigoPresupuesto
         });
-    print(res);
     return BudgetDetail.fromJson(res['presupuesto']);
   }
 
@@ -57,7 +58,7 @@ class BudgetRepository {
           body: body);
       return res["type"] == 'error' ? false : true;
     } catch (e) {
-      print('ERROR $e');
+      log('ERROR $e');
       return false;
     }
   }

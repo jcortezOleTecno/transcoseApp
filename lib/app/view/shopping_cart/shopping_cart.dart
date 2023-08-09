@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/shopping_cart_repository.dart';
 import 'package:vemare/app/domain/model/shopping_card_product.dart';
 import 'package:vemare/app/domain/utils/money_formatter.dart';
+import 'package:vemare/app/domain/value_object/status.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
@@ -13,7 +15,6 @@ import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/shared/shopping_car_counter_bloc/car_counter_cubit.dart';
 import 'package:vemare/app/view/shopping_cart/bloc/shopping_card_cubit.dart';
 import 'package:vemare/app/view/shopping_cart/bloc/shopping_cart_state.dart';
-import 'package:vemare/app/view/shopping_cart/shipping_data_page.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
@@ -37,7 +38,18 @@ class ShoppingCartPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<ShoppingCardCubit>();
     return Scaffold(
-      body: BlocBuilder<ShoppingCardCubit, ShoppingCardState>(
+      body: BlocConsumer<ShoppingCardCubit, ShoppingCardState>(
+        listenWhen: (p, c) => p.status != c.status,
+        listener: (context, state) async {
+          if (state.status == FormStatus.done) {
+            await launchUrlString(state.payResponse?.urlPayment ?? '');
+          }
+          if (state.status == FormStatus.error) {
+            // ignore: use_build_context_synchronously
+            ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(state.payResponse?.message ?? '')));
+          }
+        },
         builder: (context, state) {
           return WillPopScope(
             onWillPop: () {
@@ -96,17 +108,15 @@ class ShoppingCartPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(15),
                     child: MyButton(
-                        disabled: state.buying
-                            ? !state.typePaySelected
-                            : state.products.isEmpty,
-                        onPressed: () {
-                          !state.buying
-                              ? cubit.buy()
-                              :
-                              //TODO: Implementar pago con endpoint
-                              print("PAGAR");
-                        },
-                        text: state.typePaySelected ? 'Continuar' : 'Comprar'),
+                      disabled: state.buying
+                          ? !state.typePaySelected
+                          : state.products.isEmpty,
+                      onPressed: () {
+                        !state.buying ? cubit.buy() : cubit.orderPayment();
+                      },
+                      text: state.typePaySelected ? 'Continuar' : 'Comprar',
+                      isLoading: state.status == FormStatus.loading,
+                    ),
                   ),
                   spacerS,
                 ],

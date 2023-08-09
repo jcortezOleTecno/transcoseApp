@@ -5,16 +5,13 @@ import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/my_account_repository.dart';
 import 'package:vemare/app/domain/model/albaran.dart';
 import 'package:vemare/app/domain/model/albaran_details.dart';
-import 'package:vemare/app/domain/utils/money_formatter.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_input/my_input.dart';
-import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/user_name/user_name.dart';
 import 'package:vemare/app/view/personal_area/my_orders/albaran_details/bloc/albaran_details_cubit.dart';
 import 'package:vemare/app/view/personal_area/my_orders/albaran_details/bloc/albaran_details_state.dart';
-import 'package:vemare/app/view/personal_area/widgets/item_card.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
@@ -66,7 +63,7 @@ class AlbaranDetailPage extends StatelessWidget {
                         _AlbaranDetails(state),
                         spacerM,
                         Builder(builder: (context) {
-                          final DataTableSource _data = _MyData(state.details);
+                          final DataTableSource data = _MyData(state.details);
                           return SizedBox(
                             height: 500,
                             child: Card(
@@ -130,7 +127,7 @@ class AlbaranDetailPage extends StatelessWidget {
                                           // size: ColumnSize.L,
                                         ),
                                       ],
-                                      source: _data,
+                                      source: data,
                                     ),
                                   ),
                                 ],
@@ -163,7 +160,7 @@ class AlbaranDetailPage extends StatelessWidget {
   }
 }
 
-class _ProductsCard extends StatelessWidget {
+/*class _ProductsCard extends StatelessWidget {
   const _ProductsCard(
     this.details, {
     Key? key,
@@ -210,7 +207,7 @@ class _ProductsCard extends StatelessWidget {
       ),
     );
   }
-}
+}*/
 
 class _AlbaranDetails extends StatelessWidget {
   final AlbaranDetailState state;
@@ -283,14 +280,11 @@ class _MyData extends DataTableSource {
   }
 
   @override
-  // TODO: implement isRowCountApproximate
   bool get isRowCountApproximate => false;
 
   @override
-  // TODO: implement rowCount
   int get rowCount => data.length;
 
   @override
-  // TODO: implement selectedRowCount
   int get selectedRowCount => 0;
 }

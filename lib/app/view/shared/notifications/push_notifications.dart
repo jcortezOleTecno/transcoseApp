@@ -47,7 +47,6 @@ class PushNotificationsProvider {
     //Notificacion en primer plano
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       log('onMessage');
-      print(message.data);
       showNotification(message);
     });
 

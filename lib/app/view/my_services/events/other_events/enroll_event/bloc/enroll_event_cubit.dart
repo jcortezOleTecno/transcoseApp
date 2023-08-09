@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:vemare/app/data/events_repository.dart';
 import 'package:vemare/app/domain/model/employee.dart';
@@ -19,7 +21,7 @@ class EnrollEventCubit extends Cubit<EnrollEventState> {
       await _eventsRepository.enrollEvents(
           dateId: dateId, idsEmployees: idsEmployees, persons: persons);
     } catch (e) {
-      print(e);
+      log(e.toString());
     }
   }
 }

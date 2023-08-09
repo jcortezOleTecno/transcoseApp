@@ -4,7 +4,7 @@ import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 
 class MyIconButton extends StatelessWidget {
-  MyIconButton({
+  const MyIconButton({
     Key? key,
     required this.onPressed,
     required this.text,
@@ -13,12 +13,12 @@ class MyIconButton extends StatelessWidget {
     this.disabled = false,
     this.variant = MyButtonVariant.containedPrimary,
   }) : super(key: key);
-  String text;
-  Widget icon;
-  bool disabled;
-  VoidCallback onPressed;
-  MyButtonVariant variant;
-  EdgeInsets? customInset;
+  final String text;
+  final Widget icon;
+  final bool disabled;
+  final VoidCallback onPressed;
+  final MyButtonVariant variant;
+  final EdgeInsets? customInset;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +28,7 @@ class MyIconButton extends StatelessWidget {
       callback = null;
       style = AppButtonStyle.getFromVariant(MyButtonVariant.disabled);
     }
+    // ignore: unused_local_variable
     var iconColor = AppColor.primary;
     switch (variant) {
       case MyButtonVariant.containedPrimary:
@@ -65,8 +66,10 @@ class MyIconButton extends StatelessWidget {
             Center(
               child: Text(
                 text,
-                style:
-                    Theme.of(context).textTheme.button?.merge(style.textStyle),
+                style: Theme.of(context)
+                    .textTheme
+                    .labelLarge
+                    ?.merge(style.textStyle),
               ),
             ),
             spacerXs,

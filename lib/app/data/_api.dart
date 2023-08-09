@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:http/http.dart' as http;
 import 'package:vemare/app/data/_api_classes.dart';
@@ -32,7 +33,7 @@ class MyApi extends MyApiClient {
       headers: {...await _getHeaders(), ...customHeaders ?? {}},
       body: body,
     );
-    print(response.body);
+    log(response.body);
     return _handleResponse(response);
   }
 

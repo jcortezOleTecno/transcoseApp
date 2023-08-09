@@ -6,6 +6,8 @@ import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
+import '../../../_components/my_network_image/my_network_image.dart';
+
 class PromotionDescription extends StatelessWidget {
   const PromotionDescription({
     Key? key,
@@ -32,9 +34,10 @@ class PromotionDescription extends StatelessWidget {
           spacerS,
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: Image(
-              image: NetworkImage(promotion.image!),
+            child: MyNetworkImage(
+              image: promotion.image!,
               height: 200,
+              width: double.infinity,
               fit: BoxFit.cover,
             ),
           ),

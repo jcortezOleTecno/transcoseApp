@@ -61,7 +61,7 @@ class BudgetDetailPage extends StatelessWidget {
                               spacerL,
                               Visibility(
                                   visible: !state.loading,
-                                  replacement: MyShimmer(
+                                  replacement: const MyShimmer(
                                     height: 400,
                                     margin: EdgeInsets.zero,
                                   ),

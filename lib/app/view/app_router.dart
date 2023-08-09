@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vemare/app/domain/model/albaran.dart';
 import 'package:vemare/app/domain/model/budget.dart';
 import 'package:vemare/app/domain/model/category.dart';
 import 'package:vemare/app/domain/model/contrats.dart';
@@ -17,7 +16,6 @@ import 'package:vemare/app/domain/model/warranty.dart';
 import 'package:vemare/app/domain/model/we_help_you.dart';
 import 'package:vemare/app/domain/model/work_with_us.dart';
 import 'package:vemare/app/view/about_us/about_us_page.dart';
-import 'package:vemare/app/view/access_denied/access_denied_page.dart';
 import 'package:vemare/app/view/home/home_page.dart';
 import 'package:vemare/app/view/library/library_page.dart';
 import 'package:vemare/app/view/login/login_page.dart';
@@ -53,9 +51,7 @@ import 'package:vemare/app/view/personal_area/my_contracts/details/contract_deta
 import 'package:vemare/app/view/personal_area/my_contracts/details_pmp/contract_pmp_detail.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/page/my_contracts_page.dart';
 import 'package:vemare/app/view/personal_area/my_orders/albaran_details/albaran_detail.dart';
-import 'package:vemare/app/view/personal_area/my_orders/bill_detail.dart';
 import 'package:vemare/app/view/personal_area/my_orders/my_orders/my_orders_page.dart';
-import 'package:vemare/app/view/personal_area/my_orders/order_detail.dart';
 import 'package:vemare/app/view/personal_area/my_orders/warranty_details/warranty_details_page.dart';
 import 'package:vemare/app/view/personal_area/my_trainigs_and_events/my_trainigs_and_events_page.dart';
 import 'package:vemare/app/view/pills/pills_page.dart';
@@ -65,7 +61,6 @@ import 'package:vemare/app/view/promotions/renting_store/card_payment_form.dart'
 import 'package:vemare/app/view/promotions/renting_store/payment_form.dart';
 import 'package:vemare/app/view/promotions/renting_store/renting_store_page.dart';
 import 'package:vemare/app/view/register/register_page.dart';
-import 'package:vemare/app/view/shopping_cart/shipping_data_page.dart';
 import 'package:vemare/app/view/shopping_cart/shopping_cart.dart';
 import 'package:vemare/app/view/splash/splash_page.dart';
 import 'package:vemare/app/view/where_we_are/where_we_are_page.dart';
@@ -79,7 +74,6 @@ import 'my_services/sat/sat_page.dart';
 import 'pills/pills_details.dart';
 import 'promotions/promotion/promotion_page.dart';
 import 'recover_password/recover_password_page.dart';
-import 'shopping_cart/data_pay.dart';
 
 abstract class AppRouter {
   static String get initialPage => SplashPage.route;
@@ -169,7 +163,7 @@ abstract class AppRouter {
         final args = settings.arguments as StoreArgs?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => RentingStorePage(args!),
+          builder: (_) => RentingStorePage.create(args!),
         );
       case CardPaymentPage.route:
         final args = settings.arguments as StoreArgs?;
@@ -403,7 +397,7 @@ abstract class AppRouter {
           settings: settings,
           builder: (_) => SatIntroPage(data!),
         );
-      case ShippingDataPage.route:
+      /*case ShippingDataPage.route:
         final data = settings.arguments as ShoppingCarArgs?;
         return MaterialPageRoute<void>(
           settings: settings,
@@ -414,7 +408,7 @@ abstract class AppRouter {
         return MaterialPageRoute<void>(
           settings: settings,
           builder: (_) => DataPayPage(data!),
-        );
+        );*/
 
       default:
         throw Exception('Page ${settings.name} does not exists');

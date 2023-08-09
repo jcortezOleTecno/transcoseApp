@@ -322,6 +322,7 @@ class _EnrollTrainingPageState extends State<EnrollTrainingPage> {
                                       enabled: false,
                                       child: StatefulBuilder(
                                         builder: (context, menuSetState) {
+                                          // ignore: no_leading_underscores_for_local_identifiers
                                           final _isSelected =
                                               selectedEmployees.contains(e);
                                           return InkWell(

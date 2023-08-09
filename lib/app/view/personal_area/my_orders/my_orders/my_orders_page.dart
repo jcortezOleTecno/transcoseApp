@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:horizontal_data_table/horizontal_data_table.dart';
-import 'package:intl/intl.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/my_account_repository.dart';
 import 'package:vemare/app/domain/model/albaran.dart';
@@ -18,10 +16,7 @@ import 'package:vemare/app/view/personal_area/my_orders/my_orders/bloc/my_data_o
 import 'package:vemare/app/view/personal_area/my_orders/my_orders/bloc/my_data_warranty.dart';
 import 'package:vemare/app/view/personal_area/my_orders/my_orders/bloc/my_orders_cubit.dart';
 import 'package:vemare/app/view/personal_area/my_orders/my_orders/bloc/my_orders_state.dart';
-import 'package:vemare/app/view/personal_area/my_orders/warranty_details/warranty_details_page.dart';
-import 'package:vemare/app/view/personal_area/widgets/albaran.dart';
 import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
-import 'package:vemare/app/view/personal_area/widgets/warranty.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
@@ -154,7 +149,7 @@ class _MyOrders extends StatelessWidget {
                           )),
                     if (!state.loading && state.orders.isNotEmpty)
                       Builder(builder: (context) {
-                        final DataTableSource _data =
+                        final DataTableSource data =
                             MyDataOrders(state.orders, 'pedido');
                         return SizedBox(
                           height: 500,
@@ -224,7 +219,7 @@ class _MyOrders extends StatelessWidget {
                                         // size: ColumnSize.L,
                                       ),
                                     ],
-                                    source: _data,
+                                    source: data,
                                   ),
                                 ),
                               ],
@@ -332,7 +327,7 @@ class _MyWarranty extends StatelessWidget {
                           )),
                     if (!state.loading && state.guarantee.isNotEmpty)
                       Builder(builder: (context) {
-                        final DataTableSource _data =
+                        final DataTableSource data =
                             MyDataWarranty(state.guarantee);
                         return SizedBox(
                           height: 500,
@@ -414,7 +409,7 @@ class _MyWarranty extends StatelessWidget {
                                         // size: ColumnSize.L,
                                       ),
                                     ],
-                                    source: _data,
+                                    source: data,
                                   ),
                                 ),
                               ],
@@ -630,7 +625,7 @@ class _MyBills extends StatelessWidget {
                           )),
                     if (!state.loading && state.bills.isNotEmpty)
                       Builder(builder: (context) {
-                        final DataTableSource _data =
+                        final DataTableSource data =
                             MyDataOrders(state.bills, 'abono');
                         return SizedBox(
                           height: 500,
@@ -700,7 +695,7 @@ class _MyBills extends StatelessWidget {
                                         // size: ColumnSize.L,
                                       ),
                                     ],
-                                    source: _data,
+                                    source: data,
                                   ),
                                 ),
                               ],

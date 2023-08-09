@@ -33,8 +33,5 @@ class ContratPMPDetailCubit extends Cubit<ContratPMPDetailState> {
     required String signature,
   }) async {
     await Future.delayed(const Duration(seconds: 2));
-    print(name);
-    print(nif);
-    print(signature);
   }
 }

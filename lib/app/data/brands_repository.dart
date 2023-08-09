@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:vemare/app/data/_api_classes.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/domain/model/brand.dart';
@@ -14,7 +16,7 @@ class BrandsRepository {
           params: <String, dynamic>{'limit': '6'});
       return (res as List).map(Brand.froJson).toList();
     } catch (e) {
-      print('ERROR $e');
+      log('ERROR $e');
       return [];
     }
   }

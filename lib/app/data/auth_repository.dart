@@ -130,10 +130,6 @@ SUCCESS
           "postalCode": postalCode ?? "",
         }));
 
-    print(res.data);
-
-    // await getUser();
-
     return (res.data["message"] as String);
   }
 

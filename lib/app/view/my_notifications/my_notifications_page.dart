@@ -5,6 +5,7 @@ import 'package:vemare/app/data/notifications_repository.dart';
 import 'package:vemare/app/domain/model/events.dart';
 import 'package:vemare/app/domain/model/formation.dart';
 import 'package:vemare/app/domain/model/notification.dart' as model;
+import 'package:vemare/app/domain/model/promotion.dart';
 import 'package:vemare/app/domain/value_object/notifications_type.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
@@ -15,10 +16,12 @@ import 'package:vemare/app/view/my_notifications/bloc/notifications_state.dart';
 import 'package:vemare/app/view/my_services/events/other_events/other_event_page.dart';
 import 'package:vemare/app/view/my_services/formations/detail_formation.dart';
 import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
+import 'package:vemare/app/view/promotions/detail_sale_rent/detail_sale_rent.dart';
 import 'package:vemare/app/view/shared/notifications_counter_bloc/notifications_cubit.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
+// ignore: unused_import
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:vemare/config/service_locator.dart';
 
@@ -99,12 +102,12 @@ class MyNotificationsPage extends StatelessWidget {
 }
 
 class _SelectTypeNotifications extends StatefulWidget {
-  _SelectTypeNotifications({
+  const _SelectTypeNotifications({
     required this.onTap,
     Key? key,
   }) : super(key: key);
 
-  void Function(NotificationType) onTap;
+  final void Function(NotificationType) onTap;
 
   @override
   State<_SelectTypeNotifications> createState() =>
@@ -314,7 +317,6 @@ class _MyNotificationCard extends StatelessWidget {
   _onTap(BuildContext context) {
     switch (notification.tipo) {
       case 'Formation':
-        print(notification.dataNotification);
         if (notification.read != 'visto') {
           context
               .read<NotificationsCounterCubit>()
@@ -323,8 +325,8 @@ class _MyNotificationCard extends StatelessWidget {
         Navigator.pushNamed(context, DetailFormationPage.route,
             arguments: Formation.fromJson(notification.dataNotification));
         break;
+
       case 'Event':
-        print(notification.dataNotification);
         if (notification.read != 'visto') {
           context
               .read<NotificationsCounterCubit>()
@@ -333,7 +335,16 @@ class _MyNotificationCard extends StatelessWidget {
         Navigator.pushNamed(context, OtherEventPage.route,
             arguments: Events.fromJson(notification.dataNotification));
         break;
-      default:
+
+      case 'Promotion':
+        if (notification.read != 'visto') {
+          context
+              .read<NotificationsCounterCubit>()
+              .deleteNotification(notification.id!);
+        }
+        Navigator.pushNamed(context, DetailSaleRent.route,
+            arguments: Promotion.fromJson(notification.dataNotification));
+        break;
     }
   }
 }

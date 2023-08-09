@@ -370,7 +370,6 @@ class SatCubit extends Cubit<SatState> {
 
       emit(state.copyWith(status: FormStatus.done));
     } catch (e) {
-      print('ERROR $e');
       emit(state.copyWith(status: FormStatus.error));
     }
   }

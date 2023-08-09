@@ -21,8 +21,7 @@ class WorkShopsRepository {
     required String observation,
     required String workshopId,
   }) async {
-    final dynamic res = await _apiClient.postRequest(
-        '$BASE_API_URL/api/talleres/solicitar',
+    await _apiClient.postRequest('$BASE_API_URL/api/talleres/solicitar',
         body: <String, dynamic>{
           "name": name,
           "email": email,
@@ -30,6 +29,5 @@ class WorkShopsRepository {
           "observation": observation,
           "workshop_id": workshopId,
         });
-    print(res);
   }
 }

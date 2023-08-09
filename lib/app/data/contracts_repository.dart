@@ -29,7 +29,6 @@ class ContratsRepository {
       '$BASE_API_URL/api/mi-cuenta/contratos_crd',
       body: filter?.toJson(),
     );
-    print(res);
     return AnswerWithFilters(
       data: (res["data"]["contratos_crd"] as List)
           .map(Contrats.fromJson)
@@ -82,7 +81,6 @@ class ContratsRepository {
         '$BASE_API_URL/api/mi-cuenta/contratos_mll',
         body: <String, dynamic>{"year": anio ?? DateTime.now().year.toString()},
       );
-      print(res);
       return ContratoMillenium.fromJson(res["contrato_mll"]);
     } catch (e) {
       return null;
@@ -120,7 +118,6 @@ class ContratsRepository {
       );
       return (res["contratos_pmp"] as List).map(ContratoPmp.fromJson).toList();
     } catch (e) {
-      print(e);
       return [];
     }
   }
@@ -131,10 +128,8 @@ class ContratsRepository {
         '$BASE_API_URL/api/mi-cuenta/contratos_rappel',
         body: <String, dynamic>{"year": anio ?? ''},
       );
-      print(res);
       return ContratoRappel.fromJson(res["contrato_rappel"]);
     } catch (e) {
-      print(e);
       return null;
     }
   }
@@ -151,7 +146,6 @@ class ContratsRepository {
       "nif_personaquefirma": nif,
       "firma_cliente": signature,
     };
-    print(body);
     try {
       final dynamic res = await _apiClient.postRequest(
         '$BASE_API_URL/api/mi-cuenta/contratos_rappel/firmar',

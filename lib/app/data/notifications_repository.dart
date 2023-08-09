@@ -26,17 +26,12 @@ class NotificationsRepository {
   }
 
   Future<void> deleteNotification({required String id}) async {
-    final dynamic res = await _apiClient.getRequest(
-        '$BASE_API_URL/api/notificaciones/delete',
+    await _apiClient.getRequest('$BASE_API_URL/api/notificaciones/delete',
         params: <String, dynamic>{'id': id});
-    print('BORRADO   ####################');
-    print(res);
   }
 
   Future<void> marckReadNotification({required String id}) async {
-    final dynamic res = await _apiClient.getRequest(
-        '$BASE_API_URL/api/notificaciones/status',
+    await _apiClient.getRequest('$BASE_API_URL/api/notificaciones/status',
         params: <String, dynamic>{'id': id});
-    print(res);
   }
 }

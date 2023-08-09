@@ -330,8 +330,8 @@ class MessageSentSuccesfullyWidget extends StatelessWidget {
         Container(
           height: 80,
           width: 80,
-          decoration:
-              BoxDecoration(shape: BoxShape.circle, color: AppColor.success200),
+          decoration: const BoxDecoration(
+              shape: BoxShape.circle, color: AppColor.success200),
           child: Image.asset(
             'assets/icons/Thumb_Up.png',
             scale: 2,

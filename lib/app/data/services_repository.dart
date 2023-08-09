@@ -29,8 +29,7 @@ class ServicesRepository {
     required String city,
     required String message,
   }) async {
-    final dynamic res = await _apiClient.postRequest(
-        '$BASE_API_URL/api/formulario_contacto',
+    await _apiClient.postRequest('$BASE_API_URL/api/formulario_contacto',
         body: <String, dynamic>{
           "name": name,
           "email": email,
@@ -39,6 +38,5 @@ class ServicesRepository {
           "city": city,
           "message": message,
         });
-    print(res);
   }
 }

@@ -296,6 +296,7 @@ class _EnrollEventPageState extends State<EnrollEventPage> {
                                       enabled: false,
                                       child: StatefulBuilder(
                                         builder: (context, menuSetState) {
+                                          // ignore: no_leading_underscores_for_local_identifiers
                                           final _isSelected =
                                               selectedEmployees.contains(e);
                                           return InkWell(
@@ -681,7 +682,7 @@ class _EnrollEventPageState extends State<EnrollEventPage> {
     );
   }
 
-  Future<bool?> _dialogResume(
+  /*Future<bool?> _dialogResume(
     BuildContext context,
     Horario horario,
   ) {
@@ -771,5 +772,5 @@ class _EnrollEventPageState extends State<EnrollEventPage> {
             ),
           );
         });
-  }
+  }*/
 }
