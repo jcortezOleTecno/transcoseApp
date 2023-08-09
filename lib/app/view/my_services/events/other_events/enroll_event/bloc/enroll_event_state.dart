@@ -4,6 +4,8 @@ part 'enroll_event_state.freezed.dart';
 
 @freezed
 class EnrollEventState with _$EnrollEventState {
-  const factory EnrollEventState() = _EnrollTrainingState;
+  const factory EnrollEventState({
+    @Default(0) int peopleCounter,
+  }) = _EnrollTrainingState;
   const EnrollEventState._();
 }

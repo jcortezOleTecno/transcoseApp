@@ -17,6 +17,7 @@ import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_input/my_input.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/my_services/events/other_events/enroll_event/bloc/enroll_event_cubit.dart';
+import 'package:vemare/app/view/my_services/events/other_events/enroll_event/bloc/enroll_event_state.dart';
 import 'package:vemare/app/view/my_services/formations/enroll_training/enroll_training.dart';
 import 'package:vemare/app/view/shared/userbloc/user_cubit.dart';
 import 'package:vemare/app/view/shared/userbloc/user_state.dart';
@@ -25,7 +26,7 @@ import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
 
-class EnrollEventPage extends StatefulWidget {
+class EnrollEventPage extends StatelessWidget {
   const EnrollEventPage._(this.event);
   static const route = '/enroll_event';
 
@@ -41,71 +42,75 @@ class EnrollEventPage extends StatefulWidget {
   }
 
   @override
-  State<EnrollEventPage> createState() => _EnrollEventPageState();
-}
-
-class _EnrollEventPageState extends State<EnrollEventPage> {
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: MyBody(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const MyBackButton(),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      widget.event.title ?? '',
-                      style: AppTextStyle.h1Style,
-                    ),
-                    spacerM,
+    return BlocBuilder<EnrollEventCubit, EnrollEventState>(
+      builder: (context, state) {
+        return Scaffold(
+          body: MyBody(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const MyBackButton(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          event.title ?? '',
+                          style: AppTextStyle.h1Style,
+                        ),
+                        spacerM,
 
-                    MyCalendar(
-                      dates: widget.event.horario ?? [],
-                      onSelectedDate: (horario) {
-                        if (horario.date!.isBefore(DateTime(DateTime.now().year,
-                            DateTime.now().month, DateTime.now().day))) {
-                          _dialogConfirmSchedule(context, horario,
-                              isResume: true);
-                        } else {
-                          _dialogConfirmSchedule(context, horario).then((v) {
-                            if (v ?? false) {
-                              _dialogEnrollEmployee(context, horario).then((v) {
+                        MyCalendar(
+                          dates: event.horario ?? [],
+                          onSelectedDate: (horario) {
+                            if (horario.date!.isBefore(DateTime(
+                                DateTime.now().year,
+                                DateTime.now().month,
+                                DateTime.now().day))) {
+                              _dialogConfirmSchedule(context, horario,
+                                  isResume: true);
+                            } else {
+                              _dialogConfirmSchedule(context, horario)
+                                  .then((v) {
                                 if (v ?? false) {
-                                  _dialogCongratulations(context, horario)
-                                      .then((_) {
-                                    Navigator.of(context).pop();
-                                    // Navigator.of(context).pop();
-                                    // Navigator.of(context).pop();
-                                    // Navigator.of(context).pop();
+                                  _dialogEnrollEmployee(
+                                          context, horario, state.peopleCounter)
+                                      .then((v) {
+                                    if (v ?? false) {
+                                      _dialogCongratulations(context, horario)
+                                          .then((_) {
+                                        Navigator.of(context).pop();
+                                        // Navigator.of(context).pop();
+                                        // Navigator.of(context).pop();
+                                        // Navigator.of(context).pop();
+                                      });
+                                    }
                                   });
                                 }
                               });
                             }
-                          });
-                        }
-                      },
-                      onSelectedDateRegistered: (horario) {
-                        _dialogConfirmSchedule(context, horario,
-                            isResume: true);
-                      },
-                    ),
-                    spacerS,
-                    const ColorsGuide()
+                          },
+                          onSelectedDateRegistered: (horario) {
+                            _dialogConfirmSchedule(context, horario,
+                                isResume: true);
+                          },
+                        ),
+                        spacerS,
+                        const ColorsGuide()
 
-                    //TEST
-                  ],
-                ),
-              )
-            ],
+                        //TEST
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
@@ -174,13 +179,13 @@ class _EnrollEventPageState extends State<EnrollEventPage> {
                   ),
                   spacerM,
                   Text(
-                    widget.event.title ?? '',
+                    event.title ?? '',
                     style: AppTextStyle.h3Style,
                   ),
                   spacerS,
                   Expanded(
                       child: SingleChildScrollView(
-                          child: MyHtml(text: widget.event.description ?? ''))),
+                          child: MyHtml(text: event.description ?? ''))),
                   spacerM,
                   MyButton(
                     onPressed: () {
@@ -205,7 +210,8 @@ class _EnrollEventPageState extends State<EnrollEventPage> {
         });
   }
 
-  Future<bool?> _dialogEnrollEmployee(BuildContext ctx, Horario date) {
+  Future<bool?> _dialogEnrollEmployee(
+      BuildContext ctx, Horario date, int limitPeople) {
     var selectedEmployees = <Employee>[];
     List<Employee> people = [];
     bool loading = false;
@@ -244,7 +250,7 @@ class _EnrollEventPageState extends State<EnrollEventPage> {
                               ),
                             ),
                             spacerM,
-                            const Text('Inscribe empleados',
+                            const Text('Inscribe personas',
                                 style: AppTextStyle.h1Style),
                             spacerS,
                             const Text(
@@ -252,10 +258,39 @@ class _EnrollEventPageState extends State<EnrollEventPage> {
                               style: AppTextStyle.defaultStyle,
                               textAlign: TextAlign.center,
                             ),
+                            if ((people.length + selectedEmployees.length) >
+                                limitPeople) ...[
+                              spacerM,
+                              Container(
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      color: AppColor.error200,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Icon(Icons.warning_amber_rounded,
+                                          color: AppColor.error),
+                                      spacerS,
+                                      Expanded(
+                                        child: Text(
+                                          'Se han terminado tus plazas contratadas ($limitPeople), si deseas contratar más comunícate con tu asesor comercial.',
+                                          style:
+                                              AppTextStyle.contentCard.copyWith(
+                                            color: AppColor.error,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  )),
+                            ],
                             spacerM,
-                            const Align(
+                            Align(
                               alignment: Alignment.centerLeft,
-                              child: Text('Empleados a inscribir',
+                              child: Text(
+                                  'Personas a inscribir (${selectedEmployees.length + people.length}/$limitPeople)',
                                   style: AppTextStyle.inputLabelStyle),
                             ),
                             spacerXs,
@@ -425,7 +460,7 @@ class _EnrollEventPageState extends State<EnrollEventPage> {
                                 persons: people)
                             .then((value) {
                           setState(() {
-                            widget.event.horario!
+                            event.horario!
                                 .firstWhere((e) => e.dateId == date.dateId)
                                 .isRegistered = true;
                           });
@@ -435,6 +470,8 @@ class _EnrollEventPageState extends State<EnrollEventPage> {
                       text: 'Confirmar inscripciones',
                       width: double.infinity,
                       isLoading: loading,
+                      disabled: (people.length + selectedEmployees.length) >
+                          limitPeople,
                     ),
                     spacerS,
                     MyButton(
@@ -644,7 +681,7 @@ class _EnrollEventPageState extends State<EnrollEventPage> {
                                   text: 'Hemos confirmado tu formación en',
                                 ),
                                 TextSpan(
-                                  text: ' ${widget.event.title ?? ''} ',
+                                  text: ' ${event.title ?? ''} ',
                                   style: AppTextStyle.defaultStyle
                                       .copyWith(fontWeight: FontWeight.bold),
                                 ),

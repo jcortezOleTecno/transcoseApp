@@ -8,7 +8,7 @@ import 'package:vemare/app/view/my_services/events/other_events/enroll_event/blo
 class EnrollEventCubit extends Cubit<EnrollEventState> {
   EnrollEventCubit(
     this._eventsRepository,
-  ) : super(const EnrollEventState());
+  ) : super(const EnrollEventState(peopleCounter: 5));
 
   final EventsRepository _eventsRepository;
 
