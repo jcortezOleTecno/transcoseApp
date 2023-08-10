@@ -27,6 +27,14 @@ mixin _$MyOrdersState {
   int? get totalImporteCliente => throw _privateConstructorUsedError;
   int? get totalImporteGarantias => throw _privateConstructorUsedError;
   int? get totalImporteVemare => throw _privateConstructorUsedError;
+  DataTableSource? get dataPedidos => throw _privateConstructorUsedError;
+  DataTableSource? get dataPedidosFiltrado =>
+      throw _privateConstructorUsedError;
+  DataTableSource? get dataGarantias => throw _privateConstructorUsedError;
+  DataTableSource? get dataGarantiasFiltrado =>
+      throw _privateConstructorUsedError;
+  DataTableSource? get dataAbonos => throw _privateConstructorUsedError;
+  DataTableSource? get dataAbonosFiltrado => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MyOrdersStateCopyWith<MyOrdersState> get copyWith =>
@@ -50,7 +58,13 @@ abstract class $MyOrdersStateCopyWith<$Res> {
       String? filterAbonos,
       int? totalImporteCliente,
       int? totalImporteGarantias,
-      int? totalImporteVemare});
+      int? totalImporteVemare,
+      DataTableSource? dataPedidos,
+      DataTableSource? dataPedidosFiltrado,
+      DataTableSource? dataGarantias,
+      DataTableSource? dataGarantiasFiltrado,
+      DataTableSource? dataAbonos,
+      DataTableSource? dataAbonosFiltrado});
 }
 
 /// @nodoc
@@ -77,6 +91,12 @@ class _$MyOrdersStateCopyWithImpl<$Res, $Val extends MyOrdersState>
     Object? totalImporteCliente = freezed,
     Object? totalImporteGarantias = freezed,
     Object? totalImporteVemare = freezed,
+    Object? dataPedidos = freezed,
+    Object? dataPedidosFiltrado = freezed,
+    Object? dataGarantias = freezed,
+    Object? dataGarantiasFiltrado = freezed,
+    Object? dataAbonos = freezed,
+    Object? dataAbonosFiltrado = freezed,
   }) {
     return _then(_value.copyWith(
       loading: null == loading
@@ -123,6 +143,30 @@ class _$MyOrdersStateCopyWithImpl<$Res, $Val extends MyOrdersState>
           ? _value.totalImporteVemare
           : totalImporteVemare // ignore: cast_nullable_to_non_nullable
               as int?,
+      dataPedidos: freezed == dataPedidos
+          ? _value.dataPedidos
+          : dataPedidos // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
+      dataPedidosFiltrado: freezed == dataPedidosFiltrado
+          ? _value.dataPedidosFiltrado
+          : dataPedidosFiltrado // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
+      dataGarantias: freezed == dataGarantias
+          ? _value.dataGarantias
+          : dataGarantias // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
+      dataGarantiasFiltrado: freezed == dataGarantiasFiltrado
+          ? _value.dataGarantiasFiltrado
+          : dataGarantiasFiltrado // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
+      dataAbonos: freezed == dataAbonos
+          ? _value.dataAbonos
+          : dataAbonos // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
+      dataAbonosFiltrado: freezed == dataAbonosFiltrado
+          ? _value.dataAbonosFiltrado
+          : dataAbonosFiltrado // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
     ) as $Val);
   }
 }
@@ -146,7 +190,13 @@ abstract class _$$_MyOrdersStateCopyWith<$Res>
       String? filterAbonos,
       int? totalImporteCliente,
       int? totalImporteGarantias,
-      int? totalImporteVemare});
+      int? totalImporteVemare,
+      DataTableSource? dataPedidos,
+      DataTableSource? dataPedidosFiltrado,
+      DataTableSource? dataGarantias,
+      DataTableSource? dataGarantiasFiltrado,
+      DataTableSource? dataAbonos,
+      DataTableSource? dataAbonosFiltrado});
 }
 
 /// @nodoc
@@ -171,6 +221,12 @@ class __$$_MyOrdersStateCopyWithImpl<$Res>
     Object? totalImporteCliente = freezed,
     Object? totalImporteGarantias = freezed,
     Object? totalImporteVemare = freezed,
+    Object? dataPedidos = freezed,
+    Object? dataPedidosFiltrado = freezed,
+    Object? dataGarantias = freezed,
+    Object? dataGarantiasFiltrado = freezed,
+    Object? dataAbonos = freezed,
+    Object? dataAbonosFiltrado = freezed,
   }) {
     return _then(_$_MyOrdersState(
       loading: null == loading
@@ -217,6 +273,30 @@ class __$$_MyOrdersStateCopyWithImpl<$Res>
           ? _value.totalImporteVemare
           : totalImporteVemare // ignore: cast_nullable_to_non_nullable
               as int?,
+      dataPedidos: freezed == dataPedidos
+          ? _value.dataPedidos
+          : dataPedidos // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
+      dataPedidosFiltrado: freezed == dataPedidosFiltrado
+          ? _value.dataPedidosFiltrado
+          : dataPedidosFiltrado // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
+      dataGarantias: freezed == dataGarantias
+          ? _value.dataGarantias
+          : dataGarantias // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
+      dataGarantiasFiltrado: freezed == dataGarantiasFiltrado
+          ? _value.dataGarantiasFiltrado
+          : dataGarantiasFiltrado // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
+      dataAbonos: freezed == dataAbonos
+          ? _value.dataAbonos
+          : dataAbonos // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
+      dataAbonosFiltrado: freezed == dataAbonosFiltrado
+          ? _value.dataAbonosFiltrado
+          : dataAbonosFiltrado // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
     ));
   }
 }
@@ -235,7 +315,13 @@ class _$_MyOrdersState extends _MyOrdersState {
       this.filterAbonos,
       this.totalImporteCliente,
       this.totalImporteGarantias,
-      this.totalImporteVemare})
+      this.totalImporteVemare,
+      this.dataPedidos,
+      this.dataPedidosFiltrado,
+      this.dataGarantias,
+      this.dataGarantiasFiltrado,
+      this.dataAbonos,
+      this.dataAbonosFiltrado})
       : _guarantee = guarantee,
         _orders = orders,
         _bills = bills,
@@ -285,10 +371,22 @@ class _$_MyOrdersState extends _MyOrdersState {
   final int? totalImporteGarantias;
   @override
   final int? totalImporteVemare;
+  @override
+  final DataTableSource? dataPedidos;
+  @override
+  final DataTableSource? dataPedidosFiltrado;
+  @override
+  final DataTableSource? dataGarantias;
+  @override
+  final DataTableSource? dataGarantiasFiltrado;
+  @override
+  final DataTableSource? dataAbonos;
+  @override
+  final DataTableSource? dataAbonosFiltrado;
 
   @override
   String toString() {
-    return 'MyOrdersState(loading: $loading, guarantee: $guarantee, orders: $orders, bills: $bills, statusWarranty: $statusWarranty, filterPedidos: $filterPedidos, filterGarantias: $filterGarantias, filterAbonos: $filterAbonos, totalImporteCliente: $totalImporteCliente, totalImporteGarantias: $totalImporteGarantias, totalImporteVemare: $totalImporteVemare)';
+    return 'MyOrdersState(loading: $loading, guarantee: $guarantee, orders: $orders, bills: $bills, statusWarranty: $statusWarranty, filterPedidos: $filterPedidos, filterGarantias: $filterGarantias, filterAbonos: $filterAbonos, totalImporteCliente: $totalImporteCliente, totalImporteGarantias: $totalImporteGarantias, totalImporteVemare: $totalImporteVemare, dataPedidos: $dataPedidos, dataPedidosFiltrado: $dataPedidosFiltrado, dataGarantias: $dataGarantias, dataGarantiasFiltrado: $dataGarantiasFiltrado, dataAbonos: $dataAbonos, dataAbonosFiltrado: $dataAbonosFiltrado)';
   }
 
   @override
@@ -314,7 +412,19 @@ class _$_MyOrdersState extends _MyOrdersState {
             (identical(other.totalImporteGarantias, totalImporteGarantias) ||
                 other.totalImporteGarantias == totalImporteGarantias) &&
             (identical(other.totalImporteVemare, totalImporteVemare) ||
-                other.totalImporteVemare == totalImporteVemare));
+                other.totalImporteVemare == totalImporteVemare) &&
+            (identical(other.dataPedidos, dataPedidos) ||
+                other.dataPedidos == dataPedidos) &&
+            (identical(other.dataPedidosFiltrado, dataPedidosFiltrado) ||
+                other.dataPedidosFiltrado == dataPedidosFiltrado) &&
+            (identical(other.dataGarantias, dataGarantias) ||
+                other.dataGarantias == dataGarantias) &&
+            (identical(other.dataGarantiasFiltrado, dataGarantiasFiltrado) ||
+                other.dataGarantiasFiltrado == dataGarantiasFiltrado) &&
+            (identical(other.dataAbonos, dataAbonos) ||
+                other.dataAbonos == dataAbonos) &&
+            (identical(other.dataAbonosFiltrado, dataAbonosFiltrado) ||
+                other.dataAbonosFiltrado == dataAbonosFiltrado));
   }
 
   @override
@@ -330,7 +440,13 @@ class _$_MyOrdersState extends _MyOrdersState {
       filterAbonos,
       totalImporteCliente,
       totalImporteGarantias,
-      totalImporteVemare);
+      totalImporteVemare,
+      dataPedidos,
+      dataPedidosFiltrado,
+      dataGarantias,
+      dataGarantiasFiltrado,
+      dataAbonos,
+      dataAbonosFiltrado);
 
   @JsonKey(ignore: true)
   @override
@@ -351,7 +467,13 @@ abstract class _MyOrdersState extends MyOrdersState {
       final String? filterAbonos,
       final int? totalImporteCliente,
       final int? totalImporteGarantias,
-      final int? totalImporteVemare}) = _$_MyOrdersState;
+      final int? totalImporteVemare,
+      final DataTableSource? dataPedidos,
+      final DataTableSource? dataPedidosFiltrado,
+      final DataTableSource? dataGarantias,
+      final DataTableSource? dataGarantiasFiltrado,
+      final DataTableSource? dataAbonos,
+      final DataTableSource? dataAbonosFiltrado}) = _$_MyOrdersState;
   const _MyOrdersState._() : super._();
 
   @override
@@ -376,6 +498,18 @@ abstract class _MyOrdersState extends MyOrdersState {
   int? get totalImporteGarantias;
   @override
   int? get totalImporteVemare;
+  @override
+  DataTableSource? get dataPedidos;
+  @override
+  DataTableSource? get dataPedidosFiltrado;
+  @override
+  DataTableSource? get dataGarantias;
+  @override
+  DataTableSource? get dataGarantiasFiltrado;
+  @override
+  DataTableSource? get dataAbonos;
+  @override
+  DataTableSource? get dataAbonosFiltrado;
   @override
   @JsonKey(ignore: true)
   _$$_MyOrdersStateCopyWith<_$_MyOrdersState> get copyWith =>

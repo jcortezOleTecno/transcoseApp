@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:vemare/app/domain/model/albaran.dart';
 import 'package:vemare/app/domain/model/warranty.dart';
@@ -19,6 +20,12 @@ class MyOrdersState with _$MyOrdersState {
     int? totalImporteCliente,
     int? totalImporteGarantias,
     int? totalImporteVemare,
+    DataTableSource? dataPedidos,
+    DataTableSource? dataPedidosFiltrado,
+    DataTableSource? dataGarantias,
+    DataTableSource? dataGarantiasFiltrado,
+    DataTableSource? dataAbonos,
+    DataTableSource? dataAbonosFiltrado,
   }) = _MyOrdersState;
   const MyOrdersState._();
 }

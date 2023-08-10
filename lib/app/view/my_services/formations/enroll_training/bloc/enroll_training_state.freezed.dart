@@ -16,7 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$EnrollTrainingState {
-  bool get loading => throw _privateConstructorUsedError;
+// @Default(false) bool loading,
+  int get peopleCounter => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $EnrollTrainingStateCopyWith<EnrollTrainingState> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $EnrollTrainingStateCopyWith<$Res> {
           EnrollTrainingState value, $Res Function(EnrollTrainingState) then) =
       _$EnrollTrainingStateCopyWithImpl<$Res, EnrollTrainingState>;
   @useResult
-  $Res call({bool loading});
+  $Res call({int peopleCounter});
 }
 
 /// @nodoc
@@ -45,13 +46,13 @@ class _$EnrollTrainingStateCopyWithImpl<$Res, $Val extends EnrollTrainingState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? loading = null,
+    Object? peopleCounter = null,
   }) {
     return _then(_value.copyWith(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
+      peopleCounter: null == peopleCounter
+          ? _value.peopleCounter
+          : peopleCounter // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -64,7 +65,7 @@ abstract class _$$_EnrollTrainingStateCopyWith<$Res>
       __$$_EnrollTrainingStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool loading});
+  $Res call({int peopleCounter});
 }
 
 /// @nodoc
@@ -78,13 +79,13 @@ class __$$_EnrollTrainingStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? loading = null,
+    Object? peopleCounter = null,
   }) {
     return _then(_$_EnrollTrainingState(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
+      peopleCounter: null == peopleCounter
+          ? _value.peopleCounter
+          : peopleCounter // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -92,15 +93,16 @@ class __$$_EnrollTrainingStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_EnrollTrainingState extends _EnrollTrainingState {
-  const _$_EnrollTrainingState({this.loading = false}) : super._();
+  const _$_EnrollTrainingState({this.peopleCounter = 0}) : super._();
 
+// @Default(false) bool loading,
   @override
   @JsonKey()
-  final bool loading;
+  final int peopleCounter;
 
   @override
   String toString() {
-    return 'EnrollTrainingState(loading: $loading)';
+    return 'EnrollTrainingState(peopleCounter: $peopleCounter)';
   }
 
   @override
@@ -108,11 +110,12 @@ class _$_EnrollTrainingState extends _EnrollTrainingState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_EnrollTrainingState &&
-            (identical(other.loading, loading) || other.loading == loading));
+            (identical(other.peopleCounter, peopleCounter) ||
+                other.peopleCounter == peopleCounter));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, loading);
+  int get hashCode => Object.hash(runtimeType, peopleCounter);
 
   @JsonKey(ignore: true)
   @override
@@ -123,12 +126,12 @@ class _$_EnrollTrainingState extends _EnrollTrainingState {
 }
 
 abstract class _EnrollTrainingState extends EnrollTrainingState {
-  const factory _EnrollTrainingState({final bool loading}) =
+  const factory _EnrollTrainingState({final int peopleCounter}) =
       _$_EnrollTrainingState;
   const _EnrollTrainingState._() : super._();
 
-  @override
-  bool get loading;
+  @override // @Default(false) bool loading,
+  int get peopleCounter;
   @override
   @JsonKey(ignore: true)
   _$$_EnrollTrainingStateCopyWith<_$_EnrollTrainingState> get copyWith =>

@@ -8,6 +8,7 @@ import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_filters/my_filters.dart';
 import 'package:vemare/app/view/_components/my_filters_applied/my_filter_applied.dart';
+import 'package:vemare/app/view/_components/my_input/my_input_search.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/user_name/user_name.dart';
@@ -148,85 +149,92 @@ class _MyOrders extends StatelessWidget {
                             margin: EdgeInsets.only(bottom: 20),
                           )),
                     if (!state.loading && state.orders.isNotEmpty)
-                      Builder(builder: (context) {
-                        final DataTableSource data =
-                            MyDataOrders(state.orders, 'pedido');
-                        return SizedBox(
-                          height: 500,
-                          child: Card(
-                            margin: const EdgeInsets.only(bottom: 20),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 15),
-                                  child: Column(
-                                    children: [
-                                      spacerS,
-                                      const Text(
-                                        'Pedidos',
-                                        style: AppTextStyle.h3Style,
-                                      ),
-                                      Text('${state.orders.length} Total'),
-                                      // spacerM,
-                                    ],
-                                  ),
+                      SizedBox(
+                        height: 500,
+                        child: Card(
+                          margin: const EdgeInsets.only(bottom: 20),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 15),
+                                child: Column(
+                                  children: [
+                                    spacerS,
+                                    const Text(
+                                      'Pedidos',
+                                      style: AppTextStyle.h3Style,
+                                    ),
+                                    Text(
+                                        '${state.dataPedidosFiltrado!.rowCount} Total'),
+                                    // spacerM,
+                                  ],
                                 ),
-                                Expanded(
-                                  child: PaginatedDataTable2(
-                                    wrapInCard: false,
-                                    columnSpacing: 12,
-                                    horizontalMargin: 12,
-                                    minWidth: 1000,
-                                    // smRatio: 0.5,
-                                    columns: const [
-                                      DataColumn2(
-                                        label: Text('N° DOCUMENTO'),
-                                        fixedWidth: 100,
-                                        // size: ColumnSize.L,
-                                      ),
-                                      DataColumn2(
-                                        label: Text('FECHA'),
-                                        fixedWidth: 80,
-                                        // size: ColumnSize.L,
-                                      ),
-                                      DataColumn2(
-                                        label: Text('CONTADOR'),
-                                        fixedWidth: 80,
-                                        // size: ColumnSize.L,
-                                      ),
-                                      DataColumn2(
-                                        label: Text('MODO DE ENTREGA'),
-                                        fixedWidth: 125,
-                                        // size: ColumnSize.L,
-                                      ),
-                                      DataColumn2(
-                                        label: Text('ALMACÉN'),
-                                        fixedWidth: 80,
-                                        // size: ColumnSize.L,
-                                      ),
-                                      DataColumn2(
-                                        label: Text('IMPORTE'),
-                                        fixedWidth: 100,
-                                        // size: ColumnSize.L,
-                                      ),
-                                      DataColumn2(
-                                        label: Text('ESTADO'),
-                                        fixedWidth: 170,
-                                        // size: ColumnSize.L,
-                                      ),
-                                    ],
-                                    source: data,
-                                  ),
+                              ),
+                              spacerS,
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 15),
+                                child: MySearchInput(
+                                  hintText: 'Buscar por palabras claves...',
+                                  onChanged: cubit.filtroPedidos,
                                 ),
-                              ],
-                            ),
+                              ),
+                              spacerS,
+                              Expanded(
+                                child: PaginatedDataTable2(
+                                  wrapInCard: false,
+                                  columnSpacing: 12,
+                                  horizontalMargin: 12,
+                                  minWidth: 1000,
+                                  // smRatio: 0.5,
+                                  columns: const [
+                                    DataColumn2(
+                                      label: Text('N° DOCUMENTO'),
+                                      fixedWidth: 100,
+                                      // size: ColumnSize.L,
+                                    ),
+                                    DataColumn2(
+                                      label: Text('FECHA'),
+                                      fixedWidth: 80,
+                                      // size: ColumnSize.L,
+                                    ),
+                                    DataColumn2(
+                                      label: Text('CONTADOR'),
+                                      fixedWidth: 80,
+                                      // size: ColumnSize.L,
+                                    ),
+                                    DataColumn2(
+                                      label: Text('MODO DE ENTREGA'),
+                                      fixedWidth: 125,
+                                      // size: ColumnSize.L,
+                                    ),
+                                    DataColumn2(
+                                      label: Text('ALMACÉN'),
+                                      fixedWidth: 80,
+                                      // size: ColumnSize.L,
+                                    ),
+                                    DataColumn2(
+                                      label: Text('IMPORTE'),
+                                      fixedWidth: 100,
+                                      // size: ColumnSize.L,
+                                    ),
+                                    DataColumn2(
+                                      label: Text('ESTADO'),
+                                      fixedWidth: 170,
+                                      // size: ColumnSize.L,
+                                    ),
+                                  ],
+                                  source: state.dataPedidosFiltrado!,
+                                ),
+                              ),
+                            ],
                           ),
-                        );
-                      }),
+                        ),
+                      ),
                   ],
                 ),
               );
@@ -326,174 +334,102 @@ class _MyWarranty extends StatelessWidget {
                             margin: EdgeInsets.only(bottom: 20),
                           )),
                     if (!state.loading && state.guarantee.isNotEmpty)
-                      Builder(builder: (context) {
-                        final DataTableSource data =
-                            MyDataWarranty(state.guarantee);
-                        return SizedBox(
-                          height: 500,
-                          child: Card(
-                            margin: const EdgeInsets.only(bottom: 20),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 15),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      spacerS,
-                                      const Text(
-                                        'Garantías',
-                                        style: AppTextStyle.h3Style,
-                                      ),
-                                      Text('${state.guarantee.length} Total'),
-                                      // spacerM,
-                                    ],
-                                  ),
+                      SizedBox(
+                        height: 500,
+                        child: Card(
+                          margin: const EdgeInsets.only(bottom: 20),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 15),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    spacerS,
+                                    const Text(
+                                      'Garantías',
+                                      style: AppTextStyle.h3Style,
+                                    ),
+                                    Text(
+                                        '${state.dataGarantiasFiltrado!.rowCount} Total'),
+                                    // spacerM,
+                                    spacerS,
+                                    MySearchInput(
+                                      hintText: 'Buscar por palabras claves...',
+                                      onChanged: cubit.filtroGarantia,
+                                    ),
+                                    spacerS,
+                                  ],
                                 ),
-                                Expanded(
-                                  child: PaginatedDataTable2(
-                                    wrapInCard: false,
-                                    columnSpacing: 12,
-                                    horizontalMargin: 12,
-                                    minWidth: 1000,
-                                    // smRatio: 0.5,
-                                    columns: const [
-                                      DataColumn2(
-                                        label: Text('NÚMERO'),
-                                        fixedWidth: 100,
-                                        // size: ColumnSize.L,
-                                      ),
-                                      DataColumn2(
-                                        label: Text('FECHA'),
-                                        fixedWidth: 80,
-                                        // size: ColumnSize.L,
-                                      ),
-                                      DataColumn2(
-                                        label: Text('CENTRO'),
-                                        fixedWidth: 80,
-                                        // size: ColumnSize.L,
-                                      ),
-                                      DataColumn2(
-                                        label: Text('VISAR'),
-                                        fixedWidth: 80,
-                                        // size: ColumnSize.L,
-                                      ),
-                                      DataColumn2(
-                                        label: Text('IMPORTE'),
-                                        fixedWidth: 80,
-                                        // size: ColumnSize.L,
-                                      ),
-                                      DataColumn2(
-                                        label: Text('LÍNEA'),
-                                        fixedWidth: 100,
-                                        // size: ColumnSize.L,
-                                      ),
-                                      DataColumn2(
-                                        label: Text('FIRMADO'),
-                                        fixedWidth: 80,
-                                        // size: ColumnSize.L,
-                                      ),
-                                      DataColumn2(
-                                        label: Text('ESTADO SU'),
-                                        fixedWidth: 120,
-                                        // size: ColumnSize.L,
-                                      ),
-                                      DataColumn2(
-                                        label: Text('ESTADO TR'),
-                                        fixedWidth: 120,
-                                        // size: ColumnSize.L,
-                                      ),
-                                    ],
-                                    source: data,
-                                  ),
+                              ),
+                              Expanded(
+                                child: PaginatedDataTable2(
+                                  wrapInCard: false,
+                                  columnSpacing: 12,
+                                  horizontalMargin: 12,
+                                  minWidth: 1000,
+                                  // smRatio: 0.5,
+                                  columns: const [
+                                    DataColumn2(
+                                      label: Text('NÚMERO'),
+                                      fixedWidth: 100,
+                                      // size: ColumnSize.L,
+                                    ),
+                                    DataColumn2(
+                                      label: Text('FECHA'),
+                                      fixedWidth: 80,
+                                      // size: ColumnSize.L,
+                                    ),
+                                    DataColumn2(
+                                      label: Text('CENTRO'),
+                                      fixedWidth: 80,
+                                      // size: ColumnSize.L,
+                                    ),
+                                    DataColumn2(
+                                      label: Text('VISAR'),
+                                      fixedWidth: 80,
+                                      // size: ColumnSize.L,
+                                    ),
+                                    DataColumn2(
+                                      label: Text('IMPORTE'),
+                                      fixedWidth: 80,
+                                      // size: ColumnSize.L,
+                                    ),
+                                    DataColumn2(
+                                      label: Text('LÍNEA'),
+                                      fixedWidth: 100,
+                                      // size: ColumnSize.L,
+                                    ),
+                                    DataColumn2(
+                                      label: Text('FIRMADO'),
+                                      fixedWidth: 80,
+                                      // size: ColumnSize.L,
+                                    ),
+                                    DataColumn2(
+                                      label: Text('ESTADO SU'),
+                                      fixedWidth: 120,
+                                      // size: ColumnSize.L,
+                                    ),
+                                    DataColumn2(
+                                      label: Text('ESTADO TR'),
+                                      fixedWidth: 120,
+                                      // size: ColumnSize.L,
+                                    ),
+                                  ],
+                                  source: state.dataGarantiasFiltrado!,
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        );
-                      }),
+                        ),
+                      ),
                   ],
                 ),
               );
-
-              /* ListView(
-                padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
-                children: [
-                  spacerS,
-                  const Text('Mis garantías', style: AppTextStyle.h2Style),
-                  Text(
-                    LocalDataRepository().user?.name ?? '',
-                    style: AppTextStyle.h3Style.copyWith(
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                  spacerM,
-                  Visibility(
-                    visible: state.statusWarranty != null,
-                    replacement: const MyShimmer(
-                      margin: EdgeInsets.zero,
-                      height: 55,
-                      borderRadius: 30,
-                    ),
-                    child: MyIconButton(
-                      onPressed: () {
-                        myFilters(context,
-                                estadosSustitucion:
-                                    state.statusWarranty!.estadosSustitucion,
-                                estadosTramitacion:
-                                    state.statusWarranty!.estadosTramitacion)
-                            .then((filter) {
-                          if (filter != null) {
-                            cubit.getMyWarranty(filter: filter);
-                          }
-                        });
-                      },
-                      text: 'Aplicar filtros',
-                      icon: Image.asset(
-                        'assets/icons/Filtro.png',
-                        scale: 2,
-                      ),
-                      variant: MyButtonVariant.outlinedBold,
-                    ),
-                  ),
-                  if (state.filterGarantias != null)
-                    FiltersAppliedWidget(state.filterGarantias!),
-                  spacerL,
-                  if (state.guarantee.isNotEmpty && !state.loading)
-                    const _Total(),
-                  spacerL,
-                  if (!state.loading && state.guarantee.isEmpty)
-                    const NoExistWidget('garantías'),
-                  if (state.loading)
-                    ...List.generate(
-                        3,
-                        (_) => const Padding(
-                              padding: EdgeInsets.only(bottom: 20),
-                              child: MyShimmer(
-                                  height: 160, margin: EdgeInsets.zero),
-                            )),
-                  if (!state.loading)
-                    ...state.guarantee
-                        .map(
-                          (e) => WarrantyCard(
-                            e,
-                            onTap: () {
-                              Navigator.pushNamed(
-                                context,
-                                WarrantyDetailPage.route,
-                                arguments: e,
-                              );
-                            },
-                          ),
-                        )
-                        .toList(),
-                ],
-              );*/
             },
           );
   }
@@ -624,134 +560,92 @@ class _MyBills extends StatelessWidget {
                             margin: EdgeInsets.only(bottom: 20),
                           )),
                     if (!state.loading && state.bills.isNotEmpty)
-                      Builder(builder: (context) {
-                        final DataTableSource data =
-                            MyDataOrders(state.bills, 'abono');
-                        return SizedBox(
-                          height: 500,
-                          child: Card(
-                            margin: const EdgeInsets.only(bottom: 20),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 15),
-                                  child: Column(
-                                    children: [
-                                      spacerS,
-                                      const Text(
-                                        'Abonos',
-                                        style: AppTextStyle.h3Style,
-                                      ),
-                                      Text('${state.bills.length} Total'),
-                                      // spacerM,
-                                    ],
-                                  ),
+                      SizedBox(
+                        height: 500,
+                        child: Card(
+                          margin: const EdgeInsets.only(bottom: 20),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 15),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    spacerS,
+                                    const Text(
+                                      'Abonos',
+                                      style: AppTextStyle.h3Style,
+                                    ),
+                                    Text(
+                                        '${state.dataAbonosFiltrado!.rowCount} Total'),
+                                    // spacerM,
+                                    spacerS,
+                                    MySearchInput(
+                                      hintText: 'Buscar por palabras claves...',
+                                      onChanged: cubit.filtroAbono,
+                                    ),
+                                    spacerS,
+                                  ],
                                 ),
-                                Expanded(
-                                  child: PaginatedDataTable2(
-                                    columnSpacing: 12,
-                                    horizontalMargin: 12,
-                                    wrapInCard: false,
-                                    minWidth: 1000,
-                                    // smRatio: 0.5,
-                                    columns: const [
-                                      DataColumn2(
-                                        label: Text('N° DOCUMENTO'),
-                                        fixedWidth: 100,
-                                        // size: ColumnSize.L,
-                                      ),
-                                      DataColumn2(
-                                        label: Text('FECHA'),
-                                        fixedWidth: 80,
-                                        // size: ColumnSize.L,
-                                      ),
-                                      DataColumn2(
-                                        label: Text('CONTADOR'),
-                                        fixedWidth: 80,
-                                        // size: ColumnSize.L,
-                                      ),
-                                      DataColumn2(
-                                        label: Text('MODO DE ENTREGA'),
-                                        fixedWidth: 125,
-                                        // size: ColumnSize.L,
-                                      ),
-                                      DataColumn2(
-                                        label: Text('ALMACÉN'),
-                                        fixedWidth: 80,
-                                        // size: ColumnSize.L,
-                                      ),
-                                      DataColumn2(
-                                        label: Text('IMPORTE'),
-                                        fixedWidth: 100,
-                                        // size: ColumnSize.L,
-                                      ),
-                                      DataColumn2(
-                                        label: Text('ESTADO'),
-                                        fixedWidth: 170,
-                                        // size: ColumnSize.L,
-                                      ),
-                                    ],
-                                    source: data,
-                                  ),
+                              ),
+                              Expanded(
+                                child: PaginatedDataTable2(
+                                  columnSpacing: 12,
+                                  horizontalMargin: 12,
+                                  wrapInCard: false,
+                                  minWidth: 1000,
+                                  // smRatio: 0.5,
+                                  columns: const [
+                                    DataColumn2(
+                                      label: Text('N° DOCUMENTO'),
+                                      fixedWidth: 100,
+                                      // size: ColumnSize.L,
+                                    ),
+                                    DataColumn2(
+                                      label: Text('FECHA'),
+                                      fixedWidth: 80,
+                                      // size: ColumnSize.L,
+                                    ),
+                                    DataColumn2(
+                                      label: Text('CONTADOR'),
+                                      fixedWidth: 80,
+                                      // size: ColumnSize.L,
+                                    ),
+                                    DataColumn2(
+                                      label: Text('MODO DE ENTREGA'),
+                                      fixedWidth: 125,
+                                      // size: ColumnSize.L,
+                                    ),
+                                    DataColumn2(
+                                      label: Text('ALMACÉN'),
+                                      fixedWidth: 80,
+                                      // size: ColumnSize.L,
+                                    ),
+                                    DataColumn2(
+                                      label: Text('IMPORTE'),
+                                      fixedWidth: 100,
+                                      // size: ColumnSize.L,
+                                    ),
+                                    DataColumn2(
+                                      label: Text('ESTADO'),
+                                      fixedWidth: 170,
+                                      // size: ColumnSize.L,
+                                    ),
+                                  ],
+                                  source: state.dataAbonosFiltrado!,
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        );
-                      }),
+                        ),
+                      ),
                   ],
                 ),
               );
-
-              /*ListView(
-                padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
-                children: [
-                  spacerS,
-                  const Text('Mis abonos', style: AppTextStyle.h2Style),
-                  Text(
-                    LocalDataRepository().user?.name ?? '',
-                    style: AppTextStyle.h3Style.copyWith(
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                  spacerM,
-                  MyIconButton(
-                    onPressed: () {
-                      myFilters(context).then((filter) {
-                        if (filter != null) {
-                          cubit.getMyBills(filter: filter);
-                        }
-                      });
-                    },
-                    text: 'Aplicar filtros',
-                    icon: Image.asset(
-                      'assets/icons/Filtro.png',
-                      scale: 2,
-                    ),
-                    variant: MyButtonVariant.outlinedBold,
-                  ),
-                  if (state.filterAbonos != null)
-                    FiltersAppliedWidget(state.filterAbonos!),
-                  spacerL,
-                  if (!state.loading && state.bills.isEmpty)
-                    const NoExistWidget('abonos'),
-                  // spacerL,
-                  if (state.loading)
-                    ...List.generate(
-                        3,
-                        (_) => const Padding(
-                              padding: EdgeInsets.only(bottom: 20),
-                              child: MyShimmer(
-                                  height: 230, margin: EdgeInsets.zero),
-                            )),
-                  if (!state.loading)
-                    ...state.bills.map((e) => AlbaranCard(e)).toList(),
-                ],
-              );*/
             },
           );
   }

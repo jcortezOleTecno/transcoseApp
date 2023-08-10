@@ -1,3 +1,7 @@
+import 'package:intl/intl.dart';
+
+import '../utils/money_formatter.dart';
+
 class Warranty {
   Warranty({
     this.fechaAlta,
@@ -66,5 +70,20 @@ class Warranty {
         "importe": importe,
         "linea": linea,
         "color": color,
+      };
+
+  Map<String, dynamic> toFilter() => {
+        "fecha_alta": DateFormat.yMd('es').format(fechaAlta!),
+        "numero": numero,
+        "centro_reparto": centroReparto,
+        "firmado": firmado,
+        "estado_su": estadoSu,
+        "estado_tr": estadoTr,
+        "visar": visar,
+        "importe": fmf
+            .copyWith(amount: double.parse(importe ?? '0'))
+            .output
+            .symbolOnRight,
+        "linea": linea,
       };
 }

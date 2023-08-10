@@ -20,6 +20,7 @@ import 'package:vemare/app/view/home/home_page.dart';
 import 'package:vemare/app/view/library/library_page.dart';
 import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/my_notifications/my_notifications_page.dart';
+import 'package:vemare/app/view/my_services/events/other_events/available_destinations.dart';
 import 'package:vemare/app/view/my_services/events/other_events/enroll_event/enroll_event.dart';
 import 'package:vemare/app/view/my_services/events/events_vemare/event_detail_page.dart';
 import 'package:vemare/app/view/my_services/events/events_page.dart';
@@ -396,6 +397,12 @@ abstract class AppRouter {
         return MaterialPageRoute<void>(
           settings: settings,
           builder: (_) => SatIntroPage(data!),
+        );
+      case AvailableDestinationsPage.route:
+        final event = settings.arguments as Events?;
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => AvailableDestinationsPage(event!),
         );
       /*case ShippingDataPage.route:
         final data = settings.arguments as ShoppingCarArgs?;

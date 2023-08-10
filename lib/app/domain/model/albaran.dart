@@ -1,3 +1,6 @@
+import 'package:intl/intl.dart';
+import 'package:vemare/app/domain/utils/money_formatter.dart';
+
 class Albaran {
   Albaran({
     this.ejercicio,
@@ -57,4 +60,15 @@ class Albaran {
         "total_importe": totalImporte,
         "id": id,
       };
+
+  String toFilter() => {
+        "contador": contador,
+        "documento": documento,
+        "fecha": DateFormat.yMd('es').format(fecha!),
+        "almacen": almacen,
+        "modo_entrega": modoEntrega,
+        "facturado": facturado,
+        "total_importe":
+            fmf.copyWith(amount: totalImporte).output.symbolOnRight,
+      }.toString();
 }

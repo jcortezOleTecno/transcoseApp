@@ -8,7 +8,7 @@ import 'package:vemare/app/view/my_services/formations/enroll_training/bloc/enro
 class EnrollTrainingCubit extends Cubit<EnrollTrainingState> {
   EnrollTrainingCubit(
     this._formationsRepository,
-  ) : super(const EnrollTrainingState());
+  ) : super(const EnrollTrainingState(peopleCounter: 5));
 
   final FormationsRepository _formationsRepository;
 

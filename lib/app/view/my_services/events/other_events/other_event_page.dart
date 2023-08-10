@@ -5,7 +5,7 @@ import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
-import 'package:vemare/app/view/my_services/events/other_events/enroll_event/enroll_event.dart';
+import 'package:vemare/app/view/my_services/events/other_events/available_destinations.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
 class OtherEventPage extends StatelessWidget {
@@ -68,7 +68,7 @@ class OtherEventPage extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushNamed(
                       context,
-                      EnrollEventPage.route,
+                      AvailableDestinationsPage.route,
                       arguments: event,
                     );
                   },

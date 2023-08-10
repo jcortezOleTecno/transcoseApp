@@ -4,7 +4,10 @@ import 'package:vemare/app/domain/model/albaran.dart';
 import 'package:vemare/app/domain/model/filter.dart';
 import 'package:vemare/app/domain/model/warranty.dart';
 import 'package:vemare/app/domain/model/warranty_status.dart';
+import 'package:vemare/app/view/personal_area/my_orders/my_orders/bloc/my_data_warranty.dart';
 import 'package:vemare/app/view/personal_area/my_orders/my_orders/bloc/my_orders_state.dart';
+
+import 'my_data_orders.dart';
 
 class MyOrdersCubit extends Cubit<MyOrdersState> {
   MyOrdersCubit(
@@ -50,18 +53,25 @@ class MyOrdersCubit extends Cubit<MyOrdersState> {
       totalImporteCliente: totalImporteCliente,
       totalImporteVemare: totalImporteVemare,
       totalImporteGarantias: totalImporteGarantias,
+      dataPedidos: MyDataOrders(orders, 'pedido'),
+      dataPedidosFiltrado: MyDataOrders(orders, 'pedido'),
+      dataGarantias: MyDataWarranty(guarantee),
+      dataGarantiasFiltrado: MyDataWarranty(guarantee),
+      dataAbonos: MyDataOrders(bills, 'abono'),
+      dataAbonosFiltrado: MyDataOrders(bills, 'abono'),
       loading: false,
     ));
   }
 
   Future<void> getMyOrders({Filter? filter, bool reset = false}) async {
     emit(state.copyWith(loading: true, filterPedidos: null));
-
     var data = await _myAccountRepository.getMyOrders(filter: filter);
     emit(state.copyWith(
       orders: data.data as List<Albaran>,
       loading: false,
       filterPedidos: reset ? null : data.filter,
+      dataPedidos: MyDataOrders((data.data as List<Albaran>), 'pedido'),
+      dataPedidosFiltrado: MyDataOrders((data.data as List<Albaran>), 'pedido'),
     ));
   }
 
@@ -74,6 +84,8 @@ class MyOrdersCubit extends Cubit<MyOrdersState> {
       totalImporteCliente: data.totalImporteCliente,
       totalImporteVemare: data.totalImporteVemare,
       totalImporteGarantias: data.totalImporteGarantia,
+      dataGarantias: MyDataWarranty(data.data as List<Warranty>),
+      dataGarantiasFiltrado: MyDataWarranty(data.data as List<Warranty>),
       loading: false,
     ));
   }
@@ -85,6 +97,55 @@ class MyOrdersCubit extends Cubit<MyOrdersState> {
       bills: data.data as List<Albaran>,
       loading: false,
       filterAbonos: reset ? null : data.filter,
+      dataAbonos: MyDataOrders((data.data as List<Albaran>), 'abono'),
+      dataAbonosFiltrado: MyDataOrders((data.data as List<Albaran>), 'abono'),
     ));
+  }
+
+  void filtroPedidos(String? value) {
+    emit(
+      state.copyWith(
+        dataPedidosFiltrado: MyDataOrders(
+            state.orders.where((e) {
+              return e
+                  .toFilter()
+                  .toLowerCase()
+                  .contains(value!.trim().toLowerCase());
+            }).toList(),
+            'pedido'),
+      ),
+    );
+  }
+
+  void filtroGarantia(String? value) {
+    emit(
+      state.copyWith(
+        dataGarantiasFiltrado: MyDataWarranty(
+          state.guarantee.where((e) {
+            return e
+                .toFilter()
+                .toString()
+                .toLowerCase()
+                .contains(value!.trim().toLowerCase());
+          }).toList(),
+        ),
+      ),
+    );
+  }
+
+  void filtroAbono(String? value) {
+    emit(
+      state.copyWith(
+        dataAbonosFiltrado: MyDataOrders(
+            state.bills.where((e) {
+              return e
+                  .toFilter()
+                  .toString()
+                  .toLowerCase()
+                  .contains(value!.trim().toLowerCase());
+            }).toList(),
+            'abono'),
+      ),
+    );
   }
 }
