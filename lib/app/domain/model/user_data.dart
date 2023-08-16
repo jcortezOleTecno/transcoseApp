@@ -18,7 +18,7 @@ class UserData {
   final int? parentId;
   final String? status;
   String? logo;
-  final int? accessMillenniumProgram;
+  // final bool? accessMillenniumProgram;
   Webservice? webservice;
 
   UserData({
@@ -39,7 +39,7 @@ class UserData {
     this.parentId,
     this.status,
     this.logo,
-    this.accessMillenniumProgram,
+    // this.accessMillenniumProgram,
     this.webservice,
   });
 
@@ -65,7 +65,7 @@ class UserData {
       parentId: map["parent_id"] as int?,
       status: map["status"] as String?,
       logo: map["logo"] as String?,
-      accessMillenniumProgram: map["access_millennium_program"] as int?,
+      // accessMillenniumProgram: map["access_millennium_program"] as bool?,
       webservice: map["webservice"] == null
           ? null
           : Webservice.fromJson(map["webservice"]),
@@ -93,7 +93,7 @@ class UserData {
           : List<dynamic>.from(permissions!.map((x) => x.toJson())),
       'status': status,
       'logo': logo,
-      'access_millennium_program': accessMillenniumProgram,
+      // 'access_millennium_program': accessMillenniumProgram,
       "webservice": webservice?.toJson(),
     };
   }
@@ -137,6 +137,8 @@ class Webservice {
     this.longitud,
     this.millennium,
     this.convencion,
+    this.plazasEventos,
+    this.plazasFormaciones,
   });
 
   int? codigo;
@@ -155,6 +157,8 @@ class Webservice {
   double? longitud;
   bool? millennium;
   bool? convencion;
+  int? plazasEventos;
+  int? plazasFormaciones;
 
   factory Webservice.fromJson(Map<String, dynamic> json) => Webservice(
         codigo: json["codigo"],
@@ -182,6 +186,8 @@ class Webservice {
         longitud: json["longitud"]?.toDouble(),
         millennium: json["millennium"],
         convencion: json["convencion"],
+        plazasEventos: json["plazas_eventos"],
+        plazasFormaciones: json["plazas_formaciones"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -207,6 +213,8 @@ class Webservice {
         "longitud": longitud,
         "millennium": millennium,
         "convencion": convencion,
+        "plazas_eventos": plazasEventos,
+        "plazas_formaciones": plazasFormaciones,
       };
 }
 

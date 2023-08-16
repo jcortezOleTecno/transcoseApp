@@ -24,7 +24,7 @@ class NewsDetailPage extends StatelessWidget {
             children: [
               const MyBackButton(),
               MyNetworkImage(
-                image: news.image!,
+                image: news.imagePrivate!,
                 height: 250,
                 width: double.infinity,
                 fit: BoxFit.cover,

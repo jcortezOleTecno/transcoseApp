@@ -7,6 +7,7 @@ class Library {
     this.tags,
     this.visits,
     this.image,
+    this.imagePrivate,
   });
 
   int id;
@@ -16,6 +17,7 @@ class Library {
   String? tags;
   int? visits;
   String? image;
+  String? imagePrivate;
 
   factory Library.fromJson(dynamic json) => Library(
         id: json["id"] as int,
@@ -25,6 +27,7 @@ class Library {
         tags: json["tags"] as String?,
         visits: json["visits"] as int?,
         image: json["image"] as String?,
+        imagePrivate: json["image_private"] as String?,
       );
 
   Map<String, dynamic> toJson() => {
@@ -34,6 +37,6 @@ class Library {
         "subtitle": subtitle,
         "tags": tags,
         "visits": visits,
-        "image": image,
+        "image_private": imagePrivate,
       };
 }

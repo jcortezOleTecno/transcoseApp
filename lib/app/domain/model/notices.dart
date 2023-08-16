@@ -6,6 +6,7 @@ class News {
   final String? subtitle;
   final String? description;
   final String? image;
+  final String? imagePrivate;
 
   News({
     this.id,
@@ -15,6 +16,7 @@ class News {
     this.description,
     this.title,
     this.image,
+    this.imagePrivate,
   });
   factory News.froJson(dynamic map) {
     return News(
@@ -25,6 +27,7 @@ class News {
       description: map['description'] as String?,
       title: map['title'] as String?,
       image: map['image'] as String?,
+      imagePrivate: map['image_private'] as String?,
     );
   }
 
@@ -37,6 +40,7 @@ class News {
       'description': description,
       'title': title,
       'image': image,
+      'image_private': imagePrivate,
     };
   }
 }

@@ -80,4 +80,23 @@ class Intervenciones {
         "tipo_intervencion": tipoIntervencion,
         "marca_intervencion": marcaIntervencion,
       };
+
+  String toFilter() => {
+        "codigo_intervencion": codigoIntervencion,
+        "fecha_intervencion": fechaIntervencion,
+        "asunto_intervencion": asuntoIntervencion,
+        // "numero": numero,
+        "fecha_cierre_intervencion": fechaCierreIntervencion,
+        // "numero_albaran": numeroAlbaran,
+        // "en_garantia": enGarantia,
+        // "numero_garantia": numeroGarantia,
+        // "fecha_llegada_material": fechaLlegadaMaterial,
+        // "fecha_salida_proveedor": fechaSalidaProveedor,
+        // "fecha_salida_cliente": fechaSalidaCliente,
+        "taller": taller,
+        // "tipo_agrupacion": tipoAgrupacion,
+        // "situacion": situacion,
+        "tipo_intervencion": tipoIntervencion,
+        // "marca_intervencion": marcaIntervencion,
+      }.toString();
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:vemare/app/data/events_repository.dart';
+import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/domain/model/events.dart';
 import 'package:vemare/app/domain/model/formation.dart';
 import 'package:vemare/app/domain/model/employee.dart';
@@ -76,14 +77,13 @@ class EnrollEventPage extends StatelessWidget {
                               _dialogConfirmSchedule(context, horario)
                                   .then((v) {
                                 if (v ?? false) {
-                                  _dialogEnrollEmployee(
-                                          context, horario, state.peopleCounter)
+                                  _dialogEnrollEmployee(context, horario)
                                       .then((v) {
                                     if (v ?? false) {
                                       _dialogCongratulations(context, horario)
                                           .then((_) {
                                         Navigator.of(context).pop();
-                                        // Navigator.of(context).pop();
+                                        Navigator.of(context).pop();
                                         // Navigator.of(context).pop();
                                         // Navigator.of(context).pop();
                                       });
@@ -210,11 +210,13 @@ class EnrollEventPage extends StatelessWidget {
         });
   }
 
-  Future<bool?> _dialogEnrollEmployee(
-      BuildContext ctx, Horario date, int limitPeople) {
+  Future<bool?> _dialogEnrollEmployee(BuildContext ctx, Horario date) {
     var selectedEmployees = <Employee>[];
     List<Employee> people = [];
     bool loading = false;
+    int limitPeople =
+        LocalDataRepository().user?.webservice?.plazasEventos ?? 0;
+    print(LocalDataRepository().user?.toJson());
     final cubit = ctx.read<EnrollEventCubit>();
     return showDialog<bool>(
       context: ctx,
@@ -258,7 +260,9 @@ class EnrollEventPage extends StatelessWidget {
                               style: AppTextStyle.defaultStyle,
                               textAlign: TextAlign.center,
                             ),
-                            if ((people.length + selectedEmployees.length) >
+                            if ((people.length +
+                                    selectedEmployees.length +
+                                    (date.occupiedPlaces ?? 0)) >
                                 limitPeople) ...[
                               spacerM,
                               Container(
@@ -290,7 +294,7 @@ class EnrollEventPage extends StatelessWidget {
                             Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                  'Personas a inscribir (${selectedEmployees.length + people.length}/$limitPeople)',
+                                  'Personas a inscribir (${selectedEmployees.length + people.length + (date.occupiedPlaces ?? 0)}/$limitPeople)',
                                   style: AppTextStyle.inputLabelStyle),
                             ),
                             spacerXs,
@@ -451,6 +455,7 @@ class EnrollEventPage extends StatelessWidget {
                         setState(() {
                           loading = true;
                         });
+                        //TODO: MOSTRAR MENSAJE DE ERROR
                         cubit
                             .enrollEvent(
                                 dateId: date.dateId,

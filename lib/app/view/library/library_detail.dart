@@ -3,6 +3,7 @@ import 'package:vemare/app/domain/model/library.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_html/my_html.dart';
+import 'package:vemare/app/view/_components/my_network_image/my_network_image.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
@@ -21,8 +22,8 @@ class LibraryDetailPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const MyBackButton(),
-              Image.network(
-                library.image!,
+              MyNetworkImage(
+                image: library.imagePrivate!,
                 height: 250,
                 width: double.infinity,
                 fit: BoxFit.cover,

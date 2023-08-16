@@ -18,6 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$MySatState {
   bool get loading => throw _privateConstructorUsedError;
   List<Intervenciones> get sats => throw _privateConstructorUsedError;
+  DataTableSource? get data => throw _privateConstructorUsedError;
+  DataTableSource? get dataFiltrada => throw _privateConstructorUsedError;
+  String? get filters => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MySatStateCopyWith<MySatState> get copyWith =>
@@ -30,7 +33,12 @@ abstract class $MySatStateCopyWith<$Res> {
           MySatState value, $Res Function(MySatState) then) =
       _$MySatStateCopyWithImpl<$Res, MySatState>;
   @useResult
-  $Res call({bool loading, List<Intervenciones> sats});
+  $Res call(
+      {bool loading,
+      List<Intervenciones> sats,
+      DataTableSource? data,
+      DataTableSource? dataFiltrada,
+      String? filters});
 }
 
 /// @nodoc
@@ -48,6 +56,9 @@ class _$MySatStateCopyWithImpl<$Res, $Val extends MySatState>
   $Res call({
     Object? loading = null,
     Object? sats = null,
+    Object? data = freezed,
+    Object? dataFiltrada = freezed,
+    Object? filters = freezed,
   }) {
     return _then(_value.copyWith(
       loading: null == loading
@@ -58,6 +69,18 @@ class _$MySatStateCopyWithImpl<$Res, $Val extends MySatState>
           ? _value.sats
           : sats // ignore: cast_nullable_to_non_nullable
               as List<Intervenciones>,
+      data: freezed == data
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
+      dataFiltrada: freezed == dataFiltrada
+          ? _value.dataFiltrada
+          : dataFiltrada // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
+      filters: freezed == filters
+          ? _value.filters
+          : filters // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -70,7 +93,12 @@ abstract class _$$_MySatStateCopyWith<$Res>
       __$$_MySatStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool loading, List<Intervenciones> sats});
+  $Res call(
+      {bool loading,
+      List<Intervenciones> sats,
+      DataTableSource? data,
+      DataTableSource? dataFiltrada,
+      String? filters});
 }
 
 /// @nodoc
@@ -86,6 +114,9 @@ class __$$_MySatStateCopyWithImpl<$Res>
   $Res call({
     Object? loading = null,
     Object? sats = null,
+    Object? data = freezed,
+    Object? dataFiltrada = freezed,
+    Object? filters = freezed,
   }) {
     return _then(_$_MySatState(
       loading: null == loading
@@ -96,6 +127,18 @@ class __$$_MySatStateCopyWithImpl<$Res>
           ? _value._sats
           : sats // ignore: cast_nullable_to_non_nullable
               as List<Intervenciones>,
+      data: freezed == data
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
+      dataFiltrada: freezed == dataFiltrada
+          ? _value.dataFiltrada
+          : dataFiltrada // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
+      filters: freezed == filters
+          ? _value.filters
+          : filters // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -105,7 +148,10 @@ class __$$_MySatStateCopyWithImpl<$Res>
 class _$_MySatState implements _MySatState {
   const _$_MySatState(
       {this.loading = false,
-      final List<Intervenciones> sats = const <Intervenciones>[]})
+      final List<Intervenciones> sats = const <Intervenciones>[],
+      this.data,
+      this.dataFiltrada,
+      this.filters})
       : _sats = sats;
 
   @override
@@ -121,8 +167,15 @@ class _$_MySatState implements _MySatState {
   }
 
   @override
+  final DataTableSource? data;
+  @override
+  final DataTableSource? dataFiltrada;
+  @override
+  final String? filters;
+
+  @override
   String toString() {
-    return 'MySatState(loading: $loading, sats: $sats)';
+    return 'MySatState(loading: $loading, sats: $sats, data: $data, dataFiltrada: $dataFiltrada, filters: $filters)';
   }
 
   @override
@@ -131,12 +184,16 @@ class _$_MySatState implements _MySatState {
         (other.runtimeType == runtimeType &&
             other is _$_MySatState &&
             (identical(other.loading, loading) || other.loading == loading) &&
-            const DeepCollectionEquality().equals(other._sats, _sats));
+            const DeepCollectionEquality().equals(other._sats, _sats) &&
+            (identical(other.data, data) || other.data == data) &&
+            (identical(other.dataFiltrada, dataFiltrada) ||
+                other.dataFiltrada == dataFiltrada) &&
+            (identical(other.filters, filters) || other.filters == filters));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, loading, const DeepCollectionEquality().hash(_sats));
+  int get hashCode => Object.hash(runtimeType, loading,
+      const DeepCollectionEquality().hash(_sats), data, dataFiltrada, filters);
 
   @JsonKey(ignore: true)
   @override
@@ -147,12 +204,22 @@ class _$_MySatState implements _MySatState {
 
 abstract class _MySatState implements MySatState {
   const factory _MySatState(
-      {final bool loading, final List<Intervenciones> sats}) = _$_MySatState;
+      {final bool loading,
+      final List<Intervenciones> sats,
+      final DataTableSource? data,
+      final DataTableSource? dataFiltrada,
+      final String? filters}) = _$_MySatState;
 
   @override
   bool get loading;
   @override
   List<Intervenciones> get sats;
+  @override
+  DataTableSource? get data;
+  @override
+  DataTableSource? get dataFiltrada;
+  @override
+  String? get filters;
   @override
   @JsonKey(ignore: true)
   _$$_MySatStateCopyWith<_$_MySatState> get copyWith =>

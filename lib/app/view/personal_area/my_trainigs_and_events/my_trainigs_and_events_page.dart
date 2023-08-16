@@ -15,6 +15,7 @@ import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/personal_area/my_trainigs_and_events/bloc/my_trainigs_and_events_state.dart';
 import 'package:vemare/app/view/personal_area/widgets/item_card.dart';
+import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
@@ -82,6 +83,13 @@ class MyTrainingAndEventsPage extends StatelessWidget {
                         ),
                       );
                     }),
+                  if (!state.loading && state.data.isEmpty)
+                    const NoResultWidget(
+                      'Actualmente no tienes ningún servicio contratado.',
+                      subTittle:
+                          'Si quieres más información contacta con tu comercial habitual',
+                      paddingTop: 50,
+                    ),
                   if (!state.loading)
                     ...state.data
                         .map((e) => _TrainingsAndEventCard(e))

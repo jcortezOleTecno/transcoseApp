@@ -131,16 +131,25 @@ class MyAccountRepository {
     }
   }
 
-  Future<List<Intervenciones>> getMySAT({Filter? filter}) async {
+  Future<AnswerWithFilters> getMySAT({Filter? filter}) async {
     try {
       final dynamic res = await _apiClient.postRequest(
           '$BASE_API_URL/api/mi-cuenta/sat',
           body: filter?.toJson());
-      return (res["datos"]["intervenciones"] as List)
-          .map(Intervenciones.fromJson)
-          .toList();
+      if (res["data"] == null) {
+        return AnswerWithFilters(
+            data: (res["datos"]["intervenciones"] as List)
+                .map(Intervenciones.fromJson)
+                .toList());
+      } else {
+        return AnswerWithFilters(
+            data: (res["data"]["datos"]["intervenciones"] as List)
+                .map(Intervenciones.fromJson)
+                .toList(),
+            filter: res["filters"]);
+      }
     } catch (e) {
-      return [];
+      return AnswerWithFilters(data: []);
     }
   }
 

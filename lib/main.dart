@@ -33,8 +33,6 @@ void main() async {
   await LocalDataRepository().initPrefs();
   await ServiceLocator.setup();
   await Firebase.initializeApp();
-  // Initialize FlutterDownloader
-  // await FlutterDownloader.initialize();
   PushNotificationsProvider().initNotifications();
   setPathUrlStrategy();
   runApp(const MyApp());
