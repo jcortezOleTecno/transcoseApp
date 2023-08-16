@@ -36,7 +36,6 @@ class UserCubit extends Cubit<UserState> {
     emit(state.copyWith(contacts: contacts));
     if (!LocalDataRepository().isLogged) return;
     UserData? user = await _authRepository.getUser();
-    print(user.toJson());
     emit(state.copyWith(user: user));
   }
 

@@ -5,6 +5,7 @@ import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/domain/model/events.dart';
 import 'package:vemare/app/domain/model/events_vemare.dart';
 import 'package:vemare/app/domain/model/header_events_held.dart';
+import 'package:vemare/app/view/my_services/events/other_events/enroll_event/bloc/enroll_event_cubit.dart';
 
 import '../domain/model/employee.dart';
 import '../domain/model/my_event.dart';
@@ -45,7 +46,7 @@ class EventsRepository {
     return (res as List).map(MyEvents.fromJson).toList();
   }
 
-  Future<void> enrollEvents({
+  Future<EnrollResponse> enrollEvents({
     required int dateId,
     required List<int>? idsEmployees,
     List<Employee>? persons,
@@ -56,8 +57,12 @@ class EventsRepository {
       'persons': persons?.map((e) => e.toEnrollData()).toList(),
     };
 
-    await _apiClient.postRequest('$BASE_API_URL/api/eventos/inscripcion',
+    print(data);
+
+    var res = await _apiClient.postRequest(
+        '$BASE_API_URL/api/eventos/inscripcion',
         body: jsonEncode(data),
         customHeaders: headerContentTypeApplicationJson);
+    return EnrollResponse(res["response"] == "success", res["message"]);
   }
 }

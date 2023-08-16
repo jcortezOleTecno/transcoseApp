@@ -216,7 +216,8 @@ class EnrollEventPage extends StatelessWidget {
     bool loading = false;
     int limitPeople =
         LocalDataRepository().user?.webservice?.plazasEventos ?? 0;
-    print(LocalDataRepository().user?.toJson());
+    String? errorMessage;
+
     final cubit = ctx.read<EnrollEventCubit>();
     return showDialog<bool>(
       context: ctx,
@@ -260,35 +261,19 @@ class EnrollEventPage extends StatelessWidget {
                               style: AppTextStyle.defaultStyle,
                               textAlign: TextAlign.center,
                             ),
-                            if ((people.length +
-                                    selectedEmployees.length +
-                                    (date.occupiedPlaces ?? 0)) >
-                                limitPeople) ...[
+                            if (((people.length +
+                                        selectedEmployees.length +
+                                        (date.occupiedPlaces ?? 0)) >
+                                    limitPeople) &&
+                                errorMessage == null) ...[
                               spacerM,
-                              Container(
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                      color: AppColor.error200,
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Icon(Icons.warning_amber_rounded,
-                                          color: AppColor.error),
-                                      spacerS,
-                                      Expanded(
-                                        child: Text(
-                                          'Se han terminado tus plazas contratadas ($limitPeople), si deseas contratar más comunícate con tu asesor comercial.',
-                                          style:
-                                              AppTextStyle.contentCard.copyWith(
-                                            color: AppColor.error,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  )),
+                              _MsgError(
+                                  message:
+                                      'Se han terminado tus plazas contratadas ($limitPeople), si deseas contratar más comunícate con tu asesor comercial.'),
+                            ],
+                            if (errorMessage != null) ...[
+                              spacerM,
+                              _MsgError(message: errorMessage!),
                             ],
                             spacerM,
                             Align(
@@ -456,6 +441,7 @@ class EnrollEventPage extends StatelessWidget {
                           loading = true;
                         });
                         //TODO: MOSTRAR MENSAJE DE ERROR
+
                         cubit
                             .enrollEvent(
                                 dateId: date.dateId,
@@ -465,18 +451,23 @@ class EnrollEventPage extends StatelessWidget {
                                 persons: people)
                             .then((value) {
                           setState(() {
-                            event.horario!
-                                .firstWhere((e) => e.dateId == date.dateId)
-                                .isRegistered = true;
+                            errorMessage = value!.messaje;
+                            if (value.success) {
+                              event.horario!
+                                  .firstWhere((e) => e.dateId == date.dateId)
+                                  .isRegistered = true;
+                              Navigator.of(context).pop(true);
+                            }
+                            loading = false;
                           });
-                          Navigator.of(context).pop(true);
                         });
                       },
                       text: 'Confirmar inscripciones',
                       width: double.infinity,
                       isLoading: loading,
-                      disabled: (people.length + selectedEmployees.length) >
-                          limitPeople,
+                      disabled: ((people.length + selectedEmployees.length) >
+                              limitPeople) &&
+                          errorMessage != null,
                     ),
                     spacerS,
                     MyButton(
@@ -589,6 +580,7 @@ class EnrollEventPage extends StatelessWidget {
                                 try {
                                   setState(() {
                                     email = Email(value);
+                                    person.email = value;
                                   });
                                 } catch (e) {
                                   setState(() {
@@ -815,4 +807,34 @@ class EnrollEventPage extends StatelessWidget {
           );
         });
   }*/
+}
+
+class _MsgError extends StatelessWidget {
+  const _MsgError({required this.message});
+
+  final String message;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+            color: AppColor.error200, borderRadius: BorderRadius.circular(10)),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Icon(Icons.warning_amber_rounded, color: AppColor.error),
+            spacerS,
+            Expanded(
+              child: Text(
+                message,
+                style: AppTextStyle.contentCard.copyWith(
+                  color: AppColor.error,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            )
+          ],
+        ));
+  }
 }

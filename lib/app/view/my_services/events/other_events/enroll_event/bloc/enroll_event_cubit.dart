@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
@@ -12,16 +13,25 @@ class EnrollEventCubit extends Cubit<EnrollEventState> {
 
   final EventsRepository _eventsRepository;
 
-  Future<void> enrollEvent({
+  Future<EnrollResponse?> enrollEvent({
     required int dateId,
     required List<int> idsEmployees,
     required List<Employee> persons,
   }) async {
     try {
-      await _eventsRepository.enrollEvents(
+      return await _eventsRepository.enrollEvents(
           dateId: dateId, idsEmployees: idsEmployees, persons: persons);
     } catch (e) {
-      log(e.toString());
+      log("ERROR ${jsonDecode(e.toString())["message"].toString()}");
+      return EnrollResponse(
+          false, jsonDecode(e.toString())["message"].toString());
     }
   }
+}
+
+class EnrollResponse {
+  final bool success;
+  final String messaje;
+
+  EnrollResponse(this.success, this.messaje);
 }
