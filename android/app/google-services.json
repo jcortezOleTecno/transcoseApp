@@ -7,12 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:578147292338:android:736719abeda575d2bc25ab",
+        "mobilesdk_app_id": "1:578147292338:android:2ff665365bc58ad5bc25ab",
         "android_client_info": {
-          "package_name": "com.vemare.app.vemare"
+          "package_name": "com.vemareapp.oleagency"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "578147292338-btqe5ud53v82lvquog9jpvtdqr1smtml.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vemareapp.oleagency",
+            "certificate_hash": "0f9bec70cc66a7dd2d51abfeca83c9828a820872"
+          }
+        },
         {
           "client_id": "578147292338-vubk3ko5ucqjefp35m1bk9qto98ddc4u.apps.googleusercontent.com",
           "client_type": 3
@@ -29,6 +37,13 @@
             {
               "client_id": "578147292338-vubk3ko5ucqjefp35m1bk9qto98ddc4u.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "578147292338-383erb6044r4idbdh5crcppkmajca2q0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.vemare.app.vemare"
+              }
             }
           ]
         }
