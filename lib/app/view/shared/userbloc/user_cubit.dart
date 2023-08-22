@@ -25,8 +25,19 @@ class UserCubit extends Cubit<UserState> {
       _authRepository.getEnterprise().then((v) => enterprises = v),
     ]);
 
+    UserData? userData = LocalDataRepository().user;
+    Employee? user;
+
+    if (userData != null) {
+      user = Employee(
+          email: userData.email,
+          firstName: userData.name,
+          lastName: userData.lastname,
+          id: userData.id);
+    }
+
     emit(state.copyWith(
-      employees: employees,
+      employees: [user!, ...employees],
       enterprises: enterprises,
     ));
   }

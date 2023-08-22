@@ -1,6 +1,7 @@
 import 'role.dart';
 
 class UserData {
+  final int id;
   final String? name;
   final String? email;
   final String? lastname;
@@ -22,6 +23,7 @@ class UserData {
   Webservice? webservice;
 
   UserData({
+    required this.id,
     this.name,
     this.email,
     this.lastname,
@@ -45,6 +47,7 @@ class UserData {
 
   factory UserData.fromJson(dynamic map) {
     return UserData(
+      id: map["id"] as int,
       name: map["name"] as String?,
       email: map["email"] as String?,
       lastname: map["lastname"] as String?,
@@ -74,6 +77,7 @@ class UserData {
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
+      'id': id,
       'name': name,
       'email': email,
       'lastname': lastname,

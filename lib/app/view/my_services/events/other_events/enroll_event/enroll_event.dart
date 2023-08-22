@@ -348,7 +348,7 @@ class EnrollEventPage extends StatelessWidget {
                             Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                  'Personas a inscribir (${selectedEmployees.length + people.length + (date.occupiedPlaces ?? 0) + 1}/$limitPeople)',
+                                  'Personas a inscribir (${selectedEmployees.length + people.length + (date.occupiedPlaces ?? 0)}/$limitPeople)',
                                   style: AppTextStyle.inputLabelStyle),
                             ),
                             spacerXs,
@@ -534,10 +534,9 @@ class EnrollEventPage extends StatelessWidget {
                       text: 'Confirmar inscripciones',
                       width: double.infinity,
                       isLoading: loading,
-                      disabled:
-                          ((people.length + selectedEmployees.length + 1) >
-                                  limitPeople) ||
-                              errorMessage != null,
+                      disabled: ((people.length + selectedEmployees.length) >
+                              limitPeople) ||
+                          errorMessage != null,
                     ),
                     spacerS,
                     MyButton(

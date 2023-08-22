@@ -94,6 +94,9 @@ class _MyCalendarState extends State<MyCalendar> {
           }
         },
         calendarBuilders: _calendarBuilders(),
+        rangeSelectionMode: RangeSelectionMode.disabled,
+        // rangeStartDay: widget.dates.map((e) => e.date).first,
+        // rangeEndDay: widget.dates.map((e) => e.endDate).first,
       ),
     );
   }

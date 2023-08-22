@@ -36,7 +36,7 @@ class OtherEventPage extends StatelessWidget {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(12),
                               child: Image(
-                                image: NetworkImage(event.image!),
+                                image: NetworkImage(event.imagePrivate!),
                                 fit: BoxFit.cover,
                                 height: 250,
                               ),
