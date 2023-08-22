@@ -55,6 +55,12 @@ abstract class AppTextStyle {
     fontWeight: FontWeight.w700,
     color: AppColor.black,
   );
+  static const TextStyle h4Style = TextStyle(
+    fontFamily: 'NunitoSans',
+    fontSize: 18,
+    fontWeight: FontWeight.w700,
+    color: AppColor.black,
+  );
   static const TextStyle pvpOrinigal = TextStyle(
     fontFamily: 'NunitoSans',
     fontSize: 20,

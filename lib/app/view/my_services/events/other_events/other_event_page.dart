@@ -5,7 +5,7 @@ import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
-import 'package:vemare/app/view/my_services/events/other_events/available_destinations.dart';
+import 'package:vemare/app/view/my_services/events/other_events/available_destinations/available_destinations_page.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
 class OtherEventPage extends StatelessWidget {
@@ -60,21 +60,21 @@ class OtherEventPage extends StatelessWidget {
                 ),
               ),
             ),
-            if (event.horario?.isNotEmpty ?? false)
-              Padding(
-                padding: const EdgeInsets.all(15),
-                child: MyButton(
-                  width: double.infinity,
-                  onPressed: () {
-                    Navigator.pushNamed(
-                      context,
-                      AvailableDestinationsPage.route,
-                      arguments: event,
-                    );
-                  },
-                  text: 'Continuar',
-                ),
+            // if (event.horario?.isNotEmpty ?? false)
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: MyButton(
+                width: double.infinity,
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    AvailableDestinationsPage.route,
+                    arguments: event,
+                  );
+                },
+                text: 'Continuar',
               ),
+            ),
           ],
         ),
       ),

@@ -4,7 +4,9 @@ import 'package:vemare/app/data/_api_classes.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/domain/model/events.dart';
 import 'package:vemare/app/domain/model/events_vemare.dart';
+import 'package:vemare/app/domain/model/formation.dart';
 import 'package:vemare/app/domain/model/header_events_held.dart';
+import 'package:vemare/app/domain/model/locations.dart';
 import 'package:vemare/app/view/my_services/events/other_events/enroll_event/bloc/enroll_event_cubit.dart';
 
 import '../domain/model/employee.dart';
@@ -64,5 +66,21 @@ class EventsRepository {
         body: jsonEncode(data),
         customHeaders: headerContentTypeApplicationJson);
     return EnrollResponse(res["response"] == "success", res["message"]);
+  }
+
+  Future<List<Locations>> getLocationsEvents(int id) async {
+    final dynamic res = await _apiClient.getRequest(
+        '$BASE_API_URL/api/eventos/ubicaciones',
+        params: {"id": id.toString()});
+    return (res["locations"] as List).map(Locations.fromJson).toList();
+  }
+
+  Future<List<Horario>> getHorariosEvents(int id, String location) async {
+    final dynamic res = await _apiClient
+        .getRequest('$BASE_API_URL/api/eventos/calendario', params: {
+      "event_id": id.toString(),
+      "location": location,
+    });
+    return (res["data"]["horario"] as List).map(Horario.fromJson).toList();
   }
 }

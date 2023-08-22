@@ -9,6 +9,8 @@ class Events {
     this.subtitle,
     this.description,
     this.image,
+    this.imagePrivate,
+    this.showCalendar,
     this.horario,
   });
 
@@ -19,28 +21,30 @@ class Events {
   String? subtitle;
   String? description;
   String? image;
+  String? imagePrivate;
+  bool? showCalendar;
   List<Horario>? horario;
 
-  Events copyWith({
-    int? id,
-    String? title,
-    String? slug,
-    String? tags,
-    String? subtitle,
-    String? description,
-    String? image,
-    List<Horario>? horario,
-  }) =>
-      Events(
-        id: id ?? this.id,
-        title: title ?? this.title,
-        slug: slug ?? this.slug,
-        tags: tags ?? this.tags,
-        subtitle: subtitle ?? this.subtitle,
-        description: description ?? this.description,
-        image: image ?? this.image,
-        horario: horario ?? this.horario,
-      );
+  // Events copyWith({
+  //   int? id,
+  //   String? title,
+  //   String? slug,
+  //   String? tags,
+  //   String? subtitle,
+  //   String? description,
+  //   String? image,
+  //   List<Horario>? horario,
+  // }) =>
+  //     Events(
+  //       id: id ?? this.id,
+  //       title: title ?? this.title,
+  //       slug: slug ?? this.slug,
+  //       tags: tags ?? this.tags,
+  //       subtitle: subtitle ?? this.subtitle,
+  //       description: description ?? this.description,
+  //       image: image ?? this.image,
+  //       horario: horario ?? this.horario,
+  //     );
 
   factory Events.fromJson(dynamic json) => Events(
         id: json["id"] as int?,
@@ -50,6 +54,8 @@ class Events {
         subtitle: json["subtitle"] as String?,
         description: json["description"] as String?,
         image: json["image"] as String?,
+        imagePrivate: json["image_private"] as String?,
+        showCalendar: json["show_calendar"] as bool?,
         horario: json["horario"] == null
             ? []
             : List<Horario>.from(
@@ -64,6 +70,8 @@ class Events {
         "subtitle": subtitle,
         "description": description,
         "image": image,
+        "image_private": imagePrivate,
+        "show_calendar": showCalendar,
         "horario": horario == null
             ? []
             : List<dynamic>.from(horario!.map((x) => x.toJson())),

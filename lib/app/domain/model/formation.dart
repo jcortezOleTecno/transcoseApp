@@ -299,32 +299,7 @@ class Horario {
     this.occupiedPlaces,
   });
 
-  // Horario copyWith({
-  //   int? dateId,
-  //   DateTime? date,
-  //   String? dateFormat,
-  //   String? time,
-  //   String? timeFormat,
-  //   String? location,
-  //   String? googleMeet,
-  //   String? postalCode,
-  //   bool? isRegistered,
-  //   bool? centerReference,
-  // }) =>
-  //     Horario(
-  //       dateId: dateId ?? this.dateId,
-  //       date: date ?? this.date,
-  //       dateFormat: dateFormat ?? this.dateFormat,
-  //       time: time ?? this.time,
-  //       timeFormat: timeFormat ?? this.timeFormat,
-  //       location: location ?? this.location,
-  //       googleMeet: googleMeet ?? this.googleMeet,
-  //       postalCode: postalCode ?? this.postalCode,
-  //       isRegistered: isRegistered ?? this.isRegistered,
-  //       centerReference: centerReference ?? this.centerReference,
-  //     );
-
-  factory Horario.fromJson(Map<String, dynamic> json) => Horario(
+  factory Horario.fromJson(dynamic json) => Horario(
         dateId: json["date_id"],
         date: json["date"] == null ? null : DateTime.parse(json["date"]),
         dateFormat: json["date_format"],
