@@ -6,6 +6,8 @@ import 'package:vemare/app/data/_api_classes.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/domain/model/employee.dart';
 import 'package:vemare/app/domain/model/formation.dart';
+import 'package:vemare/app/domain/model/locations.dart';
+import 'package:vemare/app/view/my_services/events/other_events/enroll_event/bloc/enroll_event_cubit.dart';
 
 class FormationsRepository {
   final MyApiClient _apiClient;
@@ -26,7 +28,7 @@ class FormationsRepository {
     return (res as List).map(Formation.fromJson).toList();
   }
 
-  Future<void> enrollFormations({
+  Future<EnrollResponse> enrollFormations({
     required int dateId,
     List<int>? idsEmployees,
     List<Employee>? persons,
@@ -39,8 +41,27 @@ class FormationsRepository {
 
     log(jsonEncode(data));
 
-    await _apiClient.postRequest('$BASE_API_URL/api/formaciones/inscripcion',
+    var res = await _apiClient.postRequest(
+        '$BASE_API_URL/api/formaciones/inscripcion',
         body: jsonEncode(data),
         customHeaders: headerContentTypeApplicationJson);
+
+    return EnrollResponse(res["response"] == "success", res["message"]);
+  }
+
+  Future<List<Locations>> getLocationsFormations(int id) async {
+    final dynamic res = await _apiClient.getRequest(
+        '$BASE_API_URL/api/formaciones/ubicaciones',
+        params: {"id": id.toString()});
+    return (res["locations"] as List).map(Locations.fromJson).toList();
+  }
+
+  Future<List<Horario>> getHorariosFormations(int id, String location) async {
+    final dynamic res = await _apiClient
+        .getRequest('$BASE_API_URL/api/formaciones/calendario', params: {
+      "formation_id": id.toString(),
+      "location": location,
+    });
+    return (res["data"]["horario"] as List).map(Horario.fromJson).toList();
   }
 }

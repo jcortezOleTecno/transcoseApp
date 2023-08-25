@@ -336,13 +336,13 @@ class EnrollEventPage extends StatelessWidget {
                                     limitPeople) &&
                                 errorMessage == null) ...[
                               spacerM,
-                              _MsgError(
+                              MsgError(
                                   message:
                                       'Se han terminado tus plazas contratadas ($limitPeople), si deseas contratar más comunícate con tu asesor comercial.'),
                             ],
                             if (errorMessage != null) ...[
                               spacerM,
-                              _MsgError(message: errorMessage!),
+                              MsgError(message: errorMessage!),
                             ],
                             spacerM,
                             Align(
@@ -969,8 +969,8 @@ class ResumenEvent extends StatelessWidget {
   }
 }
 
-class _MsgError extends StatelessWidget {
-  const _MsgError({required this.message});
+class MsgError extends StatelessWidget {
+  const MsgError({super.key, required this.message});
 
   final String message;
 

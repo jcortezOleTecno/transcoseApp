@@ -13,7 +13,7 @@ class Locations {
 
   factory Locations.fromJson(dynamic json) => Locations(
         id: json["id"] as int,
-        eventId: json["event_id"] as int,
+        eventId: json["event_id"] ?? json["formation_id"] as int,
         location: json["location"] as String,
         center: json["center"] as String,
       );

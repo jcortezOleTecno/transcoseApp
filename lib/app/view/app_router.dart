@@ -28,6 +28,7 @@ import 'package:vemare/app/view/my_services/events/events_vemare/events_vemare_p
 import 'package:vemare/app/view/my_services/events/my_events/my_events_page.dart';
 import 'package:vemare/app/view/my_services/events/other_events/other_event_page.dart';
 import 'package:vemare/app/view/my_services/events/other_events/other_events_list.dart';
+import 'package:vemare/app/view/my_services/formations/available_destinations_formations/available_destinations_formations_page.dart';
 import 'package:vemare/app/view/news/news_detail.dart';
 import 'package:vemare/app/view/news/news_page.dart';
 import 'package:vemare/app/view/our_history/our_history.dart';
@@ -217,10 +218,10 @@ abstract class AppRouter {
           builder: (_) => DetailFormationPage(formation!),
         );
       case EnrollTrainingPage.route:
-        final Formation? formation = settings.arguments as Formation?;
+        final args = settings.arguments as EnrollTrainingPageArg?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => EnrollTrainingPage.create(formation!),
+          builder: (_) => EnrollTrainingPage.create(args!),
         );
       case MyAccountPage.route:
         return MaterialPageRoute<void>(
@@ -403,6 +404,12 @@ abstract class AppRouter {
         return MaterialPageRoute<void>(
           settings: settings,
           builder: (_) => AvailableDestinationsPage.create(event!),
+        );
+      case AvailableDestinationsFormationsPage.route:
+        final data = settings.arguments as Formation?;
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => AvailableDestinationsFormationsPage.create(data!),
         );
       /*case ShippingDataPage.route:
         final data = settings.arguments as ShoppingCarArgs?;

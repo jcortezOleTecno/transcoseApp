@@ -36,31 +36,77 @@ class AvailableDestinationsPage extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           body: MyBody(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const MyBackButton(),
-                SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text('Destinos disponibles',
-                          style: AppTextStyle.h1Style),
-                      const Text('Selecciona una ubicación',
-                          style: AppTextStyle.defaultStyle),
-                      spacerM,
-                      if (state.loading)
-                        ...List.generate(
-                            4,
-                            (_) => const MyShimmer(
-                                  height: 80,
-                                  borderRadius: 5,
-                                  width: double.infinity,
-                                  margin: EdgeInsets.only(bottom: 20),
-                                )),
-                      if (state.location.isNotEmpty && !state.loading)
-                        ...state.location.map((e) => GestureDetector(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const MyBackButton(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text('Destinos disponibles',
+                            style: AppTextStyle.h1Style),
+                        const Text('Selecciona una ubicación',
+                            style: AppTextStyle.defaultStyle),
+                        spacerM,
+                        if (state.loading)
+                          ...List.generate(
+                              4,
+                              (_) => const MyShimmer(
+                                    height: 80,
+                                    borderRadius: 5,
+                                    width: double.infinity,
+                                    margin: EdgeInsets.only(bottom: 20),
+                                  )),
+                        if (state.location.isNotEmpty && !state.loading)
+                          ...state.location.map(
+                            (e) => GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, EnrollEventPage.route,
+                                    arguments:
+                                        EnrollEventPageArgs(state.event!, e));
+                              },
+                              child: Card(
+                                margin: const EdgeInsets.only(bottom: 20),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                              child: Text(
+                                            e.center ?? '',
+                                            style: AppTextStyle.titleCard
+                                                .copyWith(
+                                                    color:
+                                                        AppColor.primaryBlue),
+                                          )),
+                                          Image.asset(
+                                            'assets/icons/arrow_next.png',
+                                            scale: 2,
+                                          )
+                                        ],
+                                      ),
+                                      spacerXs,
+                                      Text(
+                                        e.location ?? '',
+                                        style: AppTextStyle.contentCard,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        if (state.location.isNotEmpty && !state.loading)
+                          ...state.location.map(
+                            (e) => GestureDetector(
                               onTap: () {
                                 if (state.event!.showCalendar ?? false) {
                                   Navigator.pushNamed(
@@ -102,11 +148,13 @@ class AvailableDestinationsPage extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                            ))
-                    ],
-                  ),
-                )
-              ],
+                            ),
+                          ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         );
