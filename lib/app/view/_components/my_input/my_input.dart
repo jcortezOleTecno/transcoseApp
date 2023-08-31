@@ -4,7 +4,7 @@ import 'package:vemare/app/view/_components/my_input/my_styles/my_input_styles.d
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
-enum MyInputVariant { primary, secondary }
+enum MyInputVariant { primary, secondary, backgroundBlue }
 
 class MyInput extends StatefulWidget {
   const MyInput({
@@ -80,11 +80,15 @@ class _MyInputState extends State<MyInput> {
   @override
   Widget build(BuildContext context) {
     var iconColor = AppColor.blue;
+    Color? fillColor;
     switch (widget.variant) {
       case MyInputVariant.primary:
         iconColor = AppColor.primary;
         break;
       case MyInputVariant.secondary:
+        break;
+      case MyInputVariant.backgroundBlue:
+        fillColor = AppColor.blue50;
         break;
     }
 
@@ -141,7 +145,7 @@ class _MyInputState extends State<MyInput> {
                 : underlinedInputDecoration.focusedBorder,
             alignLabelWithHint: true,
             filled: true,
-            fillColor: Colors.white,
+            fillColor: fillColor ?? Colors.white,
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             hintText: widget.hintText,

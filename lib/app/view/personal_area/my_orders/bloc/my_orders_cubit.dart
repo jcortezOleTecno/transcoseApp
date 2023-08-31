@@ -4,10 +4,10 @@ import 'package:vemare/app/domain/model/albaran.dart';
 import 'package:vemare/app/domain/model/filter.dart';
 import 'package:vemare/app/domain/model/warranty.dart';
 import 'package:vemare/app/domain/model/warranty_status.dart';
-import 'package:vemare/app/view/personal_area/my_orders/my_orders/bloc/my_data_warranty.dart';
-import 'package:vemare/app/view/personal_area/my_orders/my_orders/bloc/my_orders_state.dart';
+import 'package:vemare/app/view/personal_area/my_orders/warranty/my_data_warranty.dart';
 
-import 'my_data_orders.dart';
+import '../orders_and_bills/my_data_orders.dart';
+import 'my_orders_state.dart';
 
 class MyOrdersCubit extends Cubit<MyOrdersState> {
   MyOrdersCubit(

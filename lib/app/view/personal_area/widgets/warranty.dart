@@ -122,36 +122,43 @@ class WarrantyDetail extends StatelessWidget {
             label: 'Cliente',
             initialValue: LocalDataRepository().user?.code,
             readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
           ),
           MyInput(
             label: 'Código de garantía',
             initialValue: warranty.codigoGarantia.toString(),
             readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
           ),
           MyInput(
             label: 'Fecha',
             initialValue: DateFormat.yMd().format(warranty.fechaAlta!),
             readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
           ),
           MyInput(
             label: 'Número',
             initialValue: warranty.numero.toString(),
             readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
           ),
           MyInput(
             label: 'Centro de reparto',
             initialValue: warranty.centroReparto,
             readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
           ),
           MyInput(
             label: 'Estado de la sustitución',
             initialValue: warranty.estadoSu,
             readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
           ),
           MyInput(
             label: 'Estado de la tramitación',
             initialValue: warranty.estadoTr,
             readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
           ),
           MyInput(
             label: 'Importe',
@@ -160,16 +167,19 @@ class WarrantyDetail extends StatelessWidget {
                 .output
                 .symbolOnRight,
             readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
           ),
           MyInput(
             label: 'Visar',
             initialValue: warranty.visar,
             readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
           ),
           MyInput(
             label: 'Firmado',
             initialValue: warranty.firmado,
             readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
           ),
           // MyInput(
           //   label: 'Firmado',

@@ -1,3 +1,5 @@
+import 'package:vemare/app/domain/model/contrato_rappel.dart';
+
 class ContratoMillenium {
   ContratoMillenium({
     this.codigoContrato,
@@ -108,39 +110,40 @@ class ContratoMillenium {
       };
 }
 
-class DocumentosFirmado {
-  DocumentosFirmado({
-    this.codigoDocumento,
-    this.nombre,
-    this.descripcion,
-    this.anio,
-  });
+// class DocumentosFirmado {
+//   DocumentosFirmado({
+//     this.codigoDocumento,
+//     this.nombre,
+//     this.descripcion,
+//     this.anio,
+//   });
 
-  int? codigoDocumento;
-  String? nombre;
-  String? descripcion;
-  int? anio;
+//   int? codigoDocumento;
+//   String? nombre;
+//   String? descripcion;
+//   int? anio;
 
-  factory DocumentosFirmado.fromJson(Map<String, dynamic> json) =>
-      DocumentosFirmado(
-        codigoDocumento: json["codigo_documento"],
-        nombre: json["nombre"],
-        descripcion: json["descripcion"],
-        anio: json["anio"],
-      );
+//   factory DocumentosFirmado.fromJson(Map<String, dynamic> json) =>
+//       DocumentosFirmado(
+//         codigoDocumento: json["codigo_documento"],
+//         nombre: json["nombre"],
+//         descripcion: json["descripcion"],
+//         anio: json["anio"],
+//       );
 
-  Map<String, dynamic> toJson() => {
-        "codigo_documento": codigoDocumento,
-        "nombre": nombre,
-        "descripcion": descripcion,
-        "anio": anio,
-      };
-}
+//   Map<String, dynamic> toJson() => {
+//         "codigo_documento": codigoDocumento,
+//         "nombre": nombre,
+//         "descripcion": descripcion,
+//         "anio": anio,
+//       };
+// }
 
 class ServiciosContratado {
   ServiciosContratado({
     this.servicio,
     this.servicioDelPack,
+    this.codigo,
     this.valor,
     this.cantidad,
     this.tipoSeleccion,
@@ -150,29 +153,33 @@ class ServiciosContratado {
   });
 
   String? servicio;
-  bool? servicioDelPack;
+  String? servicioDelPack;
+
+  String? codigo;
   String? valor;
   int? cantidad;
   String? tipoSeleccion;
   String? fechaInicioServicio;
-  bool? tieneFirmaRgpd;
+  String? tieneFirmaRgpd;
   dynamic formatoContratoRgpd;
 
   factory ServiciosContratado.fromJson(Map<String, dynamic> json) =>
       ServiciosContratado(
         servicio: json["servicio"],
-        servicioDelPack: json["servicio_del_pack"],
+        servicioDelPack: (json["servicio_del_pack"] as bool) ? "SI" : "NO",
+        codigo: json["codigo"],
         valor: json["valor"],
         cantidad: json["cantidad"],
         tipoSeleccion: json["tipo_seleccion"],
         fechaInicioServicio: json["fecha_inicio_servicio"],
-        tieneFirmaRgpd: json["tiene_firma_rgpd"],
+        tieneFirmaRgpd: (json["tiene_firma_rgpd"] as bool) ? "SI" : "NO",
         formatoContratoRgpd: json["formato_contrato_rgpd"],
       );
 
   Map<String, dynamic> toJson() => {
         "servicio": servicio,
         "servicio_del_pack": servicioDelPack,
+        "codigo": codigo,
         "valor": valor,
         "cantidad": cantidad,
         "tipo_seleccion": tipoSeleccion,
@@ -180,4 +187,15 @@ class ServiciosContratado {
         "tiene_firma_rgpd": tieneFirmaRgpd,
         "formato_contrato_rgpd": formatoContratoRgpd,
       };
+
+  String toFilter() => {
+        "servicio": servicio,
+        "servicio_del_pack": servicioDelPack,
+        "codigo": codigo,
+        "valor": valor,
+        "cantidad": cantidad.toString(),
+        "tipo_seleccion": tipoSeleccion,
+        "fecha_inicio_servicio": fechaInicioServicio,
+        "tiene_firma_rgpd": tieneFirmaRgpd,
+      }.toString();
 }

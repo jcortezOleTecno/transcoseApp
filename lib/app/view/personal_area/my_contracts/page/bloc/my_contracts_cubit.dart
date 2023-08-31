@@ -6,6 +6,9 @@ import 'package:vemare/app/domain/model/contrato_rappel.dart';
 import 'package:vemare/app/domain/model/contrats.dart';
 import 'package:vemare/app/domain/model/filter.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/page/bloc/my_contracts_state.dart';
+import 'package:vemare/app/view/personal_area/my_contracts/page/millennium.dart';
+import 'package:vemare/app/view/personal_area/my_contracts/page/pmp.dart';
+import 'package:vemare/app/view/personal_area/my_contracts/page/rappels.dart';
 
 class MyContratsCubit extends Cubit<MyContratsState> {
   MyContratsCubit(this._contratsRepository) : super(const MyContratsState()) {
@@ -35,6 +38,21 @@ class MyContratsCubit extends Cubit<MyContratsState> {
       mill: mill,
       pmp: pmp,
       rappel: rappel,
+      dataRappels: MyDataRappels(rappel?.documentosFirmados ?? [],
+          codContrato: rappel?.codigoContrato?.toString() ?? '0'),
+      dataRappelsFiltrado: MyDataRappels(rappel?.documentosFirmados ?? [],
+          codContrato: rappel?.codigoContrato?.toString() ?? '0'),
+      dataMillennium: MyDataMillennium(
+        mill?.documentosFirmados ?? [],
+        contrato: mill,
+      ),
+      dataMillenniumFiltrado: MyDataMillennium(
+        mill?.documentosFirmados ?? [],
+        contrato: mill,
+      ),
+      dataMillenniumHiredServices:
+          MyDataMillenniumHiredServices(mill!.serviciosContratados!),
+      dataPMPFiltrado: MyDataPMP(pmp),
       loading: false,
     ));
   }
@@ -101,5 +119,49 @@ class MyContratsCubit extends Cubit<MyContratsState> {
         getRappel(state.yearSelectRappel ?? DateTime.now().year.toString());
       }
     });
+  }
+
+  void filtroRappels(String? value) {
+    emit(
+      state.copyWith(
+        dataRappelsFiltrado: MyDataRappels(
+            state.rappel!.documentosFirmados!.where((e) {
+              return e
+                  .toFilter()
+                  .toLowerCase()
+                  .contains(value!.trim().toLowerCase());
+            }).toList(),
+            codContrato: state.rappel!.codigoContrato!.toString()),
+      ),
+    );
+  }
+
+  void filtroMillennium(String? value) {
+    emit(
+      state.copyWith(
+        dataMillenniumFiltrado: MyDataMillennium(
+            state.mill!.documentosFirmados!.where((e) {
+              return e
+                  .toFilter()
+                  .toLowerCase()
+                  .contains(value!.trim().toLowerCase());
+            }).toList(),
+            contrato: state.mill!),
+      ),
+    );
+  }
+
+  void filtroMillenniumHiredServices(String? value) {
+    emit(
+      state.copyWith(
+        dataMillenniumHiredServices: MyDataMillenniumHiredServices(
+            state.mill!.serviciosContratados!.where((e) {
+          return e
+              .toFilter()
+              .toLowerCase()
+              .contains(value!.trim().toLowerCase());
+        }).toList()),
+      ),
+    );
   }
 }

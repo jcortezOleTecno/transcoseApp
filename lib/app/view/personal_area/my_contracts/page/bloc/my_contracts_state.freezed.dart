@@ -26,6 +26,15 @@ mixin _$MyContratsState {
   String? get filtersCRD => throw _privateConstructorUsedError;
   String? get filtersMILL => throw _privateConstructorUsedError;
   String? get filtersRAPPEL => throw _privateConstructorUsedError;
+  DataTableSource? get dataRappels => throw _privateConstructorUsedError;
+  DataTableSource? get dataRappelsFiltrado =>
+      throw _privateConstructorUsedError;
+  DataTableSource? get dataMillennium => throw _privateConstructorUsedError;
+  DataTableSource? get dataMillenniumFiltrado =>
+      throw _privateConstructorUsedError;
+  DataTableSource? get dataMillenniumHiredServices =>
+      throw _privateConstructorUsedError;
+  DataTableSource? get dataPMPFiltrado => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MyContratsStateCopyWith<MyContratsState> get copyWith =>
@@ -48,7 +57,13 @@ abstract class $MyContratsStateCopyWith<$Res> {
       String? yearSelectRappel,
       String? filtersCRD,
       String? filtersMILL,
-      String? filtersRAPPEL});
+      String? filtersRAPPEL,
+      DataTableSource? dataRappels,
+      DataTableSource? dataRappelsFiltrado,
+      DataTableSource? dataMillennium,
+      DataTableSource? dataMillenniumFiltrado,
+      DataTableSource? dataMillenniumHiredServices,
+      DataTableSource? dataPMPFiltrado});
 }
 
 /// @nodoc
@@ -74,6 +89,12 @@ class _$MyContratsStateCopyWithImpl<$Res, $Val extends MyContratsState>
     Object? filtersCRD = freezed,
     Object? filtersMILL = freezed,
     Object? filtersRAPPEL = freezed,
+    Object? dataRappels = freezed,
+    Object? dataRappelsFiltrado = freezed,
+    Object? dataMillennium = freezed,
+    Object? dataMillenniumFiltrado = freezed,
+    Object? dataMillenniumHiredServices = freezed,
+    Object? dataPMPFiltrado = freezed,
   }) {
     return _then(_value.copyWith(
       loading: null == loading
@@ -116,6 +137,30 @@ class _$MyContratsStateCopyWithImpl<$Res, $Val extends MyContratsState>
           ? _value.filtersRAPPEL
           : filtersRAPPEL // ignore: cast_nullable_to_non_nullable
               as String?,
+      dataRappels: freezed == dataRappels
+          ? _value.dataRappels
+          : dataRappels // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
+      dataRappelsFiltrado: freezed == dataRappelsFiltrado
+          ? _value.dataRappelsFiltrado
+          : dataRappelsFiltrado // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
+      dataMillennium: freezed == dataMillennium
+          ? _value.dataMillennium
+          : dataMillennium // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
+      dataMillenniumFiltrado: freezed == dataMillenniumFiltrado
+          ? _value.dataMillenniumFiltrado
+          : dataMillenniumFiltrado // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
+      dataMillenniumHiredServices: freezed == dataMillenniumHiredServices
+          ? _value.dataMillenniumHiredServices
+          : dataMillenniumHiredServices // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
+      dataPMPFiltrado: freezed == dataPMPFiltrado
+          ? _value.dataPMPFiltrado
+          : dataPMPFiltrado // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
     ) as $Val);
   }
 }
@@ -138,7 +183,13 @@ abstract class _$$_MyContratsStateCopyWith<$Res>
       String? yearSelectRappel,
       String? filtersCRD,
       String? filtersMILL,
-      String? filtersRAPPEL});
+      String? filtersRAPPEL,
+      DataTableSource? dataRappels,
+      DataTableSource? dataRappelsFiltrado,
+      DataTableSource? dataMillennium,
+      DataTableSource? dataMillenniumFiltrado,
+      DataTableSource? dataMillenniumHiredServices,
+      DataTableSource? dataPMPFiltrado});
 }
 
 /// @nodoc
@@ -162,6 +213,12 @@ class __$$_MyContratsStateCopyWithImpl<$Res>
     Object? filtersCRD = freezed,
     Object? filtersMILL = freezed,
     Object? filtersRAPPEL = freezed,
+    Object? dataRappels = freezed,
+    Object? dataRappelsFiltrado = freezed,
+    Object? dataMillennium = freezed,
+    Object? dataMillenniumFiltrado = freezed,
+    Object? dataMillenniumHiredServices = freezed,
+    Object? dataPMPFiltrado = freezed,
   }) {
     return _then(_$_MyContratsState(
       loading: null == loading
@@ -204,6 +261,30 @@ class __$$_MyContratsStateCopyWithImpl<$Res>
           ? _value.filtersRAPPEL
           : filtersRAPPEL // ignore: cast_nullable_to_non_nullable
               as String?,
+      dataRappels: freezed == dataRappels
+          ? _value.dataRappels
+          : dataRappels // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
+      dataRappelsFiltrado: freezed == dataRappelsFiltrado
+          ? _value.dataRappelsFiltrado
+          : dataRappelsFiltrado // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
+      dataMillennium: freezed == dataMillennium
+          ? _value.dataMillennium
+          : dataMillennium // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
+      dataMillenniumFiltrado: freezed == dataMillenniumFiltrado
+          ? _value.dataMillenniumFiltrado
+          : dataMillenniumFiltrado // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
+      dataMillenniumHiredServices: freezed == dataMillenniumHiredServices
+          ? _value.dataMillenniumHiredServices
+          : dataMillenniumHiredServices // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
+      dataPMPFiltrado: freezed == dataPMPFiltrado
+          ? _value.dataPMPFiltrado
+          : dataPMPFiltrado // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
     ));
   }
 }
@@ -221,7 +302,13 @@ class _$_MyContratsState implements _MyContratsState {
       this.yearSelectRappel,
       this.filtersCRD,
       this.filtersMILL,
-      this.filtersRAPPEL})
+      this.filtersRAPPEL,
+      this.dataRappels,
+      this.dataRappelsFiltrado,
+      this.dataMillennium,
+      this.dataMillenniumFiltrado,
+      this.dataMillenniumHiredServices,
+      this.dataPMPFiltrado})
       : _crd = crd,
         _pmp = pmp;
 
@@ -260,10 +347,22 @@ class _$_MyContratsState implements _MyContratsState {
   final String? filtersMILL;
   @override
   final String? filtersRAPPEL;
+  @override
+  final DataTableSource? dataRappels;
+  @override
+  final DataTableSource? dataRappelsFiltrado;
+  @override
+  final DataTableSource? dataMillennium;
+  @override
+  final DataTableSource? dataMillenniumFiltrado;
+  @override
+  final DataTableSource? dataMillenniumHiredServices;
+  @override
+  final DataTableSource? dataPMPFiltrado;
 
   @override
   String toString() {
-    return 'MyContratsState(loading: $loading, crd: $crd, mill: $mill, pmp: $pmp, rappel: $rappel, yearSelectMill: $yearSelectMill, yearSelectRappel: $yearSelectRappel, filtersCRD: $filtersCRD, filtersMILL: $filtersMILL, filtersRAPPEL: $filtersRAPPEL)';
+    return 'MyContratsState(loading: $loading, crd: $crd, mill: $mill, pmp: $pmp, rappel: $rappel, yearSelectMill: $yearSelectMill, yearSelectRappel: $yearSelectRappel, filtersCRD: $filtersCRD, filtersMILL: $filtersMILL, filtersRAPPEL: $filtersRAPPEL, dataRappels: $dataRappels, dataRappelsFiltrado: $dataRappelsFiltrado, dataMillennium: $dataMillennium, dataMillenniumFiltrado: $dataMillenniumFiltrado, dataMillenniumHiredServices: $dataMillenniumHiredServices, dataPMPFiltrado: $dataPMPFiltrado)';
   }
 
   @override
@@ -285,7 +384,21 @@ class _$_MyContratsState implements _MyContratsState {
             (identical(other.filtersMILL, filtersMILL) ||
                 other.filtersMILL == filtersMILL) &&
             (identical(other.filtersRAPPEL, filtersRAPPEL) ||
-                other.filtersRAPPEL == filtersRAPPEL));
+                other.filtersRAPPEL == filtersRAPPEL) &&
+            (identical(other.dataRappels, dataRappels) ||
+                other.dataRappels == dataRappels) &&
+            (identical(other.dataRappelsFiltrado, dataRappelsFiltrado) ||
+                other.dataRappelsFiltrado == dataRappelsFiltrado) &&
+            (identical(other.dataMillennium, dataMillennium) ||
+                other.dataMillennium == dataMillennium) &&
+            (identical(other.dataMillenniumFiltrado, dataMillenniumFiltrado) ||
+                other.dataMillenniumFiltrado == dataMillenniumFiltrado) &&
+            (identical(other.dataMillenniumHiredServices,
+                    dataMillenniumHiredServices) ||
+                other.dataMillenniumHiredServices ==
+                    dataMillenniumHiredServices) &&
+            (identical(other.dataPMPFiltrado, dataPMPFiltrado) ||
+                other.dataPMPFiltrado == dataPMPFiltrado));
   }
 
   @override
@@ -300,7 +413,13 @@ class _$_MyContratsState implements _MyContratsState {
       yearSelectRappel,
       filtersCRD,
       filtersMILL,
-      filtersRAPPEL);
+      filtersRAPPEL,
+      dataRappels,
+      dataRappelsFiltrado,
+      dataMillennium,
+      dataMillenniumFiltrado,
+      dataMillenniumHiredServices,
+      dataPMPFiltrado);
 
   @JsonKey(ignore: true)
   @override
@@ -320,7 +439,13 @@ abstract class _MyContratsState implements MyContratsState {
       final String? yearSelectRappel,
       final String? filtersCRD,
       final String? filtersMILL,
-      final String? filtersRAPPEL}) = _$_MyContratsState;
+      final String? filtersRAPPEL,
+      final DataTableSource? dataRappels,
+      final DataTableSource? dataRappelsFiltrado,
+      final DataTableSource? dataMillennium,
+      final DataTableSource? dataMillenniumFiltrado,
+      final DataTableSource? dataMillenniumHiredServices,
+      final DataTableSource? dataPMPFiltrado}) = _$_MyContratsState;
 
   @override
   bool get loading;
@@ -342,6 +467,18 @@ abstract class _MyContratsState implements MyContratsState {
   String? get filtersMILL;
   @override
   String? get filtersRAPPEL;
+  @override
+  DataTableSource? get dataRappels;
+  @override
+  DataTableSource? get dataRappelsFiltrado;
+  @override
+  DataTableSource? get dataMillennium;
+  @override
+  DataTableSource? get dataMillenniumFiltrado;
+  @override
+  DataTableSource? get dataMillenniumHiredServices;
+  @override
+  DataTableSource? get dataPMPFiltrado;
   @override
   @JsonKey(ignore: true)
   _$$_MyContratsStateCopyWith<_$_MyContratsState> get copyWith =>

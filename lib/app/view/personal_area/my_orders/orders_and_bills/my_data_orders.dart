@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:vemare/app/domain/model/albaran.dart';
 import 'package:vemare/app/domain/utils/money_formatter.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
-import 'package:vemare/app/view/personal_area/my_orders/albaran_details/albaran_detail.dart';
+import 'package:vemare/app/view/personal_area/my_orders/orders_and_bills/albaran_details/albaran_detail.dart';
 import 'package:vemare/app/view/personal_area/widgets/expedition_details.dart';
 import 'package:vemare/main.dart';
 

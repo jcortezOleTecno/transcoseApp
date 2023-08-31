@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:vemare/app/domain/model/contract_millenium.dart';
 import 'package:vemare/app/domain/model/contrato_pmp.dart';
@@ -19,5 +20,11 @@ class MyContratsState with _$MyContratsState {
     String? filtersCRD,
     String? filtersMILL,
     String? filtersRAPPEL,
+    DataTableSource? dataRappels,
+    DataTableSource? dataRappelsFiltrado,
+    DataTableSource? dataMillennium,
+    DataTableSource? dataMillenniumFiltrado,
+    DataTableSource? dataMillenniumHiredServices,
+    DataTableSource? dataPMPFiltrado,
   }) = _MyContratsState;
 }

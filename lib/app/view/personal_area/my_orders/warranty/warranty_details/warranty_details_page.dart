@@ -12,11 +12,12 @@ import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_signature/my_signature.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/user_name/user_name.dart';
-import 'package:vemare/app/view/personal_area/my_orders/warranty_details/bloc/warranty_details_cubit.dart';
-import 'package:vemare/app/view/personal_area/my_orders/warranty_details/bloc/warranty_details_state.dart';
+import 'package:vemare/app/view/personal_area/my_orders/warranty/warranty_details/bloc/warranty_details_cubit.dart';
 import 'package:vemare/app/view/personal_area/widgets/warranty.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
+
+import 'bloc/warranty_details_state.dart';
 
 class WarrantyDetailPage extends StatelessWidget {
   const WarrantyDetailPage._();
@@ -186,54 +187,6 @@ class _Products extends StatelessWidget {
     );
   }
 }
-
-// class _ItemProduct extends StatelessWidget {
-//   const _ItemProduct(
-//     this.ref, {
-//     Key? key,
-//   }) : super(key: key);
-
-//   final Referencia ref;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Row(
-//           crossAxisAlignment: CrossAxisAlignment.center,
-//           children: [
-//             Expanded(
-//                 child: Item(
-//                     title: 'REF PIEZA',
-//                     content: ref.referencia ?? '000000000')),
-//             Expanded(
-//                 child: Item(
-//                     title: 'CANTIDAD',
-//                     content: ref.cantidad?.toString() ?? '0')),
-//             Expanded(
-//                 child: Item(
-//                     title: 'IMPORTE',
-//                     content: fmf
-//                         .copyWith(amount: double.tryParse(ref.importeNeto!))
-//                         .output
-//                         .symbolOnRight)),
-//           ],
-//         ),
-//         spacerS,
-//         Row(
-//           crossAxisAlignment: CrossAxisAlignment.center,
-//           children: [
-//             Expanded(child: Item(title: 'FAMILIA', content: ref.familia ?? '')),
-//             Expanded(child: Item(title: 'MARCA', content: ref.marca ?? '')),
-//           ],
-//         ),
-//         spacerS,
-//         Item(title: 'DESCRIPCIÓN', content: ref.descripcion ?? '000000000'),
-//       ],
-//     );
-//   }
-// }
 
 class DataReferencias extends DataTableSource {
   final List<Referencia> data;

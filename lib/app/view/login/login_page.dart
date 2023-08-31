@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -13,6 +15,8 @@ import 'package:vemare/app/view/login/bloc/login_cubit.dart';
 import 'package:vemare/app/view/login/bloc/login_state.dart';
 import 'package:vemare/app/view/recover_password/recover_password_page.dart';
 import 'package:vemare/app/view/register/register_page.dart';
+import 'package:vemare/app/view/shared/notifications_counter_bloc/notifications_cubit.dart';
+import 'package:vemare/app/view/shared/shopping_car_counter_bloc/car_counter_cubit.dart';
 import 'package:vemare/app/view/shared/userbloc/user_cubit.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
@@ -47,6 +51,10 @@ class LoginPage extends StatelessWidget {
               if (state.msgGoBack != null) {
                 Navigator.of(context).pop();
               } else {
+                unawaited(context
+                    .read<NotificationsCounterCubit>()
+                    .getNotifications());
+                unawaited(context.read<CarCounterCubit>().getProducts());
                 Navigator.pushReplacementNamed(context, HomePage.route);
               }
             }

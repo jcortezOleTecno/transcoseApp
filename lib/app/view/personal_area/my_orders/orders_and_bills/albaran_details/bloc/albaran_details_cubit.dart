@@ -1,7 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:vemare/app/data/my_account_repository.dart';
 import 'package:vemare/app/domain/model/albaran.dart';
-import 'package:vemare/app/view/personal_area/my_orders/albaran_details/bloc/albaran_details_state.dart';
+
+import 'albaran_details_state.dart';
 
 class AlbaranDetailCubit extends Cubit<AlbaranDetailState> {
   AlbaranDetailCubit(

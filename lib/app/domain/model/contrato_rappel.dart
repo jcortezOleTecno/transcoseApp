@@ -82,4 +82,10 @@ class DocumentosFirmado {
         "descripcion": descripcion,
         "anio": anio,
       };
+  String toFilter() => {
+        "codigo_documento": codigoDocumento,
+        "nombre": nombre,
+        "descripcion": descripcion,
+        "anio": anio,
+      }.toString();
 }

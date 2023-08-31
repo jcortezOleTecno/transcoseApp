@@ -52,9 +52,9 @@ import 'package:vemare/app/view/personal_area/my_budget/my_budget/my_budget_page
 import 'package:vemare/app/view/personal_area/my_contracts/details/contract_detail.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/details_pmp/contract_pmp_detail.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/page/my_contracts_page.dart';
-import 'package:vemare/app/view/personal_area/my_orders/albaran_details/albaran_detail.dart';
-import 'package:vemare/app/view/personal_area/my_orders/my_orders/my_orders_page.dart';
-import 'package:vemare/app/view/personal_area/my_orders/warranty_details/warranty_details_page.dart';
+import 'package:vemare/app/view/personal_area/my_orders/my_orders_page.dart';
+import 'package:vemare/app/view/personal_area/my_orders/orders_and_bills/albaran_details/albaran_detail.dart';
+import 'package:vemare/app/view/personal_area/my_orders/warranty/warranty_details/warranty_details_page.dart';
 import 'package:vemare/app/view/personal_area/my_trainigs_and_events/my_trainigs_and_events_page.dart';
 import 'package:vemare/app/view/pills/pills_page.dart';
 import 'package:vemare/app/view/promotions/detail_sale_rent/detail_sale_rent.dart';

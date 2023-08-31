@@ -10,8 +10,8 @@ import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_input/my_input.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/user_name/user_name.dart';
-import 'package:vemare/app/view/personal_area/my_orders/albaran_details/bloc/albaran_details_cubit.dart';
-import 'package:vemare/app/view/personal_area/my_orders/albaran_details/bloc/albaran_details_state.dart';
+import 'package:vemare/app/view/personal_area/my_orders/orders_and_bills/albaran_details/bloc/albaran_details_cubit.dart';
+import 'package:vemare/app/view/personal_area/my_orders/orders_and_bills/albaran_details/bloc/albaran_details_state.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
@@ -135,18 +135,6 @@ class AlbaranDetailPage extends StatelessWidget {
                             ),
                           );
                         }),
-                        /*spacerM,
-                        const Text('Productos', style: AppTextStyle.h2Style),
-                        spacerM,
-                        if (state.loading)
-                          const MyShimmer(
-                            height: 180,
-                            margin: EdgeInsets.zero,
-                          ),
-                        if (!state.loading)
-                          ...state.details
-                              .map((e) => _ProductsCard(e))
-                              .toList(),*/
                       ],
                     ),
                   )
@@ -159,55 +147,6 @@ class AlbaranDetailPage extends StatelessWidget {
     );
   }
 }
-
-/*class _ProductsCard extends StatelessWidget {
-  const _ProductsCard(
-    this.details, {
-    Key? key,
-  }) : super(key: key);
-
-  final AlbaranDetails details;
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      margin: const EdgeInsets.only(bottom: 20),
-      child: Padding(
-        padding: const EdgeInsets.all(15),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Row(
-            children: [
-              Expanded(
-                  child: Item(
-                      title: 'CONTADOR', content: details.contador ?? '000')),
-              Expanded(
-                  child: Item(
-                      title: 'LINEA',
-                      content: details.linea?.toString() ?? '000')),
-            ],
-          ),
-          spacerS,
-          Row(
-            children: [
-              Expanded(
-                  child: Item(
-                      title: 'REFERENCIA',
-                      content: details.referencia ?? '000')),
-              Expanded(
-                  child: Item(
-                      title: 'CANTIDAD',
-                      content: details.cantidad?.toString() ?? '000')),
-            ],
-          ),
-          spacerS,
-          Item(
-              title: 'DESCRIPCIÓN REFERENCIA',
-              content: details.descripcionReferencia ?? '')
-        ]),
-      ),
-    );
-  }
-}*/
 
 class _AlbaranDetails extends StatelessWidget {
   final AlbaranDetailState state;
@@ -235,26 +174,31 @@ class _AlbaranDetails extends StatelessWidget {
             label: 'Cliente',
             initialValue: LocalDataRepository().user!.code,
             readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
           ),
           MyInput(
             label: 'Contador',
             initialValue: state.albaran?.contador ?? '',
             readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
           ),
           MyInput(
             label: 'Documento',
             initialValue: state.albaran?.documento.toString() ?? '',
             readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
           ),
           MyInput(
             label: 'Ejercicio',
             initialValue: state.albaran?.ejercicio.toString() ?? '',
             readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
           ),
           MyInput(
             label: 'Tipo de documento',
             initialValue: state.albaran?.tipoAlbaran ?? '',
             readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
           ),
         ],
       ),

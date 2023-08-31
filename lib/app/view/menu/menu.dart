@@ -21,7 +21,7 @@ import 'package:vemare/app/view/my_services/services/services_page.dart';
 import 'package:vemare/app/view/our_products/type_of_vehicle/type_of_vehicle_page.dart';
 import 'package:vemare/app/view/personal_area/my_budget/my_budget/my_budget_page.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/page/my_contracts_page.dart';
-import 'package:vemare/app/view/personal_area/my_orders/my_orders/my_orders_page.dart';
+import 'package:vemare/app/view/personal_area/my_orders/my_orders_page.dart';
 import 'package:vemare/app/view/personal_area/my_trainigs_and_events/my_trainigs_and_events_page.dart';
 import 'package:vemare/app/view/promotions/promotions_categories/promotions_page.dart';
 import 'package:vemare/app/view/shared/notifications_counter_bloc/notifications_cubit.dart';
@@ -152,6 +152,7 @@ class __IconsAppbarState extends State<_IconsAppbar> {
         if (LocalDataRepository().isLogged) ...[
           spacerM,
           BlocBuilder<NotificationsCounterCubit, NotificationsCounterState>(
+            // bloc: NotificationsCounterCubit(getIt<NotificationsRepository>()),
             builder: (context, state) {
               return InkWell(
                 onTap: widget.notificationsFunc,
