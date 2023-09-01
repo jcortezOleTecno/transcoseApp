@@ -165,6 +165,17 @@ class Maquina {
         "fi_pmp": fiPmp,
         "ff_pmp": ffPmp,
       };
+  String toFilter() => {
+        "marca": marca,
+        "modelo": modelo,
+        "numero_serie": numeroSerie,
+        "anio_fabricacion": anioFabricacion.toString(),
+        "pmp": pmp,
+        "numero_pmp": numeroPmp,
+        "tipo_equipo_taller": tipoEquipoTaller,
+        "fi_pmp": fiPmp,
+        "ff_pmp": ffPmp,
+      }.toString();
 }
 
 class Servicion {
@@ -193,4 +204,10 @@ class Servicion {
         "importe_reparacion": importeReparacion,
         "importe_averia": importeAveria,
       };
+  String toFilter() => {
+        "nombre": nombre,
+        "importe_mantenimiento": importeMantenimiento,
+        "importe_reparacion": importeReparacion,
+        "importe_averia": importeAveria,
+      }.toString();
 }

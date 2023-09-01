@@ -10,7 +10,6 @@ import 'package:vemare/config/service_locator.dart';
 import 'bloc/my_orders_cubit.dart';
 import 'orders_and_bills/bills_widget.dart';
 import 'orders_and_bills/orders_widget.dart';
-import 'returns/returns_widget.dart';
 import 'warranty/warranty_widget.dart';
 
 class MyOrdersPage extends StatelessWidget {

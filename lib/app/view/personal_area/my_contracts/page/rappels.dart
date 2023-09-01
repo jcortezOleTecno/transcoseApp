@@ -12,6 +12,7 @@ import 'package:vemare/app/view/_components/my_input/my_input_search.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_signature/my_signature.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/_components/no_result/no_result_table.dart';
 import 'package:vemare/app/view/_components/user_name/user_name.dart';
 import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
 import 'package:vemare/app/view/theme/color.dart';
@@ -304,7 +305,7 @@ class _SignedDocuments extends StatelessWidget {
                     wrapInCard: false,
                     columnSpacing: 12,
                     horizontalMargin: 12,
-                    minWidth: 850,
+                    minWidth: 850, empty: const NoResultTable(),
                     // smRatio: 0.5,
                     columns: const [
                       DataColumn2(

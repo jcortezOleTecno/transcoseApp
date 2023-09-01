@@ -8,9 +8,12 @@ import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_download_button/my_download_button.dart';
+import 'package:vemare/app/view/_components/my_download_button/my_download_pdf_contracts.dart';
+import 'package:vemare/app/view/_components/my_input/my_input.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_signature/my_signature.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/_components/user_name/user_name.dart';
 import 'package:vemare/app/view/personal_area/widgets/item_card.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
@@ -45,34 +48,14 @@ class ContractDetailPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const MyBackButton(),
-                      const Spacer(),
-                      if (!state.loading)
-                        ButtonDownloadPdf(
-                          future: () =>
-                              getIt.get<ContratsRepository>().downloadPdfCrd(
-                                    codContrato:
-                                        state.detail!.codigoContrato.toString(),
-                                    numProyecto:
-                                        state.detail!.numeroProyecto.toString(),
-                                  ),
-                        ),
-                      spacerS,
-                    ],
-                  ),
+                  const MyBackButton(),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         const Text('Contrato CRD', style: AppTextStyle.h1Style),
-                        Text(
-                          LocalDataRepository().user?.name ?? '',
-                          style: AppTextStyle.h3Style,
-                        ),
+                        const UserName(),
                         const Divider(),
                         spacerXs,
                         state.loading
@@ -138,50 +121,103 @@ class _Revision extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(12),
-                    topRight: Radius.circular(12)),
-                color: AppColor.blue50,
-              ),
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Item(
-                            title: 'CÓDIGO DE CONTRATO',
-                            content: detail.codigoContrato.toString()),
-                      ),
-                      Expanded(
-                          child: Item(
-                              title: 'N° DE PROYECTO',
-                              content: detail.numeroProyecto.toString())),
-                    ],
-                  ),
-                  spacerS,
-                  Row(
-                    children: [
-                      Expanded(
-                          child: Item(
-                              title: 'FECHA',
-                              content: detail.fechaCreacionContrato ?? '')),
-                      Expanded(
-                          child: Item(
-                              title: 'TIPO',
-                              content: detail.tipoContrato ?? '')),
-                    ],
-                  ),
-                ],
-              )),
+          // Container(
+          //     decoration: const BoxDecoration(
+          //       borderRadius: BorderRadius.only(
+          //           topLeft: Radius.circular(12),
+          //           topRight: Radius.circular(12)),
+          //       color: AppColor.blue50,
+          //     ),
+          //     padding: const EdgeInsets.all(20),
+          //     child: Column(
+          //       children: [
+          //         Row(
+          //           children: [
+          //             Expanded(
+          //               child: Item(
+          //                   title: 'CÓDIGO DE CONTRATO',
+          //                   content: detail.codigoContrato.toString()),
+          //             ),
+          //             Expanded(
+          //                 child: Item(
+          //                     title: 'N° DE PROYECTO',
+          //                     content: detail.numeroProyecto.toString())),
+          //           ],
+          //         ),
+          //         spacerS,
+          //         Row(
+          //           children: [
+          //             Expanded(
+          //                 child: Item(
+          //                     title: 'FECHA',
+          //                     content: detail.fechaCreacionContrato ?? '')),
+          //             Expanded(
+          //                 child: Item(
+          //                     title: 'TIPO',
+          //                     content: detail.tipoContrato ?? '')),
+          //           ],
+          //         ),
+          //       ],
+          //     )),
           Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
+                spacerM,
+                DownloadPdfContracts(
+                  // title: "Descargar",
+                  onPressed: () =>
+                      getIt.get<ContratsRepository>().downloadPdfCrd(
+                            codContrato: detail.codigoContrato.toString(),
+                            numProyecto: detail.numeroProyecto.toString(),
+                          ),
+                ),
+                spacerM,
+                MyInput(
+                  key: const Key("CLIENTE01"),
+                  label: 'CLIENTE',
+                  initialValue: LocalDataRepository().user!.code,
+                  readOnly: true,
+                  variant: MyInputVariant.backgroundBlue,
+                ),
+                MyInput(
+                  key: const Key("numProyecto"),
+                  label: 'NÚMERO DE PROYECTO',
+                  initialValue: detail.numeroProyecto,
+                  readOnly: true,
+                  variant: MyInputVariant.backgroundBlue,
+                ),
+                MyInput(
+                  key: const Key("codContrato"),
+                  label: 'CÓDIGO DE CONTRATO',
+                  initialValue: detail.codigoContrato?.toString() ?? '',
+                  readOnly: true,
+                  variant: MyInputVariant.backgroundBlue,
+                ),
+                MyInput(
+                  key: const Key("feCreacion"),
+                  label: 'FECHA CREACIÓN CONTRATO',
+                  initialValue: detail.fechaCreacionContrato ?? '',
+                  readOnly: true,
+                  variant: MyInputVariant.backgroundBlue,
+                ),
+                MyInput(
+                  key: const Key("tipo"),
+                  label: 'TIPO CONTRATO',
+                  initialValue: detail.tipoContrato ?? '',
+                  readOnly: true,
+                  variant: MyInputVariant.backgroundBlue,
+                ),
+                MyInput(
+                  key: const Key("firmado"),
+                  label: 'FIRMADO',
+                  initialValue: (detail.firmado ?? false) ? "SI" : "NO",
+                  readOnly: true,
+                  variant: MyInputVariant.backgroundBlue,
+                ),
+                // spacerM,
+                /*Row(
                   children: [
                     Expanded(
                         child: Item(
@@ -277,6 +313,156 @@ class _Revision extends StatelessWidget {
                             content: detail.datosContrato?.importeMensualidad ??
                                 '')),
                   ],
+                ),*/
+              ],
+            ),
+          ),
+          const MyDivider(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                spacerS,
+                const Text("Datos Firma", style: AppTextStyle.h2Style),
+                spacerS,
+                MyInput(
+                  key: const Key("fecFirma"),
+                  label: 'FECHA FIRMA',
+                  initialValue: detail.fechaFirma,
+                  readOnly: true,
+                  variant: MyInputVariant.backgroundBlue,
+                ),
+                MyInput(
+                  key: const Key("repLegal"),
+                  label: 'REPRESENTANTE LEGAL',
+                  initialValue: detail.representanteLegal,
+                  readOnly: true,
+                  variant: MyInputVariant.backgroundBlue,
+                ),
+                MyInput(
+                  key: const Key("nifRepresentante"),
+                  label: 'NIF REPRESENTANTE',
+                  initialValue: detail.nifRepresentante,
+                  readOnly: true,
+                  variant: MyInputVariant.backgroundBlue,
+                ),
+              ],
+            ),
+          ),
+          const MyDivider(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                spacerS,
+                const Text("Datos contrato", style: AppTextStyle.h2Style),
+                spacerS,
+                MyInput(
+                  key: const Key("nomRepresentante"),
+                  label: 'NOMBRE REPRESENTANTE',
+                  initialValue: detail.datosContrato?.nombreRepresentante ?? '',
+                  readOnly: true,
+                  variant: MyInputVariant.backgroundBlue,
+                ),
+                MyInput(
+                  key: const Key("dniRepresent"),
+                  label: 'DNI REPRESENTANTE',
+                  initialValue: detail.datosContrato?.dniRepresentante ?? '',
+                  readOnly: true,
+                  variant: MyInputVariant.backgroundBlue,
+                ),
+                MyInput(
+                  key: const Key("fechaAceptado"),
+                  label: 'FECHA ACEPTADO',
+                  initialValue: detail.datosContrato?.fechaAceptado ?? '',
+                  readOnly: true,
+                  variant: MyInputVariant.backgroundBlue,
+                ),
+                MyInput(
+                  key: const Key("plzEntrega"),
+                  label: 'PLAZO DE ENTREGA',
+                  initialValue: detail.datosContrato?.plazoEntrega ?? '',
+                  readOnly: true,
+                  variant: MyInputVariant.backgroundBlue,
+                ),
+                MyInput(
+                  key: const Key("nomTaller"),
+                  label: 'NOMBRE DE TALLER',
+                  initialValue: detail.datosContrato?.nombreTaller ?? '',
+                  readOnly: true,
+                  variant: MyInputVariant.backgroundBlue,
+                ),
+                MyInput(
+                  key: const Key("cifTaller"),
+                  label: 'CIF DE TALLER',
+                  initialValue: detail.datosContrato?.cifTaller ?? '',
+                  readOnly: true,
+                  variant: MyInputVariant.backgroundBlue,
+                ),
+                MyInput(
+                  key: const Key("domicilioSocial"),
+                  label: 'DOMICILIO SOCIAL',
+                  initialValue: detail.datosContrato?.domicilioSocial ?? '',
+                  readOnly: true,
+                  variant: MyInputVariant.backgroundBlue,
+                ),
+                MyInput(
+                  key: const Key("regContrato"),
+                  label: 'REGISTRO CONTRATO',
+                  initialValue: detail.datosContrato?.registroContrato ?? '',
+                  readOnly: true,
+                  variant: MyInputVariant.backgroundBlue,
+                ),
+                MyInput(
+                  key: const Key("tomoContrato"),
+                  label: 'TOMO REGISTRO',
+                  initialValue: detail.datosContrato?.tomoRegistro ?? '',
+                  readOnly: true,
+                  variant: MyInputVariant.backgroundBlue,
+                ),
+                MyInput(
+                  key: const Key("folioContrato"),
+                  label: 'FOLIO REGISTRO',
+                  initialValue: detail.datosContrato?.folioRegistro ?? '',
+                  readOnly: true,
+                  variant: MyInputVariant.backgroundBlue,
+                ),
+                MyInput(
+                  key: const Key("hojaReg"),
+                  label: 'HOJA REGISTRO',
+                  initialValue: detail.datosContrato?.hojaRegistro ?? '',
+                  readOnly: true,
+                  variant: MyInputVariant.backgroundBlue,
+                ),
+                MyInput(
+                  key: const Key("precioT"),
+                  label: 'PRECIO TOTAL',
+                  initialValue: "${detail.datosContrato?.precioTotal}€",
+                  readOnly: true,
+                  variant: MyInputVariant.backgroundBlue,
+                ),
+                MyInput(
+                  key: const Key("entreCuta"),
+                  label: 'ENTREGA CUENTA',
+                  initialValue: "${detail.datosContrato?.entregaCuenta}€",
+                  readOnly: true,
+                  variant: MyInputVariant.backgroundBlue,
+                ),
+                MyInput(
+                  key: const Key("numMensualidades"),
+                  label: 'NÚMERO DE MENSUALIDADES',
+                  initialValue: detail.datosContrato?.numMensualidades,
+                  readOnly: true,
+                  variant: MyInputVariant.backgroundBlue,
+                ),
+                MyInput(
+                  key: const Key("impMensual"),
+                  label: 'IMPORTE MENSUAL',
+                  initialValue: "${detail.datosContrato?.importeMensualidad}€",
+                  readOnly: true,
+                  variant: MyInputVariant.backgroundBlue,
                 ),
               ],
             ),

@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:vemare/app/data/contracts_repository.dart';
+import 'package:vemare/app/domain/model/contract_pmp_detail.dart';
 import 'package:vemare/app/domain/model/contrato_pmp.dart';
+import 'package:vemare/app/view/personal_area/my_contracts/details_pmp/contract_pmp_detail.dart';
 
 import 'contract_pmp_details_state.dart';
 
@@ -17,12 +19,14 @@ class ContratPMPDetailCubit extends Cubit<ContratPMPDetailState> {
   Future<void> getDetail() async {
     emit(state.copyWith(loading: true));
 
-    var detail = await _contratsRepository.getContratPmpDetail(
+    ContratPmpDetail detail = await _contratsRepository.getContratPmpDetail(
       codigoContrato: state.contract!.codigoContrato!.toString(),
     );
 
     emit(state.copyWith(
       detail: detail,
+      dataMaquinas: MyDataMaquinas(detail.maquinas ?? []),
+      dataServicios: MyDataServicios(detail.servicions ?? []),
       loading: false,
     ));
   }
@@ -33,5 +37,31 @@ class ContratPMPDetailCubit extends Cubit<ContratPMPDetailState> {
     required String signature,
   }) async {
     await Future.delayed(const Duration(seconds: 2));
+  }
+
+  void filtroMaquinas(String? value) {
+    emit(
+      state.copyWith(
+        dataMaquinas: MyDataMaquinas(state.detail!.maquinas!.where((e) {
+          return e
+              .toFilter()
+              .toLowerCase()
+              .contains(value!.trim().toLowerCase());
+        }).toList()),
+      ),
+    );
+  }
+
+  void filtroServicios(String? value) {
+    emit(
+      state.copyWith(
+        dataServicios: MyDataServicios(state.detail!.servicions!.where((e) {
+          return e
+              .toFilter()
+              .toLowerCase()
+              .contains(value!.trim().toLowerCase());
+        }).toList()),
+      ),
+    );
   }
 }

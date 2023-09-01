@@ -9,6 +9,7 @@ import 'package:vemare/app/view/_components/my_filters_applied/my_filter_applied
 import 'package:vemare/app/view/_components/my_input/my_input_search.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/_components/no_result/no_result_table.dart';
 import 'package:vemare/app/view/_components/user_name/user_name.dart';
 import 'package:vemare/app/view/access_denied/access_denied_page.dart';
 import 'package:vemare/app/view/personal_area/my_orders/orders_and_bills/albaran_details/albaran_detail.dart';
@@ -116,6 +117,7 @@ class MyOrders extends StatelessWidget {
                                   wrapInCard: false,
                                   columnSpacing: 12,
                                   horizontalMargin: 12,
+                                  empty: const NoResultTable(),
                                   minWidth: 1000,
                                   // smRatio: 0.5,
                                   columns: const [

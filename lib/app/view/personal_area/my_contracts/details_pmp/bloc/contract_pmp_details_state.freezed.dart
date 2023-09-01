@@ -19,6 +19,8 @@ mixin _$ContratPMPDetailState {
   bool get loading => throw _privateConstructorUsedError;
   ContratPmpDetail? get detail => throw _privateConstructorUsedError;
   ContratoPmp? get contract => throw _privateConstructorUsedError;
+  DataTableSource? get dataMaquinas => throw _privateConstructorUsedError;
+  DataTableSource? get dataServicios => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ContratPMPDetailStateCopyWith<ContratPMPDetailState> get copyWith =>
@@ -31,7 +33,12 @@ abstract class $ContratPMPDetailStateCopyWith<$Res> {
           $Res Function(ContratPMPDetailState) then) =
       _$ContratPMPDetailStateCopyWithImpl<$Res, ContratPMPDetailState>;
   @useResult
-  $Res call({bool loading, ContratPmpDetail? detail, ContratoPmp? contract});
+  $Res call(
+      {bool loading,
+      ContratPmpDetail? detail,
+      ContratoPmp? contract,
+      DataTableSource? dataMaquinas,
+      DataTableSource? dataServicios});
 }
 
 /// @nodoc
@@ -51,6 +58,8 @@ class _$ContratPMPDetailStateCopyWithImpl<$Res,
     Object? loading = null,
     Object? detail = freezed,
     Object? contract = freezed,
+    Object? dataMaquinas = freezed,
+    Object? dataServicios = freezed,
   }) {
     return _then(_value.copyWith(
       loading: null == loading
@@ -65,6 +74,14 @@ class _$ContratPMPDetailStateCopyWithImpl<$Res,
           ? _value.contract
           : contract // ignore: cast_nullable_to_non_nullable
               as ContratoPmp?,
+      dataMaquinas: freezed == dataMaquinas
+          ? _value.dataMaquinas
+          : dataMaquinas // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
+      dataServicios: freezed == dataServicios
+          ? _value.dataServicios
+          : dataServicios // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
     ) as $Val);
   }
 }
@@ -77,7 +94,12 @@ abstract class _$$_ContratPMPDetailStateCopyWith<$Res>
       __$$_ContratPMPDetailStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool loading, ContratPmpDetail? detail, ContratoPmp? contract});
+  $Res call(
+      {bool loading,
+      ContratPmpDetail? detail,
+      ContratoPmp? contract,
+      DataTableSource? dataMaquinas,
+      DataTableSource? dataServicios});
 }
 
 /// @nodoc
@@ -94,6 +116,8 @@ class __$$_ContratPMPDetailStateCopyWithImpl<$Res>
     Object? loading = null,
     Object? detail = freezed,
     Object? contract = freezed,
+    Object? dataMaquinas = freezed,
+    Object? dataServicios = freezed,
   }) {
     return _then(_$_ContratPMPDetailState(
       loading: null == loading
@@ -108,6 +132,14 @@ class __$$_ContratPMPDetailStateCopyWithImpl<$Res>
           ? _value.contract
           : contract // ignore: cast_nullable_to_non_nullable
               as ContratoPmp?,
+      dataMaquinas: freezed == dataMaquinas
+          ? _value.dataMaquinas
+          : dataMaquinas // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
+      dataServicios: freezed == dataServicios
+          ? _value.dataServicios
+          : dataServicios // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
     ));
   }
 }
@@ -116,7 +148,11 @@ class __$$_ContratPMPDetailStateCopyWithImpl<$Res>
 
 class _$_ContratPMPDetailState implements _ContratPMPDetailState {
   const _$_ContratPMPDetailState(
-      {this.loading = false, this.detail, this.contract});
+      {this.loading = false,
+      this.detail,
+      this.contract,
+      this.dataMaquinas,
+      this.dataServicios});
 
   @override
   @JsonKey()
@@ -125,10 +161,14 @@ class _$_ContratPMPDetailState implements _ContratPMPDetailState {
   final ContratPmpDetail? detail;
   @override
   final ContratoPmp? contract;
+  @override
+  final DataTableSource? dataMaquinas;
+  @override
+  final DataTableSource? dataServicios;
 
   @override
   String toString() {
-    return 'ContratPMPDetailState(loading: $loading, detail: $detail, contract: $contract)';
+    return 'ContratPMPDetailState(loading: $loading, detail: $detail, contract: $contract, dataMaquinas: $dataMaquinas, dataServicios: $dataServicios)';
   }
 
   @override
@@ -139,11 +179,16 @@ class _$_ContratPMPDetailState implements _ContratPMPDetailState {
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.detail, detail) || other.detail == detail) &&
             (identical(other.contract, contract) ||
-                other.contract == contract));
+                other.contract == contract) &&
+            (identical(other.dataMaquinas, dataMaquinas) ||
+                other.dataMaquinas == dataMaquinas) &&
+            (identical(other.dataServicios, dataServicios) ||
+                other.dataServicios == dataServicios));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, loading, detail, contract);
+  int get hashCode => Object.hash(
+      runtimeType, loading, detail, contract, dataMaquinas, dataServicios);
 
   @JsonKey(ignore: true)
   @override
@@ -157,7 +202,9 @@ abstract class _ContratPMPDetailState implements ContratPMPDetailState {
   const factory _ContratPMPDetailState(
       {final bool loading,
       final ContratPmpDetail? detail,
-      final ContratoPmp? contract}) = _$_ContratPMPDetailState;
+      final ContratoPmp? contract,
+      final DataTableSource? dataMaquinas,
+      final DataTableSource? dataServicios}) = _$_ContratPMPDetailState;
 
   @override
   bool get loading;
@@ -165,6 +212,10 @@ abstract class _ContratPMPDetailState implements ContratPMPDetailState {
   ContratPmpDetail? get detail;
   @override
   ContratoPmp? get contract;
+  @override
+  DataTableSource? get dataMaquinas;
+  @override
+  DataTableSource? get dataServicios;
   @override
   @JsonKey(ignore: true)
   _$$_ContratPMPDetailStateCopyWith<_$_ContratPMPDetailState> get copyWith =>

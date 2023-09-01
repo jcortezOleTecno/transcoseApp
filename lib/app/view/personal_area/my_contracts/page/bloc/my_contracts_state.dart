@@ -26,5 +26,6 @@ class MyContratsState with _$MyContratsState {
     DataTableSource? dataMillenniumFiltrado,
     DataTableSource? dataMillenniumHiredServices,
     DataTableSource? dataPMPFiltrado,
+    DataTableSource? dataCRDFiltrado,
   }) = _MyContratsState;
 }

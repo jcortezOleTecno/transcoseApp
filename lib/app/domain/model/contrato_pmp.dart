@@ -40,4 +40,15 @@ class ContratoPmp {
         "nif_personaquefirma": nifPersonaquefirma,
         "fecha_baja": fechaBaja,
       };
+
+  String toFilter() => {
+        "codigo_contrato": codigoContrato,
+        "fecha_inicio": fechaInicio,
+        "fecha_fin": fechaFin,
+        "fecha_firma": fechaFirma,
+        "firmado": firmado! ? "FIRMADO" : "NO FIRMADO",
+        "firma_personaquefirma": firmaPersonaquefirma,
+        "nif_personaquefirma": nifPersonaquefirma,
+        "fecha_baja": fechaBaja,
+      }.toString();
 }

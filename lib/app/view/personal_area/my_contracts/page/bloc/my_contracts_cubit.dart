@@ -6,6 +6,7 @@ import 'package:vemare/app/domain/model/contrato_rappel.dart';
 import 'package:vemare/app/domain/model/contrats.dart';
 import 'package:vemare/app/domain/model/filter.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/page/bloc/my_contracts_state.dart';
+import 'package:vemare/app/view/personal_area/my_contracts/page/crd.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/page/millennium.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/page/pmp.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/page/rappels.dart';
@@ -53,16 +54,17 @@ class MyContratsCubit extends Cubit<MyContratsState> {
       dataMillenniumHiredServices:
           MyDataMillenniumHiredServices(mill!.serviciosContratados!),
       dataPMPFiltrado: MyDataPMP(pmp),
+      dataCRDFiltrado: MyDataCRD(crd),
       loading: false,
     ));
   }
 
-  Future<void> getCRD(Filter filter) async {
-    emit(state.copyWith(loading: true));
+  Future<void> getCRD({Filter? filter, bool reset = false}) async {
+    emit(state.copyWith(loading: true, filtersCRD: null));
     var data = await _contratsRepository.getContratsCRD(filter: filter);
     emit(state.copyWith(
       crd: data.data as List<Contrats>,
-      filtersCRD: data.filter,
+      filtersCRD: reset ? null : data.filter,
       loading: false,
     ));
   }
@@ -156,6 +158,32 @@ class MyContratsCubit extends Cubit<MyContratsState> {
       state.copyWith(
         dataMillenniumHiredServices: MyDataMillenniumHiredServices(
             state.mill!.serviciosContratados!.where((e) {
+          return e
+              .toFilter()
+              .toLowerCase()
+              .contains(value!.trim().toLowerCase());
+        }).toList()),
+      ),
+    );
+  }
+
+  void filtroPMP(String? value) {
+    emit(
+      state.copyWith(
+        dataPMPFiltrado: MyDataPMP(state.pmp.where((e) {
+          return e
+              .toFilter()
+              .toLowerCase()
+              .contains(value!.trim().toLowerCase());
+        }).toList()),
+      ),
+    );
+  }
+
+  void filtroCRD(String? value) {
+    emit(
+      state.copyWith(
+        dataCRDFiltrado: MyDataCRD(state.crd.where((e) {
           return e
               .toFilter()
               .toLowerCase()

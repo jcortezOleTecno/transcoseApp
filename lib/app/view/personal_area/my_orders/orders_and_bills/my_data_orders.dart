@@ -18,10 +18,10 @@ class MyDataOrders extends DataTableSource {
   @override
   DataRow? getRow(int index) {
     return DataRow(
-        onLongPress: () => navigator.pushNamed(
-              AlbaranDetailPage.route,
-              arguments: AlbaranDetailArg(albaran: data[index], title: title),
-            ),
+        // onLongPress: () => navigator.pushNamed(
+        //       AlbaranDetailPage.route,
+        //       arguments: AlbaranDetailArg(albaran: data[index], title: title),
+        //     ),
         cells: [
           DataCell(Text(data[index].documento.toString())),
           DataCell(Text(DateFormat.yMd('es').format(data[index].fecha!))),
@@ -39,7 +39,18 @@ class MyDataOrders extends DataTableSource {
                 spacerS,
                 ExpeditionButton(data[index]),
                 spacerS,
-                Image.asset('assets/icons/arrow_next.png', scale: 2)
+                Expanded(
+                  child: IconButton(
+                      onPressed: () {
+                        navigator.pushNamed(
+                          AlbaranDetailPage.route,
+                          arguments: AlbaranDetailArg(
+                              albaran: data[index], title: title),
+                        );
+                      },
+                      icon:
+                          Image.asset('assets/icons/arrow_next.png', scale: 2)),
+                )
               ],
             ),
           ),

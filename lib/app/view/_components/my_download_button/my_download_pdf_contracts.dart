@@ -6,10 +6,12 @@ import 'package:vemare/app/view/theme/color.dart';
 class DownloadPdfContracts extends StatefulWidget {
   const DownloadPdfContracts({
     required this.onPressed,
+    this.title,
     super.key,
   });
 
   final Future<void> Function() onPressed;
+  final String? title;
 
   @override
   State<DownloadPdfContracts> createState() => _DownloadPdfContractsState();
@@ -35,7 +37,7 @@ class _DownloadPdfContractsState extends State<DownloadPdfContracts> {
   Widget build(BuildContext context) {
     return MyIconButton(
       onPressed: _handleTap,
-      text: "Detalles del contrato",
+      text: widget.title ?? "Detalles del contrato",
       icon: _loading
           ? const SizedBox(
               height: 8,

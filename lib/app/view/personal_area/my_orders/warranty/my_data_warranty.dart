@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:vemare/app/domain/model/warranty.dart';
 import 'package:vemare/app/domain/utils/money_formatter.dart';
+import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/personal_area/my_orders/warranty/warranty_details/warranty_details_page.dart';
 import 'package:vemare/main.dart';
 
@@ -13,10 +14,10 @@ class MyDataWarranty extends DataTableSource {
   @override
   DataRow? getRow(int index) {
     return DataRow(
-        onLongPress: () => navigator.pushNamed(
-              WarrantyDetailPage.route,
-              arguments: data[index],
-            ),
+        // onLongPress: () => navigator.pushNamed(
+        //       WarrantyDetailPage.route,
+        //       arguments: data[index],
+        //     ),
         cells: [
           DataCell(Text(data[index].numero.toString())),
           DataCell(Text(DateFormat.yMd('es').format(data[index].fechaAlta!))),
@@ -29,7 +30,23 @@ class MyDataWarranty extends DataTableSource {
           DataCell(Text(data[index].linea ?? '')),
           DataCell(Text(data[index].firmado ?? '')),
           DataCell(Text(data[index].estadoSu ?? '')),
-          DataCell(Text(data[index].estadoTr ?? '')),
+          // DataCell(Text(data[index].estadoTr ?? '')),
+          DataCell(
+            Row(
+              children: [
+                Expanded(child: Text(data[index].estadoTr ?? '')),
+                spacerS,
+                IconButton(
+                    onPressed: () {
+                      navigator.pushNamed(
+                        WarrantyDetailPage.route,
+                        arguments: data[index],
+                      );
+                    },
+                    icon: Image.asset('assets/icons/arrow_next.png', scale: 2))
+              ],
+            ),
+          ),
         ]);
   }
 

@@ -56,4 +56,19 @@ class Contrats {
         "representante_legal": representanteLegal,
         "nif_representante": nifRepresentante,
       };
+
+  String toFilter() => {
+        "fecha": fecha,
+        "firmado": firmado! ? "FIRMADO" : "NO FIRMADO",
+        "codigo_contrato": codigoContrato,
+        "numero_proyecto": numeroProyecto,
+        "proyecto_firmado": proyectoFirmado! ? "FIRMADO" : "NO FIRMADO",
+        "asunto": asunto,
+        "fecha_presupuesto": fechaPresupuesto,
+        "version_presupuesto": versionPresupuesto,
+        "importe_presupuesto": importePresupuesto,
+        "fecha_firma": fechaFirma,
+        "representante_legal": representanteLegal,
+        "nif_representante": nifRepresentante,
+      }.toString();
 }

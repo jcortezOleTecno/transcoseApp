@@ -6,7 +6,6 @@ import 'package:vemare/app/domain/model/contract_millenium.dart';
 import 'package:vemare/app/domain/model/contrato_rappel.dart';
 import 'package:vemare/app/domain/utils/year_list.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
-import 'package:vemare/app/view/_components/my_download_button/my_download_button.dart';
 import 'package:vemare/app/view/_components/my_download_button/my_download_pdf_contracts.dart';
 import 'package:vemare/app/view/_components/my_dropdown_button/my_drop_down_button.dart';
 import 'package:vemare/app/view/_components/my_input/my_input.dart';
@@ -14,10 +13,9 @@ import 'package:vemare/app/view/_components/my_input/my_input_search.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_signature/my_signature.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/_components/no_result/no_result_table.dart';
 import 'package:vemare/app/view/_components/user_name/user_name.dart';
-import 'package:vemare/app/view/personal_area/widgets/item_card.dart';
 import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
-import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
 
@@ -413,7 +411,7 @@ class _HiredServices extends StatelessWidget {
                     wrapInCard: false,
                     columnSpacing: 12,
                     horizontalMargin: 12,
-                    minWidth: 1500,
+                    minWidth: 1500, empty: const NoResultTable(),
                     // smRatio: 0.5,
                     columns: const [
                       DataColumn2(
@@ -542,7 +540,7 @@ class _SignedDocuments extends StatelessWidget {
                     wrapInCard: false,
                     columnSpacing: 12,
                     horizontalMargin: 12,
-                    minWidth: 850,
+                    minWidth: 850, empty: const NoResultTable(),
                     // smRatio: 0.5,
                     columns: const [
                       DataColumn2(

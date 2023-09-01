@@ -19,7 +19,7 @@ class ContratDetail {
   bool? firmado;
   String? representanteLegal;
   String? nifRepresentante;
-  DateTime? fechaFirma;
+  String? fechaFirma;
 
   factory ContratDetail.fromJson(dynamic json) => ContratDetail(
         codigoContrato: json["codigo_contrato"] as int?,
@@ -32,9 +32,7 @@ class ContratDetail {
         firmado: json["firmado"] as bool?,
         representanteLegal: json["representante_legal"] as String?,
         nifRepresentante: json["nif_representante"] as String?,
-        fechaFirma: json["fecha_firma"] == null
-            ? null
-            : DateTime.parse(json["fecha_firma"]),
+        fechaFirma: json["fecha_firma"] as String?,
       );
 
   Map<String, dynamic> toJson() => {
@@ -46,7 +44,7 @@ class ContratDetail {
         "firmado": firmado,
         "representante_legal": representanteLegal,
         "nif_representante": nifRepresentante,
-        "fecha_firma": fechaFirma?.toIso8601String(),
+        "fecha_firma": fechaFirma,
       };
 }
 

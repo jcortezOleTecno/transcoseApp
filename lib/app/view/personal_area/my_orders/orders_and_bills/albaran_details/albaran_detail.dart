@@ -9,6 +9,7 @@ import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_input/my_input.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/_components/no_result/no_result_table.dart';
 import 'package:vemare/app/view/_components/user_name/user_name.dart';
 import 'package:vemare/app/view/personal_area/my_orders/orders_and_bills/albaran_details/bloc/albaran_details_cubit.dart';
 import 'package:vemare/app/view/personal_area/my_orders/orders_and_bills/albaran_details/bloc/albaran_details_state.dart';
@@ -94,6 +95,7 @@ class AlbaranDetailPage extends StatelessWidget {
                                       horizontalMargin: 12,
                                       wrapInCard: false,
                                       minWidth: 1000,
+                                      empty: const NoResultTable(),
                                       // smRatio: 0.5,
                                       columns: const [
                                         DataColumn2(

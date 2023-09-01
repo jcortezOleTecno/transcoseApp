@@ -1,18 +1,14 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/domain/model/contrato_pmp.dart';
-import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_input/my_input_search.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
-import 'package:vemare/app/view/_components/my_signature/my_signature.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/_components/no_result/no_result_table.dart';
 import 'package:vemare/app/view/_components/user_name/user_name.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/details_pmp/contract_pmp_detail.dart';
 import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
-import 'package:vemare/app/view/theme/button_style.dart';
-import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/main.dart';
 
@@ -77,14 +73,13 @@ class _PMPCard extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  // final ContratoPmp pmp;
-
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<MyContratsCubit>();
     return BlocBuilder<MyContratsCubit, MyContratsState>(
       builder: (context, state) {
         return Card(
+            margin: const EdgeInsets.only(bottom: 20),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             child: Column(
@@ -102,9 +97,9 @@ class _PMPCard extends StatelessWidget {
                       ),
                       Text('${state.dataPMPFiltrado!.rowCount} Total'),
                       spacerM,
-                      const MySearchInput(
+                      MySearchInput(
                         hintText: 'Buscar por palabras claves...',
-                        // onChanged: cubit.filtroRappels,
+                        onChanged: cubit.filtroPMP,
                       ),
                     ],
                   ),
@@ -115,7 +110,7 @@ class _PMPCard extends StatelessWidget {
                   child: PaginatedDataTable2(
                     wrapInCard: false,
                     columnSpacing: 12,
-                    horizontalMargin: 12,
+                    horizontalMargin: 12, empty: const NoResultTable(),
                     minWidth: 700,
                     // smRatio: 0.5,
                     columns: const [

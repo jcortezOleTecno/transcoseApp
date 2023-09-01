@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:vemare/app/domain/model/contract_pmp_detail.dart';
 import 'package:vemare/app/domain/model/contrato_pmp.dart';
@@ -10,5 +11,7 @@ class ContratPMPDetailState with _$ContratPMPDetailState {
     @Default(false) bool loading,
     ContratPmpDetail? detail,
     ContratoPmp? contract,
+    DataTableSource? dataMaquinas,
+    DataTableSource? dataServicios,
   }) = _ContratPMPDetailState;
 }
