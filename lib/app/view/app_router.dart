@@ -292,7 +292,7 @@ abstract class AppRouter {
       case EventsPage.route:
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const EventsPage(),
+          builder: (_) => EventsPage.create(),
         );
       case OtherEventPage.route:
         final event = settings.arguments as Events?;
