@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:vemare/app/domain/model/budget.dart';
 
@@ -9,6 +10,7 @@ class BudgetState with _$BudgetState {
     @Default(false) bool loading,
     @Default(<Budget>[]) List<Budget> budget,
     String? filters,
+    DataTableSource? dataBudget,
   }) = _BudgetState;
   const BudgetState._();
 }

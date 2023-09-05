@@ -1,3 +1,4 @@
+import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vemare/app/data/budget_repository.dart';
@@ -7,8 +8,12 @@ import 'package:vemare/app/domain/utils/money_formatter.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_filters/my_filters.dart';
+import 'package:vemare/app/view/_components/my_filters_applied/my_filter_applied.dart';
+import 'package:vemare/app/view/_components/my_input/my_input_search.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/_components/no_result/no_result_table.dart';
+import 'package:vemare/app/view/_components/user_name/user_name.dart';
 import 'package:vemare/app/view/access_denied/access_denied_page.dart';
 import 'package:vemare/app/view/personal_area/my_budget/budget_detail/budget_detail.dart';
 import 'package:vemare/app/view/personal_area/my_budget/my_budget/bloc/my_budget_cubit.dart';
@@ -18,6 +23,7 @@ import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
+import 'package:vemare/main.dart';
 
 class MyBudgetPage extends StatelessWidget {
   const MyBudgetPage._();
@@ -52,12 +58,7 @@ class MyBudgetPage extends StatelessWidget {
                       children: [
                         const Text('Mis presupuestos',
                             style: AppTextStyle.h1Style),
-                        Text(
-                          LocalDataRepository().user?.name ?? '',
-                          style: AppTextStyle.h3Style.copyWith(
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
+                        const UserName(),
                         spacerM,
                         MyIconButton(
                           onPressed: () {
@@ -67,7 +68,9 @@ class MyBudgetPage extends StatelessWidget {
                               }
                             });
                           },
-                          text: 'Aplicar filtros',
+                          text: state.filters != null
+                              ? 'Modificar filtros'
+                              : 'Aplicar filtros',
                           icon: Image.asset(
                             'assets/icons/Filtro.png',
                             scale: 2,
@@ -75,38 +78,19 @@ class MyBudgetPage extends StatelessWidget {
                           variant: MyButtonVariant.outlinedBold,
                         ),
                         if (state.filters != null)
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8),
-                            child: Center(
-                              child: Text(
-                                'Filtros aplicados: ${state.filters!}',
-                                style: AppTextStyle.defaultStyle,
-                              ),
-                            ),
+                          FiltersAppliedWidget(state.filters!,
+                              onTap: () => cubit.fetchData(reset: true)),
+                        spacerM,
+                        if (state.loading)
+                          const MyShimmer(
+                            height: 450,
+                            borderRadius: 12,
+                            margin: EdgeInsets.only(bottom: 20),
                           ),
-
-                        spacerL,
-                        if (state.loading) ...[
-                          ...List.generate(2, (i) {
-                            return const MyShimmer(
-                              height: 170,
-                              borderRadius: 12,
-                              margin: EdgeInsets.only(bottom: 20),
-                            );
-                          }),
-                        ],
                         if (!state.loading && state.budget.isEmpty)
                           const NoExistWidget('presupuestos'),
-                        if (!state.loading)
-                          ...state.budget.map((e) => _Budget(e)),
-                        // MyIconButton(
-                        //   onPressed: () {},
-                        //   text: 'Firmar',
-                        //   icon: Image.asset(
-                        //     'assets/icons/firma.png',
-                        //     scale: 2,
-                        //   ),
-                        // ),
+                        if (!state.loading && state.budget.isNotEmpty)
+                          const _Budget(),
                       ],
                     ),
                   ),
@@ -118,80 +102,155 @@ class MyBudgetPage extends StatelessWidget {
 }
 
 class _Budget extends StatelessWidget {
-  const _Budget(
-    this.budget, {
+  const _Budget({
     Key? key,
   }) : super(key: key);
 
-  final Budget budget;
-
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(
-          context,
-          BudgetDetailPage.route,
-          arguments: budget,
+    final cubit = context.read<BudgetCubit>();
+    return BlocBuilder<BudgetCubit, BudgetState>(
+      builder: (context, state) {
+        return SizedBox(
+          height: 500,
+          child: Card(
+            margin: const EdgeInsets.only(bottom: 20),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      spacerS,
+                      const Text(
+                        'Presupuestos',
+                        style: AppTextStyle.h3Style,
+                      ),
+                      Text('${state.dataBudget!.rowCount} Total'),
+                      // spacerM,
+                      spacerS,
+                      MySearchInput(
+                        hintText: 'Buscar por palabras claves...',
+                        onChanged: cubit.filtro,
+                      ),
+                      spacerS,
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: PaginatedDataTable2(
+                    wrapInCard: false,
+                    columnSpacing: 12,
+                    horizontalMargin: 12,
+                    empty: const NoResultTable(),
+                    minWidth: 1100,
+                    // smRatio: 0.5,
+                    columns: const [
+                      DataColumn2(
+                        label: Text('FECHA'),
+                        fixedWidth: 80,
+                        // size: ColumnSize.L,
+                      ),
+                      DataColumn2(
+                        label: Text('FECHA CADUCIDAD'),
+                        fixedWidth: 130,
+                        // size: ColumnSize.L,
+                      ),
+                      DataColumn2(
+                        label: Text('ESTADO'),
+                        fixedWidth: 100,
+                        // size: ColumnSize.L,
+                      ),
+                      DataColumn2(
+                        label: Text('FIRMADO'),
+                        fixedWidth: 70,
+                        // size: ColumnSize.L,
+                      ),
+                      DataColumn2(
+                        label: Text('NÚMERO'),
+                        fixedWidth: 100,
+                        // size: ColumnSize.L,
+                      ),
+                      DataColumn2(
+                        label: Text('ASUNTO'),
+                        fixedWidth: 150,
+                        // size: ColumnSize.L,
+                      ),
+                      DataColumn2(
+                        label: Text('CÓDIGO'),
+                        fixedWidth: 80,
+                        // size: ColumnSize.L,
+                      ),
+                      DataColumn2(
+                        label: Text('VERSIÓN'),
+                        fixedWidth: 80,
+                        // size: ColumnSize.L,
+                      ),
+                      DataColumn2(
+                        label: Text('IMPORTE'),
+                        fixedWidth: 150,
+                        // size: ColumnSize.L,
+                      ),
+                    ],
+                    source: state.dataBudget!,
+                  ),
+                ),
+              ],
+            ),
+          ),
         );
       },
-      child: Container(
-        padding: const EdgeInsets.all(20),
-        margin: const EdgeInsets.only(bottom: 20),
-        clipBehavior: Clip.antiAlias,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: AppColor.blue100),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            ListTile(
-              leading: const Icon(Icons.check_box_outline_blank,
-                  color: Colors.black),
-              title: const Text('N° DEL PRESUPUESTO',
-                  style: AppTextStyle.defaultStyle),
-              subtitle: Text(budget.numero ?? '',
-                  style: AppTextStyle.defaultStyle.copyWith(
-                      fontWeight: FontWeight.bold, color: Colors.black)),
-              trailing: Image.asset(
-                'assets/icons/arrow_next.png',
-                scale: 2,
-                color: AppColor.primaryBlue,
-              ),
-            ),
-            Row(
-              children: const [
-                Expanded(
-                    child: Text('FECHA', style: AppTextStyle.defaultStyle)),
-                Expanded(
-                    child: Text('IMPORTE', style: AppTextStyle.defaultStyle)),
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(
-                    child: Text(
-                  budget.fecha ?? '',
-                  style: AppTextStyle.defaultStyle.copyWith(
-                    fontWeight: FontWeight.w700,
-                  ),
-                )),
-                Expanded(
-                    child: Text(
-                  fmf.copyWith(amount: budget.importe!).output.symbolOnRight,
-                  style: AppTextStyle.defaultStyle.copyWith(
-                    fontWeight: FontWeight.w700,
-                  ),
-                )),
-              ],
-            ),
-            spacerM,
-          ],
-        ),
-      ),
     );
   }
+}
+
+class MyDataBudget extends DataTableSource {
+  final List<Budget> data;
+
+  MyDataBudget(this.data);
+
+  @override
+  DataRow? getRow(int index) {
+    return DataRow(cells: [
+      DataCell(Text(data[index].fecha ?? '')),
+      DataCell(Text(data[index].fechaCaducidad ?? '')),
+      DataCell(Text(data[index].estado ?? '')),
+      DataCell(Text((data[index].firmado ?? false) ? 'SI' : 'NO')),
+      DataCell(Text(data[index].numero ?? '')),
+      DataCell(Text(data[index].asunto ?? '')),
+      DataCell(Text(data[index].codigoPresupuesto?.toString() ?? '')),
+      DataCell(Text(data[index].version?.toString() ?? '')),
+      DataCell(Row(
+        children: [
+          Expanded(
+              child: Text(fmf
+                  .copyWith(amount: data[index].importe)
+                  .output
+                  .symbolOnRight)),
+          spacerS,
+          IconButton(
+              onPressed: () {
+                navigator.pushNamed(
+                  BudgetDetailPage.route,
+                  arguments: data[index],
+                );
+              },
+              icon: Image.asset('assets/icons/arrow_next.png', scale: 2))
+        ],
+      )),
+    ]);
+  }
+
+  @override
+  bool get isRowCountApproximate => false;
+
+  @override
+  int get rowCount => data.length;
+
+  @override
+  int get selectedRowCount => 0;
 }

@@ -19,6 +19,7 @@ mixin _$BudgetState {
   bool get loading => throw _privateConstructorUsedError;
   List<Budget> get budget => throw _privateConstructorUsedError;
   String? get filters => throw _privateConstructorUsedError;
+  DataTableSource? get dataBudget => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $BudgetStateCopyWith<BudgetState> get copyWith =>
@@ -31,7 +32,11 @@ abstract class $BudgetStateCopyWith<$Res> {
           BudgetState value, $Res Function(BudgetState) then) =
       _$BudgetStateCopyWithImpl<$Res, BudgetState>;
   @useResult
-  $Res call({bool loading, List<Budget> budget, String? filters});
+  $Res call(
+      {bool loading,
+      List<Budget> budget,
+      String? filters,
+      DataTableSource? dataBudget});
 }
 
 /// @nodoc
@@ -50,6 +55,7 @@ class _$BudgetStateCopyWithImpl<$Res, $Val extends BudgetState>
     Object? loading = null,
     Object? budget = null,
     Object? filters = freezed,
+    Object? dataBudget = freezed,
   }) {
     return _then(_value.copyWith(
       loading: null == loading
@@ -64,6 +70,10 @@ class _$BudgetStateCopyWithImpl<$Res, $Val extends BudgetState>
           ? _value.filters
           : filters // ignore: cast_nullable_to_non_nullable
               as String?,
+      dataBudget: freezed == dataBudget
+          ? _value.dataBudget
+          : dataBudget // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
     ) as $Val);
   }
 }
@@ -76,7 +86,11 @@ abstract class _$$_BudgetStateCopyWith<$Res>
       __$$_BudgetStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool loading, List<Budget> budget, String? filters});
+  $Res call(
+      {bool loading,
+      List<Budget> budget,
+      String? filters,
+      DataTableSource? dataBudget});
 }
 
 /// @nodoc
@@ -93,6 +107,7 @@ class __$$_BudgetStateCopyWithImpl<$Res>
     Object? loading = null,
     Object? budget = null,
     Object? filters = freezed,
+    Object? dataBudget = freezed,
   }) {
     return _then(_$_BudgetState(
       loading: null == loading
@@ -107,6 +122,10 @@ class __$$_BudgetStateCopyWithImpl<$Res>
           ? _value.filters
           : filters // ignore: cast_nullable_to_non_nullable
               as String?,
+      dataBudget: freezed == dataBudget
+          ? _value.dataBudget
+          : dataBudget // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
     ));
   }
 }
@@ -117,7 +136,8 @@ class _$_BudgetState extends _BudgetState {
   const _$_BudgetState(
       {this.loading = false,
       final List<Budget> budget = const <Budget>[],
-      this.filters})
+      this.filters,
+      this.dataBudget})
       : _budget = budget,
         super._();
 
@@ -135,10 +155,12 @@ class _$_BudgetState extends _BudgetState {
 
   @override
   final String? filters;
+  @override
+  final DataTableSource? dataBudget;
 
   @override
   String toString() {
-    return 'BudgetState(loading: $loading, budget: $budget, filters: $filters)';
+    return 'BudgetState(loading: $loading, budget: $budget, filters: $filters, dataBudget: $dataBudget)';
   }
 
   @override
@@ -148,12 +170,14 @@ class _$_BudgetState extends _BudgetState {
             other is _$_BudgetState &&
             (identical(other.loading, loading) || other.loading == loading) &&
             const DeepCollectionEquality().equals(other._budget, _budget) &&
-            (identical(other.filters, filters) || other.filters == filters));
+            (identical(other.filters, filters) || other.filters == filters) &&
+            (identical(other.dataBudget, dataBudget) ||
+                other.dataBudget == dataBudget));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, loading,
-      const DeepCollectionEquality().hash(_budget), filters);
+      const DeepCollectionEquality().hash(_budget), filters, dataBudget);
 
   @JsonKey(ignore: true)
   @override
@@ -166,7 +190,8 @@ abstract class _BudgetState extends BudgetState {
   const factory _BudgetState(
       {final bool loading,
       final List<Budget> budget,
-      final String? filters}) = _$_BudgetState;
+      final String? filters,
+      final DataTableSource? dataBudget}) = _$_BudgetState;
   const _BudgetState._() : super._();
 
   @override
@@ -175,6 +200,8 @@ abstract class _BudgetState extends BudgetState {
   List<Budget> get budget;
   @override
   String? get filters;
+  @override
+  DataTableSource? get dataBudget;
   @override
   @JsonKey(ignore: true)
   _$$_BudgetStateCopyWith<_$_BudgetState> get copyWith =>

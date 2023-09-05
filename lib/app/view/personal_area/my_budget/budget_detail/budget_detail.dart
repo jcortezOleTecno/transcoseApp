@@ -1,14 +1,22 @@
+import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vemare/app/data/budget_repository.dart';
+import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/domain/model/budget.dart';
 import 'package:vemare/app/domain/model/budget_detail.dart';
+import 'package:vemare/app/domain/utils/money_formatter.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
+import 'package:vemare/app/view/_components/my_download_button/my_download_pdf_contracts.dart';
+import 'package:vemare/app/view/_components/my_input/my_input.dart';
+import 'package:vemare/app/view/_components/my_input/my_input_search.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_signature/my_signature.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/_components/no_result/no_result_table.dart';
+import 'package:vemare/app/view/_components/user_name/user_name.dart';
 import 'package:vemare/app/view/personal_area/my_budget/budget_detail/bloc/budget_detail_cubit.dart';
 import 'package:vemare/app/view/personal_area/my_budget/budget_detail/bloc/budget_detail_state.dart';
 import 'package:vemare/app/view/personal_area/widgets/item_card.dart';
@@ -50,15 +58,11 @@ class BudgetDetailPage extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              const Text(
-                                'N° DEL PRESUPUESTO',
-                                style: AppTextStyle.defaultStyle,
-                              ),
-                              Text(
-                                state.budget!.numero.toString(),
-                                style: AppTextStyle.h3Style,
-                              ),
-                              spacerL,
+                              const Text('Detalles Presupuesto',
+                                  style: AppTextStyle.h1Style),
+                              const UserName(),
+                              const Divider(),
+                              spacerXs,
                               Visibility(
                                   visible: !state.loading,
                                   replacement: const MyShimmer(
@@ -66,7 +70,11 @@ class BudgetDetailPage extends StatelessWidget {
                                     margin: EdgeInsets.zero,
                                   ),
                                   child: _DetailBudget(state.budgetDetails)),
-                              spacerL,
+                              spacerS,
+                              if (state.budgetDetails?.lineasPresupuesto
+                                      ?.isNotEmpty ??
+                                  false)
+                                _LineasPresupuesto()
                             ],
                           ),
                         ),
@@ -118,179 +126,365 @@ class _DetailBudget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColor.blue100),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const Text(
-            'Detalles del presupuesto',
-            style: AppTextStyle.titleCard,
+    return BlocBuilder<BudgetDetailCubit, BudgetDetailState>(
+      builder: (context, state) {
+        return Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: AppColor.blue100),
           ),
-          spacerM,
-          Row(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Expanded(
-                  child: Item(title: 'FECHA', content: budget?.fecha ?? '')),
-              Expanded(
-                  child: Item(
-                      title: 'CÓDIGO',
-                      content: budget?.codigo.toString() ?? '')),
+              spacerM,
+              DownloadPdfContracts(
+                // title: "Descargar",
+                onPressed: () => getIt
+                    .get<BudgetRepository>()
+                    .downloadPdfBudget(
+                        codBudget: state.budget!.codigoPresupuesto.toString(),
+                        numeroProyecto: state.budget!.numero.toString(),
+                        name: state.budget!.numero.toString()),
+              ),
+              spacerM,
+              MyInput(
+                key: const Key("CLIENTE01"),
+                label: 'CLIENTE',
+                initialValue: LocalDataRepository().user!.code,
+                readOnly: true,
+                variant: MyInputVariant.backgroundBlue,
+              ),
+              MyInput(
+                key: const Key("nProyecto"),
+                label: 'NÚMERO PROYECTO',
+                initialValue: state.budget?.numero?.toString() ?? "",
+                readOnly: true,
+                variant: MyInputVariant.backgroundBlue,
+              ),
+              MyInput(
+                key: const Key("nCodProyecto"),
+                label: 'CÓDIGO PRESUPUESTO',
+                initialValue: budget?.codigo?.toString() ?? "",
+                readOnly: true,
+                variant: MyInputVariant.backgroundBlue,
+              ),
+              MyInput(
+                key: const Key("nAsunto"),
+                label: 'ASUNTO',
+                initialValue: budget?.asunto ?? "",
+                readOnly: true,
+                variant: MyInputVariant.backgroundBlue,
+              ),
+              MyInput(
+                key: const Key("nActivo"),
+                label: 'ACTIVO',
+                initialValue: (budget?.activo ?? false) ? "SI" : "NO",
+                readOnly: true,
+                variant: MyInputVariant.backgroundBlue,
+              ),
+              MyInput(
+                key: const Key("nCondicionesGenerales"),
+                label: 'CONDICIONES GENERALES',
+                initialValue: budget?.condicionesGenereles ?? "",
+                readOnly: true,
+                variant: MyInputVariant.backgroundBlue,
+              ),
+              MyInput(
+                key: const Key("nCondicionesEspecificas"),
+                label: 'CONDICIONES ESPECIFICAS',
+                initialValue: budget?.condicionesEspecificas ?? "",
+                readOnly: true,
+                variant: MyInputVariant.backgroundBlue,
+              ),
+              MyInput(
+                key: const Key("nfecha"),
+                label: 'FECHA',
+                initialValue: budget?.fecha ?? "",
+                readOnly: true,
+                variant: MyInputVariant.backgroundBlue,
+              ),
+              MyInput(
+                key: const Key("nfechaValidez"),
+                label: 'FECHA VALIDEZ',
+                initialValue: budget?.fechaValidez ?? "",
+                readOnly: true,
+                variant: MyInputVariant.backgroundBlue,
+              ),
+              MyInput(
+                key: const Key("nVERSION"),
+                label: 'VERSIÓN',
+                initialValue: budget?.version.toString() ?? "",
+                readOnly: true,
+                variant: MyInputVariant.backgroundBlue,
+              ),
+              MyInput(
+                key: const Key("nImpMontaje"),
+                label: 'IMPORTE SAT MONTAJE',
+                initialValue: fmf
+                    .copyWith(amount: budget?.importeSatMontaje?.toDouble())
+                    .output
+                    .symbolOnRight,
+                readOnly: true,
+                variant: MyInputVariant.backgroundBlue,
+              ),
+              MyInput(
+                key: const Key("nImpTrans"),
+                label: 'IMPORTE SAT TRANSPORTE',
+                initialValue: fmf
+                    .copyWith(amount: budget?.importeSatTransporte?.toDouble())
+                    .output
+                    .symbolOnRight,
+                readOnly: true,
+                variant: MyInputVariant.backgroundBlue,
+              ),
+              MyInput(
+                key: const Key("nImpNeto"),
+                label: 'IMPORTE SAT NETO',
+                initialValue: "${budget?.importeNeto ?? ''} €",
+                readOnly: true,
+                variant: MyInputVariant.backgroundBlue,
+              ),
+              MyInput(
+                key: const Key("nImpBase"),
+                label: 'BASE IMPONIBLE',
+                initialValue: "${budget?.baseImponible ?? ''} €",
+                readOnly: true,
+                variant: MyInputVariant.backgroundBlue,
+              ),
+              MyInput(
+                key: const Key("nImpIva"),
+                label: 'IMPORTE IVA',
+                initialValue: "${budget?.importeIva ?? ''} €",
+                readOnly: true,
+                variant: MyInputVariant.backgroundBlue,
+              ),
+              MyInput(
+                key: const Key("nDescuento"),
+                label: 'DESCUENTO',
+                initialValue: "${budget?.descuento ?? ''} €",
+                readOnly: true,
+                variant: MyInputVariant.backgroundBlue,
+              ),
+              MyInput(
+                key: const Key("nTransIncl"),
+                label: 'TRANSPORTE INCLUIDO',
+                initialValue:
+                    (budget?.transporteIncluido ?? false) ? 'SI' : 'NO',
+                readOnly: true,
+                variant: MyInputVariant.backgroundBlue,
+              ),
+              MyInput(
+                key: const Key("nMontIncl"),
+                label: 'MONTAJE INCLUIDO',
+                initialValue: (budget?.montajeIncluido ?? false) ? 'SI' : 'NO',
+                readOnly: true,
+                variant: MyInputVariant.backgroundBlue,
+              ),
+              const MyDivider(),
+
+              const Text(
+                "Datos Firma",
+                style: AppTextStyle.h2Style,
+              ),
+              spacerS,
+              MyInput(
+                key: const Key("nfechaFirma"),
+                label: 'FECHA FIRMA',
+                initialValue: budget?.fechaFirma ?? '',
+                readOnly: true,
+                variant: MyInputVariant.backgroundBlue,
+              ),
+              MyInput(
+                key: const Key("nQuienFirma"),
+                label: 'QUIEN FIRMA',
+                initialValue: budget?.quienFirma ?? '',
+                readOnly: true,
+                variant: MyInputVariant.backgroundBlue,
+              ),
+              MyInput(
+                key: const Key("nNIFQuienFirma"),
+                label: 'NIF QUIEN FIRMA',
+                initialValue: budget?.nifQuienFirma ?? '',
+                readOnly: true,
+                variant: MyInputVariant.backgroundBlue,
+              ),
+
+              /*if (budget?.lineasPresupuesto != null) ...[
+                spacerM,
+                const Text('LINEAS DE PRESUPUESTO',
+                    style: AppTextStyle.defaultStyle),
+                const Divider(thickness: 2, height: 25),
+                ...budget!.lineasPresupuesto!
+                    .map((e) => Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text('REF.', style: AppTextStyle.defaultStyle),
+                            Text(e.referencia ?? '',
+                                style: AppTextStyle.defaultStyle.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                )),
+                            spacerXs,
+                            const Text('DESCRIPCIÓN',
+                                style: AppTextStyle.defaultStyle),
+                            Text(e.descripcionBreve ?? '',
+                                style: AppTextStyle.defaultStyle.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                )),
+                            spacerXs,
+                            const Text('IMPORTE NETO',
+                                style: AppTextStyle.defaultStyle),
+                            Text('${e.importeNeto ?? ''} €',
+                                style: AppTextStyle.defaultStyle.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                )),
+                            const Divider(
+                              thickness: 2,
+                              height: 25,
+                            ),
+                          ],
+                        ))
+                    .toList(),
+              ],*/
+              // spacerM,
+              // const MyLabelStatus.approved()
             ],
           ),
-          spacerM,
-          Row(
-            children: [
-              Expanded(
-                  child: Item(
-                      title: 'FECHA VALIDEZ',
-                      content: budget?.fechaValidez ?? '')),
-              Expanded(
-                  child: Item(
-                      title: 'ACTIVO',
-                      content: (budget?.activo ?? false) ? 'SI' : 'NO')),
-            ],
-          ),
-          spacerM,
-          Item(title: 'ASUNTO', content: budget?.asunto ?? ''),
-          if (budget?.condicionesGenereles != null &&
-              budget?.condicionesGenereles != '') ...[
-            spacerM,
-            Item(
-                title: 'CONDICIONES GENERALES',
-                content: budget?.condicionesGenereles ?? '')
-          ],
-          if (budget?.condicionesEspecificas != null &&
-              budget?.condicionesEspecificas != '') ...[
-            spacerM,
-            Item(
-                title: 'CONDICIONES ESPECIFICAS',
-                content: budget?.condicionesEspecificas ?? ''),
-          ],
-          spacerM,
-          Row(
-            children: [
-              Expanded(
-                  child: Item(
-                      title: 'VERSIÓN',
-                      content: budget?.version.toString() ?? '')),
-              Expanded(
-                  child: Item(
-                      title: 'IMP. SAT MONTAJE',
-                      content: budget?.importeSatMontaje ?? '0,00 €')),
-            ],
-          ),
-          spacerM,
-          Row(
-            children: [
-              Expanded(
-                  child: Item(
-                      title: 'IMP. SAT TRANSPORTE',
-                      content: budget?.importeSatTransporte ?? '0,00 €')),
-              Expanded(
-                  child: Item(
-                      title: 'IMPORTE NETO',
-                      content: '${budget?.importeNeto ?? '0,00'} €')),
-            ],
-          ),
-          spacerM,
-          Row(
-            children: [
-              Expanded(
-                  child: Item(
-                      title: 'BASE IMPONIBLE',
-                      content: '${budget?.baseImponible ?? '0,00'} €')),
-              Expanded(
-                  child: Item(
-                      title: 'IMPORTE IVA',
-                      content: '${budget?.importeIva ?? '0,00'} €')),
-            ],
-          ),
-          spacerM,
-          Row(
-            children: [
-              Expanded(
-                  child: Item(
-                      title: 'DESCUENTO',
-                      content: '${budget?.descuento ?? '0,00'} €')),
-              Expanded(
-                  child: Item(
-                      title: 'TRANSPORTE INCLUIDO',
-                      content:
-                          (budget?.transporteIncluido ?? false) ? 'SI' : 'NO')),
-            ],
-          ),
-          spacerM,
-          Row(
-            children: [
-              Expanded(
-                  child: Item(
-                      title: 'MONTAJE INCLUIDO',
-                      content:
-                          (budget?.montajeIncluido ?? false) ? 'SI' : 'NO')),
-              Expanded(
-                  child: Item(
-                      title: 'FECHA FIRMA', content: budget?.fechaFirma ?? '')),
-            ],
-          ),
-          spacerM,
-          Row(
-            children: [
-              Expanded(
-                  child: Item(
-                      title: 'QUIEN FIRMA', content: budget?.quienFirma ?? '')),
-              Expanded(
-                  child: Item(
-                      title: 'NIF QUIEN FIRMA',
-                      content: budget?.nifQuienFirma ?? '')),
-            ],
-          ),
-          if (budget?.lineasPresupuesto != null) ...[
-            spacerM,
-            const Text('LINEAS DE PRESUPUESTO',
-                style: AppTextStyle.defaultStyle),
-            const Divider(thickness: 2, height: 25),
-            ...budget!.lineasPresupuesto!
-                .map((e) => Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text('REF.', style: AppTextStyle.defaultStyle),
-                        Text(e.referencia ?? '',
-                            style: AppTextStyle.defaultStyle.copyWith(
-                              fontWeight: FontWeight.w700,
-                            )),
-                        spacerXs,
-                        const Text('DESCRIPCIÓN',
-                            style: AppTextStyle.defaultStyle),
-                        Text(e.descripcionBreve ?? '',
-                            style: AppTextStyle.defaultStyle.copyWith(
-                              fontWeight: FontWeight.w700,
-                            )),
-                        spacerXs,
-                        const Text('IMPORTE NETO',
-                            style: AppTextStyle.defaultStyle),
-                        Text('${e.importeNeto ?? ''} €',
-                            style: AppTextStyle.defaultStyle.copyWith(
-                              fontWeight: FontWeight.w700,
-                            )),
-                        const Divider(
-                          thickness: 2,
-                          height: 25,
-                        ),
-                      ],
-                    ))
-                .toList(),
-          ],
-          // spacerM,
-          // const MyLabelStatus.approved()
-        ],
-      ),
+        );
+      },
     );
   }
+}
+
+class _LineasPresupuesto extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final cubit = context.read<BudgetDetailCubit>();
+    return Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: AppColor.blue100),
+        ),
+        child: BlocBuilder<BudgetDetailCubit, BudgetDetailState>(
+          builder: (context, state) {
+            return SizedBox(
+              height: 500,
+              child: Card(
+                margin: const EdgeInsets.only(bottom: 20),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          spacerS,
+                          const Text(
+                            'Presupuestos',
+                            style: AppTextStyle.h3Style,
+                          ),
+                          Text('${state.dataBudgetDetail!.rowCount} Total'),
+                          // spacerM,
+                          spacerS,
+                          MySearchInput(
+                            hintText: 'Buscar por palabras claves...',
+                            onChanged: cubit.filtro,
+                          ),
+                          spacerS,
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: PaginatedDataTable2(
+                        wrapInCard: false,
+                        columnSpacing: 12,
+                        horizontalMargin: 12,
+                        empty: const NoResultTable(),
+                        minWidth: 1500,
+
+                        // showFirstLastButtons: true,
+                        // smRatio: 0.5,
+                        columns: const [
+                          DataColumn2(
+                            label: Text('ORDEN'),
+                            fixedWidth: 50,
+                            // size: ColumnSize.L,
+                          ),
+                          DataColumn2(
+                            label: Text('REFERENCIA'),
+                            fixedWidth: 90,
+                            // size: ColumnSize.L,
+                          ),
+                          DataColumn2(
+                            label: Text('URL'),
+                            fixedWidth: 300,
+                            // size: ColumnSize.L,
+                          ),
+                          DataColumn2(
+                            label: Text('DESCRIPCIÓN BREVE'),
+                            fixedWidth: 250,
+                            // size: ColumnSize.L,
+                          ),
+                          DataColumn2(
+                            label: Text('DESCRIPCIÓN'),
+                            fixedWidth: 600,
+                            // size: ColumnSize.L,
+                          ),
+                          DataColumn2(
+                            label: Text('CANTIDAD'),
+                            fixedWidth: 80,
+                            // size: ColumnSize.L,
+                          ),
+                          DataColumn2(
+                            label: Text('IMPORTE NETO'),
+                            fixedWidth: 100,
+                            // size: ColumnSize.L,
+                          ),
+                        ],
+                        source: state.dataBudgetDetail!,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ));
+  }
+}
+
+class MyDataBudgetDetails extends DataTableSource {
+  final List<LineasPresupuesto> data;
+
+  MyDataBudgetDetails(this.data);
+
+  @override
+  DataRow? getRow(int index) {
+    return DataRow(cells: [
+      DataCell(Text(data[index].orden?.toString() ?? '')),
+      DataCell(Text(data[index].referencia ?? '')),
+      DataCell(Text(data[index].url ?? '')),
+      DataCell(Text(data[index].descripcionBreve ?? '')),
+      DataCell(Text(data[index].descripcion ?? '')),
+      DataCell(Text(data[index].cantidad?.toString() ?? '')),
+      DataCell(Text("${data[index].importeNeto} €")),
+    ]);
+  }
+
+  @override
+  bool get isRowCountApproximate => false;
+
+  @override
+  int get rowCount => data.length;
+
+  @override
+  int get selectedRowCount => 0;
 }

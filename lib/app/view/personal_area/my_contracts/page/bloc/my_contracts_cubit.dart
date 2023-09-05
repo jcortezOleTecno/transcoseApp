@@ -52,7 +52,7 @@ class MyContratsCubit extends Cubit<MyContratsState> {
         contrato: mill,
       ),
       dataMillenniumHiredServices:
-          MyDataMillenniumHiredServices(mill!.serviciosContratados!),
+          MyDataMillenniumHiredServices(mill?.serviciosContratados ?? []),
       dataPMPFiltrado: MyDataPMP(pmp),
       dataCRDFiltrado: MyDataCRD(crd),
       loading: false,

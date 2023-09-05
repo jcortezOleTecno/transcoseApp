@@ -1,5 +1,9 @@
 import 'dart:developer';
+import 'dart:io';
 
+import 'package:dio/dio.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:vemare/app/data/_api_classes.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/domain/model/answer_with_filters.dart';
@@ -7,6 +11,7 @@ import 'package:vemare/app/domain/model/budget.dart';
 import 'package:vemare/app/domain/model/budget_detail.dart';
 
 import '../domain/model/filter.dart';
+import 'local_data_repository.dart';
 
 class BudgetRepository {
   final MyApiClient _apiClient;
@@ -61,5 +66,26 @@ class BudgetRepository {
       log('ERROR $e');
       return false;
     }
+  }
+
+  Future<void> downloadPdfBudget({
+    required String codBudget,
+    required String numeroProyecto,
+    required String name,
+  }) async {
+    final token = LocalDataRepository().authToken;
+    final Response res =
+        await Dio().post('$BASE_API_URL/api/mi-cuenta/presupuestos/imprimir',
+            data: {
+              "codigo_presupuesto": codBudget,
+              "numero_proyecto": numeroProyecto,
+            },
+            options: Options(headers: {'Authorization': 'Bearer $token'}));
+
+    final directory = await getApplicationDocumentsDirectory();
+    final savedDir = directory.path;
+    final file = File('$savedDir/$name');
+    await file.writeAsBytes(List<int>.from(res.data.codeUnits));
+    await OpenFile.open(file.path);
   }
 }

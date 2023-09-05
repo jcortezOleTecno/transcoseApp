@@ -91,4 +91,16 @@ class Budget {
         "crd_id": crdId,
         "crd_firmado": crdFirmado,
       };
+
+  String toFilter() => {
+        "fecha": fecha,
+        "fecha_caducidad": fechaCaducidad,
+        "estado": estado,
+        "firmado": firmado,
+        "numero": numero,
+        "asunto": asunto,
+        "codigo_presupuesto": codigoPresupuesto,
+        "version": version,
+        "importe": importe,
+      }.toString();
 }

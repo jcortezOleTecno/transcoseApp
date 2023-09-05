@@ -19,6 +19,7 @@ mixin _$BudgetDetailState {
   bool get loading => throw _privateConstructorUsedError;
   BudgetDetail? get budgetDetails => throw _privateConstructorUsedError;
   Budget? get budget => throw _privateConstructorUsedError;
+  DataTableSource? get dataBudgetDetail => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $BudgetDetailStateCopyWith<BudgetDetailState> get copyWith =>
@@ -31,7 +32,11 @@ abstract class $BudgetDetailStateCopyWith<$Res> {
           BudgetDetailState value, $Res Function(BudgetDetailState) then) =
       _$BudgetDetailStateCopyWithImpl<$Res, BudgetDetailState>;
   @useResult
-  $Res call({bool loading, BudgetDetail? budgetDetails, Budget? budget});
+  $Res call(
+      {bool loading,
+      BudgetDetail? budgetDetails,
+      Budget? budget,
+      DataTableSource? dataBudgetDetail});
 }
 
 /// @nodoc
@@ -50,6 +55,7 @@ class _$BudgetDetailStateCopyWithImpl<$Res, $Val extends BudgetDetailState>
     Object? loading = null,
     Object? budgetDetails = freezed,
     Object? budget = freezed,
+    Object? dataBudgetDetail = freezed,
   }) {
     return _then(_value.copyWith(
       loading: null == loading
@@ -64,6 +70,10 @@ class _$BudgetDetailStateCopyWithImpl<$Res, $Val extends BudgetDetailState>
           ? _value.budget
           : budget // ignore: cast_nullable_to_non_nullable
               as Budget?,
+      dataBudgetDetail: freezed == dataBudgetDetail
+          ? _value.dataBudgetDetail
+          : dataBudgetDetail // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
     ) as $Val);
   }
 }
@@ -76,7 +86,11 @@ abstract class _$$_BudgetDetailStateCopyWith<$Res>
       __$$_BudgetDetailStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool loading, BudgetDetail? budgetDetails, Budget? budget});
+  $Res call(
+      {bool loading,
+      BudgetDetail? budgetDetails,
+      Budget? budget,
+      DataTableSource? dataBudgetDetail});
 }
 
 /// @nodoc
@@ -93,6 +107,7 @@ class __$$_BudgetDetailStateCopyWithImpl<$Res>
     Object? loading = null,
     Object? budgetDetails = freezed,
     Object? budget = freezed,
+    Object? dataBudgetDetail = freezed,
   }) {
     return _then(_$_BudgetDetailState(
       loading: null == loading
@@ -107,6 +122,10 @@ class __$$_BudgetDetailStateCopyWithImpl<$Res>
           ? _value.budget
           : budget // ignore: cast_nullable_to_non_nullable
               as Budget?,
+      dataBudgetDetail: freezed == dataBudgetDetail
+          ? _value.dataBudgetDetail
+          : dataBudgetDetail // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
     ));
   }
 }
@@ -115,7 +134,10 @@ class __$$_BudgetDetailStateCopyWithImpl<$Res>
 
 class _$_BudgetDetailState extends _BudgetDetailState {
   const _$_BudgetDetailState(
-      {this.loading = false, this.budgetDetails, this.budget})
+      {this.loading = false,
+      this.budgetDetails,
+      this.budget,
+      this.dataBudgetDetail})
       : super._();
 
   @override
@@ -125,10 +147,12 @@ class _$_BudgetDetailState extends _BudgetDetailState {
   final BudgetDetail? budgetDetails;
   @override
   final Budget? budget;
+  @override
+  final DataTableSource? dataBudgetDetail;
 
   @override
   String toString() {
-    return 'BudgetDetailState(loading: $loading, budgetDetails: $budgetDetails, budget: $budget)';
+    return 'BudgetDetailState(loading: $loading, budgetDetails: $budgetDetails, budget: $budget, dataBudgetDetail: $dataBudgetDetail)';
   }
 
   @override
@@ -139,11 +163,14 @@ class _$_BudgetDetailState extends _BudgetDetailState {
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.budgetDetails, budgetDetails) ||
                 other.budgetDetails == budgetDetails) &&
-            (identical(other.budget, budget) || other.budget == budget));
+            (identical(other.budget, budget) || other.budget == budget) &&
+            (identical(other.dataBudgetDetail, dataBudgetDetail) ||
+                other.dataBudgetDetail == dataBudgetDetail));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, loading, budgetDetails, budget);
+  int get hashCode => Object.hash(
+      runtimeType, loading, budgetDetails, budget, dataBudgetDetail);
 
   @JsonKey(ignore: true)
   @override
@@ -157,7 +184,8 @@ abstract class _BudgetDetailState extends BudgetDetailState {
   const factory _BudgetDetailState(
       {final bool loading,
       final BudgetDetail? budgetDetails,
-      final Budget? budget}) = _$_BudgetDetailState;
+      final Budget? budget,
+      final DataTableSource? dataBudgetDetail}) = _$_BudgetDetailState;
   const _BudgetDetailState._() : super._();
 
   @override
@@ -166,6 +194,8 @@ abstract class _BudgetDetailState extends BudgetDetailState {
   BudgetDetail? get budgetDetails;
   @override
   Budget? get budget;
+  @override
+  DataTableSource? get dataBudgetDetail;
   @override
   @JsonKey(ignore: true)
   _$$_BudgetDetailStateCopyWith<_$_BudgetDetailState> get copyWith =>

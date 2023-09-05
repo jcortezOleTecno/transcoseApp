@@ -32,8 +32,8 @@ class BudgetDetail {
   String? fecha;
   String? fechaValidez;
   int? version;
-  dynamic importeSatMontaje;
-  dynamic importeSatTransporte;
+  int? importeSatMontaje;
+  int? importeSatTransporte;
   String? importeNeto;
   String? baseImponible;
   String? importeIva;
@@ -142,4 +142,13 @@ class LineasPresupuesto {
         "cantidad": cantidad,
         "importe_neto": importeNeto,
       };
+
+  String toFilter() => {
+        "orden": orden,
+        "referencia": referencia,
+        "url": url,
+        "descripcion_breve": descripcionBreve,
+        "cantidad": cantidad,
+        "importe_neto": importeNeto,
+      }.toString();
 }

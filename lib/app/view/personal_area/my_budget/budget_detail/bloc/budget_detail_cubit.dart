@@ -3,6 +3,7 @@ import 'package:vemare/app/data/budget_repository.dart';
 import 'package:vemare/app/domain/model/budget.dart';
 import 'package:vemare/app/domain/model/budget_detail.dart';
 import 'package:vemare/app/view/personal_area/my_budget/budget_detail/bloc/budget_detail_state.dart';
+import 'package:vemare/app/view/personal_area/my_budget/budget_detail/budget_detail.dart';
 
 class BudgetDetailCubit extends Cubit<BudgetDetailState> {
   BudgetDetailCubit(this._budgetRepository, Budget budget)
@@ -18,7 +19,12 @@ class BudgetDetailCubit extends Cubit<BudgetDetailState> {
       codigoPresupuesto: state.budget!.codigoPresupuesto.toString(),
       numeroProyecto: state.budget!.numero.toString(),
     );
-    emit(state.copyWith(budgetDetails: budgetDetails, loading: false));
+    emit(state.copyWith(
+      budgetDetails: budgetDetails,
+      dataBudgetDetail:
+          MyDataBudgetDetails(budgetDetails.lineasPresupuesto ?? []),
+      loading: false,
+    ));
   }
 
   Future<void> sign({
@@ -39,5 +45,21 @@ class BudgetDetailCubit extends Cubit<BudgetDetailState> {
         fetchData();
       }
     });
+  }
+
+  void filtro(String? value) {
+    emit(
+      state.copyWith(
+        dataBudgetDetail: MyDataBudgetDetails(
+          state.budgetDetails!.lineasPresupuesto!.where((e) {
+            return e
+                .toFilter()
+                .toString()
+                .toLowerCase()
+                .contains(value!.trim().toLowerCase());
+          }).toList(),
+        ),
+      ),
+    );
   }
 }
