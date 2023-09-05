@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:vemare/app/data/my_account_repository.dart';
 import 'package:vemare/app/domain/model/intervenciones.dart';
+import 'package:vemare/app/view/personal_area/SAT/details/sat_detail.dart';
 
 import 'sat_details_state.dart';
 
@@ -23,8 +24,42 @@ class SatDetailCubit extends Cubit<SatDetailState> {
 
     emit(state.copyWith(
       detail: detail,
+      dataMaquinas: MyDataMaquinas(detail.maquinas ?? []),
+      dataMateriales: MyDataMateriales(detail.materiales ?? []),
       loading: false,
     ));
+  }
+
+  void filtroMaquina(String? value) {
+    emit(
+      state.copyWith(
+        dataMaquinas: MyDataMaquinas(
+          state.detail!.maquinas!.where((e) {
+            return e
+                .toFilter()
+                .toString()
+                .toLowerCase()
+                .contains(value!.trim().toLowerCase());
+          }).toList(),
+        ),
+      ),
+    );
+  }
+
+  void filtroMateriales(String? value) {
+    emit(
+      state.copyWith(
+        dataMateriales: MyDataMateriales(
+          state.detail!.materiales!.where((e) {
+            return e
+                .toFilter()
+                .toString()
+                .toLowerCase()
+                .contains(value!.trim().toLowerCase());
+          }).toList(),
+        ),
+      ),
+    );
   }
 
   // Future<void> sign({

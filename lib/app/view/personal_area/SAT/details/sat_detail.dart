@@ -1,3 +1,4 @@
+import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
@@ -6,8 +7,12 @@ import 'package:vemare/app/domain/model/intervencion_detalle.dart';
 import 'package:vemare/app/domain/model/intervenciones.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
+import 'package:vemare/app/view/_components/my_input/my_input.dart';
+import 'package:vemare/app/view/_components/my_input/my_input_search.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/_components/no_result/no_result_table.dart';
+import 'package:vemare/app/view/_components/user_name/user_name.dart';
 import 'package:vemare/app/view/personal_area/widgets/item_card.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
@@ -47,10 +52,9 @@ class SatDetailPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Text(
-                          LocalDataRepository().user?.name ?? '',
-                          style: AppTextStyle.h3Style,
-                        ),
+                        const Text('Detalles SAT Intervención',
+                            style: AppTextStyle.h1Style),
+                        const UserName(),
                         const Divider(),
                         spacerXs,
                         state.loading
@@ -60,6 +64,10 @@ class SatDetailPage extends StatelessWidget {
                                 borderRadius: 12,
                               )
                             : _Detail(state.detail!),
+                        if (state.detail?.maquinas?.isNotEmpty ?? false)
+                          _Maquinas(),
+                        if (state.detail?.materiales?.isNotEmpty ?? false)
+                          _Materiales()
                         // if ((state.detail?.firmado ?? 'No') == 'No' &&
                         //     !state.loading) ...[
                         //   MyIconButton(
@@ -117,255 +125,413 @@ class _Detail extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Row(
-            children: [
-              Expanded(
-                child: Item(
-                    title: 'CÓDIGO DE INTERVENCIÓN',
-                    content: detail.codigoIntervencion.toString()),
-              ),
-              Expanded(
-                child: Item(
-                    title: 'CLASIFICACIÓN',
-                    content: detail.clasificacion ?? ''),
-              ),
-            ],
+          MyInput(
+            key: const Key("sCLIENTE"),
+            label: 'CLIENTE',
+            initialValue: LocalDataRepository().user!.code,
+            readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
           ),
-          spacerS,
-          Row(
-            children: [
-              Expanded(
-                  child: Item(
-                      title: 'FECHA PLANIFICACION',
-                      content: detail.fechaPlanificacion ?? '')),
-              Expanded(
-                  child: Item(
-                      title: 'HORA PLANIFICACION',
-                      content: detail.horaPlanificacion ?? '')),
-            ],
+          MyInput(
+            key: const Key("sCodInt"),
+            label: 'CÓDIGO INTERVENCIÓN',
+            initialValue: detail.codigoIntervencion?.toString() ?? '',
+            readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
           ),
-          spacerS,
-          Item(title: 'ASUNTO', content: detail.asunto ?? ''),
-          spacerS,
-          Item(
-              title: 'TRABAJO REALIZADO',
-              content: detail.trabajoRealizado ?? ''),
-          spacerS,
-          Item(
-              title: 'MATERIAL UTILIZADO',
-              content: detail.materialUtilizado ?? ''),
-          spacerS,
-          Item(title: 'OBSERVACIONES', content: detail.observaciones ?? ''),
-          spacerS,
-          Row(
-            children: [
-              Expanded(
-                  child: Item(title: 'FIRMANO', content: detail.firmado ?? '')),
-              Expanded(
-                  child: Item(
-                      title: 'FECHA CARGO', content: detail.fechaCargo ?? '')),
-            ],
+          MyInput(
+            key: const Key("sClass"),
+            label: 'CLASIFICACIÓN',
+            initialValue: detail.clasificacion ?? '',
+            readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
           ),
-          spacerS,
-          Row(
-            children: [
-              Expanded(
-                  child: Item(title: 'ALBARAN', content: detail.albaran ?? '')),
-              Expanded(
-                  child: Item(
-                      title: 'FECHA CIERRE',
-                      content: detail.fechaCierre ?? '')),
-            ],
+          MyInput(
+            key: const Key("sfechaPlani"),
+            label: 'FECHA PLANIFICACIÓN',
+            initialValue: detail.fechaPlanificacion ?? '',
+            readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
           ),
-          spacerS,
-          Row(
-            children: [
-              Expanded(
-                  child: Item(
-                      title: 'EN GARANTIA',
-                      content: (detail.enGarantia ?? false) ? 'SI' : 'NO')),
-              Expanded(
-                  child: Item(
-                      title: 'N° DE GARANTIA',
-                      content: detail.numeroGarantia ?? '')),
-            ],
+          MyInput(
+            key: const Key("sHoraPlani"),
+            label: 'HORA PLANIFICACIÓN',
+            initialValue: detail.horaPlanificacion ?? '',
+            readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
           ),
-          spacerS,
-          Row(
-            children: [
-              Expanded(
-                  child: Item(
-                      title: 'FECHA LLEGADA MATERIAL',
-                      content: detail.fechaLlegadaMaterial ?? '')),
-              Expanded(
-                  child: Item(
-                      title: 'FECHA SALIDA PROVEEDOR',
-                      content: detail.fechaSalidaProveedor ?? '')),
-            ],
+          MyInput(
+            key: const Key("sNum"),
+            label: 'NÚMERO',
+            initialValue: detail.numero ?? '',
+            readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
           ),
-          spacerS,
-          Row(
-            children: [
-              Expanded(
-                  child: Item(
-                      title: 'FECHA SALIDA CLIENTE',
-                      content: detail.fechaSalidaCliente ?? '')),
-              Expanded(
-                  child: Item(
-                      title: 'MARCA', content: detail.marcaIntervencion ?? '')),
-            ],
+          MyInput(
+            key: const Key("sAsunto"),
+            label: 'ASUNTO',
+            initialValue: detail.asunto ?? '',
+            readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
           ),
-          if (detail.maquinas != null) ...[
-            spacerS,
-            Center(
-              child: Text(
-                'MAQUINAS',
-                style: AppTextStyle.defaultStyle
-                    .copyWith(fontWeight: FontWeight.bold),
-              ),
-            ),
-            const MyDivider(),
-            ...detail.maquinas!
-                .map(
-                  (e) => Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      spacerS,
-                      Item(
-                          title: 'COD. MAQUINA',
-                          content: e.codigoMaquina?.toString() ?? ''),
-                      spacerS,
-                      Row(
-                        children: [
-                          Expanded(
-                              child:
-                                  Item(title: 'MARCA', content: e.marca ?? '')),
-                          Expanded(
-                              child: Item(
-                                  title: 'MODELO', content: e.modelo ?? '')),
-                        ],
-                      ),
-                      spacerS,
-                      Row(
-                        children: [
-                          Expanded(
-                              child: Item(
-                                  title: 'N° DE SERIE',
-                                  content: e.numeroSerie ?? '')),
-                          Expanded(
-                              child: Item(
-                                  title: 'AÑO',
-                                  content:
-                                      e.anioFabricacion?.toString() ?? '')),
-                        ],
-                      ),
-                      spacerS,
-                      Row(
-                        children: [
-                          Expanded(
-                              child: Item(
-                                  title: 'GARANTÍA',
-                                  content: e.garantia ?? '')),
-                          Expanded(
-                              child: Item(
-                                  title: 'INICIO GARANTÍA',
-                                  content: e.fiGarantia ?? '')),
-                          Expanded(
-                              child: Item(
-                                  title: 'FIN GARANTÍA',
-                                  content: e.ffGarantia ?? '')),
-                        ],
-                      ),
-                      spacerS,
-                      Row(
-                        children: [
-                          Expanded(
-                              child: Item(title: 'PMP', content: e.pmp ?? '')),
-                          Expanded(
-                            child: Item(
-                                title: 'INICIO PMP', content: e.fiPmp ?? ''),
-                          ),
-                          Expanded(
-                            child:
-                                Item(title: 'FIN PMP', content: e.ffPmp ?? ''),
-                          ),
-                        ],
-                      ),
-                      spacerS,
-                      Row(
-                        children: [
-                          Expanded(
-                              child: Item(
-                                  title: 'N° PMP',
-                                  content: e.numeroPmp?.toString() ?? '')),
-                          Expanded(
-                              child: Item(
-                                  title: 'TIPO DE EQUIPO TALLER',
-                                  content: e.tipoEquipoTaller ?? '')),
-                        ],
-                      ),
-                      spacerS,
-                      if (e != detail.maquinas!.last) const MyDivider(),
-                    ],
-                  ),
-                )
-                .toList(),
-            // if (detail.servicions != null) ...[
-            //   spacerS,
-            //   Center(
-            //     child: Text(
-            //       'SERVICIOS',
-            //       style: AppTextStyle.defaultStyle
-            //           .copyWith(fontWeight: FontWeight.bold),
-            //     ),
-            //   ),
-            //   const MyDivider(),
-            //   ...detail.servicions!
-            //       .map((e) => Column(
-            //             crossAxisAlignment: CrossAxisAlignment.start,
-            //             children: [
-            //               spacerS,
-            //               Text(
-            //                 e.nombre ?? '',
-            //                 style: AppTextStyle.defaultStyle
-            //                     .copyWith(fontWeight: FontWeight.bold),
-            //               ),
-            //               spacerS,
-            //               Row(
-            //                 children: [
-            //                   Expanded(
-            //                       child: Item(
-            //                           title: 'MANTENIMIENTO',
-            //                           content: fmf
-            //                               .copyWith(
-            //                                   amount: e.importeMantenimiento)
-            //                               .output
-            //                               .symbolOnRight)),
-            //                   Expanded(
-            //                       child: Item(
-            //                           title: 'REPARACIÓN',
-            //                           content: fmf
-            //                               .copyWith(amount: e.importeReparacion)
-            //                               .output
-            //                               .symbolOnRight)),
-            //                   Expanded(
-            //                       child: Item(
-            //                           title: 'AVERIA',
-            //                           content: fmf
-            //                               .copyWith(amount: e.importeAveria)
-            //                               .output
-            //                               .symbolOnRight))
-            //                 ],
-            //               ),
-            //               spacerS,
-            //               if (e != detail.servicions!.last) const MyDivider(),
-            //             ],
-            //           ))
-            //       .toList()
-            // ]
-          ]
+          MyInput(
+            key: const Key("sTrabj"),
+            label: 'TRABAJO REALIZADO',
+            initialValue: detail.trabajoRealizado ?? '',
+            readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
+          ),
+          MyInput(
+            key: const Key("sMatUtili"),
+            label: 'MATERIAL UTILIZADO',
+            initialValue: detail.materialUtilizado ?? '',
+            readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
+          ),
+          MyInput(
+            key: const Key("sObserv"),
+            label: 'OBSERVACIONES',
+            initialValue: detail.observaciones ?? '',
+            readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
+          ),
+          MyInput(
+            key: const Key("sFirm"),
+            label: 'FIRMADO',
+            initialValue: detail.firmado ?? '',
+            readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
+          ),
+          MyInput(
+            key: const Key("sFechaCargo"),
+            label: 'FECHA CARGO',
+            initialValue: detail.fechaCargo ?? '',
+            readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
+          ),
+          MyInput(
+            key: const Key("sAlbaran"),
+            label: 'ALBARAN',
+            initialValue: detail.albaran ?? '',
+            readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
+          ),
+          MyInput(
+            key: const Key("sFechaCierre"),
+            label: 'FECHA CIERRE',
+            initialValue: detail.fechaCierre ?? '',
+            readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
+          ),
+          MyInput(
+            key: const Key("sEnGarantia"),
+            label: 'EN GARANTÍA',
+            initialValue: (detail.enGarantia ?? false) ? 'SI' : 'NO',
+            readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
+          ),
+          MyInput(
+            key: const Key("sNoGarantia"),
+            label: 'NÚMERO GARANTÍA',
+            initialValue: detail.numeroGarantia ?? '',
+            readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
+          ),
+          MyInput(
+            key: const Key("sFecLLegMaterial"),
+            label: 'FECHA LLEGADA MATERIAL',
+            initialValue: detail.fechaLlegadaMaterial ?? '',
+            readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
+          ),
+          MyInput(
+            key: const Key("sFecSalidaProv"),
+            label: 'FECHA SALIDA PROVEEDOR',
+            initialValue: detail.fechaSalidaProveedor ?? '',
+            readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
+          ),
+          MyInput(
+            key: const Key("sFecSalidaCli"),
+            label: 'FECHA SALIDA CLIENTE',
+            initialValue: detail.fechaSalidaCliente ?? '',
+            readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
+          ),
+          MyInput(
+            key: const Key("sMarcInterv"),
+            label: 'MARCA INTERVENCIÓN',
+            initialValue: detail.marcaIntervencion ?? '',
+            readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
+          ),
         ],
       ),
     );
   }
+}
+
+class _Maquinas extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final cubit = context.read<SatDetailCubit>();
+    return Container(
+        width: double.infinity,
+        // padding: const EdgeInsets.all(20),
+        margin: const EdgeInsets.only(bottom: 20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: AppColor.blue100),
+        ),
+        child: BlocBuilder<SatDetailCubit, SatDetailState>(
+          builder: (context, state) {
+            return SizedBox(
+              height: 400,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        spacerS,
+                        const Text(
+                          'Maquinas',
+                          style: AppTextStyle.h3Style,
+                        ),
+                        Text('${state.dataMaquinas!.rowCount} Total'),
+                        // spacerM,
+                        spacerS,
+                        MySearchInput(
+                          hintText: 'Buscar por palabras claves...',
+                          onChanged: cubit.filtroMaquina,
+                        ),
+                        spacerS,
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: PaginatedDataTable2(
+                      wrapInCard: false,
+                      columnSpacing: 12,
+                      horizontalMargin: 12,
+                      empty: const NoResultTable(),
+                      minWidth: 1500,
+
+                      // showFirstLastButtons: true,
+                      // smRatio: 0.5,
+                      columns: const [
+                        DataColumn2(
+                          label: Text('CÓDIGO MAQUINA'),
+                          fixedWidth: 120,
+                          // size: ColumnSize.L,
+                        ),
+                        DataColumn2(
+                          label: Text('MARCA'),
+                          fixedWidth: 100,
+                          // size: ColumnSize.L,
+                        ),
+                        DataColumn2(
+                          label: Text('MODELO'),
+                          fixedWidth: 200,
+                          // size: ColumnSize.L,
+                        ),
+                        DataColumn2(
+                          label: Text('NÚMERO SERIE'),
+                          fixedWidth: 100,
+                          // size: ColumnSize.L,
+                        ),
+                        DataColumn2(
+                          label: Text('AÑO FABRICACIÓN'),
+                          fixedWidth: 120,
+                          // size: ColumnSize.L,
+                        ),
+                        DataColumn2(
+                          label: Text('GARANTÍA'),
+                          fixedWidth: 80,
+                          // size: ColumnSize.L,
+                        ),
+                        DataColumn2(
+                          label: Text('FI GARANTÍA'),
+                          fixedWidth: 100,
+                          // size: ColumnSize.L,
+                        ),
+                        DataColumn2(
+                          label: Text('FF GARANTÍA'),
+                          fixedWidth: 100,
+                          // size: ColumnSize.L,
+                        ),
+                        DataColumn2(
+                          label: Text('PMP'),
+                          fixedWidth: 80,
+                          // size: ColumnSize.L,
+                        ),
+                        DataColumn2(
+                          label: Text('FI PMP'),
+                          fixedWidth: 80,
+                          // size: ColumnSize.L,
+                        ),
+                        DataColumn2(
+                          label: Text('FF PMP'),
+                          fixedWidth: 80,
+                          // size: ColumnSize.L,
+                        ),
+                      ],
+                      source: state.dataMaquinas!,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ));
+  }
+}
+
+class MyDataMaquinas extends DataTableSource {
+  final List<MaquinaInt> data;
+
+  MyDataMaquinas(this.data);
+
+  @override
+  DataRow? getRow(int index) {
+    return DataRow(cells: [
+      DataCell(Text(data[index].codigoMaquina?.toString() ?? '')),
+      DataCell(Text(data[index].marca ?? '')),
+      DataCell(Text(data[index].modelo ?? '')),
+      DataCell(Text(data[index].numeroSerie ?? '')),
+      DataCell(Text(data[index].anioFabricacion?.toString() ?? '')),
+      DataCell(Text(data[index].garantia ?? '')),
+      DataCell(Text(data[index].fiGarantia ?? '')),
+      DataCell(Text(data[index].ffGarantia ?? '')),
+      DataCell(Text(data[index].pmp ?? '')),
+      DataCell(Text(data[index].fiPmp ?? '')),
+      DataCell(Text(data[index].ffPmp ?? '')),
+    ]);
+  }
+
+  @override
+  bool get isRowCountApproximate => false;
+
+  @override
+  int get rowCount => data.length;
+
+  @override
+  int get selectedRowCount => 0;
+}
+
+class _Materiales extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final cubit = context.read<SatDetailCubit>();
+    return Container(
+        width: double.infinity,
+        margin: const EdgeInsets.only(bottom: 20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: AppColor.blue100),
+        ),
+        child: BlocBuilder<SatDetailCubit, SatDetailState>(
+          builder: (context, state) {
+            return SizedBox(
+              height: 400,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        spacerS,
+                        const Text(
+                          'Materiales',
+                          style: AppTextStyle.h3Style,
+                        ),
+                        Text('${state.dataMateriales!.rowCount} Total'),
+                        // spacerM,
+                        spacerS,
+                        MySearchInput(
+                          hintText: 'Buscar por palabras claves...',
+                          onChanged: cubit.filtroMateriales,
+                        ),
+                        spacerS,
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: PaginatedDataTable2(
+                      wrapInCard: false,
+                      columnSpacing: 12,
+                      horizontalMargin: 12,
+                      empty: const NoResultTable(),
+                      minWidth: 640,
+
+                      // showFirstLastButtons: true,
+                      // smRatio: 0.5,
+                      columns: const [
+                        DataColumn2(
+                          label: Text('CÓDIGO MATERIAL'),
+                          fixedWidth: 120,
+                          // size: ColumnSize.L,
+                        ),
+                        DataColumn2(
+                          label: Text('ORDEN'),
+                          fixedWidth: 100,
+                          // size: ColumnSize.L,
+                        ),
+                        DataColumn2(
+                          label: Text('ARTICULO ISI'),
+                          fixedWidth: 140,
+                          // size: ColumnSize.L,
+                        ),
+                        DataColumn2(
+                          label: Text('DESCRIPCIÓN BREVE'),
+                          fixedWidth: 140,
+                          // size: ColumnSize.L,
+                        ),
+                        DataColumn2(
+                          label: Text('CANTIDAD'),
+                          fixedWidth: 80,
+                          // size: ColumnSize.L,
+                        ),
+                      ],
+                      source: state.dataMateriales!,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ));
+  }
+}
+
+class MyDataMateriales extends DataTableSource {
+  final List<MaterialesInt> data;
+
+  MyDataMateriales(this.data);
+
+  @override
+  DataRow? getRow(int index) {
+    return DataRow(cells: [
+      DataCell(Text(data[index].codigoMaterial?.toString() ?? '')),
+      DataCell(Text(data[index].orden ?? '')),
+      DataCell(Text(data[index].articuloIsi ?? '')),
+      DataCell(Text(data[index].descripcionBreve ?? '')),
+      DataCell(Text(data[index].cantidad?.toString() ?? '')),
+    ]);
+  }
+
+  @override
+  bool get isRowCountApproximate => false;
+
+  @override
+  int get rowCount => data.length;
+
+  @override
+  int get selectedRowCount => 0;
 }

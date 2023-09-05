@@ -1,7 +1,6 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/my_account_repository.dart';
 import 'package:vemare/app/domain/model/intervenciones.dart';
@@ -12,11 +11,10 @@ import 'package:vemare/app/view/_components/my_filters_applied/my_filter_applied
 import 'package:vemare/app/view/_components/my_input/my_input_search.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/_components/no_result/no_result_table.dart';
 import 'package:vemare/app/view/access_denied/access_denied_page.dart';
 import 'package:vemare/app/view/personal_area/SAT/details/sat_detail.dart';
-import 'package:vemare/app/view/personal_area/widgets/item_card.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
-import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
 import 'package:vemare/main.dart';
@@ -114,7 +112,7 @@ class _SATCard extends StatelessWidget {
     return BlocBuilder<MySatCubit, MySatState>(
       builder: (context, state) {
         return SizedBox(
-          height: 450,
+          height: 500,
           child: Card(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
@@ -154,6 +152,7 @@ class _SATCard extends StatelessWidget {
                     columnSpacing: 12,
                     horizontalMargin: 12,
                     minWidth: 1000,
+                    empty: const NoResultTable(),
                     // smRatio: 0.5,
                     columns: const [
                       DataColumn2(
@@ -211,25 +210,27 @@ class MyDataSAT extends DataTableSource {
 
   @override
   DataRow? getRow(int index) {
-    return DataRow(
-        onLongPress: () => navigator.pushNamed(
-              SatDetailPage.route,
-              arguments: data[index],
-            ),
-        cells: [
-          DataCell(Text(data[index].codigoIntervencion.toString())),
-          DataCell(Text(data[index].fechaIntervencion ?? '')),
-          DataCell(Text(data[index].asuntoIntervencion ?? '')),
-          DataCell(Text(data[index].fechaCierreIntervencion ?? '')),
-          DataCell(Text(data[index].taller ?? '')),
-          DataCell(Text(data[index].tipoAgrupacion ?? '')),
-          DataCell(Row(
-            children: [
-              Expanded(child: Text(data[index].tipoIntervencion ?? '')),
-              Image.asset('assets/icons/arrow_next.png', scale: 2)
-            ],
-          )),
-        ]);
+    return DataRow(cells: [
+      DataCell(Text(data[index].codigoIntervencion.toString())),
+      DataCell(Text(data[index].fechaIntervencion ?? '')),
+      DataCell(Text(data[index].asuntoIntervencion ?? '')),
+      DataCell(Text(data[index].fechaCierreIntervencion ?? '')),
+      DataCell(Text(data[index].taller ?? '')),
+      DataCell(Text(data[index].tipoAgrupacion ?? '')),
+      DataCell(Row(
+        children: [
+          Expanded(child: Text(data[index].tipoIntervencion ?? '')),
+          IconButton(
+              onPressed: () {
+                navigator.pushNamed(
+                  SatDetailPage.route,
+                  arguments: data[index],
+                );
+              },
+              icon: Image.asset('assets/icons/arrow_next.png', scale: 2))
+        ],
+      )),
+    ]);
   }
 
   @override

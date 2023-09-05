@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:vemare/app/domain/model/intervencion_detalle.dart';
 import 'package:vemare/app/domain/model/intervenciones.dart';
@@ -10,5 +11,7 @@ class SatDetailState with _$SatDetailState {
     @Default(false) bool loading,
     IntervencionesDetalle? detail,
     Intervenciones? intervencion,
+    DataTableSource? dataMaquinas,
+    DataTableSource? dataMateriales,
   }) = _SatDetailState;
 }

@@ -19,7 +19,6 @@ import 'package:vemare/app/view/_components/no_result/no_result_table.dart';
 import 'package:vemare/app/view/_components/user_name/user_name.dart';
 import 'package:vemare/app/view/personal_area/my_budget/budget_detail/bloc/budget_detail_cubit.dart';
 import 'package:vemare/app/view/personal_area/my_budget/budget_detail/bloc/budget_detail_state.dart';
-import 'package:vemare/app/view/personal_area/widgets/item_card.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
@@ -78,6 +77,7 @@ class BudgetDetailPage extends StatelessWidget {
                             ],
                           ),
                         ),
+                        spacerM,
                       ],
                     ),
                   ),
@@ -364,7 +364,7 @@ class _LineasPresupuesto extends StatelessWidget {
     final cubit = context.read<BudgetDetailCubit>();
     return Container(
         width: double.infinity,
-        padding: const EdgeInsets.all(20),
+        // padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
@@ -374,86 +374,81 @@ class _LineasPresupuesto extends StatelessWidget {
           builder: (context, state) {
             return SizedBox(
               height: 500,
-              child: Card(
-                margin: const EdgeInsets.only(bottom: 20),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          spacerS,
-                          const Text(
-                            'Presupuestos',
-                            style: AppTextStyle.h3Style,
-                          ),
-                          Text('${state.dataBudgetDetail!.rowCount} Total'),
-                          // spacerM,
-                          spacerS,
-                          MySearchInput(
-                            hintText: 'Buscar por palabras claves...',
-                            onChanged: cubit.filtro,
-                          ),
-                          spacerS,
-                        ],
-                      ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        spacerS,
+                        const Text(
+                          'Presupuestos',
+                          style: AppTextStyle.h3Style,
+                        ),
+                        Text('${state.dataBudgetDetail!.rowCount} Total'),
+                        // spacerM,
+                        spacerS,
+                        MySearchInput(
+                          hintText: 'Buscar por palabras claves...',
+                          onChanged: cubit.filtro,
+                        ),
+                        spacerS,
+                      ],
                     ),
-                    Expanded(
-                      child: PaginatedDataTable2(
-                        wrapInCard: false,
-                        columnSpacing: 12,
-                        horizontalMargin: 12,
-                        empty: const NoResultTable(),
-                        minWidth: 1500,
+                  ),
+                  Expanded(
+                    child: PaginatedDataTable2(
+                      wrapInCard: false,
+                      columnSpacing: 12,
+                      horizontalMargin: 12,
+                      empty: const NoResultTable(),
+                      minWidth: 1500,
 
-                        // showFirstLastButtons: true,
-                        // smRatio: 0.5,
-                        columns: const [
-                          DataColumn2(
-                            label: Text('ORDEN'),
-                            fixedWidth: 50,
-                            // size: ColumnSize.L,
-                          ),
-                          DataColumn2(
-                            label: Text('REFERENCIA'),
-                            fixedWidth: 90,
-                            // size: ColumnSize.L,
-                          ),
-                          DataColumn2(
-                            label: Text('URL'),
-                            fixedWidth: 300,
-                            // size: ColumnSize.L,
-                          ),
-                          DataColumn2(
-                            label: Text('DESCRIPCIÓN BREVE'),
-                            fixedWidth: 250,
-                            // size: ColumnSize.L,
-                          ),
-                          DataColumn2(
-                            label: Text('DESCRIPCIÓN'),
-                            fixedWidth: 600,
-                            // size: ColumnSize.L,
-                          ),
-                          DataColumn2(
-                            label: Text('CANTIDAD'),
-                            fixedWidth: 80,
-                            // size: ColumnSize.L,
-                          ),
-                          DataColumn2(
-                            label: Text('IMPORTE NETO'),
-                            fixedWidth: 100,
-                            // size: ColumnSize.L,
-                          ),
-                        ],
-                        source: state.dataBudgetDetail!,
-                      ),
+                      // showFirstLastButtons: true,
+                      // smRatio: 0.5,
+                      columns: const [
+                        DataColumn2(
+                          label: Text('ORDEN'),
+                          fixedWidth: 50,
+                          // size: ColumnSize.L,
+                        ),
+                        DataColumn2(
+                          label: Text('REFERENCIA'),
+                          fixedWidth: 90,
+                          // size: ColumnSize.L,
+                        ),
+                        DataColumn2(
+                          label: Text('URL'),
+                          fixedWidth: 300,
+                          // size: ColumnSize.L,
+                        ),
+                        DataColumn2(
+                          label: Text('DESCRIPCIÓN BREVE'),
+                          fixedWidth: 250,
+                          // size: ColumnSize.L,
+                        ),
+                        DataColumn2(
+                          label: Text('DESCRIPCIÓN'),
+                          fixedWidth: 600,
+                          // size: ColumnSize.L,
+                        ),
+                        DataColumn2(
+                          label: Text('CANTIDAD'),
+                          fixedWidth: 80,
+                          // size: ColumnSize.L,
+                        ),
+                        DataColumn2(
+                          label: Text('IMPORTE NETO'),
+                          fixedWidth: 100,
+                          // size: ColumnSize.L,
+                        ),
+                      ],
+                      source: state.dataBudgetDetail!,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             );
           },

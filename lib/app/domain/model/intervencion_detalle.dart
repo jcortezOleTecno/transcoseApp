@@ -43,7 +43,7 @@ class IntervencionesDetalle {
   String? fechaSalidaCliente;
   String? marcaIntervencion;
   List<MaquinaInt>? maquinas;
-  List<dynamic>? materiales;
+  List<MaterialesInt>? materiales;
 
   factory IntervencionesDetalle.fromJson(Map<String, dynamic> json) =>
       IntervencionesDetalle(
@@ -72,7 +72,8 @@ class IntervencionesDetalle {
                 json["maquinas"]!.map((x) => MaquinaInt.fromJson(x))),
         materiales: json["materiales"] == null
             ? []
-            : List<dynamic>.from(json["materiales"]!.map((x) => x)),
+            : List<MaterialesInt>.from(
+                json["materiales"]!.map((x) => MaterialesInt.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -100,7 +101,7 @@ class IntervencionesDetalle {
             : List<dynamic>.from(maquinas!.map((x) => x.toJson())),
         "materiales": materiales == null
             ? []
-            : List<dynamic>.from(materiales!.map((x) => x)),
+            : List<dynamic>.from(materiales!.map((x) => x.toJson())),
       };
 }
 
@@ -166,4 +167,59 @@ class MaquinaInt {
         "numero_pmp": numeroPmp,
         "tipo_equipo_taller": tipoEquipoTaller,
       };
+
+  String toFilter() => {
+        "codigo_maquina": codigoMaquina,
+        "marca": marca,
+        "modelo": modelo,
+        "numero_serie": numeroSerie,
+        "anio_fabricacion": anioFabricacion,
+        "fi_garantia": fiGarantia,
+        "ff_garantia": ffGarantia,
+        "pmp": pmp,
+        "fi_pmp": fiPmp,
+        "ff_pmp": ffPmp,
+        // "numero_pmp": numeroPmp,
+        // "tipo_equipo_taller": tipoEquipoTaller,
+      }.toString();
+}
+
+class MaterialesInt {
+  int? codigoMaterial;
+  String? orden;
+  String? articuloIsi;
+  String? descripcionBreve;
+  int? cantidad;
+
+  MaterialesInt({
+    this.codigoMaterial,
+    this.orden,
+    this.articuloIsi,
+    this.descripcionBreve,
+    this.cantidad,
+  });
+
+  factory MaterialesInt.fromJson(Map<String, dynamic> json) => MaterialesInt(
+        codigoMaterial: json["codigo_material"],
+        orden: json["orden"],
+        articuloIsi: json["articulo_isi"],
+        descripcionBreve: json["descripcion_breve"],
+        cantidad: json["cantidad"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "codigo_material": codigoMaterial,
+        "orden": orden,
+        "articulo_isi": articuloIsi,
+        "descripcion_breve": descripcionBreve,
+        "cantidad": cantidad,
+      };
+
+  String toFilter() => {
+        "codigo_material": codigoMaterial,
+        "orden": orden,
+        "articulo_isi": articuloIsi,
+        "descripcion_breve": descripcionBreve,
+        "cantidad": cantidad,
+      }.toString();
 }

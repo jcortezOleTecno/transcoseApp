@@ -19,6 +19,8 @@ mixin _$SatDetailState {
   bool get loading => throw _privateConstructorUsedError;
   IntervencionesDetalle? get detail => throw _privateConstructorUsedError;
   Intervenciones? get intervencion => throw _privateConstructorUsedError;
+  DataTableSource? get dataMaquinas => throw _privateConstructorUsedError;
+  DataTableSource? get dataMateriales => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SatDetailStateCopyWith<SatDetailState> get copyWith =>
@@ -34,7 +36,9 @@ abstract class $SatDetailStateCopyWith<$Res> {
   $Res call(
       {bool loading,
       IntervencionesDetalle? detail,
-      Intervenciones? intervencion});
+      Intervenciones? intervencion,
+      DataTableSource? dataMaquinas,
+      DataTableSource? dataMateriales});
 }
 
 /// @nodoc
@@ -53,6 +57,8 @@ class _$SatDetailStateCopyWithImpl<$Res, $Val extends SatDetailState>
     Object? loading = null,
     Object? detail = freezed,
     Object? intervencion = freezed,
+    Object? dataMaquinas = freezed,
+    Object? dataMateriales = freezed,
   }) {
     return _then(_value.copyWith(
       loading: null == loading
@@ -67,6 +73,14 @@ class _$SatDetailStateCopyWithImpl<$Res, $Val extends SatDetailState>
           ? _value.intervencion
           : intervencion // ignore: cast_nullable_to_non_nullable
               as Intervenciones?,
+      dataMaquinas: freezed == dataMaquinas
+          ? _value.dataMaquinas
+          : dataMaquinas // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
+      dataMateriales: freezed == dataMateriales
+          ? _value.dataMateriales
+          : dataMateriales // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
     ) as $Val);
   }
 }
@@ -82,7 +96,9 @@ abstract class _$$_SatDetailStateCopyWith<$Res>
   $Res call(
       {bool loading,
       IntervencionesDetalle? detail,
-      Intervenciones? intervencion});
+      Intervenciones? intervencion,
+      DataTableSource? dataMaquinas,
+      DataTableSource? dataMateriales});
 }
 
 /// @nodoc
@@ -99,6 +115,8 @@ class __$$_SatDetailStateCopyWithImpl<$Res>
     Object? loading = null,
     Object? detail = freezed,
     Object? intervencion = freezed,
+    Object? dataMaquinas = freezed,
+    Object? dataMateriales = freezed,
   }) {
     return _then(_$_SatDetailState(
       loading: null == loading
@@ -113,6 +131,14 @@ class __$$_SatDetailStateCopyWithImpl<$Res>
           ? _value.intervencion
           : intervencion // ignore: cast_nullable_to_non_nullable
               as Intervenciones?,
+      dataMaquinas: freezed == dataMaquinas
+          ? _value.dataMaquinas
+          : dataMaquinas // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
+      dataMateriales: freezed == dataMateriales
+          ? _value.dataMateriales
+          : dataMateriales // ignore: cast_nullable_to_non_nullable
+              as DataTableSource?,
     ));
   }
 }
@@ -121,7 +147,11 @@ class __$$_SatDetailStateCopyWithImpl<$Res>
 
 class _$_SatDetailState implements _SatDetailState {
   const _$_SatDetailState(
-      {this.loading = false, this.detail, this.intervencion});
+      {this.loading = false,
+      this.detail,
+      this.intervencion,
+      this.dataMaquinas,
+      this.dataMateriales});
 
   @override
   @JsonKey()
@@ -130,10 +160,14 @@ class _$_SatDetailState implements _SatDetailState {
   final IntervencionesDetalle? detail;
   @override
   final Intervenciones? intervencion;
+  @override
+  final DataTableSource? dataMaquinas;
+  @override
+  final DataTableSource? dataMateriales;
 
   @override
   String toString() {
-    return 'SatDetailState(loading: $loading, detail: $detail, intervencion: $intervencion)';
+    return 'SatDetailState(loading: $loading, detail: $detail, intervencion: $intervencion, dataMaquinas: $dataMaquinas, dataMateriales: $dataMateriales)';
   }
 
   @override
@@ -144,11 +178,16 @@ class _$_SatDetailState implements _SatDetailState {
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.detail, detail) || other.detail == detail) &&
             (identical(other.intervencion, intervencion) ||
-                other.intervencion == intervencion));
+                other.intervencion == intervencion) &&
+            (identical(other.dataMaquinas, dataMaquinas) ||
+                other.dataMaquinas == dataMaquinas) &&
+            (identical(other.dataMateriales, dataMateriales) ||
+                other.dataMateriales == dataMateriales));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, loading, detail, intervencion);
+  int get hashCode => Object.hash(
+      runtimeType, loading, detail, intervencion, dataMaquinas, dataMateriales);
 
   @JsonKey(ignore: true)
   @override
@@ -161,7 +200,9 @@ abstract class _SatDetailState implements SatDetailState {
   const factory _SatDetailState(
       {final bool loading,
       final IntervencionesDetalle? detail,
-      final Intervenciones? intervencion}) = _$_SatDetailState;
+      final Intervenciones? intervencion,
+      final DataTableSource? dataMaquinas,
+      final DataTableSource? dataMateriales}) = _$_SatDetailState;
 
   @override
   bool get loading;
@@ -169,6 +210,10 @@ abstract class _SatDetailState implements SatDetailState {
   IntervencionesDetalle? get detail;
   @override
   Intervenciones? get intervencion;
+  @override
+  DataTableSource? get dataMaquinas;
+  @override
+  DataTableSource? get dataMateriales;
   @override
   @JsonKey(ignore: true)
   _$$_SatDetailStateCopyWith<_$_SatDetailState> get copyWith =>
