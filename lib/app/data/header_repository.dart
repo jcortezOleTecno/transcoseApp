@@ -14,7 +14,7 @@ class HeaderRepository {
       params: {"module": module},
     );
     if (module != null) {
-      return (res as Header);
+      return Header.fromJson(res);
     } else {
       return (res as List).map(Header.fromJson).toList();
     }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:vemare/app/data/header_repository.dart';
 import 'package:vemare/app/data/services_repository.dart';
 import 'package:vemare/app/domain/utils/validators.dart';
 import 'package:vemare/app/domain/value_object/status.dart';
@@ -32,6 +33,7 @@ class ServicesPage extends StatefulWidget {
     return BlocProvider(
       create: (context) => ServicesCubit(
         getIt.get<ServicesRepository>(),
+        getIt.get<HeaderRepository>(),
       ),
       child: const ServicesPage._(),
     );
@@ -94,9 +96,16 @@ class _ServicesPageState extends State<ServicesPage> {
             body: MyBody(
               child: ListView(
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
-                    child: Text('Servicios', style: AppTextStyle.h1Style),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Text(
+                        state.headers.isEmpty
+                            ? ""
+                            : state.headers
+                                    .firstWhere((e) => e.module == "Service")
+                                    .title ??
+                                '',
+                        style: AppTextStyle.h1Style),
                   ),
                   state.loading
                       ? Column(
@@ -142,7 +151,14 @@ class _ServicesPageState extends State<ServicesPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Te ayudamos',
+                          Text(
+                              state.headers.isEmpty
+                                  ? ""
+                                  : state.headers
+                                          .firstWhere(
+                                              (e) => e.module == "WeHelp")
+                                          .title ??
+                                      '',
                               style: AppTextStyle.h2Style),
                           spacerS,
                           Row(
@@ -193,17 +209,31 @@ class _ServicesPageState extends State<ServicesPage> {
                             ],
                           ),
                           spacerM,
-                          const Text('Nuestras redes de talleres',
+                          Text(
+                              state.headers.isEmpty
+                                  ? ""
+                                  : state.headers
+                                          .firstWhere((e) =>
+                                              e.module == "WorkshopNetwork")
+                                          .landing ??
+                                      '',
                               style: AppTextStyle.h2Style),
                           spacerS,
-                          _CardService(
-                            title: 'Redes de talleres',
-                            image: const AssetImage(
-                                'assets/imgs/Card-RedesTaller.png'),
-                            borderRadius: BorderRadius.circular(15),
-                            onTap: () => Navigator.pushNamed(
-                                context, WorkshopNetworksPage.route),
-                          ),
+                          state.headers.isEmpty
+                              ? const MyShimmer(
+                                  height: 220,
+                                  margin: EdgeInsets.only(bottom: 15),
+                                )
+                              : _CardService(
+                                  title: 'Redes de talleres',
+                                  image: NetworkImage(state.headers
+                                      .firstWhere(
+                                          (e) => e.module == "WorkshopNetwork")
+                                      .image!),
+                                  borderRadius: BorderRadius.circular(15),
+                                  onTap: () => Navigator.pushNamed(
+                                      context, WorkshopNetworksPage.route),
+                                ),
                           spacerS,
                           const Text('Contactos', style: AppTextStyle.h2Style),
                           spacerS,

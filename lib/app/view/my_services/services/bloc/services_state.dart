@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:vemare/app/domain/model/header.dart';
 import 'package:vemare/app/domain/model/services.dart';
 import 'package:vemare/app/domain/model/we_help_you.dart';
 import 'package:vemare/app/domain/value_object/email.dart';
@@ -15,6 +16,7 @@ class ServicesState with _$ServicesState {
     @Default(false) bool loading,
     @Default(FormStatus.editing) FormStatus status,
     @Default(<Services>[]) List<Services> services,
+    @Default(<Header>[]) List<Header> headers,
     Name? name,
     Email? email,
     Phone? phone,

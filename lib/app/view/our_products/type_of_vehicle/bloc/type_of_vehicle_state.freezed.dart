@@ -19,6 +19,7 @@ mixin _$TypeOfVehicleState {
   bool get loading => throw _privateConstructorUsedError;
   List<TypeOfVehicle> get types => throw _privateConstructorUsedError;
   Category? get category => throw _privateConstructorUsedError;
+  Header? get header => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TypeOfVehicleStateCopyWith<TypeOfVehicleState> get copyWith =>
@@ -31,7 +32,11 @@ abstract class $TypeOfVehicleStateCopyWith<$Res> {
           TypeOfVehicleState value, $Res Function(TypeOfVehicleState) then) =
       _$TypeOfVehicleStateCopyWithImpl<$Res, TypeOfVehicleState>;
   @useResult
-  $Res call({bool loading, List<TypeOfVehicle> types, Category? category});
+  $Res call(
+      {bool loading,
+      List<TypeOfVehicle> types,
+      Category? category,
+      Header? header});
 }
 
 /// @nodoc
@@ -50,6 +55,7 @@ class _$TypeOfVehicleStateCopyWithImpl<$Res, $Val extends TypeOfVehicleState>
     Object? loading = null,
     Object? types = null,
     Object? category = freezed,
+    Object? header = freezed,
   }) {
     return _then(_value.copyWith(
       loading: null == loading
@@ -64,6 +70,10 @@ class _$TypeOfVehicleStateCopyWithImpl<$Res, $Val extends TypeOfVehicleState>
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as Category?,
+      header: freezed == header
+          ? _value.header
+          : header // ignore: cast_nullable_to_non_nullable
+              as Header?,
     ) as $Val);
   }
 }
@@ -76,7 +86,11 @@ abstract class _$$_TypeOfVehicleStateCopyWith<$Res>
       __$$_TypeOfVehicleStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool loading, List<TypeOfVehicle> types, Category? category});
+  $Res call(
+      {bool loading,
+      List<TypeOfVehicle> types,
+      Category? category,
+      Header? header});
 }
 
 /// @nodoc
@@ -93,6 +107,7 @@ class __$$_TypeOfVehicleStateCopyWithImpl<$Res>
     Object? loading = null,
     Object? types = null,
     Object? category = freezed,
+    Object? header = freezed,
   }) {
     return _then(_$_TypeOfVehicleState(
       loading: null == loading
@@ -107,6 +122,10 @@ class __$$_TypeOfVehicleStateCopyWithImpl<$Res>
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as Category?,
+      header: freezed == header
+          ? _value.header
+          : header // ignore: cast_nullable_to_non_nullable
+              as Header?,
     ));
   }
 }
@@ -117,7 +136,8 @@ class _$_TypeOfVehicleState extends _TypeOfVehicleState {
   const _$_TypeOfVehicleState(
       {this.loading = false,
       final List<TypeOfVehicle> types = const <TypeOfVehicle>[],
-      this.category})
+      this.category,
+      this.header})
       : _types = types,
         super._();
 
@@ -135,10 +155,12 @@ class _$_TypeOfVehicleState extends _TypeOfVehicleState {
 
   @override
   final Category? category;
+  @override
+  final Header? header;
 
   @override
   String toString() {
-    return 'TypeOfVehicleState(loading: $loading, types: $types, category: $category)';
+    return 'TypeOfVehicleState(loading: $loading, types: $types, category: $category, header: $header)';
   }
 
   @override
@@ -149,12 +171,13 @@ class _$_TypeOfVehicleState extends _TypeOfVehicleState {
             (identical(other.loading, loading) || other.loading == loading) &&
             const DeepCollectionEquality().equals(other._types, _types) &&
             (identical(other.category, category) ||
-                other.category == category));
+                other.category == category) &&
+            (identical(other.header, header) || other.header == header));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, loading,
-      const DeepCollectionEquality().hash(_types), category);
+      const DeepCollectionEquality().hash(_types), category, header);
 
   @JsonKey(ignore: true)
   @override
@@ -168,7 +191,8 @@ abstract class _TypeOfVehicleState extends TypeOfVehicleState {
   const factory _TypeOfVehicleState(
       {final bool loading,
       final List<TypeOfVehicle> types,
-      final Category? category}) = _$_TypeOfVehicleState;
+      final Category? category,
+      final Header? header}) = _$_TypeOfVehicleState;
   const _TypeOfVehicleState._() : super._();
 
   @override
@@ -177,6 +201,8 @@ abstract class _TypeOfVehicleState extends TypeOfVehicleState {
   List<TypeOfVehicle> get types;
   @override
   Category? get category;
+  @override
+  Header? get header;
   @override
   @JsonKey(ignore: true)
   _$$_TypeOfVehicleStateCopyWith<_$_TypeOfVehicleState> get copyWith =>

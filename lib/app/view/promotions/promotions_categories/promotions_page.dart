@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vemare/app/data/header_repository.dart';
 import 'package:vemare/app/data/promotion_repository.dart';
 import 'package:vemare/app/domain/model/category.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_cards/my_promotions_card.dart';
 import 'package:vemare/app/view/_components/my_dropdown_button/my_drop_down_button.dart';
 import 'package:vemare/app/view/_components/my_input/my_input_search.dart';
+import 'package:vemare/app/view/_components/my_network_image/my_network_image.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/tap_to_hide_keyboard/tap_to_hide_keyboard.dart';
@@ -24,6 +26,7 @@ class PromotionsPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => PromotionsCubit(
         getIt.get<PromotionRepository>(),
+        getIt.get<HeaderRepository>(),
       ),
       child: const PromotionsPage._(),
     );
@@ -41,23 +44,31 @@ class PromotionsPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Image(
-                      image: AssetImage('assets/imgs/promotions_img.png'),
-                      width: double.infinity,
-                    ),
+                    state.header == null
+                        ? const MyShimmer(
+                            margin: EdgeInsets.zero,
+                            height: 160,
+                            borderRadius: 0,
+                          )
+                        : MyNetworkImage(
+                            image: state.header?.image ?? '',
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                            height: 160,
+                          ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           spacerM,
-                          const Text(
-                            'Promociones',
+                          Text(
+                            state.header?.title ?? '',
                             style: AppTextStyle.h1Style,
                           ),
                           spacerM,
-                          const Text(
-                            'Accede a nuestras campañas mensuales y obtén precios y ofertas especiales para tu negocio.',
+                          Text(
+                            state.header?.description ?? '',
                             style: AppTextStyle.defaultStyle,
                           ),
                           spacerM,
@@ -118,8 +129,9 @@ class PromotionsPage extends StatelessWidget {
                     spacerXL,
                     state.categories.isEmpty
                         ? const MyShimmer(
-                            height: 100,
-                            margin: EdgeInsets.symmetric(horizontal: 20),
+                            height: 120,
+                            borderRadius: 5,
+                            margin: EdgeInsets.symmetric(horizontal: 10),
                           )
                         : Column(
                             children: state.categories.map((e) {

@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vemare/app/domain/model/center.dart';
+import 'package:vemare/app/domain/model/header.dart';
 
 part 'where_we_are_state.freezed.dart';
 
@@ -15,6 +16,7 @@ class WhereWeAreState with _$WhereWeAreState {
     @Default(<String>[]) List<String> postalCodes,
     LatLng? location,
     LatLng? centerSelect,
+    Header? header,
   }) = _WhereWeAreState;
   const WhereWeAreState._();
 }

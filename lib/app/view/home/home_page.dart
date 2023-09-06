@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:nested_scroll_views/material.dart';
 import 'package:vemare/app/data/brands_repository.dart';
+import 'package:vemare/app/data/header_repository.dart';
 import 'package:vemare/app/data/home_repository.dart';
 import 'package:vemare/app/data/notices_repository.dart';
 import 'package:vemare/app/data/products_repository.dart';
@@ -60,7 +61,7 @@ class HomePage extends StatefulWidget {
         getIt.get<BrandsRepository>(),
         context.read<UserCubit>(),
         getIt.get<WorkWithUsRepository>(),
-        // getIt.get<AuthRepository>(),
+        getIt.get<HeaderRepository>(),
       ),
       child: const HomePage._(),
     );
@@ -562,12 +563,21 @@ class _RedesTalleres extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         spacerM,
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          child: Text(
-            'Redes de talleres',
-            style: AppTextStyle.h1Style,
-          ),
+        BlocBuilder<HomeCubit, HomeState>(
+          builder: (context, state) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: Text(
+                state.headers.isEmpty
+                    ? ""
+                    : state.headers
+                            .firstWhere((e) => e.module == "WorkshopNetwork")
+                            .landing ??
+                        '',
+                style: AppTextStyle.h1Style,
+              ),
+            );
+          },
         ),
         BlocBuilder<HomeCubit, HomeState>(
           builder: (context, state) {
@@ -695,12 +705,21 @@ class _Servicios extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: Text(
-            'Servicios',
-            style: AppTextStyle.h1Style,
-          ),
+        BlocBuilder<HomeCubit, HomeState>(
+          builder: (context, state) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Text(
+                state.headers.isEmpty
+                    ? ''
+                    : state.headers
+                            .firstWhere((e) => e.module == "Service")
+                            .landing ??
+                        '',
+                style: AppTextStyle.h1Style,
+              ),
+            );
+          },
         ),
         BlocBuilder<HomeCubit, HomeState>(
           builder: (context, state) {
@@ -807,12 +826,21 @@ class _Promociones extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: Text(
-            'Promociones',
-            style: AppTextStyle.h1Style,
-          ),
+        BlocBuilder<HomeCubit, HomeState>(
+          builder: (context, state) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Text(
+                state.headers.isEmpty
+                    ? ''
+                    : state.headers
+                            .firstWhere((e) => e.module == "Promotion")
+                            .landing ??
+                        '',
+                style: AppTextStyle.h1Style,
+              ),
+            );
+          },
         ),
         BlocBuilder<HomeCubit, HomeState>(
           builder: (context, state) {
@@ -880,12 +908,21 @@ class _ProductsVemare extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: Text(
-            'Productos Vemare',
-            style: AppTextStyle.h1Style,
-          ),
+        BlocBuilder<HomeCubit, HomeState>(
+          builder: (context, state) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Text(
+                state.headers.isEmpty
+                    ? ''
+                    : state.headers
+                            .firstWhere((e) => e.module == "Category")
+                            .landing ??
+                        '',
+                style: AppTextStyle.h1Style,
+              ),
+            );
+          },
         ),
         SizedBox(
           height: 156,

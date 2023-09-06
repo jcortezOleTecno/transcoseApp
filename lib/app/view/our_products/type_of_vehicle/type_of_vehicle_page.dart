@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vemare/app/data/header_repository.dart';
 import 'package:vemare/app/data/products_repository.dart';
 import 'package:vemare/app/domain/model/category.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
@@ -25,6 +26,7 @@ class TypeOfVehiclePage extends StatelessWidget {
     return BlocProvider(
       create: (context) => TypeOfVehicleCubit(
         getIt<ProductsRepository>(),
+        getIt<HeaderRepository>(),
         category,
       ),
       child: const TypeOfVehiclePage._(),
@@ -42,10 +44,9 @@ class TypeOfVehiclePage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const Text('Nuestros productos', style: AppTextStyle.h1Style),
+                Text(state.header?.title ?? '', style: AppTextStyle.h1Style),
                 spacerS,
-                const Text(
-                    'Elige un tipo de vehículo para consultar los productos correspondientes.:'),
+                Text(state.header?.description ?? ''),
                 spacerM,
                 if (state.loading)
                   ...List.generate(

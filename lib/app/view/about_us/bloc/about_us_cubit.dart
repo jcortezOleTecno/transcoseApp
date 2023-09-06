@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:vemare/app/data/about_us_repository.dart';
+import 'package:vemare/app/data/header_repository.dart';
 import 'package:vemare/app/data/library_repository.dart';
 import 'package:vemare/app/data/notices_repository.dart';
 import 'package:vemare/app/data/pills_repository.dart';
+import 'package:vemare/app/domain/model/header.dart';
 import 'package:vemare/app/domain/model/library.dart';
 import 'package:vemare/app/domain/model/notices.dart';
 import 'package:vemare/app/domain/model/pills.dart';
@@ -15,6 +17,7 @@ class AboutUsCubit extends Cubit<AboutUsState> {
     this._pillsRepository,
     this._noticesRepository,
     this._aboutUsRepository,
+    this._headerRepository,
   ) : super(const AboutUsState()) {
     fetchData();
   }
@@ -23,12 +26,14 @@ class AboutUsCubit extends Cubit<AboutUsState> {
   final PillsRepository _pillsRepository;
   final NoticesRepository _noticesRepository;
   final AboutUsRepository _aboutUsRepository;
+  final HeaderRepository _headerRepository;
 
   Future<void> fetchData() async {
     List<Library> libraries = [];
     List<Pills> pills = [];
     List<News> news = [];
     RedesSociales? redes;
+    List<Header> headers = [];
 
     await Future.wait([
       _libraryRepository
@@ -37,6 +42,9 @@ class AboutUsCubit extends Cubit<AboutUsState> {
       _pillsRepository.getPills(limit: 2).then((v) => pills = v.pills),
       _noticesRepository.getNotices().then((v) => news = v.news),
       _aboutUsRepository.getSocialNetwork().then((value) => redes = value),
+      _headerRepository
+          .getHeaders()
+          .then((value) => headers = value as List<Header>),
     ]);
 
     emit(state.copyWith(
@@ -44,6 +52,7 @@ class AboutUsCubit extends Cubit<AboutUsState> {
       pills: pills,
       news: news,
       redes: redes,
+      headers: headers,
     ));
   }
 }

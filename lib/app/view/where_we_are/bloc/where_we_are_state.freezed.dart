@@ -24,6 +24,7 @@ mixin _$WhereWeAreState {
   List<String> get postalCodes => throw _privateConstructorUsedError;
   LatLng? get location => throw _privateConstructorUsedError;
   LatLng? get centerSelect => throw _privateConstructorUsedError;
+  Header? get header => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $WhereWeAreStateCopyWith<WhereWeAreState> get copyWith =>
@@ -44,7 +45,8 @@ abstract class $WhereWeAreStateCopyWith<$Res> {
       List<String> countries,
       List<String> postalCodes,
       LatLng? location,
-      LatLng? centerSelect});
+      LatLng? centerSelect,
+      Header? header});
 }
 
 /// @nodoc
@@ -68,6 +70,7 @@ class _$WhereWeAreStateCopyWithImpl<$Res, $Val extends WhereWeAreState>
     Object? postalCodes = null,
     Object? location = freezed,
     Object? centerSelect = freezed,
+    Object? header = freezed,
   }) {
     return _then(_value.copyWith(
       loading: null == loading
@@ -102,6 +105,10 @@ class _$WhereWeAreStateCopyWithImpl<$Res, $Val extends WhereWeAreState>
           ? _value.centerSelect
           : centerSelect // ignore: cast_nullable_to_non_nullable
               as LatLng?,
+      header: freezed == header
+          ? _value.header
+          : header // ignore: cast_nullable_to_non_nullable
+              as Header?,
     ) as $Val);
   }
 }
@@ -122,7 +129,8 @@ abstract class _$$_WhereWeAreStateCopyWith<$Res>
       List<String> countries,
       List<String> postalCodes,
       LatLng? location,
-      LatLng? centerSelect});
+      LatLng? centerSelect,
+      Header? header});
 }
 
 /// @nodoc
@@ -144,6 +152,7 @@ class __$$_WhereWeAreStateCopyWithImpl<$Res>
     Object? postalCodes = null,
     Object? location = freezed,
     Object? centerSelect = freezed,
+    Object? header = freezed,
   }) {
     return _then(_$_WhereWeAreState(
       loading: null == loading
@@ -178,6 +187,10 @@ class __$$_WhereWeAreStateCopyWithImpl<$Res>
           ? _value.centerSelect
           : centerSelect // ignore: cast_nullable_to_non_nullable
               as LatLng?,
+      header: freezed == header
+          ? _value.header
+          : header // ignore: cast_nullable_to_non_nullable
+              as Header?,
     ));
   }
 }
@@ -193,7 +206,8 @@ class _$_WhereWeAreState extends _WhereWeAreState {
       final List<String> countries = const <String>[],
       final List<String> postalCodes = const <String>[],
       this.location,
-      this.centerSelect})
+      this.centerSelect,
+      this.header})
       : _centers = centers,
         _countries = countries,
         _postalCodes = postalCodes,
@@ -239,10 +253,12 @@ class _$_WhereWeAreState extends _WhereWeAreState {
   final LatLng? location;
   @override
   final LatLng? centerSelect;
+  @override
+  final Header? header;
 
   @override
   String toString() {
-    return 'WhereWeAreState(loading: $loading, loadingCenters: $loadingCenters, loadingData: $loadingData, centers: $centers, countries: $countries, postalCodes: $postalCodes, location: $location, centerSelect: $centerSelect)';
+    return 'WhereWeAreState(loading: $loading, loadingCenters: $loadingCenters, loadingData: $loadingData, centers: $centers, countries: $countries, postalCodes: $postalCodes, location: $location, centerSelect: $centerSelect, header: $header)';
   }
 
   @override
@@ -263,7 +279,8 @@ class _$_WhereWeAreState extends _WhereWeAreState {
             (identical(other.location, location) ||
                 other.location == location) &&
             (identical(other.centerSelect, centerSelect) ||
-                other.centerSelect == centerSelect));
+                other.centerSelect == centerSelect) &&
+            (identical(other.header, header) || other.header == header));
   }
 
   @override
@@ -276,7 +293,8 @@ class _$_WhereWeAreState extends _WhereWeAreState {
       const DeepCollectionEquality().hash(_countries),
       const DeepCollectionEquality().hash(_postalCodes),
       location,
-      centerSelect);
+      centerSelect,
+      header);
 
   @JsonKey(ignore: true)
   @override
@@ -294,7 +312,8 @@ abstract class _WhereWeAreState extends WhereWeAreState {
       final List<String> countries,
       final List<String> postalCodes,
       final LatLng? location,
-      final LatLng? centerSelect}) = _$_WhereWeAreState;
+      final LatLng? centerSelect,
+      final Header? header}) = _$_WhereWeAreState;
   const _WhereWeAreState._() : super._();
 
   @override
@@ -313,6 +332,8 @@ abstract class _WhereWeAreState extends WhereWeAreState {
   LatLng? get location;
   @override
   LatLng? get centerSelect;
+  @override
+  Header? get header;
   @override
   @JsonKey(ignore: true)
   _$$_WhereWeAreStateCopyWith<_$_WhereWeAreState> get copyWith =>

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/brands_repository.dart';
+import 'package:vemare/app/data/header_repository.dart';
 import 'package:vemare/app/data/home_repository.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/notices_repository.dart';
@@ -12,6 +13,7 @@ import 'package:vemare/app/data/services_repository.dart';
 import 'package:vemare/app/data/work_with_us_repository.dart';
 import 'package:vemare/app/data/workshops_repository.dart';
 import 'package:vemare/app/domain/model/brand.dart';
+import 'package:vemare/app/domain/model/header.dart';
 import 'package:vemare/app/domain/model/hero.dart';
 import 'package:vemare/app/domain/model/hero_buttons.dart';
 import 'package:vemare/app/domain/model/notices.dart';
@@ -33,7 +35,7 @@ class HomeCubit extends Cubit<HomeState> {
     this._brandsRepository,
     this._userCubit,
     this._workWithUsRepository,
-    // this._authRepository,
+    this._headerRepository,
   ) : super(const HomeState()) {
     fetchData();
     // encuesta();
@@ -48,7 +50,7 @@ class HomeCubit extends Cubit<HomeState> {
   final BrandsRepository _brandsRepository;
   final UserCubit _userCubit;
   final WorkWithUsRepository _workWithUsRepository;
-  // final AuthRepository _authRepository;
+  final HeaderRepository _headerRepository;
 
   Future<void> fetchData() async {
     emit(state.copyWith(loading: true));
@@ -77,6 +79,7 @@ class HomeCubit extends Cubit<HomeState> {
     List<News> notices = [];
     List<Brand> brands = [];
     WorkWithUs? workWithUs;
+    List<Header> header = [];
 
     if (_userCubit.state.employees.isEmpty) {
       unawaited(_userCubit.getEmployeesAndEnterprises());
@@ -94,11 +97,11 @@ class HomeCubit extends Cubit<HomeState> {
       _noticesRepository.getNotices(limit: 3).then((v) => notices = v.news),
       _brandsRepository.getBrands().then((v) => brands = v),
       _workWithUsRepository.getData().then((value) => workWithUs = value),
+      _headerRepository.getHeaders().then((value) => header = value),
     ]);
     emit(state.copyWith(
       loading: false,
       hero: hero,
-      // heroButtons: heroButtons,
       promotions: promotions,
       products: products,
       services: services,
@@ -106,6 +109,7 @@ class HomeCubit extends Cubit<HomeState> {
       notices: notices,
       brands: brands,
       workWithUs: workWithUs,
+      headers: header,
     ));
   }
 

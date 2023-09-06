@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:vemare/app/domain/model/category.dart';
+import 'package:vemare/app/domain/model/header.dart';
 import 'package:vemare/app/domain/model/type_of_vehicle.dart';
 
 part 'type_of_vehicle_state.freezed.dart';
@@ -10,6 +11,7 @@ class TypeOfVehicleState with _$TypeOfVehicleState {
     @Default(false) bool loading,
     @Default(<TypeOfVehicle>[]) List<TypeOfVehicle> types,
     Category? category,
+    Header? header,
   }) = _TypeOfVehicleState;
   const TypeOfVehicleState._();
 }

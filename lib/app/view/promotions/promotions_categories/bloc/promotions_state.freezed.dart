@@ -20,6 +20,7 @@ mixin _$PromotionsState {
   Category? get categorySelected => throw _privateConstructorUsedError;
   String? get query => throw _privateConstructorUsedError;
   List<Promotion> get promotions => throw _privateConstructorUsedError;
+  Header? get header => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PromotionsStateCopyWith<PromotionsState> get copyWith =>
@@ -36,7 +37,8 @@ abstract class $PromotionsStateCopyWith<$Res> {
       {List<Category> categories,
       Category? categorySelected,
       String? query,
-      List<Promotion> promotions});
+      List<Promotion> promotions,
+      Header? header});
 }
 
 /// @nodoc
@@ -56,6 +58,7 @@ class _$PromotionsStateCopyWithImpl<$Res, $Val extends PromotionsState>
     Object? categorySelected = freezed,
     Object? query = freezed,
     Object? promotions = null,
+    Object? header = freezed,
   }) {
     return _then(_value.copyWith(
       categories: null == categories
@@ -74,6 +77,10 @@ class _$PromotionsStateCopyWithImpl<$Res, $Val extends PromotionsState>
           ? _value.promotions
           : promotions // ignore: cast_nullable_to_non_nullable
               as List<Promotion>,
+      header: freezed == header
+          ? _value.header
+          : header // ignore: cast_nullable_to_non_nullable
+              as Header?,
     ) as $Val);
   }
 }
@@ -90,7 +97,8 @@ abstract class _$$_PromotionsStateCopyWith<$Res>
       {List<Category> categories,
       Category? categorySelected,
       String? query,
-      List<Promotion> promotions});
+      List<Promotion> promotions,
+      Header? header});
 }
 
 /// @nodoc
@@ -108,6 +116,7 @@ class __$$_PromotionsStateCopyWithImpl<$Res>
     Object? categorySelected = freezed,
     Object? query = freezed,
     Object? promotions = null,
+    Object? header = freezed,
   }) {
     return _then(_$_PromotionsState(
       categories: null == categories
@@ -126,6 +135,10 @@ class __$$_PromotionsStateCopyWithImpl<$Res>
           ? _value._promotions
           : promotions // ignore: cast_nullable_to_non_nullable
               as List<Promotion>,
+      header: freezed == header
+          ? _value.header
+          : header // ignore: cast_nullable_to_non_nullable
+              as Header?,
     ));
   }
 }
@@ -137,7 +150,8 @@ class _$_PromotionsState extends _PromotionsState {
       {final List<Category> categories = const <Category>[],
       this.categorySelected,
       this.query,
-      final List<Promotion> promotions = const <Promotion>[]})
+      final List<Promotion> promotions = const <Promotion>[],
+      this.header})
       : _categories = categories,
         _promotions = promotions,
         super._();
@@ -165,8 +179,11 @@ class _$_PromotionsState extends _PromotionsState {
   }
 
   @override
+  final Header? header;
+
+  @override
   String toString() {
-    return 'PromotionsState(categories: $categories, categorySelected: $categorySelected, query: $query, promotions: $promotions)';
+    return 'PromotionsState(categories: $categories, categorySelected: $categorySelected, query: $query, promotions: $promotions, header: $header)';
   }
 
   @override
@@ -180,7 +197,8 @@ class _$_PromotionsState extends _PromotionsState {
                 other.categorySelected == categorySelected) &&
             (identical(other.query, query) || other.query == query) &&
             const DeepCollectionEquality()
-                .equals(other._promotions, _promotions));
+                .equals(other._promotions, _promotions) &&
+            (identical(other.header, header) || other.header == header));
   }
 
   @override
@@ -189,7 +207,8 @@ class _$_PromotionsState extends _PromotionsState {
       const DeepCollectionEquality().hash(_categories),
       categorySelected,
       query,
-      const DeepCollectionEquality().hash(_promotions));
+      const DeepCollectionEquality().hash(_promotions),
+      header);
 
   @JsonKey(ignore: true)
   @override
@@ -203,7 +222,8 @@ abstract class _PromotionsState extends PromotionsState {
       {final List<Category> categories,
       final Category? categorySelected,
       final String? query,
-      final List<Promotion> promotions}) = _$_PromotionsState;
+      final List<Promotion> promotions,
+      final Header? header}) = _$_PromotionsState;
   const _PromotionsState._() : super._();
 
   @override
@@ -214,6 +234,8 @@ abstract class _PromotionsState extends PromotionsState {
   String? get query;
   @override
   List<Promotion> get promotions;
+  @override
+  Header? get header;
   @override
   @JsonKey(ignore: true)
   _$$_PromotionsStateCopyWith<_$_PromotionsState> get copyWith =>

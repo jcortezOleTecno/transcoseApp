@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/about_us_repository.dart';
+import 'package:vemare/app/data/header_repository.dart';
 import 'package:vemare/app/data/library_repository.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/notices_repository.dart';
@@ -38,6 +39,7 @@ class AboutUsPage extends StatelessWidget {
         getIt.get<PillsRepository>(),
         getIt.get<NoticesRepository>(),
         getIt.get<AboutUsRepository>(),
+        getIt.get<HeaderRepository>(),
       ),
       child: const AboutUsPage._(),
     );
@@ -53,9 +55,16 @@ class AboutUsPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.all(15),
-                    child: Text('Sobre nosotros', style: AppTextStyle.h1Style),
+                  Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Text(
+                        state.headers.isEmpty
+                            ? ''
+                            : state.headers
+                                    .firstWhere((e) => e.module == "AboutUs")
+                                    .title ??
+                                '',
+                        style: AppTextStyle.h1Style),
                   ),
                   _OurHistory(),
                   spacerL,
@@ -263,12 +272,21 @@ class _News extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: Text(
-            'Noticias',
-            style: AppTextStyle.h1Style,
-          ),
+        BlocBuilder<AboutUsCubit, AboutUsState>(
+          builder: (context, state) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Text(
+                state.headers.isEmpty
+                    ? ''
+                    : state.headers
+                            .firstWhere((e) => e.module == "Notice")
+                            .title ??
+                        '',
+                style: AppTextStyle.h1Style,
+              ),
+            );
+          },
         ),
         BlocBuilder<AboutUsCubit, AboutUsState>(
           builder: (context, state) {
@@ -324,7 +342,14 @@ class _Library extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Bilioteca', style: AppTextStyle.h1Style),
+              Text(
+                  state.headers.isEmpty
+                      ? ''
+                      : state.headers
+                              .firstWhere((e) => e.module == "Library")
+                              .title ??
+                          '',
+                  style: AppTextStyle.h1Style),
               state.libraries.isEmpty
                   ? const MyShimmer(
                       height: 440,
@@ -389,7 +414,14 @@ class _PillsVemare extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Píldoras Vemare', style: AppTextStyle.h1Style),
+              Text(
+                  state.headers.isEmpty
+                      ? ''
+                      : state.headers
+                              .firstWhere((e) => e.module == "Pills")
+                              .title ??
+                          '',
+                  style: AppTextStyle.h1Style),
               spacerS,
               state.pills.isEmpty
                   ? const MyShimmer(

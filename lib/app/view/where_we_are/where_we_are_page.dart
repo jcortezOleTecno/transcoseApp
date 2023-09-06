@@ -5,6 +5,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/center_repository.dart';
+import 'package:vemare/app/data/header_repository.dart';
 import 'package:vemare/app/domain/model/center.dart' as w;
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
@@ -28,6 +29,7 @@ class WhereWeArePage extends StatefulWidget {
     return BlocProvider(
       create: (context) => WhereWeAreCubit(
         getIt.get<CenterRepository>(),
+        getIt.get<HeaderRepository>(),
       ),
       child: const WhereWeArePage._(),
     );
@@ -81,7 +83,7 @@ class _WhereWeArePageState extends State<WhereWeArePage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      const Text('¿Dónde estamos?',
+                      Text(state.header?.title ?? '',
                           style: AppTextStyle.h1Style),
                       spacerM,
                       state.loadingData
