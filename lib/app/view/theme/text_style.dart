@@ -92,6 +92,16 @@ abstract class AppTextStyle {
     fontSize: 18,
     color: AppColor.white,
   );
+  static const TextStyle nunitoSans700 = TextStyle(
+    fontFamily: 'NunitoSans',
+    fontWeight: FontWeight.w700,
+    color: AppColor.black,
+  );
+  static const TextStyle nunitoSans800 = TextStyle(
+    fontFamily: 'NunitoSans',
+    fontWeight: FontWeight.w800,
+    color: AppColor.black,
+  );
   static const TextStyle defaultStyle = TextStyle(
-      fontFamily: 'NunitoSans', fontWeight: FontWeight.w400, fontSize: 16);
+      fontFamily: 'NunitoSans', fontWeight: FontWeight.w400, fontSize: 14);
 }

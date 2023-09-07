@@ -10,6 +10,7 @@ import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_multi_radio_button/multi_radio_button.dart';
+import 'package:vemare/app/view/_components/my_network_image/my_network_image.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/shared/shopping_car_counter_bloc/car_counter_cubit.dart';
@@ -72,31 +73,45 @@ class ShoppingCartPage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Carrito${state.products.isNotEmpty ? ' (${state.counter})' : ''}',
+                                  'Carrito${state.productsTienda.isNotEmpty ? ' (${state.counter})' : ''}',
                                   style: AppTextStyle.h1Style,
                                 ),
-                                // spacerM,
+                                spacerS,
                                 if (state.loading)
                                   ...List.generate(
-                                      5,
+                                      2,
                                       (_) => const MyShimmer(
-                                            margin: EdgeInsets.only(bottom: 15),
-                                            height: 80,
+                                            margin: EdgeInsets.only(bottom: 20),
+                                            height: 220,
                                           )),
                                 if (!state.loading && state.products.isEmpty)
                                   const _CarEmpty(),
-                                ListView.separated(
-                                  itemCount: state.products.length,
+                                if (state.productsRenting.isNotEmpty)
+                                  _TypeProductCards(
+                                      products: state.productsRenting),
+                                if (state.productsRenting.isNotEmpty &&
+                                    state.productsTienda.isNotEmpty)
+                                  const Divider(
+                                    color: AppColor.primaryBlue,
+                                    thickness: 1,
+                                    height: 50,
+                                  ),
+                                if (state.productsTienda.isNotEmpty)
+                                  _TypeProductCards(
+                                      products: state.productsTienda)
+
+                                /*ListView.separated(
+                                  itemCount: state.productsTienda.length,
                                   separatorBuilder: (context, i) =>
                                       const Divider(),
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
                                   itemBuilder: (context, i) {
                                     return ShoppingItem(
-                                      product: state.products[i],
+                                      product: state.productsTienda[i],
                                     );
                                   },
-                                )
+                                )*/
                               ],
                             ),
                           )
@@ -124,6 +139,266 @@ class ShoppingCartPage extends StatelessWidget {
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class _TypeProductCards extends StatelessWidget {
+  const _TypeProductCards({required this.products});
+
+  final List<ShoppingCardProduct> products;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _CardProduct(products.first),
+        if (products.length > 1) _VerMasProductos(products),
+        spacerS,
+        Text(
+          'Total de ${products.first.renting ? 'renting' : 'tienda'} (${products.length})',
+          style: AppTextStyle.nunitoSans700.copyWith(fontSize: 20),
+        ),
+        spacerS,
+        ...products
+            .map(
+              (e) => Row(
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    height: 32,
+                    width: 32,
+                    decoration: const BoxDecoration(
+                      color: AppColor.blue100,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Text(
+                      e.quantity?.toString() ?? '0',
+                      style: AppTextStyle.nunitoSans700.copyWith(
+                        color: AppColor.primaryBlue,
+                      ),
+                    ),
+                  ),
+                  spacerS,
+                  Expanded(
+                      child: Text(
+                    e.productName ?? '',
+                    style: AppTextStyle.nunitoSans700.copyWith(fontSize: 16),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  )),
+                  spacerS,
+                  RichText(
+                    text: TextSpan(
+                      style: AppTextStyle.nunitoSans700.copyWith(fontSize: 20),
+                      children: [
+                        if (e.priceOld != null)
+                          TextSpan(
+                              text: myFormatMoney(
+                                  ((e.priceOld?.toDouble() ?? 0) *
+                                      (e.quantity!))),
+                              style: AppTextStyle.pvpOrinigal
+                                  .copyWith(fontSize: 14)),
+                        TextSpan(
+                            text:
+                                ' ${myFormatMoney(e.total?.toDouble() ?? 0)}'),
+                        TextSpan(
+                          text: '  IVA incluido ',
+                          style: AppTextStyle.defaultStyle
+                              .copyWith(color: AppColor.neutral40),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            )
+            .toList(),
+        spacerS,
+        const MyDivider(),
+        spacerS,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            BlocBuilder<ShoppingCardCubit, ShoppingCardState>(
+              builder: (context, state) {
+                return RichText(
+                  text: TextSpan(
+                    style: AppTextStyle.nunitoSans800.copyWith(fontSize: 40),
+                    children: [
+                      TextSpan(
+                          text: myFormatMoney(products.first.renting
+                              ? state.totalRenting.toDouble()
+                              : state.totalTienda.toDouble())),
+                      TextSpan(
+                        text: '  IVA incluido ',
+                        style: AppTextStyle.defaultStyle
+                            .copyWith(color: AppColor.neutral40),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            )
+          ],
+        )
+      ],
+    );
+  }
+}
+
+class _VerMasProductos extends StatefulWidget {
+  const _VerMasProductos(this.products);
+
+  final List<ShoppingCardProduct> products;
+
+  @override
+  State<_VerMasProductos> createState() => _VerMasProductosState();
+}
+
+class _VerMasProductosState extends State<_VerMasProductos> {
+  bool expanded = false;
+  @override
+  Widget build(BuildContext context) {
+    return ExpansionTile(
+        title: Center(
+            child: Text(
+          expanded ? "Ver menos" : "Ver mas",
+          style: AppTextStyle.nunitoSans700.copyWith(
+            fontSize: 16,
+            color: AppColor.primaryBlue,
+          ),
+        )),
+        onExpansionChanged: (value) {
+          setState(() {
+            expanded = value;
+          });
+        },
+        iconColor: AppColor.primaryBlue,
+        children: widget.products
+            .sublist(1)
+            .map((e) => Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: _CardProduct(e),
+                ))
+            .toList());
+  }
+}
+
+class _CardProduct extends StatelessWidget {
+  const _CardProduct(this.product);
+
+  final ShoppingCardProduct product;
+
+  @override
+  Widget build(BuildContext context) {
+    final cubit = context.read<ShoppingCardCubit>();
+    return Container(
+      padding: const EdgeInsets.all(15),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColor.blue100),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          MyNetworkImage(
+            image: product.image!,
+            height: 200,
+            width: double.infinity,
+            fit: BoxFit.cover,
+          ),
+          spacerS,
+          Text(
+            product.renting ? "Renting" : "Tienda",
+            style:
+                AppTextStyle.nunitoSans700.copyWith(color: AppColor.neutral40),
+          ),
+          spacerXs,
+          Row(
+            children: [
+              Container(
+                alignment: Alignment.center,
+                height: 32,
+                width: 32,
+                decoration: const BoxDecoration(
+                  color: AppColor.blue100,
+                  shape: BoxShape.circle,
+                ),
+                child: Text(
+                  product.quantity?.toString() ?? '0',
+                  style: AppTextStyle.nunitoSans700.copyWith(
+                    color: AppColor.primaryBlue,
+                  ),
+                ),
+              ),
+              spacerS,
+              Expanded(
+                  child: Text(
+                product.productName ?? '',
+                style: AppTextStyle.nunitoSans700.copyWith(fontSize: 20),
+              ))
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: RichText(
+                  text: TextSpan(
+                    style: AppTextStyle.nunitoSans700.copyWith(fontSize: 20),
+                    children: [
+                      if (product.priceOld != null)
+                        TextSpan(
+                            text: myFormatMoney(
+                                ((product.priceOld?.toDouble() ?? 0) *
+                                    (product.quantity!))),
+                            style: AppTextStyle.pvpOrinigal),
+                      TextSpan(
+                          text:
+                              ' ${myFormatMoney((product.priceSale?.toDouble() ?? 0) * (product.quantity!))}'),
+                      TextSpan(
+                        text: '  IVA incluido ',
+                        style: AppTextStyle.defaultStyle
+                            .copyWith(color: AppColor.neutral40),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              BlocBuilder<ShoppingCardCubit, ShoppingCardState>(
+                builder: (context, state) {
+                  if (state.buying) {
+                    return const SizedBox();
+                  }
+                  return Material(
+                    color: AppColor.error200,
+                    borderRadius: BorderRadius.circular(50),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(50),
+                      onTap: () => product.renting
+                          ? cubit.deleteProductRenting(
+                              id: product.id!,
+                              quantity: product.quantity!,
+                            )
+                          : cubit.deleteProductTienda(
+                              id: product.id!,
+                              quantity: product.quantity!,
+                            ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Image.asset('assets/icons/Trash.png', scale: 2),
+                      ),
+                    ),
+                  );
+                },
+              )
+            ],
+          )
+        ],
       ),
     );
   }
@@ -202,7 +477,7 @@ class _BuyData extends StatelessWidget {
   }
 }
 
-class ShoppingItem extends StatelessWidget {
+/*class ShoppingItem extends StatelessWidget {
   const ShoppingItem({
     required this.product,
     Key? key,
@@ -233,7 +508,7 @@ class ShoppingItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                product.renting == 1 ? 'Renting' : 'Tienda',
+                product.renting ? 'Renting' : 'Tienda',
                 style: AppTextStyle.inputLabelStyle.copyWith(
                   color: AppColor.neutral40,
                 ),
@@ -247,7 +522,7 @@ class ShoppingItem extends StatelessWidget {
                         fontSize: 14),
                     children: [
                       TextSpan(
-                        text: product.promotionName,
+                        text: product.productName ?? '',
                       ),
                       TextSpan(
                           text: ' x${product.quantity}',
@@ -274,15 +549,16 @@ class ShoppingItem extends StatelessWidget {
                 text: TextSpan(
                   style: AppTextStyle.titleCard,
                   children: [
-                    if (product.promotionPriceLowered != null)
+                    if (product.priceSale != null)
                       TextSpan(
-                        text: myFormatMoney((product.promotionPrice ?? 0.0) *
-                            (product.quantity ?? 0)),
+                        text: myFormatMoney(
+                            (product.priceSale?.toDouble() ?? 0.0) *
+                                (product.quantity ?? 0)),
                         style: AppTextStyle.pvpOrinigal.copyWith(fontSize: 14),
                       ),
                     TextSpan(
                       text:
-                          ' ${myFormatMoney((product.promotionPriceLowered ?? product.promotionPrice ?? 0) * (product.quantity ?? 0))}',
+                          ' ${myFormatMoney((product.priceSale?.toDouble() ?? product.priceOld?.toDouble() ?? 0) * (product.quantity ?? 0))}',
                     ),
                     TextSpan(
                       text: ' IVA incluido ',
@@ -305,10 +581,10 @@ class ShoppingItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(50),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(50),
-                  onTap: () => cubit.deleteProduct(
-                    id: product.id!,
-                    quantity: product.quantity!,
-                  ),
+                   onTap: () => cubit.deleteProduct(
+                     id: product.id!,
+                     quantity: product.quantity!,
+                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(12),
                     child: Image.asset('assets/icons/Trash.png', scale: 2),
@@ -321,7 +597,7 @@ class ShoppingItem extends StatelessWidget {
       ),
     );
   }
-}
+}*/
 
 class _CarEmpty extends StatelessWidget {
   const _CarEmpty({

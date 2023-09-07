@@ -24,7 +24,13 @@ mixin _$ShoppingCardState {
   bool get typePaySelected => throw _privateConstructorUsedError;
   double get total => throw _privateConstructorUsedError;
   int get counter => throw _privateConstructorUsedError;
+  int get totalRenting => throw _privateConstructorUsedError;
+  int get totalTienda => throw _privateConstructorUsedError;
   List<ShoppingCardProduct> get products => throw _privateConstructorUsedError;
+  List<ShoppingCardProduct> get productsTienda =>
+      throw _privateConstructorUsedError;
+  List<ShoppingCardProduct> get productsRenting =>
+      throw _privateConstructorUsedError;
   PayResponse? get payResponse => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -47,7 +53,11 @@ abstract class $ShoppingCardStateCopyWith<$Res> {
       bool typePaySelected,
       double total,
       int counter,
+      int totalRenting,
+      int totalTienda,
       List<ShoppingCardProduct> products,
+      List<ShoppingCardProduct> productsTienda,
+      List<ShoppingCardProduct> productsRenting,
       PayResponse? payResponse});
 }
 
@@ -72,7 +82,11 @@ class _$ShoppingCardStateCopyWithImpl<$Res, $Val extends ShoppingCardState>
     Object? typePaySelected = null,
     Object? total = null,
     Object? counter = null,
+    Object? totalRenting = null,
+    Object? totalTienda = null,
     Object? products = null,
+    Object? productsTienda = null,
+    Object? productsRenting = null,
     Object? payResponse = freezed,
   }) {
     return _then(_value.copyWith(
@@ -108,9 +122,25 @@ class _$ShoppingCardStateCopyWithImpl<$Res, $Val extends ShoppingCardState>
           ? _value.counter
           : counter // ignore: cast_nullable_to_non_nullable
               as int,
+      totalRenting: null == totalRenting
+          ? _value.totalRenting
+          : totalRenting // ignore: cast_nullable_to_non_nullable
+              as int,
+      totalTienda: null == totalTienda
+          ? _value.totalTienda
+          : totalTienda // ignore: cast_nullable_to_non_nullable
+              as int,
       products: null == products
           ? _value.products
           : products // ignore: cast_nullable_to_non_nullable
+              as List<ShoppingCardProduct>,
+      productsTienda: null == productsTienda
+          ? _value.productsTienda
+          : productsTienda // ignore: cast_nullable_to_non_nullable
+              as List<ShoppingCardProduct>,
+      productsRenting: null == productsRenting
+          ? _value.productsRenting
+          : productsRenting // ignore: cast_nullable_to_non_nullable
               as List<ShoppingCardProduct>,
       payResponse: freezed == payResponse
           ? _value.payResponse
@@ -137,7 +167,11 @@ abstract class _$$_ShoppingCardStateCopyWith<$Res>
       bool typePaySelected,
       double total,
       int counter,
+      int totalRenting,
+      int totalTienda,
       List<ShoppingCardProduct> products,
+      List<ShoppingCardProduct> productsTienda,
+      List<ShoppingCardProduct> productsRenting,
       PayResponse? payResponse});
 }
 
@@ -160,7 +194,11 @@ class __$$_ShoppingCardStateCopyWithImpl<$Res>
     Object? typePaySelected = null,
     Object? total = null,
     Object? counter = null,
+    Object? totalRenting = null,
+    Object? totalTienda = null,
     Object? products = null,
+    Object? productsTienda = null,
+    Object? productsRenting = null,
     Object? payResponse = freezed,
   }) {
     return _then(_$_ShoppingCardState(
@@ -196,9 +234,25 @@ class __$$_ShoppingCardStateCopyWithImpl<$Res>
           ? _value.counter
           : counter // ignore: cast_nullable_to_non_nullable
               as int,
+      totalRenting: null == totalRenting
+          ? _value.totalRenting
+          : totalRenting // ignore: cast_nullable_to_non_nullable
+              as int,
+      totalTienda: null == totalTienda
+          ? _value.totalTienda
+          : totalTienda // ignore: cast_nullable_to_non_nullable
+              as int,
       products: null == products
           ? _value._products
           : products // ignore: cast_nullable_to_non_nullable
+              as List<ShoppingCardProduct>,
+      productsTienda: null == productsTienda
+          ? _value._productsTienda
+          : productsTienda // ignore: cast_nullable_to_non_nullable
+              as List<ShoppingCardProduct>,
+      productsRenting: null == productsRenting
+          ? _value._productsRenting
+          : productsRenting // ignore: cast_nullable_to_non_nullable
               as List<ShoppingCardProduct>,
       payResponse: freezed == payResponse
           ? _value.payResponse
@@ -220,9 +274,17 @@ class _$_ShoppingCardState extends _ShoppingCardState {
       this.typePaySelected = false,
       this.total = 0.0,
       this.counter = 0,
+      this.totalRenting = 0,
+      this.totalTienda = 0,
       final List<ShoppingCardProduct> products = const <ShoppingCardProduct>[],
+      final List<ShoppingCardProduct> productsTienda =
+          const <ShoppingCardProduct>[],
+      final List<ShoppingCardProduct> productsRenting =
+          const <ShoppingCardProduct>[],
       this.payResponse})
       : _products = products,
+        _productsTienda = productsTienda,
+        _productsRenting = productsRenting,
         super._();
 
   @override
@@ -249,6 +311,12 @@ class _$_ShoppingCardState extends _ShoppingCardState {
   @override
   @JsonKey()
   final int counter;
+  @override
+  @JsonKey()
+  final int totalRenting;
+  @override
+  @JsonKey()
+  final int totalTienda;
   final List<ShoppingCardProduct> _products;
   @override
   @JsonKey()
@@ -258,12 +326,30 @@ class _$_ShoppingCardState extends _ShoppingCardState {
     return EqualUnmodifiableListView(_products);
   }
 
+  final List<ShoppingCardProduct> _productsTienda;
+  @override
+  @JsonKey()
+  List<ShoppingCardProduct> get productsTienda {
+    if (_productsTienda is EqualUnmodifiableListView) return _productsTienda;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_productsTienda);
+  }
+
+  final List<ShoppingCardProduct> _productsRenting;
+  @override
+  @JsonKey()
+  List<ShoppingCardProduct> get productsRenting {
+    if (_productsRenting is EqualUnmodifiableListView) return _productsRenting;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_productsRenting);
+  }
+
   @override
   final PayResponse? payResponse;
 
   @override
   String toString() {
-    return 'ShoppingCardState(loading: $loading, status: $status, deleting: $deleting, buying: $buying, isCard: $isCard, typePaySelected: $typePaySelected, total: $total, counter: $counter, products: $products, payResponse: $payResponse)';
+    return 'ShoppingCardState(loading: $loading, status: $status, deleting: $deleting, buying: $buying, isCard: $isCard, typePaySelected: $typePaySelected, total: $total, counter: $counter, totalRenting: $totalRenting, totalTienda: $totalTienda, products: $products, productsTienda: $productsTienda, productsRenting: $productsRenting, payResponse: $payResponse)';
   }
 
   @override
@@ -281,7 +367,15 @@ class _$_ShoppingCardState extends _ShoppingCardState {
                 other.typePaySelected == typePaySelected) &&
             (identical(other.total, total) || other.total == total) &&
             (identical(other.counter, counter) || other.counter == counter) &&
+            (identical(other.totalRenting, totalRenting) ||
+                other.totalRenting == totalRenting) &&
+            (identical(other.totalTienda, totalTienda) ||
+                other.totalTienda == totalTienda) &&
             const DeepCollectionEquality().equals(other._products, _products) &&
+            const DeepCollectionEquality()
+                .equals(other._productsTienda, _productsTienda) &&
+            const DeepCollectionEquality()
+                .equals(other._productsRenting, _productsRenting) &&
             (identical(other.payResponse, payResponse) ||
                 other.payResponse == payResponse));
   }
@@ -297,7 +391,11 @@ class _$_ShoppingCardState extends _ShoppingCardState {
       typePaySelected,
       total,
       counter,
+      totalRenting,
+      totalTienda,
       const DeepCollectionEquality().hash(_products),
+      const DeepCollectionEquality().hash(_productsTienda),
+      const DeepCollectionEquality().hash(_productsRenting),
       payResponse);
 
   @JsonKey(ignore: true)
@@ -318,7 +416,11 @@ abstract class _ShoppingCardState extends ShoppingCardState {
       final bool typePaySelected,
       final double total,
       final int counter,
+      final int totalRenting,
+      final int totalTienda,
       final List<ShoppingCardProduct> products,
+      final List<ShoppingCardProduct> productsTienda,
+      final List<ShoppingCardProduct> productsRenting,
       final PayResponse? payResponse}) = _$_ShoppingCardState;
   const _ShoppingCardState._() : super._();
 
@@ -339,7 +441,15 @@ abstract class _ShoppingCardState extends ShoppingCardState {
   @override
   int get counter;
   @override
+  int get totalRenting;
+  @override
+  int get totalTienda;
+  @override
   List<ShoppingCardProduct> get products;
+  @override
+  List<ShoppingCardProduct> get productsTienda;
+  @override
+  List<ShoppingCardProduct> get productsRenting;
   @override
   PayResponse? get payResponse;
   @override

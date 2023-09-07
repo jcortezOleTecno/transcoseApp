@@ -4,11 +4,13 @@ import 'package:vemare/app/view/theme/text_style.dart';
 
 class MyTiendaRentingButton extends StatefulWidget {
   const MyTiendaRentingButton({
+    this.enableRenting = true,
     required this.isTienda,
     Key? key,
   }) : super(key: key);
 
   final void Function(bool) isTienda;
+  final bool enableRenting;
 
   @override
   State<MyTiendaRentingButton> createState() => _MyTiendaRentingButtonState();
@@ -57,6 +59,7 @@ class _MyTiendaRentingButtonState extends State<MyTiendaRentingButton> {
                   topRight: Radius.circular(10),
                   bottomRight: Radius.circular(10)),
               onTap: () {
+                if (!widget.enableRenting) return;
                 setState(() {
                   isTienda = false;
                 });

@@ -82,7 +82,9 @@ class DetailSaleRent extends StatelessWidget {
                                 ),
                               ),
                             )
-                          : MyTiendaRentingButton(isTienda: cubit.isTienda),
+                          : MyTiendaRentingButton(
+                              isTienda: cubit.isTienda,
+                              enableRenting: state.promotion!.renting == 1),
                       spacerM,
                       ClipRRect(
                         borderRadius: BorderRadius.circular(12),

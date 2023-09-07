@@ -1,4 +1,49 @@
 class ShoppingCardProduct {
+  int? id;
+  String? image;
+  String? productName;
+  bool renting;
+  int? priceOld;
+  int? priceSale;
+  int? quantity;
+  int? total;
+
+  ShoppingCardProduct({
+    this.id,
+    this.image,
+    this.productName,
+    required this.renting,
+    this.priceOld,
+    this.priceSale,
+    this.quantity,
+    this.total,
+  });
+
+  factory ShoppingCardProduct.fromJson(dynamic json) => ShoppingCardProduct(
+        id: json["id"] as int?,
+        image: json["image"] as String?,
+        productName: json["product_name"] as String?,
+        renting: json["renting"] as bool,
+        priceOld: json["price_old"] as int?,
+        priceSale: json["price_sale"] as int?,
+        quantity: json["quantity"] as int?,
+        total: json["total"] as int?,
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "image": image,
+        "product_name": productName,
+        "renting": renting,
+        "price_old": priceOld,
+        "price_sale": priceSale,
+        "quantity": quantity,
+        "total": total,
+      };
+}
+
+
+/*class ShoppingCardProduct {
   ShoppingCardProduct({
     this.id,
     this.userId,
@@ -42,4 +87,4 @@ class ShoppingCardProduct {
         "promotion_price_lowered": promotionPriceLowered,
         "image": image,
       };
-}
+}*/
