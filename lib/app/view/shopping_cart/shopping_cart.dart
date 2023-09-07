@@ -82,7 +82,7 @@ class ShoppingCartPage extends StatelessWidget {
                                       2,
                                       (_) => const MyShimmer(
                                             margin: EdgeInsets.only(bottom: 20),
-                                            height: 220,
+                                            height: 300,
                                           )),
                                 if (!state.loading && state.products.isEmpty)
                                   const _CarEmpty(),
