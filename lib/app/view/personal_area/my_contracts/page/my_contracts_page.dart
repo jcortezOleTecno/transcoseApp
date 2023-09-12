@@ -39,26 +39,11 @@ class MyContractsPage extends StatelessWidget {
             : DefaultTabController(
                 length: 4,
                 child: Column(
-                  children: const [
+                  children: [
                     spacerS,
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 15),
-                      child: TabBar(
-                        labelColor: AppColor.primaryBlue,
-                        indicatorColor: AppColor.primaryBlue,
-                        indicatorWeight: 2.5,
-                        indicatorSize: TabBarIndicatorSize.tab,
-                        labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                        unselectedLabelStyle:
-                            TextStyle(fontWeight: FontWeight.normal),
-                        unselectedLabelColor: AppColor.neutral20,
-                        tabs: [
-                          Tab(text: 'Rappels'),
-                          Tab(text: 'Millennium'),
-                          Tab(text: 'PMP'),
-                          Tab(text: 'CRD'),
-                        ],
-                      ),
+                      child: _TapBar(),
                     ),
                     Divider(
                       height: 0,
@@ -80,6 +65,30 @@ class MyContractsPage extends StatelessWidget {
                 ),
               ),
       ),
+    );
+  }
+}
+
+class _TapBar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return const TabBar(
+      labelColor: AppColor.primaryBlue,
+      indicatorColor: AppColor.primaryBlue,
+      indicatorWeight: 2.5,
+      indicatorSize: TabBarIndicatorSize.tab,
+      indicator: BoxDecoration(
+        color: AppColor.blue100,
+      ),
+      labelStyle: TextStyle(fontWeight: FontWeight.bold),
+      unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
+      unselectedLabelColor: AppColor.primaryBlue,
+      tabs: [
+        Tab(text: 'Rappels'),
+        Tab(text: 'Millennium'),
+        Tab(text: 'PMP'),
+        Tab(text: 'CRD'),
+      ],
     );
   }
 }

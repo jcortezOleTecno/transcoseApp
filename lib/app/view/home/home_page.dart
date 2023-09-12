@@ -941,8 +941,10 @@ class _ProductsVemare extends StatelessWidget {
                     PageController(initialPage: 0, viewportFraction: 0.9),
                 itemBuilder: (context, i) => CardProducts(
                   onTap: () {
-                    Navigator.pushNamed(context, TypeOfVehiclePage.route,
-                        arguments: state.products[i]);
+                    Navigator.pushNamed(
+                      context,
+                      TypeOfVehiclePage.route, /*arguments: state.products[i]*/
+                    );
                   },
                   margin: const EdgeInsets.symmetric(horizontal: 10),
                   icon: state.products[i].image != null

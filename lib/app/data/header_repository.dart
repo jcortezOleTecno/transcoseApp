@@ -13,6 +13,7 @@ class HeaderRepository {
       '$BASE_API_URL/api/header-modules',
       params: {"module": module},
     );
+    print(res);
     if (module != null) {
       return Header.fromJson(res);
     } else {
