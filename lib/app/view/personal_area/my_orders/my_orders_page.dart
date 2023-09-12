@@ -39,7 +39,12 @@ class MyOrdersPage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 child: TabBar(
                   isScrollable: false,
-
+                  indicator: BoxDecoration(
+                      color: AppColor.blue100,
+                      border: Border(
+                        bottom:
+                            BorderSide(color: AppColor.primaryBlue, width: 2.5),
+                      )),
                   labelColor: AppColor.primaryBlue,
                   indicatorColor: AppColor.primaryBlue,
                   indicatorWeight: 2.5,
@@ -47,7 +52,7 @@ class MyOrdersPage extends StatelessWidget {
                   labelStyle: TextStyle(fontWeight: FontWeight.bold),
                   unselectedLabelStyle:
                       TextStyle(fontWeight: FontWeight.normal),
-                  unselectedLabelColor: AppColor.neutral20,
+                  unselectedLabelColor: AppColor.primaryBlue,
                   // physics: NeverScrollableScrollPhysics(),
                   tabs: [
                     Tab(text: 'Pedidos'),

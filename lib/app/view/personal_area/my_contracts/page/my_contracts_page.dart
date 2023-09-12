@@ -78,8 +78,10 @@ class _TapBar extends StatelessWidget {
       indicatorWeight: 2.5,
       indicatorSize: TabBarIndicatorSize.tab,
       indicator: BoxDecoration(
-        color: AppColor.blue100,
-      ),
+          color: AppColor.blue100,
+          border: Border(
+            bottom: BorderSide(color: AppColor.primaryBlue, width: 2.5),
+          )),
       labelStyle: TextStyle(fontWeight: FontWeight.bold),
       unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
       unselectedLabelColor: AppColor.primaryBlue,
