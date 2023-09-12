@@ -72,28 +72,28 @@ class _RegisterPageState extends State<RegisterPage> {
                     textAlign: TextAlign.center,
                     style: AppTextStyle.h1Style,
                   ),
-                  spacerM,
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
-                    child: RadioGroup<String>.builder(
-                      groupValue: type,
-                      activeColor: AppColor.blue,
-                      direction: Axis.horizontal,
-                      horizontalAlignment: MainAxisAlignment.center,
-                      textStyle: AppTextStyle.inputLabelStyle,
-                      onChanged: (value) {
-                        setState(() {
-                          isEmpresa = !isEmpresa;
-                          type = value!;
-                        });
-                      },
-                      items: const ['Empresa', 'Empleado'],
-                      itemBuilder: (value) => RadioButtonBuilder(
-                        value,
-                        textPosition: RadioButtonTextPosition.right,
-                      ),
-                    ),
-                  ),
+                  // spacerM,
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(horizontal: 30),
+                  //   child: RadioGroup<String>.builder(
+                  //     groupValue: type,
+                  //     activeColor: AppColor.blue,
+                  //     direction: Axis.horizontal,
+                  //     horizontalAlignment: MainAxisAlignment.center,
+                  //     textStyle: AppTextStyle.inputLabelStyle,
+                  //     onChanged: (value) {
+                  //       setState(() {
+                  //         isEmpresa = !isEmpresa;
+                  //         type = value!;
+                  //       });
+                  //     },
+                  //     items: const ['Empresa', 'Empleado'],
+                  //     itemBuilder: (value) => RadioButtonBuilder(
+                  //       value,
+                  //       textPosition: RadioButtonTextPosition.right,
+                  //     ),
+                  //   ),
+                  // ),
                   spacerM,
                   Visibility(
                     visible: state.status == FormStatus.error,
@@ -108,32 +108,33 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     ),
                   ),
-                  spacerL,
-                  isEmpresa
-                      ? MyInput(
-                          label: 'Nombre de la empresa',
-                          hintText: 'Nombre de la empresa',
-                          required: true,
-                          hasError: state.status == FormStatus.error,
-                          onChanged: cubit.name,
-                        )
-                      : Padding(
-                          padding: const EdgeInsets.only(bottom: 21),
-                          child: MyInputAutoComplete(
-                            keyComplete: key,
-                            suggestions:
-                                state.enterprises.map((e) => e.name).toList(),
-                            hintText: 'Nombre de la empresa',
-                            label: 'Nombre de la empresa *',
-                            textInputAction: TextInputAction.search,
-                            textCapitalization: TextCapitalization.words,
-                            textSubmitted: (name) {
-                              var enterprise = state.enterprises
-                                  .firstWhere((e) => e.name == name);
-                              cubit.enterprise(enterprise);
-                            },
-                          ),
-                        ),
+                  spacerM,
+                  // isEmpresa
+                  //     ?
+                  MyInput(
+                    label: 'Nombre de la empresa',
+                    hintText: 'Nombre de la empresa',
+                    required: true,
+                    hasError: state.status == FormStatus.error,
+                    onChanged: cubit.name,
+                  )
+                  // : Padding(
+                  //     padding: const EdgeInsets.only(bottom: 21),
+                  //     child: MyInputAutoComplete(
+                  //       keyComplete: key,
+                  //       suggestions:
+                  //           state.enterprises.map((e) => e.name).toList(),
+                  //       hintText: 'Nombre de la empresa',
+                  //       label: 'Nombre de la empresa *',
+                  //       textInputAction: TextInputAction.search,
+                  //       textCapitalization: TextCapitalization.words,
+                  //       textSubmitted: (name) {
+                  //         var enterprise = state.enterprises
+                  //             .firstWhere((e) => e.name == name);
+                  //         cubit.enterprise(enterprise);
+                  //       },
+                  //     ),
+                  //   ),
 
                   /*Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -194,6 +195,29 @@ class _RegisterPageState extends State<RegisterPage> {
                   //     hasError: state.status == FormStatus.error,
                   //   ),
                   // ),
+                  ,
+                  MyInput(
+                    label: 'CIF',
+                    hintText: 'Código de identificación fiscal',
+                    required: true,
+                    onChanged: cubit.cif,
+                    hasError: state.status == FormStatus.error,
+                  ),
+
+                  MyInput(
+                    label: 'Nombre',
+                    hintText: 'Nombre completo',
+                    required: true,
+                    onChanged: cubit.responsibleName,
+                    hasError: state.status == FormStatus.error,
+                  ),
+                  MyInput(
+                    label: 'Apellidos',
+                    hintText: 'Apellidos completos',
+                    required: true,
+                    onChanged: cubit.responsibleLastName,
+                    hasError: state.status == FormStatus.error,
+                  ),
                   MyInput(
                     label: 'E-mail',
                     hintText: 'Dirección de correo electrónico',
@@ -201,7 +225,6 @@ class _RegisterPageState extends State<RegisterPage> {
                     onChanged: cubit.email,
                     hasError: state.status == FormStatus.error,
                   ),
-                  spacerS,
                   MyInput(
                     label: 'Teléfono',
                     hintText: 'Número de teléfono',
@@ -210,23 +233,6 @@ class _RegisterPageState extends State<RegisterPage> {
                     hasError: state.status == FormStatus.error,
                     inputType: TextInputType.phone,
                   ),
-                  spacerS,
-                  MyInput(
-                    label: 'Nombre',
-                    hintText: 'Nombre completo',
-                    required: true,
-                    onChanged: cubit.responsibleName,
-                    hasError: state.status == FormStatus.error,
-                  ),
-                  spacerS,
-                  MyInput(
-                    label: 'Apellidos',
-                    hintText: 'Apellidos completos',
-                    required: true,
-                    onChanged: cubit.responsibleLastName,
-                    hasError: state.status == FormStatus.error,
-                  ),
-                  spacerS,
                   MyInput(
                     label: 'Contraseña',
                     hintText: 'Contraseña',
@@ -272,12 +278,14 @@ class _RegisterPageState extends State<RegisterPage> {
                   MyButton(
                     text: 'Crear cuenta',
                     isLoading: state.status == FormStatus.loading,
-                    disabled: isEmpresa
+                    disabled: !state.isCompletedEnterprise,
+                    /*isEmpresa
                         ? !state.isCompletedEnterprise
-                        : !state.isCompletedEmployee,
-                    onPressed: isEmpresa
+                        : !state.isCompletedEmployee,*/
+                    onPressed: cubit.registerEnterprise,
+                    /*isEmpresa
                         ? cubit.registerEnterprise
-                        : cubit.registerEmployee,
+                        : cubit.registerEmployee,*/
                   ),
                   spacerM,
                   MyButton(

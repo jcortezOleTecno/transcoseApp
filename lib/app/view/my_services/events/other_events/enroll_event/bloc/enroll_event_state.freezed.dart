@@ -17,10 +17,12 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$EnrollEventState {
   bool get loading => throw _privateConstructorUsedError;
+  bool get showCalendar => throw _privateConstructorUsedError;
   int get peopleCounter => throw _privateConstructorUsedError;
   List<Horario> get horarios => throw _privateConstructorUsedError;
   Locations? get locations => throw _privateConstructorUsedError;
   Events? get event => throw _privateConstructorUsedError;
+  Horario? get horarioSelected => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $EnrollEventStateCopyWith<EnrollEventState> get copyWith =>
@@ -35,10 +37,12 @@ abstract class $EnrollEventStateCopyWith<$Res> {
   @useResult
   $Res call(
       {bool loading,
+      bool showCalendar,
       int peopleCounter,
       List<Horario> horarios,
       Locations? locations,
-      Events? event});
+      Events? event,
+      Horario? horarioSelected});
 }
 
 /// @nodoc
@@ -55,15 +59,21 @@ class _$EnrollEventStateCopyWithImpl<$Res, $Val extends EnrollEventState>
   @override
   $Res call({
     Object? loading = null,
+    Object? showCalendar = null,
     Object? peopleCounter = null,
     Object? horarios = null,
     Object? locations = freezed,
     Object? event = freezed,
+    Object? horarioSelected = freezed,
   }) {
     return _then(_value.copyWith(
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      showCalendar: null == showCalendar
+          ? _value.showCalendar
+          : showCalendar // ignore: cast_nullable_to_non_nullable
               as bool,
       peopleCounter: null == peopleCounter
           ? _value.peopleCounter
@@ -81,6 +91,10 @@ class _$EnrollEventStateCopyWithImpl<$Res, $Val extends EnrollEventState>
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
               as Events?,
+      horarioSelected: freezed == horarioSelected
+          ? _value.horarioSelected
+          : horarioSelected // ignore: cast_nullable_to_non_nullable
+              as Horario?,
     ) as $Val);
   }
 }
@@ -95,10 +109,12 @@ abstract class _$$_EnrollTrainingStateCopyWith<$Res>
   @useResult
   $Res call(
       {bool loading,
+      bool showCalendar,
       int peopleCounter,
       List<Horario> horarios,
       Locations? locations,
-      Events? event});
+      Events? event,
+      Horario? horarioSelected});
 }
 
 /// @nodoc
@@ -113,15 +129,21 @@ class __$$_EnrollTrainingStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? loading = null,
+    Object? showCalendar = null,
     Object? peopleCounter = null,
     Object? horarios = null,
     Object? locations = freezed,
     Object? event = freezed,
+    Object? horarioSelected = freezed,
   }) {
     return _then(_$_EnrollTrainingState(
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      showCalendar: null == showCalendar
+          ? _value.showCalendar
+          : showCalendar // ignore: cast_nullable_to_non_nullable
               as bool,
       peopleCounter: null == peopleCounter
           ? _value.peopleCounter
@@ -139,6 +161,10 @@ class __$$_EnrollTrainingStateCopyWithImpl<$Res>
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
               as Events?,
+      horarioSelected: freezed == horarioSelected
+          ? _value.horarioSelected
+          : horarioSelected // ignore: cast_nullable_to_non_nullable
+              as Horario?,
     ));
   }
 }
@@ -148,16 +174,21 @@ class __$$_EnrollTrainingStateCopyWithImpl<$Res>
 class _$_EnrollTrainingState extends _EnrollTrainingState {
   const _$_EnrollTrainingState(
       {this.loading = false,
+      this.showCalendar = false,
       this.peopleCounter = 0,
       final List<Horario> horarios = const <Horario>[],
       this.locations,
-      this.event})
+      this.event,
+      this.horarioSelected})
       : _horarios = horarios,
         super._();
 
   @override
   @JsonKey()
   final bool loading;
+  @override
+  @JsonKey()
+  final bool showCalendar;
   @override
   @JsonKey()
   final int peopleCounter;
@@ -174,10 +205,12 @@ class _$_EnrollTrainingState extends _EnrollTrainingState {
   final Locations? locations;
   @override
   final Events? event;
+  @override
+  final Horario? horarioSelected;
 
   @override
   String toString() {
-    return 'EnrollEventState(loading: $loading, peopleCounter: $peopleCounter, horarios: $horarios, locations: $locations, event: $event)';
+    return 'EnrollEventState(loading: $loading, showCalendar: $showCalendar, peopleCounter: $peopleCounter, horarios: $horarios, locations: $locations, event: $event, horarioSelected: $horarioSelected)';
   }
 
   @override
@@ -186,17 +219,28 @@ class _$_EnrollTrainingState extends _EnrollTrainingState {
         (other.runtimeType == runtimeType &&
             other is _$_EnrollTrainingState &&
             (identical(other.loading, loading) || other.loading == loading) &&
+            (identical(other.showCalendar, showCalendar) ||
+                other.showCalendar == showCalendar) &&
             (identical(other.peopleCounter, peopleCounter) ||
                 other.peopleCounter == peopleCounter) &&
             const DeepCollectionEquality().equals(other._horarios, _horarios) &&
             (identical(other.locations, locations) ||
                 other.locations == locations) &&
-            (identical(other.event, event) || other.event == event));
+            (identical(other.event, event) || other.event == event) &&
+            (identical(other.horarioSelected, horarioSelected) ||
+                other.horarioSelected == horarioSelected));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, loading, peopleCounter,
-      const DeepCollectionEquality().hash(_horarios), locations, event);
+  int get hashCode => Object.hash(
+      runtimeType,
+      loading,
+      showCalendar,
+      peopleCounter,
+      const DeepCollectionEquality().hash(_horarios),
+      locations,
+      event,
+      horarioSelected);
 
   @JsonKey(ignore: true)
   @override
@@ -209,14 +253,18 @@ class _$_EnrollTrainingState extends _EnrollTrainingState {
 abstract class _EnrollTrainingState extends EnrollEventState {
   const factory _EnrollTrainingState(
       {final bool loading,
+      final bool showCalendar,
       final int peopleCounter,
       final List<Horario> horarios,
       final Locations? locations,
-      final Events? event}) = _$_EnrollTrainingState;
+      final Events? event,
+      final Horario? horarioSelected}) = _$_EnrollTrainingState;
   const _EnrollTrainingState._() : super._();
 
   @override
   bool get loading;
+  @override
+  bool get showCalendar;
   @override
   int get peopleCounter;
   @override
@@ -225,6 +273,8 @@ abstract class _EnrollTrainingState extends EnrollEventState {
   Locations? get locations;
   @override
   Events? get event;
+  @override
+  Horario? get horarioSelected;
   @override
   @JsonKey(ignore: true)
   _$$_EnrollTrainingStateCopyWith<_$_EnrollTrainingState> get copyWith =>

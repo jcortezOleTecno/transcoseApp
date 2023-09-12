@@ -152,9 +152,11 @@ class Horario {
   bool? isRegistered;
   bool? centerReference;
   int? occupiedPlaces;
+  bool allDay;
 
   Horario({
     required this.dateId,
+    this.allDay = false,
     this.date,
     this.dateFormat,
     this.time,
@@ -188,6 +190,7 @@ class Horario {
         isRegistered: json["is_registered"],
         centerReference: json["center_reference"],
         occupiedPlaces: json["occupied_places"],
+        allDay: json["all_day"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -208,5 +211,6 @@ class Horario {
         "is_registered": isRegistered,
         "center_reference": centerReference,
         "occupied_places": occupiedPlaces,
+        "all_day": allDay,
       };
 }

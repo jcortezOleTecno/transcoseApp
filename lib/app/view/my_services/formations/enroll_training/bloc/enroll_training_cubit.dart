@@ -24,7 +24,13 @@ class EnrollTrainingCubit extends Cubit<EnrollTrainingState> {
     emit(state.copyWith(loading: true));
     var data = await _formationsRepository.getHorariosFormations(
         state.formation!.id!, state.locations!.location!);
-    emit(state.copyWith(horarios: data, loading: false));
+    emit(
+      state.copyWith(
+        horarios: data.horarios,
+        showCalendar: data.showCalendar,
+        loading: false,
+      ),
+    );
   }
 
   Future<EnrollResponse?> enrullFormation({
@@ -46,4 +52,19 @@ class EnrollTrainingCubit extends Cubit<EnrollTrainingState> {
     state.horarios.firstWhere((e) => e.dateId == date.dateId).isRegistered =
         true;
   }
+
+  selectedHorario(Horario horario) {
+    emit(state.copyWith(horarioSelected: horario));
+  }
+
+  unseledtedHorario() {
+    emit(state.copyWith(horarioSelected: null));
+  }
+}
+
+class CalendarResponse {
+  final List<Horario> horarios;
+  final bool showCalendar;
+
+  CalendarResponse({required this.horarios, required this.showCalendar});
 }

@@ -43,6 +43,12 @@ abstract class AppTextStyle {
     fontWeight: FontWeight.bold,
     color: AppColor.black,
   );
+  static const TextStyle nunito800 = TextStyle(
+    fontFamily: 'Nunito',
+    fontSize: 28,
+    fontWeight: FontWeight.w800,
+    color: AppColor.black,
+  );
   static const TextStyle h2Style = TextStyle(
     fontFamily: 'Nunito',
     fontSize: 24,

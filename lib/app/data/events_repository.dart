@@ -8,6 +8,7 @@ import 'package:vemare/app/domain/model/formation.dart';
 import 'package:vemare/app/domain/model/header_events_held.dart';
 import 'package:vemare/app/domain/model/locations.dart';
 import 'package:vemare/app/view/my_services/events/other_events/enroll_event/bloc/enroll_event_cubit.dart';
+import 'package:vemare/app/view/my_services/formations/enroll_training/bloc/enroll_training_cubit.dart';
 
 import '../domain/model/employee.dart';
 import '../domain/model/my_event.dart';
@@ -75,12 +76,15 @@ class EventsRepository {
     return (res["locations"] as List).map(Locations.fromJson).toList();
   }
 
-  Future<List<Horario>> getHorariosEvents(int id, String location) async {
+  Future<CalendarResponse> getHorariosEvents(int id, String location) async {
     final dynamic res = await _apiClient
         .getRequest('$BASE_API_URL/api/eventos/calendario', params: {
       "event_id": id.toString(),
       "location": location,
     });
-    return (res["data"]["horario"] as List).map(Horario.fromJson).toList();
+    return CalendarResponse(
+      horarios: (res["data"]["horario"] as List).map(Horario.fromJson).toList(),
+      showCalendar: res["data"]["show_calendar"] as bool,
+    );
   }
 }
