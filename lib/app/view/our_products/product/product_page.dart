@@ -70,9 +70,12 @@ class ProductPage extends StatelessWidget {
                                   ),
                                 ),
                               spacerS,
-                              Text(
-                                state.category?.name ?? 'Todas las categorias',
-                                style: AppTextStyle.h1Style,
+                              Expanded(
+                                child: Text(
+                                  state.category?.name ??
+                                      'Todas las categorias',
+                                  style: AppTextStyle.h1Style,
+                                ),
                               ),
                             ],
                           ),

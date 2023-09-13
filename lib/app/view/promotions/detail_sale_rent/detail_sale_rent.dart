@@ -66,25 +66,14 @@ class DetailSaleRent extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       (state.promotion!.informative || user == null)
-                          ? Container(
-                              clipBehavior: Clip.antiAlias,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                color: AppColor.primaryBlue,
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color: AppColor.neutral40),
-                              ),
-                              alignment: Alignment.center,
-                              child: Text(
-                                'Información',
-                                style: AppTextStyle.buttonTextStyle.copyWith(
-                                  color: AppColor.white,
-                                ),
-                              ),
+                          ? const _InformationLabel(
+                              label: "Información",
                             )
-                          : MyTiendaRentingButton(
-                              isTienda: cubit.isTienda,
-                              enableRenting: state.promotion!.renting == 1),
+                          : state.promotion!.renting == 0
+                              ? const _InformationLabel(label: "Tienda")
+                              : MyTiendaRentingButton(
+                                  isTienda: cubit.isTienda,
+                                  enableRenting: state.promotion!.renting == 1),
                       spacerM,
                       ClipRRect(
                         borderRadius: BorderRadius.circular(12),
@@ -212,6 +201,34 @@ class DetailSaleRent extends StatelessWidget {
   // _comprar(DetailSaleRentCubit cubit) {
   //   return print("COMPRAR");
   // }
+}
+
+class _InformationLabel extends StatelessWidget {
+  const _InformationLabel({
+    required this.label,
+  });
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      clipBehavior: Clip.antiAlias,
+      height: 40,
+      decoration: BoxDecoration(
+        color: AppColor.primaryBlue,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: AppColor.neutral40),
+      ),
+      alignment: Alignment.center,
+      child: Text(
+        label,
+        style: AppTextStyle.buttonTextStyle.copyWith(
+          color: AppColor.white,
+        ),
+      ),
+    );
+  }
 }
 
 class StoreArgs {

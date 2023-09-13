@@ -39,7 +39,7 @@ class TypeOfVehiclePage extends StatelessWidget {
       body: BlocBuilder<TypeOfVehicleCubit, TypeOfVehicleState>(
         builder: (context, state) {
           return MyBody(
-              child: Container(
+              child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
