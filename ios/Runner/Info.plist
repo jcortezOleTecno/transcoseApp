@@ -34,7 +34,7 @@
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Photo Library Additions Usage Description</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Photo Library Usage Description</string>
+	<string>Esta aplicación requiere acceso a la biblioteca de fotos</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
