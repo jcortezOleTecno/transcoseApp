@@ -21,7 +21,7 @@
         </intent>
     </queries>
     <application
-        android:label="vemare"
+        android:label="Vemare"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

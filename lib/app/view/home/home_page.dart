@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:nested_scroll_views/material.dart';
 import 'package:vemare/app/data/brands_repository.dart';
@@ -15,11 +16,14 @@ import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/services_repository.dart';
 import 'package:vemare/app/data/work_with_us_repository.dart';
 import 'package:vemare/app/data/workshops_repository.dart';
+import 'package:vemare/app/domain/utils/validators.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
+import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_cards/my_promotions_card.dart';
 import 'package:vemare/app/view/_components/my_filter_image/my_filter_image.dart';
 import 'package:vemare/app/view/_components/my_html/my_html.dart';
+import 'package:vemare/app/view/_components/my_input/my_input.dart';
 import 'package:vemare/app/view/_components/my_listile/my_listile.dart';
 import 'package:vemare/app/view/_components/my_cards/my_products_card.dart';
 import 'package:vemare/app/view/_components/my_network_image/my_network_image.dart';
@@ -214,61 +218,251 @@ class _PageA extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.watch<HomeCubit>();
     return Stack(
+      fit: StackFit.expand,
       children: [
         const _Background(),
         Padding(
-            padding: const EdgeInsets.all(15),
-            child: BlocBuilder<HomeCubit, HomeState>(
-              builder: (context, state) {
-                return Column(
-                  children: [
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            const MySpacer(height: 200),
-                            Text(
-                              '¡Bienvenido${LocalDataRepository().isLogged ? ', ${LocalDataRepository().user?.name ?? ''}!' : '!'}',
-                              style: AppTextStyle.homeStyle,
-                            ),
-                            spacerM,
-                          ],
-                        ),
+          padding: const EdgeInsets.all(15),
+          child: BlocBuilder<HomeCubit, HomeState>(
+            builder: (context, state) {
+              return Column(
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          // Spacer(),
+                          const MySpacer(height: 200),
+                          Text(
+                            '¡Bienvenido${LocalDataRepository().isLogged ? ', ${LocalDataRepository().user?.name ?? ''}!' : '!'}',
+                            style: AppTextStyle.homeStyle,
+                          ),
+                          spacerM,
+                        ],
                       ),
                     ),
-                    MyIconButton(
-                      onPressed: () => cubit.openWhatsApp(
-                          phone: state.heroButtons?.whatsapp ?? ''),
-                      text: 'Escribir un Whatsapp',
-                      icon: Image.asset(
-                        'assets/icons/Whatsapp-.png',
-                        scale: 1.5,
-                      ),
-                      variant: MyButtonVariant.outlinedBold,
+                  ),
+                  MyIconButton(
+                    onPressed: () => cubit.openWhatsApp(
+                        phone: state.heroButtons?.whatsapp ?? ''),
+                    text: 'Escribir un Whatsapp',
+                    icon: Image.asset(
+                      'assets/icons/Whatsapp-.png',
+                      scale: 1.5,
                     ),
-                    spacerM,
-                    MyIconButton(
-                      onPressed: () => cubit.openEmail(
-                          toEmail: state.heroButtons?.email ?? ''),
-                      text: 'Escribir un email',
-                      icon: const Icon(Icons.mail_outline),
-                      variant: MyButtonVariant.outlinedBold,
-                    ),
-                    spacerM,
-                  ],
-                );
-              },
-            ))
+                    variant: MyButtonVariant.outlinedBold,
+                  ),
+                  spacerM,
+                  MyIconButton(
+                    onPressed: () {
+                      showDialog<bool>(
+                          context: context,
+                          builder: (context) {
+                            return _DialogEmail(
+                                toEmail: state.heroButtons?.email ?? '');
+                          }).then((value) {
+                        if (value ?? false) {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return Dialog(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Container(
+                                          height: 48,
+                                          width: 48,
+                                          decoration: const BoxDecoration(
+                                            color: AppColor.success200,
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: const Icon(
+                                            Icons.email_outlined,
+                                            color: AppColor.success,
+                                          ),
+                                        ),
+                                        spacerM,
+                                        Text(
+                                          "Formulario enviado con éxito",
+                                          style: AppTextStyle.nunito800
+                                              .copyWith(fontSize: 24),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        spacerS,
+                                        const Text(
+                                          "Nuestro equipo se pondrá en contacto contigo lo antes posible.",
+                                          style: AppTextStyle.defaultStyle,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        spacerM,
+                                        MyButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context),
+                                          text: "Aceptar",
+                                          width: double.infinity,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              });
+                        }
+                      });
+                    } /*cubit.openEmail(
+                          toEmail: state.heroButtons?.email ?? '')*/
+                    ,
+                    text: 'Escribir un email',
+                    icon: const Icon(Icons.mail_outline),
+                    variant: MyButtonVariant.outlinedBold,
+                  ),
+                  spacerM,
+                ],
+              );
+            },
+          ),
+        )
       ],
     );
   }
 }
 
-class _Background extends StatelessWidget {
+class _DialogEmail extends StatefulWidget {
+  final String toEmail;
+
+  const _DialogEmail({required this.toEmail});
+  @override
+  State<_DialogEmail> createState() => _DialogEmailState();
+}
+
+class _DialogEmailState extends State<_DialogEmail> {
+  final _formKey = GlobalKey<FormState>();
+  bool loading = false;
+  String? email;
+  String? asunto;
+  String? mensaje;
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(10),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              spacerS,
+              Text(
+                "Contacto por email",
+                style: AppTextStyle.nunito800.copyWith(fontSize: 24),
+              ),
+              spacerS,
+              Text(
+                "Rellena el formulario y nuestro equipo se pondrá en contacto contigo lo antes posible.",
+                textAlign: TextAlign.center,
+                style: AppTextStyle.defaultStyle.copyWith(fontSize: 16),
+              ),
+              spacerM,
+              MyInput(
+                label: "Correo electróncio*",
+                hintText: 'Escribe tu correo electrónico',
+                variant: MyInputVariant.backgroundBlue,
+                validator: validateEmail,
+                onChanged: (p0) {
+                  setState(() {
+                    email = p0;
+                  });
+                },
+              ),
+              MyInput(
+                label: "Asunto*",
+                hintText: 'Escribe aquí...',
+                variant: MyInputVariant.backgroundBlue,
+                validator: validateData,
+                onChanged: (p0) {
+                  setState(() {
+                    asunto = p0;
+                  });
+                },
+              ),
+              MyInput(
+                label: "Mensaje*",
+                variant: MyInputVariant.backgroundBlue,
+                maxLines: 6,
+                hintText: 'Escribe aquí...',
+                textInputAction: TextInputAction.newline,
+                inputType: TextInputType.multiline,
+                validator: validateData,
+                onChanged: (p0) {
+                  setState(() {
+                    mensaje = p0;
+                  });
+                },
+              ),
+              MyButton(
+                onPressed: () => Navigator.pop(context),
+                text: "Cancelar",
+                variant: MyButtonVariant.outlinedBold,
+                width: double.infinity,
+              ),
+              spacerS,
+              MyIconButton(
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    setState(() {
+                      loading = true;
+                    });
+                    print("Email: $email\nAsunto: $asunto\nMensaje: $mensaje");
+                    await Future.delayed(const Duration(seconds: 2));
+                    setState(() {
+                      loading = false;
+                    });
+                    Navigator.of(context).pop(true);
+                  }
+                },
+                icon: loading
+                    ? const SizedBox(
+                        height: 16,
+                        width: 16,
+                        child: CircularProgressIndicator())
+                    : const Icon(Icons.mail_outline),
+                text: loading ? "" : "Enviar",
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _Background extends StatefulWidget {
   const _Background({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<_Background> createState() => _BackgroundState();
+}
+
+class _BackgroundState extends State<_Background> {
+  final KeyboardVisibilityController _keyboardVisibilityController =
+      KeyboardVisibilityController();
+  bool openKeyboard = false;
+
+  @override
+  void initState() {
+    _keyboardVisibilityController.onChange.listen((bool isVisible) async {
+      if (!isVisible) {
+        await Future.delayed(const Duration(milliseconds: 200));
+      }
+      setState(() {
+        openKeyboard = isVisible;
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -279,7 +473,7 @@ class _Background extends StatelessWidget {
             ? const MyShimmer.full()
             : Swiper(
                 itemCount: state.hero.length,
-                itemHeight: size.height,
+                itemHeight: 100, // size.height,
                 itemWidth: size.width,
                 autoplay: true,
                 autoplayDelay: 3000,
@@ -302,26 +496,27 @@ class _Background extends StatelessWidget {
                         ),
                       ),
                       const MyFilterImage(),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const MySpacer(height: 250),
-                            Text(
-                              state.hero[i].title ?? '',
-                              style: AppTextStyle.h1Style.copyWith(
-                                  color: AppColor.white, fontSize: 58),
-                            ),
-                            spacerS,
-                            MyHtml(
-                              text: state.hero[i].description ?? '',
-                              bodyFontSize: 20,
-                              color: Colors.white,
-                            ),
-                          ],
-                        ),
-                      )
+                      if (!openKeyboard)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const MySpacer(height: 250),
+                              Text(
+                                state.hero[i].title ?? '',
+                                style: AppTextStyle.h1Style.copyWith(
+                                    color: AppColor.white, fontSize: 58),
+                              ),
+                              spacerS,
+                              MyHtml(
+                                text: state.hero[i].description ?? '',
+                                bodyFontSize: 20,
+                                color: Colors.white,
+                              ),
+                            ],
+                          ),
+                        )
                     ],
                   );
                 },
