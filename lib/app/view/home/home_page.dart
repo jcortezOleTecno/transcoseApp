@@ -267,8 +267,10 @@ class _PageA extends StatelessWidget {
                               context: context,
                               builder: (context) {
                                 return Dialog(
+                                  insetPadding: const EdgeInsets.all(15),
                                   child: Padding(
-                                    padding: const EdgeInsets.all(10),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 22, vertical: 20),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
@@ -346,13 +348,14 @@ class _DialogEmailState extends State<_DialogEmail> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      insetPadding: const EdgeInsets.all(15),
       child: SingleChildScrollView(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 20),
         child: Form(
           key: _formKey,
           child: Column(
             children: [
-              spacerS,
+              // spacerS,
               Text(
                 "Contacto por email",
                 style: AppTextStyle.nunito800.copyWith(fontSize: 24),

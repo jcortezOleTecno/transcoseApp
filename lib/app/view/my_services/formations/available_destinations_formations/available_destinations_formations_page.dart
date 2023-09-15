@@ -46,10 +46,10 @@ class AvailableDestinationsFormationsPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Destinos disponibles',
+                        Text('Ubicaciones disponibles',
                             style:
                                 AppTextStyle.nunito800.copyWith(fontSize: 24)),
-                        Text('Selecciona una ubicación',
+                        Text('Selecciona una ubicación y descubre sus fechas.',
                             style: AppTextStyle.defaultStyle
                                 .copyWith(fontSize: 16)),
                         spacerM,
@@ -64,7 +64,7 @@ class AvailableDestinationsFormationsPage extends StatelessWidget {
                                   )),
                         if (state.locationReferences.isNotEmpty &&
                             !state.loading) ...[
-                          Text('Destino de referencia',
+                          Text('Ubicaciones de referencia',
                               style: AppTextStyle.nunitoSans700
                                   .copyWith(fontSize: 20)),
                           spacerM,
@@ -113,7 +113,7 @@ class AvailableDestinationsFormationsPage extends StatelessWidget {
                           ),
                         ],
                         if (state.location.isNotEmpty && !state.loading) ...[
-                          Text('Otros destinos',
+                          Text('Otras ubicaciones',
                               style: AppTextStyle.nunitoSans700
                                   .copyWith(fontSize: 20)),
                           spacerM,

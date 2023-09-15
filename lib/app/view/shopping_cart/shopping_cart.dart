@@ -20,6 +20,8 @@ import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
 
+import '../home/home_page.dart';
+
 class ShoppingCartPage extends StatelessWidget {
   const ShoppingCartPage._();
 
@@ -38,12 +40,17 @@ class ShoppingCartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<ShoppingCardCubit>();
+    final cubitCounter = context.read<CarCounterCubit>();
     return Scaffold(
       body: BlocConsumer<ShoppingCardCubit, ShoppingCardState>(
         listenWhen: (p, c) => p.status != c.status,
         listener: (context, state) async {
           if (state.status == FormStatus.done) {
-            await launchUrlString(state.payResponse?.urlPayment ?? '');
+            await launchUrlString(state.payResponse?.urlPayment ?? '')
+                .then((value) {
+              Navigator.pop(context);
+              print("+++++++++++++++++++  launchUrlString +++++++++ ");
+            });
           }
           if (state.status == FormStatus.error) {
             // ignore: use_build_context_synchronously

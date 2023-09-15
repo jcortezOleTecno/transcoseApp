@@ -37,6 +37,7 @@ import 'package:vemare/config/service_locator.dart';
 
 import 'package:timeago/timeago.dart' as timeago;
 
+import '../../data/shopping_cart_repository.dart';
 import '../shared/userbloc/user_state.dart';
 
 class MyMenu extends StatelessWidget {
@@ -199,6 +200,7 @@ class __IconsAppbarState extends State<_IconsAppbar> {
           ),
           spacerM,
           BlocBuilder<CarCounterCubit, CarCounterState>(
+            // bloc: CarCounterCubit(getIt<ShoppingCardRepository>()),
             builder: (context, state) {
               return InkWell(
                 onTap: () {

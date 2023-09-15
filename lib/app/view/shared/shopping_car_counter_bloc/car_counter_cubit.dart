@@ -22,6 +22,7 @@ class CarCounterCubit extends Cubit<CarCounterState> {
       }
       addProduct(quantity: counter);
     } catch (e) {
+      addProduct(quantity: 0);
       log("No tienes promociones en tu carrito");
     }
   }

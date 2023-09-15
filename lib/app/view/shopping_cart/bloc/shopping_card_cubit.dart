@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:vemare/app/data/shopping_cart_repository.dart';
 import 'package:vemare/app/domain/model/pay_response.dart';
-import 'package:vemare/app/domain/model/shopping_card_product.dart';
 import 'package:vemare/app/domain/value_object/status.dart';
 import 'package:vemare/app/view/shared/shopping_car_counter_bloc/car_counter_cubit.dart';
 import 'package:vemare/app/view/shopping_cart/bloc/shopping_cart_state.dart';
@@ -31,6 +30,9 @@ class ShoppingCardCubit extends Cubit<ShoppingCardState> {
       for (var e in products) {
         counterTemp = e.quantity! + counterTemp;
       }
+
+      _carCounterCubit.addProduct(quantity: counterTemp);
+
       int totalRenting = 0;
       for (var e in renting) {
         totalRenting = e.total! + totalRenting;
@@ -52,6 +54,7 @@ class ShoppingCardCubit extends Cubit<ShoppingCardState> {
         ),
       );
     } catch (e) {
+      _carCounterCubit.addProduct(quantity: 0);
       emit(state.copyWith(loading: false));
     }
   }
