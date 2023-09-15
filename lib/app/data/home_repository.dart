@@ -18,4 +18,18 @@ class HomeRepository {
         await _apiClient.getRequest('$BASE_API_URL/api/hero/buttons');
     return HeroButtons.fromJson(res);
   }
+
+  Future<bool> contactForm(
+      {required String email,
+      required String subject,
+      required String description}) async {
+    final dynamic res =
+        await _apiClient.postRequest('$BASE_API_URL/api/contact-form', body: {
+      "email": email,
+      "subject": subject,
+      "description": description,
+    });
+    print(res);
+    return (res["response"] as String) == "success";
+  }
 }

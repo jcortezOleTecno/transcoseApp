@@ -19,6 +19,10 @@ class AvailableDestinationsCubit extends Cubit<AvailableDestinationsState> {
     emit(state.copyWith(loading: true));
     List<Locations> data =
         await _eventsRepository.getLocationsEvents(state.event!.id!);
-    emit(state.copyWith(location: data, loading: false));
+    emit(state.copyWith(
+      locationReferences: data.where((e) => e.centerReference).toList(),
+      location: data.where((e) => !e.centerReference).toList(),
+      loading: false,
+    ));
   }
 }

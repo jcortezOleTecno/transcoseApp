@@ -3,12 +3,14 @@ class Locations {
   int? eventId;
   String? location;
   String? center;
+  bool centerReference;
 
   Locations({
     this.id,
     this.eventId,
     this.location,
     this.center,
+    this.centerReference = false,
   });
 
   factory Locations.fromJson(dynamic json) => Locations(
@@ -16,6 +18,7 @@ class Locations {
         eventId: json["event_id"] ?? json["formation_id"] as int,
         location: json["location"] as String,
         center: json["center"] as String,
+        centerReference: json["center_reference"] as bool,
       );
 
   Map<String, dynamic> toJson() => {
@@ -23,5 +26,6 @@ class Locations {
         "event_id": eventId,
         "location": location,
         "center": center,
+        "center_reference": centerReference,
       };
 }

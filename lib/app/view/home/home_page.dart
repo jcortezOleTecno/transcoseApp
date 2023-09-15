@@ -413,12 +413,12 @@ class _DialogEmailState extends State<_DialogEmail> {
                     setState(() {
                       loading = true;
                     });
-                    print("Email: $email\nAsunto: $asunto\nMensaje: $mensaje");
-                    await Future.delayed(const Duration(seconds: 2));
+                    var resp = await getIt<HomeRepository>().contactForm(
+                        email: email!, subject: asunto!, description: mensaje!);
                     setState(() {
                       loading = false;
                     });
-                    Navigator.of(context).pop(true);
+                    Navigator.of(context).pop(resp);
                   }
                 },
                 icon: loading

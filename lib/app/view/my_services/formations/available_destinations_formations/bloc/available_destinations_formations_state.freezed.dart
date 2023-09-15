@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AvailableDestinationsFormationsState {
   bool get loading => throw _privateConstructorUsedError;
   List<Locations> get location => throw _privateConstructorUsedError;
+  List<Locations> get locationReferences => throw _privateConstructorUsedError;
   Formation? get formation => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -34,7 +35,11 @@ abstract class $AvailableDestinationsFormationsStateCopyWith<$Res> {
       _$AvailableDestinationsFormationsStateCopyWithImpl<$Res,
           AvailableDestinationsFormationsState>;
   @useResult
-  $Res call({bool loading, List<Locations> location, Formation? formation});
+  $Res call(
+      {bool loading,
+      List<Locations> location,
+      List<Locations> locationReferences,
+      Formation? formation});
 }
 
 /// @nodoc
@@ -53,6 +58,7 @@ class _$AvailableDestinationsFormationsStateCopyWithImpl<$Res,
   $Res call({
     Object? loading = null,
     Object? location = null,
+    Object? locationReferences = null,
     Object? formation = freezed,
   }) {
     return _then(_value.copyWith(
@@ -63,6 +69,10 @@ class _$AvailableDestinationsFormationsStateCopyWithImpl<$Res,
       location: null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
+              as List<Locations>,
+      locationReferences: null == locationReferences
+          ? _value.locationReferences
+          : locationReferences // ignore: cast_nullable_to_non_nullable
               as List<Locations>,
       formation: freezed == formation
           ? _value.formation
@@ -81,7 +91,11 @@ abstract class _$$_AvailableDestinationsFormationsStateCopyWith<$Res>
       __$$_AvailableDestinationsFormationsStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool loading, List<Locations> location, Formation? formation});
+  $Res call(
+      {bool loading,
+      List<Locations> location,
+      List<Locations> locationReferences,
+      Formation? formation});
 }
 
 /// @nodoc
@@ -99,6 +113,7 @@ class __$$_AvailableDestinationsFormationsStateCopyWithImpl<$Res>
   $Res call({
     Object? loading = null,
     Object? location = null,
+    Object? locationReferences = null,
     Object? formation = freezed,
   }) {
     return _then(_$_AvailableDestinationsFormationsState(
@@ -109,6 +124,10 @@ class __$$_AvailableDestinationsFormationsStateCopyWithImpl<$Res>
       location: null == location
           ? _value._location
           : location // ignore: cast_nullable_to_non_nullable
+              as List<Locations>,
+      locationReferences: null == locationReferences
+          ? _value._locationReferences
+          : locationReferences // ignore: cast_nullable_to_non_nullable
               as List<Locations>,
       formation: freezed == formation
           ? _value.formation
@@ -125,8 +144,10 @@ class _$_AvailableDestinationsFormationsState
   const _$_AvailableDestinationsFormationsState(
       {this.loading = false,
       final List<Locations> location = const <Locations>[],
+      final List<Locations> locationReferences = const <Locations>[],
       this.formation})
       : _location = location,
+        _locationReferences = locationReferences,
         super._();
 
   @override
@@ -141,12 +162,22 @@ class _$_AvailableDestinationsFormationsState
     return EqualUnmodifiableListView(_location);
   }
 
+  final List<Locations> _locationReferences;
+  @override
+  @JsonKey()
+  List<Locations> get locationReferences {
+    if (_locationReferences is EqualUnmodifiableListView)
+      return _locationReferences;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_locationReferences);
+  }
+
   @override
   final Formation? formation;
 
   @override
   String toString() {
-    return 'AvailableDestinationsFormationsState(loading: $loading, location: $location, formation: $formation)';
+    return 'AvailableDestinationsFormationsState(loading: $loading, location: $location, locationReferences: $locationReferences, formation: $formation)';
   }
 
   @override
@@ -156,13 +187,19 @@ class _$_AvailableDestinationsFormationsState
             other is _$_AvailableDestinationsFormationsState &&
             (identical(other.loading, loading) || other.loading == loading) &&
             const DeepCollectionEquality().equals(other._location, _location) &&
+            const DeepCollectionEquality()
+                .equals(other._locationReferences, _locationReferences) &&
             (identical(other.formation, formation) ||
                 other.formation == formation));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, loading,
-      const DeepCollectionEquality().hash(_location), formation);
+  int get hashCode => Object.hash(
+      runtimeType,
+      loading,
+      const DeepCollectionEquality().hash(_location),
+      const DeepCollectionEquality().hash(_locationReferences),
+      formation);
 
   @JsonKey(ignore: true)
   @override
@@ -178,6 +215,7 @@ abstract class _AvailableDestinationsFormationsState
   const factory _AvailableDestinationsFormationsState(
       {final bool loading,
       final List<Locations> location,
+      final List<Locations> locationReferences,
       final Formation? formation}) = _$_AvailableDestinationsFormationsState;
   const _AvailableDestinationsFormationsState._() : super._();
 
@@ -185,6 +223,8 @@ abstract class _AvailableDestinationsFormationsState
   bool get loading;
   @override
   List<Locations> get location;
+  @override
+  List<Locations> get locationReferences;
   @override
   Formation? get formation;
   @override

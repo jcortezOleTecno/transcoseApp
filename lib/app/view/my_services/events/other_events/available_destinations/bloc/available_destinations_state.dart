@@ -9,6 +9,7 @@ class AvailableDestinationsState with _$AvailableDestinationsState {
   const factory AvailableDestinationsState({
     Events? event,
     @Default(false) bool loading,
+    @Default(<Locations>[]) List<Locations> locationReferences,
     @Default(<Locations>[]) List<Locations> location,
   }) = _AvailableDestinationsState;
   const AvailableDestinationsState._();

@@ -47,7 +47,8 @@ class OtherEventPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(event.title ?? '',
-                                  style: AppTextStyle.h2Style),
+                                  style: AppTextStyle.nunitoSans800
+                                      .copyWith(fontSize: 24)),
                               spacerS,
                               MyHtml(text: event.description ?? ''),
                             ],

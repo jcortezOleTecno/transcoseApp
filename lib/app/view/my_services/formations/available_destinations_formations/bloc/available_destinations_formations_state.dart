@@ -10,6 +10,7 @@ class AvailableDestinationsFormationsState
   const factory AvailableDestinationsFormationsState({
     @Default(false) bool loading,
     @Default(<Locations>[]) List<Locations> location,
+    @Default(<Locations>[]) List<Locations> locationReferences,
     Formation? formation,
   }) = _AvailableDestinationsFormationsState;
   const AvailableDestinationsFormationsState._();

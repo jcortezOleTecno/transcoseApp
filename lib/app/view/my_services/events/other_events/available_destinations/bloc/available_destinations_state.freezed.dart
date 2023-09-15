@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AvailableDestinationsState {
   Events? get event => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
+  List<Locations> get locationReferences => throw _privateConstructorUsedError;
   List<Locations> get location => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -32,7 +33,11 @@ abstract class $AvailableDestinationsStateCopyWith<$Res> {
       _$AvailableDestinationsStateCopyWithImpl<$Res,
           AvailableDestinationsState>;
   @useResult
-  $Res call({Events? event, bool loading, List<Locations> location});
+  $Res call(
+      {Events? event,
+      bool loading,
+      List<Locations> locationReferences,
+      List<Locations> location});
 }
 
 /// @nodoc
@@ -51,6 +56,7 @@ class _$AvailableDestinationsStateCopyWithImpl<$Res,
   $Res call({
     Object? event = freezed,
     Object? loading = null,
+    Object? locationReferences = null,
     Object? location = null,
   }) {
     return _then(_value.copyWith(
@@ -62,6 +68,10 @@ class _$AvailableDestinationsStateCopyWithImpl<$Res,
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
               as bool,
+      locationReferences: null == locationReferences
+          ? _value.locationReferences
+          : locationReferences // ignore: cast_nullable_to_non_nullable
+              as List<Locations>,
       location: null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
@@ -79,7 +89,11 @@ abstract class _$$_AvailableDestinationsStateCopyWith<$Res>
       __$$_AvailableDestinationsStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Events? event, bool loading, List<Locations> location});
+  $Res call(
+      {Events? event,
+      bool loading,
+      List<Locations> locationReferences,
+      List<Locations> location});
 }
 
 /// @nodoc
@@ -97,6 +111,7 @@ class __$$_AvailableDestinationsStateCopyWithImpl<$Res>
   $Res call({
     Object? event = freezed,
     Object? loading = null,
+    Object? locationReferences = null,
     Object? location = null,
   }) {
     return _then(_$_AvailableDestinationsState(
@@ -108,6 +123,10 @@ class __$$_AvailableDestinationsStateCopyWithImpl<$Res>
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
               as bool,
+      locationReferences: null == locationReferences
+          ? _value._locationReferences
+          : locationReferences // ignore: cast_nullable_to_non_nullable
+              as List<Locations>,
       location: null == location
           ? _value._location
           : location // ignore: cast_nullable_to_non_nullable
@@ -122,8 +141,10 @@ class _$_AvailableDestinationsState extends _AvailableDestinationsState {
   const _$_AvailableDestinationsState(
       {this.event,
       this.loading = false,
+      final List<Locations> locationReferences = const <Locations>[],
       final List<Locations> location = const <Locations>[]})
-      : _location = location,
+      : _locationReferences = locationReferences,
+        _location = location,
         super._();
 
   @override
@@ -131,6 +152,16 @@ class _$_AvailableDestinationsState extends _AvailableDestinationsState {
   @override
   @JsonKey()
   final bool loading;
+  final List<Locations> _locationReferences;
+  @override
+  @JsonKey()
+  List<Locations> get locationReferences {
+    if (_locationReferences is EqualUnmodifiableListView)
+      return _locationReferences;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_locationReferences);
+  }
+
   final List<Locations> _location;
   @override
   @JsonKey()
@@ -142,7 +173,7 @@ class _$_AvailableDestinationsState extends _AvailableDestinationsState {
 
   @override
   String toString() {
-    return 'AvailableDestinationsState(event: $event, loading: $loading, location: $location)';
+    return 'AvailableDestinationsState(event: $event, loading: $loading, locationReferences: $locationReferences, location: $location)';
   }
 
   @override
@@ -152,11 +183,17 @@ class _$_AvailableDestinationsState extends _AvailableDestinationsState {
             other is _$_AvailableDestinationsState &&
             (identical(other.event, event) || other.event == event) &&
             (identical(other.loading, loading) || other.loading == loading) &&
+            const DeepCollectionEquality()
+                .equals(other._locationReferences, _locationReferences) &&
             const DeepCollectionEquality().equals(other._location, _location));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, event, loading,
+  int get hashCode => Object.hash(
+      runtimeType,
+      event,
+      loading,
+      const DeepCollectionEquality().hash(_locationReferences),
       const DeepCollectionEquality().hash(_location));
 
   @JsonKey(ignore: true)
@@ -171,6 +208,7 @@ abstract class _AvailableDestinationsState extends AvailableDestinationsState {
   const factory _AvailableDestinationsState(
       {final Events? event,
       final bool loading,
+      final List<Locations> locationReferences,
       final List<Locations> location}) = _$_AvailableDestinationsState;
   const _AvailableDestinationsState._() : super._();
 
@@ -178,6 +216,8 @@ abstract class _AvailableDestinationsState extends AvailableDestinationsState {
   Events? get event;
   @override
   bool get loading;
+  @override
+  List<Locations> get locationReferences;
   @override
   List<Locations> get location;
   @override

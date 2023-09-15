@@ -20,6 +20,10 @@ class AvailableDestinationsFormationsCubit
     emit(state.copyWith(loading: true));
     List<Locations> data = await _formationsRepository
         .getLocationsFormations(state.formation!.id!);
-    emit(state.copyWith(location: data, loading: false));
+    emit(state.copyWith(
+      location: data.where((e) => !e.centerReference).toList(),
+      locationReferences: data.where((e) => e.centerReference).toList(),
+      loading: false,
+    ));
   }
 }

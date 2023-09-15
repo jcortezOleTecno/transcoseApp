@@ -46,10 +46,12 @@ class AvailableDestinationsFormationsPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('Destinos disponibles',
-                            style: AppTextStyle.h1Style),
-                        const Text('Selecciona una ubicación',
-                            style: AppTextStyle.defaultStyle),
+                        Text('Destinos disponibles',
+                            style:
+                                AppTextStyle.nunito800.copyWith(fontSize: 24)),
+                        Text('Selecciona una ubicación',
+                            style: AppTextStyle.defaultStyle
+                                .copyWith(fontSize: 16)),
                         spacerM,
                         if (state.loading)
                           ...List.generate(
@@ -60,50 +62,105 @@ class AvailableDestinationsFormationsPage extends StatelessWidget {
                                     width: double.infinity,
                                     margin: EdgeInsets.only(bottom: 20),
                                   )),
-                        if (state.location.isNotEmpty && !state.loading)
-                          ...state.location.map((e) => GestureDetector(
-                                onTap: () {
-                                  
-                                    Navigator.pushNamed(
-                                        context, EnrollTrainingPage.route,
-                                        arguments:
-                                            EnrollTrainingPageArg(state.formation!, e));
-                                  
-                                },
-                                child: Card(
-                                  margin: const EdgeInsets.only(bottom: 20),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                                child: Text(
-                                              e.center ?? '',
-                                              style: AppTextStyle.titleCard
-                                                  .copyWith(
-                                                      color:
-                                                          AppColor.primaryBlue),
-                                            )),
-                                            Image.asset(
-                                              'assets/icons/arrow_next.png',
-                                              scale: 2,
-                                            )
-                                          ],
-                                        ),
-                                        spacerXs,
-                                        Text(
-                                          e.location ?? '',
-                                          style: AppTextStyle.contentCard,
-                                        )
-                                      ],
-                                    ),
+                        if (state.locationReferences.isNotEmpty &&
+                            !state.loading) ...[
+                          Text('Destino de referencia',
+                              style: AppTextStyle.nunitoSans700
+                                  .copyWith(fontSize: 20)),
+                          spacerM,
+                          ...state.locationReferences.map(
+                            (e) => GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, EnrollTrainingPage.route,
+                                    arguments: EnrollTrainingPageArg(
+                                        state.formation!, e));
+                              },
+                              child: Card(
+                                margin: const EdgeInsets.only(bottom: 20),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                              child: Text(
+                                            e.center ?? '',
+                                            style: AppTextStyle.titleCard
+                                                .copyWith(
+                                                    color:
+                                                        AppColor.primaryBlue),
+                                          )),
+                                          Image.asset(
+                                            'assets/icons/arrow_next.png',
+                                            scale: 2,
+                                          )
+                                        ],
+                                      ),
+                                      spacerXs,
+                                      Text(
+                                        e.location ?? '',
+                                        style: AppTextStyle.contentCard,
+                                      )
+                                    ],
                                   ),
                                 ),
-                              ))
+                              ),
+                            ),
+                          ),
+                        ],
+                        if (state.location.isNotEmpty && !state.loading) ...[
+                          Text('Otros destinos',
+                              style: AppTextStyle.nunitoSans700
+                                  .copyWith(fontSize: 20)),
+                          spacerM,
+                          ...state.location.map(
+                            (e) => GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, EnrollTrainingPage.route,
+                                    arguments: EnrollTrainingPageArg(
+                                        state.formation!, e));
+                              },
+                              child: Card(
+                                margin: const EdgeInsets.only(bottom: 20),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                              child: Text(
+                                            e.center ?? '',
+                                            style: AppTextStyle.titleCard
+                                                .copyWith(
+                                                    color:
+                                                        AppColor.primaryBlue),
+                                          )),
+                                          Image.asset(
+                                            'assets/icons/arrow_next.png',
+                                            scale: 2,
+                                          )
+                                        ],
+                                      ),
+                                      spacerXs,
+                                      Text(
+                                        e.location ?? '',
+                                        style: AppTextStyle.contentCard,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ],
                     ),
                   )
