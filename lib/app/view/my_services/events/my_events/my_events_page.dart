@@ -4,6 +4,7 @@ import 'package:vemare/app/data/events_repository.dart';
 import 'package:vemare/app/domain/model/my_event.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
+import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/my_services/events/my_events/bloc/my_events_state.dart';
@@ -134,10 +135,11 @@ class _MyEventCard extends StatelessWidget {
             style: AppTextStyle.titleCard,
           ),
           spacerS,
-          Text(
-            event.description ?? '',
-            style: AppTextStyle.defaultStyle,
-          )
+          MyHtml(text: event.description ?? ''),
+          // Text(
+          //   event.description ?? '',
+          //   style: AppTextStyle.defaultStyle,
+          // )
         ],
       ),
     );

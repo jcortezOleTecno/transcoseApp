@@ -61,34 +61,36 @@ class EnrollEventPage extends StatelessWidget {
         return Scaffold(
           body: MyBody(
             child: state.loading
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const MyBackButton(),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              args.event.title ?? '',
-                              style: AppTextStyle.nunito800,
-                            ),
-                            spacerXs,
-                            Text(
-                              'Selecciona una fecha',
-                              style: AppTextStyle.defaultStyle
-                                  .copyWith(fontSize: 16),
-                            ),
-                            spacerXs,
-                            const MyShimmer(
-                              margin: EdgeInsets.zero,
-                              height: 460,
-                            )
-                          ],
-                        ),
-                      )
-                    ],
+                ? SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const MyBackButton(),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                args.event.title ?? '',
+                                style: AppTextStyle.nunito800,
+                              ),
+                              spacerXs,
+                              Text(
+                                'Selecciona una fecha',
+                                style: AppTextStyle.defaultStyle
+                                    .copyWith(fontSize: 16),
+                              ),
+                              spacerXs,
+                              const MyShimmer(
+                                margin: EdgeInsets.zero,
+                                height: 460,
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   )
                 : SingleChildScrollView(
                     child: Column(

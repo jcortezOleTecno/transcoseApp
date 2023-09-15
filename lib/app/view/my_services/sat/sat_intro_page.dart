@@ -20,27 +20,33 @@ class SatIntroPage extends StatelessWidget {
     return Scaffold(
       body: MyBody(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const MyBackButton(),
-            MyNetworkImage(
-              image: sat.image ?? '',
-              height: 250,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(15),
+              child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'SAT',
-                      style: AppTextStyle.h2Style,
+                    const MyBackButton(),
+                    MyNetworkImage(
+                      image: sat.image ?? '',
+                      height: 250,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
                     ),
-                    spacerS,
-                    MyHtml(text: sat.description ?? '')
+                    Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'SAT',
+                            style: AppTextStyle.h2Style,
+                          ),
+                          spacerS,
+                          MyHtml(text: sat.description ?? '')
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
