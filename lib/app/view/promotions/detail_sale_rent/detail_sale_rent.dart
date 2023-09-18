@@ -121,6 +121,7 @@ class DetailSaleRent extends StatelessWidget {
                         if (user != null) ...[
                           spacerM,
                           MyCounterButton(
+                            reset: state.quantity == 1,
                             decrease: cubit.quantity,
                             increase: cubit.quantity,
                           ),

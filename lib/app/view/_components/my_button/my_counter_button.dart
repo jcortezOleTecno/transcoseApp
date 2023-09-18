@@ -4,6 +4,7 @@ import 'package:vemare/app/view/theme/text_style.dart';
 
 class MyCounterButton extends StatefulWidget {
   const MyCounterButton({
+    required this.reset,
     required this.decrease,
     required this.increase,
     Key? key,
@@ -11,6 +12,7 @@ class MyCounterButton extends StatefulWidget {
 
   final void Function(int) decrease;
   final void Function(int) increase;
+  final bool reset;
 
   @override
   State<MyCounterButton> createState() => _MyCounterButtonState();
@@ -18,8 +20,14 @@ class MyCounterButton extends StatefulWidget {
 
 class _MyCounterButtonState extends State<MyCounterButton> {
   int units = 1;
+
   @override
   Widget build(BuildContext context) {
+    if (widget.reset) {
+      setState(() {
+        units = 1;
+      });
+    }
     return Container(
       height: 40,
       decoration: BoxDecoration(

@@ -5,7 +5,6 @@ import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/brands_repository.dart';
 import 'package:vemare/app/data/header_repository.dart';
 import 'package:vemare/app/data/home_repository.dart';
-import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/notices_repository.dart';
 import 'package:vemare/app/data/products_repository.dart';
 import 'package:vemare/app/data/promotion_repository.dart';
@@ -23,6 +22,8 @@ import 'package:vemare/app/domain/model/work_with_us.dart';
 import 'package:vemare/app/domain/model/workshop.dart';
 import 'package:vemare/app/view/home/bloc/home_state.dart';
 import 'package:vemare/app/view/shared/userbloc/user_cubit.dart';
+
+String? contacDefault;
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit(
@@ -55,7 +56,7 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> fetchData() async {
     emit(state.copyWith(loading: true));
 
-    HeroButtons? heroButtons;
+    /*HeroButtons? heroButtons;
     if (LocalDataRepository().isLogged) {
       heroButtons = HeroButtons(
         email:
@@ -69,7 +70,7 @@ class HomeCubit extends Cubit<HomeState> {
       heroButtons = await _homeRepository.getHeroButtons();
     }
 
-    emit(state.copyWith(heroButtons: heroButtons));
+    emit(state.copyWith(heroButtons: heroButtons));*/
 
     List<HeroHome> hero = [];
     List<Category> products = [];
@@ -80,12 +81,14 @@ class HomeCubit extends Cubit<HomeState> {
     List<Brand> brands = [];
     WorkWithUs? workWithUs;
     List<Header> header = [];
+    HeroButtons? heroButtons;
 
     if (_userCubit.state.employees.isEmpty) {
       unawaited(_userCubit.getEmployeesAndEnterprises());
     }
     await Future.wait([
       _homeRepository.getHero().then((v) => hero = v),
+      _homeRepository.getHeroButtons().then((v) => heroButtons = v),
       _productsRepository
           .getProductsCategories(limit: 3)
           .then((v) => products = v),
@@ -99,9 +102,11 @@ class HomeCubit extends Cubit<HomeState> {
       _workWithUsRepository.getData().then((value) => workWithUs = value),
       _headerRepository.getHeaders().then((value) => header = value),
     ]);
+    contacDefault = heroButtons?.whatsapp ?? '';
     emit(state.copyWith(
       loading: false,
       hero: hero,
+      heroButtons: heroButtons,
       promotions: promotions,
       products: products,
       services: services,
@@ -135,6 +140,7 @@ class HomeCubit extends Cubit<HomeState> {
     required String phone,
   }) async {
     String url = "https://wa.me/$phone?text=${Uri.parse('')}";
+    print(url);
     await launchUrlString(url, mode: LaunchMode.externalApplication);
   }
 

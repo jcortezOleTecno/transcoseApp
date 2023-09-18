@@ -14,6 +14,8 @@ import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
 
+import '../_components/my_cards/my_news_card.dart';
+
 class LibraryPage extends StatelessWidget {
   const LibraryPage._();
   static const route = '/library_page';
@@ -73,7 +75,7 @@ class _MostReadLibraries extends StatelessWidget {
                   initialPage: 0,
                   viewportFraction: 0.9,
                 ),
-                itemBuilder: (context, i) => MyLibraryCard(
+                itemBuilder: (context, i) => MyNewsCardCarrucel(
                   img: state.mostRead[i].image!,
                   title: state.mostRead[i].title ?? '',
                   description: state.mostRead[i].subtitle ?? '',
@@ -129,7 +131,7 @@ class _Libraries extends StatelessWidget {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 10),
                               margin: const EdgeInsets.only(bottom: 20),
-                              child: MyLibraryCard(
+                              child: MyNewsCard(
                                 title: e.title ?? '',
                                 description: e.subtitle ?? '',
                                 img: e.image!,

@@ -294,14 +294,14 @@ class _News extends StatelessWidget {
               return const MyShimmer(height: 350);
             }
             return SizedBox(
-              height: 350,
+              height: 360,
               child: PageView.builder(
                 itemCount: state.news.length,
                 controller: PageController(
                   initialPage: 0,
                   viewportFraction: 0.9,
                 ),
-                itemBuilder: (context, i) => MyNewsCard(
+                itemBuilder: (context, i) => MyNewsCardCarrucel(
                   img: state.news[i].image!,
                   title: state.news[i].title ?? '',
                   description: state.news[i].subtitle ?? '',
@@ -358,26 +358,40 @@ class _Library extends StatelessWidget {
                   : Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: List.generate(state.libraries.length, (i) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            spacerM,
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: Image.network(
-                                state.libraries[i].image ?? '',
-                                height: 220,
-                                width: double.infinity,
-                                fit: BoxFit.cover,
+                        return Card(
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 5, horizontal: 10),
+                          clipBehavior: Clip.antiAlias,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10)),
+                                child: Image.network(
+                                  state.libraries[i].image ?? '',
+                                  height: 220,
+                                  width: double.infinity,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                            ),
-                            spacerS,
-                            Text(state.libraries[i].title ?? '',
-                                style: AppTextStyle.titleCard),
-                            spacerXs,
-                            Text(state.libraries[i].subtitle ?? '',
-                                style: AppTextStyle.defaultStyle),
-                          ],
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Text(state.libraries[i].title ?? '',
+                                        style: AppTextStyle.titleCard),
+                                    spacerXs,
+                                    Text(state.libraries[i].subtitle ?? '',
+                                        style: AppTextStyle.defaultStyle),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
                         );
                       }),
                     ),

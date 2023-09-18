@@ -6,6 +6,7 @@ import 'package:slide_to_confirm/slide_to_confirm.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/notifications_repository.dart';
+import 'package:vemare/app/domain/model/vemare_contacts.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/about_us/about_us_page.dart';
@@ -38,6 +39,7 @@ import 'package:vemare/config/service_locator.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import '../../data/shopping_cart_repository.dart';
+import '../home/bloc/home_cubit.dart';
 import '../shared/userbloc/user_state.dart';
 
 class MyMenu extends StatelessWidget {
@@ -497,21 +499,31 @@ class _Menu extends StatelessWidget {
                           scale: 2,
                           color: AppColor.white,
                         ),
-                        children: state.contacts!.comerciales!.map((e) {
-                          if (e.phone == null || e.phone == '') {
-                            return const SizedBox();
-                          }
-                          return _MenuItem(
-                            onTap: () => _callDialog(context,
-                                number: e.phone == ''
-                                    ? '000000000'
-                                    : e.phone ?? '000000000'),
-                            title: e.name ?? '',
-                            subtitle: e.phone == ''
-                                ? '000 000 000'
-                                : '${e.phone?.split('').getRange(0, 3).join()}  ${e.phone?.split('').getRange(3, 6).join()}  ${e.phone?.split('').getRange(6, 9).join()}',
-                          );
-                        }).toList());
+                        children: state.contacts!.comerciales!.isEmpty
+                            ? [
+                                _MenuItem(
+                                  onTap: () => _callDialog(context,
+                                      number: contacDefault ?? ''),
+                                  title: 'Teléfono de contacto',
+                                  subtitle: contacDefault,
+                                )
+                              ]
+                            : state.contacts!.comerciales!.map((e) {
+                                if (e.phone == null || e.phone == '') {
+                                  return const SizedBox();
+                                }
+
+                                return _MenuItem(
+                                  onTap: () => _callDialog(context,
+                                      number: e.phone == ''
+                                          ? '000000000'
+                                          : e.phone ?? '000000000'),
+                                  title: e.name ?? '',
+                                  subtitle: e.phone == ''
+                                      ? '000 000 000'
+                                      : '${e.phone?.split('').getRange(0, 3).join()}  ${e.phone?.split('').getRange(3, 6).join()}  ${e.phone?.split('').getRange(6, 9).join()}',
+                                );
+                              }).toList());
                   },
                 ),
                 spacerL,
@@ -552,7 +564,8 @@ class _Menu extends StatelessWidget {
       builder: (context) {
         return CupertinoAlertDialog(
           content: Text(
-            '${number.split('').getRange(0, 3).join()} ${number.split('').getRange(3, 6).join()} ${number.split('').getRange(6, 9).join()}',
+            number,
+            // '${number.split('').getRange(0, 3).join()} ${number.split('').getRange(3, 6).join()} ${number.split('').getRange(6, 9).join()}',
             style: AppTextStyle.h3Style,
           ),
           actions: [

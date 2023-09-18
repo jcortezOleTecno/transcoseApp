@@ -71,7 +71,7 @@ class _MostReadNews extends StatelessWidget {
                   initialPage: 0,
                   viewportFraction: 0.9,
                 ),
-                itemBuilder: (context, i) => MyNewsCard(
+                itemBuilder: (context, i) => MyNewsCardCarrucel(
                   isExpanded: true,
                   img: state.mostRead[i].image!,
                   title: state.mostRead[i].title ?? '',

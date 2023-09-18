@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:vemare/app/data/_api_classes.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
+import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/domain/model/events.dart';
 import 'package:vemare/app/domain/model/events_vemare.dart';
 import 'package:vemare/app/domain/model/formation.dart';
@@ -54,9 +55,13 @@ class EventsRepository {
     required List<int>? idsEmployees,
     List<Employee>? persons,
   }) async {
+    final user = LocalDataRepository().user;
+
+    idsEmployees!.add(user!.id);
+
     final data = {
       'date_id': dateId,
-      'employee': idsEmployees?.join(',').toString() ?? "",
+      'employee': idsEmployees.join(',').toString(),
       'persons': persons?.map((e) => e.toEnrollData()).toList(),
     };
 

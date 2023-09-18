@@ -20,8 +20,11 @@ class MyLibraryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPressed,
-      child: Container(
+      child: Card(
         margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        // margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

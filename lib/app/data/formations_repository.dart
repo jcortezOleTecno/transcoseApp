@@ -10,6 +10,8 @@ import 'package:vemare/app/domain/model/locations.dart';
 import 'package:vemare/app/view/my_services/events/other_events/enroll_event/bloc/enroll_event_cubit.dart';
 import 'package:vemare/app/view/my_services/formations/enroll_training/bloc/enroll_training_cubit.dart';
 
+import 'local_data_repository.dart';
+
 class FormationsRepository {
   final MyApiClient _apiClient;
 
@@ -34,6 +36,9 @@ class FormationsRepository {
     List<int>? idsEmployees,
     List<Employee>? persons,
   }) async {
+    final user = LocalDataRepository().user;
+
+    idsEmployees!.add(user!.id);
     final data = {
       'date_id': dateId,
       'employee': idsEmployees?.join(',').toString() ?? "",

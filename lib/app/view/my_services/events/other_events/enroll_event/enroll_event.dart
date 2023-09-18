@@ -466,11 +466,15 @@ Future<bool?> _dialogEnrollEmployee(
                         setState(() {
                           errorMessage = value!.messaje;
                           if (value.success) {
-                            event.horario!
-                                .firstWhere((e) => e.dateId == date.dateId)
-                                .isRegistered = true;
+                            cubit.showEnrolled(date);
                             Navigator.of(context).pop(true);
                           }
+                          // if (value.success) {
+                          //   event.horario!
+                          //       .firstWhere((e) => e.dateId == date.dateId)
+                          //       .isRegistered = true;
+                          //   Navigator.of(context).pop(true);
+                          // }
                           loading = false;
                         });
                       });

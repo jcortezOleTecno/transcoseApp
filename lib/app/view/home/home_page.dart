@@ -82,7 +82,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    controller = PageController();
+    controller = PageController(keepPage: false);
     FirebaseMessaging.instance.getInitialMessage().then((message) => {
           if (message != null)
             {Navigator.pushNamed(context, MyNotificationsPage.route)}
@@ -97,10 +97,10 @@ class _HomePageState extends State<HomePage> {
       child: NestedPageView(
         controller: controller,
         scrollDirection: Axis.vertical,
-        physics: const BouncingScrollPhysics(),
-        wantKeepAlive: true,
+        physics: const ClampingScrollPhysics(),
+        // wantKeepAlive: true,
         restorationId: 'id',
-        padEnds: false,
+        padEnds: true,
         children: const [
           _PageA(),
           _PageB(),
