@@ -25,6 +25,7 @@ class NotificationsCounterCubit extends Cubit<NotificationsCounterState> {
 
   void deleteNotification(int id) {
     unawaited(_repository.marckReadNotification(id: id.toString()));
-    emit(state.copyWith(notifications: state.notifications - 1));
+    emit(state.copyWith(
+        notifications: state.notifications > 0 ? state.notifications - 1 : 0));
   }
 }

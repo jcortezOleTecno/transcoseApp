@@ -41,7 +41,7 @@ class FormationsRepository {
     idsEmployees!.add(user!.id);
     final data = {
       'date_id': dateId,
-      'employee': idsEmployees?.join(',').toString() ?? "",
+      'employee': idsEmployees.join(',').toString(),
       'persons': persons?.map((e) => e.toEnrollData()).toList(),
     };
 

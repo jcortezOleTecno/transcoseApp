@@ -6,6 +6,9 @@ import 'package:slide_to_confirm/slide_to_confirm.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/notifications_repository.dart';
+import 'package:vemare/app/domain/model/events.dart';
+import 'package:vemare/app/domain/model/formation.dart';
+import 'package:vemare/app/domain/model/promotion.dart';
 import 'package:vemare/app/domain/model/vemare_contacts.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
@@ -15,6 +18,8 @@ import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/menu/bloc/menu_cubit.dart';
 import 'package:vemare/app/view/menu/bloc/menu_state.dart';
 import 'package:vemare/app/view/my_notifications/my_notifications_page.dart';
+import 'package:vemare/app/view/my_services/events/other_events/other_event_page.dart';
+import 'package:vemare/app/view/my_services/formations/detail_formation.dart';
 import 'package:vemare/app/view/personal_area/SAT/page/my_sat_page.dart';
 import 'package:vemare/app/view/personal_area/modelo_347/modelo_347_page.dart';
 import 'package:vemare/app/view/personal_area/my_account/my_account_page.dart';
@@ -24,6 +29,7 @@ import 'package:vemare/app/view/personal_area/my_budget/my_budget/my_budget_page
 import 'package:vemare/app/view/personal_area/my_contracts/page/my_contracts_page.dart';
 import 'package:vemare/app/view/personal_area/my_orders/my_orders_page.dart';
 import 'package:vemare/app/view/personal_area/my_trainigs_and_events/my_trainigs_and_events_page.dart';
+import 'package:vemare/app/view/promotions/detail_sale_rent/detail_sale_rent.dart';
 import 'package:vemare/app/view/promotions/promotions_categories/promotions_page.dart';
 import 'package:vemare/app/view/shared/notifications_counter_bloc/notifications_cubit.dart';
 import 'package:vemare/app/view/shared/notifications_counter_bloc/notifications_state.dart';
@@ -35,10 +41,11 @@ import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
+import 'package:vemare/app/domain/model/notification.dart' as model;
 
-import 'package:timeago/timeago.dart' as timeago;
+// import 'package:timeago/timeago.dart' as timeago;
 
-import '../../data/shopping_cart_repository.dart';
+// import '../../data/shopping_cart_repository.dart';
 import '../home/bloc/home_cubit.dart';
 import '../shared/userbloc/user_state.dart';
 
@@ -740,6 +747,7 @@ class _NotificationsMenu extends StatelessWidget {
                           children: [
                             const Divider(color: Colors.white),
                             ListTile(
+                              onTap: () => _onTap(context, notification: e),
                               leading: Stack(
                                 children: [
                                   Image.asset('assets/icons/Notifications.png',
@@ -762,8 +770,7 @@ class _NotificationsMenu extends StatelessWidget {
                                   style: AppTextStyle.inputStyle
                                       .copyWith(color: Colors.white)),
                               subtitle: Text(
-                                timeago.format(DateTime(2023, 5, 8),
-                                    locale: 'es'),
+                                e.elapsedTime ?? '',
                                 style: AppTextStyle.inputStyle.copyWith(
                                   color: Colors.white,
                                   height: 2,
@@ -812,5 +819,50 @@ class _NotificationsMenu extends StatelessWidget {
         },
       ),
     );
+  }
+
+  _onTap(BuildContext context, {required model.Notification notification}) {
+    print(notification.toJson());
+    switch (notification.tipo) {
+      case 'Formation':
+        if (notification.read != 'visto') {
+          context
+              .read<NotificationsCounterCubit>()
+              .deleteNotification(notification.id!);
+        }
+        Navigator.pushNamed(context, DetailFormationPage.route,
+            arguments: Formation.fromJson(notification.dataNotification));
+        break;
+
+      // case 'DateFormation':
+      //   if (notification.read != 'visto') {
+      //     context
+      //         .read<NotificationsCounterCubit>()
+      //         .deleteNotification(notification.id!);
+      //   }
+      //   Navigator.pushNamed(context, DetailFormationPage.route,
+      //       arguments: Formation.fromJson(notification.dataNotification));
+      //   break;
+
+      case 'Event':
+        if (notification.read != 'visto') {
+          context
+              .read<NotificationsCounterCubit>()
+              .deleteNotification(notification.id!);
+        }
+        Navigator.pushNamed(context, OtherEventPage.route,
+            arguments: Events.fromJson(notification.dataNotification));
+        break;
+
+      case 'Promotion':
+        if (notification.read != 'visto') {
+          context
+              .read<NotificationsCounterCubit>()
+              .deleteNotification(notification.id!);
+        }
+        Navigator.pushNamed(context, DetailSaleRent.route,
+            arguments: Promotion.fromJson(notification.dataNotification));
+        break;
+    }
   }
 }

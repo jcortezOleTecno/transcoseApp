@@ -21,8 +21,6 @@ import 'package:vemare/app/view/shared/notifications_counter_bloc/notifications_
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
-// ignore: unused_import
-import 'package:timeago/timeago.dart' as timeago;
 import 'package:vemare/config/service_locator.dart';
 
 class MyNotificationsPage extends StatelessWidget {
