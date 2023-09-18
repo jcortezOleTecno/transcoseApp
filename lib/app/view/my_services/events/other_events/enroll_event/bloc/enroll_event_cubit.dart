@@ -55,6 +55,11 @@ class EnrollEventCubit extends Cubit<EnrollEventState> {
   unseledtedHorario() {
     emit(state.copyWith(horarioSelected: null));
   }
+
+  void showEnrolled(Horario date) {
+    state.horarios.firstWhere((e) => e.dateId == date.dateId).isRegistered =
+        true;
+  }
 }
 
 class EnrollResponse {

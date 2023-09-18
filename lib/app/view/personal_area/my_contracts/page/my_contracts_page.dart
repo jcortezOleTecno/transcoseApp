@@ -42,16 +42,16 @@ class MyContractsPage extends StatelessWidget {
                   children: [
                     spacerS,
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: _TapBar(),
                     ),
-                    Divider(
+                    const Divider(
                       height: 0,
                       thickness: 2,
                       indent: 15,
                       endIndent: 15,
                     ),
-                    Expanded(
+                    const Expanded(
                       child: TabBarView(
                         children: [
                           Rappels(),
@@ -85,6 +85,8 @@ class _TapBar extends StatelessWidget {
       labelStyle: TextStyle(fontWeight: FontWeight.bold),
       unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
       unselectedLabelColor: AppColor.primaryBlue,
+      isScrollable: false,
+      labelPadding: EdgeInsets.symmetric(horizontal: 2.5),
       tabs: [
         Tab(text: 'Rappels'),
         Tab(text: 'Millennium'),

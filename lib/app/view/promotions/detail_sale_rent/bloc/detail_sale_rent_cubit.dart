@@ -38,6 +38,7 @@ class DetailSaleRentCubit extends Cubit<DetailSaleRentState> {
     emit(state.copyWith(
       loading: false,
       message: message,
+      quantity: 1,
       adds: state.adds + 1,
     ));
   }

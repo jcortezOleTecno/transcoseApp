@@ -29,7 +29,6 @@ class HomeRepository {
       "subject": subject,
       "description": description,
     });
-    print(res);
     return (res["response"] as String) == "success";
   }
 }

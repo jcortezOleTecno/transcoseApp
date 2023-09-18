@@ -37,7 +37,7 @@ class OtherEventsListPage extends StatelessWidget {
             children: [
               const MyBackButton(),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: BlocBuilder<OtherEventsCubit, OtherEventsState>(
                   builder: (context, state) {
                     return Column(
@@ -71,8 +71,8 @@ class OtherEventsListPage extends StatelessWidget {
                             }
                             return Wrap(
                                 alignment: WrapAlignment.spaceBetween,
-                                runSpacing: 15,
-                                spacing: 15,
+                                runSpacing: 10,
+                                spacing: 10,
                                 // crossAxisAlignment: WrapCrossAlignment.center,
                                 children: state.events
                                     .map((e) => _MyEventCard(e))
