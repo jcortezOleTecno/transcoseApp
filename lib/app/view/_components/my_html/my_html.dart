@@ -33,7 +33,7 @@ class MyHtml extends StatelessWidget {
           fontWeight: fontWeight,
         ),
         "li": Style(
-          fontSize: FontSize(32),
+          fontSize: FontSize(26),
           color: color,
           fontWeight: fontWeight,
         ),
@@ -46,7 +46,7 @@ class MyHtml extends StatelessWidget {
           margin: Margins.symmetric(vertical: 0),
         ),
         "span": Style(
-          fontSize: FontSize(23),
+          fontSize: FontSize(26),
         ),
         "br": Style(
           lineHeight: const LineHeight(0.2, units: "px"),

@@ -15,7 +15,7 @@ class MyTrainigsAndEventsCubit extends Cubit<MyTrainigsAndEventsState> {
   Future<void> getData({Filter? filter}) async {
     emit(state.copyWith(loading: true));
     var data = await _accountRepository.getTrainingsEvents(filter: filter);
-    data.sort((a, b) => a.fecha!.compareTo(b.fecha!));
+    // data.sort((a, b) => a.fecha!.compareTo(b.fecha!));
     emit(state.copyWith(
       data: data,
       loading: false,

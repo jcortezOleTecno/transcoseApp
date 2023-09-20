@@ -93,8 +93,10 @@ class ShoppingCardCubit extends Cubit<ShoppingCardState> {
   void buy() {
     var total = 0.0;
     for (var e in state.products) {
-      var totalTemp = (e.quantity!.toDouble()) * (e.priceSale ?? 0.0);
-      total = total + totalTemp;
+      if (!e.renting) {
+        var totalTemp = (e.quantity!.toDouble()) * (e.priceSale ?? 0.0);
+        total = total + totalTemp;
+      }
     }
 
     emit(state.copyWith(buying: true, total: total));
