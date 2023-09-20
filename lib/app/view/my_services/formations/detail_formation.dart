@@ -72,10 +72,7 @@ class DetailFormationPage extends StatelessWidget {
                             ],
                           ),
                           spacerS,
-                          if (formation.horario
-                                  ?.where((e) => e.isRegistered!)
-                                  .isNotEmpty ??
-                              false) ...[
+                          if (LocalDataRepository().isLogged) ...[
                             const Text(
                               'Más información',
                               style: AppTextStyle.h3Style,

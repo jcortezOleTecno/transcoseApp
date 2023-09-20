@@ -162,52 +162,52 @@ class AvailableDestinationsPage extends StatelessWidget {
                             ),
                           ),
                         ],
-                        if (state.location.isNotEmpty && !state.loading)
-                          ...state.location.map(
-                            (e) => GestureDetector(
-                              onTap: () {
-                                if (state.event!.showCalendar ?? false) {
-                                  Navigator.pushNamed(
-                                      context, EnrollEventPage.route,
-                                      arguments:
-                                          EnrollEventPageArgs(state.event!, e));
-                                }
-                              },
-                              child: Card(
-                                margin: const EdgeInsets.only(bottom: 20),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                              child: Text(
-                                            e.center ?? '',
-                                            style: AppTextStyle.titleCard
-                                                .copyWith(
-                                                    color:
-                                                        AppColor.primaryBlue),
-                                          )),
-                                          Image.asset(
-                                            'assets/icons/arrow_next.png',
-                                            scale: 2,
-                                          )
-                                        ],
-                                      ),
-                                      spacerXs,
-                                      Text(
-                                        e.location ?? '',
-                                        style: AppTextStyle.contentCard,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
+                        // if (state.location.isNotEmpty && !state.loading)
+                        //   ...state.location.map(
+                        //     (e) => GestureDetector(
+                        //       onTap: () {
+                        //         if (state.event!.showCalendar ?? false) {
+                        //           Navigator.pushNamed(
+                        //               context, EnrollEventPage.route,
+                        //               arguments:
+                        //                   EnrollEventPageArgs(state.event!, e));
+                        //         }
+                        //       },
+                        //       child: Card(
+                        //         margin: const EdgeInsets.only(bottom: 20),
+                        //         child: Padding(
+                        //           padding: const EdgeInsets.all(10),
+                        //           child: Column(
+                        //             crossAxisAlignment:
+                        //                 CrossAxisAlignment.start,
+                        //             children: [
+                        //               Row(
+                        //                 children: [
+                        //                   Expanded(
+                        //                       child: Text(
+                        //                     e.center ?? '',
+                        //                     style: AppTextStyle.titleCard
+                        //                         .copyWith(
+                        //                             color:
+                        //                                 AppColor.primaryBlue),
+                        //                   )),
+                        //                   Image.asset(
+                        //                     'assets/icons/arrow_next.png',
+                        //                     scale: 2,
+                        //                   )
+                        //                 ],
+                        //               ),
+                        //               spacerXs,
+                        //               Text(
+                        //                 e.location ?? '',
+                        //                 style: AppTextStyle.contentCard,
+                        //               )
+                        //             ],
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ),
                       ],
                     ),
                   )

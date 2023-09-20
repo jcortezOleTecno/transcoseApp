@@ -81,8 +81,10 @@ class EventsPage extends StatelessWidget {
                               'Encuentros, charlas, presentaciones... Infórmate sobre todos los eventos que creamos para nuestros clientes.',
                           onTap: () {
                             // Navigator.pushNamed(context, OtherEventsListPage.route);
+                            Navigator.pushNamed(
+                                context, OtherEventsListPage.route);
 
-                            if (LocalDataRepository().isLogged) {
+                            /* if (LocalDataRepository().isLogged) {
                               Navigator.pushNamed(
                                   context, OtherEventsListPage.route);
                             } else {
@@ -97,7 +99,7 @@ class EventsPage extends StatelessWidget {
                                       context, OtherEventsListPage.route);
                                 }
                               });
-                            }
+                            }*/
                           },
                         ),
                         _Item(

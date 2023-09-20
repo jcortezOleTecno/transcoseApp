@@ -106,21 +106,21 @@ class _MyEventCard extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        if (LocalDataRepository().isLogged) {
-          Navigator.pushNamed(context, OtherEventPage.route, arguments: event);
-        } else {
-          Navigator.pushNamed(
-            context,
-            LoginPage.route,
-            arguments:
-                'Para acceder a la información de los eventos tienes que iniciar sesión.',
-          ).then((_) {
-            if (LocalDataRepository().isLogged) {
-              Navigator.pushNamed(context, OtherEventPage.route,
-                  arguments: event);
-            }
-          });
-        }
+        // if (LocalDataRepository().isLogged) {
+        Navigator.pushNamed(context, OtherEventPage.route, arguments: event);
+        // } else {
+        //   Navigator.pushNamed(
+        //     context,
+        //     LoginPage.route,
+        //     arguments:
+        //         'Para acceder a la información de los eventos tienes que iniciar sesión.',
+        //   ).then((_) {
+        //     if (LocalDataRepository().isLogged) {
+        //       Navigator.pushNamed(context, OtherEventPage.route,
+        //           arguments: event);
+        //     }
+        //   });
+        // }
       },
       child: SizedBox(
         width: size.width * .44,
