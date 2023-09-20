@@ -2,6 +2,7 @@ class Promotion {
   Promotion({
     required this.id,
     required this.informative,
+    required this.onlyRenting,
     this.name,
     this.slug,
     this.tags,
@@ -24,6 +25,7 @@ class Promotion {
   int? renting;
   String? image;
   bool informative;
+  bool onlyRenting;
 
   factory Promotion.fromJson(dynamic json) => Promotion(
         id: json["id"] as int,
@@ -39,6 +41,7 @@ class Promotion {
         renting: json["renting"] as int?,
         image: json["image"] as String?,
         informative: (json["informative"] as int) == 1,
+        onlyRenting: json["only_renting"] as bool,
       );
 
   Map<String, dynamic> toJson() => {
@@ -53,5 +56,6 @@ class Promotion {
         "renting": renting,
         "image": image,
         "informative": informative,
+        "only_renting": onlyRenting,
       };
 }

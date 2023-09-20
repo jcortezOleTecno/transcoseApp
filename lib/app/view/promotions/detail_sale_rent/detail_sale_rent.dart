@@ -69,11 +69,14 @@ class DetailSaleRent extends StatelessWidget {
                           ? const _InformationLabel(
                               label: "Información",
                             )
-                          : state.promotion!.renting == 0
-                              ? const _InformationLabel(label: "Tienda")
-                              : MyTiendaRentingButton(
-                                  isTienda: cubit.isTienda,
-                                  enableRenting: state.promotion!.renting == 1),
+                          : state.promotion!.onlyRenting
+                              ? const _InformationLabel(label: "Renting")
+                              : state.promotion!.renting == 0
+                                  ? const _InformationLabel(label: "Tienda")
+                                  : MyTiendaRentingButton(
+                                      isTienda: cubit.isTienda,
+                                      enableRenting:
+                                          state.promotion!.renting == 1),
                       spacerM,
                       ClipRRect(
                         borderRadius: BorderRadius.circular(12),
@@ -144,7 +147,9 @@ class DetailSaleRent extends StatelessWidget {
                                   context,
                                   RentingStorePage.route,
                                   arguments: StoreArgs(
-                                    isTienda: state.isTienda,
+                                    isTienda: state.promotion!.onlyRenting
+                                        ? false
+                                        : state.isTienda,
                                     promotion: state.promotion!,
                                     quantity: state.quantity,
                                   ),
@@ -161,7 +166,9 @@ class DetailSaleRent extends StatelessWidget {
                                       context,
                                       RentingStorePage.route,
                                       arguments: StoreArgs(
-                                        isTienda: state.isTienda,
+                                        isTienda: state.promotion!.onlyRenting
+                                            ? false
+                                            : state.isTienda,
                                         promotion: state.promotion!,
                                         quantity: state.quantity,
                                       ),
@@ -182,9 +189,11 @@ class DetailSaleRent extends StatelessWidget {
                             },
                             text: user == null
                                 ? 'Iniciar sesión'
-                                : state.isTienda
-                                    ? 'Comprar'
-                                    : 'Alquilar',
+                                : state.promotion!.onlyRenting
+                                    ? "Alquilar"
+                                    : state.isTienda
+                                        ? 'Comprar'
+                                        : 'Alquilar',
                             variant: MyButtonVariant.outlinedBold),
                         spacerL,
                       ]
