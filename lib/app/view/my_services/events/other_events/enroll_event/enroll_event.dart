@@ -277,26 +277,26 @@ Future<bool?> _dialogEnrollEmployee(
                             style: AppTextStyle.defaultStyle,
                             textAlign: TextAlign.center,
                           ),
-                          if (((people.length +
-                                      selectedEmployees.length +
-                                      (date.occupiedPlaces ?? 0) +
-                                      1) >
-                                  limitPeople) &&
-                              errorMessage == null) ...[
-                            spacerM,
-                            MsgError(
-                                message:
-                                    'Se han terminado tus plazas contratadas ($limitPeople), si deseas contratar más comunícate con tu asesor comercial.'),
-                          ],
+                          // if (((people.length +
+                          //             selectedEmployees.length +
+                          //             (date.occupiedPlaces ?? 0) +
+                          //             1) >
+                          //         limitPeople) &&
+                          //     errorMessage == null) ...[
+                          //   spacerM,
+                          //   MsgError(
+                          //       message:
+                          //           'Se han terminado tus plazas contratadas ($limitPeople), si deseas contratar más comunícate con tu asesor comercial.'),
+                          // ],
                           if (errorMessage != null) ...[
                             spacerM,
                             MsgError(message: errorMessage!),
                           ],
                           spacerM,
-                          Align(
+                          const Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                                'Personas a inscribir (${selectedEmployees.length + people.length + (date.occupiedPlaces ?? 0)}/$limitPeople)',
+                                'Personas a inscribir' /*(${selectedEmployees.length + people.length + (date.occupiedPlaces ?? 0)}/$limitPeople)'*/,
                                 style: AppTextStyle.inputLabelStyle),
                           ),
                           spacerXs,
@@ -482,9 +482,9 @@ Future<bool?> _dialogEnrollEmployee(
                     text: 'Confirmar inscripciones',
                     width: double.infinity,
                     isLoading: loading,
-                    disabled: ((people.length + selectedEmployees.length) >
-                            limitPeople) ||
-                        errorMessage != null,
+                    // disabled: /*((people.length + selectedEmployees.length) >
+                    //         limitPeople) ||*/
+                    //     errorMessage != null,
                   ),
                   spacerS,
                   MyButton(

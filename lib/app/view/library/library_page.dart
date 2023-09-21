@@ -9,7 +9,7 @@ import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/library/bloc/library_cubit.dart';
 import 'package:vemare/app/view/library/bloc/library_state.dart';
-import 'package:vemare/app/view/library/library_detail.dart';
+import 'package:vemare/app/view/library/library_details/library_detail.dart';
 import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';

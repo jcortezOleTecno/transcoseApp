@@ -8,7 +8,7 @@ import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/news/bloc/news_cubit.dart';
 import 'package:vemare/app/view/news/bloc/news_state.dart';
-import 'package:vemare/app/view/news/news_detail.dart';
+import 'package:vemare/app/view/news/news_details/news_detail.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
 

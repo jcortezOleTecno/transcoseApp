@@ -6,21 +6,32 @@ import 'package:vemare/app/domain/model/notification.dart';
 import 'package:vemare/app/domain/value_object/notifications_type.dart';
 import 'package:vemare/app/view/my_notifications/bloc/notifications_state.dart';
 
+import '../../shared/notifications_counter_bloc/notifications_cubit.dart';
+
 class NotificationsCubit extends Cubit<NotificationsState> {
-  NotificationsCubit(this._notificationsRepository)
+  NotificationsCubit(
+      this._notificationsRepository, this._notificationsCounterCubit)
       : super(const NotificationsState()) {
     getNotifications();
   }
 
   final NotificationsRepository _notificationsRepository;
+  final NotificationsCounterCubit _notificationsCounterCubit;
 
   Future<void> getNotifications({String? type}) async {
     emit(state.copyWith(loading: true));
     List<Notification> data =
         await _notificationsRepository.getNotifications(tipo: type);
+
     emit(state.copyWith(
         notifications: data.where((e) => e.delete == 0).toList(),
         loading: false));
+
+    for (var e in data) {
+      if (e.dataNotification == null && e.read != 'visto') {
+        _notificationsCounterCubit.deleteNotification(e.id!);
+      }
+    }
   }
 
   void deleteNotification(int id) {

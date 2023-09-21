@@ -165,7 +165,10 @@ class __IconsAppbarState extends State<_IconsAppbar> {
             // bloc: NotificationsCounterCubit(getIt<NotificationsRepository>()),
             builder: (context, state) {
               return InkWell(
-                onTap: widget.notificationsFunc,
+                onTap: (ModalRoute.of(context)!.settings.name ==
+                        MyNotificationsPage.route)
+                    ? null
+                    : widget.notificationsFunc,
                 child: Visibility(
                   visible: !widget.isOpenNotifications,
                   replacement: Image.asset(
@@ -823,6 +826,8 @@ class _NotificationsMenu extends StatelessWidget {
 
   _onTap(BuildContext context, {required model.Notification notification}) {
     print(notification.toJson());
+    final cubit = context.read<MenuCubit>();
+
     switch (notification.tipo) {
       case 'Formation':
         if (notification.read != 'visto') {
@@ -863,6 +868,18 @@ class _NotificationsMenu extends StatelessWidget {
         Navigator.pushNamed(context, DetailSaleRent.route,
             arguments: Promotion.fromJson(notification.dataNotification));
         break;
+      default:
+        {
+          if (ModalRoute.of(context)!.settings.name !=
+              MyNotificationsPage.route) {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              MyNotificationsPage.route,
+              ModalRoute.withName(HomePage.route),
+            );
+          }
+          cubit.toggleNotification();
+        }
     }
   }
 }

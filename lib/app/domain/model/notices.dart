@@ -18,7 +18,7 @@ class News {
     this.image,
     this.imagePrivate,
   });
-  factory News.froJson(dynamic map) {
+  factory News.fromJson(dynamic map) {
     return News(
       id: map['id'] as int?,
       slug: map['slug'] as String?,

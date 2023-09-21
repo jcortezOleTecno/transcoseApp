@@ -17,7 +17,13 @@ class DetailSaleRentCubit extends Cubit<DetailSaleRentState> {
   final CarCounterCubit _carCounterCubit;
 
   void isTienda(bool value) {
-    emit(state.copyWith(isTienda: value));
+    emit(
+      state.copyWith(
+        isTienda: value,
+        //Reinicia el contador si cambia entre TIENDA y RENTING
+        quantity: value != state.isTienda ? 1 : state.quantity,
+      ),
+    );
   }
 
   void quantity(int i) {

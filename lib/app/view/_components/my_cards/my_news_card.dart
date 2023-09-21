@@ -3,6 +3,8 @@ import 'package:vemare/app/view/_components/my_network_image/my_network_image.da
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
+import '../my_html/my_html.dart';
+
 class MyNewsCardCarrucel extends StatelessWidget {
   const MyNewsCardCarrucel({
     required this.title,
@@ -81,6 +83,7 @@ class MyNewsCard extends StatelessWidget {
     required this.description,
     required this.img,
     this.isExpanded = false,
+    this.centerButton = true,
     this.onPressed,
     Key? key,
   }) : super(key: key);
@@ -89,6 +92,7 @@ class MyNewsCard extends StatelessWidget {
   final String title;
   final String description;
   final bool isExpanded;
+  final bool centerButton;
   final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
@@ -97,6 +101,7 @@ class MyNewsCard extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           SizedBox(
             width: double.infinity,
@@ -104,37 +109,27 @@ class MyNewsCard extends StatelessWidget {
             child: MyNetworkImage(image: img, fit: BoxFit.cover),
           ),
           Padding(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text(
-                  title,
-                  style: AppTextStyle.h3Style.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-
-                Text(
-                  description,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: AppTextStyle.contentCard,
-                ),
-                // MyHtml(text: description),
-                // const Spacer(),
-                TextButton.icon(
-                  onPressed: onPressed,
-                  label: Image.asset(
-                    'assets/icons/arrow_next.png',
-                    scale: 2,
-                  ),
-                  icon: const Text(
-                    'Leer más',
-                    style: AppTextStyle.linkStyle,
-                  ),
-                ),
-              ],
+            padding: const EdgeInsets.all(8),
+            child: Text(
+              title,
+              style: AppTextStyle.h3Style.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          MyHtml(text: description),
+          // const Spacer(),
+          Center(
+            child: TextButton.icon(
+              onPressed: onPressed,
+              label: Image.asset(
+                'assets/icons/arrow_next.png',
+                scale: 2,
+              ),
+              icon: const Text(
+                'Leer más',
+                style: AppTextStyle.linkStyle,
+              ),
             ),
           ),
         ],

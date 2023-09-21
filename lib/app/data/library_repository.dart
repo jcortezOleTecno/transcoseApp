@@ -2,6 +2,8 @@ import 'package:vemare/app/data/_api_classes.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/domain/model/library.dart';
 
+import '../domain/model/article_library_details.dart';
+
 class LibraryRepository {
   final MyApiClient _apiClient;
 
@@ -15,6 +17,13 @@ class LibraryRepository {
       library: (res["data"] as List).map(Library.fromJson).toList(),
       mostRead: (res["most_read"] as List).map(Library.fromJson).toList(),
     );
+  }
+
+  Future<ArticleLibraryDetails> getDetails(String id) async {
+    final dynamic res = await _apiClient.getRequest(
+        '$BASE_API_URL/api/articulos/detalle',
+        params: <String, dynamic>{'id': id});
+    return ArticleLibraryDetails.fromJson(res);
   }
 }
 

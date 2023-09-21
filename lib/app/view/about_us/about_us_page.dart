@@ -25,7 +25,7 @@ import 'package:vemare/app/view/where_we_are/where_we_are_page.dart';
 import 'package:vemare/config/service_locator.dart';
 
 import '../login/login_page.dart';
-import '../news/news_detail.dart';
+import '../news/news_details/news_detail.dart';
 
 class AboutUsPage extends StatelessWidget {
   const AboutUsPage._();

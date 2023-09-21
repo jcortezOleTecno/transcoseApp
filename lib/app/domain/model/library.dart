@@ -2,6 +2,7 @@ class Library {
   Library({
     required this.id,
     this.title,
+    this.description,
     this.slug,
     this.subtitle,
     this.tags,
@@ -12,6 +13,7 @@ class Library {
 
   int id;
   String? title;
+  String? description;
   String? slug;
   String? subtitle;
   String? tags;
@@ -22,6 +24,7 @@ class Library {
   factory Library.fromJson(dynamic json) => Library(
         id: json["id"] as int,
         title: json["title"] as String?,
+        description: json["description"] as String?,
         slug: json["slug"] as String?,
         subtitle: json["subtitle"] as String?,
         tags: json["tags"] as String?,
@@ -33,6 +36,7 @@ class Library {
   Map<String, dynamic> toJson() => {
         "id": id,
         "title": title,
+        "description": description,
         "slug": slug,
         "subtitle": subtitle,
         "tags": tags,

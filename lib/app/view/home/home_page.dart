@@ -35,7 +35,7 @@ import 'package:vemare/app/view/my_services/events/events_page.dart';
 import 'package:vemare/app/view/my_services/formations/formations/formations_page.dart';
 import 'package:vemare/app/view/my_services/services/service_general.dart';
 import 'package:vemare/app/view/my_services/services/services_page.dart';
-import 'package:vemare/app/view/news/news_detail.dart';
+import 'package:vemare/app/view/news/news_details/news_detail.dart';
 import 'package:vemare/app/view/news/news_page.dart';
 import 'package:vemare/app/view/our_products/type_of_vehicle/type_of_vehicle_page.dart';
 import 'package:vemare/app/view/promotions/promotion/promotion_page.dart';

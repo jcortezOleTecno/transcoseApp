@@ -29,8 +29,8 @@ class MyNotificationsPage extends StatelessWidget {
 
   static Widget create() => BlocProvider(
         create: (context) => NotificationsCubit(
-          getIt.get<NotificationsRepository>(),
-        ),
+            getIt.get<NotificationsRepository>(),
+            context.read<NotificationsCounterCubit>()),
         child: const MyNotificationsPage._(),
       );
 
@@ -258,7 +258,8 @@ class _MyNotificationCard extends StatelessWidget {
                                 scale: 2,
                                 color: AppColor.primaryBlue,
                               ),
-                              if (notification.read != 'visto')
+                              if (notification.read != 'visto' &&
+                                  notification.dataNotification != null)
                                 Positioned(
                                     right: 6,
                                     top: 7,
@@ -292,10 +293,11 @@ class _MyNotificationCard extends StatelessWidget {
                                       fontSize: 13,
                                       fontWeight: FontWeight.w600),
                                 ),
-                                Image.asset(
-                                  'assets/icons/arrow_next.png',
-                                  scale: 2,
-                                )
+                                if (notification.dataNotification != null)
+                                  Image.asset(
+                                    'assets/icons/arrow_next.png',
+                                    scale: 2,
+                                  )
                               ],
                             ),
                           ],

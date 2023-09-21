@@ -17,6 +17,7 @@ import 'package:vemare/app/domain/model/we_help_you.dart';
 import 'package:vemare/app/domain/model/work_with_us.dart';
 import 'package:vemare/app/view/about_us/about_us_page.dart';
 import 'package:vemare/app/view/home/home_page.dart';
+import 'package:vemare/app/view/library/library_details/library_detail.dart';
 import 'package:vemare/app/view/library/library_page.dart';
 import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/my_notifications/my_notifications_page.dart';
@@ -29,7 +30,7 @@ import 'package:vemare/app/view/my_services/events/my_events/my_events_page.dart
 import 'package:vemare/app/view/my_services/events/other_events/other_event_page.dart';
 import 'package:vemare/app/view/my_services/events/other_events/other_events_list.dart';
 import 'package:vemare/app/view/my_services/formations/available_destinations_formations/available_destinations_formations_page.dart';
-import 'package:vemare/app/view/news/news_detail.dart';
+import 'package:vemare/app/view/news/news_details/news_detail.dart';
 import 'package:vemare/app/view/news/news_page.dart';
 import 'package:vemare/app/view/our_history/our_history.dart';
 import 'package:vemare/app/view/personal_area/SAT/details/sat_detail.dart';
@@ -70,7 +71,6 @@ import 'package:vemare/app/view/work_with_us/work_with_us_page.dart';
 import 'package:vemare/app/view/workshop_networks/workshop_networks_page.dart';
 
 import '../domain/model/contrato_pmp.dart';
-import 'library/library_detail.dart';
 import 'my_services/sat/sat_intro_page.dart';
 import 'my_services/sat/sat_page.dart';
 import 'pills/pills_details.dart';
@@ -374,13 +374,13 @@ abstract class AppRouter {
         final data = settings.arguments as News?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => NewsDetailPage(data!),
+          builder: (_) => NewsDetailPage.create(data!),
         );
       case LibraryDetailPage.route:
         final data = settings.arguments as Library?;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => LibraryDetailPage(data!),
+          builder: (_) => LibraryDetailPage.create(data!),
         );
       case PillsDetailPage.route:
         final data = settings.arguments as Pills?;
