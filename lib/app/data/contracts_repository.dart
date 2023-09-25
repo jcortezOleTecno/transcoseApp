@@ -1,4 +1,5 @@
 // import 'package:flutter_downloader/flutter_downloader.dart';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -247,20 +248,56 @@ class ContratsRepository {
     await OpenFile.open(file.path);
   }
 
+  // Future<void> downloadPdfRappelDetalles({
+  //   required String codContrato,
+  //   required String name,
+  // }) async {
+  //   final token = LocalDataRepository().authToken;
+  //   final Response res = await Dio().post(
+  //       '$BASE_API_URL/api/mi-cuenta/contratos_rappel/detalles',
+  //       data: {"codigo_contrato": codContrato},
+  //       options: Options(headers: {'Authorization': 'Bearer $token'}));
+
+  //   final directory = await getApplicationDocumentsDirectory();
+  //   final savedDir = directory.path;
+  //   final file = File('$savedDir/$name');
+  //   await file.writeAsBytes(List<int>.from(res.data.codeUnits));
+  //   await OpenFile.open(file.path);
+  // }
+//}
+
   Future<void> downloadPdfRappelDetalles({
     required String codContrato,
     required String name,
   }) async {
     final token = LocalDataRepository().authToken;
-    final Response res = await Dio().post(
-        '$BASE_API_URL/api/mi-cuenta/contratos_rappel/detalles',
-        data: {"codigo_contrato": codContrato},
-        options: Options(headers: {'Authorization': 'Bearer $token'}));
+    final Response res = await Dio()
+        .post('$BASE_API_URL/api/mi-cuenta/contratos_rappel/detalles',
+            data: {"codigo_contrato": codContrato},
+            options: Options(
+              headers: {
+                // 'Accept': 'application/json',
+                'Authorization': 'Bearer $token'
+              },
+              contentType: 'application/json',
+            ));
 
     final directory = await getApplicationDocumentsDirectory();
     final savedDir = directory.path;
     final file = File('$savedDir/$name');
-    await file.writeAsBytes(List<int>.from(res.data.codeUnits));
-    await OpenFile.open(file.path);
+    // await file.writeAsBytes(List<int>.from(res.data.codeUnits), flush: true);
+    List<int> pdfBytes = base64Decode(pdfBase64(res.data));
+    await file.writeAsBytes(pdfBytes);
+    await OpenFile.open(
+      file.path,
+    );
+  }
+}
+
+String pdfBase64(String base64) {
+  if (base64.length % 4 > 0) {
+    return base64 += '=' * (4 - base64.length % 4);
+  } else {
+    return base64;
   }
 }
