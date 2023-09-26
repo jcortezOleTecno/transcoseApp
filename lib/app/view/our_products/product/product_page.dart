@@ -73,20 +73,18 @@ class ProductPage extends StatelessWidget {
                               spacerS,
                               Expanded(
                                 child: Text(
-                                  state.category?.name ??
-                                      'Todas las categorias',
+                                  state.category?.name ?? 'Todos los productos',
                                   style: AppTextStyle.h1Style,
                                 ),
                               ),
                             ],
                           ),
                           spacerS,
+                          MyHtml(text: state.category?.description ?? ''),
                           // Text(
                           //   state.category?.subtitle ?? '',
                           //   style: AppTextStyle.defaultStyle,
                           // ),
-
-                          MyHtml(text: state.category?.description ?? ''),
                           // spacerL,
                           // if (state.category?.id != 0)
                           //   Center(
@@ -108,7 +106,7 @@ class ProductPage extends StatelessWidget {
                           //   ),
                           // spacerL,
                           MyCustomDropdownButton(
-                            hint: 'Todas las categorias',
+                            hint: 'Todos los productos',
                             hintStyle: AppTextStyle.inputStyle,
                             dropdownItems: state.categories
                                 .map((item) => DropdownMenuItem<Category>(
