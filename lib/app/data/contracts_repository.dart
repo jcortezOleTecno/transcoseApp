@@ -173,14 +173,20 @@ class ContratsRepository {
     required String numProyecto,
   }) async {
     final token = LocalDataRepository().authToken;
-    final Response res = await Dio().post(
-        '$BASE_API_URL/api/mi-cuenta/contratos_crd/imprimir',
-        data: {"codigo_contrato": codContrato, "numero_proyecto": numProyecto},
-        options: Options(headers: {'Authorization': 'Bearer $token'}));
+    final Response res =
+        await Dio().post('$BASE_API_URL/api/mi-cuenta/contratos_crd/imprimir',
+            data: {
+              "codigo_contrato": codContrato,
+              "numero_proyecto": numProyecto,
+              "convert_base64": "1"
+            },
+            options: Options(headers: {'Authorization': 'Bearer $token'}));
     final directory = await getApplicationDocumentsDirectory();
     final savedDir = directory.path;
     final file = File('$savedDir/contrato_$codContrato.pdf');
-    await file.writeAsBytes(List<int>.from(res.data.codeUnits));
+    // await file.writeAsBytes(List<int>.from(res.data.codeUnits));
+    List<int> pdfBytes = base64Decode(pdfBase64(res.data["pdf_base64"]));
+    await file.writeAsBytes(pdfBytes);
     await OpenFile.open(file.path);
   }
 
@@ -190,17 +196,20 @@ class ContratsRepository {
     required String name,
   }) async {
     final token = LocalDataRepository().authToken;
-    final Response res = await Dio().post(
-        '$BASE_API_URL/api/mi-cuenta/contratos_pmp/imprimir',
-        data: {
-          "codigo_contrato": codContrato,
-          "codigo_documento": codDocumento
-        },
-        options: Options(headers: {'Authorization': 'Bearer $token'}));
+    final Response res =
+        await Dio().post('$BASE_API_URL/api/mi-cuenta/contratos_pmp/imprimir',
+            data: {
+              "codigo_contrato": codContrato,
+              "codigo_documento": codDocumento,
+              "convert_base64": "1"
+            },
+            options: Options(headers: {'Authorization': 'Bearer $token'}));
     final directory = await getApplicationDocumentsDirectory();
     final savedDir = directory.path;
     final file = File('$savedDir/$name');
-    await file.writeAsBytes(List<int>.from(res.data.codeUnits));
+    // await file.writeAsBytes(List<int>.from(res.data.codeUnits));
+    List<int> pdfBytes = base64Decode(pdfBase64(res.data["pdf_base64"]));
+    await file.writeAsBytes(pdfBytes);
     await OpenFile.open(file.path);
   }
 
@@ -211,19 +220,22 @@ class ContratsRepository {
     required String name,
   }) async {
     final token = LocalDataRepository().authToken;
-    final Response res = await Dio().post(
-        '$BASE_API_URL/api/mi-cuenta/contratos_mll/imprimir',
-        data: {
-          "anio": anio,
-          "codigo_contrato": codContrato,
-          "codigo_documento": codDocumento
-        },
-        options: Options(headers: {'Authorization': 'Bearer $token'}));
+    final Response res =
+        await Dio().post('$BASE_API_URL/api/mi-cuenta/contratos_mll/imprimir',
+            data: {
+              "anio": anio,
+              "codigo_contrato": codContrato,
+              "codigo_documento": codDocumento,
+              "convert_base64": "1"
+            },
+            options: Options(headers: {'Authorization': 'Bearer $token'}));
 
     final directory = await getApplicationDocumentsDirectory();
     final savedDir = directory.path;
     final file = File('$savedDir/$name');
-    await file.writeAsBytes(List<int>.from(res.data.codeUnits));
+    // await file.writeAsBytes(List<int>.from(res.data.codeUnits));
+    List<int> pdfBytes = base64Decode(pdfBase64(res.data["pdf_base64"]));
+    await file.writeAsBytes(pdfBytes);
     await OpenFile.open(file.path);
   }
 
@@ -233,38 +245,23 @@ class ContratsRepository {
     required String name,
   }) async {
     final token = LocalDataRepository().authToken;
-    final Response res = await Dio().post(
-        '$BASE_API_URL/api/mi-cuenta/contratos_rappel/imprimir',
-        data: {
-          "codigo_contrato": codContrato,
-          "codigo_documento": codDocumento
-        },
-        options: Options(headers: {'Authorization': 'Bearer $token'}));
+    final Response res = await Dio()
+        .post('$BASE_API_URL/api/mi-cuenta/contratos_rappel/imprimir',
+            data: {
+              "codigo_contrato": codContrato,
+              "codigo_documento": codDocumento,
+              "convert_base64": "1"
+            },
+            options: Options(headers: {'Authorization': 'Bearer $token'}));
 
     final directory = await getApplicationDocumentsDirectory();
     final savedDir = directory.path;
     final file = File('$savedDir/$name');
-    await file.writeAsBytes(List<int>.from(res.data.codeUnits));
+    // await file.writeAsBytes(List<int>.from(res.data.codeUnits));
+    List<int> pdfBytes = base64Decode(pdfBase64(res.data["pdf_base64"]));
+    await file.writeAsBytes(pdfBytes);
     await OpenFile.open(file.path);
   }
-
-  // Future<void> downloadPdfRappelDetalles({
-  //   required String codContrato,
-  //   required String name,
-  // }) async {
-  //   final token = LocalDataRepository().authToken;
-  //   final Response res = await Dio().post(
-  //       '$BASE_API_URL/api/mi-cuenta/contratos_rappel/detalles',
-  //       data: {"codigo_contrato": codContrato},
-  //       options: Options(headers: {'Authorization': 'Bearer $token'}));
-
-  //   final directory = await getApplicationDocumentsDirectory();
-  //   final savedDir = directory.path;
-  //   final file = File('$savedDir/$name');
-  //   await file.writeAsBytes(List<int>.from(res.data.codeUnits));
-  //   await OpenFile.open(file.path);
-  // }
-//}
 
   Future<void> downloadPdfRappelDetalles({
     required String codContrato,
@@ -273,7 +270,7 @@ class ContratsRepository {
     final token = LocalDataRepository().authToken;
     final Response res = await Dio()
         .post('$BASE_API_URL/api/mi-cuenta/contratos_rappel/detalles',
-            data: {"codigo_contrato": codContrato},
+            data: {"codigo_contrato": codContrato, "convert_base64": "1"},
             options: Options(
               headers: {
                 // 'Accept': 'application/json',
@@ -282,11 +279,13 @@ class ContratsRepository {
               contentType: 'application/json',
             ));
 
+    print(res.data);
+
     final directory = await getApplicationDocumentsDirectory();
     final savedDir = directory.path;
     final file = File('$savedDir/$name');
     // await file.writeAsBytes(List<int>.from(res.data.codeUnits), flush: true);
-    List<int> pdfBytes = base64Decode(pdfBase64(res.data));
+    List<int> pdfBytes = base64Decode(pdfBase64(res.data["pdf_base64"]));
     await file.writeAsBytes(pdfBytes);
     await OpenFile.open(
       file.path,

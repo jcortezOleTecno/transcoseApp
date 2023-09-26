@@ -8,6 +8,7 @@ import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_dropdown_button/my_drop_down_button.dart';
 import 'package:vemare/app/view/_components/my_filter_image/my_filter_image.dart';
+import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_input/my_input_search.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
@@ -72,19 +73,19 @@ class ProductPage extends StatelessWidget {
                               spacerS,
                               Expanded(
                                 child: Text(
-                                  state.category?.name ??
-                                      'Todas las categorias',
+                                  state.category?.name ?? 'Todos los productos',
                                   style: AppTextStyle.h1Style,
                                 ),
                               ),
                             ],
                           ),
-                          spacerM,
-                          Text(
-                            state.category?.subtitle ?? '',
-                            style: AppTextStyle.defaultStyle,
-                          ),
-                          spacerL,
+                          spacerS,
+                          MyHtml(text: state.category?.description ?? ''),
+                          // Text(
+                          //   state.category?.subtitle ?? '',
+                          //   style: AppTextStyle.defaultStyle,
+                          // ),
+                          // spacerL,
                           // if (state.category?.id != 0)
                           //   Center(
                           //     child: TextButton.icon(
@@ -105,7 +106,7 @@ class ProductPage extends StatelessWidget {
                           //   ),
                           // spacerL,
                           MyCustomDropdownButton(
-                            hint: 'Todas las categorias',
+                            hint: 'Todos los productos',
                             hintStyle: AppTextStyle.inputStyle,
                             dropdownItems: state.categories
                                 .map((item) => DropdownMenuItem<Category>(

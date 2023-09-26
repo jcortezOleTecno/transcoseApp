@@ -21,7 +21,7 @@ class ProductCubit extends Cubit<ProductState> {
   Future<void> fetchData() async {
     emit(state.copyWith(loading: true));
     CategoryDetail? detail;
-    List<Category> categories = [Category(id: 0, name: 'Todas las categorías')];
+    List<Category> categories = [Category(id: 0, name: 'Todos los productos')];
 
     await Future.wait([
       _productsRepository.getProductsCategories().then(categories.addAll),
