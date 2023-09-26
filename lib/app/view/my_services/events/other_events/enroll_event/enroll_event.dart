@@ -279,8 +279,10 @@ Future<bool?> _dialogEnrollEmployee(
                           ),
                           if (((people.length +
                                       selectedEmployees.length +
-                                      (date.occupiedPlaces ?? 0) +
-                                      1) >
+                                      (date.occupiedPlaces ??
+                                          0) /* +
+                                      1*/
+                                  ) >
                                   (date.places ?? 0)) &&
                               errorMessage == null) ...[
                             spacerM,
@@ -482,7 +484,9 @@ Future<bool?> _dialogEnrollEmployee(
                     text: 'Confirmar inscripciones',
                     width: double.infinity,
                     isLoading: loading,
-                    disabled: ((people.length + selectedEmployees.length) >
+                    disabled: ((people.length +
+                            selectedEmployees.length +
+                            (date.occupiedPlaces ?? 0)) >
                         (date.places ??
                             0)) /*||
                          errorMessage != null*/

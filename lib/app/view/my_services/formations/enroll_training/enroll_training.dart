@@ -433,7 +433,9 @@ Future<bool?> _dialogEnrollEmployee(BuildContext ctx, Horario date) {
                             style: AppTextStyle.defaultStyle,
                             textAlign: TextAlign.center,
                           ),
-                          if (((people.length + selectedEmployees.length) >
+                          if (((people.length +
+                                      selectedEmployees.length +
+                                      (date.occupiedPlaces ?? 0)) >
                                   (date.places ?? 0)) &&
                               errorMessage == null) ...[
                             spacerM,
@@ -628,7 +630,9 @@ Future<bool?> _dialogEnrollEmployee(BuildContext ctx, Horario date) {
                     text: 'Confirmar inscripciones',
                     isLoading: loading,
                     width: double.infinity,
-                    disabled: (people.length + selectedEmployees.length) >
+                    disabled: (people.length +
+                            selectedEmployees.length +
+                            (date.occupiedPlaces ?? 0)) >
                         (date.places ?? 0),
                     //  disabled: selectedEmployees.isEmpty && people.isEmpty,
                   ),
