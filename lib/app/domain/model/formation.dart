@@ -151,6 +151,7 @@ class Horario {
   String? postalCode;
   bool? isRegistered;
   bool? centerReference;
+  int? places;
   int? occupiedPlaces;
   bool allDay;
 
@@ -170,6 +171,7 @@ class Horario {
     this.postalCode,
     this.isRegistered,
     this.centerReference,
+    this.places,
     this.occupiedPlaces,
   });
 
@@ -189,6 +191,7 @@ class Horario {
         postalCode: json["postal_code"],
         isRegistered: json["is_registered"],
         centerReference: json["center_reference"],
+        places: json["places"],
         occupiedPlaces: json["occupied_places"],
         allDay: json["all_day"],
       );
@@ -210,6 +213,7 @@ class Horario {
         "postal_code": postalCode,
         "is_registered": isRegistered,
         "center_reference": centerReference,
+        "places": places,
         "occupied_places": occupiedPlaces,
         "all_day": allDay,
       };

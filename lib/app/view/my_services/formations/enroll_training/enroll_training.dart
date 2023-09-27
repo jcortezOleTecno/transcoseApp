@@ -386,8 +386,8 @@ Future<bool?> _dialogEnrollEmployee(BuildContext ctx, Horario date) {
   var selectedEmployees = <Employee>[];
   List<Employee> people = [];
   bool loading = false;
-  int limitPeople =
-      LocalDataRepository().user?.webservice?.plazasFormaciones ?? 0;
+  // int limitPeople =
+  //     LocalDataRepository().user?.webservice?.plazasFormaciones ?? 0;
   String? errorMessage;
 
   final cubit = ctx.read<EnrollTrainingCubit>();
@@ -433,23 +433,25 @@ Future<bool?> _dialogEnrollEmployee(BuildContext ctx, Horario date) {
                             style: AppTextStyle.defaultStyle,
                             textAlign: TextAlign.center,
                           ),
-                          // if (((people.length + selectedEmployees.length) >
-                          //         limitPeople) &&
-                          //     errorMessage == null) ...[
-                          //   spacerM,
-                          //   MsgError(
-                          //       message:
-                          //           'Se han terminado tus plazas contratadas ($limitPeople), si deseas contratar más comunícate con tu asesor comercial.'),
-                          // ],
+                          if (((people.length +
+                                      selectedEmployees.length +
+                                      (date.occupiedPlaces ?? 0)) >
+                                  (date.places ?? 0)) &&
+                              errorMessage == null) ...[
+                            spacerM,
+                            MsgError(
+                                message:
+                                    'Se han terminado tus plazas contratadas (${date.places}), si deseas contratar más comunícate con tu asesor comercial.'),
+                          ],
                           if (errorMessage != null) ...[
                             spacerM,
                             MsgError(message: errorMessage!),
                           ],
                           spacerM,
-                          const Align(
+                          Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                                'Personas a inscribir' /*(${selectedEmployees.length + people.length + (date.occupiedPlaces ?? 0)}/$limitPeople)'*/,
+                                'Personas a inscribir (${selectedEmployees.length + people.length + (date.occupiedPlaces ?? 0)}/${date.places})',
                                 style: AppTextStyle.inputLabelStyle),
                           ),
                           spacerXs,
@@ -628,9 +630,11 @@ Future<bool?> _dialogEnrollEmployee(BuildContext ctx, Horario date) {
                     text: 'Confirmar inscripciones',
                     isLoading: loading,
                     width: double.infinity,
-                    // disabled: (people.length + selectedEmployees.length) >
-                    //     limitPeople,
-                    // disabled: selectedEmployees.isEmpty && people.isEmpty,
+                    disabled: (people.length +
+                            selectedEmployees.length +
+                            (date.occupiedPlaces ?? 0)) >
+                        (date.places ?? 0),
+                    //  disabled: selectedEmployees.isEmpty && people.isEmpty,
                   ),
                   spacerS,
                   MyButton(
