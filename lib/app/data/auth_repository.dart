@@ -146,4 +146,14 @@ SUCCESS
         params: {"code": LocalDataRepository().user?.code ?? ''});
     return VemareContacts.fromJson(res);
   }
+
+  Future<bool> deleteUser() async {
+    try {
+      await apiClient.postRequest('$BASE_API_URL/api/user/delete');
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
 }

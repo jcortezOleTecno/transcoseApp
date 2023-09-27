@@ -7,6 +7,7 @@ import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/domain/model/employee.dart';
 import 'package:vemare/app/domain/model/formation.dart';
 import 'package:vemare/app/domain/model/locations.dart';
+import 'package:vemare/app/domain/model/plazas_contratadas_error.dart';
 import 'package:vemare/app/view/my_services/events/other_events/enroll_event/bloc/enroll_event_cubit.dart';
 import 'package:vemare/app/view/my_services/formations/enroll_training/bloc/enroll_training_cubit.dart';
 
@@ -60,6 +61,16 @@ class FormationsRepository {
         '$BASE_API_URL/api/formaciones/ubicaciones',
         params: {"id": id.toString()});
     return (res["locations"] as List).map(Locations.fromJson).toList();
+  }
+
+  Future<PLazasContratadasError?> getPlazasContratadas(int id) async {
+    final dynamic res = await _apiClient.getRequest(
+        '$BASE_API_URL/api/formaciones/ubicaciones',
+        params: {"id": id.toString()});
+    if (res["response"] == 'error') {
+      return PLazasContratadasError.fromJson(res);
+    }
+    return null;
   }
 
   Future<CalendarResponse> getHorariosFormations(

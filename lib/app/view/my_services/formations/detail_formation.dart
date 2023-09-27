@@ -1,4 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
+import 'package:vemare/app/data/formations_repository.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/domain/model/formation.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
@@ -8,9 +11,11 @@ import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_network_image/my_network_image.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/login/login_page.dart';
+import 'package:vemare/app/view/my_services/events/other_events/other_event_page.dart';
 import 'package:vemare/app/view/my_services/formations/available_destinations_formations/available_destinations_formations_page.dart';
 import 'package:vemare/app/view/my_services/formations/enroll_training/enroll_training.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
+import 'package:vemare/config/service_locator.dart';
 
 class DetailFormationPage extends StatelessWidget {
   const DetailFormationPage(this.formation, {super.key});
@@ -50,25 +55,8 @@ class DetailFormationPage extends StatelessWidget {
                             children: [
                               Text(formation.title ?? '',
                                   style: AppTextStyle.h2Style),
-
                               spacerS,
-                              // Text(formation.description ?? '',
-                              //     style: AppTextStyle.defaultStyle),
                               MyHtml(text: formation.description ?? ''),
-                              // spacerM,
-                              // Row(
-                              //   children: [
-                              //     Image.asset(
-                              //       'assets/icons/locate.png',
-                              //       scale: 2,
-                              //     ),
-                              //     spacerS,
-                              //     const Text(
-                              //       'Lugar de la formacion',
-                              //       style: AppTextStyle.defaultStyle,
-                              //     )
-                              //   ],
-                              // ),
                             ],
                           ),
                           spacerS,
@@ -90,54 +78,58 @@ class DetailFormationPage extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(15),
-              child: MyButton(
-                width: double.infinity,
-                onPressed: () {
-                  if (LocalDataRepository().isLogged) {
-                    Navigator.pushNamed(
-                      context,
-                      AvailableDestinationsFormationsPage.route,
-                      arguments: formation,
-                    );
-                  } else {
-                    Navigator.pushNamed(
-                      context,
-                      LoginPage.route,
-                      arguments: true,
-                    ).then((_) {
-                      Navigator.pushNamed(
-                        context,
-                        AvailableDestinationsFormationsPage.route,
-                        arguments: formation,
-                      );
-                    });
-                  }
-                  // if (LocalDataRepository().isLogged) {
-                  //   Navigator.pushNamed(
-                  //     context,
-                  //     EnrollTrainingPage.route,
-                  //     arguments: formation,
-                  //   );
-                  // } else {
-                  //   Navigator.pushNamed(
-                  //     context,
-                  //     LoginPage.route,
-                  //     arguments: true,
-                  //   ).then((_) {
-                  //     Navigator.pushNamed(
-                  //       context,
-                  //       EnrollTrainingPage.route,
-                  //       arguments: formation,
-                  //     );
-                  //   });
-                  // }
-                },
-                text: 'Continuar',
-              ),
+              child: _ContinueButton(formation: formation),
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class _ContinueButton extends StatefulWidget {
+  const _ContinueButton({
+    required this.formation,
+  });
+
+  final Formation formation;
+
+  @override
+  State<_ContinueButton> createState() => _ContinueButtonState();
+}
+
+class _ContinueButtonState extends State<_ContinueButton> {
+  bool loading = false;
+  @override
+  Widget build(BuildContext context) {
+    return MyButton(
+      isLoading: loading,
+      width: double.infinity,
+      onPressed: () async {
+        setState(() {
+          loading = true;
+        });
+        var res = await getIt
+            .get<FormationsRepository>()
+            .getPlazasContratadas(widget.formation.id!);
+        if (res != null) {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return NoPlazasWidget(res: res);
+              });
+        } else {
+          Navigator.pushNamed(
+            context,
+            AvailableDestinationsFormationsPage.route,
+            arguments: widget.formation,
+          );
+        }
+        setState(() {
+          loading = false;
+        });
+      },
+      text: 'Continuar',
     );
   }
 }

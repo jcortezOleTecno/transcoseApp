@@ -14,6 +14,7 @@ import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_input/my_input.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/tap_to_hide_keyboard/tap_to_hide_keyboard.dart';
+import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/personal_area/my_account/bloc/my_account_cubit.dart';
 import 'package:vemare/app/view/personal_area/my_account/bloc/my_account_state.dart';
 import 'package:vemare/app/view/shared/userbloc/user_state.dart';
@@ -229,11 +230,19 @@ class _MyAccountPageState extends State<MyAccountPage> {
   }
 }
 
-class DialogConfirmDeleteAccount extends StatelessWidget {
+class DialogConfirmDeleteAccount extends StatefulWidget {
   const DialogConfirmDeleteAccount({
     super.key,
   });
 
+  @override
+  State<DialogConfirmDeleteAccount> createState() =>
+      _DialogConfirmDeleteAccountState();
+}
+
+class _DialogConfirmDeleteAccountState
+    extends State<DialogConfirmDeleteAccount> {
+  bool loading = false;
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -260,9 +269,25 @@ class DialogConfirmDeleteAccount extends StatelessWidget {
             ),
             spacerXL,
             MyButton(
-              onPressed: () {},
+              onPressed: () async {
+                setState(() {
+                  loading = true;
+                });
+                var res = await getIt.get<AuthRepository>().deleteUser();
+                if (res) {
+                  context.read<UserCubit>().deleteUser();
+                  LocalDataRepository().logOut().then((_) {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, LoginPage.route, (route) => false);
+                  });
+                }
+                setState(() {
+                  loading = false;
+                });
+              },
               text: 'Eliminar',
               width: double.infinity,
+              isLoading: loading,
             ),
             spacerS,
             MyButton(
