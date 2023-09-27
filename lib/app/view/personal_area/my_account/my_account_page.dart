@@ -18,6 +18,7 @@ import 'package:vemare/app/view/personal_area/my_account/bloc/my_account_cubit.d
 import 'package:vemare/app/view/personal_area/my_account/bloc/my_account_state.dart';
 import 'package:vemare/app/view/shared/userbloc/user_state.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
+import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
 
@@ -204,6 +205,18 @@ class _MyAccountPageState extends State<MyAccountPage> {
                       text: 'Descartar cambios',
                       variant: MyButtonVariant.outlinedBold,
                     ),
+                    spacerS,
+                    MyButton(
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return const DialogConfirmDeleteAccount();
+                            });
+                      },
+                      text: 'Eliminar cuenta',
+                      variant: MyButtonVariant.outlinedBold,
+                    ),
                     spacerM,
                   ],
                 ),
@@ -211,6 +224,55 @@ class _MyAccountPageState extends State<MyAccountPage> {
             );
           },
         )),
+      ),
+    );
+  }
+}
+
+class DialogConfirmDeleteAccount extends StatelessWidget {
+  const DialogConfirmDeleteAccount({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            spacerS,
+            Container(
+              height: 60,
+              width: 60,
+              decoration: const BoxDecoration(
+                  shape: BoxShape.circle, color: AppColor.error200),
+              child: const Icon(
+                Icons.warning_amber_rounded,
+                color: AppColor.error,
+              ),
+            ),
+            spacerS,
+            Text(
+              '¿Desea eliminar su cuenta?',
+              style: AppTextStyle.nunitoSans800.copyWith(fontSize: 24),
+            ),
+            spacerXL,
+            MyButton(
+              onPressed: () {},
+              text: 'Eliminar',
+              width: double.infinity,
+            ),
+            spacerS,
+            MyButton(
+              onPressed: () => Navigator.pop(context),
+              text: 'Cancelar',
+              variant: MyButtonVariant.outlinedBold,
+              width: double.infinity,
+            ),
+          ],
+        ),
       ),
     );
   }

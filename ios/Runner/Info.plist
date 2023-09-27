@@ -34,7 +34,7 @@
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Photo Library Additions Usage Description</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Esta aplicación requiere acceso a la biblioteca de fotos</string>
+	<string>Necesitamos acceder a tus fotos para poder completar este paso. La imagen seleccionada será compartida con el resto de usuarios de la aplicación.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

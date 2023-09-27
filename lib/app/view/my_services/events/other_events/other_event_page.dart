@@ -63,46 +63,54 @@ class OtherEventPage extends StatelessWidget {
                 ),
               ),
             ),
-            // if (event.horario?.isNotEmpty ?? false)
             Padding(
               padding: const EdgeInsets.all(15),
-              child: MyButton(
-                width: double.infinity,
-                onPressed: () {
-                  // Navigator.pushNamed(
-                  //   context,
-                  //   AvailableDestinationsPage.route,
-                  //   arguments: event,
-
-                  if (LocalDataRepository().isLogged) {
-                    Navigator.pushNamed(
-                      context,
-                      AvailableDestinationsPage.route,
-                      arguments: event,
-                    );
-                  } else {
-                    Navigator.pushNamed(
-                      context,
-                      LoginPage.route,
-                      arguments:
-                          'Para acceder a la información de los eventos tienes que iniciar sesión.',
-                    ).then((_) {
-                      if (LocalDataRepository().isLogged) {
-                        Navigator.pushNamed(
-                          context,
-                          AvailableDestinationsPage.route,
-                          arguments: event,
-                        );
-                      }
-                    });
-                  }
-                },
-                text: 'Continuar',
-              ),
+              child: ContinueButton(event: event),
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class ContinueButton extends StatelessWidget {
+  const ContinueButton({
+    super.key,
+    required this.event,
+  });
+
+  final Events event;
+
+  @override
+  Widget build(BuildContext context) {
+    return MyButton(
+      width: double.infinity,
+      onPressed: () {
+        if (LocalDataRepository().isLogged) {
+          Navigator.pushNamed(
+            context,
+            AvailableDestinationsPage.route,
+            arguments: event,
+          );
+        } else {
+          Navigator.pushNamed(
+            context,
+            LoginPage.route,
+            arguments:
+                'Para acceder a la información de los eventos tienes que iniciar sesión.',
+          ).then((_) {
+            if (LocalDataRepository().isLogged) {
+              Navigator.pushNamed(
+                context,
+                AvailableDestinationsPage.route,
+                arguments: event,
+              );
+            }
+          });
+        }
+      },
+      text: 'Continuar',
     );
   }
 }
