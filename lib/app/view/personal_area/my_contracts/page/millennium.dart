@@ -425,13 +425,8 @@ class _HiredServices extends StatelessWidget {
                         // size: ColumnSize.L,
                       ),
                       DataColumn2(
-                        label: Text('SERVICIO DEL PACK'),
-                        fixedWidth: 140,
-                        // size: ColumnSize.L,
-                      ),
-                      DataColumn2(
-                        label: Text('VALOR'),
-                        fixedWidth: 80,
+                        label: Text('PACK'),
+                        fixedWidth: 60,
                         // size: ColumnSize.L,
                       ),
                       DataColumn2(
@@ -440,8 +435,18 @@ class _HiredServices extends StatelessWidget {
                         // size: ColumnSize.L,
                       ),
                       DataColumn2(
-                        label: Text('TIPO SELECCIÓN'),
-                        fixedWidth: 120,
+                        label: Text('VALOR'),
+                        fixedWidth: 80,
+                        // size: ColumnSize.L,
+                      ),
+                      DataColumn2(
+                        label: Text('TIPO'),
+                        fixedWidth: 100,
+                        // size: ColumnSize.L,
+                      ),
+                      DataColumn2(
+                        label: Text('PLAZAS'),
+                        fixedWidth: 80,
                         // size: ColumnSize.L,
                       ),
                       DataColumn2(
@@ -478,9 +483,10 @@ class MyDataMillenniumHiredServices extends DataTableSource {
       DataCell(Text(data[index].servicio ?? "")),
       DataCell(Text(data[index].codigo ?? "")),
       DataCell(Text(data[index].servicioDelPack ?? "")),
-      DataCell(Text("${data[index].valor} €")),
       DataCell(Text(data[index].cantidad.toString())),
-      DataCell(Text(data[index].tipoSeleccion ?? '')),
+      DataCell(Text("${data[index].valor} €")),
+      DataCell(Text(data[index].tipoServicio ?? '')),
+      DataCell(Text(data[index].maxAsistentesCliente.toString())),
       DataCell(Text(data[index].fechaInicioServicio ?? '')),
       DataCell(Text(data[index].tieneFirmaRgpd ?? '')),
     ]);

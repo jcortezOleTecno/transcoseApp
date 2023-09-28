@@ -269,20 +269,29 @@ class _TrainingsAndEventCard extends StatelessWidget {
                     child: Image.asset('assets/icons/calendar.png', scale: 2),
                   ),
                   spacerM,
-                  RichText(
-                    text: TextSpan(
-                      style: AppTextStyle.h3Style,
-                      children: [
-                        TextSpan(
-                          text: data.date ?? '',
-                        ),
-                        TextSpan(
-                          text: ' • ${data.time} - ${data.endTime}',
-                          style: AppTextStyle.defaultStyle
-                              .copyWith(color: AppColor.neutral40),
-                        ),
-                      ],
-                    ),
+                  Text(
+                    "${data.date ?? ''} a ${data.endDate ?? ''}",
+                    style: AppTextStyle.nunitoSans700.copyWith(fontSize: 18),
+                  ),
+                  // RichText(
+                  //   text: TextSpan(
+                  //     style: AppTextStyle.h3Style,
+                  //     children: [
+                  //       TextSpan(
+                  //         text: data.date ?? '',
+                  //       ),
+                  //       TextSpan(
+                  //         text: ' • ${data.time} - ${data.endTime}',
+                  //         style: AppTextStyle.defaultStyle
+                  //             .copyWith(color: AppColor.neutral40),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  spacerXs,
+                  Text(
+                    "${data.time ?? ''} • ${data.endTime ?? ''}",
+                    style: AppTextStyle.defaultStyle.copyWith(fontSize: 18),
                   ),
                   spacerS,
                   Row(
@@ -294,9 +303,11 @@ class _TrainingsAndEventCard extends StatelessWidget {
                         color: AppColor.primaryBlue,
                       ),
                       spacerS,
-                      Text(
-                        data.location ?? '',
-                        style: AppTextStyle.defaultStyle,
+                      Expanded(
+                        child: Text(
+                          data.location ?? '',
+                          style: AppTextStyle.defaultStyle,
+                        ),
                       )
                     ],
                   ),

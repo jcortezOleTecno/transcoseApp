@@ -150,6 +150,8 @@ class ServiciosContratado {
     this.fechaInicioServicio,
     this.tieneFirmaRgpd,
     this.formatoContratoRgpd,
+    this.tipoServicio,
+    this.maxAsistentesCliente,
   });
 
   String? servicio;
@@ -159,6 +161,8 @@ class ServiciosContratado {
   String? valor;
   int? cantidad;
   String? tipoSeleccion;
+  String? tipoServicio;
+  int? maxAsistentesCliente;
   String? fechaInicioServicio;
   String? tieneFirmaRgpd;
   dynamic formatoContratoRgpd;
@@ -171,6 +175,8 @@ class ServiciosContratado {
         valor: json["valor"],
         cantidad: json["cantidad"],
         tipoSeleccion: json["tipo_seleccion"],
+        tipoServicio: json["tipo_servicio"],
+        maxAsistentesCliente: json["max_asistentes_cliente"],
         fechaInicioServicio: json["fecha_inicio_servicio"],
         tieneFirmaRgpd: (json["tiene_firma_rgpd"] as bool) ? "SI" : "NO",
         formatoContratoRgpd: json["formato_contrato_rgpd"],
@@ -186,6 +192,8 @@ class ServiciosContratado {
         "fecha_inicio_servicio": fechaInicioServicio,
         "tiene_firma_rgpd": tieneFirmaRgpd,
         "formato_contrato_rgpd": formatoContratoRgpd,
+        "tipo_servicio": tipoServicio,
+        "max_asistentes_cliente": maxAsistentesCliente,
       };
 
   String toFilter() => {
@@ -197,5 +205,7 @@ class ServiciosContratado {
         "tipo_seleccion": tipoSeleccion,
         "fecha_inicio_servicio": fechaInicioServicio,
         "tiene_firma_rgpd": tieneFirmaRgpd,
+        "tipo_servicio": tipoServicio,
+        "max_asistentes_cliente": maxAsistentesCliente,
       }.toString();
 }
