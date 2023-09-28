@@ -31,10 +31,8 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Photo Library Additions Usage Description</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Necesitamos acceder a tus fotos para poder completar este paso. La imagen seleccionada será compartida con el resto de usuarios de la aplicación.</string>
+	<string>Necesitamos acceder a tus fotos para poder completar este paso. La imagen seleccionada será utilizada como tu foto de perfil y compartida con el resto de usuarios de la aplicación.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
