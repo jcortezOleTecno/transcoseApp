@@ -224,289 +224,305 @@ class EnrollEventPage extends StatelessWidget {
 }
 
 Future<bool?> _dialogEnrollEmployee(
-  BuildContext ctx,
-  Horario date,
-  Events event,
-) {
-  var selectedEmployees = <Employee>[];
-  List<Employee> people = [];
-  bool loading = false;
-  // int limitPeople = LocalDataRepository().user?.webservice?.plazasEventos ?? 0;
-  String? errorMessage;
-
-  final cubit = ctx.read<EnrollEventCubit>();
+    BuildContext ctx, Horario date, Events event) {
   return showDialog<bool>(
     context: ctx,
     barrierDismissible: false,
     builder: (context) {
-      return StatefulBuilder(
-        builder: (context, setState) {
-          return Dialog(
-            insetPadding: const EdgeInsets.fromLTRB(20, 25, 20, 20),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            child: Container(
-              padding: const EdgeInsets.all(20),
-              width: double.infinity,
-              child: Column(
-                children: [
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const MySpacer(height: 15),
-                          Container(
-                            height: 50,
-                            width: 50,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: AppColor.blue100,
-                            ),
-                            child: Image.asset(
-                              'assets/icons/empleados.png',
-                              scale: 2,
-                            ),
-                          ),
-                          spacerM,
-                          const Text('Inscribe personas',
-                              style: AppTextStyle.h1Style),
-                          spacerS,
-                          const Text(
-                            'Selecciona mínimo un (1) empleado para confirmar la asistencia.',
-                            style: AppTextStyle.defaultStyle,
-                            textAlign: TextAlign.center,
-                          ),
-                          if (((people.length +
-                                      selectedEmployees.length +
-                                      (date.occupiedPlaces ??
-                                          0) /* +
-                                      1*/
-                                  ) >
-                                  (date.places ?? 0)) &&
-                              errorMessage == null) ...[
-                            spacerM,
-                            MsgError(
-                                message:
-                                    'Se han terminado tus plazas contratadas (${date.places}), si deseas contratar más comunícate con tu asesor comercial.'),
-                          ],
-                          if (errorMessage != null) ...[
-                            spacerM,
-                            MsgError(message: errorMessage!),
-                          ],
-                          spacerM,
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                                'Personas a inscribir (${selectedEmployees.length + people.length + (date.occupiedPlaces ?? 0)}/${date.places})',
-                                style: AppTextStyle.inputLabelStyle),
-                          ),
-                          spacerXs,
-                          BlocBuilder<UserCubit, UserState>(
-                            builder: (context, state) {
-                              return MyCustomDropdownButton<Employee>(
-                                buttonWidth: double.infinity,
-                                hint: 'Selecciona uno o varios',
-                                onChanged: (value) {},
-                                selectedItemBuilder: (context) {
-                                  return state.employees.map(
-                                    (item) {
-                                      return Container(
-                                        alignment: AlignmentDirectional.center,
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 16.0),
-                                        child: Text(
-                                          selectedEmployees
-                                              .map((e) => e.firstName)
-                                              .join(', '),
-                                          style: AppTextStyle.inputStyle
-                                              .copyWith(
-                                                  overflow:
-                                                      TextOverflow.ellipsis),
-                                          maxLines: 1,
-                                        ),
-                                      );
-                                    },
-                                  ).toList();
-                                },
-                                dropdownElevation: 1,
-                                dropdownWidth:
-                                    MediaQuery.of(context).size.width * .81,
-                                dropdownItems: state.employees.map((e) {
-                                  return DropdownMenuItem(
-                                    value: e,
-                                    enabled: false,
-                                    child: StatefulBuilder(
-                                      builder: (context, menuSetState) {
-                                        // ignore: no_leading_underscores_for_local_identifiers
-                                        final _isSelected =
-                                            selectedEmployees.contains(e);
-                                        return InkWell(
-                                          onTap: () {
-                                            _isSelected
-                                                ? selectedEmployees.remove(e)
-                                                : selectedEmployees.add(e);
-                                            setState(() {});
-                                            menuSetState(() {});
-                                          },
-                                          child: Container(
-                                            height: double.infinity,
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 16.0),
-                                            child: Row(
-                                              children: [
-                                                Expanded(
-                                                  child: Text(e.firstName ?? '',
-                                                      style: AppTextStyle
-                                                          .defaultStyle
-                                                          .copyWith(
-                                                              color: _isSelected
-                                                                  ? AppColor
-                                                                      .neutral
-                                                                  : AppColor
-                                                                      .neutral40)),
-                                                ),
-                                                _isSelected
-                                                    ? const Icon(
-                                                        Icons.check_box)
-                                                    : const Icon(Icons
-                                                        .check_box_outline_blank),
-                                                const SizedBox(width: 16),
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  );
-                                }).toList(),
-                                value: selectedEmployees.isEmpty
-                                    ? null
-                                    : selectedEmployees.first,
-                              );
-                            },
-                          ),
-                          spacerM,
-                          MyIconButton(
-                            onPressed: () {
-                              _dialogEnrollPeople(context).then((v) {
-                                if (v != null) {
-                                  setState(() {
-                                    people.add(v);
-                                  });
-                                }
-                              });
-                            },
-                            text: 'Inscribir personas manualmente',
-                            icon: Image.asset(
-                              'assets/icons/mas.png',
-                              scale: 2,
-                            ),
-                            variant: MyButtonVariant.link,
-                          ),
-                          spacerM,
-                          Visibility(
-                            visible: people.isNotEmpty,
-                            child: Container(
-                              width: double.infinity,
-                              clipBehavior: Clip.antiAlias,
-                              height: 180,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(12),
-                                border: Border.all(color: AppColor.blue100),
-                              ),
-                              child: ListView.separated(
-                                itemBuilder: (context, i) {
-                                  return ListTile(
-                                    title: Text(
-                                      '${people[i].firstName!} ${people[i].lastName!}',
-                                      style: AppTextStyle.inputLabelStyle,
-                                    ),
-                                    subtitle: Text(
-                                      people[i].phone!,
-                                      style: AppTextStyle.defaultStyle,
-                                    ),
-                                    trailing: IconButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            people.removeAt(i);
-                                          });
-                                        },
-                                        icon: Image.asset(
-                                          'assets/icons/Trash.png',
-                                          scale: 2,
-                                        )),
-                                  );
-                                },
-                                itemCount: people.length,
-                                separatorBuilder: (_, __) {
-                                  return const Divider(
-                                      color: AppColor.blue100, thickness: 2);
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  MyButton(
-                    onPressed: () async {
-                      setState(() {
-                        loading = true;
-                      });
-                      //TODO: MOSTRAR MENSAJE DE ERROR
-
-                      cubit
-                          .enrollEvent(
-                              dateId: date.dateId,
-                              idsEmployees:
-                                  selectedEmployees.map((e) => e.id!).toList(),
-                              persons: people)
-                          .then((value) {
-                        setState(() {
-                          errorMessage = value!.messaje;
-                          if (value.success) {
-                            cubit.showEnrolled(date);
-                            Navigator.of(context).pop(true);
-                          }
-                          // if (value.success) {
-                          //   event.horario!
-                          //       .firstWhere((e) => e.dateId == date.dateId)
-                          //       .isRegistered = true;
-                          //   Navigator.of(context).pop(true);
-                          // }
-                          loading = false;
-                        });
-                      });
-                    },
-                    text: 'Confirmar inscripciones',
-                    width: double.infinity,
-                    isLoading: loading,
-                    disabled: ((people.length +
-                            selectedEmployees.length +
-                            (date.occupiedPlaces ?? 0)) >
-                        (date.places ??
-                            0)) /*||
-                         errorMessage != null*/
-                    ,
-                  ),
-                  spacerS,
-                  MyButton(
-                    onPressed: () => Navigator.of(context).pop(false),
-                    text: 'Volver',
-                    width: double.infinity,
-                    variant: MyButtonVariant.outlinedBold,
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
+      return DialogEnrollEmployee(
+        ctx,
+        date: date,
+        event: event,
       );
     },
   );
+}
+
+class DialogEnrollEmployee extends StatefulWidget {
+  const DialogEnrollEmployee(
+    this.ctx, {
+    super.key,
+    required this.date,
+    required this.event,
+  });
+
+  final BuildContext ctx;
+  final Horario date;
+  final Events event;
+
+  @override
+  State<DialogEnrollEmployee> createState() => _DialogEnrollEmployeeState();
+}
+
+class _DialogEnrollEmployeeState extends State<DialogEnrollEmployee> {
+  var selectedEmployees = <Employee>[];
+  List<Employee> people = [];
+  bool loading = false;
+  String? errorMessage;
+
+  @override
+  void initState() {
+    var user = LocalDataRepository().user;
+    var employees = context.read<UserCubit>().state.employees;
+
+    var userSelected = employees.firstWhere((e) => e.id == user!.id);
+    selectedEmployees.add(userSelected);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final cubit = widget.ctx.read<EnrollEventCubit>();
+    return Dialog(
+      insetPadding: const EdgeInsets.fromLTRB(20, 25, 20, 20),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        width: double.infinity,
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const MySpacer(height: 15),
+                    Container(
+                      height: 50,
+                      width: 50,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AppColor.blue100,
+                      ),
+                      child: Image.asset(
+                        'assets/icons/empleados.png',
+                        scale: 2,
+                      ),
+                    ),
+                    spacerM,
+                    const Text('Inscribe personas',
+                        style: AppTextStyle.h1Style),
+                    spacerS,
+                    const Text(
+                      'Selecciona mínimo un (1) empleado para confirmar la asistencia.',
+                      style: AppTextStyle.defaultStyle,
+                      textAlign: TextAlign.center,
+                    ),
+                    if (((people.length +
+                                selectedEmployees.length +
+                                (widget.date.occupiedPlaces ??
+                                    0) /* +
+                                      1*/
+                            ) >
+                            (widget.date.places ?? 0)) &&
+                        errorMessage == null) ...[
+                      spacerM,
+                      MsgError(
+                          message:
+                              'Se han terminado tus plazas contratadas (${widget.date.places}), si deseas contratar más comunícate con tu asesor comercial.'),
+                    ],
+                    if (errorMessage != null) ...[
+                      spacerM,
+                      MsgError(message: errorMessage!),
+                    ],
+                    spacerM,
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                          'Personas a inscribir (${selectedEmployees.length + people.length + (widget.date.occupiedPlaces ?? 0)}/${widget.date.places})',
+                          style: AppTextStyle.inputLabelStyle),
+                    ),
+                    spacerXs,
+                    BlocBuilder<UserCubit, UserState>(
+                      builder: (context, state) {
+                        return MyCustomDropdownButton<Employee>(
+                          buttonWidth: double.infinity,
+                          hint: 'Selecciona uno o varios',
+                          onChanged: (value) {},
+                          selectedItemBuilder: (context) {
+                            return state.employees.map(
+                              (item) {
+                                return Container(
+                                  alignment: AlignmentDirectional.center,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16.0),
+                                  child: Text(
+                                    selectedEmployees
+                                        .map((e) => e.firstName)
+                                        .join(', '),
+                                    style: AppTextStyle.inputStyle.copyWith(
+                                        overflow: TextOverflow.ellipsis),
+                                    maxLines: 1,
+                                  ),
+                                );
+                              },
+                            ).toList();
+                          },
+                          dropdownElevation: 1,
+                          dropdownWidth:
+                              MediaQuery.of(context).size.width * .81,
+                          dropdownItems: state.employees.map((e) {
+                            return DropdownMenuItem(
+                              value: e,
+                              enabled: false,
+                              child: StatefulBuilder(
+                                builder: (context, menuSetState) {
+                                  // ignore: no_leading_underscores_for_local_identifiers
+                                  final _isSelected =
+                                      selectedEmployees.contains(e);
+                                  return InkWell(
+                                    onTap: () {
+                                      _isSelected
+                                          ? selectedEmployees.remove(e)
+                                          : selectedEmployees.add(e);
+                                      setState(() {});
+                                      menuSetState(() {});
+                                    },
+                                    child: Container(
+                                      height: double.infinity,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16.0),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: Text(e.firstName ?? '',
+                                                style: AppTextStyle.defaultStyle
+                                                    .copyWith(
+                                                        color: _isSelected
+                                                            ? AppColor.neutral
+                                                            : AppColor
+                                                                .neutral40)),
+                                          ),
+                                          _isSelected
+                                              ? const Icon(Icons.check_box)
+                                              : const Icon(Icons
+                                                  .check_box_outline_blank),
+                                          const SizedBox(width: 16),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            );
+                          }).toList(),
+                          value: selectedEmployees.isEmpty
+                              ? null
+                              : selectedEmployees.first,
+                        );
+                      },
+                    ),
+                    spacerM,
+                    MyIconButton(
+                      onPressed: () {
+                        _dialogEnrollPeople(context).then((v) {
+                          if (v != null) {
+                            setState(() {
+                              people.add(v);
+                            });
+                          }
+                        });
+                      },
+                      text: 'Inscribir personas manualmente',
+                      icon: Image.asset(
+                        'assets/icons/mas.png',
+                        scale: 2,
+                      ),
+                      variant: MyButtonVariant.link,
+                    ),
+                    spacerM,
+                    Visibility(
+                      visible: people.isNotEmpty,
+                      child: Container(
+                        width: double.infinity,
+                        clipBehavior: Clip.antiAlias,
+                        height: 180,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: AppColor.blue100),
+                        ),
+                        child: ListView.separated(
+                          itemBuilder: (context, i) {
+                            return ListTile(
+                              title: Text(
+                                '${people[i].firstName!} ${people[i].lastName!}',
+                                style: AppTextStyle.inputLabelStyle,
+                              ),
+                              subtitle: Text(
+                                people[i].phone!,
+                                style: AppTextStyle.defaultStyle,
+                              ),
+                              trailing: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      people.removeAt(i);
+                                    });
+                                  },
+                                  icon: Image.asset(
+                                    'assets/icons/Trash.png',
+                                    scale: 2,
+                                  )),
+                            );
+                          },
+                          itemCount: people.length,
+                          separatorBuilder: (_, __) {
+                            return const Divider(
+                                color: AppColor.blue100, thickness: 2);
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            MyButton(
+              onPressed: () async {
+                setState(() {
+                  loading = true;
+                });
+                //TODO: MOSTRAR MENSAJE DE ERROR
+
+                cubit
+                    .enrollEvent(
+                        dateId: widget.date.dateId,
+                        idsEmployees:
+                            selectedEmployees.map((e) => e.id!).toList(),
+                        persons: people)
+                    .then((value) {
+                  setState(() {
+                    errorMessage = value!.messaje;
+                    if (value.success) {
+                      cubit.showEnrolled(widget.date);
+                      Navigator.of(context).pop(true);
+                    }
+
+                    loading = false;
+                  });
+                });
+              },
+              text: 'Confirmar inscripciones',
+              width: double.infinity,
+              isLoading: loading,
+              disabled: ((people.length +
+                          selectedEmployees.length +
+                          (widget.date.occupiedPlaces ?? 0)) >
+                      (widget.date.places ?? 0)) ||
+                  (selectedEmployees.isEmpty && people.isEmpty),
+            ),
+            spacerS,
+            MyButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              text: 'Volver',
+              width: double.infinity,
+              variant: MyButtonVariant.outlinedBold,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 Future<Employee?> _dialogEnrollPeople(BuildContext context) {

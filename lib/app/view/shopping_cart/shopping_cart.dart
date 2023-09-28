@@ -134,7 +134,11 @@ class ShoppingCartPage extends StatelessWidget {
                           ? !state.typePaySelected
                           : state.products.isEmpty,
                       onPressed: () {
-                        !state.buying ? cubit.buy() : cubit.orderPayment();
+                        !state.buying
+                            ? state.productsTienda.isNotEmpty
+                                ? cubit.buy()
+                                : cubit.orderPayment()
+                            : cubit.orderPayment();
                       },
                       text: state.typePaySelected ? 'Continuar' : 'Comprar',
                       isLoading: state.status == FormStatus.loading,
