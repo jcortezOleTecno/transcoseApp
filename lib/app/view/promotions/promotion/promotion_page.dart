@@ -138,32 +138,67 @@ class _Card extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Column(
           children: [
-            Container(
-              alignment: Alignment.topLeft,
-              height: 200,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(promotion.image!),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              child: Visibility(
-                visible: promotion.renting == 1,
-                child: Container(
-                  margin: const EdgeInsets.all(10),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+            Stack(
+              children: [
+                Container(
+                  alignment: Alignment.topLeft,
+                  height: 200,
+                  width: double.infinity,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: AppColor.red500),
-                  child: Text(
-                    'Renting',
-                    style: AppTextStyle.linkStyle.copyWith(
-                      color: AppColor.white,
+                    image: DecorationImage(
+                      image: NetworkImage(promotion.image!),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: Visibility(
+                    visible: promotion.renting == 1,
+                    child: Container(
+                      margin: const EdgeInsets.all(10),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 3),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          color: AppColor.red500),
+                      child: Text(
+                        'Renting',
+                        style: AppTextStyle.linkStyle.copyWith(
+                          color: AppColor.white,
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
+                if (!promotion.informative && LocalDataRepository().isLogged)
+                  Positioned(
+                    right: 0,
+                    child: Container(
+                        decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(10))),
+                        padding: const EdgeInsets.all(6),
+                        child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              if (!promotion.informative &&
+                                  LocalDataRepository().isLogged) ...[
+                                if (promotion.pvpLowered != null)
+                                  Text(
+                                    myFormatMoney(promotion.pvpOriginal ?? 0.0),
+                                    style: AppTextStyle.pvpOrinigal,
+                                  ),
+                                spacerXs,
+                                Text(
+                                  myFormatMoney(promotion.pvpLowered ??
+                                      promotion.pvpOriginal ??
+                                      0.0),
+                                  style: AppTextStyle.h2Style,
+                                ),
+                              ],
+                            ])),
+                  )
+              ],
             ),
             Padding(
               padding: const EdgeInsets.all(12),
@@ -175,20 +210,20 @@ class _Card extends StatelessWidget {
                       style: AppTextStyle.defaultStyle,
                     ),
                   ),
-                  if (!promotion.informative &&
-                      LocalDataRepository().isLogged) ...[
-                    if (promotion.pvpLowered != null)
-                      Text(
-                        myFormatMoney(promotion.pvpOriginal ?? 0.0),
-                        style: AppTextStyle.pvpOrinigal,
-                      ),
-                    spacerXs,
-                    Text(
-                      myFormatMoney(
-                          promotion.pvpLowered ?? promotion.pvpOriginal ?? 0.0),
-                      style: AppTextStyle.h2Style,
-                    ),
-                  ]
+                  // if (!promotion.informative &&
+                  //     LocalDataRepository().isLogged) ...[
+                  //   if (promotion.pvpLowered != null)
+                  //     Text(
+                  //       myFormatMoney(promotion.pvpOriginal ?? 0.0),
+                  //       style: AppTextStyle.pvpOrinigal,
+                  //     ),
+                  //   spacerXs,
+                  //   Text(
+                  //     myFormatMoney(
+                  //         promotion.pvpLowered ?? promotion.pvpOriginal ?? 0.0),
+                  //     style: AppTextStyle.h2Style,
+                  //   ),
+                  // ]
                 ],
               ),
             )
