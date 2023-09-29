@@ -140,7 +140,6 @@ class HomeCubit extends Cubit<HomeState> {
     required String phone,
   }) async {
     String url = "https://wa.me/$phone?text=${Uri.parse('')}";
-    print(url);
     await launchUrlString(url, mode: LaunchMode.externalApplication);
   }
 

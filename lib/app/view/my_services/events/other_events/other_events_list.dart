@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vemare/app/data/events_repository.dart';
-import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/domain/model/events.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
-import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/my_services/events/other_events/bloc/other_events_cubit.dart';
 import 'package:vemare/app/view/my_services/events/other_events/bloc/other_events_state.dart';
 import 'package:vemare/app/view/my_services/events/other_events/other_event_page.dart';

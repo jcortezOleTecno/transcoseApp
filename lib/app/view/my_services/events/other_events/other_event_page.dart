@@ -164,6 +164,7 @@ class _ContinueButtonState extends State<ContinueButton> {
 
 class NoPlazasWidget extends StatelessWidget {
   const NoPlazasWidget({
+    super.key,
     required this.res,
   });
 

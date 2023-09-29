@@ -9,7 +9,6 @@ import 'package:vemare/app/data/notifications_repository.dart';
 import 'package:vemare/app/domain/model/events.dart';
 import 'package:vemare/app/domain/model/formation.dart';
 import 'package:vemare/app/domain/model/promotion.dart';
-import 'package:vemare/app/domain/model/vemare_contacts.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/about_us/about_us_page.dart';
@@ -825,7 +824,6 @@ class _NotificationsMenu extends StatelessWidget {
   }
 
   _onTap(BuildContext context, {required model.Notification notification}) {
-    print(notification.toJson());
     final cubit = context.read<MenuCubit>();
 
     switch (notification.tipo) {

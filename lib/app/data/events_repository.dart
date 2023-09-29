@@ -66,8 +66,6 @@ class EventsRepository {
       'persons': persons?.map((e) => e.toEnrollData()).toList(),
     };
 
-    print(data);
-
     var res = await _apiClient.postRequest(
         '$BASE_API_URL/api/eventos/inscripcion',
         body: jsonEncode(data),

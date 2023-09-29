@@ -10,10 +10,8 @@ import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_network_image/my_network_image.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
-import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/my_services/events/other_events/other_event_page.dart';
 import 'package:vemare/app/view/my_services/formations/available_destinations_formations/available_destinations_formations_page.dart';
-import 'package:vemare/app/view/my_services/formations/enroll_training/enroll_training.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
 

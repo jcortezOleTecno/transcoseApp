@@ -20,7 +20,6 @@ import 'package:vemare/app/view/personal_area/my_budget/my_budget/bloc/my_budget
 import 'package:vemare/app/view/personal_area/my_budget/my_budget/bloc/my_budget_state.dart';
 import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
-import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
 import 'package:vemare/main.dart';

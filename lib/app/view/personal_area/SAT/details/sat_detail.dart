@@ -13,7 +13,6 @@ import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/no_result/no_result_table.dart';
 import 'package:vemare/app/view/_components/user_name/user_name.dart';
-import 'package:vemare/app/view/personal_area/widgets/item_card.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';

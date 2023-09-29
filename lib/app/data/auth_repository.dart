@@ -152,7 +152,6 @@ SUCCESS
       await apiClient.postRequest('$BASE_API_URL/api/user/delete');
       return true;
     } catch (e) {
-      print(e);
       return false;
     }
   }

@@ -279,8 +279,6 @@ class ContratsRepository {
               contentType: 'application/json',
             ));
 
-    print(res.data);
-
     final directory = await getApplicationDocumentsDirectory();
     final savedDir = directory.path;
     final file = File('$savedDir/$name');
