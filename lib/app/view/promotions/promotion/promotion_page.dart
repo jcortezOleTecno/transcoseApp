@@ -174,6 +174,9 @@ class _Card extends StatelessWidget {
                     child: Container(
                         decoration: const BoxDecoration(
                             color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(color: Colors.black26, blurRadius: 3)
+                            ],
                             borderRadius: BorderRadius.only(
                                 bottomLeft: Radius.circular(10))),
                         padding: const EdgeInsets.all(6),

@@ -3,6 +3,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/domain/model/services.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
+import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_gallery/my_galery.dart';
 import 'package:vemare/app/view/_components/my_html/my_html.dart';
@@ -60,9 +61,38 @@ class ServiceGeneralPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: MyIconButton(
                     onPressed: () {
-                      launchUrlString(
-                        service.externalLink ?? 'https://www.google.com',
-                      );
+                      if (service.id == 6) {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return Dialog(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        'Accede a AD360° a travez del sitio web',
+                                        textAlign: TextAlign.center,
+                                        style: AppTextStyle.nunitoSans800
+                                            .copyWith(fontSize: 20),
+                                      ),
+                                      spacerM,
+                                      MyButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        text: 'Aceptar',
+                                        width: double.infinity,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              );
+                            });
+                      } else {
+                        launchUrlString(
+                          service.externalLink ?? 'https://www.google.com',
+                        );
+                      }
                     },
                     text: service.buttonText ?? '',
                     icon: Image.asset(
