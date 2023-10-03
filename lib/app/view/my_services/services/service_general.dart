@@ -5,6 +5,7 @@ import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
+import 'package:vemare/app/view/_components/my_error_icon/error_icon.dart';
 import 'package:vemare/app/view/_components/my_gallery/my_galery.dart';
 import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_network_image/my_network_image.dart';
@@ -71,8 +72,12 @@ class ServiceGeneralPage extends StatelessWidget {
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
+                                      spacerS,
+                                      const ErrorIconWidget(),
+                                      spacerM,
                                       Text(
-                                        'Accede a AD360° a travez del sitio web',
+                                        'Recomendamos el uso de esta herramienta mediante una PC',
+                                        // 'Accede a AD360° a travez del sitio web',
                                         textAlign: TextAlign.center,
                                         style: AppTextStyle.nunitoSans800
                                             .copyWith(fontSize: 20),

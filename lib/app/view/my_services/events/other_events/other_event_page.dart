@@ -8,6 +8,7 @@ import 'package:vemare/app/domain/model/plazas_contratadas_error.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
+import 'package:vemare/app/view/_components/my_error_icon/error_icon.dart';
 import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/login/login_page.dart';
@@ -177,17 +178,7 @@ class NoPlazasWidget extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           spacerS,
-          Container(
-            height: 60,
-            width: 60,
-            decoration: const BoxDecoration(
-                shape: BoxShape.circle, color: AppColor.error200),
-            child: const Icon(
-              Icons.warning_amber_rounded,
-              size: 30,
-              color: AppColor.error,
-            ),
-          ),
+          const ErrorIconWidget(),
           spacerM,
           Text(
             res?.titleError ?? '',
