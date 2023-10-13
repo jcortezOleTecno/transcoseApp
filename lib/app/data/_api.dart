@@ -38,6 +38,17 @@ class MyApi extends MyApiClient {
   }
 
   @override
+  dynamic postRequestDynamic(String url, {Object? body, Map<String, String>? customHeaders}) async{
+    final response = await http.post(
+      _parseUrl(url),
+      headers: customHeaders,
+      body: body,
+    );
+    log(response.body);
+    return _handleResponse(response);
+  }
+
+  @override
   dynamic putRequest(
     String url, {
     Map<String, dynamic>? params,
@@ -93,6 +104,7 @@ class MyApi extends MyApiClient {
 
     return jsonDecode(rawJsonString);
   }
+
 }
 
 final allHeaders = {
@@ -100,4 +112,7 @@ final allHeaders = {
 };
 const headerContentTypeApplicationJson = {
   'Content-Type': 'application/json',
+};
+const headerContentTypeApplicationUrlencoded = {
+  'Content-Type': 'application/x-www-form-urlencoded',
 };

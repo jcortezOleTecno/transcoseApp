@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -141,10 +142,18 @@ SUCCESS
   // }
 
   Future<VemareContacts> getVemareContacts() async {
-    final dynamic res = await apiClient.getRequest(
-        '$BASE_API_URL/api/mis_contactos_vemare',
-        params: {"code": LocalDataRepository().user?.code ?? ''});
-    return VemareContacts.fromJson(res);
+
+    log('BASE_API_URL : $BASE_API_URL');
+    VemareContacts? vemareContacts;
+    try{
+      final dynamic res = await apiClient.getRequest(
+          '$BASE_API_URL/api/mis_contactos_vemare',
+          params: {"code": LocalDataRepository().user?.code ?? ''});
+      vemareContacts = VemareContacts.fromJson(res);
+    }catch(e){
+      log(e.toString());
+    }
+    return vemareContacts!;
   }
 
   Future<bool> deleteUser() async {

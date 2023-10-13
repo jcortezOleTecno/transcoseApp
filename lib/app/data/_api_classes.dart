@@ -9,6 +9,11 @@ abstract class MyApiClient {
     Object? body,
     Map<String, String>? customHeaders,
   });
+  dynamic postRequestDynamic(
+    String url, {
+    Object? body,
+    Map<String, String>? customHeaders,
+  });
   dynamic putRequest(
     String url, {
     Map<String, dynamic>? params,
