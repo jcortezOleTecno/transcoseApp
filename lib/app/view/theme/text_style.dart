@@ -61,11 +61,34 @@ abstract class AppTextStyle {
     fontWeight: FontWeight.w700,
     color: AppColor.black,
   );
+  static const TextStyle h12Style = TextStyle(
+    fontFamily: 'NunitoSans',
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    color: AppColor.neutral,
+  );
+  static const TextStyle h12StyleNeu40 = TextStyle(
+    fontFamily: 'NunitoSans',
+    fontSize: 16,
+    color: AppColor.neutral40,
+  );
+  static const TextStyle h12StyleNeu40W700 = TextStyle(
+    fontFamily: 'NunitoSans',
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+    color: AppColor.neutral40,
+  );
+  static const TextStyle h12StyleBlue = TextStyle(
+    fontFamily: 'NunitoSans',
+    fontSize: 16,
+    fontWeight: FontWeight.w700,
+    color: AppColor.blue,
+  );
   static const TextStyle h4Style = TextStyle(
     fontFamily: 'NunitoSans',
     fontSize: 18,
     fontWeight: FontWeight.w700,
-    color: AppColor.black,
+    color: AppColor.neutral40,
   );
   static const TextStyle pvpOrinigal = TextStyle(
     fontFamily: 'NunitoSans',

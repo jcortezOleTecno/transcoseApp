@@ -42,7 +42,8 @@ class PromotionDescription extends StatelessWidget {
             ),
           ),
           spacerS,
-          Row(
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(promotion.name ?? '', style: AppTextStyle.h2Style),
