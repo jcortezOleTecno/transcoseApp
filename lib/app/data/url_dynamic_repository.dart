@@ -29,6 +29,6 @@ class UrlDynamicRepository {
         body: body,
         customHeaders: headerContentTypeApplicationUrlencoded
     );
-    return res["totem"];
+    return res["url_data"] ?? '';
   }
 }

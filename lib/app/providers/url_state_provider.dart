@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:vemare/app/data/url_dynamic_repository.dart';
 import 'package:vemare/config/service_locator.dart';
 
@@ -18,8 +19,9 @@ class UrlDynamicProvider extends ChangeNotifier {
       String totem = await getIt.get<UrlDynamicRepository>().getTotem() ?? '';
       log('totem: $totem');
       url = await getIt.get<UrlDynamicRepository>().getUrl(totem: totem) ?? '';
+      url = url.substring(0,(url.length - 1));
       log('URL : $url');
-      url = 'https://vemare.ole.agency';
+      //url = 'https://vemare.ole.agency';
     }catch(_){}
     return url;
   }

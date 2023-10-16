@@ -1,12 +1,18 @@
+import 'dart:developer';
+
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:group_radio_button/group_radio_button.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/shopping_cart_repository.dart';
 import 'package:vemare/app/domain/value_object/status.dart';
 import 'package:vemare/app/domain/widgets_utils/textfield_general.dart';
+import 'package:vemare/app/domain/widgets_utils/web_view_global.dart';
+import 'package:vemare/app/domain/widgets_utils/web_view_privacy_policies.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
@@ -58,7 +64,7 @@ class RentingStorePage extends StatelessWidget {
                       SnackBar(content: Text(state.payResponse?.message ?? '')));
                 }
               },
-              builder: (context, state) {
+              builder: (context3, state) {
                 return Scaffold(
                   body: MyBody(
                     child: Column(
@@ -76,7 +82,7 @@ class RentingStorePage extends StatelessWidget {
                                 ),
                                 spacerL,
                                 if(provider.viewData)...[
-                                  dataUserPay(rentingStoreProvider: provider),
+                                  dataUserPay(rentingStoreProvider: provider,context: context),
                                 ]else...[
                                   selectTypePay(cubit: cubit,state: state),
                                 ],
@@ -136,7 +142,7 @@ class RentingStorePage extends StatelessWidget {
     );
   }
 
-  Widget dataUserPay({required RentingStoreProvider rentingStoreProvider}){
+  Widget dataUserPay({required RentingStoreProvider rentingStoreProvider, required BuildContext context}){
     return rentingStoreProvider.userData == null ? Container() :
     Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -168,39 +174,85 @@ class RentingStorePage extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: RichText(
-              text: const TextSpan(
+              text: TextSpan(
                   text: 'Utilizaremos sus datos para gestionar sus compras online en base a las condiciones generales de contratación, gestionar los servicios prestados y realizar encuestas de satisfacción. Para más información sobre el tratamiento y sus derechos, consulte la ',
                   style: AppTextStyle.h12StyleNeu40,
                   children: <TextSpan>[
                     TextSpan(
                       text: 'Política de Privacidad.',
                       style: AppTextStyle.h12StyleBlue,
+                      recognizer: TapGestureRecognizer()..onTap = (){
+                        log('JESUS - ' + "$BASE_API_URL/politicas-de-privacidad");
+                        Navigator.push(context, MaterialPageRoute(builder:
+                            (BuildContext context) => const WebViewPrivacyPolicies()));
+                      },
                     ),
                   ]
               ),
             ),
           ),
-          CheckboxListTile(
-            onChanged: (value){ rentingStoreProvider.check = value ?? false; },
-            value: rentingStoreProvider.check,
-            title: RichText(
-              text: const TextSpan(
-                text: 'Acepto las ',
-                style: AppTextStyle.h12Style,
-                children: <TextSpan>[
-                  TextSpan(
-                    text: 'Condiciones de Compra.',
-                    style: AppTextStyle.h12StyleBlue,
+          SizedBox(
+            width: double.infinity,
+            child: Row(
+              children: [
+                Checkbox(
+                  value: rentingStoreProvider.check,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5)),
+                  onChanged: (value){ rentingStoreProvider.check = value ?? false; },
+                  activeColor: AppColor.white,
+                  checkColor: AppColor.blue,
+                ),
+                Expanded(
+                  child: RichText(
+                    text: TextSpan(
+                        text: 'Acepto las ',
+                        style: AppTextStyle.h12Style,
+                        recognizer: TapGestureRecognizer()..onTap = (){
+                          rentingStoreProvider.check = !rentingStoreProvider.check ?? false;
+                        },
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: 'Condiciones de Compra.',
+                            style: AppTextStyle.h12StyleBlue,
+                            recognizer: TapGestureRecognizer()..onTap = (){
+                              Navigator.push(context, MaterialPageRoute(builder:
+                                  (BuildContext context) => WebViewGlobal(url: '$BASE_API_URL/condiciones-de-compra')));
+                            },
+                          ),
+                        ]
+                    ),
                   ),
-                ]
-              ),
-            ),
-            controlAffinity: ListTileControlAffinity.leading,
-            activeColor: AppColor.white,
-            contentPadding: EdgeInsets.zero,
-            checkColor: AppColor.blue,
-            checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                )
+              ],
+            )
           ),
+          // CheckboxListTile(
+          //   onChanged: (value){ rentingStoreProvider.check = value ?? false; },
+          //   value: rentingStoreProvider.check,
+          //   title: RichText(
+          //     text: TextSpan(
+          //         text: 'Acepto las ',
+          //         style: AppTextStyle.h12Style,
+          //         children: <TextSpan>[
+          //           TextSpan(
+          //             text: 'Condiciones de Compra.',
+          //             style: AppTextStyle.h12StyleBlue,
+          //             recognizer: TapGestureRecognizer()..onTap = (){
+          //               Navigator.push(context, MaterialPageRoute(builder:
+          //                   (BuildContext context) => WebViewGlobal(url: '$BASE_API_URL/condiciones-de-compra')));
+          //             },
+          //           ),
+          //         ]
+          //     ),
+          //   ),
+          //   controlAffinity: ListTileControlAffinity.leading,
+          //   activeColor: AppColor.white,
+          //   contentPadding: EdgeInsets.zero,
+          //   checkColor: AppColor.blue,
+          //   checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+          // ),
+
           const SizedBox(height: 10),
         ],
       ),
