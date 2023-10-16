@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +8,6 @@ import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/shopping_cart_repository.dart';
 import 'package:vemare/app/domain/value_object/status.dart';
-import 'package:vemare/app/domain/widgets_utils/textfield_general.dart';
 import 'package:vemare/app/domain/widgets_utils/web_view_global.dart';
 import 'package:vemare/app/domain/widgets_utils/web_view_privacy_policies.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
@@ -182,7 +179,6 @@ class RentingStorePage extends StatelessWidget {
                       text: 'Política de Privacidad.',
                       style: AppTextStyle.h12StyleBlue,
                       recognizer: TapGestureRecognizer()..onTap = (){
-                        log('JESUS - ' + "$BASE_API_URL/politicas-de-privacidad");
                         Navigator.push(context, MaterialPageRoute(builder:
                             (BuildContext context) => const WebViewPrivacyPolicies()));
                       },

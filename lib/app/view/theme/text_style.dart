@@ -67,6 +67,17 @@ abstract class AppTextStyle {
     fontWeight: FontWeight.bold,
     color: AppColor.neutral,
   );
+  static const TextStyle checkStyle = TextStyle(
+    fontFamily: 'NunitoSans',
+    fontSize: 14,
+    color: AppColor.neutral,
+  );
+  static const TextStyle checkStyleBlue = TextStyle(
+    fontFamily: 'NunitoSans',
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+    color: AppColor.blue,
+  );
   static const TextStyle h12StyleNeu40 = TextStyle(
     fontFamily: 'NunitoSans',
     fontSize: 16,

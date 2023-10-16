@@ -15,6 +15,7 @@ import 'package:vemare/app/view/_components/no_scale_widget/no_scale_widget.dart
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:vemare/app/view/app_router.dart';
 import 'package:vemare/app/view/our_history/bloc/our_history_cubit.dart';
+import 'package:vemare/app/view/register/providers/register_provider.dart';
 import 'package:vemare/app/view/shared/notifications/push_notifications.dart';
 import 'package:vemare/app/view/shared/notifications_counter_bloc/notifications_cubit.dart';
 import 'package:vemare/app/view/shared/shopping_car_counter_bloc/car_counter_cubit.dart';
