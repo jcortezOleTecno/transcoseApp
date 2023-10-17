@@ -84,7 +84,7 @@ class NewsDetailPage extends StatelessWidget {
                             padding: const EdgeInsets.only(bottom: 20),
                             child: MyNewsCard(
                               title: e.title ?? '',
-                              description: e.description ?? '',
+                              description: e.subtitle ?? '',
                               img: e.imagePrivate!,
                               onPressed: () => Navigator.pushNamed(
                                   context, NewsDetailPage.route,

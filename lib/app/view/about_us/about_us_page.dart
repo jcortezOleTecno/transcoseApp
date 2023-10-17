@@ -360,7 +360,7 @@ class _Library extends StatelessWidget {
                       children: List.generate(state.libraries.length, (i) {
                         return Card(
                           margin: const EdgeInsets.symmetric(
-                              vertical: 5, horizontal: 10),
+                              vertical: 5),
                           clipBehavior: Clip.antiAlias,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
