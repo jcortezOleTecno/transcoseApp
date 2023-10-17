@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,7 +45,6 @@ class ShoppingCartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return ChangeNotifierProvider(
         create: (context1) => ShoppingCartProvider(context),
         child: Consumer<ShoppingCartProvider>(
@@ -61,12 +62,12 @@ class ShoppingCartPage extends StatelessWidget {
                     }
                     if (state.status == FormStatus.error) {
                       // ignore: use_build_context_synchronously
+                      ///TODO ERROR
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text(state.payResponse?.message ?? '')));
                     }
                   },
                   builder: (context, state) {
-                    print('');
                     return WillPopScope(
                       onWillPop: () {
                         cubit.cancelBuy();
@@ -92,38 +93,36 @@ class ShoppingCartPage extends StatelessWidget {
                                             style: AppTextStyle.h1Style,
                                           ),
                                           spacerS,
-                                          if (state.loading)...[
+                                          if (state.loading)
                                             ...List.generate(
                                                 2,
                                                     (_) => const MyShimmer(
                                                   margin: EdgeInsets.only(bottom: 20),
                                                   height: 300,
-                                                )),],
-                                          if (!state.loading && state.products.isEmpty)...[
-                                            const _CarEmpty(),],
-                                          if (state.productsRenting.isNotEmpty)...[
+                                                )),
+                                          if (!state.loading && state.products.isEmpty)
+                                            const _CarEmpty(),
+                                          if (state.productsRenting.isNotEmpty)
                                             _TypeProductCards(
-                                                products: state.productsRenting),],
+                                                products: state.productsRenting),
                                           if (state.productsRenting.isNotEmpty &&
-                                              state.productsTienda.isNotEmpty)...[
+                                              state.productsTienda.isNotEmpty)
                                             const Divider(
                                               color: AppColor.primaryBlue,
                                               thickness: 1,
                                               height: 50,
-                                            ),],
-                                          if (state.productsTienda.isNotEmpty)...[
+                                            ),
+                                          if (state.productsTienda.isNotEmpty)
                                             _TypeProductCards(
-                                                products: state.productsTienda),
-                                          ],
+                                                products: state.productsTienda)
                                         ],
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                               ),
                             ),
-                            if (state.buying && !provider.viewData)...[_BuyData(state)],
-                            if(state.buying && provider.viewData)...[ _BuyDataUser(state) ],
+                            if (state.buying) _BuyData(state),
                             Padding(
                               padding: const EdgeInsets.all(15),
                               child: MyButton(
@@ -131,35 +130,28 @@ class ShoppingCartPage extends StatelessWidget {
                                     ? !state.typePaySelected
                                     : state.products.isEmpty,
                                 onPressed: () {
+                                  log('buying ${state.buying}');
+                                  log('productsTienda ${state.productsTienda.isNotEmpty}');
 
-                                  print('state.buying : ${state.buying}');
-                                  print('state.productsTienda.isNotEmpty : ${state.productsTienda.isNotEmpty}');
-                                  print('provider.viewData : ${provider.viewData}');
+                                  // if(!state.buying){
+                                  //   if(state.productsTienda.isNotEmpty){
+                                  //     if(provider.viewData){
+                                  //       cubit.buy;
+                                  //     }else{
+                                  //       provider.checkTrue();
+                                  //     }
+                                  //   }else{
+                                  //     cubit.orderPayment;
+                                  //   }
+                                  // }else{
+                                  //   cubit.orderPayment;
+                                  // }
 
-                                  if(!state.buying){
-                                    if(state.productsTienda.isNotEmpty){
-                                      cubit.buy();
-                                    }else{
-                                      //cubit.orderPayment();
-                                    }
-                                  }else{
-                                    if(provider.viewData){
-                                      if(provider.check){
-                                        cubit.orderPayment();
-                                      }else{
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                            SnackBar(content: Text('Se debe aceptar las condiciones de compra')));
-                                      }
-                                    }else{
-                                      provider.viewData = true;
-                                    }
-                                  }
-
-                                  // !state.buying
-                                  //     ? (state.productsTienda.isNotEmpty
-                                  //     ? cubit.buy()
-                                  //     : cubit.orderPayment())
-                                  //     : cubit.orderPayment();
+                                  !state.buying
+                                      ? state.productsTienda.isNotEmpty
+                                      ? (provider.viewData ? cubit.buy() : provider.checkTrue())
+                                      : cubit.orderPayment()
+                                      : cubit.orderPayment();
                                 },
                                 text: state.typePaySelected ? 'Continuar' : 'Comprar',
                                 isLoading: state.status == FormStatus.loading,
@@ -449,7 +441,7 @@ class _BuyData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<ShoppingCardCubit>();
+    ShoppingCartProvider provider = Provider.of<ShoppingCartProvider>(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
@@ -492,163 +484,151 @@ class _BuyData extends StatelessWidget {
             ),
           ),
           // spacerS,
-          const Text(
-            '¿Cómo deseas realizar tu pago?',
-            style: AppTextStyle.inputLabelStyle,
-          ),
-          StringRadioButtons(
-            options: (LocalDataRepository()
-                        .user
-                        ?.webservice
-                        ?.permiteComprasCredito ??
-                    false)
-                ? ['Crédito', 'Tarjeta']
-                : ['Tarjeta'],
-            onSelectionChanged: cubit.typePaySelect,
-          )
+          if(provider.viewData)...[
+            dataUserPay(context: context,provider: provider),
+          ]else...[
+            selectTypePay(context: context),
+          ]
         ],
       ),
     );
   }
-}
 
-class _BuyDataUser extends StatelessWidget {
-  const _BuyDataUser(
-    this.state, {
-    Key? key,
-  }) : super(key: key);
-
-  final ShoppingCardState state;
-
-  @override
-  Widget build(BuildContext context) {
-    ShoppingCartProvider provider = Provider.of<ShoppingCartProvider>(context);
-
-    return SizedBox(
-      height: 270,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const MyDivider(height: 0),
-              spacerS,
-              const Text(
-                'Total',
-                style: AppTextStyle.h3Style,
-              ),
-              spacerXs,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text('Productos', style: AppTextStyle.defaultStyle),
-                  Text('x${state.counter}', style: AppTextStyle.defaultStyle),
-                ],
-              ),
-              spacerS,
-              const MyDivider(height: 0),
-              spacerS,
-              Center(
-                child: RichText(
-                  text: TextSpan(
-                    style: AppTextStyle.h1Style,
-                    children: [
-                      TextSpan(
-                          text: fmf
-                              .copyWith(amount: state.total)
-                              .output
-                              .symbolOnRight),
-                      TextSpan(
-                        text: '  IVA incluido',
-                        style: AppTextStyle.defaultStyle
-                            .copyWith(color: AppColor.neutral40),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              // spacerS,
-              const Text(
-                'Datos de envío',
-                style: AppTextStyle.h3Style,
-              ),
-              const SizedBox(height: 20),
-              cardData(title: 'Nombre',subTitle: provider.userData!.name ?? ''),
-              const SizedBox(height: 20),
-              cardData(title: 'E-mail',subTitle: provider.userData!.email ?? ''),
-              const SizedBox(height: 20),
-              cardData(title: 'Dirección',subTitle: provider.userData!.address ?? ''),
-              const SizedBox(height: 20),
-              cardData(title: 'Provincia',subTitle: provider.userData!.province ?? ''),
-              const SizedBox(height: 20),
-              cardData(title: 'Ciudad',subTitle: provider.userData!.city ?? ''),
-              const SizedBox(height: 20),
-              cardData(title: 'CP',subTitle: provider.userData!.postalCode ?? ''),
-              const SizedBox(height: 30),
-              const Text(
-                'Protección de datos personales',
-                style: AppTextStyle.h12StyleNeu40W700,
-              ),
-              const SizedBox(height: 2),
-              SizedBox(
-                width: double.infinity,
-                child: RichText(
-                  text: TextSpan(
-                      text: 'Utilizaremos sus datos para gestionar sus compras online en base a las condiciones generales de contratación, gestionar los servicios prestados y realizar encuestas de satisfacción. Para más información sobre el tratamiento y sus derechos, consulte la ',
-                      style: AppTextStyle.h12StyleNeu40,
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: 'Política de Privacidad.',
-                          style: AppTextStyle.h12StyleBlue,
-                          recognizer: TapGestureRecognizer()..onTap = (){
-                            Navigator.push(context, MaterialPageRoute(builder:
-                                (BuildContext context) => const WebViewPrivacyPolicies()));
-                          },
-                        ),
-                      ]
-                  ),
-                ),
-              ),
-              SizedBox(
-                  width: double.infinity,
-                  child: Row(
-                    children: [
-                      Checkbox(
-                        value: provider.check,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
-                        onChanged: (value){ provider.check = value ?? false; },
-                        activeColor: AppColor.white,
-                        checkColor: AppColor.blue,
-                      ),
-                      Expanded(
-                        child: RichText(
-                          text: TextSpan(
-                              text: 'Acepto las ',
-                              style: AppTextStyle.h12Style,
-                              recognizer: TapGestureRecognizer()..onTap = (){
-                                provider.check = !provider.check;
-                              },
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: 'Condiciones de Compra.',
-                                  style: AppTextStyle.h12StyleBlue,
-                                  recognizer: TapGestureRecognizer()..onTap = (){
-                                    Navigator.push(context, MaterialPageRoute(builder:
-                                        (BuildContext context) => WebViewGlobal(url: '$BASE_API_URL/condiciones-de-compra')));
-                                  },
-                                ),
-                              ]
-                          ),
-                        ),
-                      )
-                    ],
-                  )
-              ),
-            ],
-          ),
+  Widget selectTypePay({required BuildContext context}){
+    final cubit = context.read<ShoppingCardCubit>();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          '¿Cómo deseas realizar tu pago?',
+          style: AppTextStyle.inputLabelStyle,
         ),
+        StringRadioButtons(
+          options: (LocalDataRepository()
+              .user
+              ?.webservice
+              ?.permiteComprasCredito ??
+              false)
+              ? ['Crédito', 'Tarjeta']
+              : ['Tarjeta'],
+          onSelectionChanged: cubit.typePaySelect,
+        )
+      ],
+    );
+  }
+
+  Widget dataUserPay({required ShoppingCartProvider provider, required BuildContext context}){
+    return provider.userData == null ? Container() :
+    Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Text(
+            'Datos de envío',
+            style: AppTextStyle.h3Style,
+          ),
+          const SizedBox(height: 20),
+          cardData(title: 'Nombre',subTitle: provider.userData!.name ?? ''),
+          const SizedBox(height: 20),
+          cardData(title: 'E-mail',subTitle: provider.userData!.email ?? ''),
+          const SizedBox(height: 20),
+          cardData(title: 'Dirección',subTitle: provider.userData!.address ?? ''),
+          const SizedBox(height: 20),
+          cardData(title: 'Provincia',subTitle: provider.userData!.province ?? ''),
+          const SizedBox(height: 20),
+          cardData(title: 'Ciudad',subTitle: provider.userData!.city ?? ''),
+          const SizedBox(height: 20),
+          cardData(title: 'CP',subTitle: provider.userData!.postalCode ?? ''),
+          const SizedBox(height: 30),
+          const Text(
+            'Protección de datos personales',
+            style: AppTextStyle.h12StyleNeu40W700,
+          ),
+          const SizedBox(height: 2),
+          SizedBox(
+            width: double.infinity,
+            child: RichText(
+              text: TextSpan(
+                  text: 'Utilizaremos sus datos para gestionar sus compras online en base a las condiciones generales de contratación, gestionar los servicios prestados y realizar encuestas de satisfacción. Para más información sobre el tratamiento y sus derechos, consulte la ',
+                  style: AppTextStyle.h12StyleNeu40,
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: 'Política de Privacidad.',
+                      style: AppTextStyle.h12StyleBlue,
+                      recognizer: TapGestureRecognizer()..onTap = (){
+                        Navigator.push(context, MaterialPageRoute(builder:
+                            (BuildContext context) => const WebViewPrivacyPolicies()));
+                      },
+                    ),
+                  ]
+              ),
+            ),
+          ),
+          SizedBox(
+              width: double.infinity,
+              child: Row(
+                children: [
+                  Checkbox(
+                    value: provider.check,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                    onChanged: (value){ provider.check = value ?? false; },
+                    activeColor: AppColor.white,
+                    checkColor: AppColor.blue,
+                  ),
+                  Expanded(
+                    child: RichText(
+                      text: TextSpan(
+                          text: 'Acepto las ',
+                          style: AppTextStyle.h12Style,
+                          recognizer: TapGestureRecognizer()..onTap = (){
+                            provider.check = !provider.check;
+                          },
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: 'Condiciones de Compra.',
+                              style: AppTextStyle.h12StyleBlue,
+                              recognizer: TapGestureRecognizer()..onTap = (){
+                                Navigator.push(context, MaterialPageRoute(builder:
+                                    (BuildContext context) => WebViewGlobal(url: '$BASE_API_URL/condiciones-de-compra')));
+                              },
+                            ),
+                          ]
+                      ),
+                    ),
+                  )
+                ],
+              )
+          ),
+          // CheckboxListTile(
+          //   onChanged: (value){ rentingStoreProvider.check = value ?? false; },
+          //   value: rentingStoreProvider.check,
+          //   title: RichText(
+          //     text: TextSpan(
+          //         text: 'Acepto las ',
+          //         style: AppTextStyle.h12Style,
+          //         children: <TextSpan>[
+          //           TextSpan(
+          //             text: 'Condiciones de Compra.',
+          //             style: AppTextStyle.h12StyleBlue,
+          //             recognizer: TapGestureRecognizer()..onTap = (){
+          //               Navigator.push(context, MaterialPageRoute(builder:
+          //                   (BuildContext context) => WebViewGlobal(url: '$BASE_API_URL/condiciones-de-compra')));
+          //             },
+          //           ),
+          //         ]
+          //     ),
+          //   ),
+          //   controlAffinity: ListTileControlAffinity.leading,
+          //   activeColor: AppColor.white,
+          //   contentPadding: EdgeInsets.zero,
+          //   checkColor: AppColor.blue,
+          //   checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+          // ),
+
+          const SizedBox(height: 10),
+        ],
       ),
     );
   }
@@ -672,128 +652,6 @@ class _BuyDataUser extends StatelessWidget {
     );
   }
 }
-
-/*class ShoppingItem extends StatelessWidget {
-  const ShoppingItem({
-    required this.product,
-    Key? key,
-  }) : super(key: key);
-
-  final ShoppingCardProduct product;
-
-  @override
-  Widget build(BuildContext context) {
-    final cubit = context.read<ShoppingCardCubit>();
-    return SizedBox(
-      height: 80,
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Image(
-              image: NetworkImage(product.image!),
-              width: 80,
-              height: 80,
-              fit: BoxFit.cover,
-            ),
-          ),
-          spacerS,
-          Expanded(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                product.renting ? 'Renting' : 'Tienda',
-                style: AppTextStyle.inputLabelStyle.copyWith(
-                  color: AppColor.neutral40,
-                ),
-              ),
-              Expanded(
-                child: RichText(
-                  text: TextSpan(
-                    style: AppTextStyle.defaultStyle.copyWith(
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black,
-                        fontSize: 14),
-                    children: [
-                      TextSpan(
-                        text: product.productName ?? '',
-                      ),
-                      TextSpan(
-                          text: ' x${product.quantity}',
-                          style:
-                              AppTextStyle.defaultStyle.copyWith(fontSize: 14)),
-                    ],
-                  ),
-                ),
-              ),
-
-              /*
-               if (promotion.pvpLowered != null)
-                      Text(
-                        '${promotion.pvpOriginal}€',
-                        style: AppTextStyle.pvpOrinigal,
-                      ),
-                    spacerXs,
-                    Text(
-                      '${promotion.pvpLowered ?? promotion.pvpOriginal}€',
-                      style: AppTextStyle.h2Style,
-                    ),
-              */
-              RichText(
-                text: TextSpan(
-                  style: AppTextStyle.titleCard,
-                  children: [
-                    if (product.priceSale != null)
-                      TextSpan(
-                        text: myFormatMoney(
-                            (product.priceSale?.toDouble() ?? 0.0) *
-                                (product.quantity ?? 0)),
-                        style: AppTextStyle.pvpOrinigal.copyWith(fontSize: 14),
-                      ),
-                    TextSpan(
-                      text:
-                          ' ${myFormatMoney((product.priceSale?.toDouble() ?? product.priceOld?.toDouble() ?? 0) * (product.quantity ?? 0))}',
-                    ),
-                    TextSpan(
-                      text: ' IVA incluido ',
-                      style: AppTextStyle.defaultStyle
-                          .copyWith(color: AppColor.neutral40, fontSize: 14),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          )),
-          spacerS,
-          BlocBuilder<ShoppingCardCubit, ShoppingCardState>(
-            builder: (context, state) {
-              if (state.buying) {
-                return const SizedBox();
-              }
-              return Material(
-                color: AppColor.error200,
-                borderRadius: BorderRadius.circular(50),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(50),
-                   onTap: () => cubit.deleteProduct(
-                     id: product.id!,
-                     quantity: product.quantity!,
-                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Image.asset('assets/icons/Trash.png', scale: 2),
-                  ),
-                ),
-              );
-            },
-          )
-        ],
-      ),
-    );
-  }
-}*/
 
 class _CarEmpty extends StatelessWidget {
   const _CarEmpty({
