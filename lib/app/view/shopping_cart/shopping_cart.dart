@@ -10,7 +10,6 @@ import 'package:vemare/app/domain/model/shopping_card_product.dart';
 import 'package:vemare/app/domain/utils/money_formatter.dart';
 import 'package:vemare/app/domain/value_object/status.dart';
 import 'package:vemare/app/domain/widgets_utils/web_view_global.dart';
-import 'package:vemare/app/domain/widgets_utils/web_view_privacy_policies.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
@@ -603,7 +602,7 @@ class _BuyDataUser extends StatelessWidget {
                           style: AppTextStyle.h12StyleBlue,
                           recognizer: TapGestureRecognizer()..onTap = (){
                             Navigator.push(context, MaterialPageRoute(builder:
-                                (BuildContext context) => const WebViewPrivacyPolicies()));
+                                (BuildContext context) => WebViewGlobal(url: '$BASE_API_URL/politicas-de-privacidad')));
                           },
                         ),
                       ]

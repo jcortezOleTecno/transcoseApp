@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/data/auth_repository.dart';
 import 'package:vemare/app/domain/value_object/status.dart';
-import 'package:vemare/app/domain/widgets_utils/web_view_privacy_policies.dart';
+import 'package:vemare/app/domain/widgets_utils/web_view_global.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_input/my_input.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
@@ -181,7 +182,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                         style: AppTextStyle.h12StyleBlue,
                                         recognizer: TapGestureRecognizer()..onTap = (){
                                           Navigator.push(context, MaterialPageRoute(builder:
-                                              (BuildContext context) => const WebViewPrivacyPolicies()));
+                                              (BuildContext context) => WebViewGlobal(url: '$BASE_API_URL/politicas-de-privacidad')));
                                         },
                                       ),
                                     ]
@@ -230,7 +231,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                                 style: AppTextStyle.checkStyleBlue,
                                                 recognizer: TapGestureRecognizer()..onTap = (){
                                                   Navigator.push(context, MaterialPageRoute(builder:
-                                                      (BuildContext context) => const WebViewPrivacyPolicies()));
+                                                      (BuildContext context) => WebViewGlobal(url: '$BASE_API_URL/politicas-de-privacidad')));
                                                 },
                                               ),
                                             ]

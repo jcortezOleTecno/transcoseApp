@@ -5,10 +5,12 @@ class MyBody extends StatelessWidget {
   const MyBody({
     required this.child,
     this.padding,
+    this.spacerTop = 80,
     Key? key,
   }) : super(key: key);
 
   final Widget child;
+  final double spacerTop;
   final EdgeInsetsGeometry? padding;
 
   @override
@@ -20,7 +22,7 @@ class MyBody extends StatelessWidget {
           padding: padding ?? EdgeInsets.zero,
           child: Column(
             children: [
-              SizedBox(height: 80 + paddingTop),
+              SizedBox(height: spacerTop + paddingTop),
               Expanded(child: child),
             ],
           ),

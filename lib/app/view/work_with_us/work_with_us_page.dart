@@ -2,11 +2,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/data/work_with_us_repository.dart';
 import 'package:vemare/app/domain/model/work_with_us.dart';
 import 'package:vemare/app/domain/utils/validators.dart';
 import 'package:vemare/app/domain/value_object/status.dart';
-import 'package:vemare/app/domain/widgets_utils/web_view_privacy_policies.dart';
+import 'package:vemare/app/domain/widgets_utils/web_view_global.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
@@ -336,7 +337,7 @@ class _ProtectionPolicyState extends State<ProtectionPolicy> {
                     style: AppTextStyle.checkStyleBlue,
                     recognizer: TapGestureRecognizer()..onTap = (){
                       Navigator.push(context, MaterialPageRoute(builder:
-                          (BuildContext context) => const WebViewPrivacyPolicies()));
+                          (BuildContext context) => WebViewGlobal(url: '$BASE_API_URL/politicas-de-privacidad')));
                     },
                   ),
                 ]

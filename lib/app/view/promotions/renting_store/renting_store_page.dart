@@ -9,7 +9,6 @@ import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/shopping_cart_repository.dart';
 import 'package:vemare/app/domain/value_object/status.dart';
 import 'package:vemare/app/domain/widgets_utils/web_view_global.dart';
-import 'package:vemare/app/domain/widgets_utils/web_view_privacy_policies.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
@@ -180,7 +179,7 @@ class RentingStorePage extends StatelessWidget {
                       style: AppTextStyle.h12StyleBlue,
                       recognizer: TapGestureRecognizer()..onTap = (){
                         Navigator.push(context, MaterialPageRoute(builder:
-                            (BuildContext context) => const WebViewPrivacyPolicies()));
+                            (BuildContext context) => WebViewGlobal(url: '$BASE_API_URL/politicas-de-privacidad')));
                       },
                     ),
                   ]

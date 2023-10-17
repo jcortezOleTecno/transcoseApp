@@ -90,7 +90,7 @@ class HomeCubit extends Cubit<HomeState> {
       _homeRepository.getHero().then((v) => hero = v),
       _homeRepository.getHeroButtons().then((v) => heroButtons = v),
       _productsRepository
-          .getProductsCategories(limit: 3)
+          .getProductsCategories(limit: 6)
           .then((v) => products = v),
       _promotionsRepository
           .getPromocionesCategories(limit: 3)
