@@ -205,7 +205,7 @@ class RentingStorePage extends StatelessWidget {
                         text: 'Acepto las ',
                         style: AppTextStyle.h12Style,
                         recognizer: TapGestureRecognizer()..onTap = (){
-                          rentingStoreProvider.check = !rentingStoreProvider.check ?? false;
+                          rentingStoreProvider.check = !rentingStoreProvider.check;
                         },
                         children: <TextSpan>[
                           TextSpan(

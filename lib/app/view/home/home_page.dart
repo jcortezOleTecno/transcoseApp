@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:nested_scroll_views/material.dart';
+import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/data/brands_repository.dart';
 import 'package:vemare/app/data/header_repository.dart';
 import 'package:vemare/app/data/home_repository.dart';
@@ -19,6 +20,7 @@ import 'package:vemare/app/data/services_repository.dart';
 import 'package:vemare/app/data/work_with_us_repository.dart';
 import 'package:vemare/app/data/workshops_repository.dart';
 import 'package:vemare/app/domain/utils/validators.dart';
+import 'package:vemare/app/domain/widgets_utils/web_view_global.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
@@ -570,7 +572,7 @@ class _PageB extends StatelessWidget {
             addAutomaticKeepAlives: false,
             physics: Platform.isIOS ? const ClampingScrollPhysics() : null,
             // primary: false,
-            padding: const EdgeInsets.symmetric(vertical: 30),
+            padding: const EdgeInsets.only(top: 30),
             // primary: true,
             children: [
               const _ProductsVemare(),
@@ -601,6 +603,7 @@ class _PageB extends StatelessWidget {
                     ),
                   ),
                 ),
+              const Footer(),
             ],
           ),
         );
@@ -739,15 +742,21 @@ class _TrabajaConNosotros extends StatelessWidget {
                       margin: EdgeInsets.all(20),
                       height: 200,
                     )
-                  : ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: MyNetworkImage(
-                        image: state.workWithUs?.image ?? '',
-                        fit: BoxFit.cover,
-                        width: MediaQuery.of(context).size.width * .90,
-                        height: 200,
+                  : InkWell(
+                    onTap: (){
+                      Navigator.pushNamed(context, WorkWithUsPage.route,
+                          arguments: state.workWithUs);
+                    },
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: MyNetworkImage(
+                          image: state.workWithUs?.image ?? '',
+                          fit: BoxFit.cover,
+                          width: MediaQuery.of(context).size.width * .90,
+                          height: 200,
+                        ),
                       ),
-                    ),
+                  ),
             ],
           ),
         );
@@ -1207,3 +1216,59 @@ class _ProductsVemare extends StatelessWidget {
     );
   }
 }
+
+class Footer extends StatelessWidget {
+  const Footer({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+
+    TextStyle style = AppTextStyle.nunitoSansFooter;
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      color: AppColor.blue600,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          InkWell(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder:
+                  (BuildContext context) => WebViewGlobal(url: '$BASE_API_URL/politicas-de-privacidad')));
+            },
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Text('Política de Privacidad y terminos de uso',style: style,textAlign: TextAlign.center,),
+            ),
+
+          ),
+          InkWell(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder:
+                  (BuildContext context) => WebViewGlobal(url: '$BASE_API_URL/politicas-de-cookies')));
+            },
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Text('Política de cookies',style: style,textAlign: TextAlign.center,),
+            ),
+          ),
+          InkWell(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder:
+                  (BuildContext context) => WebViewGlobal(url: '$BASE_API_URL/aviso-legal')));
+            },
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Text('Aviso legal',style: style,textAlign: TextAlign.center,),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+

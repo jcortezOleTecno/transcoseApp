@@ -144,4 +144,10 @@ abstract class AppTextStyle {
   );
   static const TextStyle defaultStyle = TextStyle(
       fontFamily: 'NunitoSans', fontWeight: FontWeight.w400, fontSize: 14);
+
+  static const TextStyle nunitoSansFooter = TextStyle(
+    fontFamily: 'NunitoSans',
+    fontSize: 18,
+    color: AppColor.white,
+  );
 }
