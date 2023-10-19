@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vemare/app/data/notices_repository.dart';
+import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_cards/my_news_card.dart';
@@ -37,6 +38,7 @@ class NewsPage extends StatelessWidget {
               _MostReadNews(),
               spacerL,
               _News(),
+              const Footer(),
             ],
           ),
         ),

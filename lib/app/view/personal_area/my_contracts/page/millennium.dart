@@ -5,6 +5,7 @@ import 'package:vemare/app/data/contracts_repository.dart';
 import 'package:vemare/app/domain/model/contract_millenium.dart';
 import 'package:vemare/app/domain/model/contrato_rappel.dart';
 import 'package:vemare/app/domain/utils/year_list.dart';
+import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_download_button/my_download_pdf_contracts.dart';
 import 'package:vemare/app/view/_components/my_dropdown_button/my_drop_down_button.dart';
@@ -34,76 +35,83 @@ class Millennium extends StatelessWidget {
     return BlocBuilder<MyContratsCubit, MyContratsState>(
       builder: (context, state) {
         return SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(15, 25, 15, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Text('Contratos Millenium', style: AppTextStyle.h1Style),
-              const UserName(),
-              spacerL,
-              const Text(
-                'Filtrar por año',
-                style: AppTextStyle.inputLabelStyle,
-              ),
-              MyCustomDropdownButton(
-                  hint: DateTime.now().year.toString(),
-                  hintStyle: AppTextStyle.inputStyle,
-                  dropdownItems: yearsList
-                      .map((item) => DropdownMenuItem(
-                            value: item,
-                            child: Text(item,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                                style: AppTextStyle.inputStyle),
-                          ))
-                      .toList(),
-                  value: state.yearSelectMill,
-                  onChanged: (value) {
-                    cubit.getMill(value!);
-                  }),
-              spacerM,
-              if (state.loading)
-                const MyShimmer(
-                  margin: EdgeInsets.zero,
-                  height: 500,
-                  borderRadius: 12,
-                ),
-              if (state.mill == null && !state.loading)
-                const NoExistWidget('contratos'),
-              if (state.mill != null && !state.loading)
-                Column(
+              Container(
+                padding: const EdgeInsets.fromLTRB(15, 25, 15, 0),
+                child: Column(
                   children: [
-                    _ContractMillenium(state.mill!),
-                    if (state.mill?.serviciosContratados?.isNotEmpty ?? false)
-                      _HiredServices(),
-                    if (state.mill?.documentosFirmados?.isNotEmpty ?? false)
-                      _SignedDocuments(),
-                    spacerM,
-                    Visibility(
-                      visible: state.mill!.firmado == 'No',
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(15, 0, 15, 20),
-                        child: MyIconButton(
-                          onPressed: () {
-                            myDialogSignature(context,
-                                sign: (name, nif, signature) async {
-                              await cubit.signMill(
-                                name: name,
-                                nif: nif,
-                                signature: signature,
-                              );
-                            });
-                          },
-                          text: 'Firmar',
-                          icon: Image.asset(
-                            'assets/icons/firma.png',
-                            scale: 2,
-                          ),
-                        ),
-                      ),
+                    const Text('Contratos Millenium', style: AppTextStyle.h1Style),
+                    const UserName(),
+                    spacerL,
+                    const Text(
+                      'Filtrar por año',
+                      style: AppTextStyle.inputLabelStyle,
                     ),
+                    MyCustomDropdownButton(
+                        hint: DateTime.now().year.toString(),
+                        hintStyle: AppTextStyle.inputStyle,
+                        dropdownItems: yearsList
+                            .map((item) => DropdownMenuItem(
+                          value: item,
+                          child: Text(item,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: AppTextStyle.inputStyle),
+                        ))
+                            .toList(),
+                        value: state.yearSelectMill,
+                        onChanged: (value) {
+                          cubit.getMill(value!);
+                        }),
+                    spacerM,
+                    if (state.loading)
+                      const MyShimmer(
+                        margin: EdgeInsets.zero,
+                        height: 500,
+                        borderRadius: 12,
+                      ),
+                    if (state.mill == null && !state.loading)
+                      const NoExistWidget('contratos'),
+                    if (state.mill != null && !state.loading)
+                      Column(
+                        children: [
+                          _ContractMillenium(state.mill!),
+                          if (state.mill?.serviciosContratados?.isNotEmpty ?? false)
+                            _HiredServices(),
+                          if (state.mill?.documentosFirmados?.isNotEmpty ?? false)
+                            _SignedDocuments(),
+                          spacerM,
+                          Visibility(
+                            visible: state.mill!.firmado == 'No',
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(15, 0, 15, 20),
+                              child: MyIconButton(
+                                onPressed: () {
+                                  myDialogSignature(context,
+                                      sign: (name, nif, signature) async {
+                                        await cubit.signMill(
+                                          name: name,
+                                          nif: nif,
+                                          signature: signature,
+                                        );
+                                      });
+                                },
+                                text: 'Firmar',
+                                icon: Image.asset(
+                                  'assets/icons/firma.png',
+                                  scale: 2,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
                   ],
-                )
+                ),
+              ),
+              const Footer(),
             ],
           ),
         );

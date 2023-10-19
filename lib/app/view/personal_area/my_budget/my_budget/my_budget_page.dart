@@ -5,6 +5,7 @@ import 'package:vemare/app/data/budget_repository.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/domain/model/budget.dart';
 import 'package:vemare/app/domain/utils/money_formatter.dart';
+import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_filters/my_filters.dart';
@@ -50,46 +51,52 @@ class MyBudgetPage extends StatelessWidget {
             child: permissions!.where((e) => e.id == 11).isEmpty && isEmpleado
                 ? const AccessDeniedWidget()
                 : SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 25),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        const Text('Mis presupuestos',
-                            style: AppTextStyle.h1Style),
-                        const UserName(),
-                        spacerM,
-                        MyIconButton(
-                          onPressed: () {
-                            myFilters(context).then((filter) {
-                              if (filter != null) {
-                                cubit.fetchData(filter: filter);
-                              }
-                            });
-                          },
-                          text: state.filters != null
-                              ? 'Modificar filtros'
-                              : 'Aplicar filtros',
-                          icon: Image.asset(
-                            'assets/icons/Filtro.png',
-                            scale: 2,
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
+                          child: Column(
+                            children: [
+                              const Text('Mis presupuestos',
+                                  style: AppTextStyle.h1Style),
+                              const UserName(),
+                              spacerM,
+                              MyIconButton(
+                                onPressed: () {
+                                  myFilters(context).then((filter) {
+                                    if (filter != null) {
+                                      cubit.fetchData(filter: filter);
+                                    }
+                                  });
+                                },
+                                text: state.filters != null
+                                    ? 'Modificar filtros'
+                                    : 'Aplicar filtros',
+                                icon: Image.asset(
+                                  'assets/icons/Filtro.png',
+                                  scale: 2,
+                                ),
+                                variant: MyButtonVariant.outlinedBold,
+                              ),
+                              if (state.filters != null)
+                                FiltersAppliedWidget(state.filters!,
+                                    onTap: () => cubit.fetchData(reset: true)),
+                              spacerM,
+                              if (state.loading)
+                                const MyShimmer(
+                                  height: 450,
+                                  borderRadius: 12,
+                                  margin: EdgeInsets.only(bottom: 20),
+                                ),
+                              if (!state.loading && state.budget.isEmpty)
+                                const NoExistWidget('presupuestos'),
+                              if (!state.loading && state.budget.isNotEmpty)
+                                const _Budget(),
+                            ],
                           ),
-                          variant: MyButtonVariant.outlinedBold,
                         ),
-                        if (state.filters != null)
-                          FiltersAppliedWidget(state.filters!,
-                              onTap: () => cubit.fetchData(reset: true)),
-                        spacerM,
-                        if (state.loading)
-                          const MyShimmer(
-                            height: 450,
-                            borderRadius: 12,
-                            margin: EdgeInsets.only(bottom: 20),
-                          ),
-                        if (!state.loading && state.budget.isEmpty)
-                          const NoExistWidget('presupuestos'),
-                        if (!state.loading && state.budget.isNotEmpty)
-                          const _Budget(),
+                        const Footer(),
                       ],
                     ),
                   ),

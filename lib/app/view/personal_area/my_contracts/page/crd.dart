@@ -2,6 +2,7 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vemare/app/domain/model/contrats.dart';
+import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_filters/my_filters.dart';
 import 'package:vemare/app/view/_components/my_filters_applied/my_filter_applied.dart';
@@ -28,59 +29,66 @@ class CRD extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<MyContratsCubit>();
     return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(15, 25, 15, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Text('Contratos CRD', style: AppTextStyle.h1Style),
-          const UserName(),
-          spacerM,
-          BlocBuilder<MyContratsCubit, MyContratsState>(
-            builder: (context, state) {
-              return MyIconButton(
-                onPressed: () {
-                  myFilters(context).then((filter) {
-                    if (filter != null) {
-                      cubit.getCRD(filter: filter);
-                    }
-                  });
-                },
-                text: state.filtersCRD != null
-                    ? 'Modificar filtros'
-                    : 'Aplicar filtros',
-                icon: Image.asset(
-                  'assets/icons/Filtro.png',
-                  scale: 2,
+          Container(
+            padding: const EdgeInsets.fromLTRB(15, 25, 15, 0),
+            child: Column(
+              children: [
+                const Text('Contratos CRD', style: AppTextStyle.h1Style),
+                const UserName(),
+                spacerM,
+                BlocBuilder<MyContratsCubit, MyContratsState>(
+                  builder: (context, state) {
+                    return MyIconButton(
+                      onPressed: () {
+                        myFilters(context).then((filter) {
+                          if (filter != null) {
+                            cubit.getCRD(filter: filter);
+                          }
+                        });
+                      },
+                      text: state.filtersCRD != null
+                          ? 'Modificar filtros'
+                          : 'Aplicar filtros',
+                      icon: Image.asset(
+                        'assets/icons/Filtro.png',
+                        scale: 2,
+                      ),
+                      variant: MyButtonVariant.outlinedBold,
+                    );
+                  },
                 ),
-                variant: MyButtonVariant.outlinedBold,
-              );
-            },
+                BlocBuilder<MyContratsCubit, MyContratsState>(
+                  builder: (context, state) {
+                    if (state.filtersCRD != null) {
+                      return FiltersAppliedWidget(state.filtersCRD!,
+                          onTap: () => cubit.getCRD(reset: true));
+                    }
+                    return const SizedBox();
+                  },
+                ),
+                spacerL,
+                BlocBuilder<MyContratsCubit, MyContratsState>(
+                  builder: (context, state) {
+                    if (state.loading) {
+                      return const MyShimmer(
+                        margin: EdgeInsets.zero,
+                        height: 500,
+                        borderRadius: 12,
+                      );
+                    }
+                    if (state.crd.isEmpty && !state.loading) {
+                      return const NoExistWidget('contratos');
+                    }
+                    return const _CRD();
+                  },
+                )
+              ],
+            ),
           ),
-          BlocBuilder<MyContratsCubit, MyContratsState>(
-            builder: (context, state) {
-              if (state.filtersCRD != null) {
-                return FiltersAppliedWidget(state.filtersCRD!,
-                    onTap: () => cubit.getCRD(reset: true));
-              }
-              return const SizedBox();
-            },
-          ),
-          spacerL,
-          BlocBuilder<MyContratsCubit, MyContratsState>(
-            builder: (context, state) {
-              if (state.loading) {
-                return const MyShimmer(
-                  margin: EdgeInsets.zero,
-                  height: 500,
-                  borderRadius: 12,
-                );
-              }
-              if (state.crd.isEmpty && !state.loading) {
-                return const NoExistWidget('contratos');
-              }
-              return const _CRD();
-            },
-          )
+          const Footer(),
         ],
       ),
     );

@@ -5,6 +5,7 @@ import 'package:vemare/app/data/header_repository.dart';
 import 'package:vemare/app/data/services_repository.dart';
 import 'package:vemare/app/domain/utils/validators.dart';
 import 'package:vemare/app/domain/value_object/status.dart';
+import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_filter_image/my_filter_image.dart';
@@ -326,6 +327,7 @@ class _ServicesPageState extends State<ServicesPage> {
                       ),
                     ),
                   ),
+                  const Footer(),
                 ],
               ),
             ),

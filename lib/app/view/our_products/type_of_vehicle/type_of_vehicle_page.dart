@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vemare/app/data/header_repository.dart';
 import 'package:vemare/app/data/products_repository.dart';
 import 'package:vemare/app/domain/model/category.dart';
+import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_filter_image/my_filter_image.dart';
 import 'package:vemare/app/view/_components/my_network_image/my_network_image.dart';
@@ -39,63 +40,76 @@ class TypeOfVehiclePage extends StatelessWidget {
       body: BlocBuilder<TypeOfVehicleCubit, TypeOfVehicleState>(
         builder: (context, state) {
           return MyBody(
-              child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text(state.header?.title ?? '', style: AppTextStyle.h1Style),
-                spacerS,
-                Text(state.header?.description ?? ''),
-                spacerM,
-                if (state.loading)
-                  ...List.generate(
-                      2,
-                      (_) => const Padding(
-                            padding: EdgeInsets.only(bottom: 10),
-                            child: MyShimmer(
-                              height: 220,
-                              margin: EdgeInsets.symmetric(
-                                  vertical: 5, horizontal: 10),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                            child: Column(
+                              children: [
+                                Text(state.header?.title ?? '', style: AppTextStyle.h1Style),
+                                spacerS,
+                                Text(state.header?.description ?? ''),
+                                spacerM,
+                                if (state.loading)
+                                  ...List.generate(
+                                      2,
+                                          (_) => const Padding(
+                                        padding: EdgeInsets.only(bottom: 10),
+                                        child: MyShimmer(
+                                          height: 220,
+                                          margin: EdgeInsets.symmetric(
+                                              vertical: 5, horizontal: 10),
+                                        ),
+                                      )),
+                                ...state.types
+                                    .map(
+                                      (e) => Padding(
+                                    padding: const EdgeInsets.only(bottom: 10),
+                                    child: GestureDetector(
+                                      onTap: () => Navigator.pushNamed(
+                                          context, OurProductsPage.route,
+                                          arguments: e),
+                                      child: TypeVehicleCard(
+                                          title: e.name ?? '',
+                                          img: e.image ?? '',
+                                          subtitle: e.subtitle ?? ''),
+                                    ),
+                                  ),
+                                )
+                                    .toList(),
+                                if (state.category != null)
+                                  ...state.category!.typeVehicle!
+                                      .map(
+                                        (e) => Padding(
+                                      padding: const EdgeInsets.only(bottom: 10),
+                                      child: GestureDetector(
+                                        onTap: () => Navigator.pushNamed(
+                                            context, ProductPage.route,
+                                            arguments:
+                                            SearchArgs(category: state.category)),
+                                        child: TypeVehicleCard(
+                                            title: e.name ?? '',
+                                            img: e.image ?? '',
+                                            subtitle: e.subtitle ?? ''),
+                                      ),
+                                    ),
+                                  )
+                                      .toList(),
+                              ],
                             ),
-                          )),
-                ...state.types
-                    .map(
-                      (e) => Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: GestureDetector(
-                          onTap: () => Navigator.pushNamed(
-                              context, OurProductsPage.route,
-                              arguments: e),
-                          child: TypeVehicleCard(
-                              title: e.name ?? '',
-                              img: e.image ?? '',
-                              subtitle: e.subtitle ?? ''),
-                        ),
-                      ),
-                    )
-                    .toList(),
-                if (state.category != null)
-                  ...state.category!.typeVehicle!
-                      .map(
-                        (e) => Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: GestureDetector(
-                            onTap: () => Navigator.pushNamed(
-                                context, ProductPage.route,
-                                arguments:
-                                    SearchArgs(category: state.category)),
-                            child: TypeVehicleCard(
-                                title: e.name ?? '',
-                                img: e.image ?? '',
-                                subtitle: e.subtitle ?? ''),
                           ),
-                        ),
-                      )
-                      .toList(),
-              ],
-            ),
-          ));
+                          const Footer(),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ));
         },
       ),
     );

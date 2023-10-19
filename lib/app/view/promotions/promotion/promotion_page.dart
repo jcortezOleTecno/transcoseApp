@@ -5,6 +5,7 @@ import 'package:vemare/app/data/promotion_repository.dart';
 import 'package:vemare/app/domain/model/category.dart';
 import 'package:vemare/app/domain/model/promotion.dart';
 import 'package:vemare/app/domain/utils/money_formatter.dart';
+import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_dropdown_button/my_drop_down_button.dart';
@@ -102,7 +103,8 @@ class PromotionPage extends StatelessWidget {
                         : Column(
                             children:
                                 state.promotions.map((e) => _Card(e)).toList(),
-                          )
+                          ),
+                    const Footer(),
                   ],
                 ),
               ),

@@ -6,6 +6,7 @@ import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/my_account_repository.dart';
 import 'package:vemare/app/domain/model/detail_event.dart';
 import 'package:vemare/app/domain/model/trainings_event.dart';
+import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
@@ -44,56 +45,63 @@ class MyTrainingAndEventsPage extends StatelessWidget {
         child: BlocBuilder<MyTrainigsAndEventsCubit, MyTrainigsAndEventsState>(
           builder: (context, state) {
             return SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const Text('Mis formaciones y eventos',
-                      style: AppTextStyle.h1Style),
-                  Text(
-                    LocalDataRepository().user?.name ?? '',
-                    style: AppTextStyle.h3Style.copyWith(
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                  spacerL,
-                  MyIconButton(
-                    onPressed: () {
-                      myFilters(context).then((filter) {
-                        if (filter != null) {
-                          cubit.getData(filter: filter);
-                        }
-                      });
-                    },
-                    text: 'Aplicar filtros',
-                    icon: Image.asset(
-                      'assets/icons/Filtro.png',
-                      scale: 2,
-                    ),
-                    variant: MyButtonVariant.outlinedBold,
-                  ),
-                  spacerL,
-                  if (state.loading)
-                    ...List.generate(4, (i) {
-                      return const Padding(
-                        padding: EdgeInsets.only(bottom: 20),
-                        child: MyShimmer(
-                          height: 130,
-                          margin: EdgeInsets.zero,
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
+                    child: Column(
+                      children: [
+                        const Text('Mis formaciones y eventos',
+                            style: AppTextStyle.h1Style),
+                        Text(
+                          LocalDataRepository().user?.name ?? '',
+                          style: AppTextStyle.h3Style.copyWith(
+                            fontWeight: FontWeight.normal,
+                          ),
                         ),
-                      );
-                    }),
-                  if (!state.loading && state.data.isEmpty)
-                    const NoResultWidget(
-                      'Actualmente no tienes ningún servicio contratado.',
-                      subTittle:
-                          'Si quieres más información contacta con tu comercial habitual',
-                      paddingTop: 50,
+                        spacerL,
+                        MyIconButton(
+                          onPressed: () {
+                            myFilters(context).then((filter) {
+                              if (filter != null) {
+                                cubit.getData(filter: filter);
+                              }
+                            });
+                          },
+                          text: 'Aplicar filtros',
+                          icon: Image.asset(
+                            'assets/icons/Filtro.png',
+                            scale: 2,
+                          ),
+                          variant: MyButtonVariant.outlinedBold,
+                        ),
+                        spacerL,
+                        if (state.loading)
+                          ...List.generate(4, (i) {
+                            return const Padding(
+                              padding: EdgeInsets.only(bottom: 20),
+                              child: MyShimmer(
+                                height: 130,
+                                margin: EdgeInsets.zero,
+                              ),
+                            );
+                          }),
+                        if (!state.loading && state.data.isEmpty)
+                          const NoResultWidget(
+                            'Actualmente no tienes ningún servicio contratado.',
+                            subTittle:
+                            'Si quieres más información contacta con tu comercial habitual',
+                            paddingTop: 50,
+                          ),
+                        if (!state.loading)
+                          ...state.data
+                              .map((e) => _TrainingsAndEventCard(e))
+                              .toList(),
+                      ],
                     ),
-                  if (!state.loading)
-                    ...state.data
-                        .map((e) => _TrainingsAndEventCard(e))
-                        .toList(),
+                  ),
+                  const Footer(),
                 ],
               ),
             );

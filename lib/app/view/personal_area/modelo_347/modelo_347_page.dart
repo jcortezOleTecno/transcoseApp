@@ -4,6 +4,7 @@ import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/my_account_repository.dart';
 import 'package:vemare/app/domain/model/modelo_347.dart';
 import 'package:vemare/app/domain/utils/year_list.dart';
+import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_dropdown_button/my_drop_down_button.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
@@ -44,56 +45,62 @@ class Modelo347Page extends StatelessWidget {
             : BlocBuilder<Modelo347Cubit, Modelo347State>(
                 builder: (context, state) {
                   return SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 25),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        const Text('Modelo 347', style: AppTextStyle.h1Style),
-                        Text(
-                          LocalDataRepository().user?.name ?? '',
-                          style: AppTextStyle.h3Style.copyWith(
-                            fontWeight: FontWeight.normal,
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
+                          child: Column(
+                            children: [
+                              const Text('Modelo 347', style: AppTextStyle.h1Style),
+                              Text(
+                                LocalDataRepository().user?.name ?? '',
+                                style: AppTextStyle.h3Style.copyWith(
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                              spacerL,
+                              const Text(
+                                'Filtrar por año',
+                                style: AppTextStyle.inputLabelStyle,
+                              ),
+                              MyCustomDropdownButton(
+                                  hint: DateTime(DateTime.now().year - 1)
+                                      .year
+                                      .toString(),
+                                  hintStyle: AppTextStyle.inputStyle,
+                                  dropdownItems: yearsList
+                                      .map((item) => DropdownMenuItem(
+                                    value: item,
+                                    child: Text(item,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        style: AppTextStyle.inputStyle),
+                                  ))
+                                      .toList(),
+                                  value: state.yearSelect,
+                                  onChanged: (value) {
+                                    cubit.getMy347(year: value);
+                                  }),
+                              spacerM,
+                              if (state.loading)
+                                ...List.generate(4, (i) {
+                                  return const Padding(
+                                    padding: EdgeInsets.only(bottom: 20),
+                                    child: MyShimmer(
+                                      height: 75,
+                                      margin: EdgeInsets.zero,
+                                    ),
+                                  );
+                                }),
+                              if (!state.loading && state.modelos.isEmpty)
+                                const NoExistWidget('modelos 347'),
+                              if (!state.loading)
+                                ...state.modelos.map((e) => _Item(e)).toList(),
+                            ],
                           ),
                         ),
-                        spacerL,
-                        const Text(
-                          'Filtrar por año',
-                          style: AppTextStyle.inputLabelStyle,
-                        ),
-                        MyCustomDropdownButton(
-                            hint: DateTime(DateTime.now().year - 1)
-                                .year
-                                .toString(),
-                            hintStyle: AppTextStyle.inputStyle,
-                            dropdownItems: yearsList
-                                .map((item) => DropdownMenuItem(
-                                      value: item,
-                                      child: Text(item,
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                          style: AppTextStyle.inputStyle),
-                                    ))
-                                .toList(),
-                            value: state.yearSelect,
-                            onChanged: (value) {
-                              cubit.getMy347(year: value);
-                            }),
-                        spacerM,
-                        if (state.loading)
-                          ...List.generate(4, (i) {
-                            return const Padding(
-                              padding: EdgeInsets.only(bottom: 20),
-                              child: MyShimmer(
-                                height: 75,
-                                margin: EdgeInsets.zero,
-                              ),
-                            );
-                          }),
-                        if (!state.loading && state.modelos.isEmpty)
-                          const NoExistWidget('modelos 347'),
-                        if (!state.loading)
-                          ...state.modelos.map((e) => _Item(e)).toList(),
+                        const Footer(),
                       ],
                     ),
                   );

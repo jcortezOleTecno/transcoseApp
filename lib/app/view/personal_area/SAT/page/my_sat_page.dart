@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/my_account_repository.dart';
 import 'package:vemare/app/domain/model/intervenciones.dart';
+import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_filters/my_filters.dart';
@@ -48,49 +49,55 @@ class MySatPage extends StatelessWidget {
             : BlocBuilder<MySatCubit, MySatState>(
                 builder: (context, state) {
                   return SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 25),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        const Text('SAT', style: AppTextStyle.h1Style),
-                        Text(
-                          LocalDataRepository().user?.name ?? '',
-                          style: AppTextStyle.h3Style.copyWith(
-                            fontWeight: FontWeight.normal,
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
+                          child: Column(
+                            children: [
+                              const Text('SAT', style: AppTextStyle.h1Style),
+                              Text(
+                                LocalDataRepository().user?.name ?? '',
+                                style: AppTextStyle.h3Style.copyWith(
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                              spacerM,
+                              MyIconButton(
+                                onPressed: () {
+                                  myFilters(context, status: true).then((filter) {
+                                    if (filter != null) {
+                                      cubit.getSats(filter: filter);
+                                    }
+                                  });
+                                },
+                                text: state.filters != null
+                                    ? 'Modificar filtros'
+                                    : 'Aplicar filtros',
+                                icon: Image.asset(
+                                  'assets/icons/Filtro.png',
+                                  scale: 2,
+                                ),
+                                variant: MyButtonVariant.outlinedBold,
+                              ),
+                              if (state.filters != null)
+                                FiltersAppliedWidget(state.filters!,
+                                    onTap: () => cubit.getSats(reset: true)),
+                              spacerM,
+                              if (state.loading)
+                                const Padding(
+                                  padding: EdgeInsets.only(bottom: 20),
+                                  child: MyShimmer(
+                                    height: 450,
+                                    margin: EdgeInsets.zero,
+                                  ),
+                                ),
+                              if (!state.loading) const _SATCard(),
+                            ],
                           ),
                         ),
-                        spacerM,
-                        MyIconButton(
-                          onPressed: () {
-                            myFilters(context, status: true).then((filter) {
-                              if (filter != null) {
-                                cubit.getSats(filter: filter);
-                              }
-                            });
-                          },
-                          text: state.filters != null
-                              ? 'Modificar filtros'
-                              : 'Aplicar filtros',
-                          icon: Image.asset(
-                            'assets/icons/Filtro.png',
-                            scale: 2,
-                          ),
-                          variant: MyButtonVariant.outlinedBold,
-                        ),
-                        if (state.filters != null)
-                          FiltersAppliedWidget(state.filters!,
-                              onTap: () => cubit.getSats(reset: true)),
-                        spacerM,
-                        if (state.loading)
-                          const Padding(
-                            padding: EdgeInsets.only(bottom: 20),
-                            child: MyShimmer(
-                              height: 450,
-                              margin: EdgeInsets.zero,
-                            ),
-                          ),
-                        if (!state.loading) const _SATCard(),
+                        const Footer(),
                       ],
                     ),
                   );

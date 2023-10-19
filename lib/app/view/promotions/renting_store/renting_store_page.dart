@@ -8,6 +8,7 @@ import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/shopping_cart_repository.dart';
 import 'package:vemare/app/domain/value_object/status.dart';
+import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
 import 'package:vemare/app/domain/widgets_utils/web_view_global.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
@@ -82,14 +83,16 @@ class RentingStorePage extends StatelessWidget {
                                 ]else...[
                                   selectTypePay(cubit: cubit,state: state),
                                 ],
+                                _Button(
+                                  state.arg!.copyWith(isCredit: state.type == 'Crédito'),
+                                  selecType: state.type != null,
+                                ),
+                                const Footer(),
                               ],
                             ),
                           ),
                         ),
-                        _Button(
-                          state.arg!.copyWith(isCredit: state.type == 'Crédito'),
-                          selecType: state.type != null,
-                        )
+
                       ],
                     ),
                   ),

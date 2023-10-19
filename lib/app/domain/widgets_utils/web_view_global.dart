@@ -7,8 +7,9 @@ import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/theme/color.dart';
 
 class WebViewGlobal extends StatefulWidget {
-  const WebViewGlobal({Key? key, required this.url}) : super(key: key);
+  const WebViewGlobal({Key? key, required this.url, this.local = true}) : super(key: key);
   final String url;
+  final bool local;
 
   @override
   State<WebViewGlobal> createState() => _WebViewGlobalState();
@@ -25,6 +26,9 @@ class _WebViewGlobalState extends State<WebViewGlobal> {
   void initState() {
     super.initState();
     url = widget.url;
+    if(widget.local){
+      url = '$url?app_bar=1';
+    }
   }
 
   @override
@@ -45,7 +49,7 @@ class _WebViewGlobalState extends State<WebViewGlobal> {
                       width: double.infinity,
                       height: double.infinity,
                       child: InAppWebView(
-                        initialUrlRequest: URLRequest(url: Uri.parse('$url?app_bar=1')),// .https("${BASE_API_URL.replaceAll('https://', '')}\/politicas-de-privacidad")),
+                        initialUrlRequest: URLRequest(url: Uri.parse(url)),// .https("${BASE_API_URL.replaceAll('https://', '')}\/politicas-de-privacidad")),
                         initialOptions: InAppWebViewGroupOptions(
                             android: AndroidInAppWebViewOptions()
                         ),

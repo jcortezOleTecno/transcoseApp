@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/formations_repository.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
+import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_cards/my_promotions_card.dart';
@@ -114,7 +115,8 @@ class FormationsPage extends StatelessWidget {
                     ),
                   ],
                 ),
-              )
+              ),
+              const Footer(),
             ],
           ),
         ),

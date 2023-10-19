@@ -7,6 +7,7 @@ import 'package:vemare/app/data/work_with_us_repository.dart';
 import 'package:vemare/app/domain/model/work_with_us.dart';
 import 'package:vemare/app/domain/utils/validators.dart';
 import 'package:vemare/app/domain/value_object/status.dart';
+import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
 import 'package:vemare/app/domain/widgets_utils/web_view_global.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
@@ -244,6 +245,7 @@ class _WorkWithUsPageState extends State<WorkWithUsPage> {
                                       ),
                                     ),
                                   ),
+                                  const Footer(),
                                 ],
                               ),
                             ),

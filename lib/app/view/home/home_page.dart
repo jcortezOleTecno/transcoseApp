@@ -20,6 +20,7 @@ import 'package:vemare/app/data/services_repository.dart';
 import 'package:vemare/app/data/work_with_us_repository.dart';
 import 'package:vemare/app/data/workshops_repository.dart';
 import 'package:vemare/app/domain/utils/validators.dart';
+import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
 import 'package:vemare/app/domain/widgets_utils/web_view_global.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
@@ -1217,58 +1218,5 @@ class _ProductsVemare extends StatelessWidget {
   }
 }
 
-class Footer extends StatelessWidget {
-  const Footer({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-
-    TextStyle style = AppTextStyle.nunitoSansFooter;
-
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 20),
-      color: AppColor.blue600,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          InkWell(
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder:
-                  (BuildContext context) => WebViewGlobal(url: '$BASE_API_URL/politicas-de-privacidad')));
-            },
-            child: Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: Text('Política de Privacidad y terminos de uso',style: style,textAlign: TextAlign.center,),
-            ),
-
-          ),
-          InkWell(
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder:
-                  (BuildContext context) => WebViewGlobal(url: '$BASE_API_URL/politicas-de-cookies')));
-            },
-            child: Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: Text('Política de cookies',style: style,textAlign: TextAlign.center,),
-            ),
-          ),
-          InkWell(
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder:
-                  (BuildContext context) => WebViewGlobal(url: '$BASE_API_URL/aviso-legal')));
-            },
-            child: Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: Text('Aviso legal',style: style,textAlign: TextAlign.center,),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 

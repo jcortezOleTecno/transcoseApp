@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/domain/model/services.dart';
+import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
@@ -128,6 +129,7 @@ class ServiceGeneralPage extends StatelessWidget {
                   ),
                 ),
               spacerM,
+              const Footer(),
             ],
           ),
         ),

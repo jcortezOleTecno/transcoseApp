@@ -18,13 +18,16 @@ class AuthRepository {
   final MyApiClient apiClient;
 
   Future<void> login({required String email, required String password}) async {
+
     final body = <String, dynamic>{
       'email': email,
       'password': password,
       'device_id': tokenFirebase ?? ''
     };
-    final dynamic res =
-        await apiClient.postRequest('$BASE_API_URL/api/login', body: body);
+    final dynamic res = await apiClient.postRequest('$BASE_API_URL/api/login', body: body);
+
+
+
     LocalDataRepository().authToken = res["access_token"];
     final user = UserData.fromJson(res['user']);
     LocalDataRepository().isLogged = true;

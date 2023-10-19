@@ -2,6 +2,7 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vemare/app/domain/model/contrato_pmp.dart';
+import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
 import 'package:vemare/app/view/_components/my_input/my_input_search.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
@@ -24,44 +25,51 @@ class PMP extends StatelessWidget {
   Widget build(BuildContext context) {
     // final cubit = context.read<MyContratsCubit>();
     return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(15, 25, 15, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Text('Contratos PMP', style: AppTextStyle.h1Style),
-          const UserName(),
-          // spacerM,
-          // MyIconButton(
-          //   onPressed: () {
-          //     myFilters(context).then((filter) {
-          //       if (filter != null) {
-          //         cubit.getCRD(filter);
-          //       }
-          //     });
-          //   },
-          //   text: 'Aplicar filtros',
-          //   icon: Image.asset(
-          //     'assets/icons/Filtro.png',
-          //     scale: 2,
-          //   ),
-          //   variant: MyButtonVariant.outlinedBold,
-          // ),
-          spacerL,
-          BlocBuilder<MyContratsCubit, MyContratsState>(
-            builder: (context, state) {
-              if (state.loading) {
-                return const MyShimmer(
-                  margin: EdgeInsets.zero,
-                  height: 500,
-                  borderRadius: 12,
-                );
-              }
-              if (state.pmp.isEmpty && !state.loading) {
-                return const NoExistWidget('contratos');
-              }
-              return const _PMPCard();
-            },
-          )
+          Container(
+            padding: const EdgeInsets.fromLTRB(15, 25, 15, 0),
+            child: Column(
+              children: [
+                const Text('Contratos PMP', style: AppTextStyle.h1Style),
+                const UserName(),
+                // spacerM,
+                // MyIconButton(
+                //   onPressed: () {
+                //     myFilters(context).then((filter) {
+                //       if (filter != null) {
+                //         cubit.getCRD(filter);
+                //       }
+                //     });
+                //   },
+                //   text: 'Aplicar filtros',
+                //   icon: Image.asset(
+                //     'assets/icons/Filtro.png',
+                //     scale: 2,
+                //   ),
+                //   variant: MyButtonVariant.outlinedBold,
+                // ),
+                spacerL,
+                BlocBuilder<MyContratsCubit, MyContratsState>(
+                  builder: (context, state) {
+                    if (state.loading) {
+                      return const MyShimmer(
+                        margin: EdgeInsets.zero,
+                        height: 500,
+                        borderRadius: 12,
+                      );
+                    }
+                    if (state.pmp.isEmpty && !state.loading) {
+                      return const NoExistWidget('contratos');
+                    }
+                    return const _PMPCard();
+                  },
+                )
+              ],
+            ),
+          ),
+          const Footer(),
         ],
       ),
     );

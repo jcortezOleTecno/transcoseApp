@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vemare/app/domain/model/category.dart';
+import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
@@ -80,7 +81,8 @@ class SearchMyProductPage extends StatelessWidget {
                     ],
                   ),
                 ),
-              )
+              ),
+              const Footer(),
             ],
           ),
         ),

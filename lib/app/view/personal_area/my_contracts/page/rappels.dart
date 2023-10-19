@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vemare/app/data/contracts_repository.dart';
 import 'package:vemare/app/domain/model/contrato_rappel.dart';
 import 'package:vemare/app/domain/utils/year_list.dart';
+import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_download_button/my_download_pdf_contracts.dart';
 import 'package:vemare/app/view/_components/my_dropdown_button/my_drop_down_button.dart';
@@ -33,74 +34,81 @@ class Rappels extends StatelessWidget {
     return BlocBuilder<MyContratsCubit, MyContratsState>(
       builder: (context, state) {
         return SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(15, 25, 15, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Text('Contratos Rappels', style: AppTextStyle.h1Style),
-              const UserName(),
-              spacerM,
-              const Text(
-                'Filtrar por año',
-                style: AppTextStyle.inputLabelStyle,
-              ),
-              MyCustomDropdownButton(
-                  hint: DateTime.now().year.toString(),
-                  hintStyle: AppTextStyle.inputStyle,
-                  dropdownItems: yearsList
-                      .map((item) => DropdownMenuItem(
-                            value: item,
-                            child: Text(item,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                                style: AppTextStyle.inputStyle),
-                          ))
-                      .toList(),
-                  value: state.yearSelectRappel,
-                  onChanged: (value) {
-                    cubit.getRappel(value!);
-                  }),
-              spacerM,
-              if (state.loading)
-                const MyShimmer(
-                  margin: EdgeInsets.zero,
-                  height: 500,
-                  borderRadius: 12,
-                ),
-              if (state.rappel == null && !state.loading)
-                const NoExistWidget('contratos'),
-              if (state.rappel != null && !state.loading)
-                Column(
+              Container(
+                padding: const EdgeInsets.fromLTRB(15, 25, 15, 0),
+                child: Column(
                   children: [
-                    _ContractRappel(state.rappel!),
+                    const Text('Contratos Rappels', style: AppTextStyle.h1Style),
+                    const UserName(),
                     spacerM,
-                    if (state.rappel?.documentosFirmados?.isNotEmpty ?? false)
-                      _SignedDocuments(),
-                    Visibility(
-                      visible: state.rappel!.firmado == 'No',
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(15, 0, 15, 20),
-                        child: MyIconButton(
-                          onPressed: () {
-                            myDialogSignature(context,
-                                sign: (name, nif, signature) async {
-                              await cubit.signRappel(
-                                name: name,
-                                nif: nif,
-                                signature: signature,
-                              );
-                            });
-                          },
-                          text: 'Firmar',
-                          icon: Image.asset(
-                            'assets/icons/firma.png',
-                            scale: 2,
-                          ),
-                        ),
-                      ),
+                    const Text(
+                      'Filtrar por año',
+                      style: AppTextStyle.inputLabelStyle,
                     ),
+                    MyCustomDropdownButton(
+                        hint: DateTime.now().year.toString(),
+                        hintStyle: AppTextStyle.inputStyle,
+                        dropdownItems: yearsList
+                            .map((item) => DropdownMenuItem(
+                          value: item,
+                          child: Text(item,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: AppTextStyle.inputStyle),
+                        ))
+                            .toList(),
+                        value: state.yearSelectRappel,
+                        onChanged: (value) {
+                          cubit.getRappel(value!);
+                        }),
+                    spacerM,
+                    if (state.loading)
+                      const MyShimmer(
+                        margin: EdgeInsets.zero,
+                        height: 500,
+                        borderRadius: 12,
+                      ),
+                    if (state.rappel == null && !state.loading)
+                      const NoExistWidget('contratos'),
+                    if (state.rappel != null && !state.loading)
+                      Column(
+                        children: [
+                          _ContractRappel(state.rappel!),
+                          spacerM,
+                          if (state.rappel?.documentosFirmados?.isNotEmpty ?? false)
+                            _SignedDocuments(),
+                          Visibility(
+                            visible: state.rappel!.firmado == 'No',
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(15, 0, 15, 20),
+                              child: MyIconButton(
+                                onPressed: () {
+                                  myDialogSignature(context,
+                                      sign: (name, nif, signature) async {
+                                        await cubit.signRappel(
+                                          name: name,
+                                          nif: nif,
+                                          signature: signature,
+                                        );
+                                      });
+                                },
+                                text: 'Firmar',
+                                icon: Image.asset(
+                                  'assets/icons/firma.png',
+                                  scale: 2,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                   ],
-                )
+                ),
+              ),
+              const Footer(),
             ],
           ),
         );

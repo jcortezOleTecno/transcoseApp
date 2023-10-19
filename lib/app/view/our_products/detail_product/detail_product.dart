@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vemare/app/domain/model/brand.dart';
 import 'package:vemare/app/domain/model/categoty_detail.dart';
+import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_html/my_html.dart';
@@ -119,6 +120,7 @@ class _DetailProductPageState extends State<DetailProductPage> {
                           .toList(),
                     ),
                   ),
+                const Footer(),
               ],
             ),
           ),
