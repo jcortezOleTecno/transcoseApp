@@ -61,15 +61,21 @@ class ProductPage extends StatelessWidget {
                             children: [
                               if (state.category?.id != 0)
                                 Container(
-                                  decoration: const BoxDecoration(
+                                  decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: AppColor.blue100,
+                                    image: DecorationImage(
+                                      image: Image.network(
+                                        state.category!.image!,
+                                      ).image,
+                                      fit: BoxFit.contain
+                                    )
                                   ),
                                   height: 60,
                                   width: 60,
-                                  child: Image.network(
-                                    state.category!.image!,
-                                  ),
+                                  // child: Image.network(
+                                  //   state.category!.image!,
+                                  // ),
                                 ),
                               spacerS,
                               Expanded(

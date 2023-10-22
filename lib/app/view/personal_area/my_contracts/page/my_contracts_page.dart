@@ -5,6 +5,7 @@ import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/access_denied/access_denied_page.dart';
+import 'package:vemare/app/view/personal_area/my_contracts/page/conventions.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/config/service_locator.dart';
 
@@ -56,6 +57,7 @@ class MyContractsPage extends StatelessWidget {
                         children: [
                           Rappels(),
                           Millennium(),
+                          //Conventions(),
                           PMP(),
                           CRD(),
                         ],
@@ -86,10 +88,11 @@ class _TapBar extends StatelessWidget {
       unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
       unselectedLabelColor: AppColor.primaryBlue,
       isScrollable: false,
-      labelPadding: EdgeInsets.symmetric(horizontal: 2.5),
+      labelPadding: EdgeInsets.symmetric(horizontal: 0.5),
       tabs: [
         Tab(text: 'Rappels'),
         Tab(text: 'Millennium'),
+        //Tab(text: 'Convenciones'),
         Tab(text: 'PMP'),
         Tab(text: 'CRD'),
       ],
