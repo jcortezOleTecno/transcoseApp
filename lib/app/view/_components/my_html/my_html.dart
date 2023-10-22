@@ -53,7 +53,7 @@ class MyHtml extends StatelessWidget {
           whiteSpace: WhiteSpace.normal,
         ),
       },
-      onLinkTap: (url, context, attributes, element) {
+      onLinkTap: (url, context, attributes) {
         launchUrlString(url ?? '');
       },
     );
