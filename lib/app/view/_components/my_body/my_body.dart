@@ -32,3 +32,37 @@ class MyBody extends StatelessWidget {
     );
   }
 }
+
+
+
+class MyBodyBack extends StatelessWidget {
+  const MyBodyBack({
+    required this.child,
+    this.padding,
+    this.spacerTop = 80,
+    Key? key,
+  }) : super(key: key);
+
+  final Widget child;
+  final double spacerTop;
+  final EdgeInsetsGeometry? padding;
+
+  @override
+  Widget build(BuildContext context) {
+    var paddingTop = MediaQuery.of(context).padding.top;
+    return Stack(
+      children: [
+        Padding(
+          padding: padding ?? EdgeInsets.zero,
+          child: Column(
+            children: [
+              SizedBox(height: spacerTop + paddingTop),
+              Expanded(child: child),
+            ],
+          ),
+        ),
+        const MyMenuBack(),
+      ],
+    );
+  }
+}

@@ -183,7 +183,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                         style: AppTextStyle.h12StyleBlue,
                                         recognizer: TapGestureRecognizer()..onTap = (){
                                           Navigator.push(context, MaterialPageRoute(builder:
-                                              (BuildContext context) => WebViewGlobal(url: '$BASE_API_URL/politicas-de-privacidad')));
+                                              (BuildContext context) => WebViewGlobal(url: '$BASE_API_URL/politicas-de-privacidad',backActive: true,)));
                                         },
                                       ),
                                     ]
@@ -232,7 +232,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                                 style: AppTextStyle.checkStyleBlue,
                                                 recognizer: TapGestureRecognizer()..onTap = (){
                                                   Navigator.push(context, MaterialPageRoute(builder:
-                                                      (BuildContext context) => WebViewGlobal(url: '$BASE_API_URL/politicas-de-privacidad')));
+                                                      (BuildContext context) => WebViewGlobal(url: '$BASE_API_URL/politicas-de-privacidad',backActive: true,)));
                                                 },
                                               ),
                                             ]

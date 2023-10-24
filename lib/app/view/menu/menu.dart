@@ -109,11 +109,11 @@ class MyMenu extends StatelessWidget {
                 ),
                 AnimatedContainer(
                   duration:
-                      Duration(milliseconds: state.isOpenNotification ? 0 : 60),
+                  Duration(milliseconds: state.isOpenNotification ? 0 : 60),
                   height: !state.isOpenMenu
                       ? 0
                       : MediaQuery.of(context).size.height -
-                          (80 + MediaQuery.of(context).viewPadding.vertical),
+                      (80 + MediaQuery.of(context).viewPadding.vertical),
                   child: const _Menu(),
                 ),
                 AnimatedContainer(
@@ -126,6 +126,35 @@ class MyMenu extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class MyMenuBack extends StatelessWidget {
+  const MyMenuBack({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Container(
+        height: 80,
+        color: AppColor.blue,
+        child: Row(
+          children: [
+            spacerM,
+            GestureDetector(
+              onTap: () => Navigator.pop(context),
+              // onTap: () => Navigator.popUntil(
+              //     context, ModalRoute.withName(HomePage.route)),
+              child: const Icon(Icons.arrow_back_ios,color: Colors.white,size: 20),
+            ),
+            const Spacer(),
+            spacerM,
+          ],
+        ),
+      ),
     );
   }
 }
