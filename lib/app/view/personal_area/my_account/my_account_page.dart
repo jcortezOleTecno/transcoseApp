@@ -221,6 +221,27 @@ class _MyAccountPageState extends State<MyAccountPage> {
                       variant: MyButtonVariant.outlinedBold,
                     ),
                     spacerM,
+                    Text(
+                      'Eliminación de cuenta',
+                      style: AppTextStyle.h3Style.copyWith(
+                        fontWeight: FontWeight.normal,fontSize: 22,
+                      ),
+                    ),
+                    spacerS,
+                    Text(
+                      'Protección de datos personales',
+                      style: AppTextStyle.h3Style.copyWith(
+                        fontWeight: FontWeight.bold, color: Colors.grey[600]
+                      ),
+                    ),
+                    spacerXs,
+                    Text(
+                      'En nombre de VEMARE, S.L. Valoramos tu privacidad y el control que tienes sobre tus datos personales. Si en algún momento deseas eliminar tu cuenta de usuario, solo debes hacer clic en este botón, eliminarás permanentemente tu cuenta de usuario.',
+                      style: AppTextStyle.h3Style.copyWith(
+                        fontWeight: FontWeight.normal,color: Colors.grey[500]
+                      ),
+                    ),
+                    spacerM,
                   ],
                 ),
               ),
@@ -338,8 +359,8 @@ class ImageProfile extends StatelessWidget {
                           scale: 2,
                         ),
             ),
-            LocalDataRepository().user?.role?.id == 2
-                ? SizedBox(
+            //LocalDataRepository().user?.role?.id == 2 ?
+                 SizedBox(
                     width: 220,
                     child: MyIconButton(
                       onPressed: () {
@@ -357,7 +378,7 @@ class ImageProfile extends StatelessWidget {
                       variant: MyButtonVariant.link,
                     ),
                   )
-                : spacerXL
+                //: spacerXL
           ],
         );
       },
