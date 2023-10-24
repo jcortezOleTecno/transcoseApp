@@ -12,6 +12,7 @@ import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_input/my_input.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/tap_to_hide_keyboard/tap_to_hide_keyboard.dart';
+import 'package:vemare/app/view/home/home_page.dart';
 import 'package:vemare/app/view/register/bloc/register_cubit.dart';
 import 'package:vemare/app/view/register/bloc/register_state.dart';
 import 'package:vemare/app/view/register/providers/register_provider.dart';
@@ -271,7 +272,13 @@ class _RegisterPageState extends State<RegisterPage> {
                             ),
                             spacerM,
                             TextButton.icon(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  HomePage.route,
+                                  arguments: false,
+                                );
+                              },
                               label: Image.asset(
                                 'assets/icons/arrow_next.png',
                                 scale: 2,
