@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/domain/widgets_utils/web_view_global.dart';
+import 'package:vemare/app/view/home/bloc/home_cubit.dart';
+import 'package:vemare/app/view/home/bloc/home_state.dart';
 import 'package:vemare/app/view/home/home_page.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
+import 'package:vemare/app/view/work_with_us/work_with_us_page.dart';
 
 class Footer extends StatelessWidget {
   const Footer({Key? key}) : super(key: key);
@@ -76,16 +81,26 @@ class Footer extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          const Text(
-            'Trabaja con nosotros',
-            style: AppTextStyle.nunitoSansFooter,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 20),
-          const Text(
-            'Saber más →',
-            style: AppTextStyle.nunitoSansFooter,
-            textAlign: TextAlign.center,
+          InkWell(
+            onTap: (){
+              Navigator.pushNamed(context, WorkWithUsPage.route,
+                  arguments: homeStateGlobal.workWithUs);
+            },
+            child: Column(
+              children: const [
+                Text(
+                  'Trabaja con nosotros',
+                  style: AppTextStyle.nunitoSansFooter,
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 20),
+                Text(
+                  'Saber más →',
+                  style: AppTextStyle.nunitoSansFooter,
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: 20),
           const Text(
@@ -118,28 +133,47 @@ class Footer extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 20),
-          Image.asset(
-            'assets/icons/Phone.png',
-            width: 30,height: 30,
-            fit: BoxFit.contain,
+          InkWell(
+            onTap: (){
+              launchUrlString('tel:91 649 60 20');
+            },
+            child: Column(
+              children: [
+                Image.asset(
+                  'assets/icons/Phone.png',
+                  width: 30,height: 30,
+                  fit: BoxFit.contain,
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  '91 649 60 20',
+                  style: AppTextStyle.nunitoSansFooter,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 20),
+              ],
+            ),
           ),
-          const SizedBox(height: 20),
-          const Text(
-            '91 649 60 20',
-            style: AppTextStyle.nunitoSansFooter,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 20),
-          Image.asset(
-            'assets/icons/Mail.png',
-            width: 30,height: 30,
-            fit: BoxFit.contain,
-          ),
-          const SizedBox(height: 20),
-          const Text(
-            'vemare@grupovemare.com',
-            style: AppTextStyle.nunitoSansFooter,
-            textAlign: TextAlign.center,
+          InkWell(
+            onTap: (){
+              String url = "mailto:vemare@grupovemare.com?subject=Contacto con Vemare";
+              launchUrlString(url, mode: LaunchMode.externalApplication);
+            },
+            child: Column(
+              children: [
+                Image.asset(
+                  'assets/icons/Mail.png',
+                  width: 30,height: 30,
+                  fit: BoxFit.contain,
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  'vemare@grupovemare.com',
+                  style: AppTextStyle.nunitoSansFooter,
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: 20),
         ],

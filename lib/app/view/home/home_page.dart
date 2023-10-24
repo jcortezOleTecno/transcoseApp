@@ -445,6 +445,8 @@ class _DialogEmailState extends State<_DialogEmail> {
   }
 }
 
+late HomeState homeStateGlobal;
+
 class _Background extends StatefulWidget {
   const _Background({
     Key? key,
@@ -477,6 +479,7 @@ class _BackgroundState extends State<_Background> {
     final size = MediaQuery.of(context).size;
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
+        homeStateGlobal = state;
         return state.hero.isEmpty
             ? const MyShimmer.full()
             : Swiper(

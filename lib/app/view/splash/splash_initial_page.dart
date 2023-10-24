@@ -9,6 +9,7 @@ import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/data/auth_repository.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/shared_preferences_static.dart';
+import 'package:vemare/app/providers/permission_handler.dart';
 import 'package:vemare/app/providers/url_state_provider.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/home/home_page.dart';
@@ -34,6 +35,7 @@ class _SplashInitialPageState extends State<SplashInitialPage> {
   @override
   void initState() {
     getData();
+    //PermissionHandlerClass();
     super.initState();
   }
 
