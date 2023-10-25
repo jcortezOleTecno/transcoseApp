@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -53,13 +55,15 @@ class ShoppingCartPage extends StatelessWidget {
                   listenWhen: (p, c) => p.status != c.status,
                   listener: (context, state) async {
                     if (state.status == FormStatus.done) {
-                      await launchUrlString(state.payResponse?.urlPayment ?? '')
-                          .then((value) {
-                        Navigator.pop(context);
-                      });
+                      await Navigator.push(context, MaterialPageRoute(builder:
+                          (BuildContext context) => WebViewGlobal(url: state.payResponse?.urlPayment ?? '',local: false,)));
+                      Navigator.pop(context);
+                      // await launchUrlString(state.payResponse?.urlPayment ?? '')
+                      //     .then((value) {
+                      //   Navigator.pop(context);
+                      // });
                     }
                     if (state.status == FormStatus.error) {
-                      // ignore: use_build_context_synchronously
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text(state.payResponse?.message ?? '')));
                     }
@@ -72,100 +76,96 @@ class ShoppingCartPage extends StatelessWidget {
                         return Future.value(!state.buying);
                       },
                       child: MyBody(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Expanded(
-                              child: SingleChildScrollView(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const MyBackButton(),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 15),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const MyBackButton(),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Carrito${state.productsTienda.isNotEmpty ? ' (${state.counter})' : ''}',
-                                            style: AppTextStyle.h1Style,
-                                          ),
-                                          spacerS,
-                                          if (state.loading)...[
-                                            ...List.generate(
-                                                2,
-                                                    (_) => const MyShimmer(
-                                                  margin: EdgeInsets.only(bottom: 20),
-                                                  height: 300,
-                                                )),],
-                                          if (!state.loading && state.products.isEmpty)...[
-                                            const _CarEmpty(),],
-                                          if (state.productsRenting.isNotEmpty)...[
-                                            _TypeProductCards(
-                                                products: state.productsRenting),],
-                                          if (state.productsRenting.isNotEmpty &&
-                                              state.productsTienda.isNotEmpty)...[
-                                            const Divider(
-                                              color: AppColor.primaryBlue,
-                                              thickness: 1,
-                                              height: 50,
-                                            ),],
-                                          if (state.productsTienda.isNotEmpty)...[
-                                            _TypeProductCards(
-                                                products: state.productsTienda),
-                                          ],
-                                        ],
-                                      ),
-                                    )
+                                    Text(
+                                      'Carrito${state.productsTienda.isNotEmpty ? ' (${state.counter})' : ''}',
+                                      style: AppTextStyle.h1Style,
+                                    ),
+                                    spacerS,
+                                    if (state.loading)...[
+                                      ...List.generate(
+                                          2,
+                                              (_) => const MyShimmer(
+                                            margin: EdgeInsets.only(bottom: 20),
+                                            height: 300,
+                                          )),],
+                                    if (!state.loading && state.products.isEmpty)...[
+                                      const _CarEmpty(),],
+                                    if (state.productsRenting.isNotEmpty)...[
+                                      _TypeProductCards(
+                                          products: state.productsRenting),],
+                                    if (state.productsRenting.isNotEmpty &&
+                                        state.productsTienda.isNotEmpty)...[
+                                      const Divider(
+                                        color: AppColor.primaryBlue,
+                                        thickness: 1,
+                                        height: 50,
+                                      ),],
+                                    if (state.productsTienda.isNotEmpty)...[
+                                      _TypeProductCards(
+                                          products: state.productsTienda),
+                                    ],
                                   ],
                                 ),
                               ),
-                            ),
-                            if (state.buying && !provider.viewData)...[_BuyData(state)],
-                            if(state.buying && provider.viewData)...[ _BuyDataUser(state) ],
-                            Padding(
-                              padding: const EdgeInsets.all(15),
-                              child: MyButton(
-                                disabled: state.buying
-                                    ? !state.typePaySelected
-                                    : state.products.isEmpty,
-                                onPressed: () {
+                              if (state.buying && !provider.viewData)...[_BuyData(state)],
+                              if(state.buying && provider.viewData)...[ _BuyDataUser(state) ],
+                              SizedBox(
+                                width: double.infinity,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(15),
+                                  child: MyButton(
+                                    disabled: state.buying
+                                        ? !state.typePaySelected
+                                        : state.products.isEmpty,
+                                    onPressed: () {
 
-                                  print('state.buying : ${state.buying}');
-                                  print('state.productsTienda.isNotEmpty : ${state.productsTienda.isNotEmpty}');
-                                  print('provider.viewData : ${provider.viewData}');
+                                      print('state.buying : ${state.buying}');
+                                      print('state.productsTienda.isNotEmpty : ${state.productsTienda.isNotEmpty}');
+                                      print('provider.viewData : ${provider.viewData}');
 
-                                  if(!state.buying){
-                                    if(state.productsTienda.isNotEmpty){
-                                      cubit.buy();
-                                    }else{
-                                      //cubit.orderPayment();
-                                    }
-                                  }else{
-                                    if(provider.viewData){
-                                      if(provider.check){
-                                        cubit.orderPayment();
+                                      if(!state.buying){
+                                        if(state.productsTienda.isNotEmpty){
+                                          cubit.buy();
+                                        }else{
+                                          //cubit.orderPayment();
+                                        }
                                       }else{
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                            SnackBar(content: Text('Se debe aceptar las condiciones de compra')));
+                                        if(provider.viewData){
+                                          if(provider.check){
+                                            cubit.orderPayment();
+                                          }else{
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                                SnackBar(content: Text('Se debe aceptar las condiciones de compra')));
+                                          }
+                                        }else{
+                                          provider.viewData = true;
+                                        }
                                       }
-                                    }else{
-                                      provider.viewData = true;
-                                    }
-                                  }
 
-                                  // !state.buying
-                                  //     ? (state.productsTienda.isNotEmpty
-                                  //     ? cubit.buy()
-                                  //     : cubit.orderPayment())
-                                  //     : cubit.orderPayment();
-                                },
-                                text: state.typePaySelected ? 'Continuar' : 'Comprar',
-                                isLoading: state.status == FormStatus.loading,
+                                      // !state.buying
+                                      //     ? (state.productsTienda.isNotEmpty
+                                      //     ? cubit.buy()
+                                      //     : cubit.orderPayment())
+                                      //     : cubit.orderPayment();
+                                    },
+                                    text: state.typePaySelected ? 'Continuar' : 'Comprar',
+                                    isLoading: state.status == FormStatus.loading,
+                                  ),
+                                ),
                               ),
-                            ),
-                            spacerS,
-                          ],
+                              spacerS,
+                            ],
+                          ),
                         ),
                       ),
                     );
@@ -524,7 +524,6 @@ class _BuyDataUser extends StatelessWidget {
     ShoppingCartProvider provider = Provider.of<ShoppingCartProvider>(context);
 
     return SizedBox(
-      height: 270,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: SingleChildScrollView(
