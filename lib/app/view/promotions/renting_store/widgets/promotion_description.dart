@@ -42,12 +42,24 @@ class PromotionDescription extends StatelessWidget {
             ),
           ),
           spacerS,
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: const BoxDecoration(
+                  color: AppColor.blue100,
+                  shape: BoxShape.circle,
+                ),
+                child: Center(
+                  child: Text(quantity.toString(), style: AppTextStyle.defaultStyle.copyWith(
+                    color: AppColor.blue600,fontWeight: FontWeight.bold
+                  )),
+                ),
+              ),
+              spacerXs,
               Text(promotion.name ?? '', style: AppTextStyle.h2Style),
-              Text('$quantity unidad', style: AppTextStyle.defaultStyle),
             ],
           ),
           spacerS,

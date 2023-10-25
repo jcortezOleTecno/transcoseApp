@@ -14,14 +14,14 @@ class RentingStoreCubit extends Cubit<RentingStoreState> {
   final ShoppingCardRepository _shoppingCardRepository;
 
   void selectType(String? value) {
-    emit(state.copyWith(tarjeta: !state.tarjeta, type: value));
+    emit(state.copyWith(tarjeta: !state.tarjeta, type: value == 'Tarjeta' ? 'CARD' : 'CREDIT'));
   }
 
   Future<void> orderPaymentUnique() async {
     try {
       emit(state.copyWith(status: FormStatus.loading));
       PayResponse data = await _shoppingCardRepository.roderPaymentUnique(
-        type: state.type!,
+        type: state.type  ?? 'CREDIT',
         idProduct: state.arg!.promotion.id.toString(),
         quantity: state.arg!.quantity,
         renting: !state.arg!.isTienda,

@@ -53,7 +53,9 @@ class RentingStorePage extends StatelessWidget {
               listenWhen: (p, c) => p.status != c.status,
               listener: (context, state) async {
                 if (state.status == FormStatus.done) {
-                  await launchUrlString(state.payResponse?.urlPayment ?? '');
+                  Navigator.push(context, MaterialPageRoute(builder:
+                      (BuildContext context) => WebViewGlobal(url: state.payResponse?.urlPayment ?? '',local: false,)));
+                  //await launchUrlString(state.payResponse?.urlPayment ?? '');
                 }
                 if (state.status == FormStatus.error) {
                   // ignore: use_build_context_synchronously
@@ -225,32 +227,6 @@ class RentingStorePage extends StatelessWidget {
               ],
             )
           ),
-          // CheckboxListTile(
-          //   onChanged: (value){ rentingStoreProvider.check = value ?? false; },
-          //   value: rentingStoreProvider.check,
-          //   title: RichText(
-          //     text: TextSpan(
-          //         text: 'Acepto las ',
-          //         style: AppTextStyle.h12Style,
-          //         children: <TextSpan>[
-          //           TextSpan(
-          //             text: 'Condiciones de Compra.',
-          //             style: AppTextStyle.h12StyleBlue,
-          //             recognizer: TapGestureRecognizer()..onTap = (){
-          //               Navigator.push(context, MaterialPageRoute(builder:
-          //                   (BuildContext context) => WebViewGlobal(url: '$BASE_API_URL/condiciones-de-compra')));
-          //             },
-          //           ),
-          //         ]
-          //     ),
-          //   ),
-          //   controlAffinity: ListTileControlAffinity.leading,
-          //   activeColor: AppColor.white,
-          //   contentPadding: EdgeInsets.zero,
-          //   checkColor: AppColor.blue,
-          //   checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-          // ),
-
           const SizedBox(height: 10),
         ],
       ),
