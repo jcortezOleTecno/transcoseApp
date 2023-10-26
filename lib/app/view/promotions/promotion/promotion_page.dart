@@ -142,34 +142,7 @@ class _Card extends StatelessWidget {
           children: [
             Stack(
               children: [
-                Container(
-                  alignment: Alignment.topLeft,
-                  height: 200,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage(promotion.image!),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  child: Visibility(
-                    visible: promotion.renting == 1,
-                    child: Container(
-                      margin: const EdgeInsets.all(10),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 3),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          color: AppColor.red500),
-                      child: Text(
-                        'Renting',
-                        style: AppTextStyle.linkStyle.copyWith(
-                          color: AppColor.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                labelPromotion(),
                 if (!promotion.informative && LocalDataRepository().isLogged)
                   Positioned(
                     right: 0,
@@ -232,6 +205,88 @@ class _Card extends StatelessWidget {
                 ],
               ),
             )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget labelPromotion(){
+
+    bool visibleBool = false;
+    String label = '';
+    Color colorLabel = AppColor.primary;
+    //renting
+    if(promotion.onlyRenting){
+      visibleBool = true;
+      label = 'Renting';
+      colorLabel = AppColor.red500;
+    }
+    //tienda
+    if(promotion.renting == 0 && !promotion.onlyRenting){
+      visibleBool = true;
+      label = 'Tienda';
+      colorLabel = AppColor.success500;
+    }
+    //informativo
+    if(promotion.informative){
+      visibleBool = true;
+      label = 'Información';
+      colorLabel = AppColor.blue;
+    }
+    //renting y tienda
+    if(promotion.renting == 1 && !promotion.onlyRenting){
+      visibleBool = true;
+      label = 'Tienda';
+      colorLabel = AppColor.success500;
+    }
+
+    return Container(
+      alignment: Alignment.topLeft,
+      height: 200,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: NetworkImage(promotion.image!),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Visibility(
+        visible: visibleBool,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              margin: const EdgeInsets.all(10),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 10, vertical: 3),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: colorLabel),
+              child: Text(
+                label,
+                style: AppTextStyle.linkStyle.copyWith(
+                  color: AppColor.white,
+                ),
+              ),
+            ),
+            if(promotion.renting == 1 && !promotion.onlyRenting)...[
+              Container(
+                margin: const EdgeInsets.all(10),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 10, vertical: 3),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: AppColor.red500),
+                child: Text(
+                  'Renting',
+                  style: AppTextStyle.linkStyle.copyWith(
+                    color: AppColor.white,
+                  ),
+                ),
+              ),
+            ]
           ],
         ),
       ),
