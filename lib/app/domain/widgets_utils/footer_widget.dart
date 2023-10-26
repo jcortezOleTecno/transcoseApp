@@ -30,11 +30,10 @@ class Footer extends StatelessWidget {
   Widget columnTop({required BuildContext context}){
 
     Map<int,String> urlMap = {
-      1 : 'https://www.facebook.com/grupovemare',
+      1 : 'https://www.facebook.com/grupovemare/',
       2 : 'https://www.instagram.com/grupovemare/',
       3 : 'https://www.youtube.com/@grupovemare7851',
-      4 : 'https://www.linkedin.com/company/grupo-vemare',
-      5 : 'https://www.facebook.com/grupovemare',
+      5 : 'https://www.linkedin.com/company/grupo-vemare',
     };
 
     return Container(
@@ -64,14 +63,14 @@ class Footer extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 40),
             child: Row(
               children: [
-                for(int x = 1; x < 6; x++) Expanded(
+                for(int x = 0; x < urlMap.length; x++) Expanded(
                   child: GestureDetector(
                     onTap: (){
                       Navigator.push(context, MaterialPageRoute(builder:
-                          (BuildContext context) => WebViewGlobal(url: urlMap[x]!,local: false,)));
+                          (BuildContext context) => WebViewGlobal(url: urlMap[urlMap.keys.elementAt(x)]!,local: false,)));
                     },
                     child: Image.asset(
-                      'assets/icons/rs_$x.png',
+                      'assets/icons/rs_${urlMap.keys.elementAt(x)}.png',
                       width: 10,height: 30,
                       fit: BoxFit.contain,
                     ),
@@ -103,21 +102,21 @@ class Footer extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          const Text(
-            'Canal de denuncias',
-            style: AppTextStyle.nunitoSansFooter,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 20),
-          const Text(
-            'Ir al canal →',
-            style: AppTextStyle.nunitoSansFooter,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 20),
+          // const Text(
+          //   'Canal de denuncias',
+          //   style: AppTextStyle.nunitoSansFooter,
+          //   textAlign: TextAlign.center,
+          // ),
+          // const SizedBox(height: 20),
+          // const Text(
+          //   'Ir al canal →',
+          //   style: AppTextStyle.nunitoSansFooter,
+          //   textAlign: TextAlign.center,
+          // ),
+          // const SizedBox(height: 20),
           const Text(
             'Contacto',
-            style: AppTextStyle.nunitoSansFooter,
+            style: AppTextStyle.nunitoSansFooter22,
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 20),

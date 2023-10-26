@@ -150,4 +150,10 @@ abstract class AppTextStyle {
     fontSize: 18,
     color: AppColor.white,
   );
+
+  static const TextStyle nunitoSansFooter22 = TextStyle(
+    fontFamily: 'NunitoSans',
+    fontSize: 22,
+    color: AppColor.white,
+  );
 }
