@@ -1,5 +1,6 @@
 // import 'package:flutter_downloader/flutter_downloader.dart';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -14,6 +15,7 @@ import 'package:vemare/app/domain/model/contrato_pmp.dart';
 import 'package:vemare/app/domain/model/contrato_rappel.dart';
 import 'package:vemare/app/domain/model/contrats.dart';
 
+import '../domain/model/contract_conventions.dart';
 import '../domain/model/filter.dart';
 import '_api_classes.dart';
 import '_base_api_url.dart';
@@ -88,6 +90,18 @@ class ContratsRepository {
     }
   }
 
+  Future<ContratoConventionsModel?> getContratConventions({String? anio}) async {
+    try {
+      final dynamic res = await _apiClient.postRequest(
+        '$BASE_API_URL/api/mi-cuenta/contratos_convenciones',
+        body: <String, dynamic>{"year": anio ?? DateTime.now().year.toString()},
+      );
+      return ContratoConventionsModel.fromJson(res["contrato_convencion"]);
+    } catch (e) {
+      return null;
+    }
+  }
+
   Future<bool> signMill({
     required String codigoContrato,
     required String name,
@@ -105,6 +119,25 @@ class ContratsRepository {
         '$BASE_API_URL/api/mi-cuenta/contratos_mll/firmar',
         body: body,
       );
+      return res["type"] == 'error' ? false : true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> signConvencion({required String codigoContrato,required String name,required String nif,required String signature,}) async {
+    final body = {
+      "codigo_contrato": codigoContrato,
+      "firma_personaquefirma": name,
+      "nif_personaquefirma": nif,
+      "firma_cliente": signature,
+    };
+    try {
+      final dynamic res = await _apiClient.postRequest(
+        '$BASE_API_URL/api/mi-cuenta/convencion/firmar',
+        body: body,
+      );
+      log('message');
       return res["type"] == 'error' ? false : true;
     } catch (e) {
       return false;
@@ -221,14 +254,38 @@ class ContratsRepository {
   }) async {
     final token = LocalDataRepository().authToken;
     final Response res =
-        await Dio().post('$BASE_API_URL/api/mi-cuenta/contratos_mll/imprimir',
-            data: {
-              "anio": anio,
-              "codigo_contrato": codContrato,
-              "codigo_documento": codDocumento,
-              "convert_base64": "1"
-            },
-            options: Options(headers: {'Authorization': 'Bearer $token'}));
+    await Dio().post('$BASE_API_URL/api/mi-cuenta/contratos_mll/imprimir',
+        data: {
+          "anio": anio,
+          "codigo_contrato": codContrato,
+          "codigo_documento": codDocumento,
+          "convert_base64": "1"
+        },
+        options: Options(headers: {'Authorization': 'Bearer $token'}));
+
+    final directory = await getApplicationDocumentsDirectory();
+    final savedDir = directory.path;
+    final file = File('$savedDir/$name');
+    // await file.writeAsBytes(List<int>.from(res.data.codeUnits));
+    List<int> pdfBytes = base64Decode(pdfBase64(res.data["pdf_base64"]));
+    await file.writeAsBytes(pdfBytes);
+    await OpenFile.open(file.path);
+  }
+
+  Future<void> downloadPdfConvenciones({
+    required String codContrato,
+    required String codDocumento,
+    required String name,
+  }) async {
+    final token = LocalDataRepository().authToken;
+    final Response res =
+    await Dio().post('$BASE_API_URL/api/mi-cuenta/convencion/imprimir',
+        data: {
+          "codigo_contrato": codContrato,
+          "codigo_documento": codDocumento,
+          "convert_base64": "1"
+        },
+        options: Options(headers: {'Authorization': 'Bearer $token'}));
 
     final directory = await getApplicationDocumentsDirectory();
     final savedDir = directory.path;

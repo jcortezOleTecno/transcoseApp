@@ -38,7 +38,7 @@ class MyContractsPage extends StatelessWidget {
         child: permissions!.where((e) => e.id == 9).isEmpty && isEmpleado
             ? const AccessDeniedWidget()
             : DefaultTabController(
-                length: 4,
+                length: 5,
                 child: Column(
                   children: [
                     spacerS,
@@ -57,7 +57,7 @@ class MyContractsPage extends StatelessWidget {
                         children: [
                           Rappels(),
                           Millennium(),
-                          //Conventions(),
+                          Conventions(),
                           PMP(),
                           CRD(),
                         ],
@@ -92,7 +92,7 @@ class _TapBar extends StatelessWidget {
       tabs: [
         Tab(text: 'Rappels'),
         Tab(text: 'Millennium'),
-        //Tab(text: 'Convenciones'),
+        Tab(text: 'Convenciones'),
         Tab(text: 'PMP'),
         Tab(text: 'CRD'),
       ],
