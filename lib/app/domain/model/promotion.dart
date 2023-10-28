@@ -9,6 +9,7 @@ class Promotion {
     this.subtitle,
     this.pvpOriginal,
     this.pvpLowered,
+    this.pvpDesde,
     this.description,
     this.renting,
     this.image,
@@ -21,6 +22,7 @@ class Promotion {
   String? subtitle;
   double? pvpOriginal;
   double? pvpLowered;
+  double? pvpDesde;
   String? description;
   int? renting;
   String? image;
@@ -35,8 +37,9 @@ class Promotion {
         subtitle: json["subtitle"] as String?,
         pvpOriginal: json["pvp_original"]?.toDouble(),
         pvpLowered: (json["pvp_lowered"]?.toDouble()) == 0
-            ? null
-            : json["pvp_lowered"]?.toDouble(),
+            ? null : json["pvp_lowered"]?.toDouble(),
+        pvpDesde: (json["pvp_desde"]?.toDouble()) == 0
+            ? null : json["pvp_desde"]?.toDouble(),
         description: json["description"] as String?,
         renting: json["renting"] as int?,
         image: json["image"] as String?,
@@ -52,6 +55,7 @@ class Promotion {
         "subtitle": subtitle,
         "pvp_original": pvpOriginal,
         "pvp_lowered": pvpLowered,
+        "pvp_desde": pvpDesde,
         "description": description,
         "renting": renting,
         "image": image,
