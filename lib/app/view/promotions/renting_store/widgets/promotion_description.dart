@@ -70,19 +70,21 @@ class PromotionDescription extends StatelessWidget {
               text: TextSpan(
                 style: AppTextStyle.h1Style,
                 children: [
-                  if (promotion.pvpLowered != null)
+                  if( promotion.onlyRenting)...[
+                    TextSpan(text: ' Desde ',style: AppTextStyle.defaultStyle.copyWith(color: AppColor.neutral40),),
+                  ],
+                  if (promotion.pvpLowered != null)...[
+                    TextSpan(text: myFormatMoney((promotion.pvpOriginal ?? 0) * (quantity!.toDouble())),style: AppTextStyle.pvpOrinigal),
+                  ],
+                  if(promotion.onlyRenting)...[
+                    TextSpan(text : myFormatMoney(promotion.pvpDesde! * (quantity!.toDouble())),style: AppTextStyle.h2Style),
+                  ]else...[
                     TextSpan(
-                        text: myFormatMoney((promotion.pvpOriginal ?? 0) *
-                            (quantity!.toDouble())),
-                        style: AppTextStyle.pvpOrinigal),
+                      text: ' ${myFormatMoney((promotion.pvpLowered ?? promotion.pvpOriginal ?? 0) * (quantity!.toDouble()))}',
+                    ),
+                  ],
                   TextSpan(
-                    text:
-                        ' ${myFormatMoney((promotion.pvpLowered ?? promotion.pvpOriginal ?? 0) * (quantity!.toDouble()))}',
-                  ),
-                  TextSpan(
-                    text: ' IVA incluido ',
-                    style: AppTextStyle.defaultStyle
-                        .copyWith(color: AppColor.neutral40),
+                    text: ' IVA incluido ',style: AppTextStyle.defaultStyle.copyWith(color: AppColor.neutral40),
                   ),
                 ],
               ),

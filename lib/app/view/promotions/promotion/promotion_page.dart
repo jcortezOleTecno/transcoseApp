@@ -147,34 +147,39 @@ class _Card extends StatelessWidget {
                   Positioned(
                     right: 0,
                     child: Container(
+                        padding: const EdgeInsets.all(6),
                         decoration: const BoxDecoration(
                             color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(color: Colors.black26, blurRadius: 3)
-                            ],
-                            borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(10))),
-                        padding: const EdgeInsets.all(6),
+                            boxShadow: [ BoxShadow(color: Colors.black26, blurRadius: 3)],
+                            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10))),
                         child: Row(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              if (!promotion.informative &&
-                                  LocalDataRepository().isLogged) ...[
-                                if (promotion.pvpLowered != null)
-                                  Text(
-                                    myFormatMoney(promotion.pvpOriginal ?? 0.0),
-                                    style: AppTextStyle.pvpOrinigal,
-                                  ),
+                              if (!promotion.informative && LocalDataRepository().isLogged) ...[
+                                if (promotion.pvpLowered != null)...[
+                                  Container(
+                                    margin: const EdgeInsets.only(bottom: 2.0),
+                                    child: Text(myFormatMoney(promotion.pvpOriginal ?? 0.0),style: AppTextStyle.pvpOrinigal),
+                                  )
+                                ]else if(promotion.onlyRenting)...[
+                                  Container(
+                                    margin: const EdgeInsets.only(bottom: 3.0),
+                                    child: const Text('Desde',style: AppTextStyle.checkStyle),
+                                  )
+                                ],
                                 spacerXs,
-                                Text(
-                                  myFormatMoney(promotion.pvpLowered ??
-                                      promotion.pvpOriginal ??
-                                      0.0),
-                                  style: AppTextStyle.h2Style,
-                                ),
+                                if(promotion.onlyRenting)...[
+                                  Text(myFormatMoney(promotion.pvpDesde!),style: AppTextStyle.h2Style),
+                                ]else...[
+                                  Text(myFormatMoney(promotion.pvpLowered ?? promotion.pvpOriginal ?? 0.0),style: AppTextStyle.h2Style),
+                                ]
+
                               ],
-                            ])),
+                            ],
+                        ),
+                    ),
                   )
               ],
             ),

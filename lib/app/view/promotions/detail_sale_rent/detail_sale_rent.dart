@@ -103,6 +103,12 @@ class DetailSaleRent extends StatelessWidget {
                               text: TextSpan(
                                 style: AppTextStyle.h1Style,
                                 children: [
+                                  if( state.promotion!.onlyRenting)...[
+                                    TextSpan(
+                                      text: ' Desde ',
+                                      style: AppTextStyle.defaultStyle.copyWith(color: AppColor.neutral40),
+                                    ),
+                                  ],
                                   if (state.promotion?.pvpLowered != null)
                                     TextSpan(
                                         text: myFormatMoney(
@@ -110,9 +116,11 @@ class DetailSaleRent extends StatelessWidget {
                                                     0) *
                                                 (state.quantity.toDouble()))),
                                         style: AppTextStyle.pvpOrinigal),
-                                  TextSpan(
-                                      text:
-                                          ' ${myFormatMoney((state.promotion?.pvpLowered ?? state.promotion?.pvpOriginal ?? 0.0) * (state.quantity.toDouble()))}'),
+                                  if(state.promotion!.onlyRenting)...[
+                                    TextSpan(text : myFormatMoney(state.promotion!.pvpDesde! * (state.quantity.toDouble())),style: AppTextStyle.h2Style),
+                                  ]else...[
+                                    TextSpan(text:' ${myFormatMoney((state.promotion?.pvpLowered ?? state.promotion?.pvpOriginal ?? 0.0) * (state.quantity.toDouble()))}'),
+                                  ],
                                   TextSpan(
                                     text: ' IVA incluido ',
                                     style: AppTextStyle.defaultStyle
