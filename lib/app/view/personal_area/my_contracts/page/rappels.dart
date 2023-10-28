@@ -40,30 +40,38 @@ class Rappels extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.fromLTRB(15, 25, 15, 0),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text('Contratos Rappels', style: AppTextStyle.h1Style),
                     const UserName(),
                     spacerM,
-                    const Text(
-                      'Filtrar por año',
-                      style: AppTextStyle.inputLabelStyle,
+                    const SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        'Filtrar por año',
+                        style: AppTextStyle.inputLabelStyle,
+                        textAlign: TextAlign.left,
+                      ),
                     ),
-                    MyCustomDropdownButton(
-                        hint: DateTime.now().year.toString(),
-                        hintStyle: AppTextStyle.inputStyle,
-                        dropdownItems: yearsList
-                            .map((item) => DropdownMenuItem(
-                          value: item,
-                          child: Text(item,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              style: AppTextStyle.inputStyle),
-                        ))
-                            .toList(),
-                        value: state.yearSelectRappel,
-                        onChanged: (value) {
-                          cubit.getRappel(value!);
-                        }),
+                    SizedBox(
+                      width: double.infinity,
+                      child: MyCustomDropdownButton(
+                          hint: DateTime.now().year.toString(),
+                          hintStyle: AppTextStyle.inputStyle,
+                          dropdownItems: yearsList
+                              .map((item) => DropdownMenuItem(
+                            value: item,
+                            child: Text(item,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: AppTextStyle.inputStyle),
+                          ))
+                              .toList(),
+                          value: state.yearSelectRappel,
+                          onChanged: (value) {
+                            cubit.getRappel(value!);
+                          }),
+                    ),
                     spacerM,
                     if (state.loading)
                       const MyShimmer(

@@ -41,6 +41,7 @@ class Conventions extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.fromLTRB(15, 25, 15, 0),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text('Mis convenciones', style: AppTextStyle.h1Style),
                           const UserName(),
@@ -49,22 +50,25 @@ class Conventions extends StatelessWidget {
                             'Filtrar por año',
                             style: AppTextStyle.inputLabelStyle,
                           ),
-                          MyCustomDropdownButton(
-                              hint: DateTime.now().year.toString(),
-                              hintStyle: AppTextStyle.inputStyle,
-                              dropdownItems: yearsList.map((item) => DropdownMenuItem(
-                                value: item,
-                                child: Text(item,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                    style: AppTextStyle.inputStyle),
-                              )).toList(),
-                              value: provider.yearSelected.toString(),
-                              onChanged: (value) {
-                                if(value != null){
-                                  provider.yearSelected = value;
-                                }
-                              }),
+                          SizedBox(
+                            width: double.infinity,
+                            child: MyCustomDropdownButton(
+                                hint: DateTime.now().year.toString(),
+                                hintStyle: AppTextStyle.inputStyle,
+                                dropdownItems: yearsList.map((item) => DropdownMenuItem(
+                                  value: item,
+                                  child: Text(item,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                      style: AppTextStyle.inputStyle),
+                                )).toList(),
+                                value: provider.yearSelected.toString(),
+                                onChanged: (value) {
+                                  if(value != null){
+                                    provider.yearSelected = value;
+                                  }
+                                }),
+                          ),
                           spacerM,
                           if(provider.loadData)...[
                             spacerM,
@@ -119,7 +123,7 @@ class _ContractCeonventions extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 20),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Container(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -127,21 +131,19 @@ class _ContractCeonventions extends StatelessWidget {
             spacerM,
             SizedBox(
               width: double.infinity,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 0),
-                child: MyIconButton(
-                  onPressed: () {
-                    myDialogSignature(context,
-                      sign: (name, nif, signature) async {
-                        provider.signConvenciones(
-                            name: name,
-                            nif: nif,
-                            signature: signature);
-                      });
-                  },
-                  text: 'Firmar',
-                  icon: Image.asset('assets/icons/firma.png',scale: 2,),
-                ),
+              child: MyIconButton(
+                onPressed: () {
+                  myDialogSignature(context,
+                    sign: (name, nif, signature) async {
+                      provider.signConvenciones(
+                          name: name,
+                          nif: nif,
+                          signature: signature);
+                    });
+                },
+                text: 'Firmar',
+                icon: Image.asset('assets/icons/firma.png',scale: 3,),
+                customInset: const EdgeInsets.symmetric(vertical: 2),
               ),
             ),
             spacerM,
@@ -233,8 +235,17 @@ class _HiredServices extends StatelessWidget {
 
     ConventionsProvider provider = Provider.of<ConventionsProvider>(context);
 
+    double hSize = 350;
+    if(provider.dataConventionFiltrado!.rowCount <= 5){
+      if(provider.dataConventionFiltrado!.rowCount > 2){
+        hSize = hSize + (20 * provider.dataConventionFiltrado!.rowCount);
+      }
+    }else{
+      hSize = 500;
+    }
+
     return SizedBox(
-      height: 500,
+      height: hSize,
       child: Card(
         margin: const EdgeInsets.only(bottom: 20),
         shape:
@@ -252,8 +263,11 @@ class _HiredServices extends StatelessWidget {
                     'Servicios contratados',
                     style: AppTextStyle.h3Style,
                   ),
+                  spacerXs,
                   Text(
-                      '${provider.dataConventionHiredServices!.rowCount} Total'),
+                      '${provider.dataConventionHiredServices!.rowCount} Total',
+                    style: AppTextStyle.h14StyleNeu40,
+                  ),
                   // spacerM,
                 ],
               ),
@@ -264,6 +278,9 @@ class _HiredServices extends StatelessWidget {
               child: MySearchInput(
                 hintText: 'Buscar por palabras claves...',
                 onChanged: provider.filtroConvencionesHiredServices,
+                fillColor: AppColor.blue50,
+                borderSideColor: AppColor.blue100,
+
               ),
             ),
             spacerS,
@@ -273,7 +290,7 @@ class _HiredServices extends StatelessWidget {
                 columnSpacing: 12,
                 horizontalMargin: 12,
                 minWidth: 1500, empty: const NoResultTable(),
-                // smRatio: 0.5,
+                rowsPerPage: provider.dataConventionHiredServices!.rowCount <= 10 ? provider.dataConventionHiredServices!.rowCount : 10,
                 columns: const [
                   DataColumn2(
                     label: Text('SERVICIO'),
@@ -335,8 +352,19 @@ class _SignedDocuments extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ConventionsProvider provider = Provider.of<ConventionsProvider>(context);
+
+    double hSize = 350;
+    if(provider.dataConventionFiltrado!.rowCount <= 5){
+      if(provider.dataConventionFiltrado!.rowCount > 2){
+        hSize = hSize + (20 * provider.dataConventionFiltrado!.rowCount);
+      }
+    }else{
+      hSize = 500;
+    }
+
+
     return SizedBox(
-      height: 500,
+      height: hSize,
       child: Card(
         margin: const EdgeInsets.only(bottom: 20),
         shape:
@@ -354,7 +382,11 @@ class _SignedDocuments extends StatelessWidget {
                     'Documentos firmados',
                     style: AppTextStyle.h3Style,
                   ),
-                  Text('${ provider.dataConventionFiltrado!.rowCount} Total'),
+                  spacerXs,
+                  Text(
+                    '${provider.dataConventionFiltrado!.rowCount} Total',
+                    style: AppTextStyle.h14StyleNeu40,
+                  ),
                   // spacerM,
                 ],
               ),
@@ -365,6 +397,8 @@ class _SignedDocuments extends StatelessWidget {
               child: MySearchInput(
                 hintText: 'Buscar por palabras claves...',
                 onChanged: provider.filtroMillenniumHiredServices,
+                fillColor: AppColor.blue50,
+                borderSideColor: AppColor.blue100,
               ),
             ),
             spacerS,
@@ -373,8 +407,9 @@ class _SignedDocuments extends StatelessWidget {
                 wrapInCard: false,
                 columnSpacing: 12,
                 horizontalMargin: 12,
-                minWidth: 850, empty: const NoResultTable(),
-                // smRatio: 0.5,
+                minWidth: 850,
+                rowsPerPage: provider.dataConventionFiltrado!.rowCount <= 10 ? provider.dataConventionFiltrado!.rowCount : 10,
+                empty: const NoResultTable(),
                 columns: const [
                   DataColumn2(
                     label: Text('CÓDIGO DOCUMENTO'),

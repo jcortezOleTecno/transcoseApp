@@ -83,6 +83,11 @@ abstract class AppTextStyle {
     fontSize: 16,
     color: AppColor.neutral40,
   );
+  static const TextStyle h14StyleNeu40 = TextStyle(
+    fontFamily: 'NunitoSans',
+    fontSize: 14,
+    color: AppColor.neutral40,
+  );
   static const TextStyle h12StyleNeu40W700 = TextStyle(
     fontFamily: 'NunitoSans',
     fontSize: 18,

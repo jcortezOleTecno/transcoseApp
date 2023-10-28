@@ -17,6 +17,7 @@ import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/no_result/no_result_table.dart';
 import 'package:vemare/app/view/_components/user_name/user_name.dart';
 import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
+import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
 
@@ -41,6 +42,7 @@ class Millennium extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.fromLTRB(15, 25, 15, 0),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text('Contratos Millenium', style: AppTextStyle.h1Style),
                     const UserName(),
@@ -49,22 +51,25 @@ class Millennium extends StatelessWidget {
                       'Filtrar por año',
                       style: AppTextStyle.inputLabelStyle,
                     ),
-                    MyCustomDropdownButton(
-                        hint: DateTime.now().year.toString(),
-                        hintStyle: AppTextStyle.inputStyle,
-                        dropdownItems: yearsList
-                            .map((item) => DropdownMenuItem(
-                          value: item,
-                          child: Text(item,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              style: AppTextStyle.inputStyle),
-                        ))
-                            .toList(),
-                        value: state.yearSelectMill,
-                        onChanged: (value) {
-                          cubit.getMill(value!);
-                        }),
+                    SizedBox(
+                      width: double.infinity,
+                      child: MyCustomDropdownButton(
+                          hint: DateTime.now().year.toString(),
+                          hintStyle: AppTextStyle.inputStyle,
+                          dropdownItems: yearsList
+                              .map((item) => DropdownMenuItem(
+                            value: item,
+                            child: Text(item,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: AppTextStyle.inputStyle),
+                          ))
+                              .toList(),
+                          value: state.yearSelectMill,
+                          onChanged: (value) {
+                            cubit.getMill(value!);
+                          }),
+                    ),
                     spacerM,
                     if (state.loading)
                       const MyShimmer(
@@ -380,8 +385,18 @@ class _HiredServices extends StatelessWidget {
     final cubit = context.read<MyContratsCubit>();
     return BlocBuilder<MyContratsCubit, MyContratsState>(
       builder: (context, state) {
+
+        double hSize = 350;
+        if(state.dataMillenniumHiredServices!.rowCount <= 5){
+          if(state.dataMillenniumHiredServices!.rowCount > 2){
+            hSize = hSize + (20 * state.dataMillenniumHiredServices!.rowCount);
+          }
+        }else{
+          hSize = 500;
+        }
+
         return SizedBox(
-          height: 500,
+          height: hSize,
           child: Card(
             margin: const EdgeInsets.only(bottom: 20),
             shape:
@@ -399,8 +414,11 @@ class _HiredServices extends StatelessWidget {
                         'Servicios contratados',
                         style: AppTextStyle.h3Style,
                       ),
+                      spacerXs,
                       Text(
-                          '${state.dataMillenniumHiredServices!.rowCount} Total'),
+                        '${state.dataMillenniumHiredServices!.rowCount} Total',
+                        style: AppTextStyle.h14StyleNeu40,
+                      ),
                       // spacerM,
                     ],
                   ),
@@ -411,6 +429,8 @@ class _HiredServices extends StatelessWidget {
                   child: MySearchInput(
                     hintText: 'Buscar por palabras claves...',
                     onChanged: cubit.filtroMillenniumHiredServices,
+                    fillColor: AppColor.blue50,
+                    borderSideColor: AppColor.blue100,
                   ),
                 ),
                 spacerS,
@@ -420,7 +440,7 @@ class _HiredServices extends StatelessWidget {
                     columnSpacing: 12,
                     horizontalMargin: 12,
                     minWidth: 1500, empty: const NoResultTable(),
-                    // smRatio: 0.5,
+                    rowsPerPage: state.dataMillenniumHiredServices!.rowCount <= 10 ? state.dataMillenniumHiredServices!.rowCount : 10,
                     columns: const [
                       DataColumn2(
                         label: Text('SERVICIO'),
@@ -516,8 +536,18 @@ class _SignedDocuments extends StatelessWidget {
     final cubit = context.read<MyContratsCubit>();
     return BlocBuilder<MyContratsCubit, MyContratsState>(
       builder: (context, state) {
+
+        double hSize = 350;
+        if(state.dataMillenniumFiltrado!.rowCount <= 5){
+          if(state.dataMillenniumFiltrado!.rowCount > 2){
+            hSize = hSize + (20 * state.dataMillenniumFiltrado!.rowCount);
+          }
+        }else{
+          hSize = 500;
+        }
+
         return SizedBox(
-          height: 500,
+          height: hSize,
           child: Card(
             margin: const EdgeInsets.only(bottom: 20),
             shape:
@@ -535,7 +565,11 @@ class _SignedDocuments extends StatelessWidget {
                         'Documentos firmados',
                         style: AppTextStyle.h3Style,
                       ),
-                      Text('${state.dataMillenniumFiltrado!.rowCount} Total'),
+                      spacerXs,
+                      Text(
+                        '${state.dataMillenniumFiltrado!.rowCount} Total',
+                        style: AppTextStyle.h14StyleNeu40,
+                      ),
                       // spacerM,
                     ],
                   ),
@@ -546,6 +580,8 @@ class _SignedDocuments extends StatelessWidget {
                   child: MySearchInput(
                     hintText: 'Buscar por palabras claves...',
                     onChanged: cubit.filtroMillennium,
+                    fillColor: AppColor.blue50,
+                    borderSideColor: AppColor.blue100,
                   ),
                 ),
                 spacerS,
@@ -555,8 +591,7 @@ class _SignedDocuments extends StatelessWidget {
                     columnSpacing: 12,
                     horizontalMargin: 12,
                     minWidth: 850, empty: const NoResultTable(),
-                    // smRatio: 0.5,
-                    columns: const [
+                    rowsPerPage: state.dataMillenniumFiltrado!.rowCount <= 10 ? state.dataMillenniumFiltrado!.rowCount : 10,                    columns: const [
                       DataColumn2(
                         label: Text('CÓDIGO DOCUMENTO'),
                         fixedWidth: 150,
