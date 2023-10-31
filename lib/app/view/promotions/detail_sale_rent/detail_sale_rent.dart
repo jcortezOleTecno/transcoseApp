@@ -55,6 +55,9 @@ class DetailSaleRent extends StatelessWidget {
           }
         },
         builder: (context, state) {
+
+          bool twoState = state.promotion != null && !state.promotion!.onlyRenting && state.promotion!.renting == 1;
+
           return MyBody(
               child: SingleChildScrollView(
             child: Column(
@@ -67,17 +70,12 @@ class DetailSaleRent extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       (state.promotion!.informative || user == null)
-                          ? const _InformationLabel(
-                              label: "Información",
-                            )
+                          ? const _InformationLabel(label: "Información",)
                           : state.promotion!.onlyRenting
                               ? const _InformationLabel(label: "Renting")
                               : state.promotion!.renting == 0
                                   ? const _InformationLabel(label: "Tienda")
-                                  : MyTiendaRentingButton(
-                                      isTienda: cubit.isTienda,
-                                      enableRenting:
-                                          state.promotion!.renting == 1),
+                                  : MyTiendaRentingButton(isTienda: cubit.isTienda,enableRenting:state.promotion!.renting == 1),
                       spacerM,
                       ClipRRect(
                         borderRadius: BorderRadius.circular(12),
@@ -103,23 +101,19 @@ class DetailSaleRent extends StatelessWidget {
                               text: TextSpan(
                                 style: AppTextStyle.h1Style,
                                 children: [
-                                  if( state.promotion!.onlyRenting)...[
+                                  if( state.promotion!.onlyRenting || (!state.isTienda && twoState))...[
                                     TextSpan(
                                       text: ' Desde ',
                                       style: AppTextStyle.defaultStyle.copyWith(color: AppColor.neutral40),
                                     ),
                                   ],
-                                  if (state.promotion?.pvpLowered != null)
-                                    TextSpan(
-                                        text: myFormatMoney(
-                                            ((state.promotion?.pvpOriginal ??
-                                                    0) *
-                                                (state.quantity.toDouble()))),
-                                        style: AppTextStyle.pvpOrinigal),
-                                  if(state.promotion!.onlyRenting)...[
+                                  if ((state.promotion?.pvpLowered != null && (state.isTienda && twoState)) || (state.promotion?.pvpLowered != null && state.isTienda))...[
+                                    TextSpan(text: myFormatMoney(((state.promotion?.pvpOriginal ?? 0) * (state.quantity.toDouble()))),style: AppTextStyle.pvpOrinigal)
+                                  ],
+                                  if(state.promotion!.onlyRenting || (!state.isTienda && twoState))...[
                                     TextSpan(text : myFormatMoney(state.promotion!.pvpDesde! * (state.quantity.toDouble())),style: AppTextStyle.h2Style),
                                   ]else...[
-                                    TextSpan(text:' ${myFormatMoney((state.promotion?.pvpLowered ?? state.promotion?.pvpOriginal ?? 0.0) * (state.quantity.toDouble()))}'),
+                                    TextSpan(text:' ${myFormatMoney((state.promotion?.pvpLowered ?? state.promotion?.pvpOriginal ?? 0.0) * (state.quantity.toDouble()))}',style: AppTextStyle.h2Style),
                                   ],
                                   TextSpan(
                                     text: ' IVA incluido ',
@@ -185,16 +179,6 @@ class DetailSaleRent extends StatelessWidget {
                                   }
                                 });
                               }
-
-                              // Navigator.pushNamed(
-                              //   context,
-                              //   RentingStorePage.route,
-                              //   arguments: StoreArgs(
-                              //     isTienda: state.isTienda,
-                              //     promotion: state.promotion!,
-                              //     quantity: state.quantity,
-                              //   ),
-                              // );
                             },
                             text: user == null
                                 ? 'Iniciar sesión'

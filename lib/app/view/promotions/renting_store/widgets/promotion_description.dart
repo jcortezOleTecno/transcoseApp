@@ -22,6 +22,10 @@ class PromotionDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    bool twoState = !promotion.onlyRenting && promotion.renting == 1;
+    bool isTienda = title.contains('Tienda');
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
@@ -70,13 +74,13 @@ class PromotionDescription extends StatelessWidget {
               text: TextSpan(
                 style: AppTextStyle.h1Style,
                 children: [
-                  if( promotion.onlyRenting)...[
+                  if( promotion.onlyRenting || (!isTienda && twoState))...[
                     TextSpan(text: ' Desde ',style: AppTextStyle.defaultStyle.copyWith(color: AppColor.neutral40),),
                   ],
-                  if (promotion.pvpLowered != null)...[
+                  if (promotion.pvpLowered != null && (isTienda && twoState) || promotion.pvpLowered != null && isTienda)...[
                     TextSpan(text: myFormatMoney((promotion.pvpOriginal ?? 0) * (quantity!.toDouble())),style: AppTextStyle.pvpOrinigal),
                   ],
-                  if(promotion.onlyRenting)...[
+                  if(promotion.onlyRenting || (!isTienda && twoState))...[
                     TextSpan(text : myFormatMoney(promotion.pvpDesde! * (quantity!.toDouble())),style: AppTextStyle.h2Style),
                   ]else...[
                     TextSpan(
