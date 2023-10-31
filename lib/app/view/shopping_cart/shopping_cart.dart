@@ -217,32 +217,21 @@ class _TypeProductCards extends StatelessWidget {
                   ),
                   spacerS,
                   Expanded(
-                      child: Text(
-                    e.productName ?? '',
-                    style: AppTextStyle.nunitoSans700.copyWith(fontSize: 16),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  )),
+                    child: Text(e.productName ?? '',style: AppTextStyle.nunitoSans700.copyWith(fontSize: 16),maxLines: 1,overflow: TextOverflow.ellipsis,)
+                  ),
                   spacerS,
                   RichText(
                     text: TextSpan(
                       style: AppTextStyle.nunitoSans700.copyWith(fontSize: 20),
                       children: [
-                        if (e.priceOld != null)
-                          TextSpan(
-                              text: myFormatMoney(
-                                  ((e.priceOld?.toDouble() ?? 0) *
-                                      (e.quantity!))),
-                              style: AppTextStyle.pvpOrinigal
-                                  .copyWith(fontSize: 14)),
-                        TextSpan(
-                            text:
-                                ' ${myFormatMoney(e.total?.toDouble() ?? 0)}'),
-                        TextSpan(
-                          text: '  IVA incluido ',
-                          style: AppTextStyle.defaultStyle
-                              .copyWith(color: AppColor.neutral40),
-                        ),
+                        if(e.renting)...[
+                          TextSpan(text: 'Desde',style: AppTextStyle.defaultStyle.copyWith(color: AppColor.neutral40)),
+                        ],
+                        if (e.priceOld != null)...[
+                          TextSpan(text: myFormatMoney(((e.priceOld?.toDouble() ?? 0) *(e.quantity!))),style: AppTextStyle.pvpOrinigal.copyWith(fontSize: 14)),
+                        ],
+                        TextSpan(text:' ${myFormatMoney(e.total?.toDouble() ?? 0)}'),
+                        TextSpan(text: '  IVA incluido ',style: AppTextStyle.defaultStyle.copyWith(color: AppColor.neutral40),),
                       ],
                     ),
                   )
@@ -385,20 +374,14 @@ class _CardProduct extends StatelessWidget {
                   text: TextSpan(
                     style: AppTextStyle.nunitoSans700.copyWith(fontSize: 20),
                     children: [
-                      if (product.priceOld != null)
-                        TextSpan(
-                            text: myFormatMoney(
-                                ((product.priceOld?.toDouble() ?? 0) *
-                                    (product.quantity!))),
-                            style: AppTextStyle.pvpOrinigal),
-                      TextSpan(
-                          text:
-                              ' ${myFormatMoney((product.priceSale?.toDouble() ?? 0) * (product.quantity!))}'),
-                      TextSpan(
-                        text: '  IVA incluido ',
-                        style: AppTextStyle.defaultStyle
-                            .copyWith(color: AppColor.neutral40),
-                      ),
+                      if(product.renting)...[
+                        TextSpan(text: 'Desde',style: AppTextStyle.defaultStyle.copyWith(color: AppColor.neutral40)),
+                      ],
+                      if (product.priceOld != null)...[
+                        TextSpan(text: myFormatMoney(((product.priceOld?.toDouble() ?? 0) *(product.quantity!))),style: AppTextStyle.pvpOrinigal),
+                      ],
+                      TextSpan(text:' ${myFormatMoney((product.priceSale?.toDouble() ?? 0) * (product.quantity!))}'),
+                      TextSpan(text: '  IVA incluido ',style: AppTextStyle.defaultStyle.copyWith(color: AppColor.neutral40),),
                     ],
                   ),
                 ),
@@ -456,40 +439,40 @@ class _BuyData extends StatelessWidget {
         children: [
           const MyDivider(height: 0),
           spacerS,
-          const Text(
-            'Total',
-            style: AppTextStyle.h3Style,
-          ),
-          spacerXs,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text('Productos', style: AppTextStyle.defaultStyle),
-              Text('x${state.counter}', style: AppTextStyle.defaultStyle),
-            ],
-          ),
-          spacerS,
-          const MyDivider(height: 0),
-          spacerS,
-          Center(
-            child: RichText(
-              text: TextSpan(
-                style: AppTextStyle.h1Style,
-                children: [
-                  TextSpan(
-                      text: fmf
-                          .copyWith(amount: state.total)
-                          .output
-                          .symbolOnRight),
-                  TextSpan(
-                    text: '  IVA incluido',
-                    style: AppTextStyle.defaultStyle
-                        .copyWith(color: AppColor.neutral40),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          // const Text(
+          //   'Total',
+          //   style: AppTextStyle.h3Style,
+          // ),
+          // spacerXs,
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     const Text('Productos', style: AppTextStyle.defaultStyle),
+          //     Text('x${state.counter}', style: AppTextStyle.defaultStyle),
+          //   ],
+          // ),
+          // spacerS,
+          // const MyDivider(height: 0),
+          // spacerS,
+          // Center(
+          //   child: RichText(
+          //     text: TextSpan(
+          //       style: AppTextStyle.h1Style,
+          //       children: [
+          //         TextSpan(
+          //             text: fmf
+          //                 .copyWith(amount: state.total)
+          //                 .output
+          //                 .symbolOnRight),
+          //         TextSpan(
+          //           text: '  IVA incluido',
+          //           style: AppTextStyle.defaultStyle
+          //               .copyWith(color: AppColor.neutral40),
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          // ),
           // spacerS,
           const Text(
             '¿Cómo deseas realizar tu pago?',
@@ -670,128 +653,6 @@ class _BuyDataUser extends StatelessWidget {
     );
   }
 }
-
-/*class ShoppingItem extends StatelessWidget {
-  const ShoppingItem({
-    required this.product,
-    Key? key,
-  }) : super(key: key);
-
-  final ShoppingCardProduct product;
-
-  @override
-  Widget build(BuildContext context) {
-    final cubit = context.read<ShoppingCardCubit>();
-    return SizedBox(
-      height: 80,
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Image(
-              image: NetworkImage(product.image!),
-              width: 80,
-              height: 80,
-              fit: BoxFit.cover,
-            ),
-          ),
-          spacerS,
-          Expanded(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                product.renting ? 'Renting' : 'Tienda',
-                style: AppTextStyle.inputLabelStyle.copyWith(
-                  color: AppColor.neutral40,
-                ),
-              ),
-              Expanded(
-                child: RichText(
-                  text: TextSpan(
-                    style: AppTextStyle.defaultStyle.copyWith(
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black,
-                        fontSize: 14),
-                    children: [
-                      TextSpan(
-                        text: product.productName ?? '',
-                      ),
-                      TextSpan(
-                          text: ' x${product.quantity}',
-                          style:
-                              AppTextStyle.defaultStyle.copyWith(fontSize: 14)),
-                    ],
-                  ),
-                ),
-              ),
-
-              /*
-               if (promotion.pvpLowered != null)
-                      Text(
-                        '${promotion.pvpOriginal}€',
-                        style: AppTextStyle.pvpOrinigal,
-                      ),
-                    spacerXs,
-                    Text(
-                      '${promotion.pvpLowered ?? promotion.pvpOriginal}€',
-                      style: AppTextStyle.h2Style,
-                    ),
-              */
-              RichText(
-                text: TextSpan(
-                  style: AppTextStyle.titleCard,
-                  children: [
-                    if (product.priceSale != null)
-                      TextSpan(
-                        text: myFormatMoney(
-                            (product.priceSale?.toDouble() ?? 0.0) *
-                                (product.quantity ?? 0)),
-                        style: AppTextStyle.pvpOrinigal.copyWith(fontSize: 14),
-                      ),
-                    TextSpan(
-                      text:
-                          ' ${myFormatMoney((product.priceSale?.toDouble() ?? product.priceOld?.toDouble() ?? 0) * (product.quantity ?? 0))}',
-                    ),
-                    TextSpan(
-                      text: ' IVA incluido ',
-                      style: AppTextStyle.defaultStyle
-                          .copyWith(color: AppColor.neutral40, fontSize: 14),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          )),
-          spacerS,
-          BlocBuilder<ShoppingCardCubit, ShoppingCardState>(
-            builder: (context, state) {
-              if (state.buying) {
-                return const SizedBox();
-              }
-              return Material(
-                color: AppColor.error200,
-                borderRadius: BorderRadius.circular(50),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(50),
-                   onTap: () => cubit.deleteProduct(
-                     id: product.id!,
-                     quantity: product.quantity!,
-                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Image.asset('assets/icons/Trash.png', scale: 2),
-                  ),
-                ),
-              );
-            },
-          )
-        ],
-      ),
-    );
-  }
-}*/
 
 class _CarEmpty extends StatelessWidget {
   const _CarEmpty({
