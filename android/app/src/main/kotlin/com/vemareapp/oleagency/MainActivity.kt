@@ -1,4 +1,4 @@
-package app.vemare.oleagency
+package com.appvemare.oleagency
 
 import io.flutter.embedding.android.FlutterActivity
 

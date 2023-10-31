@@ -1,23 +1,15 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
-import 'package:vemare/app/data/auth_repository.dart';
-import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/shared_preferences_static.dart';
-import 'package:vemare/app/providers/permission_handler.dart';
 import 'package:vemare/app/providers/url_state_provider.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
-import 'package:vemare/app/view/home/home_page.dart';
-import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/theme.dart';
-import 'package:vemare/config/service_locator.dart';
-
 
 
 class SplashInitialPage extends StatefulWidget {
@@ -35,7 +27,6 @@ class _SplashInitialPageState extends State<SplashInitialPage> {
   @override
   void initState() {
     getData();
-    //PermissionHandlerClass();
     super.initState();
   }
 
