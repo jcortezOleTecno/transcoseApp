@@ -137,7 +137,7 @@ class ShoppingCartPage extends StatelessWidget {
                                         if(state.productsTienda.isNotEmpty){
                                           cubit.buy();
                                         }else{
-                                          //cubit.orderPayment();
+                                          cubit.orderPayment();
                                         }
                                       }else{
                                         if(provider.viewData){
