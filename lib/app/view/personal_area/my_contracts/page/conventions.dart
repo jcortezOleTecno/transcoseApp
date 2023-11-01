@@ -101,11 +101,6 @@ class Conventions extends StatelessWidget {
         )
     );
   }
-
-  Widget mainInformation(){
-    return Container();
-  }
-
 }
 
 class _ContractCeonventions extends StatelessWidget {

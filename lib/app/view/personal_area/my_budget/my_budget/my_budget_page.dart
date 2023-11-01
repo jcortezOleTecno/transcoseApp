@@ -21,6 +21,7 @@ import 'package:vemare/app/view/personal_area/my_budget/my_budget/bloc/my_budget
 import 'package:vemare/app/view/personal_area/my_budget/my_budget/bloc/my_budget_state.dart';
 import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
+import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
 import 'package:vemare/main.dart';
@@ -57,6 +58,7 @@ class MyBudgetPage extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text('Mis presupuestos',
                                   style: AppTextStyle.h1Style),
@@ -83,16 +85,31 @@ class MyBudgetPage extends StatelessWidget {
                                 FiltersAppliedWidget(state.filters!,
                                     onTap: () => cubit.fetchData(reset: true)),
                               spacerM,
-                              if (state.loading)
+                              if(state.loading)...[
                                 const MyShimmer(
                                   height: 450,
                                   borderRadius: 12,
                                   margin: EdgeInsets.only(bottom: 20),
                                 ),
-                              if (!state.loading && state.budget.isEmpty)
-                                const NoExistWidget('presupuestos'),
-                              if (!state.loading && state.budget.isNotEmpty)
-                                const _Budget(),
+                                spacerM,
+                              ]else...[
+                                if(state.budget.isEmpty)...[
+                                  const NoExistWidget('presupuestos',paddingTop: 40),
+                                  spacerM,spacerM,
+                                ]else...[
+                                  const _Budget(),
+                                ],
+                              ],
+                              // if (state.loading)
+                              //   const MyShimmer(
+                              //     height: 450,
+                              //     borderRadius: 12,
+                              //     margin: EdgeInsets.only(bottom: 20),
+                              //   ),
+                              // if (!state.loading && state.budget.isEmpty)
+                              //   const NoExistWidget('presupuestos'),
+                              // if (!state.loading && state.budget.isNotEmpty)
+                              //   const _Budget(),
                             ],
                           ),
                         ),
@@ -117,8 +134,19 @@ class _Budget extends StatelessWidget {
     final cubit = context.read<BudgetCubit>();
     return BlocBuilder<BudgetCubit, BudgetState>(
       builder: (context, state) {
+
+        double hSize = 350;
+        if(state.dataBudget!.rowCount <= 5){
+          if(state.dataBudget!.rowCount > 2){
+            hSize = hSize + (20 * state.dataBudget!.rowCount);
+          }
+        }else{
+          hSize = 500;
+        }
+
+
         return SizedBox(
-          height: 500,
+          height: hSize,
           child: Card(
             margin: const EdgeInsets.only(bottom: 20),
             shape:
@@ -142,6 +170,8 @@ class _Budget extends StatelessWidget {
                       MySearchInput(
                         hintText: 'Buscar por palabras claves...',
                         onChanged: cubit.filtro,
+                        fillColor: AppColor.blue50,
+                        borderSideColor: AppColor.blue100,
                       ),
                       spacerS,
                     ],
@@ -154,7 +184,7 @@ class _Budget extends StatelessWidget {
                     horizontalMargin: 12,
                     empty: const NoResultTable(),
                     minWidth: 1100,
-                    // smRatio: 0.5,
+                    rowsPerPage: state.dataBudget!.rowCount <= 10 ? state.dataBudget!.rowCount : 10,
                     columns: const [
                       DataColumn2(
                         label: Text('FECHA'),

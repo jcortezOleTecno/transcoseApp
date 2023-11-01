@@ -372,8 +372,18 @@ class _LineasPresupuesto extends StatelessWidget {
         ),
         child: BlocBuilder<BudgetDetailCubit, BudgetDetailState>(
           builder: (context, state) {
+
+            double hSize = 350;
+            if(state.dataBudgetDetail!.rowCount <= 5){
+              if(state.dataBudgetDetail!.rowCount > 2){
+                hSize = hSize + (20 * state.dataBudgetDetail!.rowCount);
+              }
+            }else{
+              hSize = 500;
+            }
+
             return SizedBox(
-              height: 500,
+              height: hSize,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -393,6 +403,8 @@ class _LineasPresupuesto extends StatelessWidget {
                         MySearchInput(
                           hintText: 'Buscar por palabras claves...',
                           onChanged: cubit.filtro,
+                          fillColor: AppColor.blue50,
+                          borderSideColor: AppColor.blue100,
                         ),
                         spacerS,
                       ],
@@ -405,9 +417,7 @@ class _LineasPresupuesto extends StatelessWidget {
                       horizontalMargin: 12,
                       empty: const NoResultTable(),
                       minWidth: 1500,
-
-                      // showFirstLastButtons: true,
-                      // smRatio: 0.5,
+                      rowsPerPage: state.dataBudgetDetail!.rowCount <= 10 ? state.dataBudgetDetail!.rowCount : 10,
                       columns: const [
                         DataColumn2(
                           label: Text('ORDEN'),
