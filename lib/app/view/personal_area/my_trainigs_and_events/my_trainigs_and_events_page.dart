@@ -14,6 +14,7 @@ import 'package:vemare/app/view/_components/my_filters/my_filters.dart';
 import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/_components/user_name/user_name.dart';
 import 'package:vemare/app/view/personal_area/my_trainigs_and_events/bloc/my_trainigs_and_events_state.dart';
 import 'package:vemare/app/view/personal_area/widgets/item_card.dart';
 import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
@@ -51,15 +52,11 @@ class MyTrainingAndEventsPage extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text('Mis formaciones y eventos',
                             style: AppTextStyle.h1Style),
-                        Text(
-                          LocalDataRepository().user?.name ?? '',
-                          style: AppTextStyle.h3Style.copyWith(
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
+                        const UserName(),
                         spacerL,
                         MyIconButton(
                           onPressed: () {
@@ -87,13 +84,16 @@ class MyTrainingAndEventsPage extends StatelessWidget {
                               ),
                             );
                           }),
-                        if (!state.loading && state.data.isEmpty)
+                        if (!state.loading && state.data.isEmpty)...[
                           const NoResultWidget(
                             'Actualmente no tienes ningún servicio contratado.',
                             subTittle:
                             'Si quieres más información contacta con tu comercial habitual',
                             paddingTop: 50,
                           ),
+                          spacerL,spacerL,
+                        ],
+
                         if (!state.loading)
                           ...state.data
                               .map((e) => _TrainingsAndEventCard(e))
