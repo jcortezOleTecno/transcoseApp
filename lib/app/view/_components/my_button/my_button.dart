@@ -12,6 +12,7 @@ class MyButton extends StatelessWidget {
     this.disabled = false,
     this.isLoading = false,
     this.variant = MyButtonVariant.containedPrimary,
+    this.childCenter,
   }) : super(key: key);
   final String text;
   final bool disabled;
@@ -20,6 +21,7 @@ class MyButton extends StatelessWidget {
   final EdgeInsets? customInset;
   final bool isLoading;
   final double? width;
+  final Widget? childCenter;
 
   @override
   Widget build(BuildContext context) {
@@ -52,13 +54,16 @@ class MyButton extends StatelessWidget {
                       color: style.textStyle.color ?? AppColor.primary,
                     ),
                   )
-                : Text(
-                    text,
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelLarge
-                        ?.merge(style.textStyle),
-                  ),
+                : (childCenter != null ?
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(text,style: Theme.of(context).textTheme.labelLarge?.merge(style.textStyle),),
+                    childCenter ?? Container(),
+                  ],
+                ) : Text(text,style: Theme.of(context).textTheme.labelLarge?.merge(style.textStyle),)
+            ),
           ),
         ),
       ),

@@ -158,8 +158,12 @@ class ShoppingCartPage extends StatelessWidget {
                                       //     : cubit.orderPayment())
                                       //     : cubit.orderPayment();
                                     },
-                                    text: state.typePaySelected ? 'Continuar' : 'Comprar',
+                                    text: state.typePaySelected ? 'Continuar ' : 'Comprar',
                                     isLoading: state.status == FormStatus.loading,
+                                    childCenter: Image.asset(
+                                      "assets/icons/arrow_next.png",
+                                      scale: 2.5,color: Colors.white,
+                                    ),
                                   ),
                                 ),
                               ),
