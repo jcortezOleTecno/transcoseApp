@@ -154,16 +154,21 @@ class _MyInputState extends State<MyInput> {
                 ? widget.suffixWidget
                 : widget.hideInput
                     ? GestureDetector(
-                        onTapDown: (details) {
+                        onTap: (){
                           setState(() {
-                            hideInput = false;
+                            hideInput = !hideInput;
                           });
                         },
-                        onTapUp: (details) {
-                          setState(() {
-                            hideInput = true;
-                          });
-                        },
+                        // onTapDown: (details) {
+                        //   setState(() {
+                        //     hideInput = false;
+                        //   });
+                        // },
+                        // onTapUp: (details) {
+                        //   setState(() {
+                        //     hideInput = true;
+                        //   });
+                        // },
                         child: Image.asset(
                           hideInput
                               ? 'assets/icons/eye-off.png'
