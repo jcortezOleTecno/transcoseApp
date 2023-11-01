@@ -285,8 +285,18 @@ class _Maquinas extends StatelessWidget {
         ),
         child: BlocBuilder<SatDetailCubit, SatDetailState>(
           builder: (context, state) {
+
+            double hSize = 350;
+            if(state.dataMaquinas!.rowCount <= 5){
+              if(state.dataMaquinas!.rowCount > 2){
+                hSize = hSize + (20 * state.dataMaquinas!.rowCount);
+              }
+            }else{
+              hSize = 500;
+            }
+
             return SizedBox(
-              height: 400,
+              height: hSize,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -306,6 +316,8 @@ class _Maquinas extends StatelessWidget {
                         MySearchInput(
                           hintText: 'Buscar por palabras claves...',
                           onChanged: cubit.filtroMaquina,
+                          fillColor: AppColor.blue50,
+                          borderSideColor: AppColor.blue100,
                         ),
                         spacerS,
                       ],
@@ -318,9 +330,7 @@ class _Maquinas extends StatelessWidget {
                       horizontalMargin: 12,
                       empty: const NoResultTable(),
                       minWidth: 1500,
-
-                      // showFirstLastButtons: true,
-                      // smRatio: 0.5,
+                      rowsPerPage: state.dataMaquinas!.rowCount <= 10 ? state.dataMaquinas!.rowCount : 10,
                       columns: const [
                         DataColumn2(
                           label: Text('CÓDIGO MAQUINA'),
@@ -435,8 +445,18 @@ class _Materiales extends StatelessWidget {
         ),
         child: BlocBuilder<SatDetailCubit, SatDetailState>(
           builder: (context, state) {
+
+            double hSize = 350;
+            if(state.dataMateriales!.rowCount <= 5){
+              if(state.dataMateriales!.rowCount > 2){
+                hSize = hSize + (20 * state.dataMateriales!.rowCount);
+              }
+            }else{
+              hSize = 500;
+            }
+
             return SizedBox(
-              height: 400,
+              height: hSize,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -456,6 +476,8 @@ class _Materiales extends StatelessWidget {
                         MySearchInput(
                           hintText: 'Buscar por palabras claves...',
                           onChanged: cubit.filtroMateriales,
+                          fillColor: AppColor.blue50,
+                          borderSideColor: AppColor.blue100,
                         ),
                         spacerS,
                       ],
@@ -468,9 +490,7 @@ class _Materiales extends StatelessWidget {
                       horizontalMargin: 12,
                       empty: const NoResultTable(),
                       minWidth: 640,
-
-                      // showFirstLastButtons: true,
-                      // smRatio: 0.5,
+                      rowsPerPage: state.dataMateriales!.rowCount <= 10 ? state.dataMateriales!.rowCount : 10,
                       columns: const [
                         DataColumn2(
                           label: Text('CÓDIGO MATERIAL'),

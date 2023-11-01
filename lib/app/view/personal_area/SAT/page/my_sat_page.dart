@@ -13,9 +13,12 @@ import 'package:vemare/app/view/_components/my_input/my_input_search.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/no_result/no_result_table.dart';
+import 'package:vemare/app/view/_components/user_name/user_name.dart';
 import 'package:vemare/app/view/access_denied/access_denied_page.dart';
 import 'package:vemare/app/view/personal_area/SAT/details/sat_detail.dart';
+import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
+import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
 import 'package:vemare/main.dart';
@@ -55,14 +58,10 @@ class MySatPage extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text('SAT', style: AppTextStyle.h1Style),
-                              Text(
-                                LocalDataRepository().user?.name ?? '',
-                                style: AppTextStyle.h3Style.copyWith(
-                                  fontWeight: FontWeight.normal,
-                                ),
-                              ),
+                              const UserName(),
                               spacerM,
                               MyIconButton(
                                 onPressed: () {
@@ -85,7 +84,7 @@ class MySatPage extends StatelessWidget {
                                 FiltersAppliedWidget(state.filters!,
                                     onTap: () => cubit.getSats(reset: true)),
                               spacerM,
-                              if (state.loading)
+                              if(state.loading)...[
                                 const Padding(
                                   padding: EdgeInsets.only(bottom: 20),
                                   child: MyShimmer(
@@ -93,7 +92,26 @@ class MySatPage extends StatelessWidget {
                                     margin: EdgeInsets.zero,
                                   ),
                                 ),
-                              if (!state.loading) const _SATCard(),
+                                spacerM,
+                              ]else...[
+                                if(state.dataFiltrada!.rowCount <= 0)...[
+                                  const NoExistWidget('SAT',paddingTop: 40),
+                                  spacerM,spacerM,
+                                ]else...[
+                                  const _SATCard(),
+                                ],
+                              ],
+
+
+                              // if (state.loading)
+                              //   const Padding(
+                              //     padding: EdgeInsets.only(bottom: 20),
+                              //     child: MyShimmer(
+                              //       height: 450,
+                              //       margin: EdgeInsets.zero,
+                              //     ),
+                              //   ),
+                              // if (!state.loading) const _SATCard(),
                             ],
                           ),
                         ),
@@ -118,8 +136,19 @@ class _SATCard extends StatelessWidget {
     final cubit = context.read<MySatCubit>();
     return BlocBuilder<MySatCubit, MySatState>(
       builder: (context, state) {
+
+        double hSize = 350;
+        if(state.dataFiltrada!.rowCount <= 5){
+          if(state.dataFiltrada!.rowCount > 2){
+            hSize = hSize + (20 * state.dataFiltrada!.rowCount);
+          }
+        }else{
+          hSize = 500;
+        }
+
+
         return SizedBox(
-          height: 500,
+          height: hSize,
           child: Card(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
@@ -150,6 +179,8 @@ class _SATCard extends StatelessWidget {
                   child: MySearchInput(
                     hintText: 'Buscar por palabras claves...',
                     onChanged: cubit.filtro,
+                    fillColor: AppColor.blue50,
+                    borderSideColor: AppColor.blue100,
                   ),
                 ),
                 spacerS,
@@ -160,7 +191,7 @@ class _SATCard extends StatelessWidget {
                     horizontalMargin: 12,
                     minWidth: 1000,
                     empty: const NoResultTable(),
-                    // smRatio: 0.5,
+                    rowsPerPage: state.dataFiltrada!.rowCount <= 10 ? state.dataFiltrada!.rowCount : 10,
                     columns: const [
                       DataColumn2(
                         label: Text('INTERVENCIÓN'),
