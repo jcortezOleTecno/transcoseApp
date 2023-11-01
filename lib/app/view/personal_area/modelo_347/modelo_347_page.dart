@@ -9,6 +9,7 @@ import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_dropdown_button/my_drop_down_button.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/_components/user_name/user_name.dart';
 import 'package:vemare/app/view/access_denied/access_denied_page.dart';
 import 'package:vemare/app/view/personal_area/widgets/item_card.dart';
 import 'package:vemare/app/view/theme/color.dart';
@@ -51,39 +52,35 @@ class Modelo347Page extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text('Modelo 347', style: AppTextStyle.h1Style),
-                              Text(
-                                LocalDataRepository().user?.name ?? '',
-                                style: AppTextStyle.h3Style.copyWith(
-                                  fontWeight: FontWeight.normal,
-                                ),
-                              ),
+                              const UserName(),
                               spacerL,
-                              const Text(
-                                'Filtrar por año',
-                                style: AppTextStyle.inputLabelStyle,
+                              const Text('Filtrar por año',style: AppTextStyle.inputLabelStyle,),
+                              SizedBox(
+                                width: double.infinity,
+                                child: MyCustomDropdownButton(
+                                    hint: DateTime(DateTime.now().year - 1)
+                                        .year
+                                        .toString(),
+                                    hintStyle: AppTextStyle.inputStyle,
+                                    dropdownItems: yearsList
+                                        .map((item) => DropdownMenuItem(
+                                      value: item,
+                                      child: Text(item,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                          style: AppTextStyle.inputStyle),
+                                    ))
+                                        .toList(),
+                                    value: state.yearSelect,
+                                    onChanged: (value) {
+                                      cubit.getMy347(year: value);
+                                    }),
                               ),
-                              MyCustomDropdownButton(
-                                  hint: DateTime(DateTime.now().year - 1)
-                                      .year
-                                      .toString(),
-                                  hintStyle: AppTextStyle.inputStyle,
-                                  dropdownItems: yearsList
-                                      .map((item) => DropdownMenuItem(
-                                    value: item,
-                                    child: Text(item,
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 1,
-                                        style: AppTextStyle.inputStyle),
-                                  ))
-                                      .toList(),
-                                  value: state.yearSelect,
-                                  onChanged: (value) {
-                                    cubit.getMy347(year: value);
-                                  }),
-                              spacerM,
-                              if (state.loading)
+                              if (state.loading)...[
+                                spacerM,
                                 ...List.generate(4, (i) {
                                   return const Padding(
                                     padding: EdgeInsets.only(bottom: 20),
@@ -93,10 +90,15 @@ class Modelo347Page extends StatelessWidget {
                                     ),
                                   );
                                 }),
-                              if (!state.loading && state.modelos.isEmpty)
+                              ],
+                              if (!state.loading && state.modelos.isEmpty)...[
                                 const NoExistWidget('modelos 347'),
-                              if (!state.loading)
+                                spacerM,spacerM,spacerM,
+                              ],
+                              if (!state.loading)...[
+                                spacerM,
                                 ...state.modelos.map((e) => _Item(e)).toList(),
+                              ]
                             ],
                           ),
                         ),
