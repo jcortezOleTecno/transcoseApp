@@ -29,7 +29,11 @@ class WorkshopNetworksCubit extends Cubit<WorkshopNetworksState> {
   }
 
   void workShop(WorkShop? workShop) {
-    emit(state.copyWith(workShop: workShop));
+    emit(state.copyWith(workShop: workShop,status: FormStatus.editing));
+  }
+
+  void editStatus(FormStatus formStatus) {
+    emit(state.copyWith(status: FormStatus.editing));
   }
 
   void name(String value) {

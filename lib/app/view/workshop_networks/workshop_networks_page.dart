@@ -106,7 +106,13 @@ class _WorkshopNetworksPageState extends State<WorkshopNetworksPage> {
                                           ))
                                       .toList(),
                                   value: state.workShop,
-                                  onChanged: cubit.workShop,
+                                  onChanged: (value){
+                                    cubit.workShop(value);
+                                    tcName = TextEditingController();
+                                    tcEmail = TextEditingController();
+                                    tcPhone = TextEditingController();
+                                    tcObserv = TextEditingController();
+                                  },
                                 ),
                               ],
                             ),
