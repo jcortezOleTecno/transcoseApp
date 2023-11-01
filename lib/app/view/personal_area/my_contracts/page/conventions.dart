@@ -129,6 +129,7 @@ class _ContractCeonventions extends StatelessWidget {
           children: [
             const Text("Información principal", style: AppTextStyle.h2Style),
             spacerM,
+            provider.contratoConventionsModel!.firmado == 'Si' ? Container() :
             SizedBox(
               width: double.infinity,
               child: MyIconButton(
@@ -162,9 +163,37 @@ class _ContractCeonventions extends StatelessWidget {
               variant: MyInputVariant.backgroundBlue,
             ),
             MyInput(
+              key: const Key("Teléfono móvil"),
+              label: "Teléfono móvil",
+              initialValue: provider.contratoConventionsModel!.movil ?? '',
+              readOnly: true,
+              variant: MyInputVariant.backgroundBlue,
+            ),
+            MyInput(
               key: const Key("Email"),
               label: "Email",
               initialValue: provider.contratoConventionsModel!.email ?? '',
+              readOnly: true,
+              variant: MyInputVariant.backgroundBlue,
+            ),
+            MyInput(
+              key: const Key("Fecha inicio"),
+              label: "Fecha inicio",
+              initialValue: provider.contratoConventionsModel!.fechaInicio ?? '',
+              readOnly: true,
+              variant: MyInputVariant.backgroundBlue,
+            ),
+            MyInput(
+              key: const Key("Fecha baja"),
+              label: "Fecha baja",
+              initialValue: provider.contratoConventionsModel!.fechaBaja ?? '',
+              readOnly: true,
+              variant: MyInputVariant.backgroundBlue,
+            ),
+            MyInput(
+              key: const Key("Firmado"),
+              label: "Firmado",
+              initialValue: provider.contratoConventionsModel!.firmado ?? '',
               readOnly: true,
               variant: MyInputVariant.backgroundBlue,
             ),
@@ -179,13 +208,6 @@ class _ContractCeonventions extends StatelessWidget {
               key: const Key("Contrato de cliente"),
               label: "Contrato de cliente",
               initialValue: provider.contratoConventionsModel!.clientesContrato ?? '',
-              readOnly: true,
-              variant: MyInputVariant.backgroundBlue,
-            ),
-            MyInput(
-              key: const Key("Firmado"),
-              label: "Firmado",
-              initialValue: provider.contratoConventionsModel!.firmado ?? '',
               readOnly: true,
               variant: MyInputVariant.backgroundBlue,
             ),
