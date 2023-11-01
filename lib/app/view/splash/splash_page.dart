@@ -31,7 +31,7 @@ class _SplashPageState extends State<SplashPage> {
           Navigator.pushReplacementNamed(context, HomePage.route);
         });
       } else {
-        Navigator.pushReplacementNamed(context, LoginPage.route);
+        Navigator.pushNamed(context,HomePage.route,arguments: false,);
       }
     });
     super.initState();
