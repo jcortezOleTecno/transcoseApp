@@ -36,6 +36,7 @@ import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/home/bloc/home_cubit.dart';
 import 'package:vemare/app/view/home/bloc/home_state.dart';
+import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/my_services/events/events_page.dart';
 import 'package:vemare/app/view/my_services/formations/formations/formations_page.dart';
 import 'package:vemare/app/view/my_services/services/service_general.dart';
@@ -816,11 +817,17 @@ class _RedesTalleres extends StatelessWidget {
                         fit: BoxFit.cover,
                       ), //Image.network(e.image!, fit: BoxFit.cover),
                       title: e.name ?? '',
-                      onTap: () => Navigator.pushNamed(
-                        context,
-                        WorkshopNetworksPage.route,
-                        arguments: e.id,
-                      ),
+                      onTap: (){
+                        if(LocalDataRepository().isLogged){
+                          Navigator.pushNamed(
+                            context,
+                            WorkshopNetworksPage.route,
+                            arguments: e.id,
+                          );
+                        }else{
+                          Navigator.pushReplacementNamed(context, LoginPage.route);
+                        }
+                      },
                     ),
                   )
                   .toList(),

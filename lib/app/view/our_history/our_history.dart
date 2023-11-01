@@ -78,7 +78,6 @@ class _Article extends StatelessWidget {
             ],
           ),
         ),
-        spacerM,
       ],
     );
   }
