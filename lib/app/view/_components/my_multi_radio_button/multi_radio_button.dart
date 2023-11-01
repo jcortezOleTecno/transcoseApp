@@ -8,10 +8,12 @@ class StringRadioButtons extends StatefulWidget {
     required this.options,
     required this.onSelectionChanged,
     this.reset = false,
+    this.initialValue,
   });
   final List<String> options;
   final Function(String) onSelectionChanged;
   final bool reset;
+  final String? initialValue;
 
   @override
   _StringRadioButtonsState createState() => _StringRadioButtonsState();
@@ -19,6 +21,12 @@ class StringRadioButtons extends StatefulWidget {
 
 class _StringRadioButtonsState extends State<StringRadioButtons> {
   String? _selectedOption;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedOption = widget.initialValue;
+  }
 
   @override
   Widget build(BuildContext context) {

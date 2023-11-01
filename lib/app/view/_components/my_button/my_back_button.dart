@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
 class MyBackButton extends StatelessWidget {
-  const MyBackButton({Key? key}) : super(key: key);
+  const MyBackButton({Key? key, this.onTap}) : super(key: key);
+
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(6.0),
       child: TextButton.icon(
-        onPressed: () {
+        onPressed: onTap ?? (){
           Navigator.of(context).maybePop();
         },
         icon: Image.asset(

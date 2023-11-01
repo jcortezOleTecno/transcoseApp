@@ -160,10 +160,10 @@ class ShoppingCartPage extends StatelessWidget {
                                     },
                                     text: state.typePaySelected ? 'Continuar ' : 'Comprar',
                                     isLoading: state.status == FormStatus.loading,
-                                    childCenter: Image.asset(
+                                    childCenter: state.typePaySelected ? Image.asset(
                                       "assets/icons/arrow_next.png",
                                       scale: 2.5,color: Colors.white,
-                                    ),
+                                    ) : Container(),
                                   ),
                                 ),
                               ),
@@ -478,19 +478,11 @@ class _BuyData extends StatelessWidget {
           //   ),
           // ),
           // spacerS,
-          const Text(
-            '¿Cómo deseas realizar tu pago?',
-            style: AppTextStyle.inputLabelStyle,
-          ),
+          const Text('¿Cómo deseas realizar tu pago?',style: AppTextStyle.inputLabelStyle,),
           StringRadioButtons(
-            options: (LocalDataRepository()
-                        .user
-                        ?.webservice
-                        ?.permiteComprasCredito ??
-                    false)
-                ? ['Crédito', 'Tarjeta']
-                : ['Tarjeta'],
+            options: (LocalDataRepository().user?.webservice?.permiteComprasCredito ?? false) ? ['Crédito', 'Tarjeta'] : ['Tarjeta'],
             onSelectionChanged: cubit.typePaySelect,
+            initialValue: !state.typePaySelected ? null : (state.isCard ? 'Tarjeta' : 'Crédito'),
           )
         ],
       ),
@@ -518,41 +510,45 @@ class _BuyDataUser extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const MyDivider(height: 0),
-              spacerS,
-              const Text(
-                'Total',
-                style: AppTextStyle.h3Style,
-              ),
               spacerXs,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text('Productos', style: AppTextStyle.defaultStyle),
-                  Text('x${state.counter}', style: AppTextStyle.defaultStyle),
-                ],
-              ),
-              spacerS,
-              const MyDivider(height: 0),
-              spacerS,
-              Center(
-                child: RichText(
-                  text: TextSpan(
-                    style: AppTextStyle.h1Style,
-                    children: [
-                      TextSpan(
-                          text: fmf
-                              .copyWith(amount: state.total)
-                              .output
-                              .symbolOnRight),
-                      TextSpan(
-                        text: '  IVA incluido',
-                        style: AppTextStyle.defaultStyle
-                            .copyWith(color: AppColor.neutral40),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              MyBackButton(onTap: (){
+                provider.viewData = false;
+              }),
+              spacerXs,
+              // const Text(
+              //   'Total',
+              //   style: AppTextStyle.h3Style,
+              // ),
+              // spacerXs,
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     const Text('Productos', style: AppTextStyle.defaultStyle),
+              //     Text('x${state.counter}', style: AppTextStyle.defaultStyle),
+              //   ],
+              // ),
+              // spacerS,
+              // const MyDivider(height: 0),
+              // spacerS,
+              // Center(
+              //   child: RichText(
+              //     text: TextSpan(
+              //       style: AppTextStyle.h1Style,
+              //       children: [
+              //         TextSpan(
+              //             text: fmf
+              //                 .copyWith(amount: state.total)
+              //                 .output
+              //                 .symbolOnRight),
+              //         TextSpan(
+              //           text: '  IVA incluido',
+              //           style: AppTextStyle.defaultStyle
+              //               .copyWith(color: AppColor.neutral40),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
               // spacerS,
               const Text(
                 'Datos de envío',
