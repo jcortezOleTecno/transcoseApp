@@ -15,6 +15,7 @@ import 'package:vemare/app/view/_components/user_name/user_name.dart';
 import 'package:vemare/app/view/access_denied/access_denied_page.dart';
 import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
+import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
 import '../bloc/my_orders_cubit.dart';
@@ -45,6 +46,7 @@ class MyWarranty extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           spacerS,
                           const Text('Mis garantías', style: AppTextStyle.h2Style),
@@ -72,113 +74,22 @@ class MyWarranty extends StatelessWidget {
                                 onTap: () => cubit.getMyWarranty(reset: true)),
                           spacerS,
                           // spacerL,
-                          if (state.guarantee.isNotEmpty && !state.loading)
-                            const _Total(),
-                          spacerS,
-                          if (!state.loading && state.guarantee.isEmpty)
-                            const NoExistWidget('garantías'),
-                          if (state.loading)
+                          if(state.loading)...[
                             const SizedBox(
                                 height: 400,
                                 child: MyShimmer.full(
                                   borderRadius: 10,
                                   margin: EdgeInsets.only(bottom: 20),
                                 )),
-                          if (!state.loading && state.guarantee.isNotEmpty)
-                            SizedBox(
-                              height: 500,
-                              child: Card(
-                                margin: const EdgeInsets.only(bottom: 20),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding:
-                                      const EdgeInsets.symmetric(horizontal: 15),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          spacerS,
-                                          const Text(
-                                            'Garantías',
-                                            style: AppTextStyle.h3Style,
-                                          ),
-                                          Text(
-                                              '${state.dataGarantiasFiltrado!.rowCount} Total'),
-                                          // spacerM,
-                                          spacerS,
-                                          MySearchInput(
-                                            hintText: 'Buscar por palabras claves...',
-                                            onChanged: cubit.filtroGarantia,
-                                          ),
-                                          spacerS,
-                                        ],
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: PaginatedDataTable2(
-                                        wrapInCard: false,
-                                        columnSpacing: 12,
-                                        horizontalMargin: 12,
-                                        empty: const NoResultTable(),
-                                        minWidth: 1000,
-                                        // smRatio: 0.5,
-                                        columns: const [
-                                          DataColumn2(
-                                            label: Text('NÚMERO'),
-                                            fixedWidth: 100,
-                                            // size: ColumnSize.L,
-                                          ),
-                                          DataColumn2(
-                                            label: Text('FECHA'),
-                                            fixedWidth: 80,
-                                            // size: ColumnSize.L,
-                                          ),
-                                          DataColumn2(
-                                            label: Text('CENTRO'),
-                                            fixedWidth: 80,
-                                            // size: ColumnSize.L,
-                                          ),
-                                          DataColumn2(
-                                            label: Text('VISAR'),
-                                            fixedWidth: 80,
-                                            // size: ColumnSize.L,
-                                          ),
-                                          DataColumn2(
-                                            label: Text('IMPORTE'),
-                                            fixedWidth: 80,
-                                            // size: ColumnSize.L,
-                                          ),
-                                          DataColumn2(
-                                            label: Text('LÍNEA'),
-                                            fixedWidth: 100,
-                                            // size: ColumnSize.L,
-                                          ),
-                                          DataColumn2(
-                                            label: Text('FIRMADO'),
-                                            fixedWidth: 80,
-                                            // size: ColumnSize.L,
-                                          ),
-                                          DataColumn2(
-                                            label: Text('ESTADO SU'),
-                                            fixedWidth: 120,
-                                            // size: ColumnSize.L,
-                                          ),
-                                          DataColumn2(
-                                            label: Text('ESTADO TR'),
-                                            fixedWidth: 150,
-                                            // size: ColumnSize.L,
-                                          ),
-                                        ],
-                                        source: state.dataGarantiasFiltrado!,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                            spacerM,
+                          ]else...[
+                            if(state.guarantee.isEmpty)...[
+                              const NoExistWidget('garantías',paddingTop: 40),
+                              spacerM,spacerM,
+                            ]else...[
+                              tablaGarantia(context: context, state: state),
+                            ],
+                          ],
                         ],
                       ),
                     ),
@@ -188,6 +99,115 @@ class MyWarranty extends StatelessWidget {
               );
             },
           );
+  }
+
+  Widget tablaGarantia({required BuildContext context,required MyOrdersState state}){
+    final cubit = context.read<MyOrdersCubit>();
+
+    double hSize = 350;
+    if(state.dataGarantiasFiltrado!.rowCount <= 5){
+      if(state.dataGarantiasFiltrado!.rowCount > 2){
+        hSize = hSize + (20 * state.dataGarantiasFiltrado!.rowCount);
+      }
+    }else{
+      hSize = 500;
+    }
+    return SizedBox(
+      height: hSize,
+      child: Card(
+        margin: const EdgeInsets.only(bottom: 20),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding:
+              const EdgeInsets.symmetric(horizontal: 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  spacerS,
+                  const Text(
+                    'Garantías',
+                    style: AppTextStyle.h3Style,
+                  ),
+                  Text(
+                      '${state.dataGarantiasFiltrado!.rowCount} Total'),
+                  // spacerM,
+                  spacerS,
+                  MySearchInput(
+                    hintText: 'Buscar por palabras claves...',
+                    onChanged: cubit.filtroGarantia,
+                    fillColor: AppColor.blue50,
+                    borderSideColor: AppColor.blue100,
+                  ),
+                  spacerS,
+                ],
+              ),
+            ),
+            Expanded(
+              child: PaginatedDataTable2(
+                wrapInCard: false,
+                columnSpacing: 12,
+                horizontalMargin: 12,
+                empty: const NoResultTable(),
+                minWidth: 1000,
+                rowsPerPage: state.dataGarantiasFiltrado!.rowCount <= 10 ? state.dataGarantiasFiltrado!.rowCount : 10,
+                columns: const [
+                  DataColumn2(
+                    label: Text('NÚMERO'),
+                    fixedWidth: 100,
+                    // size: ColumnSize.L,
+                  ),
+                  DataColumn2(
+                    label: Text('FECHA'),
+                    fixedWidth: 80,
+                    // size: ColumnSize.L,
+                  ),
+                  DataColumn2(
+                    label: Text('CENTRO'),
+                    fixedWidth: 80,
+                    // size: ColumnSize.L,
+                  ),
+                  DataColumn2(
+                    label: Text('VISAR'),
+                    fixedWidth: 80,
+                    // size: ColumnSize.L,
+                  ),
+                  DataColumn2(
+                    label: Text('IMPORTE'),
+                    fixedWidth: 80,
+                    // size: ColumnSize.L,
+                  ),
+                  DataColumn2(
+                    label: Text('LÍNEA'),
+                    fixedWidth: 100,
+                    // size: ColumnSize.L,
+                  ),
+                  DataColumn2(
+                    label: Text('FIRMADO'),
+                    fixedWidth: 80,
+                    // size: ColumnSize.L,
+                  ),
+                  DataColumn2(
+                    label: Text('ESTADO SU'),
+                    fixedWidth: 120,
+                    // size: ColumnSize.L,
+                  ),
+                  DataColumn2(
+                    label: Text('ESTADO TR'),
+                    fixedWidth: 150,
+                    // size: ColumnSize.L,
+                  ),
+                ],
+                source: state.dataGarantiasFiltrado!,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 

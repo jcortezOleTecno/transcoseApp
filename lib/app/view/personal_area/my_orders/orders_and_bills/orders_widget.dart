@@ -16,6 +16,7 @@ import 'package:vemare/app/view/access_denied/access_denied_page.dart';
 import 'package:vemare/app/view/personal_area/my_orders/orders_and_bills/albaran_details/albaran_detail.dart';
 import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
+import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
 import '../bloc/my_orders_cubit.dart';
@@ -45,6 +46,7 @@ class MyOrders extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           spacerS,
                           const Text('Mis pedidos', style: AppTextStyle.h2Style),
@@ -71,103 +73,119 @@ class MyOrders extends StatelessWidget {
                             FiltersAppliedWidget(state.filterPedidos!,
                                 onTap: () => cubit.getMyOrders(reset: true)),
                           spacerS,
-                          if (!state.loading && state.orders.isEmpty)
-                            const NoExistWidget('pedidos'),
-                          if (state.loading)
+                          if(state.loading)...[
                             const SizedBox(
                                 height: 400,
                                 child: MyShimmer.full(
                                   borderRadius: 10,
                                   margin: EdgeInsets.only(bottom: 20),
                                 )),
-                          if (!state.loading && state.orders.isNotEmpty)
-                            SizedBox(
-                              height: 500,
-                              child: Card(
-                                margin: const EdgeInsets.only(bottom: 20),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding:
-                                      const EdgeInsets.symmetric(horizontal: 15),
-                                      child: Column(
-                                        children: [
-                                          spacerS,
-                                          const Text(
-                                            'Pedidos',
-                                            style: AppTextStyle.h3Style,
-                                          ),
-                                          Text(
-                                              '${state.dataPedidosFiltrado!.rowCount} Total'),
-                                          // spacerM,
-                                        ],
-                                      ),
-                                    ),
-                                    spacerS,
-                                    Padding(
-                                      padding:
-                                      const EdgeInsets.symmetric(horizontal: 15),
-                                      child: MySearchInput(
-                                        hintText: 'Buscar por palabras claves...',
-                                        onChanged: cubit.filtroPedidos,
-                                      ),
-                                    ),
-                                    spacerS,
-                                    Expanded(
-                                      child: PaginatedDataTable2(
-                                        wrapInCard: false,
-                                        columnSpacing: 12,
-                                        horizontalMargin: 12,
-                                        empty: const NoResultTable(),
-                                        minWidth: 1000,
-                                        // smRatio: 0.5,
-                                        columns: const [
-                                          DataColumn2(
-                                            label: Text('N° DOCUMENTO'),
-                                            fixedWidth: 100,
-                                            // size: ColumnSize.L,
-                                          ),
-                                          DataColumn2(
-                                            label: Text('FECHA'),
-                                            fixedWidth: 80,
-                                            // size: ColumnSize.L,
-                                          ),
-                                          DataColumn2(
-                                            label: Text('CONTADOR'),
-                                            fixedWidth: 80,
-                                            // size: ColumnSize.L,
-                                          ),
-                                          DataColumn2(
-                                            label: Text('MODO DE ENTREGA'),
-                                            fixedWidth: 125,
-                                            // size: ColumnSize.L,
-                                          ),
-                                          DataColumn2(
-                                            label: Text('ALMACÉN'),
-                                            fixedWidth: 80,
-                                            // size: ColumnSize.L,
-                                          ),
-                                          DataColumn2(
-                                            label: Text('IMPORTE'),
-                                            fixedWidth: 100,
-                                            // size: ColumnSize.L,
-                                          ),
-                                          DataColumn2(
-                                            label: Text('ESTADO'),
-                                            fixedWidth: 200,
-                                            // size: ColumnSize.L,
-                                          ),
-                                        ],
-                                        source: state.dataPedidosFiltrado!,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                            spacerM,
+                          ]else...[
+                            if(state.orders.isEmpty)...[
+                              const NoExistWidget('pedidos',paddingTop: 40),
+                              spacerM,spacerM,
+                            ]else...[
+                              tablaPedidos(context: context, state: state),
+                            ],
+                          ],
+                          // if (!state.loading && state.orders.isEmpty)
+                          //   const NoExistWidget('pedidos'),
+                          // if (state.loading)
+                          //   const SizedBox(
+                          //       height: 400,
+                          //       child: MyShimmer.full(
+                          //         borderRadius: 10,
+                          //         margin: EdgeInsets.only(bottom: 20),
+                          //       )),
+                          // if (!state.loading && state.orders.isNotEmpty)
+                          //   SizedBox(
+                          //     height: 500,
+                          //     child: Card(
+                          //       margin: const EdgeInsets.only(bottom: 20),
+                          //       shape: RoundedRectangleBorder(
+                          //           borderRadius: BorderRadius.circular(10)),
+                          //       child: Column(
+                          //         crossAxisAlignment: CrossAxisAlignment.start,
+                          //         children: [
+                          //           Padding(
+                          //             padding:
+                          //             const EdgeInsets.symmetric(horizontal: 15),
+                          //             child: Column(
+                          //               children: [
+                          //                 spacerS,
+                          //                 const Text(
+                          //                   'Pedidos',
+                          //                   style: AppTextStyle.h3Style,
+                          //                 ),
+                          //                 Text(
+                          //                     '${state.dataPedidosFiltrado!.rowCount} Total'),
+                          //                 // spacerM,
+                          //               ],
+                          //             ),
+                          //           ),
+                          //           spacerS,
+                          //           Padding(
+                          //             padding:
+                          //             const EdgeInsets.symmetric(horizontal: 15),
+                          //             child: MySearchInput(
+                          //               hintText: 'Buscar por palabras claves...',
+                          //               onChanged: cubit.filtroPedidos,
+                          //             ),
+                          //           ),
+                          //           spacerS,
+                          //           Expanded(
+                          //             child: PaginatedDataTable2(
+                          //               wrapInCard: false,
+                          //               columnSpacing: 12,
+                          //               horizontalMargin: 12,
+                          //               empty: const NoResultTable(),
+                          //               minWidth: 1000,
+                          //               // smRatio: 0.5,
+                          //               columns: const [
+                          //                 DataColumn2(
+                          //                   label: Text('N° DOCUMENTO'),
+                          //                   fixedWidth: 100,
+                          //                   // size: ColumnSize.L,
+                          //                 ),
+                          //                 DataColumn2(
+                          //                   label: Text('FECHA'),
+                          //                   fixedWidth: 80,
+                          //                   // size: ColumnSize.L,
+                          //                 ),
+                          //                 DataColumn2(
+                          //                   label: Text('CONTADOR'),
+                          //                   fixedWidth: 80,
+                          //                   // size: ColumnSize.L,
+                          //                 ),
+                          //                 DataColumn2(
+                          //                   label: Text('MODO DE ENTREGA'),
+                          //                   fixedWidth: 125,
+                          //                   // size: ColumnSize.L,
+                          //                 ),
+                          //                 DataColumn2(
+                          //                   label: Text('ALMACÉN'),
+                          //                   fixedWidth: 80,
+                          //                   // size: ColumnSize.L,
+                          //                 ),
+                          //                 DataColumn2(
+                          //                   label: Text('IMPORTE'),
+                          //                   fixedWidth: 100,
+                          //                   // size: ColumnSize.L,
+                          //                 ),
+                          //                 DataColumn2(
+                          //                   label: Text('ESTADO'),
+                          //                   fixedWidth: 200,
+                          //                   // size: ColumnSize.L,
+                          //                 ),
+                          //               ],
+                          //               source: state.dataPedidosFiltrado!,
+                          //             ),
+                          //           ),
+                          //         ],
+                          //       ),
+                          //     ),
+                          //   ),
                         ],
                       ),
                     ),
@@ -177,6 +195,109 @@ class MyOrders extends StatelessWidget {
               );
             },
           );
+  }
+
+  Widget tablaPedidos({required BuildContext context,required MyOrdersState state}){
+    final cubit = context.read<MyOrdersCubit>();
+
+    double hSize = 350;
+    if(state.dataPedidosFiltrado!.rowCount <= 5){
+      if(state.dataPedidosFiltrado!.rowCount > 2){
+        hSize = hSize + (20 * state.dataPedidosFiltrado!.rowCount);
+      }
+    }else{
+      hSize = 500;
+    }
+
+    return SizedBox(
+      height: hSize,
+      child: Card(
+        margin: const EdgeInsets.only(bottom: 20),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding:
+              const EdgeInsets.symmetric(horizontal: 15),
+              child: Column(
+                children: [
+                  spacerS,
+                  const Text(
+                    'Pedidos',
+                    style: AppTextStyle.h3Style,
+                  ),
+                  Text(
+                      '${state.dataPedidosFiltrado!.rowCount} Total'),
+                  // spacerM,
+                ],
+              ),
+            ),
+            spacerS,
+            Padding(
+              padding:
+              const EdgeInsets.symmetric(horizontal: 15),
+              child: MySearchInput(
+                hintText: 'Buscar por palabras claves...',
+                onChanged: cubit.filtroPedidos,
+                fillColor: AppColor.blue50,
+                borderSideColor: AppColor.blue100,
+              ),
+            ),
+            spacerS,
+            Expanded(
+              child: PaginatedDataTable2(
+                wrapInCard: false,
+                columnSpacing: 12,
+                horizontalMargin: 12,
+                empty: const NoResultTable(),
+                minWidth: 1000,
+                rowsPerPage: state.dataPedidosFiltrado!.rowCount <= 10 ? state.dataPedidosFiltrado!.rowCount : 10,
+                columns: const [
+                  DataColumn2(
+                    label: Text('N° DOCUMENTO'),
+                    fixedWidth: 100,
+                    // size: ColumnSize.L,
+                  ),
+                  DataColumn2(
+                    label: Text('FECHA'),
+                    fixedWidth: 80,
+                    // size: ColumnSize.L,
+                  ),
+                  DataColumn2(
+                    label: Text('CONTADOR'),
+                    fixedWidth: 80,
+                    // size: ColumnSize.L,
+                  ),
+                  DataColumn2(
+                    label: Text('MODO DE ENTREGA'),
+                    fixedWidth: 125,
+                    // size: ColumnSize.L,
+                  ),
+                  DataColumn2(
+                    label: Text('ALMACÉN'),
+                    fixedWidth: 80,
+                    // size: ColumnSize.L,
+                  ),
+                  DataColumn2(
+                    label: Text('IMPORTE'),
+                    fixedWidth: 100,
+                    // size: ColumnSize.L,
+                  ),
+                  DataColumn2(
+                    label: Text('ESTADO'),
+                    fixedWidth: 200,
+                    // size: ColumnSize.L,
+                  ),
+                ],
+                source: state.dataPedidosFiltrado!,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   onTap(BuildContext context, Albaran albaran) {

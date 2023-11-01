@@ -65,8 +65,20 @@ class AlbaranDetailPage extends StatelessWidget {
                         spacerM,
                         Builder(builder: (context) {
                           final DataTableSource data = _MyData(state.details);
+
+                          if(state.details.isEmpty) return Container();
+
+                          double hSize = 300;
+                          if(data.rowCount <= 5){
+                            if(data.rowCount > 2){
+                              hSize = hSize + (20 * data.rowCount);
+                            }
+                          }else{
+                            hSize = 500;
+                          }
+
                           return SizedBox(
-                            height: 500,
+                            height: hSize,
                             child: Card(
                               margin: const EdgeInsets.only(bottom: 20),
                               shape: RoundedRectangleBorder(
@@ -96,7 +108,7 @@ class AlbaranDetailPage extends StatelessWidget {
                                       wrapInCard: false,
                                       minWidth: 1000,
                                       empty: const NoResultTable(),
-                                      // smRatio: 0.5,
+                                      rowsPerPage: data.rowCount <= 10 ? data.rowCount : 10,
                                       columns: const [
                                         DataColumn2(
                                           label: Text('CONTADOR'),
