@@ -10,6 +10,7 @@ import 'package:vemare/app/view/_components/no_result/no_result_table.dart';
 import 'package:vemare/app/view/_components/user_name/user_name.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/details_pmp/contract_pmp_detail.dart';
 import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
+import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/main.dart';
 
@@ -31,6 +32,7 @@ class PMP extends StatelessWidget {
           Container(
             padding: const EdgeInsets.fromLTRB(15, 25, 15, 0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text('Contratos PMP', style: AppTextStyle.h1Style),
                 const UserName(),
@@ -50,20 +52,30 @@ class PMP extends StatelessWidget {
                 //   ),
                 //   variant: MyButtonVariant.outlinedBold,
                 // ),
-                spacerL,
+                //spacerL,
                 BlocBuilder<MyContratsCubit, MyContratsState>(
                   builder: (context, state) {
-                    if (state.loading) {
-                      return const MyShimmer(
-                        margin: EdgeInsets.zero,
-                        height: 500,
-                        borderRadius: 12,
-                      );
-                    }
-                    if (state.pmp.isEmpty && !state.loading) {
-                      return const NoExistWidget('contratos');
-                    }
-                    return const _PMPCard();
+
+                    return Column(
+                      children: [
+                        if (state.loading)...[
+                          spacerL,
+                          const MyShimmer(
+                            margin: EdgeInsets.zero,
+                            height: 500,
+                            borderRadius: 12,
+                          )
+                        ]else...[
+                          if (state.pmp.isEmpty)...[
+                            const NoExistWidget('contratos'),
+                            spacerM,spacerM,spacerM,spacerM,
+                          ]else...[
+                            spacerL,
+                            const _PMPCard(),
+                          ]
+                        ]
+                      ],
+                    );
                   },
                 )
               ],
@@ -86,6 +98,16 @@ class _PMPCard extends StatelessWidget {
     final cubit = context.read<MyContratsCubit>();
     return BlocBuilder<MyContratsCubit, MyContratsState>(
       builder: (context, state) {
+
+        double hSize = 200;
+        if(state.dataPMPFiltrado!.rowCount <= 5){
+          if(state.dataPMPFiltrado!.rowCount > 2){
+            hSize = hSize + (20 * state.dataPMPFiltrado!.rowCount);
+          }
+        }else{
+          hSize = 500;
+        }
+
         return Card(
             margin: const EdgeInsets.only(bottom: 20),
             shape:
@@ -108,19 +130,21 @@ class _PMPCard extends StatelessWidget {
                       MySearchInput(
                         hintText: 'Buscar por palabras claves...',
                         onChanged: cubit.filtroPMP,
+                        fillColor: AppColor.blue50,
+                        borderSideColor: AppColor.blue100,
                       ),
                     ],
                   ),
                 ),
                 spacerS,
                 SizedBox(
-                  height: 500,
+                  height: hSize,
                   child: PaginatedDataTable2(
                     wrapInCard: false,
                     columnSpacing: 12,
                     horizontalMargin: 12, empty: const NoResultTable(),
                     minWidth: 700,
-                    // smRatio: 0.5,
+                    rowsPerPage: state.dataPMPFiltrado!.rowCount <= 10 ? state.dataPMPFiltrado!.rowCount : 10,
                     columns: const [
                       DataColumn2(
                         label: Text('CÓDIGO DOCUMENTO'),
@@ -156,28 +180,6 @@ class _PMPCard extends StatelessWidget {
                     source: state.dataPMPFiltrado!,
                   ),
                 ),
-                // if (!(state.pmp.firmado ?? false)) ...[
-                //   spacerS,
-                //   MyIconButton(
-                //     onPressed: () {
-                //       myDialogSignature(context,
-                //           sign: (name, nif, signature) async {
-                //         // await cubit.sign(
-                //         //   name: name,
-                //         //   nif: nif,
-                //         //   signature: signature,
-                //         // );
-                //       });
-                //     },
-                //     text: 'Firmar',
-                //     icon: Image.asset(
-                //       'assets/icons/firma.png',
-                //       scale: 2,
-                //       color: AppColor.primaryBlue,
-                //     ),
-                //     variant: MyButtonVariant.outlinedBold,
-                //   ),
-                // ]
               ],
             ));
       },

@@ -71,48 +71,52 @@ class Millennium extends StatelessWidget {
                           }),
                     ),
                     spacerM,
-                    if (state.loading)
+                    if (state.loading)...[
                       const MyShimmer(
                         margin: EdgeInsets.zero,
                         height: 500,
                         borderRadius: 12,
                       ),
-                    if (state.mill == null && !state.loading)
-                      const NoExistWidget('contratos'),
-                    if (state.mill != null && !state.loading)
-                      Column(
-                        children: [
-                          _ContractMillenium(state.mill!),
-                          if (state.mill?.serviciosContratados?.isNotEmpty ?? false)
-                            _HiredServices(),
-                          if (state.mill?.documentosFirmados?.isNotEmpty ?? false)
-                            _SignedDocuments(),
-                          spacerM,
-                          Visibility(
-                            visible: state.mill!.firmado == 'No',
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(15, 0, 15, 20),
-                              child: MyIconButton(
-                                onPressed: () {
-                                  myDialogSignature(context,
-                                      sign: (name, nif, signature) async {
-                                        await cubit.signMill(
-                                          name: name,
-                                          nif: nif,
-                                          signature: signature,
-                                        );
-                                      });
-                                },
-                                text: 'Firmar',
-                                icon: Image.asset(
-                                  'assets/icons/firma.png',
-                                  scale: 2,
+                    ]else...[
+                      if(state.mill == null)...[
+                        const NoExistWidget('contratos',paddingTop: 40),
+                        spacerM,spacerM,
+                      ]else...[
+                        Column(
+                          children: [
+                            _ContractMillenium(state.mill!),
+                            if (state.mill?.serviciosContratados?.isNotEmpty ?? false)
+                              _HiredServices(),
+                            if (state.mill?.documentosFirmados?.isNotEmpty ?? false)
+                              _SignedDocuments(),
+                            spacerM,
+                            Visibility(
+                              visible: state.mill!.firmado == 'No',
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(15, 0, 15, 20),
+                                child: MyIconButton(
+                                  onPressed: () {
+                                    myDialogSignature(context,
+                                        sign: (name, nif, signature) async {
+                                          await cubit.signMill(
+                                            name: name,
+                                            nif: nif,
+                                            signature: signature,
+                                          );
+                                        });
+                                  },
+                                  text: 'Firmar',
+                                  icon: Image.asset(
+                                    'assets/icons/firma.png',
+                                    scale: 2,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      )
+                          ],
+                        ),
+                      ],
+                    ],
                   ],
                 ),
               ),

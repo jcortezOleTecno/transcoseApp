@@ -73,46 +73,50 @@ class Rappels extends StatelessWidget {
                           }),
                     ),
                     spacerM,
-                    if (state.loading)
+                    if (state.loading)...[
                       const MyShimmer(
                         margin: EdgeInsets.zero,
                         height: 500,
                         borderRadius: 12,
                       ),
-                    if (state.rappel == null && !state.loading)
-                      const NoExistWidget('contratos'),
-                    if (state.rappel != null && !state.loading)
-                      Column(
-                        children: [
-                          _ContractRappel(state.rappel!),
-                          spacerM,
-                          if (state.rappel?.documentosFirmados?.isNotEmpty ?? false)
-                            _SignedDocuments(),
-                          Visibility(
-                            visible: state.rappel!.firmado == 'No',
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(15, 0, 15, 20),
-                              child: MyIconButton(
-                                onPressed: () {
-                                  myDialogSignature(context,
-                                      sign: (name, nif, signature) async {
-                                        await cubit.signRappel(
-                                          name: name,
-                                          nif: nif,
-                                          signature: signature,
-                                        );
-                                      });
-                                },
-                                text: 'Firmar',
-                                icon: Image.asset(
-                                  'assets/icons/firma.png',
-                                  scale: 2,
+                    ]else...[
+                      if(state.rappel == null)...[
+                        const NoExistWidget('contratos',paddingTop: 40),
+                        spacerM,spacerM,
+                      ]else...[
+                        Column(
+                          children: [
+                            _ContractRappel(state.rappel!),
+                            spacerM,
+                            if (state.rappel?.documentosFirmados?.isNotEmpty ?? false)
+                              _SignedDocuments(),
+                            Visibility(
+                              visible: state.rappel!.firmado == 'No',
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(15, 0, 15, 20),
+                                child: MyIconButton(
+                                  onPressed: () {
+                                    myDialogSignature(context,
+                                        sign: (name, nif, signature) async {
+                                          await cubit.signRappel(
+                                            name: name,
+                                            nif: nif,
+                                            signature: signature,
+                                          );
+                                        });
+                                  },
+                                  text: 'Firmar',
+                                  icon: Image.asset(
+                                    'assets/icons/firma.png',
+                                    scale: 2,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
+                          ],
+                        ),
+                      ],
+                    ],
                   ],
                 ),
               ),

@@ -90,8 +90,6 @@ class Conventions extends StatelessWidget {
                               _SignedDocuments()
                             ],
                           ],
-
-                          spacerM,
                         ],
                       ),
                     ),

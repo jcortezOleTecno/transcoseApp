@@ -13,6 +13,7 @@ import 'package:vemare/app/view/_components/no_result/no_result_table.dart';
 import 'package:vemare/app/view/_components/user_name/user_name.dart';
 import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
+import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/main.dart';
 
@@ -35,6 +36,7 @@ class CRD extends StatelessWidget {
           Container(
             padding: const EdgeInsets.fromLTRB(15, 25, 15, 0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text('Contratos CRD', style: AppTextStyle.h1Style),
                 const UserName(),
@@ -69,20 +71,30 @@ class CRD extends StatelessWidget {
                     return const SizedBox();
                   },
                 ),
-                spacerL,
+                //spacerL,
                 BlocBuilder<MyContratsCubit, MyContratsState>(
                   builder: (context, state) {
-                    if (state.loading) {
-                      return const MyShimmer(
-                        margin: EdgeInsets.zero,
-                        height: 500,
-                        borderRadius: 12,
-                      );
-                    }
-                    if (state.crd.isEmpty && !state.loading) {
-                      return const NoExistWidget('contratos');
-                    }
-                    return const _CRD();
+
+                    return Column(
+                      children: [
+                        if (state.loading)...[
+                          spacerL,
+                          const MyShimmer(
+                            margin: EdgeInsets.zero,
+                            height: 500,
+                            borderRadius: 12,
+                          )
+                        ]else...[
+                          if (state.crd.isEmpty)...[
+                            const NoExistWidget('contratos'),
+                            spacerM,spacerM,spacerM,spacerM,
+                          ]else...[
+                            spacerL,
+                            const _CRD(),
+                          ]
+                        ]
+                      ],
+                    );
                   },
                 )
               ],
@@ -106,6 +118,16 @@ class _CRD extends StatelessWidget {
 
     return BlocBuilder<MyContratsCubit, MyContratsState>(
       builder: (context, state) {
+
+        double hSize = 200;
+        if(state.dataCRDFiltrado!.rowCount <= 5){
+          if(state.dataCRDFiltrado!.rowCount > 2){
+            hSize = hSize + (20 * state.dataCRDFiltrado!.rowCount);
+          }
+        }else{
+          hSize = 500;
+        }
+
         return Card(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -128,20 +150,22 @@ class _CRD extends StatelessWidget {
                     MySearchInput(
                       hintText: 'Buscar por palabras claves...',
                       onChanged: cubit.filtroCRD,
+                      fillColor: AppColor.blue50,
+                      borderSideColor: AppColor.blue100,
                     ),
                   ],
                 ),
               ),
               spacerS,
               SizedBox(
-                height: 500,
+                height: hSize,
                 child: PaginatedDataTable2(
                   wrapInCard: false,
                   columnSpacing: 12,
                   horizontalMargin: 12,
                   minWidth: 850,
                   empty: const NoResultTable(),
-                  // smRatio: 0.5,
+                  rowsPerPage: state.dataCRDFiltrado!.rowCount <= 10 ? state.dataCRDFiltrado!.rowCount : 10,
                   columns: const [
                     DataColumn2(
                       label: Text('FECHA'),
