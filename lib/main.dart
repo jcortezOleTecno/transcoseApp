@@ -10,6 +10,7 @@ import 'package:vemare/app/data/about_us_repository.dart';
 import 'package:vemare/app/data/auth_repository.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/shared_preferences_static.dart';
+import 'package:vemare/app/providers/footer_provider.dart';
 import 'package:vemare/app/providers/url_state_provider.dart';
 import 'package:vemare/app/view/_components/no_scale_widget/no_scale_widget.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -52,6 +53,7 @@ class AppState extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(lazy: false,create: ( _ ) => UrlDynamicProvider()),
+        ChangeNotifierProvider(lazy: false,create: ( _ ) => FooterProvider()),
       ],
       child: const InitialApp(),
     );

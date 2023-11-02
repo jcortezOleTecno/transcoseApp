@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/data/shared_preferences_static.dart';
+import 'package:vemare/app/providers/footer_provider.dart';
 import 'package:vemare/app/providers/url_state_provider.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/theme/color.dart';
@@ -46,6 +47,7 @@ class _SplashInitialPageState extends State<SplashInitialPage> {
     if(BASE_API_URL.isNotEmpty){
       await Future.delayed(const Duration(seconds: 2));
       Provider.of<UrlDynamicProvider>(context,listen: false).finish();
+      Provider.of<FooterProvider>(context,listen: false).getDataFooter();
     }else{
       getData();
     }

@@ -31,4 +31,12 @@ class UrlDynamicRepository {
     );
     return res["url_data"] ?? '';
   }
+
+  Future<Map<String,dynamic>> getFooter() async {
+    final dynamic res = await apiClient.getRequest(
+        '$BASE_API_URL/api/footer-data',
+        customHeaders: allHeaders
+    );
+    return res ?? {};
+  }
 }

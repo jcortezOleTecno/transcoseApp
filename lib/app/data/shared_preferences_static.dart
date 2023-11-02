@@ -11,4 +11,7 @@ class SharedPreferencesLocal {
   static String get veraneUrlDynamic => prefs.getString("veraneUrlDynamic") ?? '';
   static set veraneUrlDynamic(String value) => prefs.setString("veraneUrlDynamic", value);
 
+  static String get veraneDataFooter => prefs.getString("veraneDataFooter") ?? '';
+  static set veraneDataFooter(String value) => prefs.setString("veraneDataFooter", value);
+
 }

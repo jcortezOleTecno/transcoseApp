@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/domain/widgets_utils/web_view_global.dart';
-import 'package:vemare/app/view/home/bloc/home_cubit.dart';
-import 'package:vemare/app/view/home/bloc/home_state.dart';
+import 'package:vemare/app/providers/footer_provider.dart';
 import 'package:vemare/app/view/home/home_page.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
@@ -29,11 +28,35 @@ class Footer extends StatelessWidget {
 
   Widget columnTop({required BuildContext context}){
 
+    FooterProvider footerProvider = Provider.of<FooterProvider>(context);
+
+    String urlFacebook = '';
+    String urLinstagram = '';
+    String urlYoutube = '';
+    String urlLinkedin = '';
+
+    String urlLocation = '';
+    String urlTelephone = '';
+    String urlEmail = '';
+
+    if(footerProvider.dataFooter.isNotEmpty && footerProvider.dataFooter.containsKey('redes')){
+      urlFacebook = footerProvider.dataFooter['facebook'] ?? 'https://www.facebook.com';
+      urLinstagram = footerProvider.dataFooter['instagram'] ?? 'https://www.instagram.com';
+      urlYoutube = footerProvider.dataFooter['youtube'] ?? 'https://www.youtube.com';
+      urlLinkedin = footerProvider.dataFooter['linkedin'] ?? 'https://www.linkedin.com';
+    }
+
+    if(footerProvider.dataFooter.isNotEmpty && footerProvider.dataFooter.containsKey('info')){
+      urlLocation = footerProvider.dataFooter['location'] ?? 'C/ Diesel, 32. 28906 - Getafe - Madrid';
+      urlTelephone = footerProvider.dataFooter['telephone'] ?? '91 649 60 20';
+      urlEmail = footerProvider.dataFooter['email'] ?? 'marketing@grupovemare.com';
+    }
+
     Map<int,String> urlMap = {
-      1 : 'https://www.facebook.com/grupovemare/',
-      2 : 'https://www.instagram.com/grupovemare/',
-      3 : 'https://www.youtube.com/@grupovemare7851',
-      5 : 'https://www.linkedin.com/company/grupo-vemare',
+      1 : urlFacebook,
+      2 : urLinstagram,
+      3 : urlYoutube,
+      5 : urlLinkedin,
     };
 
     return Container(
@@ -126,15 +149,15 @@ class Footer extends StatelessWidget {
             fit: BoxFit.contain,
           ),
           const SizedBox(height: 20),
-          const Text(
-            'C/ Diesel, 32. 28906 - Getafe - Madrid',
+          Text(
+            urlLocation,
             style: AppTextStyle.nunitoSansFooter,
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 20),
           InkWell(
             onTap: (){
-              launchUrlString('tel:91 649 60 20');
+              launchUrlString('tel:$urlTelephone');
             },
             child: Column(
               children: [
@@ -144,8 +167,8 @@ class Footer extends StatelessWidget {
                   fit: BoxFit.contain,
                 ),
                 const SizedBox(height: 20),
-                const Text(
-                  '91 649 60 20',
+                Text(
+                  urlTelephone,
                   style: AppTextStyle.nunitoSansFooter,
                   textAlign: TextAlign.center,
                 ),
@@ -155,7 +178,7 @@ class Footer extends StatelessWidget {
           ),
           InkWell(
             onTap: (){
-              String url = "mailto:vemare@grupovemare.com?subject=Contacto con Vemare";
+              String url = "mailto:$urlEmail?subject=Contacto con Vemare";
               launchUrlString(url, mode: LaunchMode.externalApplication);
             },
             child: Column(
@@ -166,8 +189,8 @@ class Footer extends StatelessWidget {
                   fit: BoxFit.contain,
                 ),
                 const SizedBox(height: 20),
-                const Text(
-                  'vemare@grupovemare.com',
+                Text(
+                  urlEmail,
                   style: AppTextStyle.nunitoSansFooter,
                   textAlign: TextAlign.center,
                 ),
