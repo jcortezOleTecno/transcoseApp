@@ -349,7 +349,7 @@ class ContratsRepository {
     );
   }
 
-  Future<List<ReturnsModel>> getMisDevoluciones({Filter? filter}) async {
+  Future<List<ReturnsModel>> getMisDevoluciones({FilterReturns? filter}) async {
     try {
       final dynamic res = await _apiClient.postRequest(
         '$BASE_API_URL/api/mi-cuenta/mis_devoluciones',

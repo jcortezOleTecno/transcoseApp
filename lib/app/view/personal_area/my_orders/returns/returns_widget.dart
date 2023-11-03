@@ -7,6 +7,7 @@ import 'package:vemare/app/domain/model/returns_model.dart';
 import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
+import 'package:vemare/app/view/_components/my_filters/my_filters_returns.dart';
 import 'package:vemare/app/view/_components/my_input/my_input_search.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
@@ -48,17 +49,24 @@ class ReturnsScreen extends StatelessWidget {
                             text: 'Nuevo pedido de devolución  ',
                             width: double.infinity,
                             disabled: false,
-                            childCenter: Icon(Icons.add_circle_outline_outlined,color: Colors.white,size: 20),
+                            childCenter: const Icon(Icons.add_circle_outline_outlined,color: Colors.white,size: 20),
                           ),
                           spacerS,spacerS,
                           MyIconButton(
                             onPressed: () {
-
+                              myFiltersReturns(context,filterReturns: provider.filter,
+                              listEstados: provider.listStatusReturns,listSituacion: provider.listSituaReturns).then((filter) {
+                                if (filter != null) {
+                                  provider.filterReturnsHttp(filterWidget: filter);
+                                }
+                              });
                             },
-                            text: provider.filter != null && provider.filter!.quantityFilter().isNotEmpty ? 'Modificar filtros' : 'Aplicar filtros',
+                            text: provider.filter.quantityFilter().isNotEmpty ? 'Modificar filtros' : 'Aplicar filtros',
                             icon: Image.asset( 'assets/icons/Filtro.png', scale: 2,),
                             variant: MyButtonVariant.outlinedBold,
                           ),
+                          spacerS,spacerS,
+                          filterAplicados(provider: provider),
                           if(provider.loadData)...[
                             spacerS,spacerS,
                             const SizedBox(
@@ -86,6 +94,49 @@ class ReturnsScreen extends StatelessWidget {
               );
             }
         )
+    );
+  }
+
+  Widget filterAplicados({required ReturnsProvider provider}){
+    return SizedBox(
+      width: double.infinity,
+      child: Container(
+        color: Colors.white,
+        padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Filtros aplicados (${provider.filter.quantityFilter().length})',),
+            if(provider.filter.quantityFilter().isNotEmpty)...[
+              for(int x = 0; x < provider.filter.quantityFilter().length; x++)
+                SizedBox(
+                  width: double.infinity,
+                  child: Row(
+                    children: [
+                      Text('${provider.filter.quantityFilter()[x]} :   ',style: AppTextStyle.checkStyle.copyWith(
+                          fontWeight: FontWeight.bold,color: AppColor.neutral
+                      )),
+                      Expanded(
+                        child: Text(provider.getDataFilter(value: provider.filter.quantityFilter()[x]),textAlign: TextAlign.left),
+                      ),
+                      InkWell(child: Container(
+                        padding: const EdgeInsets.all(5),
+                        child: Center(
+                          child: Text('X',style: AppTextStyle.checkStyle.copyWith(
+                            fontWeight: FontWeight.bold,color: AppColor.neutral
+                          )),
+                        ),),
+                      onTap: (){
+                        provider.setValueDataFilter(value: provider.filter.quantityFilter()[x]);
+                      },
+                      )
+                    ],
+                  ),
+                )
+            ],
+          ],
+        ),
+      ),
     );
   }
 

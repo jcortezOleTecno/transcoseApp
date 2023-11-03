@@ -49,3 +49,67 @@ class Filter {
     return result;
   }
 }
+
+class FilterReturns {
+  DateTime? startDate;
+  DateTime? endDate;
+  String? estado;
+  String? situacion;
+  String? referencia;
+  String? mes;
+  String? anio;
+  int? quarter;
+
+  FilterReturns({
+    this.startDate,
+    this.endDate,
+    this.estado,
+    this.situacion,
+    this.referencia,
+    this.mes,
+    this.anio,
+    this.quarter,
+  });
+
+  Map<String, dynamic> toJson() => {
+        "start_date": startDate != null ? '${startDate?.month}/${startDate?.day}/${startDate?.year}' : '',
+        "end_date": endDate != null ? '${endDate?.month}/${endDate?.day}/${endDate?.year}' : '',
+        "estado": estado ?? '',
+        "situacion": situacion ?? '',
+        "trimestre": quarter?.toString() ?? '',
+        "referencia": referencia?.toString() ?? '',
+        "mes": mes ?? '',
+        "anio": anio ?? '',
+      };
+
+  Map<String, dynamic> toJsonName() => {
+        "start_date": startDate != null ? '${startDate?.month}/${startDate?.day}/${startDate?.year}' : '',
+        "end_date": endDate != null ? '${endDate?.month}/${endDate?.day}/${endDate?.year}' : '',
+        "estado": estado ?? '',
+        "situacion": situacion ?? '',
+        "trimestre": quarter?.toString() ?? '',
+        "referencia": referencia?.toString() ?? '',
+        "mes": mes ?? '',
+        "anio": anio ?? '',
+      };
+
+  List<String> quantityFilter(){
+    List<String> result = [];
+
+    if(startDate != null && endDate != null){
+      result.add('Fecha desde hasta');
+    }else if(startDate != null){
+      result.add('Fecha desde');
+    }else if(endDate != null){
+      result.add('Fecha hasta');
+    }
+    if(mes != null && mes!.isNotEmpty) result.add('Por Mes');
+    if(anio != null && anio!.isNotEmpty) result.add('Por año');
+    if(quarter != null) result.add('Por trimestre');
+    if(estado != null && estado!.isNotEmpty) result.add('Por estado');
+    if(referencia != null && referencia!.isNotEmpty) result.add('Por referencia');
+    if(situacion != null && situacion!.isNotEmpty) result.add('Por situación');
+
+    return result;
+  }
+}

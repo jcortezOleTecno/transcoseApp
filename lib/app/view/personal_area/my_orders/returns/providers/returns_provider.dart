@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:vemare/app/data/contracts_repository.dart';
 import 'package:vemare/app/domain/model/contract_conventions.dart';
 import 'package:vemare/app/domain/model/filter.dart';
@@ -20,7 +21,7 @@ class ReturnsProvider with ChangeNotifier{
   bool get loadData => _loadData;
   set loadData(bool value){ _loadData = value; notifyListeners();}
 
-  Filter? filter;
+  FilterReturns filter = FilterReturns();
 
   List<ReturnsModel> listReturns = [];
   List<ReturnsStatusModel> listStatusReturns = [];
@@ -56,6 +57,58 @@ class ReturnsProvider with ChangeNotifier{
     }
 
     notifyListeners();
+  }
+
+  Future filterReturnsHttp({required FilterReturns filterWidget}) async{
+
+    loadData = true;
+
+    filter = filterWidget;
+
+    listReturns = await _contratsRepository.getMisDevoluciones(filter: filter);
+
+    dataPedidosFiltrado = MyDataReturns(data: listReturns);
+
+    notifyListeners();
+
+    loadData = false;
+  }
+
+  String getDataFilter({required String value}) {
+    String result = '';
+
+    if(value == 'Fecha desde hasta'){ result = '${DateFormat.yMd('es').format(filter.startDate!)} - ${DateFormat.yMd('es').format(filter.endDate!)}'; }
+    if(value == 'Fecha desde'){ result = DateFormat.yMd('es').format(filter.startDate!); }
+    if(value == 'Fecha hasta'){ result = DateFormat.yMd('es').format(filter.endDate!); }
+    if(value == 'Por Mes'){ result = filter.mes ?? ''; }
+    if(value == 'Por año'){ result = filter.anio ?? ''; }
+    if(value == 'Por trimestre'){ result = filter.quarter.toString(); }
+    if(value == 'Por referencia'){ result = filter.referencia ?? ''; }
+    if(value == 'Por situación'){ result = filter.situacion ?? ''; }
+
+    if(value == 'Por estado'){
+      for (var element in listStatusReturns) {
+        if(element.codigoEstado.toString() == filter.estado){
+          result = element.nombre!;
+        }
+      }
+    }
+
+    return result;
+  }
+
+  void setValueDataFilter({required String value}) {
+    if(value == 'Fecha desde hasta'){ filter.startDate = null; filter.endDate = null; }
+    if(value == 'Fecha desde'){ filter.startDate = null; }
+    if(value == 'Fecha hasta'){ filter.endDate = null; }
+    if(value == 'Por Mes'){ filter.mes = null; }
+    if(value == 'Por año'){ filter.anio = null; }
+    if(value == 'Por trimestre'){ filter.quarter = null; }
+    if(value == 'Por referencia'){ filter.referencia = null; }
+    if(value == 'Por situación'){ filter.situacion = null; }
+    if(value == 'Por estado'){ filter.estado = null; }
+    notifyListeners();
+    filterReturnsHttp(filterWidget: filter);
   }
 
 }
