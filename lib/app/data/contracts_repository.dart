@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:vemare/app/data/_api.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/domain/model/answer_with_filters.dart';
 import 'package:vemare/app/domain/model/contract_detail.dart';
@@ -14,6 +15,7 @@ import 'package:vemare/app/domain/model/contract_pmp_detail.dart';
 import 'package:vemare/app/domain/model/contrato_pmp.dart';
 import 'package:vemare/app/domain/model/contrato_rappel.dart';
 import 'package:vemare/app/domain/model/contrats.dart';
+import 'package:vemare/app/domain/model/returns_model.dart';
 
 import '../domain/model/contract_conventions.dart';
 import '../domain/model/filter.dart';
@@ -345,6 +347,44 @@ class ContratsRepository {
     await OpenFile.open(
       file.path,
     );
+  }
+
+  Future<List<ReturnsModel>> getMisDevoluciones({Filter? filter}) async {
+    try {
+      final dynamic res = await _apiClient.postRequest(
+        '$BASE_API_URL/api/mi-cuenta/mis_devoluciones',
+        body: filter?.toJson(),
+        customHeaders: allHeaders
+      );
+      return (res["data"] as List).map(ReturnsModel.fromJson).toList();
+    } catch (e) {
+      return [];
+    }
+  }
+
+  Future<List<ReturnsStatusModel>> getMisDevolucionesEstados() async {
+    try {
+      final dynamic res = await _apiClient.postRequest(
+        '$BASE_API_URL/api/mi-cuenta/mis_devoluciones/estados',
+        customHeaders: allHeaders
+      );
+      return (res["data"] as List).map(ReturnsStatusModel.fromJson).toList();
+    } catch (e) {
+      return [];
+    }
+  }
+
+  Future<List<String>> getMisDevolucionesSituaciones() async {
+    try {
+      final dynamic res = await _apiClient.postRequest(
+        '$BASE_API_URL/api/mi-cuenta/mis_devoluciones/situaciones',
+        customHeaders: allHeaders
+      );
+      return (res["situaciones"] as List).map((e) => e.toString()).toList();
+    } catch (e) {
+      log('message ${e.toString()}');
+      return [];
+    }
   }
 }
 

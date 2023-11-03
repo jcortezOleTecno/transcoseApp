@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vemare/app/data/my_account_repository.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/personal_area/my_orders/returns/returns_widget.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
@@ -31,12 +32,12 @@ class MyOrdersPage extends StatelessWidget {
     return Scaffold(
       body: MyBody(
         child: DefaultTabController(
-          length: 3,
+          length: 4,
           child: Column(
             children: const [
               spacerS,
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: EdgeInsets.symmetric(horizontal: 1),
                 child: TabBar(
                   isScrollable: false,
                   indicator: BoxDecoration(
@@ -50,14 +51,14 @@ class MyOrdersPage extends StatelessWidget {
                   indicatorWeight: 2.5,
                   indicatorSize: TabBarIndicatorSize.tab,
                   labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                  unselectedLabelStyle:
-                      TextStyle(fontWeight: FontWeight.normal),
+                  unselectedLabelStyle:TextStyle(fontWeight: FontWeight.normal),
                   unselectedLabelColor: AppColor.primaryBlue,
                   // physics: NeverScrollableScrollPhysics(),
                   tabs: [
                     Tab(text: 'Pedidos'),
                     Tab(text: 'Garantías'),
                     Tab(text: 'Abonos'),
+                    Tab(text: 'Devoluciones'),
                     // Tab(text: 'Devoluciones'),
                   ],
                 ),
@@ -75,7 +76,7 @@ class MyOrdersPage extends StatelessWidget {
                     MyOrders(),
                     MyWarranty(),
                     MyBills(),
-                    // ReturnsScreen(),
+                    ReturnsScreen(),
                   ],
                 ),
               ),

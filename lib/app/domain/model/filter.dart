@@ -33,4 +33,19 @@ class Filter {
         "estado_tramitacion": statusTram ?? '',
         "estado_sustitucion": statusSust ?? '',
       };
+
+  List<String> quantityFilter(){
+    List<String> result = [];
+
+    if(startDate != null) result.add('start_date');
+    if(endDate != null) result.add('end_date');
+    if(month != null && month!.isNotEmpty) result.add('mes');
+    if(year != null && year!.isNotEmpty) result.add('anio');
+    if(quarter != null) result.add('trimestre');
+    if(status != null && status!.isNotEmpty) result.add('estado');
+    if(statusTram != null && statusTram!.isNotEmpty) result.add('estado_tramitacion');
+    if(statusSust != null && statusSust!.isNotEmpty) result.add('estado_sustitucion');
+
+    return result;
+  }
 }
