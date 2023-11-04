@@ -14,6 +14,7 @@ import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/no_result/no_result_table.dart';
 import 'package:vemare/app/view/_components/user_name/user_name.dart';
 import 'package:vemare/app/view/personal_area/my_orders/returns/providers/returns_provider.dart';
+import 'package:vemare/app/view/personal_area/my_orders/returns/widgets/returns_details.dart';
 import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
@@ -26,7 +27,7 @@ class ReturnsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context1) => ReturnsProvider(getIt.get<ContratsRepository>()),
+        create: (context1) => ReturnsProvider(getIt.get<ContratsRepository>(),context),
         child: Consumer<ReturnsProvider>(
             builder: (context2, provider, child){
               return SingleChildScrollView(
@@ -252,8 +253,9 @@ class ReturnsScreen extends StatelessWidget {
 
 class MyDataReturns extends DataTableSource {
   final List<ReturnsModel> data;
+  final BuildContext context;
 
-  MyDataReturns({required this.data});
+  MyDataReturns({required this.data, required this.context});
 
   @override
   DataRow? getRow(int index) {
@@ -277,7 +279,10 @@ class MyDataReturns extends DataTableSource {
                 Expanded(
                   child: IconButton(
                       onPressed: () {
-
+                        Navigator.push(context, MaterialPageRoute(builder:
+                            (BuildContext context) => ReturnsDetails(
+                              codReturns: data[index].codigoDevolucion.toString(),
+                            )));
                       },
                       icon:
                       Image.asset('assets/icons/arrow_next.png', scale: 2)),
@@ -324,6 +329,7 @@ class StatusLabelReturnsWidget extends StatelessWidget {
       ),
       child: Text('• $status',
         style: AppTextStyle.inputLabelStyle.copyWith(color: colorText),
+        textAlign: TextAlign.center,
       ),
     );
   }

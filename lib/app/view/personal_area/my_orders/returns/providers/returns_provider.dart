@@ -1,21 +1,20 @@
-import 'dart:developer';
+// ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:vemare/app/data/contracts_repository.dart';
-import 'package:vemare/app/domain/model/contract_conventions.dart';
 import 'package:vemare/app/domain/model/filter.dart';
 import 'package:vemare/app/domain/model/returns_model.dart';
-import 'package:vemare/app/view/personal_area/my_contracts/page/conventions.dart';
 import 'package:vemare/app/view/personal_area/my_orders/returns/returns_widget.dart';
 
 class ReturnsProvider with ChangeNotifier{
 
-  ReturnsProvider(this._contratsRepository){
+  ReturnsProvider(this._contratsRepository,this.contextReturns){
     initialData();
   }
 
   final ContratsRepository _contratsRepository;
+  final BuildContext contextReturns;
 
   bool _loadData = true;
   bool get loadData => _loadData;
@@ -33,7 +32,7 @@ class ReturnsProvider with ChangeNotifier{
 
     listReturns = await _contratsRepository.getMisDevoluciones(filter: filter);
 
-    dataPedidosFiltrado = MyDataReturns(data: listReturns);
+    dataPedidosFiltrado = MyDataReturns(data: listReturns,context: contextReturns);
 
     listStatusReturns = await _contratsRepository.getMisDevolucionesEstados();
 
@@ -51,9 +50,9 @@ class ReturnsProvider with ChangeNotifier{
             .toFilter()
             .toLowerCase()
             .contains(value.trim().toLowerCase());
-      }).toList());
+      }).toList(),context: contextReturns);
     }else{
-      dataPedidosFiltrado = MyDataReturns(data: listReturns);
+      dataPedidosFiltrado = MyDataReturns(data: listReturns,context: contextReturns);
     }
 
     notifyListeners();
@@ -67,7 +66,7 @@ class ReturnsProvider with ChangeNotifier{
 
     listReturns = await _contratsRepository.getMisDevoluciones(filter: filter);
 
-    dataPedidosFiltrado = MyDataReturns(data: listReturns);
+    dataPedidosFiltrado = MyDataReturns(data: listReturns,context: contextReturns);
 
     notifyListeners();
 

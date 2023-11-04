@@ -386,6 +386,22 @@ class ContratsRepository {
       return [];
     }
   }
+
+  Future<Map<String,dynamic>> getDevolucionesDetails({required String code}) async {
+
+    Map<String,dynamic> data = {};
+    try {
+      final dynamic res = await _apiClient.postRequest(
+          '$BASE_API_URL/api/mi-cuenta/mis_devoluciones/detalles',
+          body: { 'codigo_devolucion' : code },
+          customHeaders: allHeaders
+      );
+      data['data'] = ReturnsModel.fromJson(res['data']);
+      data['items'] = (res["items"] as List).map(ReturnsItemsModel.fromJson).toList();
+    } catch (_) {}
+
+    return data;
+  }
 }
 
 String pdfBase64(String base64) {

@@ -7,10 +7,12 @@ class NoExistWidget extends StatelessWidget {
   const NoExistWidget(
     this.text, {
     this.paddingTop,
+    this.textLlong,
     Key? key,
   }) : super(key: key);
   final String text;
   final double? paddingTop;
+  final String? textLlong;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class NoExistWidget extends StatelessWidget {
       padding: EdgeInsets.only(top: paddingTop ?? 100),
       child: Center(
         child: Text(
-          'No tienes $text',
+          textLlong != null ? textLlong! : 'No tienes $text',
           style: AppTextStyle.h3Style,
         ),
       ),

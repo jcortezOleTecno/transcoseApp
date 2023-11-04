@@ -14,6 +14,8 @@ class ReturnsModel {
     this.cerradoEstado,
     this.almacenGestion,
     this.numLineas,
+    this.direccionRecogida,
+    this.notasRecogida,
   });
 
   int? codigoDevolucion;
@@ -28,6 +30,8 @@ class ReturnsModel {
   bool? cerradoEstado;
   String? almacenGestion;
   int? numLineas;
+  String? direccionRecogida;
+  String? notasRecogida;
 
   factory ReturnsModel.fromJson(dynamic json) => ReturnsModel(
     codigoDevolucion: json["codigo_devolucion"] as int?,
@@ -42,6 +46,8 @@ class ReturnsModel {
     cerradoEstado: json["cerrado_estado"] as bool?,
     almacenGestion: json["almacen_gestion"] as String?,
     numLineas: json["num_lineas"] as int?,
+    direccionRecogida: json["direccion_recogida"] as String?,
+    notasRecogida: json["notas_recogida"] as String?,
   );
 
   Map<String, dynamic> toJson() => {
@@ -57,6 +63,8 @@ class ReturnsModel {
     "cerrado_estado": cerradoEstado,
     "almacen_gestion": almacenGestion,
     "num_lineas": numLineas,
+    "direccion_recogida": direccionRecogida,
+    "notas_recogida": notasRecogida,
   };
 
   String toFilter() => {
@@ -72,6 +80,8 @@ class ReturnsModel {
     "cerrado_estado": cerradoEstado,
     "almacen_gestion": almacenGestion,
     "num_lineas": numLineas,
+    "direccion_recogida": direccionRecogida,
+    "notas_recogida": notasRecogida,
   }.toString();
 }
 
@@ -104,5 +114,30 @@ class ReturnsStatusModel {
     "color": color,
     "cerrado_estado": cerradoEstado,
     "orden": orden,
+  };
+}
+
+
+class ReturnsItemsModel {
+  ReturnsItemsModel({
+    this.referencia,
+    this.cantidad,
+    this.descripcion,
+  });
+
+  String? referencia;
+  int? cantidad;
+  String? descripcion;
+
+  factory ReturnsItemsModel.fromJson(dynamic json) => ReturnsItemsModel(
+    referencia: json["referencia"] as String?,
+    cantidad: json["cantidad"] as int?,
+    descripcion: json["descripcion"] as String?,
+  );
+
+  Map<String, dynamic> toJson() => {
+    "referencia": referencia,
+    "cantidad": cantidad,
+    "descripcion": descripcion,
   };
 }
