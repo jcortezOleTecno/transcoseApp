@@ -90,11 +90,14 @@ SUCCESS
     }
   }
 
-  Future<UserData> getUser() async {
-    final dynamic res = await apiClient.getRequest('$BASE_API_URL/api/user');
-    final user = UserData.fromJson(res['data']);
-    LocalDataRepository().user = user;
-    return user;
+  Future getUser() async {
+    try{
+      final dynamic res = await apiClient.getRequest('$BASE_API_URL/api/user');
+      final user = UserData.fromJson(res['data']);
+      LocalDataRepository().user = user;
+    }catch(e){
+      log(e.toString());
+    }
   }
 
   Future<String?> updateUser({

@@ -14,4 +14,7 @@ class SharedPreferencesLocal {
   static String get veraneDataFooter => prefs.getString("veraneDataFooter") ?? '';
   static set veraneDataFooter(String value) => prefs.setString("veraneDataFooter", value);
 
+  static bool get veraneDeleteUser => prefs.getBool("veraneDeleteUser") ?? false;
+  static set veraneDeleteUser(bool value) => prefs.setBool("veraneDeleteUser", value);
+
 }

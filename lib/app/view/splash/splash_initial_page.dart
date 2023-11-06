@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
+import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/shared_preferences_static.dart';
 import 'package:vemare/app/providers/footer_provider.dart';
 import 'package:vemare/app/providers/url_state_provider.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/shared/userbloc/user_cubit.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/theme.dart';
 
@@ -33,24 +35,41 @@ class _SplashInitialPageState extends State<SplashInitialPage> {
 
   Future getData() async{
 
-    BASE_API_URL = SharedPreferencesLocal.veraneUrlDynamic;
+    String url = await Provider.of<UrlDynamicProvider>(context,listen: false).getUrl();
+    if(url.isNotEmpty){
+      BASE_API_URL = url;
 
-    if(BASE_API_URL.isEmpty){
-      String url = await Provider.of<UrlDynamicProvider>(context,listen: false).getUrl();
-      if(url.isNotEmpty){
-        BASE_API_URL = url;
-        SharedPreferencesLocal.veraneUrlDynamic = BASE_API_URL;
-        setState(() {});
+      if(SharedPreferencesLocal.veraneUrlDynamic.isNotEmpty && SharedPreferencesLocal.veraneUrlDynamic != url){
+        SharedPreferencesLocal.veraneDeleteUser = true;
       }
-    }
 
-    if(BASE_API_URL.isNotEmpty){
-      await Future.delayed(const Duration(seconds: 2));
+      SharedPreferencesLocal.veraneUrlDynamic = BASE_API_URL;
+      setState(() {});
+      await Future.delayed(const Duration(milliseconds: 500));
       Provider.of<UrlDynamicProvider>(context,listen: false).finish();
       Provider.of<FooterProvider>(context,listen: false).getDataFooter();
     }else{
       getData();
     }
+
+    // BASE_API_URL = SharedPreferencesLocal.veraneUrlDynamic;
+    //
+    // if(BASE_API_URL.isEmpty){
+    //   String url = await Provider.of<UrlDynamicProvider>(context,listen: false).getUrl();
+    //   if(url.isNotEmpty){
+    //     BASE_API_URL = url;
+    //     SharedPreferencesLocal.veraneUrlDynamic = BASE_API_URL;
+    //     setState(() {});
+    //   }
+    // }
+    //
+    // if(BASE_API_URL.isNotEmpty){
+    //   await Future.delayed(const Duration(seconds: 2));
+    //   Provider.of<UrlDynamicProvider>(context,listen: false).finish();
+    //   Provider.of<FooterProvider>(context,listen: false).getDataFooter();
+    // }else{
+    //   getData();
+    // }
 
   }
 

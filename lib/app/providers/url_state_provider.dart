@@ -19,9 +19,11 @@ class UrlDynamicProvider extends ChangeNotifier {
       String totem = await getIt.get<UrlDynamicRepository>().getTotem() ?? '';
       log('totem: $totem');
       url = await getIt.get<UrlDynamicRepository>().getUrl(totem: totem) ?? '';
-      url = url.substring(0,(url.length - 1));
-      log('URL : $url');
+      if(url[url.length - 1] == '/' || url[url.length - 1] == '/'){
+        url = url.substring(0,(url.length - 1));
+      }
       //url = 'https://vemare.ole.agency';
+      log('URL : $url');
     }catch(_){}
     return url;
   }

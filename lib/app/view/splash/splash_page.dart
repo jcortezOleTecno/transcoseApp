@@ -1,12 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vemare/app/data/auth_repository.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
+import 'package:vemare/app/data/shared_preferences_static.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/home/home_page.dart';
 import 'package:vemare/app/view/login/login_page.dart';
+import 'package:vemare/app/view/shared/userbloc/user_cubit.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/config/service_locator.dart';
 
@@ -25,7 +28,16 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     final logged = LocalDataRepository().isLogged;
+
     Future.delayed(const Duration(milliseconds: 3500), () async {
+
+      if(SharedPreferencesLocal.veraneDeleteUser){
+        SharedPreferencesLocal.veraneDeleteUser = false;
+        context.read<UserCubit>().deleteUser();
+        LocalDataRepository().logOut();
+      }
+
+
       if (logged) {
         await getIt.get<AuthRepository>().getUser().then((_) {
           Navigator.pushReplacementNamed(context, HomePage.route);

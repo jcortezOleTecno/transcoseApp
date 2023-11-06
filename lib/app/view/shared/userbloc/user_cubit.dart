@@ -34,12 +34,13 @@ class UserCubit extends Cubit<UserState> {
           firstName: userData.name,
           lastName: userData.lastname,
           id: userData.id);
+
+      emit(state.copyWith(
+        employees: [user, ...employees],
+        enterprises: enterprises,
+      ));
     }
 
-    emit(state.copyWith(
-      employees: [user!, ...employees],
-      enterprises: enterprises,
-    ));
   }
 
   Future<void> getUser() async {
