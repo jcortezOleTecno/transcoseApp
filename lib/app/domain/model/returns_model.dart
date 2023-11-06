@@ -140,4 +140,10 @@ class ReturnsItemsModel {
     "cantidad": cantidad,
     "descripcion": descripcion,
   };
+
+  String toFilter() => {
+    "referencia": referencia,
+    "cantidad": cantidad,
+    "descripcion": descripcion,
+  }.toString();
 }

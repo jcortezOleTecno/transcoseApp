@@ -43,4 +43,20 @@ class ReturnsDetailsProvider with ChangeNotifier{
     notifyListeners();
   }
 
+  void filtroReturns(String? value) {
+
+    if(value != null && value.isNotEmpty){
+      dataTable = MyDataReturnsMerchandise(listReturnsItems.where((element){
+        return element
+            .toFilter()
+            .toLowerCase()
+            .contains(value.trim().toLowerCase());
+      }).toList());
+    }else{
+      dataTable = MyDataReturnsMerchandise(listReturnsItems);
+    }
+
+    notifyListeners();
+  }
+
 }

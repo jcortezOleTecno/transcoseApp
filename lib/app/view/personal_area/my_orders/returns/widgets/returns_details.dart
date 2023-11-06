@@ -1,26 +1,19 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:vemare/app/data/contracts_repository.dart';
 import 'package:vemare/app/domain/model/returns_model.dart';
 import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
-import 'package:vemare/app/view/_components/my_button/my_button.dart';
-import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
-import 'package:vemare/app/view/_components/my_filters/my_filters_returns.dart';
 import 'package:vemare/app/view/_components/my_input/my_input.dart';
 import 'package:vemare/app/view/_components/my_input/my_input_search.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/no_result/no_result_table.dart';
-import 'package:vemare/app/view/_components/user_name/user_name.dart';
 import 'package:vemare/app/view/personal_area/my_orders/returns/providers/returns_details_provider.dart';
-import 'package:vemare/app/view/personal_area/my_orders/returns/providers/returns_provider.dart';
 import 'package:vemare/app/view/personal_area/my_orders/returns/returns_widget.dart';
 import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
-import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
@@ -181,13 +174,13 @@ class ReturnsDetails extends StatelessWidget {
   Widget merchandiseReturns ({required ReturnsDetailsProvider provider}){
 
     double hSize = 350;
-    // if(provider.dataTable!.rowCount <= 5){
-    //   if(provider.dataTable!.rowCount > 2){
-    //     hSize = hSize + (20 * provider.dataTable!.rowCount);
-    //   }
-    // }else{
-    //   hSize = 500;
-    // }
+    if(provider.dataTable!.rowCount <= 5){
+      if(provider.dataTable!.rowCount > 2){
+        hSize = hSize + (20 * provider.dataTable!.rowCount);
+      }
+    }else{
+      hSize = 500;
+    }
 
     return SizedBox(
       height: hSize,
@@ -214,7 +207,7 @@ class ReturnsDetails extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: MySearchInput(
                 hintText: 'Buscar por palabras claves...',
-                onChanged: (value){},
+                onChanged: provider.filtroReturns,
                 fillColor: AppColor.blue50,
                 borderSideColor: AppColor.blue100,
               ),
