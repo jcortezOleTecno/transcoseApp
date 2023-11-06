@@ -7,6 +7,7 @@ import 'package:vemare/app/view/personal_area/my_orders/returns/returns_widget.d
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
+import 'package:vemare/main.dart';
 
 import 'bloc/my_orders_cubit.dart';
 import 'orders_and_bills/bills_widget.dart';
@@ -32,7 +33,7 @@ class MyOrdersPage extends StatelessWidget {
     return Scaffold(
       body: MyBody(
         child: DefaultTabController(
-          length: 4,
+          length: isReturns ? 4 : 3,
           child: Column(
             children: const [
               spacerS,
@@ -58,7 +59,9 @@ class MyOrdersPage extends StatelessWidget {
                     Tab(text: 'Pedidos'),
                     Tab(text: 'Garantías'),
                     Tab(text: 'Abonos'),
-                    Tab(text: 'Devoluciones'),
+                    if(isReturns)...[
+                      Tab(text: 'Devoluciones'),
+                    ]
                     // Tab(text: 'Devoluciones'),
                   ],
                 ),
@@ -76,7 +79,9 @@ class MyOrdersPage extends StatelessWidget {
                     MyOrders(),
                     MyWarranty(),
                     MyBills(),
-                    ReturnsScreen(),
+                    if(isReturns)...[
+                      ReturnsScreen(),
+                    ],
                   ],
                 ),
               ),
