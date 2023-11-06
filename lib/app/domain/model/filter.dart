@@ -72,26 +72,26 @@ class FilterReturns {
   });
 
   Map<String, dynamic> toJson() => {
-        "start_date": startDate != null ? '${startDate?.month}/${startDate?.day}/${startDate?.year}' : '',
-        "end_date": endDate != null ? '${endDate?.month}/${endDate?.day}/${endDate?.year}' : '',
-        "estado": estado ?? '',
-        "situacion": situacion ?? '',
-        "trimestre": quarter?.toString() ?? '',
-        "referencia": referencia?.toString() ?? '',
-        "mes": mes ?? '',
-        "anio": anio ?? '',
-      };
+    "start_date": startDate != null ? '${startDate?.month}/${startDate?.day}/${startDate?.year}' : '',
+    "end_date": endDate != null ? '${endDate?.month}/${endDate?.day}/${endDate?.year}' : '',
+    "estado": estado ?? '',
+    "situacion": situacion ?? '',
+    "trimestre": quarter?.toString() ?? '',
+    "referencia": referencia?.toString() ?? '',
+    "mes": mes ?? '',
+    "anio": anio ?? '',
+  };
 
   Map<String, dynamic> toJsonName() => {
-        "start_date": startDate != null ? '${startDate?.month}/${startDate?.day}/${startDate?.year}' : '',
-        "end_date": endDate != null ? '${endDate?.month}/${endDate?.day}/${endDate?.year}' : '',
-        "estado": estado ?? '',
-        "situacion": situacion ?? '',
-        "trimestre": quarter?.toString() ?? '',
-        "referencia": referencia?.toString() ?? '',
-        "mes": mes ?? '',
-        "anio": anio ?? '',
-      };
+    "start_date": startDate != null ? '${startDate?.month}/${startDate?.day}/${startDate?.year}' : '',
+    "end_date": endDate != null ? '${endDate?.month}/${endDate?.day}/${endDate?.year}' : '',
+    "estado": estado ?? '',
+    "situacion": situacion ?? '',
+    "trimestre": quarter?.toString() ?? '',
+    "referencia": referencia?.toString() ?? '',
+    "mes": mes ?? '',
+    "anio": anio ?? '',
+  };
 
   List<String> quantityFilter(){
     List<String> result = [];
@@ -109,6 +109,65 @@ class FilterReturns {
     if(estado != null && estado!.isNotEmpty) result.add('Por estado');
     if(referencia != null && referencia!.isNotEmpty) result.add('Por referencia');
     if(situacion != null && situacion!.isNotEmpty) result.add('Por situación');
+
+    return result;
+  }
+}
+
+class FilterReturnsNew {
+  DateTime? startDate;
+  DateTime? endDate;
+  String? albaran;
+  String? referencia;
+  String? mes;
+  String? anio;
+  int? quarter;
+
+  FilterReturnsNew({
+    this.startDate,
+    this.endDate,
+    this.mes,
+    this.anio,
+    this.quarter,
+    this.albaran,
+    this.referencia,
+  });
+
+  Map<String, dynamic> toJson() => {
+    "start_date": startDate != null ? '${startDate?.month}/${startDate?.day}/${startDate?.year}' : '',
+    "end_date": endDate != null ? '${endDate?.month}/${endDate?.day}/${endDate?.year}' : '',
+    "albaran": albaran ?? '',
+    "trimestre": quarter?.toString() ?? '',
+    "referencia": referencia?.toString() ?? '',
+    "mes": mes ?? '',
+    "anio": anio ?? '',
+  };
+
+  Map<String, dynamic> toJsonName() => {
+    "start_date": startDate != null ? '${startDate?.month}/${startDate?.day}/${startDate?.year}' : '',
+    "end_date": endDate != null ? '${endDate?.month}/${endDate?.day}/${endDate?.year}' : '',
+    "albaran": albaran ?? '',
+    "trimestre": quarter?.toString() ?? '',
+    "referencia": referencia?.toString() ?? '',
+    "mes": mes ?? '',
+    "anio": anio ?? '',
+  };
+
+  List<String> quantityFilter(){
+    List<String> result = [];
+
+    if(startDate != null && endDate != null){
+      result.add('Fecha desde hasta');
+    }else if(startDate != null){
+      result.add('Fecha desde');
+    }else if(endDate != null){
+      result.add('Fecha hasta');
+    }
+    if(mes != null && mes!.isNotEmpty) result.add('Por Mes');
+    if(anio != null && anio!.isNotEmpty) result.add('Por año');
+    if(quarter != null) result.add('Por trimestre');
+    if(albaran != null && albaran!.isNotEmpty) result.add('Por albaran');
+    if(referencia != null && referencia!.isNotEmpty) result.add('Por referencia');
 
     return result;
   }

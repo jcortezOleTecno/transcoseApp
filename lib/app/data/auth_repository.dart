@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:vemare/app/data/_api_classes.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
+import 'package:vemare/app/data/shared_preferences_static.dart';
 import 'package:vemare/app/domain/model/employee.dart';
 import 'package:vemare/app/domain/model/enterprise.dart';
 import 'package:vemare/app/domain/model/user_data.dart';
@@ -90,14 +91,16 @@ SUCCESS
     }
   }
 
-  Future getUser() async {
+  Future<UserData?> getUser() async {
+    UserData? user;
     try{
       final dynamic res = await apiClient.getRequest('$BASE_API_URL/api/user');
-      final user = UserData.fromJson(res['data']);
+      user = UserData.fromJson(res['data']);
       LocalDataRepository().user = user;
     }catch(e){
       log(e.toString());
     }
+    return user;
   }
 
   Future<String?> updateUser({
@@ -112,20 +115,24 @@ SUCCESS
     String? province,
     String? postalCode,
   }) async {
-    String fileName = 'logo.png';
+    String fileName = 'logo22.png';
     var token = LocalDataRepository().authToken;
+
+    MultipartFile? multipartFile;
+    if(logo != null){
+      multipartFile = await MultipartFile.fromFile(
+        logo.path,
+        filename: fileName,
+      );
+    }
+
     Response res = await Dio().post('$BASE_API_URL/api/user/update',
         options: Options(headers: {
           'Authorization': 'Bearer $token',
           'Accept': 'application/json',
         }),
         data: FormData.fromMap({
-          "logo": logo != null
-              ? await MultipartFile.fromFile(
-                  logo.path,
-                  filename: fileName,
-                )
-              : "",
+          "logo": logo != null ? multipartFile : "",
           "name": name ?? "",
           "email": email ?? "",
           "code": code ?? "",
@@ -147,7 +154,7 @@ SUCCESS
   //   return (res as List).map((e) => e["value"] as String).toList();
   // }
 
-  Future<VemareContacts> getVemareContacts() async {
+  Future<VemareContacts?> getVemareContacts() async {
 
     log('BASE_API_URL : $BASE_API_URL');
     VemareContacts? vemareContacts;
@@ -159,7 +166,7 @@ SUCCESS
     }catch(e){
       log(e.toString());
     }
-    return vemareContacts!;
+    return vemareContacts;
   }
 
   Future<bool> deleteUser() async {

@@ -19,7 +19,7 @@ class ImageUtil {
     // allow = false;
 
     final pickedFile = await ImagePicker()
-        .pickImage(source: source, imageQuality: compressQuality);
+        .pickImage(source: source, imageQuality: compressQuality,maxHeight: 500,maxWidth: 500,);
 
     if (pickedFile == null) {
       // allow = true;

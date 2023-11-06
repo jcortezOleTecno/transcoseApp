@@ -15,6 +15,7 @@ import 'package:vemare/app/view/_components/no_result/no_result_table.dart';
 import 'package:vemare/app/view/_components/user_name/user_name.dart';
 import 'package:vemare/app/view/personal_area/my_orders/returns/providers/returns_provider.dart';
 import 'package:vemare/app/view/personal_area/my_orders/returns/widgets/returns_details.dart';
+import 'package:vemare/app/view/personal_area/my_orders/returns/widgets/returns_new_orders.dart';
 import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
@@ -45,7 +46,8 @@ class ReturnsScreen extends StatelessWidget {
                           spacerS,
                           MyButton(
                             onPressed: () {
-
+                              Navigator.push(context, MaterialPageRoute(builder:
+                                  (BuildContext context) => const ReturnsNewOrdersScreen()));
                             },
                             text: 'Nuevo pedido de devolución  ',
                             width: double.infinity,
