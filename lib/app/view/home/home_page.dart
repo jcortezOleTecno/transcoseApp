@@ -230,28 +230,29 @@ class _PageA extends StatelessWidget {
           child: BlocBuilder<HomeCubit, HomeState>(
             builder: (context, state) {
               return Column(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          // Spacer(),
-                          const MySpacer(height: 280),
-                          Container(
-                            margin: const EdgeInsets.only(left: 5),
-                            child: Text(
-                              '¡Bienvenido${LocalDataRepository().isLogged ? ', ${LocalDataRepository().user?.name ?? ''}!' : '!'}',
-                              style: AppTextStyle.homeStyle.copyWith(
-                                color: Colors.white60,fontSize: 22
-                              ),
-                            ),
-                          ),
-                          spacerM,
-                        ],
-                      ),
-                    ),
-                  ),
+                  // Expanded(
+                  //   child: SingleChildScrollView(
+                  //     child: Column(
+                  //       crossAxisAlignment: CrossAxisAlignment.stretch,
+                  //       children: [
+                  //         // Spacer(),
+                  //         const MySpacer(height: 280),
+                  //         Container(
+                  //           margin: const EdgeInsets.only(left: 5),
+                  //           child: Text(
+                  //             '¡Bienvenido${LocalDataRepository().isLogged ? ', ${LocalDataRepository().user?.name ?? ''}!' : '!'}',
+                  //             style: AppTextStyle.homeStyle.copyWith(
+                  //               color: Colors.white60,fontSize: 22
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         spacerM,
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
                   MyIconButton(
                     onPressed: () => cubit.openWhatsApp(
                         phone: state.heroButtons?.whatsapp ?? ''),
@@ -512,7 +513,16 @@ class _BackgroundState extends State<_Background> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              //const MySpacer(height: 300),
+                              Container(
+                                margin: const EdgeInsets.only(left: 5),
+                                child: Text(
+                                  '¡Bienvenido${LocalDataRepository().isLogged ? ', ${LocalDataRepository().user?.name ?? ''}!' : '!'}',
+                                  style: AppTextStyle.homeStyle.copyWith(
+                                      color: Colors.white60,fontSize: 22
+                                  ),
+                                ),
+                              ),
+                              const MySpacer(height: 10),
                               Container(
                                 margin: const EdgeInsets.only(left: 5),
                                 child: Text(
