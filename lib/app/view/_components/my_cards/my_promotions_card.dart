@@ -13,6 +13,8 @@ class MySingleCard extends StatelessWidget {
     this.isHtml = true,
     this.iconFormation,
     this.onTap,
+    this.maxLines,
+    this.styleTitle = AppTextStyle.linkStyle,
     Key? key,
   }) : super(key: key);
 
@@ -23,16 +25,24 @@ class MySingleCard extends StatelessWidget {
   final String title;
   final String content;
   final bool isHtml;
+  final int? maxLines;
+  final TextStyle styleTitle;
 
   @override
   Widget build(BuildContext context) {
+
+    String description = content;
+    if(content.split('</p><p>').length > 1){
+      description = '${content.split('</p><p>')[0]}</p>';
+    }
+
+
     return GestureDetector(
       onTap: onTap,
       child: Card(
-          margin:
-              margin ?? const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+          margin: margin ?? const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
           child: Padding(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 5),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -50,9 +60,11 @@ class MySingleCard extends StatelessWidget {
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       if (iconFormation != null)
                         Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 5),
                           decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             color: AppColor.blue100,
@@ -61,17 +73,20 @@ class MySingleCard extends StatelessWidget {
                           width: 40,
                           child: iconFormation,
                         ),
-                      spacerXs,
-                      Text(
-                        title,
-                        style: AppTextStyle.linkStyle,
+                      spacerXs,spacerXs,
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 5),
+                        child: Text(
+                          title,
+                          style: styleTitle
+                        ),
                       ),
-                      spacerXs,
                       isHtml
-                          ? MyHtml(text: content, bodyFontSize: 22)
+                          ? MyHtml(text: description, bodyFontSize: 18,maxLines: maxLines,)
                           : Text(
-                              content,
+                              description,
                               style: AppTextStyle.contentCard,
+                              maxLines: maxLines,
                             )
                     ],
                   ),

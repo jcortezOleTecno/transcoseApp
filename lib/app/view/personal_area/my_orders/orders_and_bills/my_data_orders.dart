@@ -35,7 +35,7 @@ class MyDataOrders extends DataTableSource {
           DataCell(
             Row(
               children: [
-                StatusLabelWidget(data[index].facturado == 'FACTURADO'),
+                StatusLabelWidget(data[index].facturado!.replaceAll(' ', '') == 'FACTURADO'),
                 spacerS,
                 ExpeditionButton(data[index]),
                 spacerS,

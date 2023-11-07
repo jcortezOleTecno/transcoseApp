@@ -77,7 +77,7 @@ class ServiceGeneralPage extends StatelessWidget {
                                       const ErrorIconWidget(),
                                       spacerM,
                                       Text(
-                                        'Recomendamos el uso de esta herramienta mediante una PC',
+                                        'Recomendamos el uso de esta herramienta desde un PC',
                                         // 'Accede a AD360° a travez del sitio web',
                                         textAlign: TextAlign.center,
                                         style: AppTextStyle.nunitoSans800

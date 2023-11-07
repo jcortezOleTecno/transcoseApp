@@ -61,7 +61,7 @@ class CardProducts extends StatelessWidget {
                       Text(
                         content,
                         style: AppTextStyle.contentCard,
-                        maxLines: 5,
+                        maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                       )
                     ],

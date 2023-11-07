@@ -351,13 +351,18 @@ class _Menu extends StatelessWidget {
                 _MenuItem(
                   title: 'Promociones',
                   onTap: () {
-                    if (ModalRoute.of(context)!.settings.name !=
-                        PromotionsPage.route) {
+                    if(!LocalDataRepository().isLogged){
                       Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        PromotionsPage.route,
-                        ModalRoute.withName(HomePage.route),
-                      );
+                          ctx, LoginPage.route, (route) => false);
+                    }else{
+                      if (ModalRoute.of(context)!.settings.name !=
+                          PromotionsPage.route) {
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          PromotionsPage.route,
+                          ModalRoute.withName(HomePage.route),
+                        );
+                      }
                     }
                     cubit.toggleMenu();
                   },

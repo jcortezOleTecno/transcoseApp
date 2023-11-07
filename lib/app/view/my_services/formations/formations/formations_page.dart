@@ -52,9 +52,8 @@ class FormationsPage extends StatelessWidget {
                   children: [
                     const Text('Formaciones Vemare',
                         style: AppTextStyle.h1Style),
-                    const Text(
-                        'Consulta las formaciones disponibles para los profesionales de la reparación: electromecánica, diagnosis, carrocería, gestión comercial...',
-                        style: AppTextStyle.defaultStyle),
+                    Text('Consulta las formaciones disponibles para los profesionales de la reparación: electromecánica, diagnosis, carrocería, gestión comercial...',
+                        style: AppTextStyle.defaultStyle.copyWith(fontSize: 18)),
                     spacerXL,
                     BlocBuilder<FormationsCubit, FormationsState>(
                       builder: (context, state) {
@@ -77,6 +76,8 @@ class FormationsPage extends StatelessWidget {
                                   title: e.title ?? '',
                                   content: e.description ?? '',
                                   margin: const EdgeInsets.only(bottom: 15),
+                                  maxLines: 3,
+                                  styleTitle: AppTextStyle.linkStyle.copyWith(fontSize: 20),
                                   onTap: () {
                                     if (e.type == 'ONLINE') {
                                       launchUrlString(
@@ -93,8 +94,7 @@ class FormationsPage extends StatelessWidget {
                                         Navigator.pushNamed(
                                           context,
                                           LoginPage.route,
-                                          arguments:
-                                              'Inicia sesión para conocer más detalles de esta formación',
+                                          arguments: 'Inicia sesión para conocer más detalles de esta formación',
                                         ).then((_) {
                                           if (LocalDataRepository().isLogged) {
                                             Navigator.pushNamed(

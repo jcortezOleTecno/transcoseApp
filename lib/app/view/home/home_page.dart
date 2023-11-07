@@ -8,7 +8,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:nested_scroll_views/material.dart';
-import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/data/brands_repository.dart';
 import 'package:vemare/app/data/header_repository.dart';
 import 'package:vemare/app/data/home_repository.dart';
@@ -21,7 +20,6 @@ import 'package:vemare/app/data/work_with_us_repository.dart';
 import 'package:vemare/app/data/workshops_repository.dart';
 import 'package:vemare/app/domain/utils/validators.dart';
 import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
-import 'package:vemare/app/domain/widgets_utils/web_view_global.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
@@ -239,10 +237,15 @@ class _PageA extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           // Spacer(),
-                          const MySpacer(height: 200),
-                          Text(
-                            '¡Bienvenido${LocalDataRepository().isLogged ? ', ${LocalDataRepository().user?.name ?? ''}!' : '!'}',
-                            style: AppTextStyle.homeStyle,
+                          const MySpacer(height: 280),
+                          Container(
+                            margin: const EdgeInsets.only(left: 5),
+                            child: Text(
+                              '¡Bienvenido${LocalDataRepository().isLogged ? ', ${LocalDataRepository().user?.name ?? ''}!' : '!'}',
+                              style: AppTextStyle.homeStyle.copyWith(
+                                color: Colors.white60,fontSize: 22
+                              ),
+                            ),
                           ),
                           spacerM,
                         ],
@@ -488,18 +491,12 @@ class _BackgroundState extends State<_Background> {
                 itemHeight: 100, // size.height,
                 itemWidth: size.width,
                 autoplay: true,
-                autoplayDelay: 3000,
+                autoplayDelay: 8000,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, i) {
                   return Stack(
                     children: [
                       SizedBox(
-                        /*decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(state.hero[i].image ?? ''),
-                            fit: BoxFit.cover,
-                          ),
-                        ),*/
                         width: size.width,
                         height: size.height - 80,
                         child: MyNetworkImage(
@@ -513,19 +510,23 @@ class _BackgroundState extends State<_Background> {
                           padding: const EdgeInsets.symmetric(horizontal: 15),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              const MySpacer(height: 250),
-                              Text(
-                                state.hero[i].title ?? '',
-                                style: AppTextStyle.h1Style.copyWith(
-                                    color: AppColor.white, fontSize: 58),
+                              //const MySpacer(height: 300),
+                              Container(
+                                margin: const EdgeInsets.only(left: 5),
+                                child: Text(
+                                  state.hero[i].title ?? '',
+                                  style: AppTextStyle.h1Style.copyWith(
+                                      color: AppColor.white, fontSize: 58),
+                                ),
                               ),
-                              spacerS,
                               MyHtml(
                                 text: state.hero[i].description ?? '',
-                                bodyFontSize: 20,
-                                color: Colors.white,
+                                bodyFontSize: 22,
+                                color: Colors.white60,
                               ),
+                              const MySpacer(height: 170),
                             ],
                           ),
                         )
@@ -1075,7 +1076,7 @@ class _Promociones extends StatelessWidget {
               );
             }
             return SizedBox(
-              height: 150,
+              height: 140,
               child: PageView.builder(
                 itemCount: state.promotions.length,
                 controller:
@@ -1083,18 +1084,24 @@ class _Promociones extends StatelessWidget {
                 itemBuilder: (context, i) => MySingleCard(
                   title: state.promotions[i].name ?? '',
                   isHtml: false,
+                  maxLines: 3,
                   content: state.promotions[i].subtitle ?? '',
                   icon: Image.network(
                     state.promotions[i].image ?? '',
                   ),
                   onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      PromotionPage.route,
-                      arguments: SearchArgs(
-                        category: state.promotions[i],
-                      ),
-                    );
+                    if(!LocalDataRepository().isLogged){
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, LoginPage.route, (route) => false);
+                    }else{
+                      Navigator.pushNamed(
+                        context,
+                        PromotionPage.route,
+                        arguments: SearchArgs(
+                          category: state.promotions[i],
+                        ),
+                      );
+                    }
                   },
                 ),
               ),
@@ -1105,7 +1112,12 @@ class _Promociones extends StatelessWidget {
         Center(
           child: TextButton.icon(
             onPressed: () {
-              Navigator.pushNamed(context, PromotionsPage.route);
+              if(!LocalDataRepository().isLogged){
+                Navigator.pushNamedAndRemoveUntil(
+                    context, LoginPage.route, (route) => false);
+              }else{
+                Navigator.pushNamed(context, PromotionsPage.route);
+              }
             },
             label: Image.asset(
               'assets/icons/arrow_next.png',
@@ -1157,8 +1169,7 @@ class _ProductsVemare extends StatelessWidget {
               }
               return PageView.builder(
                 itemCount: state.products.length,
-                controller:
-                    PageController(initialPage: 0, viewportFraction: 0.9),
+                controller: PageController(initialPage: 0, viewportFraction: 0.9),
                 itemBuilder: (context, i) => CardProducts(
                   onTap: () {
                     Navigator.pushNamed(

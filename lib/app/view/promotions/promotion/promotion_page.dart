@@ -137,7 +137,7 @@ class _Card extends StatelessWidget {
       child: Card(
         margin: const EdgeInsets.symmetric(vertical: 7.5, horizontal: 15),
         clipBehavior: Clip.antiAlias,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
         child: Column(
           children: [
             Stack(
@@ -147,7 +147,7 @@ class _Card extends StatelessWidget {
                   Positioned(
                     right: 0,
                     child: Container(
-                        padding: const EdgeInsets.all(6),
+                        padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 10),
                         decoration: const BoxDecoration(
                             color: Colors.white,
                             boxShadow: [ BoxShadow(color: Colors.black26, blurRadius: 3)],
@@ -161,19 +161,19 @@ class _Card extends StatelessWidget {
                                 if (promotion.pvpLowered != null)...[
                                   Container(
                                     margin: const EdgeInsets.only(bottom: 2.0),
-                                    child: Text(myFormatMoney(promotion.pvpOriginal ?? 0.0),style: AppTextStyle.pvpOrinigal),
+                                    child: Text(myFormatMoney(promotion.pvpOriginal ?? 0.0),style: AppTextStyle.pvpOrinigal.copyWith(fontSize: 18)),
                                   )
                                 ]else if(promotion.onlyRenting)...[
                                   Container(
                                     margin: const EdgeInsets.only(bottom: 3.0),
-                                    child: const Text('Desde',style: AppTextStyle.checkStyle),
+                                    child: Text('Desde',style: AppTextStyle.checkStyle.copyWith(fontSize: 15)),
                                   )
                                 ],
                                 spacerXs,
                                 if(promotion.onlyRenting)...[
-                                  Text(myFormatMoney(promotion.pvpDesde!),style: AppTextStyle.h2Style),
+                                  Text(myFormatMoney(promotion.pvpDesde!),style: AppTextStyle.h2Style.copyWith(fontSize: 26)),
                                 ]else...[
-                                  Text(myFormatMoney(promotion.pvpLowered ?? promotion.pvpOriginal ?? 0.0),style: AppTextStyle.h2Style),
+                                  Text(myFormatMoney(promotion.pvpLowered ?? promotion.pvpOriginal ?? 0.0),style: AppTextStyle.h2Style.copyWith(fontSize: 26)),
                                 ]
 
                               ],
@@ -193,20 +193,6 @@ class _Card extends StatelessWidget {
                       style: AppTextStyle.defaultStyle,
                     ),
                   ),
-                  // if (!promotion.informative &&
-                  //     LocalDataRepository().isLogged) ...[
-                  //   if (promotion.pvpLowered != null)
-                  //     Text(
-                  //       myFormatMoney(promotion.pvpOriginal ?? 0.0),
-                  //       style: AppTextStyle.pvpOrinigal,
-                  //     ),
-                  //   spacerXs,
-                  //   Text(
-                  //     myFormatMoney(
-                  //         promotion.pvpLowered ?? promotion.pvpOriginal ?? 0.0),
-                  //     style: AppTextStyle.h2Style,
-                  //   ),
-                  // ]
                 ],
               ),
             )
@@ -248,12 +234,12 @@ class _Card extends StatelessWidget {
 
     return Container(
       alignment: Alignment.topLeft,
-      height: 200,
+      height: 220,
       width: double.infinity,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: NetworkImage(promotion.image!),
-          fit: BoxFit.cover,
+          fit: BoxFit.fill,
         ),
       ),
       child: Visibility(
@@ -263,7 +249,7 @@ class _Card extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              margin: const EdgeInsets.all(10),
+              margin: const EdgeInsets.symmetric(horizontal: 10,vertical: 8),
               padding: const EdgeInsets.symmetric(
                   horizontal: 10, vertical: 3),
               decoration: BoxDecoration(
