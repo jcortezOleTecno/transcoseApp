@@ -8,6 +8,7 @@ import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:vemare/app/data/_api.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
+import 'package:vemare/app/domain/model/albaran_returns_model.dart';
 import 'package:vemare/app/domain/model/answer_with_filters.dart';
 import 'package:vemare/app/domain/model/contract_detail.dart';
 import 'package:vemare/app/domain/model/contract_millenium.dart';
@@ -402,6 +403,20 @@ class ContratsRepository {
 
     return data;
   }
+
+  Future <List<AlbaranReturnsModel>> getMisAlbaran({FilterReturnsNew? filter}) async {
+    try {
+      final dynamic res = await _apiClient.postRequest(
+          '$BASE_API_URL/api/mi-cuenta/mis_devoluciones/pedidos',
+          body: filter?.toJson(),
+          customHeaders: allHeaders
+      );
+      return (res["data"] as List).map(AlbaranReturnsModel.fromJson).toList();
+    } catch (e) {
+      return [];
+    }
+  }
+
 }
 
 String pdfBase64(String base64) {
