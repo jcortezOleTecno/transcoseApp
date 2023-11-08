@@ -18,7 +18,6 @@ class MyApi extends MyApiClient {
       _parseUrl(url, params: params),
       headers: {...await _getHeaders(), ...customHeaders ?? {}},
     );
-
     return _handleResponse(response);
   }
 
@@ -33,7 +32,6 @@ class MyApi extends MyApiClient {
       headers: {...await _getHeaders(), ...customHeaders ?? {}},
       body: body,
     );
-    log(response.body);
     return _handleResponse(response);
   }
 
@@ -44,7 +42,6 @@ class MyApi extends MyApiClient {
       headers: customHeaders,
       body: body,
     );
-    log(response.body);
     return _handleResponse(response);
   }
 

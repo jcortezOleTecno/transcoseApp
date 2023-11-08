@@ -16,6 +16,7 @@ import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/no_result/no_result_table.dart';
 import 'package:vemare/app/view/_components/user_name/user_name.dart';
 import 'package:vemare/app/view/personal_area/my_orders/returns/providers/returns_new_orders_provider.dart';
+import 'package:vemare/app/view/personal_area/my_orders/returns/widgets/returns_albaran_details.dart';
 import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
@@ -62,7 +63,7 @@ class ReturnsNewOrdersScreen extends StatelessWidget {
                               MyButton(
                                 onPressed: () {
                                   // Navigator.push(context, MaterialPageRoute(builder:
-                                  //     (BuildContext context) => const ReturnsNewOrdersScreen()));
+                                  //     (BuildContext context) => const ReturnsAlbaranDetails()));
                                 },
                                 text: 'Carrito del pedido  ',
                                 width: double.infinity,
@@ -204,37 +205,37 @@ class ReturnsNewOrdersScreen extends StatelessWidget {
                 columnSpacing: 12,
                 horizontalMargin: 12,
                 empty: const NoResultTable(),
-                minWidth: 900,
+                minWidth: 1100,
                 rowsPerPage: provider.dataNewPedidosFiltrado!.rowCount <= 10 ? provider.dataNewPedidosFiltrado!.rowCount : 10,
                 columns: const [
                   DataColumn2(
                     fixedWidth: 70,
-                    label: Text('CÓDIGO'),
+                    label: Text('CÓDIGO',textAlign: TextAlign.center,),
                     // size: ColumnSize.L,
                   ),
                   DataColumn2(
-                    label: Text('AÑO'),
-                    fixedWidth: 120,
-                    // size: ColumnSize.L,
-                  ),
-                  DataColumn2(
-                    label: Text('ALBARÁN'),
-                    fixedWidth: 120,
-                    // size: ColumnSize.L,
-                  ),
-                  DataColumn2(
-                    label: Text('CLIENTE'),
-                    fixedWidth: 120,
-                    // size: ColumnSize.L,
-                  ),
-                  DataColumn2(
-                    label: Text('FECHA'),
-                    fixedWidth: 120,
-                    // size: ColumnSize.L,
-                  ),
-                  DataColumn2(
-                    label: Text('HORA'),
+                    label: Text('AÑO',textAlign: TextAlign.center,),
                     fixedWidth: 80,
+                    // size: ColumnSize.L,
+                  ),
+                  DataColumn2(
+                    label: Text('ALBARÁN',textAlign: TextAlign.center,),
+                    fixedWidth: 100,
+                    // size: ColumnSize.L,
+                  ),
+                  DataColumn2(
+                    label: Text('CLIENTE',textAlign: TextAlign.center,),
+                    fixedWidth: 120,
+                    // size: ColumnSize.L,
+                  ),
+                  DataColumn2(
+                    label: Text('FECHA',textAlign: TextAlign.center,),
+                    fixedWidth: 100,
+                    // size: ColumnSize.L,
+                  ),
+                  DataColumn2(
+                    label: Text('HORA',textAlign: TextAlign.left,),
+                    fixedWidth: 200,
                     // size: ColumnSize.L,
                   ),
                 ],
@@ -262,15 +263,26 @@ class MyDataReturnsNew extends DataTableSource {
         DataCell(Text(data[index].codigoAlbaran.toString(),textAlign: TextAlign.center,),),
         DataCell(Text(data[index].ejercicio.toString(),textAlign: TextAlign.center,)),
         DataCell(Text(data[index].albaran ?? '',textAlign: TextAlign.center,)),
+        DataCell(Text(data[index].cliente ?? '',textAlign: TextAlign.center,)),
         DataCell(Text(DateFormat.yMd('es').format(DateTime.parse(data[index].fechaDocumento!)),textAlign: TextAlign.center,)),
-        DataCell(Text(DateFormat.Hms('en').format(DateTime.parse('2023-11-06 ${data[index].horaDocumento!}')),textAlign: TextAlign.center,)),
         DataCell(
-          IconButton(
-              onPressed: () {
-
-              },
-              icon:
-              Image.asset('assets/icons/arrow_next.png', scale: 2)),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(DateFormat.Hms('en').format(DateTime.parse('2023-11-06 ${data[index].horaDocumento!}')),textAlign: TextAlign.center,),
+              spacerXs,
+              Expanded(
+                child: IconButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder:
+                          (BuildContext context) => ReturnsAlbaranDetails(albaranReturnsModel: data[index],)));
+                    },
+                    icon:
+                    Image.asset('assets/icons/arrow_next.png', scale: 2)),
+              )
+            ],
+          ),
         ),
       ],
     );
