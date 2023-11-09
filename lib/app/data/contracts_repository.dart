@@ -431,6 +431,20 @@ class ContratsRepository {
     }
   }
 
+  Future<bool> postAgregarProductoDevolucion({required Map<String,dynamic> body}) async {
+    try {
+      final dynamic res = await _apiClient.postRequest(
+          '$BASE_API_URL/api/mi-cuenta/mis_devoluciones/agregar-producto-devolucion',
+          body: body,
+          customHeaders: allHeaders
+      );
+      return res['response'] == 'success';
+    } catch (e) {
+      log(e.toString());
+    }
+    return false;
+  }
+
 }
 
 String pdfBase64(String base64) {

@@ -161,4 +161,10 @@ abstract class AppTextStyle {
     fontSize: 22,
     color: AppColor.white,
   );
+
+  static const TextStyle nunitoSansError22 = TextStyle(
+    fontFamily: 'NunitoSans',
+    fontSize: 16,
+    color: AppColor.error,
+  );
 }

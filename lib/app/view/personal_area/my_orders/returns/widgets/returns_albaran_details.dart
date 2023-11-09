@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 
 import 'package:data_table_2/data_table_2.dart';
@@ -11,6 +13,7 @@ import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
+import 'package:vemare/app/view/_components/my_dialig_add_returns/my_dialog_add_returns.dart';
 import 'package:vemare/app/view/_components/my_input/my_input_search.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
@@ -77,9 +80,24 @@ class ReturnsAlbaranDetails extends StatelessWidget {
                         Container(
                           margin: const EdgeInsets.symmetric(horizontal: 15),
                           child: MyButton(
-                            onPressed: () {
-                              // Navigator.push(context, MaterialPageRoute(builder:
-                              //     (BuildContext context) => const ReturnsAlbaranDetails()));
+                            isLoading: provider.sendCart,
+                            onPressed: () async {
+                              List<AlbaranProductModel> listProducts = [];
+                              for (var product in provider.listProducts) {
+                                if(provider.checkData[product.referencia]!){
+                                  listProducts.add(product);
+                                }
+                              }
+                              List<AlbaranProductModel>? listProductsAlbaranProductModel = await myDialogAddReturns(context: context,listProducts: listProducts);
+                              if(listProductsAlbaranProductModel != null){
+                                bool res = await provider.addProductCart(newList: listProductsAlbaranProductModel);
+                                if(res){
+
+                                }else{
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(content: Text('No se pudo agregar el producto')));
+                                }
+                              }
                             },
                             text: 'Añadir  ',
                             width: double.infinity,

@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:vemare/app/data/contracts_repository.dart';
 import 'package:vemare/app/domain/model/albaran_product_model.dart';
@@ -25,6 +27,10 @@ class ReturnsDetilsAlbaranProvider with ChangeNotifier{
   bool _loadData = true;
   bool get loadData => _loadData;
   set loadData(bool value){ _loadData = value; notifyListeners();}
+
+  bool _sendCart = false;
+  bool get sendCart => _sendCart;
+  set sendCart(bool value){ _sendCart = value; notifyListeners();}
 
   bool _checkAccepted = true;
   bool get checkAccepted => _checkAccepted;
@@ -87,15 +93,50 @@ class ReturnsDetilsAlbaranProvider with ChangeNotifier{
     notifyListeners();
   }
 
-  // bool checkAccepted() {
-  //   bool result = false;
-  //
-  //   checkData.forEach((key, value) {
-  //     if(value){ result = true; }
-  //   });
-  //
-  //   return result;
-  // }
+  Future<bool> addProductCart({required List<AlbaranProductModel> newList}) async{
+
+    sendCart = true;
+
+    String listRefe = '[';
+    String listDes = '[';
+    String listCant = '[';
+    String listAlba = '[';
+
+    for(int x = 0; x < newList.length; x++){
+      listRefe = '$listRefe"${newList[x].referencia!}"';
+      listDes = '$listDes"${newList[x].descripcion!}"';
+      listCant = '$listCant"${newList[x].cantidad!}"';
+      listAlba = '$listAlba"${newList[x].albaran!}"';
+
+      if((x + 1) ==  newList.length){
+        listRefe = '$listRefe]';
+        listDes = '$listDes]';
+        listCant = '$listCant]';
+        listAlba = '$listAlba]';
+      }else{
+        listRefe = '$listRefe,';
+        listDes = '$listDes,';
+        listCant = '$listCant,';
+        listAlba = '$listAlba,';
+      }
+    }
+
+    log(listAlba.toString());
+
+    Map<String,dynamic> body = {
+      'codigo_albaran' : albaranReturnsModel.codigoAlbaran.toString(),
+      'referencias' : listRefe,
+      'descripciones' : listDes,
+      'cantidades' : listCant,
+      'albaranes' : listAlba,
+    };
+
+    bool result = await _contratsRepository.postAgregarProductoDevolucion(body: body);
+
+    sendCart = false;
+
+    return result;
+  }
 
 
 }
