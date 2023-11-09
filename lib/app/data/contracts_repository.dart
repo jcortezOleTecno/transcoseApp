@@ -17,6 +17,7 @@ import 'package:vemare/app/domain/model/contract_pmp_detail.dart';
 import 'package:vemare/app/domain/model/contrato_pmp.dart';
 import 'package:vemare/app/domain/model/contrato_rappel.dart';
 import 'package:vemare/app/domain/model/contrats.dart';
+import 'package:vemare/app/domain/model/returns_cart_model.dart';
 import 'package:vemare/app/domain/model/returns_model.dart';
 
 import '../domain/model/contract_conventions.dart';
@@ -443,6 +444,19 @@ class ContratsRepository {
       log(e.toString());
     }
     return false;
+  }
+
+  Future<ReturnsCartModel?> postObtenerCarritoDevolucion() async {
+    try {
+      final dynamic res = await _apiClient.postRequest(
+          '$BASE_API_URL/api/mi-cuenta/mis_devoluciones/obtener-carrito-devolucion',
+          customHeaders: allHeaders
+      );
+      return ReturnsCartModel.fromMap(res["data"]);
+    } catch (e) {
+      log(e.toString());
+    }
+    return null;
   }
 
 }

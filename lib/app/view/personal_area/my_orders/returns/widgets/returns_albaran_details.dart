@@ -19,6 +19,8 @@ import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/no_result/no_result_table.dart';
 import 'package:vemare/app/view/personal_area/my_orders/returns/providers/returns_detils_albaran_provider.dart';
+import 'package:vemare/app/view/personal_area/my_orders/returns/providers/returns_new_orders_provider.dart';
+import 'package:vemare/app/view/personal_area/my_orders/returns/widgets/returns_cart.dart';
 import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
@@ -26,9 +28,10 @@ import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
 
 class ReturnsAlbaranDetails extends StatelessWidget {
-  const ReturnsAlbaranDetails({super.key, required this.albaranReturnsModel});
+  const ReturnsAlbaranDetails({super.key, required this.albaranReturnsModel, required this.contextProvider});
 
   final AlbaranReturnsModel albaranReturnsModel;
+  final BuildContext contextProvider;
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +95,9 @@ class ReturnsAlbaranDetails extends StatelessWidget {
                               if(listProductsAlbaranProductModel != null){
                                 bool res = await provider.addProductCart(newList: listProductsAlbaranProductModel);
                                 if(res){
-
+                                  Provider.of<ReturnsNewOrdersProvider>(contextProvider,listen: false).typeView = 0;
+                                  Provider.of<ReturnsNewOrdersProvider>(contextProvider,listen: false).initialData2();
+                                  Navigator.of(context).pop();
                                 }else{
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(content: Text('No se pudo agregar el producto')));

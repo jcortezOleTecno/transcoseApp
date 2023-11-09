@@ -44,12 +44,9 @@ class ReturnsDetilsAlbaranProvider with ChangeNotifier{
 
 
   Future initialData() async {
-
     listProducts = await _contratsRepository.getMisAlbaranProducts(codAlbaran: albaranReturnsModel.codigoAlbaran.toString());
-    await Future.delayed(const Duration(seconds: 5));
-
+    await Future.delayed(const Duration(seconds: 3));
     notifyListeners();
-
     initialData2();
   }
 

@@ -17,6 +17,7 @@ import 'package:vemare/app/view/_components/no_result/no_result_table.dart';
 import 'package:vemare/app/view/_components/user_name/user_name.dart';
 import 'package:vemare/app/view/personal_area/my_orders/returns/providers/returns_new_orders_provider.dart';
 import 'package:vemare/app/view/personal_area/my_orders/returns/widgets/returns_albaran_details.dart';
+import 'package:vemare/app/view/personal_area/my_orders/returns/widgets/returns_cart.dart';
 import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
@@ -32,7 +33,14 @@ class ReturnsNewOrdersScreen extends StatelessWidget {
         create: (context1) => ReturnsNewOrdersProvider(getIt.get<ContratsRepository>(),context),
         child: Consumer<ReturnsNewOrdersProvider>(
             builder: (context2, provider, child){
-              return Scaffold(
+
+              try{
+                provider.contextProvider = context2;
+              }catch(_){}
+
+              return provider.typeView == 1 ?
+              const ReturnsCart() :
+              Scaffold(
                 body: MyBody(
                   child: SingleChildScrollView(
                     child: Column(
@@ -62,8 +70,7 @@ class ReturnsNewOrdersScreen extends StatelessWidget {
                               spacerS,spacerS,
                               MyButton(
                                 onPressed: () {
-                                  // Navigator.push(context, MaterialPageRoute(builder:
-                                  //     (BuildContext context) => const ReturnsAlbaranDetails()));
+                                  provider.typeView = 1;
                                 },
                                 text: 'Carrito del pedido  ',
                                 width: double.infinity,
@@ -253,8 +260,9 @@ class ReturnsNewOrdersScreen extends StatelessWidget {
 class MyDataReturnsNew extends DataTableSource {
   final List<AlbaranReturnsModel> data;
   final BuildContext context;
+  final BuildContext contextProvider;
 
-  MyDataReturnsNew({required this.data, required this.context});
+  MyDataReturnsNew({required this.data, required this.context, required this.contextProvider});
 
   @override
   DataRow? getRow(int index) {
@@ -276,7 +284,10 @@ class MyDataReturnsNew extends DataTableSource {
                 child: IconButton(
                     onPressed: () {
                       Navigator.push(context, MaterialPageRoute(builder:
-                          (BuildContext context) => ReturnsAlbaranDetails(albaranReturnsModel: data[index],)));
+                          (BuildContext context) => ReturnsAlbaranDetails(
+                            albaranReturnsModel: data[index],
+                            contextProvider: contextProvider,
+                          )));
                     },
                     icon:
                     Image.asset('assets/icons/arrow_next.png', scale: 2)),

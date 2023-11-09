@@ -5,8 +5,10 @@ import 'package:intl/intl.dart';
 import 'package:vemare/app/data/contracts_repository.dart';
 import 'package:vemare/app/domain/model/albaran_returns_model.dart';
 import 'package:vemare/app/domain/model/filter.dart';
+import 'package:vemare/app/domain/model/returns_cart_model.dart';
 import 'package:vemare/app/domain/model/returns_model.dart';
 import 'package:vemare/app/view/personal_area/my_orders/returns/returns_widget.dart';
+import 'package:vemare/app/view/personal_area/my_orders/returns/widgets/returns_cart.dart';
 import 'package:vemare/app/view/personal_area/my_orders/returns/widgets/returns_new_orders.dart';
 
 class ReturnsNewOrdersProvider with ChangeNotifier{
@@ -15,8 +17,18 @@ class ReturnsNewOrdersProvider with ChangeNotifier{
     initialData();
   }
 
+  int _typeView = 0;
+  int get typeView => _typeView;
+  set typeView (int value){ _typeView = value; notifyListeners(); }
+
   final ContratsRepository _contratsRepository;
   final BuildContext contextReturns;
+
+  BuildContext? _contextProvider;
+  BuildContext? get contextProvider => _contextProvider;
+  set contextProvider (BuildContext? value) { if(contextProvider == null){
+    _contextProvider = value; notifyListeners();
+  }}
 
   bool _loadData = true;
   bool get loadData => _loadData;
@@ -24,15 +36,29 @@ class ReturnsNewOrdersProvider with ChangeNotifier{
 
   FilterReturnsNew filter = FilterReturnsNew();
   List<AlbaranReturnsModel> listAlbaran = [];
-
   DataTableSource? dataNewPedidosFiltrado;
+
+  ReturnsCartModel? carts;
+  DataTableSource? dataProductsCarts;
 
 
   Future initialData() async {
-
     listAlbaran = await _contratsRepository.getMisAlbaran(filter: filter);
+    await Future.delayed(const Duration(seconds: 3));
+    notifyListeners();
+    initialData2();
+  }
 
-    dataNewPedidosFiltrado = MyDataReturnsNew(data: listAlbaran,context: contextReturns);
+  Future initialData2() async {
+
+    loadData = true;
+    notifyListeners();
+
+    dataNewPedidosFiltrado = MyDataReturnsNew(data: listAlbaran,context: contextReturns,contextProvider: contextProvider!);
+
+    carts = await _contratsRepository.postObtenerCarritoDevolucion();
+
+    dataProductsCarts = MyDataReturnsCart(data: carts!.items!);
 
     loadData = false;
     notifyListeners();
@@ -46,9 +72,9 @@ class ReturnsNewOrdersProvider with ChangeNotifier{
             .toFilter()
             .toLowerCase()
             .contains(value.trim().toLowerCase());
-      }).toList(),context: contextReturns);
+      }).toList(),context: contextReturns,contextProvider: contextProvider!);
     }else{
-      dataNewPedidosFiltrado = MyDataReturnsNew(data: listAlbaran,context: contextReturns);
+      dataNewPedidosFiltrado = MyDataReturnsNew(data: listAlbaran,context: contextReturns,contextProvider: contextProvider!);
     }
 
     notifyListeners();
@@ -62,7 +88,7 @@ class ReturnsNewOrdersProvider with ChangeNotifier{
 
     listAlbaran = await _contratsRepository.getMisAlbaran(filter: filter);
 
-    dataNewPedidosFiltrado = MyDataReturnsNew(data: listAlbaran,context: contextReturns);
+    dataNewPedidosFiltrado = MyDataReturnsNew(data: listAlbaran,context: contextReturns,contextProvider: contextProvider!);
 
     notifyListeners();
 
@@ -94,7 +120,5 @@ class ReturnsNewOrdersProvider with ChangeNotifier{
     notifyListeners();
     filterReturnsHttp(filterWidget: filter);
   }
-
-
 
 }
