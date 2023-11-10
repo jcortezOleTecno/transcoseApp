@@ -54,6 +54,7 @@ class ServiceGeneralPage extends StatelessWidget {
                     spacerS,
                     MyHtml(
                       text: service.contentPage ?? '',
+                      bodyFontSize: 20,
                     ),
                   ],
                 ),
