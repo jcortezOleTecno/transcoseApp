@@ -15,6 +15,7 @@ class MySingleCard extends StatelessWidget {
     this.onTap,
     this.maxLines,
     this.styleTitle = AppTextStyle.linkStyle,
+    this.heightD,
     Key? key,
   }) : super(key: key);
 
@@ -27,6 +28,7 @@ class MySingleCard extends StatelessWidget {
   final bool isHtml;
   final int? maxLines;
   final TextStyle styleTitle;
+  final double? heightD;
 
   @override
   Widget build(BuildContext context) {
@@ -39,61 +41,64 @@ class MySingleCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: onTap,
-      child: Card(
-          margin: margin ?? const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 5),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (icon != null)
-                  Container(
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: AppColor.blue100,
+      child: SizedBox(
+        height: heightD,
+        child: Card(
+            margin: margin ?? const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 5),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (icon != null)
+                    Container(
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AppColor.blue100,
+                      ),
+                      height: 40,
+                      width: 40,
+                      child: icon,
                     ),
-                    height: 40,
-                    width: 40,
-                    child: icon,
-                  ),
-                spacerS,
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      if (iconFormation != null)
+                  spacerS,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        if (iconFormation != null)
+                          Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 5),
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: AppColor.blue100,
+                            ),
+                            height: 40,
+                            width: 40,
+                            child: iconFormation,
+                          ),
+                        spacerXs,spacerXs,
                         Container(
                           margin: const EdgeInsets.symmetric(horizontal: 5),
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: AppColor.blue100,
+                          child: Text(
+                            title,
+                            style: styleTitle
                           ),
-                          height: 40,
-                          width: 40,
-                          child: iconFormation,
                         ),
-                      spacerXs,spacerXs,
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 5),
-                        child: Text(
-                          title,
-                          style: styleTitle
-                        ),
-                      ),
-                      isHtml
-                          ? MyHtml(text: description, bodyFontSize: 18,maxLines: maxLines,)
-                          : Text(
-                              description,
-                              style: AppTextStyle.contentCard,
-                              maxLines: maxLines,
-                            )
-                    ],
-                  ),
-                )
-              ],
-            ),
-          )),
+                        isHtml
+                            ? MyHtml(text: description, bodyFontSize: 18,maxLines: maxLines,)
+                            : Text(
+                                description,
+                                style: AppTextStyle.contentCard,
+                                maxLines: maxLines,
+                              )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            )),
+      ),
     );
   }
 }

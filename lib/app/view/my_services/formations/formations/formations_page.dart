@@ -72,6 +72,7 @@ class FormationsPage extends StatelessWidget {
                           children: state.formations
                               .map(
                                 (e) => MySingleCard(
+                                  heightD: 195,
                                   iconFormation: Image.network(e.image!),
                                   title: e.title ?? '',
                                   content: e.description ?? '',
