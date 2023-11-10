@@ -686,15 +686,15 @@ class _News extends StatelessWidget {
                                 state.notices[i].title ?? '',
                                 style: AppTextStyle.h3Style.copyWith(
                                     fontWeight: FontWeight.bold,
-                                    color: AppColor.white),
+                                    color: AppColor.white,fontSize: 18),
                               ),
                               spacerS,
                               Text(
                                 state.notices[i].subtitle ?? '',
-                                maxLines: 4,
+                                maxLines: 3,
                                 overflow: TextOverflow.ellipsis,
                                 style: AppTextStyle.contentCard
-                                    .copyWith(color: Colors.white),
+                                    .copyWith(color: Colors.white,fontSize: 14),
                               )
                             ],
                           ),
