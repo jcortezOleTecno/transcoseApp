@@ -67,24 +67,35 @@ class ReturnsNewOrdersScreen extends StatelessWidget {
                                 icon: Image.asset( 'assets/icons/Filtro.png', scale: 2,),
                                 variant: MyButtonVariant.outlinedBold,
                               ),
-                              spacerS,spacerS,
-                              MyButton(
-                                onPressed: () {
-                                  provider.typeView = 1;
-                                },
-                                text: 'Carrito del pedido  ',
-                                width: double.infinity,
-                                disabled: false,
-                                childCenter: SizedBox(
-                                  width: 25,
-                                  height: 25,
-                                  child: Image.asset(
-                                    'assets/icons/Bag.png',
-                                    color: Colors.white,
-                                    scale: 1,
+                              if(provider.carts != null && provider.carts!.items != null && provider.carts!.items!.isNotEmpty)...[
+                                spacerS,spacerS,
+                                MyButton(
+                                  onPressed: () {
+                                    provider.initialData2();
+                                    provider.typeView = 1;
+                                  },
+                                  text: 'Carrito del pedido  ',
+                                  width: double.infinity,
+                                  disabled: false,
+                                  childCenter: SizedBox(
+                                    width: 35,
+                                    child: Stack(
+                                      children: [
+                                        SizedBox(
+                                          width: 25,height: 25,
+                                          child: Image.asset('assets/icons/Bag.png',color: Colors.white,scale: 1,),
+                                        ),
+                                        Positioned(
+                                          top: 2,right: 2,
+                                          child: Text(provider.carts!.items!.length.toString(),style: AppTextStyle.boxCart.copyWith(
+                                              fontSize: 15
+                                          )),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
+                              ],
                               spacerS,spacerS,
                               filterAplicados(provider: provider),
                               if(provider.loadData)...[
@@ -272,13 +283,13 @@ class MyDataReturnsNew extends DataTableSource {
         DataCell(Text(data[index].ejercicio.toString(),textAlign: TextAlign.center,)),
         DataCell(Text(data[index].albaran ?? '',textAlign: TextAlign.center,)),
         DataCell(Text(data[index].cliente ?? '',textAlign: TextAlign.center,)),
-        DataCell(Text(DateFormat.yMd('es').format(DateTime.parse(data[index].fechaDocumento!)),textAlign: TextAlign.center,)),
+        DataCell(Text(data[index].fechaDocumento == null ? '' : DateFormat.yMd('es').format(DateTime.parse(data[index].fechaDocumento!)),textAlign: TextAlign.center,)),
         DataCell(
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(DateFormat.Hms('en').format(DateTime.parse('2023-11-06 ${data[index].horaDocumento!}')),textAlign: TextAlign.center,),
+              Text(data[index].horaDocumento == null ? '' : DateFormat.Hms('en').format(DateTime.parse('2023-11-06 ${data[index].horaDocumento!}')),textAlign: TextAlign.center,),
               spacerXs,
               Expanded(
                 child: IconButton(

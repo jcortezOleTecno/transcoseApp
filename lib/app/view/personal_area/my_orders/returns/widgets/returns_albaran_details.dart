@@ -95,7 +95,7 @@ class ReturnsAlbaranDetails extends StatelessWidget {
                               if(listProductsAlbaranProductModel != null){
                                 bool res = await provider.addProductCart(newList: listProductsAlbaranProductModel);
                                 if(res){
-                                  Provider.of<ReturnsNewOrdersProvider>(contextProvider,listen: false).typeView = 0;
+                                  Provider.of<ReturnsNewOrdersProvider>(contextProvider,listen: false).typeView = 1;
                                   Provider.of<ReturnsNewOrdersProvider>(contextProvider,listen: false).initialData2();
                                   Navigator.of(context).pop();
                                 }else{

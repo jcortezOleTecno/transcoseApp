@@ -30,6 +30,8 @@ class ReturnsProvider with ChangeNotifier{
 
   Future initialData() async {
 
+    loadData = true;
+
     listReturns = await _contratsRepository.getMisDevoluciones(filter: filter);
 
     dataPedidosFiltrado = MyDataReturns(data: listReturns,context: contextReturns);

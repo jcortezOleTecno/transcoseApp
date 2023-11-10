@@ -167,4 +167,11 @@ abstract class AppTextStyle {
     fontSize: 16,
     color: AppColor.error,
   );
+
+  static const TextStyle boxCart = TextStyle(
+    fontFamily: 'NunitoSans',
+    fontSize: 20,
+    fontWeight: FontWeight.w700,
+    color: AppColor.white,
+  );
 }

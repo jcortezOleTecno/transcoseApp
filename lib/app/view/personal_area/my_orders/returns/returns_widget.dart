@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -45,9 +47,10 @@ class ReturnsScreen extends StatelessWidget {
                           const UserName(),
                           spacerS,
                           MyButton(
-                            onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder:
+                            onPressed: () async {
+                              await Navigator.push(context, MaterialPageRoute(builder:
                                   (BuildContext context) => const ReturnsNewOrdersScreen()));
+                              provider.initialData();
                             },
                             text: 'Nuevo pedido de devolución  ',
                             width: double.infinity,
@@ -265,8 +268,8 @@ class MyDataReturns extends DataTableSource {
         cells: [
           DataCell(Text(data[index].codigoDevolucion.toString(),textAlign: TextAlign.center,),),
           DataCell(Text(data[index].numeroDevolucion ?? '',textAlign: TextAlign.center,)),
-          DataCell(Text(DateFormat.yMd('es').format(DateTime.parse(data[index].fechaSolicitud!)),textAlign: TextAlign.center,)),
-          DataCell(Text(DateFormat.yMd('es').format(DateTime.parse(data[index].fechaCierre!)),textAlign: TextAlign.center,)),
+          DataCell(Text(data[index].fechaSolicitud == null ? '' : DateFormat.yMd('es').format(DateTime.parse(data[index].fechaSolicitud!)),textAlign: TextAlign.center,)),
+          DataCell(Text(data[index].fechaCierre == null ? '' : DateFormat.yMd('es').format(DateTime.parse(data[index].fechaCierre!)),textAlign: TextAlign.center,)),
           DataCell(Text(data[index].nombreClienteRecogida ?? '',textAlign: TextAlign.center,)),
           DataCell(Text(data[index].codigoClienteRecogida.toString(),textAlign: TextAlign.center,)),
           DataCell(Text(data[index].recogerEn ?? '',textAlign: TextAlign.center,)),

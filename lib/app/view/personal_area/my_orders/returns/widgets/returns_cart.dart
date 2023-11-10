@@ -1,16 +1,26 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:vemare/app/domain/model/returns_cart_model.dart';
 import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
+import 'package:vemare/app/view/_components/my_button/my_button.dart';
+import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
+import 'package:vemare/app/view/_components/my_dialogs/my_dialogs_check.dart';
+import 'package:vemare/app/view/_components/my_input/my_input.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/no_result/no_result_table.dart';
 import 'package:vemare/app/view/personal_area/my_orders/returns/providers/returns_new_orders_provider.dart';
 import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
+import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
+import 'package:vemare/app/view/theme/theme.dart';
 
 class ReturnsCart extends StatelessWidget {
   const ReturnsCart({Key? key}) : super(key: key);
@@ -57,7 +67,19 @@ class ReturnsCart extends StatelessWidget {
                           spacerM,spacerM,
                         ]else...[
                           spacerS,spacerS,
-                          tablaAlbaran(provider: provider),
+                          tablaAlbaran(provider: provider,context: context),
+                          spacerS,spacerS,
+                          tablaSendForm(provider: provider,context: context),
+                          spacerS,spacerS,
+                          MyButton(
+                            onPressed: () => senDataCart(context: context,provider: provider),
+                            text: 'Confirmar pedido de devolución',
+                            width: double.infinity,
+                            disabled: false,
+                            childCenter: Container(),
+                            isLoading: provider.sendData,
+                          ),
+                          spacerS,spacerS,
                         ],
                       ],
                     ],
@@ -73,7 +95,7 @@ class ReturnsCart extends StatelessWidget {
     );
   }
 
-  Widget tablaAlbaran({required ReturnsNewOrdersProvider provider}){
+  Widget tablaAlbaran({required ReturnsNewOrdersProvider provider, required BuildContext context}){
 
     double hSize = 350;
     if(provider.dataProductsCarts!.rowCount <= 5){
@@ -105,7 +127,20 @@ class ReturnsCart extends StatelessWidget {
                 ],
               ),
             ),
-            spacerS,
+            spacerS,spacerS,
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 15),
+              child: MyIconButton(
+                customInset: const EdgeInsets.all(4),
+                onPressed: () {
+                  provider.typeView = 0;
+                },
+                text: 'Añadir mercancías',
+                icon: Image.asset( 'assets/icons/mas.png', scale: 2,),
+                variant: MyButtonVariant.outlinedBold,
+              ),
+            ),
+            spacerS,spacerS,
             Expanded(
               child: provider.dataProductsCarts!.rowCount == 0 ? Container() : PaginatedDataTable2(
                 wrapInCard: false,
@@ -143,6 +178,89 @@ class ReturnsCart extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget tablaSendForm({required ReturnsNewOrdersProvider provider, required BuildContext context}){
+
+    return Card(
+      margin: const EdgeInsets.only(bottom: 20),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 30),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            MyInput(
+              key: const Key("Fecha de solicitud*"),
+              label: "Fecha de solicitud",
+              initialValue: null,
+              readOnly: true,
+              variant: MyInputVariant.backgroundBlue,
+              controller: provider.controllerDate,
+              onPressed: (){
+                showRoundedDatePicker(
+                  context: context,
+                  initialDate: provider.dateSelected ?? DateTime.now(),
+                  firstDate: DateTime.parse('2010-01-01'),
+                  lastDate: DateTime.parse('2040-12-31'),
+                  locale: const Locale('es', 'ES'),
+                  height: 340,
+                  borderRadius: 16,
+                  theme: AppTheme.light,
+                ).then((date) {
+                  if (date != null) {
+                    provider.dateSelected = date;
+                  }
+                });
+              },
+            ),
+            MyInput(
+              key: const Key("Dirección de entrega*"),
+              label: "Dirección de entrega",
+              initialValue: null,
+              readOnly: false,
+              variant: MyInputVariant.backgroundBlue,
+              controller: provider.controllerEntrega,
+            ),
+            MyInput(
+              key: const Key("Observaciones*"),
+              label: "Observaciones",
+              initialValue: null,
+              readOnly: false,
+              maxLines: 5,
+              variant: MyInputVariant.backgroundBlue,
+              controller: provider.controllerObservaciones,
+              inputType: TextInputType.multiline,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future senDataCart({required ReturnsNewOrdersProvider provider, required BuildContext context}) async{
+    String error = '';
+    if(provider.dateSelected == null){ error = 'Debe seleccionar una fecha de solicitud'; }
+    if(provider.controllerEntrega.text.isEmpty){ error = 'Debe agregar una dirección de entrega'; }
+    if(provider.controllerObservaciones.text.isEmpty){ error = 'Debe agregar una observacion'; }
+
+    if(error.isEmpty){
+      if(await provider.sendDataCart()){
+        await successDialog(
+            context,
+            title: '¡El pedido de devolución se ha enviado con éxito!',
+            content: 'Puedes revisar los detalles en el apartado de devoluciones.'
+        );
+        provider.initialData();
+        Navigator.of(context).pop();
+      }else{
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Problemas para enviar el pedido')));
+      }
+    }else{
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(error)));
+    }
   }
 }
 

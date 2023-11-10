@@ -459,6 +459,21 @@ class ContratsRepository {
     return null;
   }
 
+  Future<bool> postRealizarPedido({required Map<String,dynamic> body}) async {
+    try {
+      final dynamic res = await _apiClient.postRequest(
+          '$BASE_API_URL/api/mi-cuenta/mis_devoluciones/realizar_pedido',
+          body: body,
+          customHeaders: allHeaders
+      );
+      log('message');
+      return res['response'] == 'success';
+    } catch (e) {
+      log(e.toString());
+    }
+    return false;
+  }
+
 }
 
 String pdfBase64(String base64) {

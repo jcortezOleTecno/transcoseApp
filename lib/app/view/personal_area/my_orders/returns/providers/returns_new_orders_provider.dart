@@ -34,12 +34,27 @@ class ReturnsNewOrdersProvider with ChangeNotifier{
   bool get loadData => _loadData;
   set loadData(bool value){ _loadData = value; notifyListeners();}
 
+  bool _sendData = false;
+  bool get sendData => _sendData;
+  set sendData(bool value){ _sendData = value; notifyListeners();}
+
   FilterReturnsNew filter = FilterReturnsNew();
   List<AlbaranReturnsModel> listAlbaran = [];
   DataTableSource? dataNewPedidosFiltrado;
 
   ReturnsCartModel? carts;
   DataTableSource? dataProductsCarts;
+
+  TextEditingController controllerDate= TextEditingController();
+  TextEditingController controllerEntrega = TextEditingController();
+  TextEditingController controllerObservaciones = TextEditingController();
+  DateTime? _dateSelected;
+  DateTime? get dateSelected => _dateSelected;
+  set dateSelected(DateTime? value){
+    _dateSelected = value;
+    controllerDate.text = DateFormat.yMd('es').format(value!);
+    notifyListeners();
+  }
 
 
   Future initialData() async {
@@ -58,7 +73,15 @@ class ReturnsNewOrdersProvider with ChangeNotifier{
 
     carts = await _contratsRepository.postObtenerCarritoDevolucion();
 
-    dataProductsCarts = MyDataReturnsCart(data: carts!.items!);
+    if(carts != null){
+      dataProductsCarts = MyDataReturnsCart(data: carts!.items!);
+    }
+
+
+    controllerDate= TextEditingController();
+    controllerEntrega = TextEditingController();
+    controllerObservaciones = TextEditingController();
+    dateSelected;
 
     loadData = false;
     notifyListeners();
@@ -121,4 +144,22 @@ class ReturnsNewOrdersProvider with ChangeNotifier{
     filterReturnsHttp(filterWidget: filter);
   }
 
+  Future<bool> sendDataCart() async {
+    bool result = false;
+    sendData = true;
+
+    try{
+
+      Map<String,dynamic> body = {
+        'fecha_solicitud' : '${dateSelected!.year}-${dateSelected!.month.toString().padLeft(2,'0')}-${dateSelected!.day.toString().padLeft(2,'0')}',
+        'direccion_recogida' : controllerEntrega.text,
+        'notas_recogida' : controllerObservaciones.text,
+      };
+
+      result = await _contratsRepository.postRealizarPedido(body: body);
+    }catch(_){}
+
+    sendData = false;
+    return result;
+  }
 }
