@@ -7,6 +7,7 @@ import 'package:vemare/app/domain/model/albaran_returns_model.dart';
 import 'package:vemare/app/domain/model/filter.dart';
 import 'package:vemare/app/domain/model/returns_cart_model.dart';
 import 'package:vemare/app/domain/model/returns_model.dart';
+import 'package:vemare/app/domain/utils/months_list.dart';
 import 'package:vemare/app/view/personal_area/my_orders/returns/returns_widget.dart';
 import 'package:vemare/app/view/personal_area/my_orders/returns/widgets/returns_cart.dart';
 import 'package:vemare/app/view/personal_area/my_orders/returns/widgets/returns_new_orders.dart';
@@ -124,7 +125,7 @@ class ReturnsNewOrdersProvider with ChangeNotifier{
     if(value == 'Fecha desde hasta'){ result = '${DateFormat.yMd('es').format(filter.startDate!)} - ${DateFormat.yMd('es').format(filter.endDate!)}'; }
     if(value == 'Fecha desde'){ result = DateFormat.yMd('es').format(filter.startDate!); }
     if(value == 'Fecha hasta'){ result = DateFormat.yMd('es').format(filter.endDate!); }
-    if(value == 'Por Mes'){ result = filter.mes ?? ''; }
+    if(value == 'Por Mes'){ result = monthsMap[filter.mes] ?? ''; }
     if(value == 'Por año'){ result = filter.anio ?? ''; }
     if(value == 'Por trimestre'){ result = filter.quarter.toString(); }
     if(value == 'Por referencia'){ result = filter.referencia ?? ''; }
