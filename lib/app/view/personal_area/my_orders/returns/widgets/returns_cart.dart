@@ -191,8 +191,8 @@ class ReturnsCart extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             MyInput(
-              key: const Key("Fecha de solicitud*"),
-              label: "Fecha de solicitud",
+              key: const Key("Fecha de solicitud"),
+              label: "Fecha de solicitud*",
               initialValue: null,
               readOnly: true,
               variant: MyInputVariant.backgroundBlue,
@@ -215,16 +215,16 @@ class ReturnsCart extends StatelessWidget {
               },
             ),
             MyInput(
-              key: const Key("Dirección de entrega*"),
-              label: "Dirección de entrega",
+              key: const Key("Dirección de entrega"),
+              label: "Dirección de entrega*",
               initialValue: null,
               readOnly: false,
               variant: MyInputVariant.backgroundBlue,
               controller: provider.controllerEntrega,
             ),
             MyInput(
-              key: const Key("Observaciones*"),
-              label: "Observaciones",
+              key: const Key("Observaciones"),
+              label: "Observaciones*",
               initialValue: null,
               readOnly: false,
               maxLines: 5,

@@ -30,57 +30,60 @@ class MyOrdersPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    double sizeW = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: MyBody(
         child: DefaultTabController(
           length: isReturns ? 4 : 3,
           child: Column(
-            children: const [
+            children: [
               spacerS,
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 1),
-                child: TabBar(
-                  isScrollable: false,
-                  indicator: BoxDecoration(
-                      color: AppColor.blue100,
-                      border: Border(
-                        bottom:
-                            BorderSide(color: AppColor.primaryBlue, width: 2.5),
-                      )),
-                  labelColor: AppColor.primaryBlue,
-                  indicatorColor: AppColor.primaryBlue,
-                  indicatorWeight: 2.5,
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                  unselectedLabelStyle:TextStyle(fontWeight: FontWeight.normal),
-                  unselectedLabelColor: AppColor.primaryBlue,
-                  // physics: NeverScrollableScrollPhysics(),
-                  tabs: [
-                    Tab(text: 'Pedidos'),
-                    Tab(text: 'Garantías'),
-                    Tab(text: 'Abonos'),
-                    if(isReturns)...[
-                      Tab(text: 'Devoluciones'),
-                    ]
-                    // Tab(text: 'Devoluciones'),
-                  ],
+              TabBar(
+                isScrollable: true,
+                indicator: const BoxDecoration(
+                  color: AppColor.blue100,
+                  border: Border(bottom: BorderSide(color: AppColor.primaryBlue, width: 2.5),),
                 ),
+                labelColor: AppColor.primaryBlue,
+                indicatorColor: AppColor.primaryBlue,
+                indicatorWeight: 2.5,
+                indicatorSize: TabBarIndicatorSize.tab,
+                labelStyle: const TextStyle(fontWeight: FontWeight.bold,),
+                unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.normal),
+                unselectedLabelColor: AppColor.primaryBlue,
+                tabs: [
+                  SizedBox(
+                    width: isReturns ? sizeW * 0.14 : sizeW * 0.24,
+                    child: const Tab(text: 'Pedidos'),
+                  ),
+                  SizedBox(
+                    width: isReturns ? sizeW * 0.14 : sizeW * 0.24,
+                    child: const Tab(text: 'Garantías'),
+                  ),
+                  SizedBox(
+                    width: isReturns ? sizeW * 0.14 : sizeW * 0.24,
+                    child: const Tab(text: 'Abonos'),
+                  ),
+                  if(isReturns)...[
+                    SizedBox(
+                      width: sizeW * 0.24,
+                      child: const Tab(text: 'Devoluciones'),
+                    ),
+                  ],
+                ],
               ),
-              Divider(
-                height: 0,
-                thickness: 2,
-                indent: 15,
-                endIndent: 15,
-              ),
+              const Divider(height: 0,thickness: 2,indent: 15,endIndent: 15,),
               Expanded(
                 child: TabBarView(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   children: [
-                    MyOrders(),
-                    MyWarranty(),
-                    MyBills(),
+                    const MyOrders(),
+                    const MyWarranty(),
+                    const MyBills(),
                     if(isReturns)...[
-                      ReturnsScreen(),
+                      const ReturnsScreen(),
                     ],
                   ],
                 ),

@@ -19,6 +19,9 @@ class FooterProvider extends ChangeNotifier {
       }
       dataFooter = await getIt.get<UrlDynamicRepository>().getFooter();
       SharedPreferencesLocal.veraneDataFooter = jsonEncode(dataFooter);
+
+      SharedPreferencesLocal.veraneAppDevoluciones = dataFooter['app_devoluciones'];
+
     }catch(e){
       log(e.toString());
     }

@@ -17,4 +17,7 @@ class SharedPreferencesLocal {
   static bool get veraneDeleteUser => prefs.getBool("veraneDeleteUser") ?? false;
   static set veraneDeleteUser(bool value) => prefs.setBool("veraneDeleteUser", value);
 
+  static bool get veraneAppDevoluciones => prefs.getBool("veraneAppDevoluciones") ?? false;
+  static set veraneAppDevoluciones(bool value) => prefs.setBool("veraneAppDevoluciones", value);
+
 }

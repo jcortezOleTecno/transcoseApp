@@ -16,6 +16,7 @@ import 'package:vemare/app/data/products_repository.dart';
 import 'package:vemare/app/data/promotion_repository.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/services_repository.dart';
+import 'package:vemare/app/data/shared_preferences_static.dart';
 import 'package:vemare/app/data/work_with_us_repository.dart';
 import 'package:vemare/app/data/workshops_repository.dart';
 import 'package:vemare/app/domain/utils/validators.dart';
@@ -51,6 +52,7 @@ import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/app/view/work_with_us/work_with_us_page.dart';
 import 'package:vemare/app/view/workshop_networks/workshop_networks_page.dart';
 import 'package:vemare/config/service_locator.dart';
+import 'package:vemare/main.dart';
 
 import '../my_notifications/my_notifications_page.dart';
 
@@ -96,6 +98,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+
+    //isReturns = SharedPreferencesLocal.veraneAppDevoluciones;
+
     return Scaffold(
         body: MyBody(
       child: NestedPageView(
