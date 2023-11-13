@@ -16,6 +16,7 @@ import 'package:vemare/app/domain/model/warranty.dart';
 import 'package:vemare/app/domain/model/we_help_you.dart';
 import 'package:vemare/app/domain/model/work_with_us.dart';
 import 'package:vemare/app/view/about_us/about_us_page.dart';
+import 'package:vemare/app/view/claims/claims_page.dart';
 import 'package:vemare/app/view/home/home_page.dart';
 import 'package:vemare/app/view/library/library_details/library_detail.dart';
 import 'package:vemare/app/view/library/library_page.dart';
@@ -113,6 +114,11 @@ abstract class AppRouter {
         return MaterialPageRoute<void>(
           settings: settings,
           builder: (_) => WorkWithUsPage.create(workWithUs!),
+        );
+        case ClaimsPage.route:
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => const ClaimsPage(),
         );
       case TypeOfVehiclePage.route:
         final category = settings.arguments as Category?;

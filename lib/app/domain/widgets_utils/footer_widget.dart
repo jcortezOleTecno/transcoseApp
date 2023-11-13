@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/domain/widgets_utils/web_view_global.dart';
 import 'package:vemare/app/providers/footer_provider.dart';
+import 'package:vemare/app/view/claims/claims_page.dart';
 import 'package:vemare/app/view/home/home_page.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
@@ -118,6 +119,27 @@ class Footer extends StatelessWidget {
                 SizedBox(height: 20),
                 Text(
                   'Saber más →',
+                  style: AppTextStyle.nunitoSansFooter,
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 20),
+          InkWell(
+            onTap: (){
+              Navigator.pushNamed(context, ClaimsPage.route);
+            },
+            child: Column(
+              children: const [
+                Text(
+                  'Canal de denuncias',
+                  style: AppTextStyle.nunitoSansFooter,
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 20),
+                Text(
+                  'Ir al canal →',
                   style: AppTextStyle.nunitoSansFooter,
                   textAlign: TextAlign.center,
                 ),

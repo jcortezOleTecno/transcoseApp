@@ -73,7 +73,7 @@ class _DetailProductPageState extends State<DetailProductPage> {
                         ],
                       ),
                       spacerM,
-                      MyHtml(text: widget.args.cat.description ?? ''),
+                      MyHtml(text: widget.args.cat.description ?? '',bodyFontSize: 22),
                       // Text(
                       //   args.cat.description ?? '',
                       //   style: AppTextStyle.defaultStyle,
