@@ -6,6 +6,7 @@ class ArticleAboutUs {
     this.tags,
     this.description,
     this.image,
+    this.video,
   });
 
   int? id;
@@ -14,6 +15,7 @@ class ArticleAboutUs {
   String? tags;
   String? description;
   String? image;
+  String? video;
 
   ArticleAboutUs copyWith({
     int? id,
@@ -22,6 +24,7 @@ class ArticleAboutUs {
     String? tags,
     String? description,
     String? image,
+    String? video,
   }) =>
       ArticleAboutUs(
         id: id ?? this.id,
@@ -30,6 +33,7 @@ class ArticleAboutUs {
         tags: tags ?? this.tags,
         description: description ?? this.description,
         image: image ?? this.image,
+        video: video ?? this.video,
       );
 
   factory ArticleAboutUs.fromJson(dynamic json) => ArticleAboutUs(
@@ -39,6 +43,7 @@ class ArticleAboutUs {
         tags: json["tags"] as String?,
         description: json["description"] as String?,
         image: json["image"] as String?,
+        video: json["video"] as String?,
       );
 
   Map<String, dynamic> toJson() => {
@@ -48,5 +53,6 @@ class ArticleAboutUs {
         "tags": tags,
         "description": description,
         "image": image,
+        "video": video,
       };
 }

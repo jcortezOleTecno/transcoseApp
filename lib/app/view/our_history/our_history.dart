@@ -6,6 +6,7 @@ import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_network_image/my_network_image.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
+import 'package:vemare/app/view/_components/my_video_player/my_video_player.dart';
 import 'package:vemare/app/view/our_history/bloc/our_history_cubit.dart';
 import 'package:vemare/app/view/our_history/bloc/our_history_state.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
@@ -54,14 +55,21 @@ class _Article extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         spacerM,
-        Visibility(
-          visible: article.image != null && article.image != "",
-          child: MyNetworkImage(
-              image: article.image!,
-              width: double.infinity,
-              fit: BoxFit.cover,
-              height: 220),
-        ),
+        if(article.video == null)...[
+          Visibility(
+            visible: article.image != null && article.image != "",
+            child: MyNetworkImage(
+                image: article.image!,
+                width: double.infinity,
+                fit: BoxFit.cover,
+                height: 220),
+          ),
+        ]else...[
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: MyVideoPlayer(video: article.video!),
+          ),
+        ],
         spacerM,
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -74,7 +82,7 @@ class _Article extends StatelessWidget {
                     AppTextStyle.h2Style.copyWith(fontWeight: FontWeight.bold),
               ),
               spacerXs,
-              MyHtml(text: article.description ?? ''),
+              MyHtml(text: article.description ?? '',bodyFontSize: 22),
             ],
           ),
         ),
