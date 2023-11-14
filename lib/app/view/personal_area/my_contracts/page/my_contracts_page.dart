@@ -74,7 +74,10 @@ class MyContractsPage extends StatelessWidget {
 class _TapBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const TabBar(
+
+    double sizeW = MediaQuery.of(context).size.width;
+
+    return TabBar(
       labelColor: AppColor.primaryBlue,
       indicatorColor: AppColor.primaryBlue,
       indicatorWeight: 2.5,
@@ -87,14 +90,19 @@ class _TapBar extends StatelessWidget {
       labelStyle: TextStyle(fontWeight: FontWeight.bold),
       unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
       unselectedLabelColor: AppColor.primaryBlue,
-      isScrollable: false,
+      isScrollable: true,
       labelPadding: EdgeInsets.symmetric(horizontal: 0.5),
       tabs: [
-        Tab(text: 'Rappels'),
-        Tab(text: 'Millennium'),
-        Tab(text: 'Convenciones'),
-        Tab(text: 'PMP'),
-        Tab(text: 'CRD'),
+        // Tab(text: 'Rappels'),
+        // Tab(text: 'Millennium'),
+        // Tab(text: 'Convenciones'),
+        // Tab(text: 'PMP'),
+        // Tab(text: 'CRD'),
+        SizedBox(width: sizeW * 0.23,child: const Tab(text: 'Rappels'),),
+        SizedBox(width: sizeW * 0.23,child: const Tab(text: 'Millennium'),),
+        SizedBox(width: sizeW * 0.23,child: const Tab(text: 'Convenciones'),),
+        SizedBox(width: sizeW * 0.13,child: const Tab(text: 'PMP'),),
+        SizedBox(width: sizeW * 0.13,child: const Tab(text: 'CRD'),),
       ],
     );
   }
