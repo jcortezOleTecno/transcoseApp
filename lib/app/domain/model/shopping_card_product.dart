@@ -4,9 +4,9 @@ class ShoppingCardProduct {
   String? productName;
   bool renting;
   int? priceOld;
-  int? priceSale;
+  double? priceSale;
   int? quantity;
-  int? total;
+  double? total;
 
   ShoppingCardProduct({
     this.id,
@@ -25,9 +25,9 @@ class ShoppingCardProduct {
         productName: json["product_name"] as String?,
         renting: json["renting"] as bool,
         priceOld: json["price_old"] as int?,
-        priceSale: json["price_sale"] as int?,
+        priceSale: json["price_sale"] as double?,
         quantity: json["quantity"] as int?,
-        total: json["total"] as int?,
+        total: json["total"] as double?,
       );
 
   Map<String, dynamic> toJson() => {

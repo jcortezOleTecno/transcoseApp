@@ -33,11 +33,11 @@ class ShoppingCardCubit extends Cubit<ShoppingCardState> {
 
       _carCounterCubit.addProduct(quantity: counterTemp);
 
-      int totalRenting = 0;
+      double totalRenting = 0;
       for (var e in renting) {
         totalRenting = e.total! + totalRenting;
       }
-      int totalTienda = 0;
+      double totalTienda = 0;
       for (var e in tienda) {
         totalTienda = e.total! + totalTienda;
       }

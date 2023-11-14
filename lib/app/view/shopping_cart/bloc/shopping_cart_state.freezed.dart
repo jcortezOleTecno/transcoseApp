@@ -24,8 +24,8 @@ mixin _$ShoppingCardState {
   bool get typePaySelected => throw _privateConstructorUsedError;
   double get total => throw _privateConstructorUsedError;
   int get counter => throw _privateConstructorUsedError;
-  int get totalRenting => throw _privateConstructorUsedError;
-  int get totalTienda => throw _privateConstructorUsedError;
+  double get totalRenting => throw _privateConstructorUsedError;
+  double get totalTienda => throw _privateConstructorUsedError;
   List<ShoppingCardProduct> get products => throw _privateConstructorUsedError;
   List<ShoppingCardProduct> get productsTienda =>
       throw _privateConstructorUsedError;
@@ -53,8 +53,8 @@ abstract class $ShoppingCardStateCopyWith<$Res> {
       bool typePaySelected,
       double total,
       int counter,
-      int totalRenting,
-      int totalTienda,
+      double totalRenting,
+      double totalTienda,
       List<ShoppingCardProduct> products,
       List<ShoppingCardProduct> productsTienda,
       List<ShoppingCardProduct> productsRenting,
@@ -125,11 +125,11 @@ class _$ShoppingCardStateCopyWithImpl<$Res, $Val extends ShoppingCardState>
       totalRenting: null == totalRenting
           ? _value.totalRenting
           : totalRenting // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       totalTienda: null == totalTienda
           ? _value.totalTienda
           : totalTienda // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       products: null == products
           ? _value.products
           : products // ignore: cast_nullable_to_non_nullable
@@ -167,8 +167,8 @@ abstract class _$$_ShoppingCardStateCopyWith<$Res>
       bool typePaySelected,
       double total,
       int counter,
-      int totalRenting,
-      int totalTienda,
+      double totalRenting,
+      double totalTienda,
       List<ShoppingCardProduct> products,
       List<ShoppingCardProduct> productsTienda,
       List<ShoppingCardProduct> productsRenting,
@@ -237,11 +237,11 @@ class __$$_ShoppingCardStateCopyWithImpl<$Res>
       totalRenting: null == totalRenting
           ? _value.totalRenting
           : totalRenting // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       totalTienda: null == totalTienda
           ? _value.totalTienda
           : totalTienda // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       products: null == products
           ? _value._products
           : products // ignore: cast_nullable_to_non_nullable
@@ -313,10 +313,10 @@ class _$_ShoppingCardState extends _ShoppingCardState {
   final int counter;
   @override
   @JsonKey()
-  final int totalRenting;
+  final double totalRenting;
   @override
   @JsonKey()
-  final int totalTienda;
+  final double totalTienda;
   final List<ShoppingCardProduct> _products;
   @override
   @JsonKey()
@@ -416,8 +416,8 @@ abstract class _ShoppingCardState extends ShoppingCardState {
       final bool typePaySelected,
       final double total,
       final int counter,
-      final int totalRenting,
-      final int totalTienda,
+      final double totalRenting,
+      final double totalTienda,
       final List<ShoppingCardProduct> products,
       final List<ShoppingCardProduct> productsTienda,
       final List<ShoppingCardProduct> productsRenting,
@@ -441,9 +441,9 @@ abstract class _ShoppingCardState extends ShoppingCardState {
   @override
   int get counter;
   @override
-  int get totalRenting;
+  double get totalRenting;
   @override
-  int get totalTienda;
+  double get totalTienda;
   @override
   List<ShoppingCardProduct> get products;
   @override
