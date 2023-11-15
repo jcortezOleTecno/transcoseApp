@@ -114,7 +114,7 @@ class _MySignatureState extends State<MySignature> {
                   MyInput(
                     label: 'NIF',
                     textInputAction: TextInputAction.next,
-                    inputType: TextInputType.number,
+                    inputType: TextInputType.text,
                     onChanged: (value) {
                       setState(() {
                         nif = value;
