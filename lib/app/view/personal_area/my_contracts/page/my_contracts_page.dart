@@ -82,16 +82,16 @@ class _TapBar extends StatelessWidget {
       indicatorColor: AppColor.primaryBlue,
       indicatorWeight: 2.5,
       indicatorSize: TabBarIndicatorSize.tab,
-      indicator: BoxDecoration(
+      indicator: const BoxDecoration(
           color: AppColor.blue100,
           border: Border(
             bottom: BorderSide(color: AppColor.primaryBlue, width: 2.5),
           )),
-      labelStyle: TextStyle(fontWeight: FontWeight.bold),
-      unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
+      labelStyle: const TextStyle(fontWeight: FontWeight.bold),
+      unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.normal),
       unselectedLabelColor: AppColor.primaryBlue,
       isScrollable: true,
-      labelPadding: EdgeInsets.symmetric(horizontal: 0.5),
+      labelPadding: const EdgeInsets.symmetric(horizontal: 0.5),
       tabs: [
         // Tab(text: 'Rappels'),
         // Tab(text: 'Millennium'),
