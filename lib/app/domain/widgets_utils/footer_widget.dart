@@ -90,8 +90,12 @@ class Footer extends StatelessWidget {
                 for(int x = 0; x < urlMap.length; x++) Expanded(
                   child: GestureDetector(
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder:
-                          (BuildContext context) => WebViewGlobal(url: urlMap[urlMap.keys.elementAt(x)]!,local: false,)));
+                      if(x == 0){
+                        launchUrlString(urlMap[urlMap.keys.elementAt(x)]!);
+                      }else{
+                        Navigator.push(context, MaterialPageRoute(builder:
+                            (BuildContext context) => WebViewGlobal(url: urlMap[urlMap.keys.elementAt(x)]!,local: false,)));
+                      }
                     },
                     child: Image.asset(
                       'assets/icons/rs_${urlMap.keys.elementAt(x)}.png',

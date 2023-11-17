@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
@@ -58,6 +59,9 @@ class _WebViewGlobalState extends State<WebViewGlobal> {
   }
 
   Widget childW(){
+
+    log(url);
+
     return SafeArea(
       child: SizedBox(
         child: Stack(
@@ -68,22 +72,25 @@ class _WebViewGlobalState extends State<WebViewGlobal> {
                 width: double.infinity,
                 height: double.infinity,
                 child: InAppWebView(
-                  initialUrlRequest: URLRequest(url: Uri.parse(url)),// .https("${BASE_API_URL.replaceAll('https://', '')}\/politicas-de-privacidad")),
+                  shouldOverrideUrlLoading: _shouldOverrideUrlLoading,
+                  initialUrlRequest: URLRequest(url: Uri.parse(url),),// .https("${BASE_API_URL.replaceAll('https://', '')}\/politicas-de-privacidad")),
                   initialOptions: InAppWebViewGroupOptions(
-                      android: AndroidInAppWebViewOptions()
+                      android: AndroidInAppWebViewOptions(
+
+                      )
                   ),
                   onWebViewCreated: (InAppWebViewController controller) {
                     _webViewController = controller;
                   },
                   onLoadStart: (InAppWebViewController controller, Uri? url) {
-                    setState(() {
-                      this.url = url!.path;
-                    });
+                    // setState(() {
+                    //   this.url = url!.path;
+                    // });
                   },
                   onLoadStop: (InAppWebViewController controller, Uri? url) async {
-                    setState(() {
-                      this.url = url!.path;
-                    });
+                    // setState(() {
+                    //   this.url = url!.path;
+                    // });
                   },
                   onProgressChanged: (InAppWebViewController controller, int progress) {
                     setState(() {
@@ -114,6 +121,21 @@ class _WebViewGlobalState extends State<WebViewGlobal> {
     );
   }
 
+  Future<NavigationActionPolicy> _shouldOverrideUrlLoading(
+      InAppWebViewController controller,
+      NavigationAction shouldOverrideUrlLoadingRequest) async {
+    var uri = shouldOverrideUrlLoadingRequest.request.url;
+    if (uri == null) {
+      // controller.goBack();
+      return NavigationActionPolicy.CANCEL;
+    }
+    final uriString = uri.toString();
+    if (uriString.startsWith('http://') || uriString.startsWith('https://')) {
+      return NavigationActionPolicy.ALLOW;
+    } else {
+      return NavigationActionPolicy.CANCEL;
+    }
+  }
 
   Future<bool> exit() async {
     // if (_webViewController != null) {
