@@ -9,6 +9,7 @@ import 'package:vemare/app/view/home/home_page.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/app/view/work_with_us/work_with_us_page.dart';
+import 'package:vemare/main.dart';
 
 class Footer extends StatelessWidget {
   const Footer({Key? key}) : super(key: key);
@@ -129,40 +130,22 @@ class Footer extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 20),
-          InkWell(
-            onTap: (){
-              Navigator.pushNamed(context, ClaimsPage.route);
-            },
-            child: Column(
-              children: const [
-                Text(
-                  'Canal de denuncias',
-                  style: AppTextStyle.nunitoSansFooter,
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 20),
-                Text(
-                  'Ir al canal →',
-                  style: AppTextStyle.nunitoSansFooter,
-                  textAlign: TextAlign.center,
-                ),
-              ],
+          if(isClaims)...[
+            const SizedBox(height: 20),
+            InkWell(
+              onTap: (){
+                Navigator.pushNamed(context, ClaimsPage.route);
+              },
+              child: Column(
+                children: const [
+                  Text('Canal de denuncias',style: AppTextStyle.nunitoSansFooter,textAlign: TextAlign.center,),
+                  SizedBox(height: 20),
+                  Text('Ir al canal →',style: AppTextStyle.nunitoSansFooter,textAlign: TextAlign.center,),
+                ],
+              ),
             ),
-          ),
+          ],
           const SizedBox(height: 20),
-          // const Text(
-          //   'Canal de denuncias',
-          //   style: AppTextStyle.nunitoSansFooter,
-          //   textAlign: TextAlign.center,
-          // ),
-          // const SizedBox(height: 20),
-          // const Text(
-          //   'Ir al canal →',
-          //   style: AppTextStyle.nunitoSansFooter,
-          //   textAlign: TextAlign.center,
-          // ),
-          // const SizedBox(height: 20),
           const Text(
             'Contacto',
             style: AppTextStyle.nunitoSansFooter22,

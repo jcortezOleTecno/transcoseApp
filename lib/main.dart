@@ -33,7 +33,8 @@ import 'app/data/shopping_cart_repository.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 NavigatorState get navigator => navigatorKey.currentState!;
-bool isReturns = true;
+bool isReturns = false;
+bool isClaims = false;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
