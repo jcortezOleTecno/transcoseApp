@@ -72,7 +72,7 @@ class Conventions extends StatelessWidget {
                           spacerM,
                           if(provider.loadData)...[
                             spacerM,
-                            circularProgressColors(),
+                            circularProgressColors(widthContainer1: double.infinity),
                             spacerM,
                           ]else...[
                             if(provider.contratoConventionsModel == null)...[
@@ -126,14 +126,17 @@ class _ContractCeonventions extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: MyIconButton(
-                onPressed: () {
-                  myDialogSignature(context,
+                onPressed: () async {
+                  bool? res = await myDialogSignature(context,
                     sign: (name, nif, signature) async {
                       provider.signConvenciones(
                           name: name,
                           nif: nif,
                           signature: signature);
                     });
+                  if(res != null && res){
+                    provider.getConventions();
+                  }
                 },
                 text: 'Firmar',
                 icon: Image.asset('assets/icons/firma.png',scale: 3,),

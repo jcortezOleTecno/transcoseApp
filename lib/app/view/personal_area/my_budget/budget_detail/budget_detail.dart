@@ -88,8 +88,8 @@ class BudgetDetailPage extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(15),
                     child: MyIconButton(
-                      onPressed: () {
-                        myDialogSignature(context,
+                      onPressed: () async {
+                        bool? res = await myDialogSignature(context,
                             sign: (name, nif, signature) async {
                           await cubit.sign(
                             name: name,
@@ -97,6 +97,9 @@ class BudgetDetailPage extends StatelessWidget {
                             signature: signature,
                           );
                         });
+                        if(res != null && res){
+                          cubit.fetchData();
+                        }
                       },
                       text: 'Firmar',
                       icon: Image.asset(

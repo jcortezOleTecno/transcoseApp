@@ -95,8 +95,8 @@ class Millennium extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.fromLTRB(15, 0, 15, 20),
                                 child: MyIconButton(
-                                  onPressed: () {
-                                    myDialogSignature(context,
+                                  onPressed: () async {
+                                    bool? res = await myDialogSignature(context,
                                         sign: (name, nif, signature) async {
                                           await cubit.signMill(
                                             name: name,
@@ -104,6 +104,9 @@ class Millennium extends StatelessWidget {
                                             signature: signature,
                                           );
                                         });
+                                    if(res != null && res){
+                                      cubit.getContrats();
+                                    }
                                   },
                                   text: 'Firmar',
                                   icon: Image.asset(

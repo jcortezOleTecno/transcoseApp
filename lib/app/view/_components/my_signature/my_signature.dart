@@ -137,7 +137,7 @@ class _MySignatureState extends State<MySignature> {
                         loading = false;
                       });
                       // ignore: use_build_context_synchronously
-                      Navigator.of(context).pop();
+                      Navigator.of(context).pop(true);
                     },
                     disabled: (name == '' || nif == '') || signIsEmpty,
                     text: 'Firmar',
