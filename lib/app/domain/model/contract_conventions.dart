@@ -25,7 +25,7 @@ class ContratoConventionsModel {
 
   int? codigoContrato;
   String? convencion;
-  int? codConvencion;
+  String? codConvencion;
   String? nombre;
   String? movil;
   String? email;
@@ -44,7 +44,7 @@ class ContratoConventionsModel {
   factory ContratoConventionsModel.fromJson(dynamic json) => ContratoConventionsModel(
         codigoContrato: json["codigo_contrato"] as int?,
         convencion: json["convencion"] as String?,
-        codConvencion: json["cod_convencion"] as int?,
+        codConvencion: json["cod_convencion"] as String?,
         nombre: json["nombre"] as String?,
         movil: json["movil"] as String?,
         email: json["email"] as String?,
