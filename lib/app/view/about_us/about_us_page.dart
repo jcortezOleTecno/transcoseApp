@@ -14,6 +14,7 @@ import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/about_us/bloc/about_us_cubit.dart';
 import 'package:vemare/app/view/about_us/bloc/about_us_state.dart';
+import 'package:vemare/app/view/library/library_details/library_detail.dart';
 import 'package:vemare/app/view/library/library_page.dart';
 import 'package:vemare/app/view/news/news_page.dart';
 import 'package:vemare/app/view/our_history/our_history.dart';
@@ -301,7 +302,7 @@ class _News extends StatelessWidget {
                   initialPage: 0,
                   viewportFraction: 0.9,
                 ),
-                itemBuilder: (context, i) => MyNewsCardCarrucel(
+                itemBuilder: (context, i) => MyNewsCardCarrucelOnTap(
                   img: state.news[i].image!,
                   title: state.news[i].title ?? '',
                   description: state.news[i].subtitle ?? '',
@@ -350,6 +351,7 @@ class _Library extends StatelessWidget {
                               .title ??
                           '',
                   style: AppTextStyle.h1Style),
+              spacerS,
               state.libraries.isEmpty
                   ? const MyShimmer(
                       height: 440,
@@ -358,44 +360,65 @@ class _Library extends StatelessWidget {
                   : Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: List.generate(state.libraries.length, (i) {
-                        return Card(
-                          margin: const EdgeInsets.symmetric(
-                              vertical: 5),
-                          clipBehavior: Clip.antiAlias,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ClipRRect(
-                                borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(10),
-                                    topRight: Radius.circular(10)),
-                                child: Image.network(
-                                  state.libraries[i].image ?? '',
-                                  height: 220,
-                                  width: double.infinity,
-                                  fit: BoxFit.cover,
+                        return InkWell(
+                          onTap: (){
+                            if (LocalDataRepository().isLogged) {
+                              Navigator.pushNamed(
+                                  context, LibraryDetailPage.route,
+                                  arguments: state.libraries[i]);
+                            } else {
+                              Navigator.pushNamed(
+                                context,
+                                LoginPage.route,
+                                arguments:
+                                'Para acceder a la biblioteca tienes que iniciar sesión',
+                              ).then((_) {
+                                if (LocalDataRepository().isLogged) {
+                                  Navigator.pushNamed(
+                                      context, LibraryDetailPage.route,
+                                      arguments: state.libraries[i]);
+                                }
+                              });
+                            }
+                          },
+                          child: Card(
+                            margin: const EdgeInsets.only(bottom: 20),
+                            clipBehavior: Clip.antiAlias,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10)),
+                                  child: Image.network(
+                                    state.libraries[i].image ?? '',
+                                    height: 220,
+                                    width: double.infinity,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  children: [
-                                    Text(state.libraries[i].title ?? '',
-                                        style: AppTextStyle.titleCard),
-                                    spacerXs,
-                                    Text(state.libraries[i].subtitle ?? '',
-                                        style: AppTextStyle.defaultStyle),
-                                  ],
-                                ),
-                              )
-                            ],
+                                Padding(
+                                  padding: const EdgeInsets.all(15),
+                                  child: Column(
+                                    children: [
+                                      Text(state.libraries[i].title ?? '',
+                                          style: AppTextStyle.titleCard),
+                                      spacerXs,
+                                      Text(state.libraries[i].subtitle ?? '',
+                                          style: AppTextStyle.defaultStyle,
+                                      maxLines: 3),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         );
                       }),
                     ),
-              spacerS,
               Center(
                 child: TextButton.icon(
                   onPressed: () =>
