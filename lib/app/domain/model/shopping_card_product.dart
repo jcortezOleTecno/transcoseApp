@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 class ShoppingCardProduct {
   int? id;
   String? image;
@@ -19,16 +21,33 @@ class ShoppingCardProduct {
     this.total,
   });
 
-  factory ShoppingCardProduct.fromJson(dynamic json) => ShoppingCardProduct(
-        id: json["id"] as int?,
-        image: json["image"] as String?,
-        productName: json["product_name"] as String?,
-        renting: json["renting"] as bool,
-        priceOld: json["price_old"] as int?,
-        priceSale: json["price_sale"] as double?,
-        quantity: json["quantity"] as int?,
-        total: json["total"] as double?,
-      );
+  factory ShoppingCardProduct.fromJson(dynamic json){
+
+    double? pS = 0.0;
+    if(!json["price_sale"].toString().contains('.')){
+      pS = double.parse('${json["price_sale"].toString()}.0');
+    }else{
+      pS = json["price_sale"] as double;
+    }
+
+    double? pTotal = 0.0;
+    if(!json["total"].toString().contains('.')){
+      pTotal = double.parse('${json["total"].toString()}.0');
+    }else{
+      pTotal = json["total"] as double;
+    }
+
+    return ShoppingCardProduct(
+      id: json["id"] as int?,
+      image: json["image"] as String?,
+      productName: json["product_name"] as String?,
+      renting: json["renting"] as bool,
+      priceOld: json["price_old"] as int?,
+      priceSale: pS,
+      quantity: json["quantity"] as int?,
+      total: pTotal,
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "id": id,
