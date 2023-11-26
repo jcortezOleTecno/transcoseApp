@@ -48,12 +48,15 @@ class TypeOfVehiclePage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(state.header?.title ?? '', style: AppTextStyle.h1Style),
                                 spacerS,
-                                Text(state.header?.description ?? ''),
+                                Text(state.header?.description ?? '', style: AppTextStyle.h1Style.copyWith(
+                                  fontWeight: FontWeight.normal,fontSize: 18
+                                )),
                                 spacerM,
                                 if (state.loading)
                                   ...List.generate(
@@ -131,7 +134,7 @@ class TypeVehicleCard extends StatelessWidget {
     return SizedBox(
       height: 220,
       child: Card(
-        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+        margin: const EdgeInsets.symmetric(vertical: 5),
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Stack(

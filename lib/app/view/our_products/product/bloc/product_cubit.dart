@@ -24,7 +24,13 @@ class ProductCubit extends Cubit<ProductState> {
     List<Category> categories = [Category(id: 0, name: 'Todos los productos')];
 
     await Future.wait([
-      _productsRepository.getProductsCategories().then(categories.addAll),
+      _productsRepository.getProductsCategories().then((value){
+        for (var element in value) {
+          if(state.category!.typeVehicle![0].id! == element.typeVehicle![0].id!){
+            categories.add(element);
+          }
+        }
+      }),
       _productsRepository
           .getCategoryDetail(
               id: state.category?.id?.toString() ?? '',
