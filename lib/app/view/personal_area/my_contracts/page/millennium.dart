@@ -28,7 +28,10 @@ import 'rappels.dart';
 class Millennium extends StatelessWidget {
   const Millennium({
     Key? key,
+    required this.scrollBottomBarController
   }) : super(key: key);
+
+  final ScrollController scrollBottomBarController;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +39,7 @@ class Millennium extends StatelessWidget {
     return BlocBuilder<MyContratsCubit, MyContratsState>(
       builder: (context, state) {
         return SingleChildScrollView(
+          controller: scrollBottomBarController,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [

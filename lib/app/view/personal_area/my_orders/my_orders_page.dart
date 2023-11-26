@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vemare/app/data/my_account_repository.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
@@ -14,7 +15,7 @@ import 'orders_and_bills/bills_widget.dart';
 import 'orders_and_bills/orders_widget.dart';
 import 'warranty/warranty_widget.dart';
 
-class MyOrdersPage extends StatelessWidget {
+class MyOrdersPage extends StatefulWidget {
   const MyOrdersPage._();
 
   static const route = '/my_orders';
@@ -29,6 +30,50 @@ class MyOrdersPage extends StatelessWidget {
   }
 
   @override
+  State<MyOrdersPage> createState() => _MyOrdersPageState();
+}
+
+class _MyOrdersPageState extends State<MyOrdersPage> {
+
+  bool _showAppbar = true; //this is to show app bar
+  final ScrollController scrollBottomBarController = ScrollController(); // set controller on scrolling
+  bool isScrollingDown = false;
+
+  @override
+  void initState() {
+    super.initState();
+    myScroll();
+  }
+
+  @override
+  void dispose() {
+    scrollBottomBarController.removeListener(() {});
+    super.dispose();
+  }
+
+  void myScroll() async {
+    try{
+      scrollBottomBarController.addListener(() {
+        if (scrollBottomBarController.position.userScrollDirection == ScrollDirection.reverse) {
+          if (!isScrollingDown) {
+            isScrollingDown = true;
+            _showAppbar = false;
+            setState(() {});
+          }
+        }
+        if (scrollBottomBarController.position.userScrollDirection == ScrollDirection.forward) {
+          if (isScrollingDown) {
+            isScrollingDown = false;
+            _showAppbar = true;
+            setState(() {});
+          }
+        }
+      });
+    }catch(_){}
+
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     double sizeW = MediaQuery.of(context).size.width;
@@ -39,51 +84,56 @@ class MyOrdersPage extends StatelessWidget {
           length: isReturns ? 4 : 3,
           child: Column(
             children: [
-              spacerS,
-              TabBar(
-                isScrollable: true,
-                indicator: const BoxDecoration(
-                  color: AppColor.blue100,
-                  border: Border(bottom: BorderSide(color: AppColor.primaryBlue, width: 2.5),),
-                ),
-                labelColor: AppColor.primaryBlue,
-                indicatorColor: AppColor.primaryBlue,
-                indicatorWeight: 2.5,
-                indicatorSize: TabBarIndicatorSize.tab,
-                labelStyle: const TextStyle(fontWeight: FontWeight.bold,),
-                unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.normal),
-                unselectedLabelColor: AppColor.primaryBlue,
-                tabs: [
-                  SizedBox(
-                    width: isReturns ? sizeW * 0.14 : sizeW * 0.24,
-                    child: const Tab(text: 'Pedidos'),
-                  ),
-                  SizedBox(
-                    width: isReturns ? sizeW * 0.14 : sizeW * 0.24,
-                    child: const Tab(text: 'Garantías'),
-                  ),
-                  SizedBox(
-                    width: isReturns ? sizeW * 0.14 : sizeW * 0.24,
-                    child: const Tab(text: 'Abonos'),
-                  ),
-                  if(isReturns)...[
-                    SizedBox(
-                      width: sizeW * 0.24,
-                      child: const Tab(text: 'Devoluciones'),
+              if(_showAppbar)...[
+                spacerS,
+                Visibility(
+                  visible: _showAppbar,
+                  child: TabBar(
+                    isScrollable: true,
+                    indicator: const BoxDecoration(
+                      color: AppColor.blue100,
+                      border: Border(bottom: BorderSide(color: AppColor.primaryBlue, width: 2.5),),
                     ),
-                  ],
-                ],
-              ),
-              const Divider(height: 0,thickness: 2,indent: 15,endIndent: 15,),
+                    labelColor: AppColor.primaryBlue,
+                    indicatorColor: AppColor.primaryBlue,
+                    indicatorWeight: 2.5,
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    labelStyle: const TextStyle(fontWeight: FontWeight.bold,),
+                    unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.normal),
+                    unselectedLabelColor: AppColor.primaryBlue,
+                    tabs: [
+                      SizedBox(
+                        width: isReturns ? sizeW * 0.14 : sizeW * 0.24,
+                        child: const Tab(text: 'Pedidos'),
+                      ),
+                      SizedBox(
+                        width: isReturns ? sizeW * 0.14 : sizeW * 0.24,
+                        child: const Tab(text: 'Garantías'),
+                      ),
+                      SizedBox(
+                        width: isReturns ? sizeW * 0.14 : sizeW * 0.24,
+                        child: const Tab(text: 'Abonos'),
+                      ),
+                      if(isReturns)...[
+                        SizedBox(
+                          width: sizeW * 0.24,
+                          child: const Tab(text: 'Devoluciones'),
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+                const Divider(height: 0,thickness: 2,indent: 15,endIndent: 15,),
+              ],
               Expanded(
                 child: TabBarView(
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
-                    const MyOrders(),
-                    const MyWarranty(),
-                    const MyBills(),
+                    MyOrders(scrollBottomBarController: scrollBottomBarController),
+                    MyWarranty(scrollBottomBarController: scrollBottomBarController),
+                    MyBills(scrollBottomBarController: scrollBottomBarController),
                     if(isReturns)...[
-                      const ReturnsScreen(),
+                      ReturnsScreen(scrollBottomBarController: scrollBottomBarController),
                     ],
                   ],
                 ),

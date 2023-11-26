@@ -26,7 +26,10 @@ import 'package:vemare/config/service_locator.dart';
 class Conventions extends StatelessWidget {
   const Conventions({
     Key? key,
+    required this.scrollBottomBarController
   }) : super(key: key);
+
+  final ScrollController scrollBottomBarController;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +38,7 @@ class Conventions extends StatelessWidget {
         child: Consumer<ConventionsProvider>(
             builder: (context2, provider, child){
               return SingleChildScrollView(
+                controller: scrollBottomBarController,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [

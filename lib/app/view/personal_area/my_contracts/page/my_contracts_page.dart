@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vemare/app/data/contracts_repository.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
@@ -15,7 +18,7 @@ import 'millennium.dart';
 import 'pmp.dart';
 import 'rappels.dart';
 
-class MyContractsPage extends StatelessWidget {
+class MyContractsPage extends StatefulWidget {
   const MyContractsPage._();
   static const route = '/my_contracts';
 
@@ -26,6 +29,50 @@ class MyContractsPage extends StatelessWidget {
       ),
       child: const MyContractsPage._(),
     );
+  }
+
+  @override
+  State<MyContractsPage> createState() => _MyContractsPageState();
+}
+
+class _MyContractsPageState extends State<MyContractsPage> with TickerProviderStateMixin{
+
+  bool _showAppbar = true; //this is to show app bar
+  final ScrollController scrollBottomBarController = ScrollController(); // set controller on scrolling
+  bool isScrollingDown = false;
+
+  @override
+  void initState() {
+    super.initState();
+    myScroll();
+  }
+
+  @override
+  void dispose() {
+    scrollBottomBarController.removeListener(() {});
+    super.dispose();
+  }
+
+  void myScroll() async {
+    try{
+      scrollBottomBarController.addListener(() {
+        if (scrollBottomBarController.position.userScrollDirection == ScrollDirection.reverse) {
+          if (!isScrollingDown) {
+            isScrollingDown = true;
+            _showAppbar = false;
+            setState(() {});
+          }
+        }
+        if (scrollBottomBarController.position.userScrollDirection == ScrollDirection.forward) {
+          if (isScrollingDown) {
+            isScrollingDown = false;
+            _showAppbar = true;
+            setState(() {});
+          }
+        }
+      });
+    }catch(_){}
+
   }
 
   @override
@@ -41,25 +88,30 @@ class MyContractsPage extends StatelessWidget {
                 length: 5,
                 child: Column(
                   children: [
-                    spacerS,
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: _TapBar(),
-                    ),
-                    const Divider(
-                      height: 0,
-                      thickness: 2,
-                      indent: 15,
-                      endIndent: 15,
-                    ),
-                    const Expanded(
+                    if(_showAppbar)...[
+                      spacerS,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Visibility(
+                            visible: _showAppbar,
+                            child: _TapBar()
+                        ),
+                      ),
+                      const Divider(
+                        height: 0,
+                        thickness: 2,
+                        indent: 15,
+                        endIndent: 15,
+                      ),
+                    ],
+                    Expanded(
                       child: TabBarView(
                         children: [
-                          Rappels(),
-                          Millennium(),
-                          Conventions(),
-                          PMP(),
-                          CRD(),
+                          Rappels(scrollBottomBarController: scrollBottomBarController),
+                          Millennium(scrollBottomBarController: scrollBottomBarController),
+                          Conventions(scrollBottomBarController: scrollBottomBarController),
+                          PMP(scrollBottomBarController: scrollBottomBarController),
+                          CRD(scrollBottomBarController: scrollBottomBarController),
                         ],
                       ),
                     ),
@@ -93,11 +145,6 @@ class _TapBar extends StatelessWidget {
       isScrollable: true,
       labelPadding: const EdgeInsets.symmetric(horizontal: 0.5),
       tabs: [
-        // Tab(text: 'Rappels'),
-        // Tab(text: 'Millennium'),
-        // Tab(text: 'Convenciones'),
-        // Tab(text: 'PMP'),
-        // Tab(text: 'CRD'),
         SizedBox(width: sizeW * 0.23,child: const Tab(text: 'Rappels'),),
         SizedBox(width: sizeW * 0.23,child: const Tab(text: 'Millennium'),),
         SizedBox(width: sizeW * 0.23,child: const Tab(text: 'Convenciones'),),

@@ -25,7 +25,10 @@ import '../bloc/my_orders_state.dart';
 class MyOrders extends StatelessWidget {
   const MyOrders({
     Key? key,
+    required this.scrollBottomBarController
   }) : super(key: key);
+
+  final ScrollController scrollBottomBarController;
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +43,7 @@ class MyOrders extends StatelessWidget {
         : BlocBuilder<MyOrdersCubit, MyOrdersState>(
             builder: (context, state) {
               return SingleChildScrollView(
+                controller: scrollBottomBarController,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

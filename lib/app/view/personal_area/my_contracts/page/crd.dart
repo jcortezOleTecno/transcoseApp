@@ -24,12 +24,16 @@ import 'bloc/my_contracts_state.dart';
 class CRD extends StatelessWidget {
   const CRD({
     Key? key,
+    required this.scrollBottomBarController
   }) : super(key: key);
+
+  final ScrollController scrollBottomBarController;
 
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<MyContratsCubit>();
     return SingleChildScrollView(
+      controller: scrollBottomBarController,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [

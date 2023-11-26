@@ -26,7 +26,10 @@ import 'bloc/my_contracts_state.dart';
 class Rappels extends StatelessWidget {
   const Rappels({
     Key? key,
+    required this.scrollBottomBarController
   }) : super(key: key);
+
+  final ScrollController scrollBottomBarController;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +37,7 @@ class Rappels extends StatelessWidget {
     return BlocBuilder<MyContratsCubit, MyContratsState>(
       builder: (context, state) {
         return SingleChildScrollView(
+          controller: scrollBottomBarController,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [

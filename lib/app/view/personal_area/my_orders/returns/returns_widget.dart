@@ -25,7 +25,12 @@ import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
 
 class ReturnsScreen extends StatelessWidget {
-  const ReturnsScreen({super.key});
+  const ReturnsScreen({
+    Key? key,
+    required this.scrollBottomBarController
+  }) : super(key: key);
+
+  final ScrollController scrollBottomBarController;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +39,7 @@ class ReturnsScreen extends StatelessWidget {
         child: Consumer<ReturnsProvider>(
             builder: (context2, provider, child){
               return SingleChildScrollView(
+                controller: scrollBottomBarController,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
