@@ -99,9 +99,9 @@ class EnrollTrainingPage extends StatelessWidget {
                               ),
                               spacerS,
                               if (state.showCalendar)
-                                const Text(
+                                Text(
                                   'Selecciona una fecha',
-                                  style: AppTextStyle.defaultStyle,
+                                  style: AppTextStyle.defaultStyle.copyWith(fontSize: 20),
                                 ),
                               spacerXL,
                               (state.showCalendar)
@@ -211,6 +211,11 @@ Future<bool?> _dialogConfirmSchedule(
       context: context,
       barrierDismissible: false,
       builder: (context) {
+
+        TextStyle style1 = AppTextStyle.nunitoSans700.copyWith(fontSize: 18,fontWeight: FontWeight.normal);
+        TextStyle style2 = AppTextStyle.nunitoSans700.copyWith(fontSize: 20);
+        TextStyle style3 = AppTextStyle.nunitoSans700.copyWith(fontSize: 20,fontWeight: FontWeight.normal);
+
         return Dialog(
           insetPadding: const EdgeInsets.fromLTRB(20, 25, 20, 20),
           shape:
@@ -238,38 +243,35 @@ Future<bool?> _dialogConfirmSchedule(
                   style: AppTextStyle.nunitoSans700.copyWith(fontSize: 20),
                 ),
                 spacerS,
-                Text('Fechas:',
-                    style: AppTextStyle.nunitoSans700.copyWith(fontSize: 12)),
+                Text('Fechas:',style: style1),
                 spacerXs,
                 Text(
                   '${horario.dateFormat} a ${horario.endDateFormat}',
-                  style: AppTextStyle.nunitoSans700.copyWith(fontSize: 14),
+                  style: style2,
                 ),
                 if (!horario.allDay) ...[
                   spacerS,
-                  Text('Horarios:',
-                      style: AppTextStyle.nunitoSans700.copyWith(fontSize: 12)),
+                  Text('Horarios:',style: style1),
                   spacerXs,
                   Text('${horario.timeFormat} • ${horario.endTimeFormat}',
-                      style: AppTextStyle.defaultStyle),
+                      style: style3),
                 ],
                 spacerS,
-                Text('Ubicación:',
-                    style: AppTextStyle.nunitoSans700.copyWith(fontSize: 12)),
+                Text('Ubicación:',style: style1),
                 spacerXs,
                 Text(
                   horario.location ?? '',
-                  style: AppTextStyle.nunitoSans700.copyWith(fontSize: 14),
+                  style: style2,
                 ),
                 spacerM,
                 Text(
                   formation.title ?? '',
-                  style: AppTextStyle.nunitoSans700.copyWith(fontSize: 16),
+                  style: style2,
                 ),
                 spacerS,
                 Expanded(
                     child: SingleChildScrollView(
-                        child: MyHtml(text: formation.description ?? ''))),
+                        child: MyHtml(text: formation.description ?? '',bodyFontSize: 20,))),
                 spacerM,
                 MyButton(
                   onPressed: () => Navigator.of(context).pop(true),
@@ -341,6 +343,10 @@ class _DialogEnrollEmployeeTrainingState
   @override
   Widget build(BuildContext context) {
     final cubit = widget.ctx.read<EnrollTrainingCubit>();
+
+    TextStyle style3 = AppTextStyle.nunitoSans700.copyWith(fontSize: 20,fontWeight: FontWeight.normal);
+    TextStyle style4 = AppTextStyle.nunitoSans700.copyWith(fontSize: 18);
+
     return Dialog(
       insetPadding: const EdgeInsets.fromLTRB(20, 25, 20, 20),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
@@ -371,9 +377,9 @@ class _DialogEnrollEmployeeTrainingState
                     const Text('Inscribe personas',
                         style: AppTextStyle.h1Style),
                     spacerS,
-                    const Text(
+                    Text(
                       'Selecciona mínimo un (1) empleado para confirmar la asistencia.',
-                      style: AppTextStyle.defaultStyle,
+                      style: style3,
                       textAlign: TextAlign.center,
                     ),
                     if (((people.length +
@@ -395,7 +401,7 @@ class _DialogEnrollEmployeeTrainingState
                       alignment: Alignment.centerLeft,
                       child: Text(
                           'Personas a inscribir (${selectedEmployees.length + people.length + (widget.date.occupiedPlaces ?? 0)}/${widget.date.places})',
-                          style: AppTextStyle.inputLabelStyle),
+                          style: style4),
                     ),
                     spacerXs,
                     BlocBuilder<UserCubit, UserState>(
@@ -630,9 +636,9 @@ Future<Employee?> _dialogEnrollPeople(BuildContext context) {
                           const Text('Inscribir persona',
                               style: AppTextStyle.h1Style),
                           spacerS,
-                          const Text(
+                          Text(
                             'Completa la información de forma manual',
-                            style: AppTextStyle.defaultStyle,
+                            style: AppTextStyle.defaultStyle.copyWith(fontSize: 20),
                             textAlign: TextAlign.center,
                           ),
                           spacerM,
@@ -777,26 +783,27 @@ Future _dialogCongratulations(
                               color: Colors.black,
                             ),
                             children: [
-                              const TextSpan(
-                                text: 'Hemos confirmado tu formación en',
+                              TextSpan(
+                                text: 'Hemos confirmado tu formación en',style: AppTextStyle.defaultStyle.copyWith(fontSize: 16)
                               ),
                               TextSpan(
                                 text: ' ${formation.title ?? ''} ',
                                 style: AppTextStyle.defaultStyle
-                                    .copyWith(fontWeight: FontWeight.bold),
+                                    .copyWith(fontWeight: FontWeight.bold,fontSize: 16),
                               ),
-                              const TextSpan(
-                                text: 'para el dia ',
+                              TextSpan(
+                                text: 'para el dia ',style: AppTextStyle.defaultStyle.copyWith(fontSize: 16)
                               ),
                               TextSpan(
                                 text:
                                     '${DateFormat.MMMMd('es').format(horario.date!).toUpperCase()}.',
                                 style: AppTextStyle.defaultStyle
-                                    .copyWith(fontWeight: FontWeight.bold),
+                                    .copyWith(fontWeight: FontWeight.bold,fontSize: 16),
                               ),
-                              const TextSpan(
+                              TextSpan(
                                 text:
-                                    '\nTe notificaremos a ti y a los asistentes su inscripción al curso mediante notificación.',
+                                    '\n\nTe notificaremos a ti y a los asistentes su inscripción al curso mediante notificación.',
+                                  style: AppTextStyle.defaultStyle.copyWith(fontSize: 16)
                               ),
                             ],
                           ),
@@ -829,6 +836,11 @@ class _ConfirmAssistance extends StatelessWidget {
     final cubit = context.read<EnrollTrainingCubit>();
     return BlocBuilder<EnrollTrainingCubit, EnrollTrainingState>(
       builder: (context, state) {
+
+        TextStyle style1 = AppTextStyle.nunitoSans700.copyWith(fontSize: 18,fontWeight: FontWeight.normal);
+        TextStyle style2 = AppTextStyle.nunitoSans700.copyWith(fontSize: 20);
+        TextStyle style3 = AppTextStyle.nunitoSans700.copyWith(fontSize: 20,fontWeight: FontWeight.normal);
+
         return Container(
           height: 340,
           padding: const EdgeInsets.all(10),
@@ -844,32 +856,26 @@ class _ConfirmAssistance extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     spacerM,
-                    Text('Fechas:',
-                        style:
-                            AppTextStyle.nunitoSans700.copyWith(fontSize: 12)),
+                    Text('Fechas:', style: style1),
                     spacerXs,
                     Text(
                       '${state.horarioSelected?.dateFormat} a ${state.horarioSelected?.endDateFormat}',
-                      style: AppTextStyle.nunitoSans700.copyWith(fontSize: 14),
+                      style: style2,
                     ),
                     if (!state.horarioSelected!.allDay) ...[
                       spacerS,
-                      Text('Horarios:',
-                          style: AppTextStyle.nunitoSans700
-                              .copyWith(fontSize: 12)),
+                      Text('Horarios:',style: style1),
                       spacerXs,
                       Text(
                           '${state.horarioSelected?.timeFormat} • ${state.horarioSelected?.endTimeFormat}',
-                          style: AppTextStyle.defaultStyle),
+                          style: style3),
                     ],
                     spacerS,
-                    Text('Ubicación:',
-                        style:
-                            AppTextStyle.nunitoSans700.copyWith(fontSize: 12)),
+                    Text('Ubicación:',style: style1),
                     spacerXs,
                     Text(
                       'Vemare Leganés - C/ Eduardo Torroja 11 28914 Leganés Madrid',
-                      style: AppTextStyle.nunitoSans700.copyWith(fontSize: 14),
+                      style: style2,
                     ),
                     const Spacer(),
                     const Text(
@@ -988,8 +994,13 @@ class ResumenTraining extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<EnrollTrainingCubit, EnrollTrainingState>(
       builder: (context, state) {
+
+        TextStyle style1 = AppTextStyle.nunitoSans700.copyWith(fontSize: 18,fontWeight: FontWeight.normal);
+        TextStyle style2 = AppTextStyle.nunitoSans700.copyWith(fontSize: 20);
+        TextStyle style3 = AppTextStyle.nunitoSans700.copyWith(fontSize: 20,fontWeight: FontWeight.normal);
+
         return SizedBox(
-          height: 340,
+          //height: 340,
           child: Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
@@ -1000,29 +1011,29 @@ class ResumenTraining extends StatelessWidget {
                 children: [
                   spacerM,
                   Text('Fechas:',
-                      style: AppTextStyle.nunitoSans700.copyWith(fontSize: 12)),
+                      style: style1),
                   spacerXs,
                   Text(
                     '${state.horarios.first.dateFormat} a ${state.horarios.first.endDateFormat}',
-                    style: AppTextStyle.nunitoSans700.copyWith(fontSize: 14),
+                    style: style2,
                   ),
                   if (!state.horarios.first.allDay) ...[
                     spacerS,
                     Text('Horarios:',
                         style:
-                            AppTextStyle.nunitoSans700.copyWith(fontSize: 12)),
+                        style1),
                     spacerXs,
                     Text(
                         '${state.horarios.first.timeFormat} • ${state.horarios.first.endTimeFormat}',
-                        style: AppTextStyle.defaultStyle),
+                        style: style3),
                   ],
                   spacerS,
                   Text('Ubicación:',
-                      style: AppTextStyle.nunitoSans700.copyWith(fontSize: 12)),
+                      style: style1),
                   spacerXs,
                   Text(
                     state.horarios.first.location ?? '',
-                    style: AppTextStyle.nunitoSans700.copyWith(fontSize: 14),
+                    style: style2,
                   ),
                   const Spacer(),
                   const Text(

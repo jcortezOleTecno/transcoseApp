@@ -46,12 +46,13 @@ class EventsPage extends StatelessWidget {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(state.hPage?.title ?? '',
-                            style: AppTextStyle.h1Style),
+                        Text(state.hPage?.title ?? '',style: AppTextStyle.h1Style),
                         spacerS,
-                        Text(state.hPage?.description ?? '',
-                            style: AppTextStyle.defaultStyle),
-                        spacerXL,
+                        if(state.hPage != null && state.hPage!.description != null && state.hPage!.description!.isNotEmpty)...[
+                          Text(state.hPage?.description ?? '',
+                              style: AppTextStyle.defaultStyle),
+                          spacerXL,
+                        ],
                         _Item(
                           title: 'Mis eventos',
                           content:

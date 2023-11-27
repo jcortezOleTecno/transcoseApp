@@ -122,58 +122,14 @@ class EnrollEventPage extends StatelessWidget {
                                             : MyCalendar(
                                                 dates: state.horarios,
                                                 onSelectedDate: (horario) {
-                                                  if (horario.date!.isBefore(
-                                                      DateTime(
-                                                          DateTime.now().year,
-                                                          DateTime.now().month,
-                                                          DateTime.now()
-                                                              .day))) {
-                                                    _dialogConfirmSchedule(
-                                                        context,
-                                                        horario,
-                                                        args.event,
-                                                        isResume: true);
+                                                  if (horario.date!.isBefore(DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day))) {
+                                                    _dialogConfirmSchedule(context,horario,args.event,isResume: true);
                                                   } else {
-                                                    cubit.selectedHorario(
-                                                        horario);
-                                                    /*
-                                                    TODO: CONFIRMAR ASISTENCIA:: 
-
-                                                    _dialogConfirmSchedule(
-                                                            context, horario)
-                                                        .then((v) {
-                                                      if (v ?? false) {
-                                                        _dialogEnrollEmployee(
-                                                                context,
-                                                                horario)
-                                                            .then((v) {
-                                                          if (v ?? false) {
-                                                            _dialogCongratulations(
-                                                                    context,
-                                                                    horario)
-                                                                .then((_) {
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .pop();
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .pop();
-                                                              // Navigator.of(context).pop();
-                                                              // Navigator.of(context).pop();
-                                                            });
-                                                          }
-                                                        });
-                                                      }
-                                                    });*/
+                                                    cubit.selectedHorario(horario);
                                                   }
                                                 },
-                                                onSelectedDateRegistered:
-                                                    (horario) {
-                                                  _dialogConfirmSchedule(
-                                                      context,
-                                                      horario,
-                                                      args.event,
-                                                      isResume: true);
+                                                onSelectedDateRegistered:(horario) {
+                                                  _dialogConfirmSchedule(context,horario,args.event,isResume: true);
                                                 },
                                               ),
                                         spacerS,
@@ -273,6 +229,10 @@ class _DialogEnrollEmployeeState extends State<DialogEnrollEmployee> {
   @override
   Widget build(BuildContext context) {
     final cubit = widget.ctx.read<EnrollEventCubit>();
+
+    TextStyle style3 = AppTextStyle.nunitoSans700.copyWith(fontSize: 20,fontWeight: FontWeight.normal);
+    TextStyle style4 = AppTextStyle.nunitoSans700.copyWith(fontSize: 18);
+
     return Dialog(
       insetPadding: const EdgeInsets.fromLTRB(20, 25, 20, 20),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
@@ -303,9 +263,9 @@ class _DialogEnrollEmployeeState extends State<DialogEnrollEmployee> {
                     const Text('Inscribe personas',
                         style: AppTextStyle.h1Style),
                     spacerS,
-                    const Text(
+                    Text(
                       'Selecciona mínimo un (1) empleado para confirmar la asistencia.',
-                      style: AppTextStyle.defaultStyle,
+                      style: style3,
                       textAlign: TextAlign.center,
                     ),
                     if (((people.length +
@@ -330,7 +290,7 @@ class _DialogEnrollEmployeeState extends State<DialogEnrollEmployee> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                           'Personas a inscribir (${selectedEmployees.length + people.length + (widget.date.occupiedPlaces ?? 0)}/${widget.date.places})',
-                          style: AppTextStyle.inputLabelStyle),
+                          style: style4),
                     ),
                     spacerXs,
                     BlocBuilder<UserCubit, UserState>(
@@ -567,9 +527,9 @@ Future<Employee?> _dialogEnrollPeople(BuildContext context) {
                           const Text('Inscribir persona',
                               style: AppTextStyle.h1Style),
                           spacerS,
-                          const Text(
+                          Text(
                             'Completa la información de forma manual',
-                            style: AppTextStyle.defaultStyle,
+                            style: AppTextStyle.defaultStyle.copyWith(fontSize: 20),
                             textAlign: TextAlign.center,
                           ),
                           spacerM,
@@ -714,26 +674,27 @@ Future _dialogCongratulations(
                               color: Colors.black,
                             ),
                             children: [
-                              const TextSpan(
-                                text: 'Hemos confirmado tu formación en',
+                              TextSpan(
+                                text: 'Hemos confirmado tu formación en',style: AppTextStyle.defaultStyle.copyWith(fontSize: 16)
                               ),
                               TextSpan(
                                 text: ' ${event.title ?? ''} ',
                                 style: AppTextStyle.defaultStyle
-                                    .copyWith(fontWeight: FontWeight.bold),
+                                    .copyWith(fontWeight: FontWeight.bold,fontSize: 16),
                               ),
-                              const TextSpan(
-                                text: 'para el dia ',
+                              TextSpan(
+                                text: 'para el dia ',style: AppTextStyle.defaultStyle.copyWith(fontSize: 16)
                               ),
                               TextSpan(
                                 text:
                                     '${DateFormat.MMMMd('es').format(horario.date!).toUpperCase()}.',
                                 style: AppTextStyle.defaultStyle
-                                    .copyWith(fontWeight: FontWeight.bold),
+                                    .copyWith(fontWeight: FontWeight.bold,fontSize: 16),
                               ),
-                              const TextSpan(
+                              TextSpan(
                                 text:
-                                    '\nTe notificaremos a ti y a los asistentes su inscripción al curso mediante notificación.',
+                                    '\n\nTe notificaremos a ti y a los asistentes su inscripción al curso mediante notificación.',
+                                  style: AppTextStyle.defaultStyle.copyWith(fontSize: 16)
                               ),
                             ],
                           ),
@@ -763,6 +724,11 @@ Future<bool?> _dialogConfirmSchedule(
       context: context,
       barrierDismissible: false,
       builder: (context) {
+
+        TextStyle style1 = AppTextStyle.nunitoSans700.copyWith(fontSize: 18,fontWeight: FontWeight.normal);
+        TextStyle style2 = AppTextStyle.nunitoSans700.copyWith(fontSize: 20);
+        TextStyle style3 = AppTextStyle.nunitoSans700.copyWith(fontSize: 20,fontWeight: FontWeight.normal);
+
         return Dialog(
           insetPadding: const EdgeInsets.fromLTRB(20, 25, 20, 20),
           shape:
@@ -789,55 +755,25 @@ Future<bool?> _dialogConfirmSchedule(
                   style: AppTextStyle.nunitoSans700.copyWith(fontSize: 20),
                 ),
                 spacerS,
-                Text('Fechas:',
-                    style: AppTextStyle.nunitoSans700.copyWith(fontSize: 12)),
+                Text('Fechas:', style: style1),
                 spacerXs,
-                Text(
-                  '${horario.dateFormat} a ${horario.endDateFormat}',
-                  style: AppTextStyle.nunitoSans700.copyWith(fontSize: 14),
-                ),
+                Text('${horario.dateFormat} a ${horario.endDateFormat}',style: style2,),
                 if (!horario.allDay) ...[
                   spacerS,
-                  Text('Horarios:',
-                      style: AppTextStyle.nunitoSans700.copyWith(fontSize: 12)),
+                  Text('Horarios:',style: style1),
                   spacerXs,
-                  Text('${horario.timeFormat} • ${horario.endTimeFormat}',
-                      style: AppTextStyle.defaultStyle),
+                  Text('${horario.timeFormat} • ${horario.endTimeFormat}',style: style3),
                 ],
                 spacerS,
-                Text('Ubicación:',
-                    style: AppTextStyle.nunitoSans700.copyWith(fontSize: 12)),
+                Text('Ubicación:', style: style1),
                 spacerXs,
-                Text(
-                  horario.location ?? '',
-                  style: AppTextStyle.nunitoSans700.copyWith(fontSize: 14),
-                ),
-                // Row(
-                //   mainAxisSize: MainAxisSize.min,
-                //   children: [
-                //     Image.asset(
-                //       'assets/icons/locate.png',
-                //       scale: 2,
-                //       color: AppColor.primaryBlue,
-                //     ),
-                //     spacerS,
-                //     Expanded(
-                //       child: Text(
-                //         horario.location ?? '',
-                //         style: AppTextStyle.defaultStyle,
-                //       ),
-                //     )
-                //   ],
-                // ),
+                Text(horario.location ?? '',style: style2,textAlign: TextAlign.center),
                 spacerM,
-                Text(
-                  event.title ?? '',
-                  style: AppTextStyle.nunitoSans700.copyWith(fontSize: 16),
-                ),
+                Text(event.title ?? '',style: style2,),
                 spacerS,
                 Expanded(
                     child: SingleChildScrollView(
-                        child: MyHtml(text: event.description ?? ''))),
+                        child: MyHtml(text: event.description ?? '',bodyFontSize: 20,))),
                 spacerM,
                 MyButton(
                   onPressed: () {
@@ -872,6 +808,11 @@ class _ConfirmAssistance extends StatelessWidget {
     final cubit = context.read<EnrollEventCubit>();
     return BlocBuilder<EnrollEventCubit, EnrollEventState>(
       builder: (context, state) {
+
+        TextStyle style1 = AppTextStyle.nunitoSans700.copyWith(fontSize: 18,fontWeight: FontWeight.normal);
+        TextStyle style2 = AppTextStyle.nunitoSans700.copyWith(fontSize: 20);
+        TextStyle style3 = AppTextStyle.nunitoSans700.copyWith(fontSize: 20,fontWeight: FontWeight.normal);
+
         return Container(
           height: 340,
           padding: const EdgeInsets.all(10),
@@ -887,32 +828,26 @@ class _ConfirmAssistance extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     spacerM,
-                    Text('Fechas:',
-                        style:
-                            AppTextStyle.nunitoSans700.copyWith(fontSize: 12)),
+                    Text('Fechas:', style:style1),
                     spacerXs,
                     Text(
                       '${state.horarioSelected?.dateFormat} a ${state.horarioSelected?.endDateFormat}',
-                      style: AppTextStyle.nunitoSans700.copyWith(fontSize: 14),
+                      style: style2,
                     ),
                     if (!state.horarioSelected!.allDay) ...[
                       spacerS,
-                      Text('Horarios:',
-                          style: AppTextStyle.nunitoSans700
-                              .copyWith(fontSize: 12)),
+                      Text('Horarios:',style:style1),
                       spacerXs,
                       Text(
                           '${state.horarioSelected?.timeFormat} • ${state.horarioSelected?.endTimeFormat}',
-                          style: AppTextStyle.defaultStyle),
+                          style: style3),
                     ],
                     spacerS,
-                    Text('Ubicación:',
-                        style:
-                            AppTextStyle.nunitoSans700.copyWith(fontSize: 12)),
+                    Text('Ubicación:',style:style1),
                     spacerXs,
                     Text(
                       'Vemare Leganés - C/ Eduardo Torroja 11 28914 Leganés Madrid',
-                      style: AppTextStyle.nunitoSans700.copyWith(fontSize: 14),
+                      style: style2,
                     ),
                     const Spacer(),
                     const Text(
@@ -981,8 +916,14 @@ class ResumenEvent extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<EnrollEventCubit, EnrollEventState>(
       builder: (context, state) {
+
+        TextStyle style1 = AppTextStyle.nunitoSans700.copyWith(fontSize: 18,fontWeight: FontWeight.normal);
+        TextStyle style2 = AppTextStyle.nunitoSans700.copyWith(fontSize: 20);
+        TextStyle style3 = AppTextStyle.nunitoSans700.copyWith(fontSize: 20,fontWeight: FontWeight.normal);
+
+
         return SizedBox(
-          height: 340,
+          //height: 340,
           child: Card(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -991,85 +932,25 @@ class ResumenEvent extends StatelessWidget {
               child: Column(
                 children: [
                   spacerM,
-                  Text('Fechas:',
-                      style: AppTextStyle.nunitoSans700.copyWith(fontSize: 12)),
+                  Text('Fechas:',style: style1),
                   spacerXs,
-                  Text(
-                    '${state.horarios.first.dateFormat} a ${state.horarios.first.endDateFormat}',
-                    style: AppTextStyle.nunitoSans700.copyWith(fontSize: 14),
-                  ),
+                  Text('${state.horarios.first.dateFormat} a ${state.horarios.first.endDateFormat}',style: style2,),
                   if (!state.horarios.first.allDay) ...[
                     spacerS,
-                    Text('Horarios:',
-                        style:
-                            AppTextStyle.nunitoSans700.copyWith(fontSize: 12)),
+                    Text('Horarios:',style: style1),
                     spacerXs,
-                    Text(
-                        '${state.horarios.first.timeFormat} • ${state.horarios.first.endTimeFormat}',
-                        style: AppTextStyle.defaultStyle),
+                    Text('${state.horarios.first.timeFormat} • ${state.horarios.first.endTimeFormat}',style: style3,),
                   ],
                   spacerS,
-                  Text('Ubicación:',
-                      style: AppTextStyle.nunitoSans700.copyWith(fontSize: 12)),
+                  Text('Ubicación:',style: style1),
                   spacerXs,
                   Text(
-                    state.horarios.first.location ?? '',
-                    style: AppTextStyle.nunitoSans700.copyWith(fontSize: 14),
+                    state.horarios.first.location ?? '',style: style2,
                   ),
-                  /* const Text(
-                    "Fecha inicio:",
-                    style: AppTextStyle.defaultStyle,
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      style: AppTextStyle.h4Style,
-                      children: [
-                        TextSpan(
-                          text: "${state.horarios.first.dateFormat} • ",
-                        ),
-                        TextSpan(
-                          text: state.horarios.first.timeFormat,
-                          style: AppTextStyle.defaultStyle
-                              .copyWith(color: AppColor.neutral40),
-                        ),
-                      ],
-                    ),
-                  ),
-                  spacerS,
-                  const Text(
-                    "Fecha fin:",
-                    style: AppTextStyle.defaultStyle,
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      style: AppTextStyle.h4Style,
-                      children: [
-                        TextSpan(
-                          text: "${state.horarios.first.endDateFormat} • ",
-                        ),
-                        TextSpan(
-                          text: state.horarios.first.endTimeFormat,
-                          style: AppTextStyle.defaultStyle
-                              .copyWith(color: AppColor.neutral40),
-                        ),
-                      ],
-                    ),
-                  ),
-                  spacerS,
-                  const Text(
-                    "Ubicación:",
-                    style: AppTextStyle.defaultStyle,
-                  ),
+                  spacerM,
                   Text(
-                    state.locations?.location ?? '',
-                    style: AppTextStyle.h4Style,
-                  ),*/
-                  const Spacer(),
-                  const Text(
                     "Confirme su asistencia a esta formación en el siguiente link, en la fecha y el horario detallado",
-                    textAlign: TextAlign.center,
-                    style: AppTextStyle.defaultStyle,
-                  ),
+                    textAlign: TextAlign.center,style: style1),
                   spacerM,
                   MyButton(
                     onPressed: onPressed,
