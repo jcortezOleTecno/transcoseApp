@@ -154,6 +154,7 @@ class Horario {
   int? places;
   int? occupiedPlaces;
   bool allDay;
+  List<FormHour> hours;
 
   Horario({
     required this.dateId,
@@ -173,48 +174,102 @@ class Horario {
     this.centerReference,
     this.places,
     this.occupiedPlaces,
+    this.hours = const [],
   });
 
   factory Horario.fromJson(dynamic json) => Horario(
-        dateId: json["date_id"],
-        date: json["date"] == null ? null : DateTime.parse(json["date"]),
-        dateFormat: json["date_format"],
-        time: json["time"],
-        timeFormat: json["time_format"],
-        location: json["location"],
-        googleMeet: json["google_meet"],
-        endDate:
-            json["end_date"] == null ? null : DateTime.parse(json["end_date"]),
-        endDateFormat: json["end_date_format"],
-        endTime: json["end_time"],
-        endTimeFormat: json["end_time_format"],
-        postalCode: json["postal_code"],
-        isRegistered: json["is_registered"],
-        centerReference: json["center_reference"],
-        places: json["places"],
-        occupiedPlaces: json["occupied_places"],
-        allDay: json["all_day"],
-      );
+    dateId: json["date_id"],
+    date: json["date"] == null ? null : DateTime.parse(json["date"]),
+    dateFormat: json["date_format"],
+    time: json["time"],
+    timeFormat: json["time_format"],
+    location: json["location"],
+    googleMeet: json["google_meet"],
+    endDate:
+    json["end_date"] == null ? null : DateTime.parse(json["end_date"]),
+    endDateFormat: json["end_date_format"],
+    endTime: json["end_time"],
+    endTimeFormat: json["end_time_format"],
+    postalCode: json["postal_code"],
+    isRegistered: json["is_registered"],
+    centerReference: json["center_reference"],
+    places: json["places"],
+    occupiedPlaces: json["occupied_places"],
+    allDay: json["all_day"],
+    hours: (json["hours"] as List).map(FormHour.fromJson).toList()
+  );
 
   Map<String, dynamic> toJson() => {
-        "date_id": dateId,
-        "date":
-            "${date!.year.toString().padLeft(4, '0')}-${date!.month.toString().padLeft(2, '0')}-${date!.day.toString().padLeft(2, '0')}",
-        "date_format": dateFormat,
-        "time": time,
-        "time_format": timeFormat,
-        "location": location,
-        "google_meet": googleMeet,
-        "end_date":
-            "${endDate!.year.toString().padLeft(4, '0')}-${endDate!.month.toString().padLeft(2, '0')}-${endDate!.day.toString().padLeft(2, '0')}",
-        "end_date_format": endDateFormat,
-        "end_time": endTime,
-        "end_time_format": endTimeFormat,
-        "postal_code": postalCode,
-        "is_registered": isRegistered,
-        "center_reference": centerReference,
-        "places": places,
-        "occupied_places": occupiedPlaces,
-        "all_day": allDay,
-      };
+    "date_id": dateId,
+    "date":
+    "${date!.year.toString().padLeft(4, '0')}-${date!.month.toString().padLeft(2, '0')}-${date!.day.toString().padLeft(2, '0')}",
+    "date_format": dateFormat,
+    "time": time,
+    "time_format": timeFormat,
+    "location": location,
+    "google_meet": googleMeet,
+    "end_date":
+    "${endDate!.year.toString().padLeft(4, '0')}-${endDate!.month.toString().padLeft(2, '0')}-${endDate!.day.toString().padLeft(2, '0')}",
+    "end_date_format": endDateFormat,
+    "end_time": endTime,
+    "end_time_format": endTimeFormat,
+    "postal_code": postalCode,
+    "is_registered": isRegistered,
+    "center_reference": centerReference,
+    "places": places,
+    "occupied_places": occupiedPlaces,
+    "all_day": allDay,
+  };
+}
+
+class FormHour {
+  String? date;
+  String? dateFormat;
+  bool? allDay;
+  bool? food;
+  String? timeMorning;
+  String? timeMorningFormat;
+  String? endTimeMorning;
+  String? endTimeMorningFormat;
+  String? timeAfternoon;
+  String? endTimeAfternoonFormat;
+
+  FormHour({
+    this.date,
+    this.dateFormat,
+    this.allDay,
+    this.food,
+    this.timeMorning,
+    this.timeMorningFormat,
+    this.endTimeMorning,
+    this.endTimeMorningFormat,
+    this.timeAfternoon,
+    this.endTimeAfternoonFormat,
+  });
+
+  factory FormHour.fromJson(dynamic json) => FormHour(
+    date: json["date"],
+    dateFormat: json["date_format"],
+    allDay: json["all_day"],
+    food: json["food"],
+    timeMorning: json["time_morning"],
+    timeMorningFormat: json["time_morning_format"],
+    endTimeMorning: json["end_time_morning"],
+    endTimeMorningFormat: json["end_time_morning_format"],
+    timeAfternoon: json["time_afternoon"],
+    endTimeAfternoonFormat: json["end_time_afternoon_format"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "date": date,
+    "date_format": dateFormat,
+    "all_day": allDay,
+    "food": food,
+    "time_morning": timeMorning,
+    "time_morning_format": timeMorningFormat,
+    "end_time_morning": endTimeMorning,
+    "end_time_morning_format": endTimeMorningFormat,
+    "time_afternoon": timeAfternoon,
+    "end_time_afternoon_format": endTimeAfternoonFormat,
+  };
 }

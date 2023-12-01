@@ -133,7 +133,7 @@ class EnrollEventPage extends StatelessWidget {
                                                 },
                                               ),
                                         spacerS,
-                                        const ColorsGuide()
+                                        const ColorsGuide(isCalendar: true,)
                                       ],
                                     )
                                   : ResumenEvent(() {

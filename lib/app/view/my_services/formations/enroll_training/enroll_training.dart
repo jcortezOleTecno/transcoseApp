@@ -107,9 +107,7 @@ class EnrollTrainingPage extends StatelessWidget {
                               (state.showCalendar)
                                   ? Column(
                                       children: [
-                                        state.horarioSelected != null
-                                            ? _ConfirmAssistance()
-                                            : MyCalendar(
+                                        state.horarioSelected != null ? _ConfirmAssistance() : MyCalendar(
                                                 dates: state.horarios,
                                                 onSelectedDate: (horario) {
                                                   if (horario.date!.isBefore(
@@ -159,35 +157,41 @@ class EnrollTrainingPage extends StatelessWidget {
                                                 },
                                               ),
                                         spacerS,
-                                        const ColorsGuide()
+                                        ColorsGuide(isCalendar: state.horarioSelected == null,)
                                       ],
                                     )
-                                  : ResumenTraining(() {
-                                      _dialogConfirmSchedule(
-                                              context,
-                                              state.horarios.first,
-                                              args.formation)
-                                          .then((v) {
-                                        if (v ?? false) {
-                                          _dialogEnrollEmployee(
-                                                  context, state.horarios.first)
-                                              .then((v) {
-                                            if (v ?? false) {
-                                              _dialogCongratulations(
-                                                      context,
-                                                      state.horarios.first,
-                                                      args.formation)
-                                                  .then((_) {
-                                                Navigator.of(context).pop();
-                                                Navigator.of(context).pop();
-                                                // Navigator.of(context).pop();
-                                                // Navigator.of(context).pop();
-                                              });
-                                            }
-                                          });
-                                        }
-                                      });
-                                    }),
+                                  : Column(
+                                children: [
+                                  ResumenTraining(() {
+                                    _dialogConfirmSchedule(
+                                        context,
+                                        state.horarios.first,
+                                        args.formation)
+                                        .then((v) {
+                                      if (v ?? false) {
+                                        _dialogEnrollEmployee(
+                                            context, state.horarios.first)
+                                            .then((v) {
+                                          if (v ?? false) {
+                                            _dialogCongratulations(
+                                                context,
+                                                state.horarios.first,
+                                                args.formation)
+                                                .then((_) {
+                                              Navigator.of(context).pop();
+                                              Navigator.of(context).pop();
+                                              // Navigator.of(context).pop();
+                                              // Navigator.of(context).pop();
+                                            });
+                                          }
+                                        });
+                                      }
+                                    });
+                                  }),
+                                  spacerS,
+                                  const ColorsGuide(isCalendar: false)
+                                ],
+                              ),
                             ],
                           ),
                         )
@@ -842,82 +846,15 @@ class _ConfirmAssistance extends StatelessWidget {
         TextStyle style3 = AppTextStyle.nunitoSans700.copyWith(fontSize: 20,fontWeight: FontWeight.normal);
 
         return Container(
-          height: 340,
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.only(top: 2,bottom: 20,left: 30,right: 30),
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(12)),
           width: double.infinity,
-          child: Stack(
-            fit: StackFit.expand,
+          child: Column(
             children: [
-              SizedBox(
+              Container(
                 width: double.infinity,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    spacerM,
-                    Text('Fechas:', style: style1),
-                    spacerXs,
-                    Text(
-                      '${state.horarioSelected?.dateFormat} a ${state.horarioSelected?.endDateFormat}',
-                      style: style2,
-                    ),
-                    if (!state.horarioSelected!.allDay) ...[
-                      spacerS,
-                      Text('Horarios:',style: style1),
-                      spacerXs,
-                      Text(
-                          '${state.horarioSelected?.timeFormat} • ${state.horarioSelected?.endTimeFormat}',
-                          style: style3),
-                    ],
-                    spacerS,
-                    Text('Ubicación:',style: style1),
-                    spacerXs,
-                    Text(
-                      'Vemare Leganés - C/ Eduardo Torroja 11 28914 Leganés Madrid',
-                      style: style2,
-                    ),
-                    const Spacer(),
-                    const Text(
-                      "Confirme su asistencia a esta formación en el siguiente link, en la fecha y el horario detallado",
-                      style: AppTextStyle.defaultStyle,
-                      textAlign: TextAlign.center,
-                    ),
-                    spacerS,
-                    MyButton(
-                      onPressed: () {
-                        _dialogConfirmSchedule(context, state.horarioSelected!,
-                                state.formation!)
-                            .then((v) {
-                          if (v ?? false) {
-                            _dialogEnrollEmployee(
-                                    context, state.horarioSelected!)
-                                .then((v) {
-                              if (v ?? false) {
-                                _dialogCongratulations(
-                                        context,
-                                        state.horarioSelected!,
-                                        state.formation!)
-                                    .then((_) {
-                                  Navigator.of(context).pop();
-                                  Navigator.of(context).pop();
-                                  // Navigator.of(context).pop();
-                                  // Navigator.of(context).pop();
-                                });
-                              }
-                            });
-                          }
-                        });
-                      },
-                      text: "Confirmar asistencia",
-                      width: double.infinity,
-                    )
-                  ],
-                ),
-              ),
-              Positioned(
-                right: 0,
-                top: 0,
+                alignment: Alignment.topRight,
                 child: IconButton(
                   onPressed: cubit.unseledtedHorario,
                   icon: Image.asset(
@@ -926,6 +863,72 @@ class _ConfirmAssistance extends StatelessWidget {
                   ),
                 ),
               ),
+              Text('Fechas:', style: style1),
+              spacerXs,
+              Text(
+                '${state.horarioSelected?.dateFormat} a ${state.horarioSelected?.endDateFormat}',
+                style: style2,
+              ),
+              if (!state.horarioSelected!.allDay) ...[
+                spacerS,
+                Text('Horarios:',style: style1),
+                spacerXs,
+                ...state.horarioSelected!.hours.map((e) =>
+                SizedBox(
+                  width: double.infinity,
+                  child: Row(
+                    children: [
+                      Text(e.dateFormat ?? '',style: style3.copyWith(fontWeight: FontWeight.bold)),
+                      spacerM,
+                      Expanded(child: Text(e.timeMorningFormat ?? '',style: style3)),
+                      Expanded(child: Text(e.endTimeAfternoonFormat ?? '',style: style3)),
+                      Icon(Icons.circle,size: 15,color: (e.food ?? false) ? Colors.orange : Colors.white),
+                    ],
+                  ),
+                )).toList(),
+              ],
+              spacerS,
+              Text('Ubicación:',style: style1),
+              spacerXs,
+              Text(
+                'Vemare Leganés - C/ Eduardo Torroja 11 28914 Leganés Madrid',
+                style: style2,
+              ),
+              spacerM,
+              const Text(
+                "Confirme su asistencia a esta formación en el siguiente link, en la fecha y el horario detallado",
+                style: AppTextStyle.defaultStyle,
+                textAlign: TextAlign.center,
+              ),
+              spacerS,
+              MyButton(
+                onPressed: () {
+                  _dialogConfirmSchedule(context, state.horarioSelected!,
+                      state.formation!)
+                      .then((v) {
+                    if (v ?? false) {
+                      _dialogEnrollEmployee(
+                          context, state.horarioSelected!)
+                          .then((v) {
+                        if (v ?? false) {
+                          _dialogCongratulations(
+                              context,
+                              state.horarioSelected!,
+                              state.formation!)
+                              .then((_) {
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pop();
+                            // Navigator.of(context).pop();
+                            // Navigator.of(context).pop();
+                          });
+                        }
+                      });
+                    }
+                  });
+                },
+                text: "Confirmar asistencia",
+                width: double.infinity,
+              )
             ],
           ),
         );
@@ -937,7 +940,10 @@ class _ConfirmAssistance extends StatelessWidget {
 class ColorsGuide extends StatelessWidget {
   const ColorsGuide({
     Key? key,
+    required this.isCalendar,
   }) : super(key: key);
+
+  final bool isCalendar;
 
   @override
   Widget build(BuildContext context) {
@@ -945,13 +951,20 @@ class ColorsGuide extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text("Guía de colores", style: AppTextStyle.titleCard),
-        legend(color: AppColor.primaryBlue, text: 'Día actual'),
-        legend(color: AppColor.success500, text: 'En tu centro más cercano'),
-        legend(color: AppColor.red, text: 'Otros centros'),
-        legend(
-            color: AppColor.success500,
-            isSolid: true,
-            text: 'Formación ya inscrita'),
+        if(isCalendar)...[
+          legend(color: AppColor.primaryBlue, text: 'Día actual'),
+          legend(color: AppColor.success500, text: 'En tu centro más cercano'),
+          legend(color: AppColor.red, text: 'Otros centros'),
+          legend(
+              color: AppColor.success500,
+              isSolid: true,
+              text: 'Formación ya inscrita'),
+        ]else...[
+          legend(
+              color: Colors.orange,
+              isSolid: true,
+              text: 'Incluye almuerzo'),
+        ],
         spacerM,
       ],
     );
@@ -1000,42 +1013,46 @@ class ResumenTraining extends StatelessWidget {
         TextStyle style3 = AppTextStyle.nunitoSans700.copyWith(fontSize: 20,fontWeight: FontWeight.normal);
 
         return SizedBox(
-          //height: 340,
+          // height: 340,
+          width: double.infinity,
           child: Container(
             padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(12)),
+            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12)),
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: Column(
                 children: [
-                  spacerM,
-                  Text('Fechas:',
-                      style: style1),
+                  Text('Fechas:',style: style1),
                   spacerXs,
                   Text(
-                    '${state.horarios.first.dateFormat} a ${state.horarios.first.endDateFormat}',
-                    style: style2,
+                    '${state.horarios.first.dateFormat} a ${state.horarios.first.endDateFormat}',style: style2,
                   ),
                   if (!state.horarios.first.allDay) ...[
                     spacerS,
-                    Text('Horarios:',
-                        style:
-                        style1),
+                    Text('Horarios:',style:style1),
                     spacerXs,
-                    Text(
-                        '${state.horarios.first.timeFormat} • ${state.horarios.first.endTimeFormat}',
-                        style: style3),
+                    ...state.horarios.first.hours.map((e) =>
+                        SizedBox(
+                          width: double.infinity,
+                          child: Row(
+                            children: [
+                              Text(e.dateFormat ?? '',style: style3.copyWith(fontWeight: FontWeight.bold)),
+                              spacerM,
+                              Expanded(child: Text(e.timeMorningFormat ?? '',style: style3)),
+                              Expanded(child: Text(e.endTimeAfternoonFormat ?? '',style: style3)),
+                              Icon(Icons.circle,size: 15,color: (e.food ?? false) ? Colors.orange : Colors.white),
+                            ],
+                          ),
+                        )).toList(),
                   ],
                   spacerS,
-                  Text('Ubicación:',
-                      style: style1),
+                  Text('Ubicación:',style: style1),
                   spacerXs,
                   Text(
                     state.horarios.first.location ?? '',
                     style: style2,
                   ),
-                  const Spacer(),
+                  spacerS,
                   const Text(
                     "Confirme su asistencia a esta formación en el siguiente link, en la fecha y el horario detallado",
                     style: AppTextStyle.defaultStyle,
