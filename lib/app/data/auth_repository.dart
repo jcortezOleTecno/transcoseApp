@@ -27,12 +27,21 @@ class AuthRepository {
     };
     final dynamic res = await apiClient.postRequest('$BASE_API_URL/api/login', body: body);
 
-
-
     LocalDataRepository().authToken = res["access_token"];
     final user = UserData.fromJson(res['user']);
     LocalDataRepository().isLogged = true;
     LocalDataRepository().user = user;
+
+    if(user.permissions != null){
+      bool exists = false;
+      for(int x = 0; x < user.permissions!.length; x++){
+        if(user.permissions![x].id! == 14){
+          exists = true; x = user.permissions!.length;
+        }
+      }
+      SharedPreferencesLocal.veraneAppDevolucionesPermission = exists;
+    }
+
   }
 
   Future<String?> recoverPassword({required String email}) async {
@@ -97,6 +106,17 @@ SUCCESS
       final dynamic res = await apiClient.getRequest('$BASE_API_URL/api/user');
       user = UserData.fromJson(res['data']);
       LocalDataRepository().user = user;
+
+      if(user.permissions != null){
+        bool exists = false;
+        for(int x = 0; x < user.permissions!.length; x++){
+          if(user.permissions![x].id! == 14){
+            exists = true; x = user.permissions!.length;
+          }
+        }
+        SharedPreferencesLocal.veraneAppDevolucionesPermission = exists;
+      }
+
     }catch(e){
       log(e.toString());
     }

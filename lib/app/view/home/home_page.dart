@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
 
-    //isReturns = SharedPreferencesLocal.veraneAppDevoluciones;
+    isReturns = SharedPreferencesLocal.veraneAppDevoluciones || SharedPreferencesLocal.veraneAppDevolucionesPermission;
 
     return Scaffold(
         body: MyBody(
