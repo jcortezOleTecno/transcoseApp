@@ -368,7 +368,7 @@ class ClaimsPage extends StatelessWidget {
       error = 'E-Mail requerido';
     }
 
-    if(error.isEmpty && !isAnonymus && validateEmailAddress(email: provider.controllerEmail.text)['valid']){
+    if(error.isEmpty && !isAnonymus && !validateEmailAddress(email: provider.controllerEmail.text)['valid']){
       error = validateEmailAddress(email: provider.controllerEmail.text)['sms'];
     }
 

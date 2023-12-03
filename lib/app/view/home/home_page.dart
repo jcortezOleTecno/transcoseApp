@@ -477,9 +477,11 @@ class _BackgroundState extends State<_Background> {
       if (!isVisible) {
         await Future.delayed(const Duration(milliseconds: 200));
       }
-      setState(() {
-        openKeyboard = isVisible;
-      });
+      if(mounted){
+        setState(() {
+          openKeyboard = isVisible;
+        });
+      }
     });
     super.initState();
   }
