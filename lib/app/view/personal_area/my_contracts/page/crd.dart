@@ -191,11 +191,11 @@ class _CRD extends StatelessWidget {
                       fixedWidth: 130,
                       // size: ColumnSize.L,
                     ),
-                    DataColumn2(
-                      label: Text('ASUNTO'),
-                      fixedWidth: 100,
-                      // size: ColumnSize.L,
-                    ),
+                    // DataColumn2(
+                    //   label: Text('ASUNTO'),
+                    //   fixedWidth: 100,
+                    //   // size: ColumnSize.L,
+                    // ),
                     DataColumn2(
                       label: Text('FECHA PRESUPUESTO'),
                       fixedWidth: 150,
@@ -230,7 +230,7 @@ class MyDataCRD extends DataTableSource {
       DataCell(Text((data[index].firmado ?? false) ? "SI" : "NO")),
       DataCell(Text(data[index].codigoContrato?.toString() ?? '')),
       DataCell(Text(data[index].numeroProyecto ?? '')),
-      DataCell(Text(data[index].asunto ?? '')),
+      //DataCell(Text(data[index].asunto ?? '')),
       DataCell(Text(data[index].fechaPresupuesto ?? '')),
       DataCell(Row(
         children: [

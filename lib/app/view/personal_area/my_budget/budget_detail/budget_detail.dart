@@ -144,7 +144,7 @@ class _DetailBudget extends StatelessWidget {
             children: [
               spacerM,
               DownloadPdfContracts(
-                // title: "Descargar",
+                title: "Detalles del presupuesto",
                 onPressed: () => getIt
                     .get<BudgetRepository>()
                     .downloadPdfBudget(
@@ -227,7 +227,7 @@ class _DetailBudget extends StatelessWidget {
                 key: const Key("nImpMontaje"),
                 label: 'IMPORTE SAT MONTAJE',
                 initialValue: fmf
-                    .copyWith(amount: budget?.importeSatMontaje?.toDouble())
+                    .copyWith(amount: budget?.importeSatMontaje == null ? 0.0 : budget?.importeSatMontaje?.toDouble())
                     .output
                     .symbolOnRight,
                 readOnly: true,
@@ -237,7 +237,7 @@ class _DetailBudget extends StatelessWidget {
                 key: const Key("nImpTrans"),
                 label: 'IMPORTE SAT TRANSPORTE',
                 initialValue: fmf
-                    .copyWith(amount: budget?.importeSatTransporte?.toDouble())
+                    .copyWith(amount: budget?.importeSatTransporte == null ? 0.0 : budget?.importeSatTransporte?.toDouble())
                     .output
                     .symbolOnRight,
                 readOnly: true,

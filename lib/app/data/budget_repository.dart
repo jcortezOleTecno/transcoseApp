@@ -73,19 +73,24 @@ class BudgetRepository {
     required String numeroProyecto,
     required String name,
   }) async {
-    final token = LocalDataRepository().authToken;
-    final Response res =
-        await Dio().post('$BASE_API_URL/api/mi-cuenta/presupuestos/imprimir',
-            data: {
-              "codigo_presupuesto": codBudget,
-              "numero_proyecto": numeroProyecto,
-            },
-            options: Options(headers: {'Authorization': 'Bearer $token'}));
+    try{
+      final token = LocalDataRepository().authToken;
+      final Response res =
+      await Dio().post('$BASE_API_URL/api/mi-cuenta/presupuestos/imprimir',
+          data: {
+            "codigo_presupuesto": codBudget,
+            "numero_proyecto": numeroProyecto,
+          },
+          options: Options(headers: {'Authorization': 'Bearer $token'}));
 
-    final directory = await getApplicationDocumentsDirectory();
-    final savedDir = directory.path;
-    final file = File('$savedDir/$name');
-    await file.writeAsBytes(List<int>.from(res.data.codeUnits));
-    await OpenFile.open(file.path);
+      final directory = await getApplicationDocumentsDirectory();
+      final savedDir = directory.path;
+      final file = File('$savedDir/$name');
+      await file.writeAsBytes(List<int>.from(res.data.codeUnits));
+      await OpenFile.open(file.path);
+    }catch(e){
+      log(e.toString());
+    }
+
   }
 }

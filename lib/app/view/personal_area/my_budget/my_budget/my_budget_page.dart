@@ -196,11 +196,11 @@ class _Budget extends StatelessWidget {
                         fixedWidth: 130,
                         // size: ColumnSize.L,
                       ),
-                      DataColumn2(
-                        label: Text('ESTADO'),
-                        fixedWidth: 100,
-                        // size: ColumnSize.L,
-                      ),
+                      // DataColumn2(
+                      //   label: Text('ESTADO'),
+                      //   fixedWidth: 100,
+                      //   // size: ColumnSize.L,
+                      // ),
                       DataColumn2(
                         label: Text('FIRMADO'),
                         fixedWidth: 70,
@@ -211,11 +211,11 @@ class _Budget extends StatelessWidget {
                         fixedWidth: 100,
                         // size: ColumnSize.L,
                       ),
-                      DataColumn2(
-                        label: Text('ASUNTO'),
-                        fixedWidth: 150,
-                        // size: ColumnSize.L,
-                      ),
+                      // DataColumn2(
+                      //   label: Text('ASUNTO'),
+                      //   fixedWidth: 150,
+                      //   // size: ColumnSize.L,
+                      // ),
                       DataColumn2(
                         label: Text('CÓDIGO'),
                         fixedWidth: 80,
@@ -254,10 +254,10 @@ class MyDataBudget extends DataTableSource {
     return DataRow(cells: [
       DataCell(Text(data[index].fecha ?? '')),
       DataCell(Text(data[index].fechaCaducidad ?? '')),
-      DataCell(Text(data[index].estado ?? '')),
+      //DataCell(Text(data[index].estado ?? '')),
       DataCell(Text((data[index].firmado ?? false) ? 'SI' : 'NO')),
       DataCell(Text(data[index].numero ?? '')),
-      DataCell(Text(data[index].asunto ?? '')),
+      //DataCell(Text(data[index].asunto ?? '')),
       DataCell(Text(data[index].codigoPresupuesto?.toString() ?? '')),
       DataCell(Text(data[index].version?.toString() ?? '')),
       DataCell(Row(
