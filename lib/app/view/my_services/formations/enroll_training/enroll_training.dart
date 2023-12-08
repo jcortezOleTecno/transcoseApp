@@ -98,100 +98,48 @@ class EnrollTrainingPage extends StatelessWidget {
                                 style: AppTextStyle.h1Style,
                               ),
                               spacerS,
-                              if (state.showCalendar)
-                                Text(
-                                  'Selecciona una fecha',
-                                  style: AppTextStyle.defaultStyle.copyWith(fontSize: 20),
-                                ),
-                              spacerXL,
                               (state.showCalendar)
                                   ? Column(
                                       children: [
-                                        state.horarioSelected != null ? _ConfirmAssistance() : MyCalendar(
-                                                dates: state.horarios,
-                                                onSelectedDate: (horario) {
-                                                  if (horario.date!.isBefore(
-                                                      DateTime(
-                                                          DateTime.now().year,
-                                                          DateTime.now().month,
-                                                          DateTime.now()
-                                                              .day))) {
-                                                    _dialogConfirmSchedule(
-                                                        context,
-                                                        horario,
-                                                        args.formation,
-                                                        isResume: true);
-                                                  } else {
-                                                    cubit.selectedHorario(
-                                                        horario);
-                                                    /* _dialogConfirmSchedule(
-                                                            context, horario)
-                                                        .then((v) {
-                                                      if (v ?? false) {
-                                                        _dialogEnrollEmployee(
-                                                                context,
-                                                                horario)
-                                                            .then((v) {
-                                                          if (v ?? false) {
-                                                            _dialogCongratulations(
-                                                                    context,
-                                                                    horario)
-                                                                .then((_) {
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .pop();
-                                                            });
-                                                          }
-                                                        });
-                                                      }
-                                                    });*/
-                                                  }
-                                                },
-                                                onSelectedDateRegistered:
-                                                    (horario) {
-                                                  _dialogConfirmSchedule(
-                                                      context,
-                                                      horario,
-                                                      args.formation,
-                                                      isResume: true);
-                                                },
-                                              ),
+                                        Text(
+                                          'Selecciona una fecha',
+                                          style: AppTextStyle.defaultStyle.copyWith(fontSize: 20),
+                                        ),
                                         spacerS,
-                                        ColorsGuide(isCalendar: state.horarioSelected == null,)
+                                        state.horarioSelected != null ? _ConfirmAssistance() :
+                                        MyCalendar(
+                                          dates: state.horarios,
+                                          onSelectedDate: (horario) {
+                                            if (horario.date!.isBefore(DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day))) {
+                                              _dialogConfirmSchedule(context,horario,args.formation,isResume: true);
+                                            } else {
+                                              cubit.selectedHorario(horario);
+                                            }
+                                          },
+                                          onSelectedDateRegistered: (horario) {
+                                            _dialogConfirmSchedule(context,horario,args.formation,isResume: true);
+                                          },
+                                        ),
+                                        spacerS,
+                                        const ColorsGuide(isCalendar: true)
                                       ],
                                     )
-                                  : Column(
-                                children: [
-                                  ResumenTraining(() {
-                                    _dialogConfirmSchedule(
-                                        context,
-                                        state.horarios.first,
-                                        args.formation)
-                                        .then((v) {
+                                  : ResumenTraining(() {
+                                _dialogConfirmSchedule(context,state.horarios.first,args.formation).then((v) {
+                                  if (v ?? false) {
+                                    _dialogEnrollEmployee(context, state.horarios.first).then((v) {
                                       if (v ?? false) {
-                                        _dialogEnrollEmployee(
-                                            context, state.horarios.first)
-                                            .then((v) {
-                                          if (v ?? false) {
-                                            _dialogCongratulations(
-                                                context,
-                                                state.horarios.first,
-                                                args.formation)
-                                                .then((_) {
-                                              Navigator.of(context).pop();
-                                              Navigator.of(context).pop();
-                                              // Navigator.of(context).pop();
-                                              // Navigator.of(context).pop();
-                                            });
-                                          }
+                                        _dialogCongratulations(context,state.horarios.first,args.formation).then((_) {
+                                          Navigator.of(context).pop();
+                                          Navigator.of(context).pop();
+                                          // Navigator.of(context).pop();
+                                          // Navigator.of(context).pop();
                                         });
                                       }
                                     });
-                                  }),
-                                  spacerS,
-                                  const ColorsGuide(isCalendar: false)
-                                ],
-                              ),
+                                  }
+                                });
+                              }),
                             ],
                           ),
                         )
@@ -205,25 +153,23 @@ class EnrollTrainingPage extends StatelessWidget {
   }
 }
 
-Future<bool?> _dialogConfirmSchedule(
-  BuildContext context,
-  Horario horario,
-  Formation formation, {
-  bool isResume = false,
-}) {
-  return showDialog<bool>(
-      context: context,
-      barrierDismissible: false,
+Future<bool?> _dialogConfirmSchedule(BuildContext context,Horario horario,Formation formation, {bool isResume = false,}) {
+  return showDialog<bool>(context: context,barrierDismissible: false,
       builder: (context) {
 
         TextStyle style1 = AppTextStyle.nunitoSans700.copyWith(fontSize: 18,fontWeight: FontWeight.normal);
         TextStyle style2 = AppTextStyle.nunitoSans700.copyWith(fontSize: 20);
-        TextStyle style3 = AppTextStyle.nunitoSans700.copyWith(fontSize: 20,fontWeight: FontWeight.normal);
+        TextStyle style3 = AppTextStyle.nunitoSans700.copyWith(fontSize: 18,fontWeight: FontWeight.normal);
+        TextStyle style4 = AppTextStyle.nunitoSans700.copyWith(fontSize: 14,fontWeight: FontWeight.normal);
+
+        String titleHorarios = horario.hours.first.dateFormat ?? '';
+        if(horario.hours.length > 1){
+          titleHorarios = '${horario.hours.first.dateFormat ?? ''} a ${horario.hours.last.dateFormat ?? ''}';
+        }
 
         return Dialog(
           insetPadding: const EdgeInsets.fromLTRB(20, 25, 20, 20),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           child: Container(
             padding: const EdgeInsets.all(20),
             width: double.infinity,
@@ -249,33 +195,60 @@ Future<bool?> _dialogConfirmSchedule(
                 spacerS,
                 Text('Fechas:',style: style1),
                 spacerXs,
-                Text(
-                  '${horario.dateFormat} a ${horario.endDateFormat}',
-                  style: style2,
-                ),
+                Text(titleHorarios, style: style2,),
                 if (!horario.allDay) ...[
                   spacerS,
                   Text('Horarios:',style: style1),
                   spacerXs,
-                  Text('${horario.timeFormat} • ${horario.endTimeFormat}',
-                      style: style3),
+                  ...horario.hours.map((e){
+
+                    String dateF = e.dateFormat ?? '';
+                    if(dateF.length > 10){
+                      dateF = '${dateF.substring(0,9)}..';
+                    }
+
+                    return SizedBox(
+                      width: double.infinity,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(
+                            width: double.infinity,
+                            child: Row(
+                              children: [
+                                Expanded(flex: 2,child: Text(dateF,style: style3.copyWith(fontWeight: FontWeight.bold))),
+                                Expanded(flex: 3,child: Text('${e.timeMorningFormat ?? ''} - ${e.endTimeMorningFormat ?? ''}',style: style3)),
+                                Expanded(flex: 3,child: Text('${e.timeAfternoonFormat ?? ''} - ${e.endTimeAfternoonFormat ?? ''}',style: style3)),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            width: double.infinity,
+                            child: Row(
+                              children: [
+                                Expanded(flex: 2,child: Container()),
+                                Expanded(flex: 3,child: Text( (e.food ?? false) ? 'Incluye almuerzo' : '',style: style4)),
+                                Expanded(flex: 3,child: Container()),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  }).toList(),
                 ],
                 spacerS,
                 Text('Ubicación:',style: style1),
                 spacerXs,
-                Text(
-                  horario.location ?? '',
-                  style: style2,
-                ),
+                Text(horario.location ?? '',style: style2,),
                 spacerM,
-                Text(
-                  formation.title ?? '',
-                  style: style2,
-                ),
+                Text(formation.title ?? '',style: style2,),
                 spacerS,
                 Expanded(
-                    child: SingleChildScrollView(
-                        child: MyHtml(text: formation.description ?? '',bodyFontSize: 20,))),
+                  child: SingleChildScrollView(
+                      child: MyHtml(text: formation.description ?? '',bodyFontSize: 20,),
+                  ),
+                ),
                 spacerM,
                 MyButton(
                   onPressed: () => Navigator.of(context).pop(true),
@@ -843,7 +816,13 @@ class _ConfirmAssistance extends StatelessWidget {
 
         TextStyle style1 = AppTextStyle.nunitoSans700.copyWith(fontSize: 18,fontWeight: FontWeight.normal);
         TextStyle style2 = AppTextStyle.nunitoSans700.copyWith(fontSize: 20);
-        TextStyle style3 = AppTextStyle.nunitoSans700.copyWith(fontSize: 20,fontWeight: FontWeight.normal);
+        TextStyle style3 = AppTextStyle.nunitoSans700.copyWith(fontSize: 18,fontWeight: FontWeight.normal);
+        TextStyle style4 = AppTextStyle.nunitoSans700.copyWith(fontSize: 14,fontWeight: FontWeight.normal);
+
+        String titleHorarios = state.horarioSelected!.hours.first.dateFormat ?? '';
+        if(state.horarioSelected!.hours.length > 1){
+          titleHorarios = '${state.horarioSelected!.hours.first.dateFormat ?? ''} a ${state.horarioSelected!.hours.last.dateFormat ?? ''}';
+        }
 
         return Container(
           padding: const EdgeInsets.only(top: 2,bottom: 20,left: 30,right: 30),
@@ -865,29 +844,49 @@ class _ConfirmAssistance extends StatelessWidget {
               ),
               Text('Fechas:', style: style1),
               spacerXs,
-              Text(
-                '${state.horarioSelected?.dateFormat} a ${state.horarioSelected?.endDateFormat}',
-                style: style2,
-              ),
-              if (!state.horarioSelected!.allDay) ...[
+              Text(titleHorarios, style: style2,),
+              if (!state.horarios.first.allDay) ...[
                 spacerS,
-                Text('Horarios:',style: style1),
+                Text('Horarios:',style:style1),
                 spacerXs,
-                ...state.horarioSelected!.hours.map((e) =>
-                SizedBox(
-                  width: double.infinity,
-                  child: Row(
-                    children: [
-                      Text(e.dateFormat ?? '',style: style3.copyWith(fontWeight: FontWeight.bold)),
-                      spacerM,
-                      Expanded(child: Text(e.timeMorningFormat ?? '',style: style3)),
-                      Expanded(child: Text(e.endTimeAfternoonFormat ?? '',style: style3)),
-                      Icon(Icons.circle,size: 15,color: (e.food ?? false) ? Colors.orange : Colors.white),
-                    ],
-                  ),
-                )).toList(),
+                ...state.horarios.first.hours.map((e){
+
+                  String dateF = e.dateFormat ?? '';
+                  if(dateF.length > 10){
+                    dateF = '${dateF.substring(0,9)}..';
+                  }
+
+                  return SizedBox(
+                    width: double.infinity,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(
+                          width: double.infinity,
+                          child: Row(
+                            children: [
+                              Expanded(flex: 2,child: Text(dateF,style: style3.copyWith(fontWeight: FontWeight.bold))),
+                              Expanded(flex: 3,child: Text('${e.timeMorningFormat ?? ''} - ${e.endTimeMorningFormat ?? ''}',style: style3)),
+                              Expanded(flex: 3,child: Text('${e.timeAfternoonFormat ?? ''} - ${e.endTimeAfternoonFormat ?? ''}',style: style3)),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: Row(
+                            children: [
+                              Expanded(flex: 2,child: Container()),
+                              Expanded(flex: 3,child: Text( (e.food ?? false) ? 'Incluye almuerzo' : '',style: style4)),
+                              Expanded(flex: 3,child: Container()),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                }).toList(),
               ],
-              spacerS,
+              spacerXs,
               Text('Ubicación:',style: style1),
               spacerXs,
               Text(
@@ -903,19 +902,11 @@ class _ConfirmAssistance extends StatelessWidget {
               spacerS,
               MyButton(
                 onPressed: () {
-                  _dialogConfirmSchedule(context, state.horarioSelected!,
-                      state.formation!)
-                      .then((v) {
+                  _dialogConfirmSchedule(context, state.horarioSelected!,state.formation!).then((v) {
                     if (v ?? false) {
-                      _dialogEnrollEmployee(
-                          context, state.horarioSelected!)
-                          .then((v) {
+                      _dialogEnrollEmployee(context, state.horarioSelected!).then((v) {
                         if (v ?? false) {
-                          _dialogCongratulations(
-                              context,
-                              state.horarioSelected!,
-                              state.formation!)
-                              .then((_) {
+                          _dialogCongratulations(context,state.horarioSelected!,state.formation!).then((_) {
                             Navigator.of(context).pop();
                             Navigator.of(context).pop();
                             // Navigator.of(context).pop();
@@ -1010,7 +1001,13 @@ class ResumenTraining extends StatelessWidget {
 
         TextStyle style1 = AppTextStyle.nunitoSans700.copyWith(fontSize: 18,fontWeight: FontWeight.normal);
         TextStyle style2 = AppTextStyle.nunitoSans700.copyWith(fontSize: 20);
-        TextStyle style3 = AppTextStyle.nunitoSans700.copyWith(fontSize: 20,fontWeight: FontWeight.normal);
+        TextStyle style3 = AppTextStyle.nunitoSans700.copyWith(fontSize: 18,fontWeight: FontWeight.normal);
+        TextStyle style4 = AppTextStyle.nunitoSans700.copyWith(fontSize: 14,fontWeight: FontWeight.normal);
+
+        String titleHorarios = state.horarios.first.dateFormat ?? '';
+        if(state.horarios.length > 2){
+          titleHorarios = '${state.horarios.first.dateFormat ?? ''} a ${state.horarios.last.dateFormat ?? ''}';
+        }
 
         return SizedBox(
           // height: 340,
@@ -1024,26 +1021,47 @@ class ResumenTraining extends StatelessWidget {
                 children: [
                   Text('Fechas:',style: style1),
                   spacerXs,
-                  Text(
-                    '${state.horarios.first.dateFormat} a ${state.horarios.first.endDateFormat}',style: style2,
-                  ),
+                  Text(titleHorarios, style: style2,),
                   if (!state.horarios.first.allDay) ...[
                     spacerS,
                     Text('Horarios:',style:style1),
                     spacerXs,
-                    ...state.horarios.first.hours.map((e) =>
-                        SizedBox(
-                          width: double.infinity,
-                          child: Row(
-                            children: [
-                              Text(e.dateFormat ?? '',style: style3.copyWith(fontWeight: FontWeight.bold)),
-                              spacerM,
-                              Expanded(child: Text(e.timeMorningFormat ?? '',style: style3)),
-                              Expanded(child: Text(e.endTimeAfternoonFormat ?? '',style: style3)),
-                              Icon(Icons.circle,size: 15,color: (e.food ?? false) ? Colors.orange : Colors.white),
-                            ],
-                          ),
-                        )).toList(),
+                    ...state.horarios.first.hours.map((e){
+
+                      String dateF = e.dateFormat ?? '';
+                      if(dateF.length > 10){
+                        dateF = '${dateF.substring(0,9)}..';
+                      }
+
+                      return SizedBox(
+                        width: double.infinity,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(
+                              width: double.infinity,
+                              child: Row(
+                                children: [
+                                  Expanded(flex: 2,child: Text(dateF,style: style3.copyWith(fontWeight: FontWeight.bold))),
+                                  Expanded(flex: 3,child: Text('${e.timeMorningFormat ?? ''} - ${e.endTimeMorningFormat ?? ''}',style: style3)),
+                                  Expanded(flex: 3,child: Text('${e.timeAfternoonFormat ?? ''} - ${e.endTimeAfternoonFormat ?? ''}',style: style3)),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              width: double.infinity,
+                              child: Row(
+                                children: [
+                                  Expanded(flex: 2,child: Container()),
+                                  Expanded(flex: 3,child: Text( (e.food ?? false) ? 'Incluye almuerzo' : '',style: style4)),
+                                  Expanded(flex: 3,child: Container()),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      );
+                    }).toList(),
                   ],
                   spacerS,
                   Text('Ubicación:',style: style1),

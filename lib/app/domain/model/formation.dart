@@ -232,6 +232,8 @@ class FormHour {
   String? endTimeMorning;
   String? endTimeMorningFormat;
   String? timeAfternoon;
+  String? timeAfternoonFormat;
+  String? endTimeAfternoon;
   String? endTimeAfternoonFormat;
 
   FormHour({
@@ -244,6 +246,8 @@ class FormHour {
     this.endTimeMorning,
     this.endTimeMorningFormat,
     this.timeAfternoon,
+    this.timeAfternoonFormat,
+    this.endTimeAfternoon,
     this.endTimeAfternoonFormat,
   });
 
@@ -257,6 +261,8 @@ class FormHour {
     endTimeMorning: json["end_time_morning"],
     endTimeMorningFormat: json["end_time_morning_format"],
     timeAfternoon: json["time_afternoon"],
+    timeAfternoonFormat: json["time_afternoon_format"],
+    endTimeAfternoon: json["end_time_afternoon"],
     endTimeAfternoonFormat: json["end_time_afternoon_format"],
   );
 
@@ -270,6 +276,8 @@ class FormHour {
     "end_time_morning": endTimeMorning,
     "end_time_morning_format": endTimeMorningFormat,
     "time_afternoon": timeAfternoon,
+    "time_afternoon_format": timeAfternoonFormat,
+    "end_time_afternoon": endTimeAfternoon,
     "end_time_afternoon_format": endTimeAfternoonFormat,
   };
 }

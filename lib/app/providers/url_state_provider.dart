@@ -22,8 +22,8 @@ class UrlDynamicProvider extends ChangeNotifier {
       if(url[url.length - 1] == '/' || url[url.length - 1] == '/'){
         url = url.substring(0,(url.length - 1));
       }
-      url = 'https://desarrollo.grupovemare.com';
-      //url = 'https://vemare.ole.agency';
+      //url = 'https://desarrollo.grupovemare.com';
+      url = 'https://vemare.ole.agency';
       log('URL : $url');
     }catch(_){}
     return url;
