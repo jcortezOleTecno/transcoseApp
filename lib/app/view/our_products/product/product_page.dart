@@ -87,7 +87,7 @@ class ProductPage extends StatelessWidget {
                             ],
                           ),
                           spacerS,
-                          MyHtml(text: state.category?.description ?? ''),
+                          MyHtml(text: state.category?.description ?? '', bodyFontSize: 20,),
                           // Text(
                           //   state.category?.subtitle ?? '',
                           //   style: AppTextStyle.defaultStyle,

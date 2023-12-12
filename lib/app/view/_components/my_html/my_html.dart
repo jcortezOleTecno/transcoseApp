@@ -10,6 +10,7 @@ class MyHtml extends StatelessWidget {
     this.color,
     this.fontWeight,
     this.maxLines,
+    this.lineHeight,
   }) : super(key: key);
 
   final String text;
@@ -17,6 +18,7 @@ class MyHtml extends StatelessWidget {
   final FontWeight? fontWeight;
   final double? bodyFontSize;
   final int? maxLines;
+  final double? lineHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,13 @@ class MyHtml extends StatelessWidget {
           fontWeight: fontWeight,
           maxLines: maxLines,
         ),
+        "ul": Style(
+          fontSize: FontSize(bodyFontSize ?? 24),
+          color: color,
+          fontWeight: fontWeight,
+          maxLines: maxLines,
+          padding: HtmlPaddings.all(0)
+        ),
         "body": Style(
           fontSize: FontSize(bodyFontSize ?? 22),
           color: color,
@@ -37,10 +46,14 @@ class MyHtml extends StatelessWidget {
           maxLines: maxLines,
         ),
         "li": Style(
-          fontSize: FontSize(bodyFontSize ?? 26),
+          fontSize: FontSize(bodyFontSize ?? 24),
           color: color,
           fontWeight: fontWeight,
           maxLines: maxLines,
+          lineHeight: LineHeight.normal,
+          listStylePosition: ListStylePosition.inside,
+          display: Display.inline,
+          padding: HtmlPaddings.all(0)
         ),
         "b": Style(
           fontSize: FontSize(bodyFontSize ?? 22),
