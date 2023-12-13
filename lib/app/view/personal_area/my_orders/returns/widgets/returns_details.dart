@@ -29,6 +29,13 @@ class ReturnsDetails extends StatelessWidget {
         create: (context1) => ReturnsDetailsProvider(getIt.get<ContratsRepository>(), codReturns: codReturns),
         child: Consumer<ReturnsDetailsProvider>(
             builder: (context2, provider, child){
+
+              String numberOrder = '';
+              if(provider.returnsModel != null && provider.returnsModel!.numeroDevolucion != null){
+                numberOrder = provider.returnsModel!.numeroDevolucion.toString();
+              }
+
+
               return Scaffold(
                 body: MyBody(
                   child: SingleChildScrollView(
@@ -41,11 +48,11 @@ class ReturnsDetails extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const MyBackButton(),
-                              Text('Código de pedido de devolución', style: AppTextStyle.h12Style.copyWith(
-                                fontWeight: FontWeight.normal,
-                              )),
-                              Text(codReturns, style: AppTextStyle.h12Style.copyWith(
+                              Text(numberOrder, style: AppTextStyle.h12Style.copyWith(
                                 fontSize: 24,
+                              )),
+                              Text('Pedido de devolución', style: AppTextStyle.h12Style.copyWith(
+                                fontWeight: FontWeight.normal,
                               )),
                               spacerS,
                               if(provider.loadData)...[
@@ -91,13 +98,13 @@ class ReturnsDetails extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            MyInput(
-              key: const Key("Código devolución"),
-              label: "Código devolución",
-              initialValue: provider.returnsModel!.codigoDevolucion!.toString(),
-              readOnly: true,
-              variant: MyInputVariant.backgroundBlue,
-            ),
+            // MyInput(
+            //   key: const Key("Código devolución"),
+            //   label: "Código devolución",
+            //   initialValue: provider.returnsModel!.codigoDevolucion!.toString(),
+            //   readOnly: true,
+            //   variant: MyInputVariant.backgroundBlue,
+            // ),
             MyInput(
               key: const Key("Nº pedido"),
               label: "Nº pedido",

@@ -44,6 +44,12 @@ class ReturnsAlbaranDetails extends StatelessWidget {
                 provider.contextProvider = context2;
               }catch(_){}
 
+
+              String title = 'N° de albarán ';
+              if(provider.listProducts.isNotEmpty){
+                title = 'N° de albarán ${provider.listProducts[0].albaran}';
+              }
+
               return Scaffold(
                 body: MyBody(
                   child: SingleChildScrollView(
@@ -56,7 +62,7 @@ class ReturnsAlbaranDetails extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const MyBackButton(),
-                              Text('N° de albarán ${albaranReturnsModel.codigoAlbaran}', style: AppTextStyle.h2Style),
+                              Text(title, style: AppTextStyle.h2Style),
                               Text(albaranReturnsModel.cliente ?? '', style: AppTextStyle.checkStyle),
                               spacerS,spacerS,
                               if(provider.loadData)...[
