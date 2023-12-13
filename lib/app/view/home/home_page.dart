@@ -273,10 +273,7 @@ class _PageA extends StatelessWidget {
                     onPressed: () {
                       showDialog<bool>(
                           context: context,
-                          builder: (context) {
-                            return _DialogEmail(
-                                toEmail: state.heroButtons?.email ?? '');
-                          }).then((value) {
+                          builder: (context) { return _DialogEmail( toEmail: state.heroButtons?.email ?? '');}).then((value) {
                         if (value ?? false) {
                           showDialog(
                               context: context,
@@ -357,9 +354,14 @@ class _DialogEmail extends StatefulWidget {
 class _DialogEmailState extends State<_DialogEmail> {
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
-  String? email;
-  String? asunto;
-  String? mensaje;
+  String? email = '';
+  String? asunto = '';
+  String? mensaje = '';
+  String? name = '';
+  String? phone = '';
+  String? province = '';
+  String? city = '';
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -383,10 +385,60 @@ class _DialogEmailState extends State<_DialogEmail> {
               ),
               spacerM,
               MyInput(
+                label: "Nombre*",
+                hintText: 'Escribe tu nombre',
+                variant: MyInputVariant.backgroundBlue,
+                validator: validateData,
+                onChanged: (p0) {
+                  setState(() {
+                    name = p0;
+                  });
+                },
+              ),
+              spacerM,
+              MyInput(
+                label: "Teléfono*",
+                hintText: 'Escribe tu Teléfono',
+                variant: MyInputVariant.backgroundBlue,
+                inputType: TextInputType.phone,
+                validator: validateData,
+                onChanged: (p0) {
+                  setState(() {
+                    phone = p0;
+                  });
+                },
+              ),
+              spacerM,
+              MyInput(
+                label: "Provincia*",
+                hintText: 'Escribe tu provincia',
+                variant: MyInputVariant.backgroundBlue,
+                validator: validateData,
+                onChanged: (p0) {
+                  setState(() {
+                    province = p0;
+                  });
+                },
+              ),
+              spacerM,
+              MyInput(
+                label: "Ciudad*",
+                hintText: 'Escribe tu ciudad...',
+                variant: MyInputVariant.backgroundBlue,
+                validator: validateData,
+                onChanged: (p0) {
+                  setState(() {
+                    city = p0;
+                  });
+                },
+              ),
+              spacerM,
+              MyInput(
                 label: "Correo electróncio*",
                 hintText: 'Escribe tu correo electrónico',
                 variant: MyInputVariant.backgroundBlue,
                 validator: validateEmail,
+                inputType: TextInputType.emailAddress,
                 onChanged: (p0) {
                   setState(() {
                     email = p0;
@@ -432,7 +484,8 @@ class _DialogEmailState extends State<_DialogEmail> {
                       loading = true;
                     });
                     var resp = await getIt<HomeRepository>().contactForm(
-                        email: email!, subject: asunto!, description: mensaje!);
+                        email: email!, subject: asunto!, description: mensaje!,
+                    name: name!,phone: phone!,city: city!,province: province!);
                     setState(() {
                       loading = false;
                     });

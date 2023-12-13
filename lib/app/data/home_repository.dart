@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:vemare/app/data/_api_classes.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/domain/model/hero.dart';
@@ -19,15 +21,16 @@ class HomeRepository {
     return HeroButtons.fromJson(res);
   }
 
-  Future<bool> contactForm(
-      {required String email,
-      required String subject,
-      required String description}) async {
-    final dynamic res =
-        await _apiClient.postRequest('$BASE_API_URL/api/contact-form', body: {
+  Future<bool> contactForm({required String email,required String subject,required String description,
+        required String name,required String phone,required String city,required String province,}) async {
+    final dynamic res = await _apiClient.postRequest('$BASE_API_URL/api/contact-form', body: {
       "email": email,
       "subject": subject,
       "description": description,
+      "name" : name,
+      "phone" : phone,
+      "province" : province,
+      "city" : city,
     });
     return (res["response"] as String) == "success";
   }
