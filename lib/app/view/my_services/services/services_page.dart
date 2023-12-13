@@ -13,6 +13,7 @@ import 'package:vemare/app/view/_components/my_input/my_input.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/tap_to_hide_keyboard/tap_to_hide_keyboard.dart';
+import 'package:vemare/app/view/home/bloc/home_cubit.dart';
 import 'package:vemare/app/view/my_services/events/events_page.dart';
 import 'package:vemare/app/view/my_services/formations/formations/formations_page.dart';
 import 'package:vemare/app/view/my_services/services/bloc/services_cubit.dart';

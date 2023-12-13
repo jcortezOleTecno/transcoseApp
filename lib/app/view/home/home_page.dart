@@ -827,24 +827,22 @@ class _RedesTalleres extends StatelessWidget {
               );
             }
             return Column(
-              children: state.workshop
-                  .map(
-                    (e) => MyListile(
+              children: state.workshop.map((e) => MyListile(
                       icon: MyNetworkImage(
                         image: e.image ?? '',
                         fit: BoxFit.cover,
                       ), //Image.network(e.image!, fit: BoxFit.cover),
                       title: e.name ?? '',
                       onTap: (){
-                        if(LocalDataRepository().isLogged){
+                        //if(LocalDataRepository().isLogged){
                           Navigator.pushNamed(
                             context,
                             WorkshopNetworksPage.route,
                             arguments: e.id,
                           );
-                        }else{
-                          Navigator.pushReplacementNamed(context, LoginPage.route);
-                        }
+                        // }else{
+                        //   Navigator.pushReplacementNamed(context, LoginPage.route);
+                        // }
                       },
                     ),
                   )

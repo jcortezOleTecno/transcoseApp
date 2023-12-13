@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -73,9 +75,142 @@ class _WorkshopNetworksPageState extends State<WorkshopNetworksPage> {
     final isEmpleado = LocalDataRepository().user?.role?.id == 4;
     return BlocBuilder<WorkshopNetworksCubit, WorkshopNetworksState>(
       builder: (context, state) {
+
+        if(state.workShops.isNotEmpty && state.workShop == null){
+          cubit.workShop(state.workShops[0]);
+        }
+
         return MyTapToHideKeyboard(
           child: Scaffold(
             body: MyBody(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const MyBackButton(),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('Nuestras redes de talleres',
+                              style: AppTextStyle.h1Style),
+                          spacerS,
+                          MyCustomDropdownButton<WorkShop>(
+                            buttonWidth: double.infinity,
+                            hint: 'Elige una opción',
+                            dropdownItems: state.workShops
+                                .map((e) => DropdownMenuItem(
+                              value: e,
+                              child: Text(
+                                e.name ?? '',
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: AppTextStyle.defaultStyle,
+                              ),
+                            ))
+                                .toList(),
+                            value: state.workShop,
+                            onChanged: (value){
+                              cubit.workShop(value);
+                              tcName = TextEditingController();
+                              tcEmail = TextEditingController();
+                              tcPhone = TextEditingController();
+                              tcObserv = TextEditingController();
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    const _Info(),
+                    spacerL,
+                    if (state.workShop != null)
+                      Padding(
+                        padding:
+                        const EdgeInsets.symmetric(horizontal: 15),
+                        child: Visibility(
+                          visible: state.status != FormStatus.done,
+                          replacement:
+                          const MessageSentSuccesfullyWidget(),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text('Solicitar más información',
+                                  style: AppTextStyle.h2Style),
+                              spacerS,
+                              MyInput(
+                                label: 'Nombre',
+                                required: true,
+                                onChanged: cubit.name,
+                                hintText: 'Escribe tu nombre',
+                                controller: tcName,
+                                textInputAction: TextInputAction.next,
+                                inputType: TextInputType.name,
+                                textCapitalization:
+                                TextCapitalization.words,
+                                hasError:
+                                state.status == FormStatus.error,
+                              ),
+                              MyInput(
+                                label: 'E-mail',
+                                hintText: 'Escribe tu e-mail',
+                                required: true,
+                                controller: tcEmail,
+                                textInputAction: TextInputAction.next,
+                                inputType: TextInputType.emailAddress,
+                                onChanged: cubit.email,
+                                hasError:
+                                state.status == FormStatus.error,
+                              ),
+                              MyInput(
+                                label: 'Teléfono',
+                                hintText: 'Escribe tu teléfono',
+                                required: true,
+                                controller: tcPhone,
+                                textInputAction: TextInputAction.next,
+                                inputType: TextInputType.phone,
+                                onChanged: cubit.phone,
+                                // inputFormatters: [
+                                //   MaskedInputFormatter('### ### ###'),
+                                // ],
+                                hasError:
+                                state.status == FormStatus.error,
+                              ),
+                              MyInput(
+                                label: 'Observaciones',
+                                maxLines: 6,
+                                hintText: 'Escribe aquí',
+                                controller: tcObserv,
+                                onChanged: cubit.observation,
+                                hasError:
+                                state.status == FormStatus.error,
+                                inputType: TextInputType.multiline,
+                              ),
+                              spacerM,
+                              MyButton(
+                                onPressed: () {
+                                  FocusScope.of(context)
+                                      .requestFocus(FocusNode());
+                                  cubit.sendForm();
+                                },
+                                text: 'Enviar',
+                                width: double.infinity,
+                                isLoading:
+                                state.status == FormStatus.loading,
+                                disabled: !state.isComplete,
+                              ),
+                              spacerXL,
+                            ],
+                          ),
+                        ),
+                      ),
+                    const _Multimedia(),
+                    const Footer(),
+                  ],
+                ),
+              ),
+            ),
+            /*body: MyBody(
               child: permissions!.where((e) => e.id == 3).isEmpty && isEmpleado
                   ? const AccessDeniedWidget()
                   : SingleChildScrollView(
@@ -204,7 +339,7 @@ class _WorkshopNetworksPageState extends State<WorkshopNetworksPage> {
                         ],
                       ),
                     ),
-            ),
+            ),*/
           ),
         );
       },
