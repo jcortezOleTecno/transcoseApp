@@ -38,6 +38,13 @@ class ClaimsRepository {
     return res.data;
   }
 
+  Future<Map> postComplaintsSearching({required Map<String,dynamic> body,}) async {
+    dynamic res = await Dio().post('$BASE_API_URL/api/complaints/searching',
+        options: Options(headers: allHeaders),
+        data: FormData.fromMap(body));
+    return res.data;
+  }
+
 }
 
 String pdfBase64(String base64) {

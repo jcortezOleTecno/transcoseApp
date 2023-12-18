@@ -23,6 +23,14 @@ class ClaimsProvider extends ChangeNotifier {
   bool get loadSend => _loadSend;
   set loadSend(bool value){ _loadSend = value; notifyListeners();}
 
+  bool _searchClaims = false;
+  bool get searchClaims => _searchClaims;
+  set searchClaims(bool value){ _searchClaims = value; notifyListeners();}
+
+  bool _isSelectCreate = true;
+  bool get isSelectCreate => _isSelectCreate;
+  set isSelectCreate(bool value){ _isSelectCreate = value; notifyListeners();}
+
   File? _nameFile;
   File? get nameFile => _nameFile;
   set nameFile(File? value){ _nameFile = value; notifyListeners();}
@@ -52,6 +60,10 @@ class ClaimsProvider extends ChangeNotifier {
   late TextEditingController controllerDireccion;
   late TextEditingController controllerAsunto;
   late TextEditingController controllerDetalle;
+
+  late TextEditingController controllerCodConsulta;
+
+  Map resultBusqueda = {};
   
 
   Future initialData() async {
@@ -65,6 +77,8 @@ class ClaimsProvider extends ChangeNotifier {
     controllerDireccion = TextEditingController();
     controllerAsunto = TextEditingController();
     controllerDetalle = TextEditingController();
+
+    controllerCodConsulta = TextEditingController();
 
     complaintSelected = null;
     complaintsCategoriesSelected = null;
@@ -120,6 +134,24 @@ class ClaimsProvider extends ChangeNotifier {
     }
     loadSend = false;
     return result;
+  }
+
+  Future consultarData({required String ref}) async{
+    try{
+      resultBusqueda = {};
+      searchClaims = true;
+      Map<String,dynamic> body = {
+        'search' : ref,
+      };
+
+      Map result = await _claimsRepository.postComplaintsSearching(body: body);
+      if(result['response'] == 'success'){
+        resultBusqueda = result['data'] as Map<String,dynamic>;
+      }
+    }catch(e){
+      log(e.toString());
+    }
+    searchClaims = false;
   }
 
 }
