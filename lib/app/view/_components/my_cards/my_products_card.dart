@@ -23,6 +23,7 @@ class CardProducts extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Card(
+          color: Colors.white,
           margin: margin ?? const EdgeInsets.only(bottom: 20),
           child: Padding(
             padding: const EdgeInsets.all(12),

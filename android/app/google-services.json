@@ -1,43 +1,26 @@
 {
   "project_info": {
-    "project_number": "578147292338",
-    "project_id": "appwebvemarecorporativa",
-    "storage_bucket": "appwebvemarecorporativa.appspot.com"
+    "project_number": "73904774289",
+    "project_id": "transcose-92e7f",
+    "storage_bucket": "transcose-92e7f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:578147292338:android:3a13418da496759abc25ab",
+        "mobilesdk_app_id": "1:73904774289:android:6d4055a4ff29e137f6b330",
         "android_client_info": {
-          "package_name": "com.appvemare.oleagency"
+          "package_name": "com.apptranscose.oleagency"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "578147292338-vubk3ko5ucqjefp35m1bk9qto98ddc4u.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDT--eprPq8JdLhbuNoTS2JDt5Ww0q1Nao"
+          "current_key": "AIzaSyCh4s2W5J-7uOVsmiJXEJb6JLxt8n4R2Ag"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "578147292338-vubk3ko5ucqjefp35m1bk9qto98ddc4u.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "578147292338-383erb6044r4idbdh5crcppkmajca2q0.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.vemare.app.vemare"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

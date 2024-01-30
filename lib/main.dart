@@ -116,9 +116,8 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: 'Vemare',
+        title: 'Transcose',
         debugShowCheckedModeBanner: false,
-        theme: AppTheme.light,
         navigatorKey: navigatorKey,
         initialRoute: AppRouter.initialPage,
         navigatorObservers: [_ClearFocusOnPush()],
@@ -128,6 +127,12 @@ class MyApp extends StatelessWidget {
         },
         scrollBehavior: const MaterialScrollBehavior().copyWith(
           dragDevices: PointerDeviceKind.values.toSet(),
+        ),
+        theme: ThemeData(
+          cardColor: Colors.white,
+          cardTheme: const CardTheme(
+            color: Colors.white
+          )
         ),
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,

@@ -16,16 +16,16 @@ class UrlDynamicProvider extends ChangeNotifier {
   Future<String> getUrl() async{
     String url = '';
     try{
-      String totem = await getIt.get<UrlDynamicRepository>().getTotem() ?? '';
-      log('totem: $totem');
-      url = await getIt.get<UrlDynamicRepository>().getUrl(totem: totem) ?? '';
-      if(url[url.length - 1] == '/' || url[url.length - 1] == '/'){
-        url = url.substring(0,(url.length - 1));
-      }
-      url = 'https://desarrollo.grupovemare.com';
-      //url = 'https://vemare.ole.agency';
-      log('URL : $url');
+      // String totem = await getIt.get<UrlDynamicRepository>().getTotem() ?? '';
+      // log('totem: $totem');
+      // url = await getIt.get<UrlDynamicRepository>().getUrl(totem: totem) ?? '';
+      // if(url[url.length - 1] == '/' || url[url.length - 1] == '/'){
+      //   url = url.substring(0,(url.length - 1));
+      // }
     }catch(_){}
+    url = 'https://transcose.oletecnologia.com';
+    //url = 'https://desarrollo.grupovemare.com';
+    log('URL : $url');
     return url;
   }
 

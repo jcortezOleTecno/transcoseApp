@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.appvemare.oleagency"
+    package="com.apptranscose.oleagency"
     xmlns:tools="http://schemas.android.com/tools">
     
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -23,7 +23,7 @@
         </intent>
     </queries>
     <application
-        android:label="Vemare"
+        android:label="Transcose"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
