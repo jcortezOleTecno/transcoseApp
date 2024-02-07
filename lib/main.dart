@@ -130,6 +130,11 @@ class MyApp extends StatelessWidget {
         ),
         theme: ThemeData(
           cardColor: Colors.white,
+          dialogTheme: const DialogTheme(
+            backgroundColor: Colors.white,
+            shadowColor: Colors.white,
+            surfaceTintColor: Colors.white
+          ),
           cardTheme: const CardTheme(
             color: Colors.white
           )

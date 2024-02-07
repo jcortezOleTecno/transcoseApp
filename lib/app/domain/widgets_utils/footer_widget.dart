@@ -42,16 +42,16 @@ class Footer extends StatelessWidget {
     String urlEmail = '';
 
     if(footerProvider.dataFooter.isNotEmpty && footerProvider.dataFooter.containsKey('redes')){
-      urlFacebook = footerProvider.dataFooter['redes']['facebook'] ?? 'https://www.facebook.com';
-      urLinstagram = footerProvider.dataFooter['redes']['instagram'] ?? 'https://www.instagram.com';
-      urlYoutube = footerProvider.dataFooter['redes']['youtube'] ?? 'https://www.youtube.com';
-      urlLinkedin = footerProvider.dataFooter['redes']['linkedin'] ?? 'https://www.linkedin.com';
+      urlFacebook = footerProvider.dataFooter['redes']['facebook'] ?? 'https://www.facebook.com/transcose';
+      urLinstagram = footerProvider.dataFooter['redes']['instagram'] ?? 'https://www.instagram.com/adtranscose';
+      urlYoutube = footerProvider.dataFooter['redes']['youtube'] ?? 'https://www.youtube.com/channel/UCO9t81VyZqRfY4oSIGkD9aQ';
+      urlLinkedin = footerProvider.dataFooter['redes']['linkedin'] ?? 'https://www.linkedin.com/company/especialistas-diesel-iberia-edi';
     }
 
     if(footerProvider.dataFooter.isNotEmpty && footerProvider.dataFooter.containsKey('info')){
       urlLocation = footerProvider.dataFooter['info']['location'] ?? 'C/ Diesel, 32. 28906 - Getafe - Madrid';
       urlTelephone = footerProvider.dataFooter['info']['telephone'] ?? '91 649 60 20';
-      urlEmail = footerProvider.dataFooter['info']['email'] ?? 'marketing@grupovemare.com';
+      urlEmail = footerProvider.dataFooter['info']['email'] ?? 'marketing@transcose.com';
     }
 
     Map<int,String> urlMap = {
@@ -114,8 +114,8 @@ class Footer extends StatelessWidget {
               Navigator.pushNamed(context, WorkWithUsPage.route,
                   arguments: homeStateGlobal.workWithUs);
             },
-            child: Column(
-              children: const [
+            child: const Column(
+              children: [
                 Text(
                   'Trabaja con nosotros',
                   style: AppTextStyle.nunitoSansFooter,
@@ -136,8 +136,8 @@ class Footer extends StatelessWidget {
               onTap: (){
                 Navigator.pushNamed(context, ClaimsPage.route);
               },
-              child: Column(
-                children: const [
+              child: const Column(
+                children: [
                   Text('Canal de denuncias',style: AppTextStyle.nunitoSansFooter,textAlign: TextAlign.center,),
                   SizedBox(height: 20),
                   Text('Ir al canal →',style: AppTextStyle.nunitoSansFooter,textAlign: TextAlign.center,),
