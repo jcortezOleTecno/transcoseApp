@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/header_repository.dart';
 import 'package:vemare/app/data/services_repository.dart';
+import 'package:vemare/app/data/shared_preferences_static.dart';
 import 'package:vemare/app/domain/utils/validators.dart';
 import 'package:vemare/app/domain/value_object/status.dart';
 import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
@@ -165,26 +166,28 @@ class _ServicesPageState extends State<ServicesPage> {
                           spacerS,
                           Row(
                             children: [
-                              Expanded(
-                                  child: state.loading
-                                      ? const MyShimmer(
-                                          margin: EdgeInsets.zero,
-                                          height: 210,
-                                          borderRadius: 12,
-                                        )
-                                      : _CardWeHelpYou(
-                                          name:
-                                              state.weHelpYou?.sat?.title ?? '',
-                                          img:
-                                              state.weHelpYou?.sat?.image ?? '',
-                                          onTap: () {
-                                            Navigator.pushNamed(
-                                                context, SatIntroPage.route,
-                                                arguments:
-                                                    state.weHelpYou?.sat);
-                                          },
-                                        )),
-                              spacerS,
+                              if(SharedPreferencesLocal.transcoseAppSat)...[
+                                Expanded(
+                                    child: state.loading
+                                        ? const MyShimmer(
+                                      margin: EdgeInsets.zero,
+                                      height: 210,
+                                      borderRadius: 12,
+                                    )
+                                        : _CardWeHelpYou(
+                                      name:
+                                      state.weHelpYou?.sat?.title ?? '',
+                                      img:
+                                      state.weHelpYou?.sat?.image ?? '',
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                            context, SatIntroPage.route,
+                                            arguments:
+                                            state.weHelpYou?.sat);
+                                      },
+                                    )),
+                                spacerS,
+                              ],
                               Expanded(
                                 child: state.loading
                                     ? const MyShimmer(

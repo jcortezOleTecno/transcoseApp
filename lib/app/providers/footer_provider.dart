@@ -14,13 +14,14 @@ class FooterProvider extends ChangeNotifier {
 
   Future getDataFooter() async{
     try{
-      if(SharedPreferencesLocal.veraneDataFooter.isNotEmpty){
-        dataFooter = jsonDecode(SharedPreferencesLocal.veraneDataFooter);
+      if(SharedPreferencesLocal.transcoseDataFooter.isNotEmpty){
+        dataFooter = jsonDecode(SharedPreferencesLocal.transcoseDataFooter);
       }
       dataFooter = await getIt.get<UrlDynamicRepository>().getFooter();
-      SharedPreferencesLocal.veraneDataFooter = jsonEncode(dataFooter);
+      SharedPreferencesLocal.transcoseDataFooter = jsonEncode(dataFooter);
 
-      SharedPreferencesLocal.veraneAppDevoluciones = dataFooter['app_devoluciones'];
+      SharedPreferencesLocal.transcoseAppDevoluciones = dataFooter['app_devoluciones'];
+      SharedPreferencesLocal.transcoseAppSat = dataFooter['app_sat'];
 
     }catch(e){
       log(e.toString());

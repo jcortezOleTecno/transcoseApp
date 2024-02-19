@@ -31,8 +31,8 @@ class _SplashPageState extends State<SplashPage> {
 
     Future.delayed(const Duration(milliseconds: 3500), () async {
 
-      if(SharedPreferencesLocal.veraneDeleteUser){
-        SharedPreferencesLocal.veraneDeleteUser = false;
+      if(SharedPreferencesLocal.transcoseDeleteUser){
+        SharedPreferencesLocal.transcoseDeleteUser = false;
         context.read<UserCubit>().deleteUser();
         LocalDataRepository().logOut();
       }

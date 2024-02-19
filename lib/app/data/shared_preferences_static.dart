@@ -8,19 +8,22 @@ class SharedPreferencesLocal {
     prefs = await SharedPreferences.getInstance();
   }
 
-  static String get veraneUrlDynamic => prefs.getString("veraneUrlDynamic") ?? '';
-  static set veraneUrlDynamic(String value) => prefs.setString("veraneUrlDynamic", value);
+  static String get transcoseUrlDynamic => prefs.getString("transcoseUrlDynamic") ?? '';
+  static set transcoseUrlDynamic(String value) => prefs.setString("transcoseUrlDynamic", value);
 
-  static String get veraneDataFooter => prefs.getString("veraneDataFooter") ?? '';
-  static set veraneDataFooter(String value) => prefs.setString("veraneDataFooter", value);
+  static String get transcoseDataFooter => prefs.getString("transcoseDataFooter") ?? '';
+  static set transcoseDataFooter(String value) => prefs.setString("transcoseDataFooter", value);
 
-  static bool get veraneDeleteUser => prefs.getBool("veraneDeleteUser") ?? false;
-  static set veraneDeleteUser(bool value) => prefs.setBool("veraneDeleteUser", value);
+  static bool get transcoseDeleteUser => prefs.getBool("transcoseDeleteUser") ?? false;
+  static set transcoseDeleteUser(bool value) => prefs.setBool("transcoseDeleteUser", value);
 
-  static bool get veraneAppDevoluciones => prefs.getBool("veraneAppDevoluciones") ?? false;
-  static set veraneAppDevoluciones(bool value) => prefs.setBool("veraneAppDevoluciones", value);
+  static bool get transcoseAppDevoluciones => prefs.getBool("transcoseAppDevoluciones") ?? false;
+  static set transcoseAppDevoluciones(bool value) => prefs.setBool("transcoseAppDevoluciones", value);
+  
+  static bool get transcoseAppSat => prefs.getBool("transcoseAppSat") ?? false;
+  static set transcoseAppSat(bool value) => prefs.setBool("transcoseAppSat", value);
 
-  static bool get veraneAppDevolucionesPermission => prefs.getBool("veraneAppDevolucionesPermission") ?? false;
-  static set veraneAppDevolucionesPermission(bool value) => prefs.setBool("veraneAppDevolucionesPermission", value);
+  static bool get transcoseAppDevolucionesPermission => prefs.getBool("transcoseAppDevolucionesPermission") ?? false;
+  static set transcoseAppDevolucionesPermission(bool value) => prefs.setBool("transcoseAppDevolucionesPermission", value);
 
 }

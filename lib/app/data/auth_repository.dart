@@ -39,7 +39,7 @@ class AuthRepository {
           exists = true; x = user.permissions!.length;
         }
       }
-      SharedPreferencesLocal.veraneAppDevolucionesPermission = exists;
+      SharedPreferencesLocal.transcoseAppDevolucionesPermission = exists;
     }
 
   }
@@ -114,7 +114,7 @@ SUCCESS
             exists = true; x = user.permissions!.length;
           }
         }
-        SharedPreferencesLocal.veraneAppDevolucionesPermission = exists;
+        SharedPreferencesLocal.transcoseAppDevolucionesPermission = exists;
       }
 
     }catch(e){

@@ -18,51 +18,51 @@ class LocalDataRepository {
   }
 
   int? get userId {
-    return _localStorage.getInt('@userId');
+    return _localStorage.getInt('@transcoseuserId');
   }
 
   set userId(int? id) {
-    _localStorage.setInt('@userId', id!);
+    _localStorage.setInt('@transcoseuserId', id!);
   }
 
   String? get authToken {
-    return _localStorage.getString('@auth_token');
+    return _localStorage.getString('@transcoseauth_token');
   }
 
   set authToken(String? token) {
-    _localStorage.setString('@auth_token', token!);
+    _localStorage.setString('@transcoseauth_token', token!);
   }
 
   Future<void> deleteAuthToken() async {
-    await _localStorage.remove('@auth_token');
+    await _localStorage.remove('@transcoseauth_token');
   }
 
   set loginDataEmail(String? email) {
-    _localStorage.setString('@login_email', email!);
+    _localStorage.setString('@transcoselogin_email', email!);
   }
 
   Future<void> deleteLoginDataEmail() async {
-    await _localStorage.remove('@login_email');
+    await _localStorage.remove('@transcoselogin_email');
   }
 
   String? get loginDataEmail {
-    return _localStorage.getString('@login_email');
+    return _localStorage.getString('@transcoselogin_email');
   }
 
   set loginDataPassword(String? password) {
-    _localStorage.setString('@login_password', password!);
+    _localStorage.setString('@transcoselogin_password', password!);
   }
 
   Future<void> deleteLoginDataPassword() async {
-    await _localStorage.remove('@login_password');
+    await _localStorage.remove('@transcoselogin_password');
   }
 
   String? get loginDataPassword {
-    return _localStorage.getString('@login_password');
+    return _localStorage.getString('@transcoselogin_password');
   }
 
   UserData? get user {
-    final data = _localStorage.getString('@auth_user');
+    final data = _localStorage.getString('@transcoseauth_user');
     if (data != null) {
       return UserData.fromJson(jsonDecode(data));
     }
@@ -70,23 +70,23 @@ class LocalDataRepository {
   }
 
   set user(UserData? userData) {
-    _localStorage.setString('@auth_user', jsonEncode(userData!.toJson()));
+    _localStorage.setString('@transcoseauth_user', jsonEncode(userData!.toJson()));
   }
 
   Future<void> deleteUser() async {
-    await _localStorage.remove('@auth_user');
+    await _localStorage.remove('@transcoseauth_user');
   }
 
-  bool get isLogged => _localStorage.getBool('@isLogged') ?? false;
+  bool get isLogged => _localStorage.getBool('@transcoseisLogged') ?? false;
 
   set isLogged(bool value) {
-    _localStorage.setBool('@isLogged', value);
+    _localStorage.setBool('@transcoseisLogged', value);
   }
 
   Future<void> logOut() async {
     _localStorage
-      ..setBool('@isLogged', false)
-      ..remove('@auth_user')
-      ..remove('@auth_token');
+      ..setBool('@transcoseisLogged', false)
+      ..remove('@transcoseauth_user')
+      ..remove('@transcoseauth_token');
   }
 }

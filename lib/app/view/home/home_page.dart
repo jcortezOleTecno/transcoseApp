@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
 
-    isReturns = SharedPreferencesLocal.veraneAppDevoluciones || SharedPreferencesLocal.veraneAppDevolucionesPermission;
+    isReturns = SharedPreferencesLocal.transcoseAppDevoluciones || SharedPreferencesLocal.transcoseAppDevolucionesPermission;
 
     return Scaffold(
         body: MyBody(
@@ -118,105 +118,6 @@ class _HomePageState extends State<HomePage> {
     ));
   }
 }
-/*
-class EncuestaWidget extends StatefulWidget {
-  const EncuestaWidget(
-    this.data, {
-    Key? key,
-  }) : super(key: key);
-
-  final Encuestas data;
-
-  @override
-  State<EncuestaWidget> createState() => _EncuestaWidgetState();
-}
-
-class _EncuestaWidgetState extends State<EncuestaWidget> {
-  bool loading = false;
-  int? stars = 3;
-  String? comment;
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              children: [
-                const Spacer(),
-                IconButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    icon: const Icon(Icons.close))
-              ],
-            ),
-            Text(
-              widget.data.dataEncuesta?.name ?? '',
-              textAlign: TextAlign.center,
-              style: AppTextStyle.h2Style,
-            ),
-            spacerS,
-            MyHtml(text: widget.data.dataEncuesta?.message ?? ''),
-            RatingBar.builder(
-              initialRating: 3,
-              minRating: 1,
-              direction: Axis.horizontal,
-              allowHalfRating: false,
-              itemCount: 5,
-              itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-              itemBuilder: (context, _) => const Icon(
-                Icons.star,
-                color: AppColor.primaryBlue,
-              ),
-              onRatingUpdate: (rating) {
-                stars = rating.toInt();
-              },
-            ),
-            spacerM,
-            MyInput(
-              label: 'Ayúdanos a mejorar:',
-              hintText: 'Escribe aquí...',
-              maxLines: 6,
-              textInputAction: TextInputAction.newline,
-              onChanged: (p) {
-                setState(() {
-                  comment = p;
-                });
-              },
-              inputType: TextInputType.multiline,
-            ),
-            spacerS,
-            MyButton(
-              onPressed: () async {
-                setState(() {
-                  loading = true;
-                });
-                var message = await getIt
-                    .get<EncuestasRepository>()
-                    .sendEncuestas(
-                        id: widget.data.dataEncuesta!.id!.toString(),
-                        stars: stars.toString(),
-                        comment: comment ?? '');
-                setState(() {
-                  loading = true;
-                });
-                // ignore: use_build_context_synchronously
-                Navigator.of(context).pop(message);
-              },
-              text: 'Aceptar',
-              width: double.infinity,
-              isLoading: loading,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}*/
 
 class _PageA extends StatelessWidget {
   const _PageA({
@@ -237,27 +138,6 @@ class _PageA extends StatelessWidget {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  // Expanded(
-                  //   child: SingleChildScrollView(
-                  //     child: Column(
-                  //       crossAxisAlignment: CrossAxisAlignment.stretch,
-                  //       children: [
-                  //         // Spacer(),
-                  //         const MySpacer(height: 280),
-                  //         Container(
-                  //           margin: const EdgeInsets.only(left: 5),
-                  //           child: Text(
-                  //             '¡Bienvenido${LocalDataRepository().isLogged ? ', ${LocalDataRepository().user?.name ?? ''}!' : '!'}',
-                  //             style: AppTextStyle.homeStyle.copyWith(
-                  //               color: Colors.white60,fontSize: 22
-                  //             ),
-                  //           ),
-                  //         ),
-                  //         spacerM,
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
                   MyIconButton(
                     onPressed: () => cubit.openWhatsApp(
                         phone: state.heroButtons?.whatsapp ?? ''),

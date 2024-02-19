@@ -39,11 +39,11 @@ class _SplashInitialPageState extends State<SplashInitialPage> {
     if(url.isNotEmpty){
       BASE_API_URL = url;
 
-      if(SharedPreferencesLocal.veraneUrlDynamic.isNotEmpty && SharedPreferencesLocal.veraneUrlDynamic != url){
-        SharedPreferencesLocal.veraneDeleteUser = true;
+      if(SharedPreferencesLocal.transcoseUrlDynamic.isNotEmpty && SharedPreferencesLocal.transcoseUrlDynamic != url){
+        SharedPreferencesLocal.transcoseDeleteUser = true;
       }
 
-      SharedPreferencesLocal.veraneUrlDynamic = BASE_API_URL;
+      SharedPreferencesLocal.transcoseUrlDynamic = BASE_API_URL;
       setState(() {});
       await Future.delayed(const Duration(milliseconds: 500));
       Provider.of<UrlDynamicProvider>(context,listen: false).finish();
