@@ -11,11 +11,11 @@ class AccessDeniedWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10),
+    return const Padding(
+      padding: EdgeInsets.all(10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
+        children: [
           Text(
             'No tienes acceso a esta área.',
             style: AppTextStyle.h1Style,

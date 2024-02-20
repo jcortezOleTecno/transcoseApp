@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-
 Map<String, dynamic> validateEmailAddress({required String email}) {
   Map<String, dynamic> result = {'valid' : false, 'sms' : 'No es valido.'};
   const emailRegex =

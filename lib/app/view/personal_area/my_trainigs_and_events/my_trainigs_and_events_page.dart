@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/my_account_repository.dart';
 import 'package:vemare/app/domain/model/detail_event.dart';
 import 'package:vemare/app/domain/model/trainings_event.dart';

@@ -3,7 +3,6 @@ import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:vemare/app/domain/model/filter.dart';
 import 'package:vemare/app/domain/model/months.dart';
-import 'package:vemare/app/domain/model/returns_model.dart';
 import 'package:vemare/app/domain/utils/months_list.dart';
 import 'package:vemare/app/domain/utils/year_list.dart';
 import 'package:vemare/app/view/_components/my_input/my_input.dart';

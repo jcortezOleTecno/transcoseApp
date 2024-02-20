@@ -43,9 +43,9 @@ class EventsVemarePage extends StatelessWidget {
                 child: BlocBuilder<EventsVemareCubit, EventsVemareState>(
                   builder: (context, state) {
                     if (state.loading) {
-                      return Column(
+                      return const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           MyShimmer(
                             height: 35,
                             margin: EdgeInsets.symmetric(horizontal: 15),
@@ -77,8 +77,8 @@ class EventsVemarePage extends StatelessWidget {
               BlocBuilder<EventsVemareCubit, EventsVemareState>(
                 builder: (context, state) {
                   if (state.loading) {
-                    return Column(
-                      children: const [
+                    return const Column(
+                      children: [
                         MyShimmer(
                           height: 220,
                           margin: EdgeInsets.symmetric(horizontal: 15),

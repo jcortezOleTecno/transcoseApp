@@ -48,16 +48,16 @@ class SatPage extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            return SingleChildScrollView(
+            return const SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const MyBackButton(),
+                  MyBackButton(),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
                           'SAT',
                           style: AppTextStyle.h1Style,

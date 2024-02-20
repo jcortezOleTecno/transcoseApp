@@ -25,8 +25,8 @@ class OurHistoryPage extends StatelessWidget {
             child: ListView(
               padding: EdgeInsets.zero,
               children: [
-                Row(
-                  children: const [
+                const Row(
+                  children: [
                     MyBackButton(),
                   ],
                 ),

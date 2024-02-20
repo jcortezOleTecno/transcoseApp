@@ -11,7 +11,6 @@ import 'package:vemare/app/domain/model/enterprise.dart';
 import 'package:vemare/app/domain/model/user_data.dart';
 import 'package:vemare/app/domain/model/user_rol.dart';
 import 'package:vemare/app/domain/model/vemare_contacts.dart';
-import 'package:vemare/app/view/shared/notifications/push_notifications.dart';
 
 class AuthRepository {
   AuthRepository(this.apiClient);
@@ -23,7 +22,7 @@ class AuthRepository {
     final body = <String, dynamic>{
       'email': email,
       'password': password,
-      'device_id': tokenFirebase ?? ''
+      'device_id': '', //tokenFirebase ?? ''
     };
     final dynamic res = await apiClient.postRequest('$BASE_API_URL/api/login', body: body);
 

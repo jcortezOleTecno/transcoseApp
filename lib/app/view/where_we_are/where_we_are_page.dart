@@ -73,8 +73,8 @@ class _WhereWeArePageState extends State<WhereWeArePage> {
               controller: controller,
               padding: EdgeInsets.zero,
               children: [
-                Row(
-                  children: const [
+                const Row(
+                  children: [
                     MyBackButton(),
                   ],
                 ),

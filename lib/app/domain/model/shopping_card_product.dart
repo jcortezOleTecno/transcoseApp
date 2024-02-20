@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 class ShoppingCardProduct {
   int? id;
   String? image;

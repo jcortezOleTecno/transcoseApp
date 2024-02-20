@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:vemare/app/domain/model/albaran_product_model.dart';
-import 'package:vemare/app/domain/widgets_utils/textfield_general.dart';
 import 'package:vemare/app/view/_components/no_result/no_result_table.dart';
 import '../../theme/button_style.dart';
 import '../../theme/color.dart';

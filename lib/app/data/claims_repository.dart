@@ -1,8 +1,6 @@
 // import 'package:flutter_downloader/flutter_downloader.dart';
-import 'dart:developer';
 import 'dart:io' as io;
 import 'package:dio/dio.dart';
-import 'package:flutter_cache_manager/file.dart';
 import 'package:vemare/app/data/_api.dart';
 import 'package:vemare/app/domain/model/complaints_categories_model.dart';
 import 'package:vemare/app/domain/model/complaints_model.dart';
