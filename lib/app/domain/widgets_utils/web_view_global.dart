@@ -1,8 +1,6 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/domain/widgets_utils/circular_progress_colors.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/theme/color.dart';
@@ -24,7 +22,6 @@ class WebViewGlobal extends StatefulWidget {
 
 class _WebViewGlobalState extends State<WebViewGlobal> {
 
-  InAppWebViewController? _webViewController;
   String url = "";
   double progress = 0;
   bool loadInitial = false;
@@ -76,7 +73,7 @@ class _WebViewGlobalState extends State<WebViewGlobal> {
                       )
                   ),
                   onWebViewCreated: (InAppWebViewController controller) {
-                    _webViewController = controller;
+                    //_webViewController = controller;
                   },
                   onLoadStart: (InAppWebViewController controller, Uri? url) {
                     setState(() {

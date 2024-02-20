@@ -62,8 +62,8 @@ class PaymentPage extends StatelessWidget {
                         label: 'Provincia',
                         initialValue: 'Madrid',
                       ),
-                      Row(
-                        children: const [
+                      const Row(
+                        children: [
                           Expanded(
                             child: MyInput(
                               label: 'Ciudad',

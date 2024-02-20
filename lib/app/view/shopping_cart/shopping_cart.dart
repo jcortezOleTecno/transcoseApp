@@ -4,7 +4,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/shopping_cart_repository.dart';
@@ -69,7 +68,6 @@ class ShoppingCartPage extends StatelessWidget {
                     }
                   },
                   builder: (context, state) {
-                    print('');
                     return WillPopScope(
                       onWillPop: () {
                         cubit.cancelBuy();
@@ -128,11 +126,6 @@ class ShoppingCartPage extends StatelessWidget {
                                         ? !state.typePaySelected
                                         : state.products.isEmpty,
                                     onPressed: () {
-
-                                      print('state.buying : ${state.buying}');
-                                      print('state.productsTienda.isNotEmpty : ${state.productsTienda.isNotEmpty}');
-                                      print('provider.viewData : ${provider.viewData}');
-
                                       if(!state.buying){
                                         if(state.productsTienda.isNotEmpty){
                                           cubit.buy();
@@ -145,7 +138,7 @@ class ShoppingCartPage extends StatelessWidget {
                                             cubit.orderPayment();
                                           }else{
                                             ScaffoldMessenger.of(context).showSnackBar(
-                                                SnackBar(content: Text('Se debe aceptar las condiciones de compra')));
+                                                const SnackBar(content: Text('Se debe aceptar las condiciones de compra')));
                                           }
                                         }else{
                                           provider.viewData = true;

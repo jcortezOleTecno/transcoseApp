@@ -578,10 +578,10 @@ class ClaimsPage extends StatelessWidget {
   }
 
   Widget widgetBusquedaResult({required ClaimsProvider provider, required BuildContext context}){
-    TextStyle styleSub = AppTextStyle.h12Style.copyWith(
-        fontWeight: FontWeight.normal,fontSize: 20
-    );
-    return Container(
+    // TextStyle styleSub = AppTextStyle.h12Style.copyWith(
+    //     fontWeight: FontWeight.normal,fontSize: 20
+    // );
+    return SizedBox(
       width: double.infinity,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

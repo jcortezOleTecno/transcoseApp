@@ -3,7 +3,6 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:vemare/app/domain/model/returns_cart_model.dart';
 import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';

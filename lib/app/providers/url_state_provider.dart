@@ -1,9 +1,9 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
-import 'package:vemare/app/data/url_dynamic_repository.dart';
-import 'package:vemare/config/service_locator.dart';
+// import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
+// import 'package:vemare/app/data/url_dynamic_repository.dart';
+// import 'package:vemare/config/service_locator.dart';
 
 enum AppStatus {
   urlDynamic,app

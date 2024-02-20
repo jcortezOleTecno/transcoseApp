@@ -1,6 +1,3 @@
-import 'package:intl/intl.dart';
-import 'package:vemare/app/domain/utils/money_formatter.dart';
-
 class ReturnsCartModel {
   ReturnsCartModel({
     this.id,

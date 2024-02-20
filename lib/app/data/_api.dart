@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
-
 import 'package:http/http.dart' as http;
 import 'package:vemare/app/data/_api_classes.dart';
 import 'package:vemare/app/data/local_data_repository.dart';

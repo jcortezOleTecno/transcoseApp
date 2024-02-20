@@ -32,26 +32,26 @@ class CardPaymentPage extends StatelessWidget {
                   quantity: args.quantity,
                 ),
                 spacerL,
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      const Text(
+                      Text(
                         'Datos de pago',
                         style: AppTextStyle.h3Style,
                       ),
                       spacerM,
-                      const MyInput(
+                      MyInput(
                         label: 'Nombre de la tarjeta',
                         hintText: 'Escribe el nombre de la tarjeta',
                       ),
-                      const MyInput(
+                      MyInput(
                         label: 'Número de la tarjeta',
                         hintText: 'Introduce el número de la tarjeta',
                       ),
                       Row(
-                        children: const [
+                        children: [
                           Expanded(
                             child: MyInput(
                               label: 'Fecha de caducidad',
@@ -67,7 +67,7 @@ class CardPaymentPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const _Button()
+                      _Button()
                     ],
                   ),
                 ),

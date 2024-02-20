@@ -1,10 +1,7 @@
-import 'dart:developer';
-
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/workshops_repository.dart';
 import 'package:vemare/app/domain/model/workshop.dart';
 import 'package:vemare/app/domain/value_object/status.dart';
@@ -20,7 +17,6 @@ import 'package:vemare/app/view/_components/my_input/my_input.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/my_video_player/my_video_player.dart';
 import 'package:vemare/app/view/_components/tap_to_hide_keyboard/tap_to_hide_keyboard.dart';
-import 'package:vemare/app/view/access_denied/access_denied_page.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
@@ -71,8 +67,8 @@ class _WorkshopNetworksPageState extends State<WorkshopNetworksPage> {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<WorkshopNetworksCubit>();
-    final permissions = LocalDataRepository().user?.permissions;
-    final isEmpleado = LocalDataRepository().user?.role?.id == 4;
+    // final permissions = LocalDataRepository().user?.permissions;
+    // final isEmpleado = LocalDataRepository().user?.role?.id == 4;
     return BlocBuilder<WorkshopNetworksCubit, WorkshopNetworksState>(
       builder: (context, state) {
 

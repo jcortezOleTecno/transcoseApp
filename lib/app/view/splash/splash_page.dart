@@ -8,7 +8,6 @@ import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/shared_preferences_static.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/home/home_page.dart';
-import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/shared/userbloc/user_cubit.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/config/service_locator.dart';

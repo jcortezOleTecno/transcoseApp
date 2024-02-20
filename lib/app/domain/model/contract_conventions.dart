@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:vemare/app/domain/model/contrato_rappel.dart';
 
 class ContratoConventionsModel {

@@ -5,12 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
-import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/shared_preferences_static.dart';
 import 'package:vemare/app/providers/footer_provider.dart';
 import 'package:vemare/app/providers/url_state_provider.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
-import 'package:vemare/app/view/shared/userbloc/user_cubit.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/theme.dart';
 
