@@ -104,6 +104,12 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   Future<void> registerEnterprise() async {
     emit(state.copyWith(status: FormStatus.loading));
+    if(state.phone.toString().substring(0,1) != '6'){
+      emit(state.copyWith(
+          status: FormStatus.error, msgError:
+      'El teléfono debe ser un número movil'));
+      return;
+    }
     if (state.password!.value != state.confirmPassword!.value) {
       emit(state.copyWith(
           status: FormStatus.error, msgError: 'Las contraseñas no coinciden'));
@@ -135,6 +141,12 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   Future<void> registerEmployee() async {
     emit(state.copyWith(status: FormStatus.loading));
+    if(state.phone.toString().substring(0,1) != '6'){
+      emit(state.copyWith(
+          status: FormStatus.error, msgError:
+      'El teléfono debe ser un número movil'));
+      return;
+    }
     if (state.password!.value != state.confirmPassword!.value) {
       emit(state.copyWith(
           status: FormStatus.error, msgError: 'Las contraseñas no coinciden'));

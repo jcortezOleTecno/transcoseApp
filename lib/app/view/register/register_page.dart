@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/data/auth_repository.dart';
@@ -43,6 +44,7 @@ class _RegisterPageState extends State<RegisterPage> {
   bool isEmpresa = true;
   String type = 'Empresa';
   GlobalKey<AutoCompleteTextFieldState<String>> key = GlobalKey();
+  TextEditingController controllerPhone = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -142,12 +144,15 @@ class _RegisterPageState extends State<RegisterPage> {
                               hasError: state.status == FormStatus.error,
                             ),
                             MyInput(
-                              label: 'Teléfono',
-                              hintText: 'Número de teléfono',
+                              label: 'Teléfono móvil',
+                              hintText: 'Número de teléfono móvil (6XX XXX XXX)',
                               required: true,
-                              onChanged: cubit.phone,
+                              controller: controllerPhone,
                               hasError: state.status == FormStatus.error,
                               inputType: TextInputType.phone,
+                              inputFormatters: [
+                                MaskTextInputFormatter(mask: "### ### ###")
+                              ],
                             ),
                             MyInput(
                               label: 'Contraseña',
@@ -262,7 +267,10 @@ class _RegisterPageState extends State<RegisterPage> {
                               text: 'Crear cuenta',
                               isLoading: state.status == FormStatus.loading,
                               disabled: isCheck,
-                              onPressed: cubit.registerEnterprise,
+                              onPressed: (){
+                                cubit.phone(controllerPhone.text);
+                                cubit.registerEnterprise();
+                              },
                             ),
                             spacerM,
                             MyButton(

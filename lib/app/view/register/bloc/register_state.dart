@@ -37,8 +37,6 @@ class RegisterState with _$RegisterState {
       name != '' &&
       cif != null &&
       email != null &&
-      phone != null &&
-      phone != '' &&
       responsibleName != null &&
       responsibleName != '' &&
       responsibleLastName != null &&
