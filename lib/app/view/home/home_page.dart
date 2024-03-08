@@ -55,6 +55,7 @@ import 'package:vemare/config/service_locator.dart';
 import 'package:vemare/main.dart';
 
 import '../my_notifications/my_notifications_page.dart';
+import 'package:vemare/app/domain/widgets_utils/web_view_global.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage._();
@@ -1163,20 +1164,30 @@ class _ProductsVemare extends StatelessWidget {
               height: MediaQuery.of(context).size.width * .5,
               child: PageView.builder(
                 itemCount: state.brands.length,
-                controller:
-                    PageController(initialPage: 1, viewportFraction: 0.5),
+                controller: PageController(initialPage: 1, viewportFraction: 0.5),
                 itemBuilder: (context, i) => ClipRRect(
-                  child: Card(
-                      clipBehavior: Clip.antiAlias,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(120),
-                      ),
-                      margin: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 20),
-                      child: Image.network(
-                        state.brands[i].image!, fit: BoxFit.cover,
-                        // scale: 2,
-                      )),
+                  child: InkWell(
+                    onTap: (){
+                      if(state.brands[i].link .isNotEmpty){
+                        Navigator.push(context, MaterialPageRoute(builder:
+                            (BuildContext context) => WebViewGlobal(
+                          url: state.brands[i].link,
+                          local: false,
+                        )));
+                      }
+                    },
+                    child: Card(
+                        clipBehavior: Clip.antiAlias,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(120),
+                        ),
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 20, horizontal: 20),
+                        child: Image.network(
+                          state.brands[i].image!, fit: BoxFit.cover,
+                          // scale: 2,
+                        )),
+                  ),
                 ),
               ),
             );

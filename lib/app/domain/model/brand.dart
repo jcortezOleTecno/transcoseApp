@@ -3,12 +3,14 @@ class Brand {
   final String? name;
   final String? description;
   final String? image;
+  final String link;
 
   Brand({
     this.id,
     this.name,
     this.description,
     this.image,
+    this.link = '',
   });
   factory Brand.froJson(dynamic map) {
     return Brand(
@@ -16,6 +18,7 @@ class Brand {
       name: map['name'] as String?,
       description: map['description'] as String?,
       image: map['image'] as String?,
+      link: map['link'] == null ? '' : map['link'] as String,
     );
   }
 
@@ -25,6 +28,7 @@ class Brand {
       'name': name,
       'description': description,
       'image': image,
+      'link': link,
     };
   }
 
@@ -34,10 +38,11 @@ class Brand {
         other.id == id &&
         other.description == description &&
         other.name == name &&
-        other.image == image;
+        other.image == image &&
+        other.link == link;
   }
 
   @override
   int get hashCode =>
-      id.hashCode ^ description.hashCode ^ name.hashCode ^ image.hashCode;
+      id.hashCode ^ description.hashCode ^ name.hashCode ^ image.hashCode ^ link.hashCode;
 }
