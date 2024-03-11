@@ -122,10 +122,10 @@ class ClaimsPage extends StatelessWidget {
         children: [
           const Text('Canal de denuncias', style: AppTextStyle.h1Style),
           spacerS,
-          Text('Honestidad y compromiso son valores destacados de Vemare y que impulsan la creación de este canal de denuncias, con compromiso por ser una empresa mejor, no solo con foco en las personas sino además en la sociedad, clientes, proveedores y accionistas.',
+          Text('Honestidad y compromiso son valores destacados de AD Transcose y que impulsan la creación de este canal de denuncias, con compromiso por ser una empresa mejor, no solo con foco en las personas sino además en la sociedad, clientes, proveedores y accionistas.',
               style: styleSub),
           spacerS,
-          Text('A través de este canal puedes comunicar conductas irregulares o actos ilícitos que se refieran o afecten al ámbito de actividad de Vemare.',
+          Text('A través de este canal puedes comunicar conductas irregulares o actos ilícitos que se refieran o afecten al ámbito de actividad de AD Transcose.',
               style: styleSub),
           spacerS,
           Text('Puede realizar su denuncia a través del formulario de denuncias a continuación.',
@@ -212,7 +212,7 @@ class ClaimsPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         spacerM,
-        const Text('Relación con Vemare*',style: AppTextStyle.inputLabelStyle,),
+        const Text('Relación con AD Transcose*',style: AppTextStyle.inputLabelStyle,),
         spacerS,
         MyCustomDropdownButton<ComplaintsCategoriesModel>(
           hint: 'Seleccionar',
@@ -406,7 +406,7 @@ class ClaimsPage extends StatelessWidget {
     }
 
     if(provider.complaintsCategoriesSelected == null){
-      error = 'Debe seleccionar alguna Relación con Vemare';
+      error = 'Debe seleccionar alguna Relación con AD Transcose';
     }
 
     if(error.isEmpty && !isAnonymus && provider.controllerApellido1.text.isEmpty){
@@ -588,7 +588,7 @@ class ClaimsPage extends StatelessWidget {
         children: [
           texts(title: 'Fecha de creación',subTitle: provider.resultBusqueda['fecha_creacion']),
           texts(title: 'Estado de la incidencia',subTitle: provider.resultBusqueda['estado_incidencia']),
-          texts(title: 'Relación con Vemare',subTitle: provider.resultBusqueda['relacion_con_vemare']),
+          texts(title: 'Relación con AD Transcose',subTitle: provider.resultBusqueda['relacion_con_vemare']),
           texts(title: 'Tipo de contacto',subTitle: provider.resultBusqueda['tipo_contacto']),
           texts(title: 'Nombre',subTitle: provider.resultBusqueda['nombre']),
           texts(title: 'Primer apellido',subTitle: provider.resultBusqueda['apellido1']),
