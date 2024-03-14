@@ -171,7 +171,7 @@ class _Card extends StatelessWidget {
                                 ],
                                 spacerXs,
                                 if(promotion.onlyRenting)...[
-                                  Text(myFormatMoney(promotion.pvpDesde!),style: AppTextStyle.h2Style.copyWith(fontSize: 26)),
+                                  Text(myFormatMoney(promotion.pvpDesde == null ? 0 : promotion.pvpDesde!),style: AppTextStyle.h2Style.copyWith(fontSize: 26)),
                                 ]else...[
                                   Text(myFormatMoney(promotion.pvpLowered ?? promotion.pvpOriginal ?? 0.0),style: AppTextStyle.h2Style.copyWith(fontSize: 26)),
                                 ]

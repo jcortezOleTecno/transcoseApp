@@ -187,7 +187,7 @@ class Footer extends StatelessWidget {
           ),
           InkWell(
             onTap: (){
-              String url = "mailto:$urlEmail?subject=Contacto con Vemare";
+              String url = "mailto:$urlEmail?subject=Contacto con Transcose";
               launchUrlString(url, mode: LaunchMode.externalApplication);
             },
             child: Column(

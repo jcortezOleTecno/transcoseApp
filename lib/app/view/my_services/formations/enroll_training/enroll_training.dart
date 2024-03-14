@@ -890,7 +890,7 @@ class _ConfirmAssistance extends StatelessWidget {
               Text('Ubicación:',style: style1),
               spacerXs,
               Text(
-                'Vemare Leganés - C/ Eduardo Torroja 11 28914 Leganés Madrid',
+                'Transcose Leganés - C/ Eduardo Torroja 11 28914 Leganés Madrid',
                 style: style2,
               ),
               spacerM,

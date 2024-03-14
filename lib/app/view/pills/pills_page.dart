@@ -116,7 +116,7 @@ class _Pills extends StatelessWidget {
           children: [
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Text('Píldoras Vemare', style: AppTextStyle.h2Style),
+              child: Text('Píldoras Transcose', style: AppTextStyle.h2Style),
             ),
             spacerS,
             state.pills.isEmpty

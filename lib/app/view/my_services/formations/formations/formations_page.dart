@@ -50,7 +50,7 @@ class FormationsPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const Text('Formaciones Vemare',
+                    const Text('Formaciones Transcose',
                         style: AppTextStyle.h1Style),
                     Text('Consulta las formaciones disponibles para los profesionales de la reparación: electromecánica, diagnosis, carrocería, gestión comercial...',
                         style: AppTextStyle.defaultStyle.copyWith(fontSize: 18)),

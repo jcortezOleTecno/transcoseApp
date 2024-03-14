@@ -253,7 +253,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 onChanged: cubit.receiveInformation,
                                 value: state.receiveInformation,
                                 title: const Text(
-                                    'Quiero recibir información sobre Grupo Vemare.'),
+                                    'Quiero recibir información sobre AD Transcose.'),
                                 controlAffinity: ListTileControlAffinity.leading,
                                 activeColor: AppColor.white,
                                 contentPadding: EdgeInsets.zero,

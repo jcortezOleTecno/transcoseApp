@@ -75,7 +75,7 @@ class _SplashInitialPageState extends State<SplashInitialPage> {
   Widget build(BuildContext context) {
 
     return MaterialApp(
-      title: 'Vemare',
+      title: 'Transcose',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
       home: Scaffold(

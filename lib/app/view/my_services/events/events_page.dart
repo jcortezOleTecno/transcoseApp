@@ -77,7 +77,7 @@ class EventsPage extends StatelessWidget {
                           },
                         ),
                         _Item(
-                          title: 'Eventos Vemare',
+                          title: 'Eventos Transcose',
                           img: 'assets/imgs/otrosEventosIMG.png',
                           content:
                               'Encuentros, charlas, presentaciones... Infórmate sobre todos los eventos que creamos para nuestros clientes.',

@@ -536,7 +536,7 @@ class _Menu extends StatelessWidget {
                       return const SizedBox();
                     }
                     return _MenuItemExpand(
-                        title: 'Mis contactos Vemare',
+                        title: 'Mis contactos Transcose',
                         icon: Image.asset(
                           'assets/icons/Phone.png',
                           scale: 2,

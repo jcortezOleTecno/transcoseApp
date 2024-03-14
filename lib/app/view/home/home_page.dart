@@ -139,6 +139,25 @@ class _PageA extends StatelessWidget {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  MyButton(
+                    onPressed: () {
+                      if(!LocalDataRepository().isLogged){
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, LoginPage.route, (route) => false);
+                      }else{
+                        Navigator.pushNamed(context, PromotionsPage.route);
+                      }
+                    },
+                    text: 'Hacer un pedido  ',
+                    width: double.infinity,
+                    isLoading: false,
+                    disabled: false,
+                    childCenter: Image.asset(
+                      'assets/icons/arrow_next.png',
+                      scale: 2,color: Colors.white,
+                    ),
+                  ),
+                  spacerM,
                   MyIconButton(
                     onPressed: () => cubit.openWhatsApp(
                         phone: state.heroButtons?.whatsapp ?? ''),
@@ -477,7 +496,7 @@ class _BackgroundState extends State<_Background> {
                                 bodyFontSize: 22,
                                 color: Colors.white60,
                               ),
-                              const MySpacer(height: 170),
+                              const MySpacer(height: 250),
                             ],
                           ),
                         )

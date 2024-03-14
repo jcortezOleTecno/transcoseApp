@@ -482,7 +482,7 @@ class MessageSentSuccesfullyWidget extends StatelessWidget {
         spacerS,
         const Center(
             child: Text(
-          'Nuestro equipo Vemare contestará a tu email lo antes posible.',
+          'Nuestro equipo AD Transcose contestará a tu email lo antes posible.',
           style: AppTextStyle.defaultStyle,
           textAlign: TextAlign.center,
         )),
