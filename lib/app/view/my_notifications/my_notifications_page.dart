@@ -293,11 +293,12 @@ class _MyNotificationCard extends StatelessWidget {
                                       fontSize: 13,
                                       fontWeight: FontWeight.w600),
                                 ),
-                                if (notification.dataNotification != null)
+                                if (notification.dataNotification != null || (notification.externalLink != null && notification.externalLink!.isNotEmpty))...[
                                   Image.asset(
                                     'assets/icons/arrow_next.png',
                                     scale: 2,
                                   )
+                                ]
                               ],
                             ),
                           ],

@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "73904774289",
-    "project_id": "transcose-92e7f",
-    "storage_bucket": "transcose-92e7f.appspot.com"
+    "project_number": "457554542982",
+    "project_id": "apptranscosecorporativa",
+    "storage_bucket": "apptranscosecorporativa.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:73904774289:android:6d4055a4ff29e137f6b330",
+        "mobilesdk_app_id": "1:457554542982:android:88438e606800fe5ab0ac07",
         "android_client_info": {
           "package_name": "com.apptranscose.oleagency"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCh4s2W5J-7uOVsmiJXEJb6JLxt8n4R2Ag"
+          "current_key": "AIzaSyCsGsCKGv5Eoo3DmplAy6fC7hoK6baJVng"
         }
       ],
       "services": {

@@ -26,8 +26,8 @@ class NotificationsRepository {
             'tipo': tipo ?? '',
             'limit': limit ?? '',
           });
-      //data = (res['data'] as List).map(Notification.fromJson).toList();
-      data = (res as List).map(Notification.fromJson).toList();
+      data = (res['data'] as List).map(Notification.fromJson).toList();
+      //data = (res as List).map(Notification.fromJson).toList();
     }catch(e){
       log('Error: ${e.toString()}');
     }
