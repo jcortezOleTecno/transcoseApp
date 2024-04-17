@@ -3,11 +3,13 @@
 import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:nested_scroll_views/material.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/brands_repository.dart';
 import 'package:vemare/app/data/header_repository.dart';
 import 'package:vemare/app/data/home_repository.dart';
@@ -1058,18 +1060,19 @@ class _Promociones extends StatelessWidget {
                     state.promotions[i].image ?? '',
                   ),
                   onTap: () {
-                    if(!LocalDataRepository().isLogged){
-                      Navigator.pushNamedAndRemoveUntil(
-                          context, LoginPage.route, (route) => false);
-                    }else{
-                      Navigator.pushNamed(
-                        context,
-                        PromotionPage.route,
-                        arguments: SearchArgs(
-                          category: state.promotions[i],
-                        ),
-                      );
-                    }
+                    _callDialog(context,number: contacDefault ?? '');
+                    // if(!LocalDataRepository().isLogged){
+                    //   Navigator.pushNamedAndRemoveUntil(
+                    //       context, LoginPage.route, (route) => false);
+                    // }else{
+                    //   Navigator.pushNamed(
+                    //     context,
+                    //     PromotionPage.route,
+                    //     arguments: SearchArgs(
+                    //       category: state.promotions[i],
+                    //     ),
+                    //   );
+                    // }
                   },
                 ),
               ),
@@ -1098,6 +1101,33 @@ class _Promociones extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+  Future<dynamic> _callDialog(BuildContext context, {required String number}) {
+    return showCupertinoDialog(
+      context: context,
+      builder: (context) {
+        return CupertinoAlertDialog(
+          content: Text(
+            number,
+            // '${number.split('').getRange(0, 3).join()} ${number.split('').getRange(3, 6).join()} ${number.split('').getRange(6, 9).join()}',
+            style: AppTextStyle.h3Style,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () async {
+                Navigator.pop(context);
+                await launchUrlString('tel:$number');
+              },
+              child: const Text('Llamar'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

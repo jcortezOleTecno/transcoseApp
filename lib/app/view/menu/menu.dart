@@ -618,6 +618,7 @@ class _Menu extends StatelessWidget {
             ),
             TextButton(
               onPressed: () async {
+                Navigator.pop(context);
                 await launchUrlString('tel:$number');
               },
               child: const Text('Llamar'),
