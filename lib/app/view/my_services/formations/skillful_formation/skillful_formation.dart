@@ -65,7 +65,7 @@ class SkillFormationPage extends StatelessWidget {
                                     height: 230,
                                     margin: EdgeInsets.only(bottom: 20),
                                   )),
-                        ...state.formations.map((e) => _Item(e))
+                        ...state.formations.map((e) => ItemFormation(e))
                       ],
                     ),
                   ),
@@ -80,8 +80,8 @@ class SkillFormationPage extends StatelessWidget {
   }
 }
 
-class _Item extends StatelessWidget {
-  const _Item(
+class ItemFormation extends StatelessWidget {
+  const ItemFormation(
     this.formation, {
     Key? key,
   }) : super(key: key);
@@ -105,11 +105,21 @@ class _Item extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(children: [
-          MyNetworkImage(
-            image: formation.image ?? '',
-            width: double.infinity,
-            height: 150,
-            fit: BoxFit.cover,
+          Stack(
+            children: [
+              MyNetworkImage(
+                image: formation.image ?? '',
+                width: double.infinity,
+                height: 180,
+                fit: BoxFit.cover,
+              ),
+              if(formation.isRegistered ?? false)...[
+                Positioned(
+                  top: 15,right: 0,
+                  child: containerType1(),
+                ),
+              ]
+            ],
           ),
           Container(
             padding: const EdgeInsets.all(15),
@@ -154,6 +164,33 @@ class _Item extends StatelessWidget {
             ]),
           )
         ]),
+      ),
+    );
+  }
+
+  Widget containerType1(){
+    String title = 'Inscrito';
+    return Container(
+      padding: const EdgeInsets.only(right: 20.0,left: 20,top: 5,bottom: 5),
+      decoration: const BoxDecoration(
+        color: AppColor.primary,
+        borderRadius:  BorderRadius.only(
+            topLeft: Radius.circular(30),bottomLeft: Radius.circular(30),
+            topRight: Radius.circular(0.0),bottomRight: Radius.circular(0.0)
+        ),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Text(title,style: AppTextStyle.linkStyle.copyWith(color: AppColor.white,fontSize: 18)),
+          SizedBox(
+            height: 25,width: 25,
+            child: Image.asset(
+              'assets/icons/check_promo.png',color: Colors.white,
+            ),
+          ),
+        ],
       ),
     );
   }

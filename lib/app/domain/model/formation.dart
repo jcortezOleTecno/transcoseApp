@@ -8,7 +8,7 @@ class TrainigGroup {
     this.tags,
     this.image,
     this.description,
-    // this.formations,
+    this.formationsCount = 0,
   });
 
   int? id;
@@ -19,7 +19,7 @@ class TrainigGroup {
   String? tags;
   String? image;
   String? description;
-  // List<Formation>? formations;
+  int formationsCount;
 
   TrainigGroup copyWith({
     int? id,
@@ -30,7 +30,7 @@ class TrainigGroup {
     String? tags,
     String? image,
     String? description,
-    // List<Formation>? formations,
+    int? formationsCount,
   }) =>
       TrainigGroup(
         id: id ?? this.id,
@@ -41,37 +41,32 @@ class TrainigGroup {
         tags: tags ?? this.tags,
         image: image ?? this.image,
         description: description ?? this.description,
-        // formations: formations ?? this.formations,
+        formationsCount: formationsCount ?? this.formationsCount,
       );
 
   factory TrainigGroup.fromJson(dynamic json) => TrainigGroup(
-        id: json["id"] as int?,
-        title: json["title"] as String?,
-        slug: json["slug"] as String?,
-        type: json["type"] as String?,
-        externalLink: json["external_link"] as String?,
-        tags: json["tags"] as String?,
-        image: json["image"] as String?,
-        description: json["description"] as String?,
-        // formations: json["formations"] == null
-        //     ? []
-        //     : List<Formation>.from(
-        //         json["formations"]!.map((x) => Formation.fromJson(x))),
-      );
+    id: json["id"] as int?,
+    title: json["title"] as String?,
+    slug: json["slug"] as String?,
+    type: json["type"] as String?,
+    externalLink: json["external_link"] as String?,
+    tags: json["tags"] as String?,
+    image: json["image"] as String?,
+    description: json["description"] as String?,
+    formationsCount: json["formations_count"] as int,
+  );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "title": title,
-        "slug": slug,
-        "tags": tags,
-        "type": type,
-        "image": image,
-        "external_link": externalLink,
-        "description": description,
-        // "formations": formations == null
-        //     ? []
-        //     : List<dynamic>.from(formations!.map((x) => x.toJson())),
-      };
+    "id": id,
+    "title": title,
+    "slug": slug,
+    "tags": tags,
+    "type": type,
+    "image": image,
+    "external_link": externalLink,
+    "description": description,
+    "formations_count": formationsCount,
+  };
 }
 
 class Formation {
@@ -85,6 +80,7 @@ class Formation {
   String? informationForRegistrants;
   String? image;
   bool? showCalendar;
+  bool? isRegistered;
   List<Horario>? horario;
 
   Formation({
@@ -98,42 +94,45 @@ class Formation {
     this.informationForRegistrants,
     this.image,
     this.showCalendar,
+    this.isRegistered,
     this.horario,
   });
 
   factory Formation.fromJson(dynamic json) => Formation(
-        id: json["id"] as int?,
-        title: json["title"] as String?,
-        slug: json["slug"] as String?,
-        tags: json["tags"] as String?,
-        homeAppearance: json["home_appearance"] as int?,
-        subtitle: json["subtitle"] as String?,
-        description: json["description"] as String?,
-        informationForRegistrants:
-            json["information_for_registrants"] as String?,
-        image: json["image"] as String?,
-        showCalendar: json["show_calendar"] as bool?,
-        horario: json["horario"] == null
-            ? []
-            : List<Horario>.from(
-                json["horario"]!.map((x) => Horario.fromJson(x))),
-      );
+    id: json["id"] as int?,
+    title: json["title"] as String?,
+    slug: json["slug"] as String?,
+    tags: json["tags"] as String?,
+    homeAppearance: json["home_appearance"] as int?,
+    subtitle: json["subtitle"] as String?,
+    description: json["description"] as String?,
+    informationForRegistrants:
+    json["information_for_registrants"] as String?,
+    image: json["image"] as String?,
+    showCalendar: json["show_calendar"] as bool?,
+    isRegistered: json["is_registered"] as bool?,
+    horario: json["horario"] == null
+        ? []
+        : List<Horario>.from(
+        json["horario"]!.map((x) => Horario.fromJson(x))),
+  );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "title": title,
-        "slug": slug,
-        "tags": tags,
-        "home_appearance": homeAppearance,
-        "subtitle": subtitle,
-        "description": description,
-        "information_for_registrants": informationForRegistrants,
-        "image": image,
-        "show_calendar": showCalendar,
-        "horario": horario == null
-            ? []
-            : List<dynamic>.from(horario!.map((x) => x.toJson())),
-      };
+    "id": id,
+    "title": title,
+    "slug": slug,
+    "tags": tags,
+    "home_appearance": homeAppearance,
+    "subtitle": subtitle,
+    "description": description,
+    "information_for_registrants": informationForRegistrants,
+    "image": image,
+    "show_calendar": showCalendar,
+    "is_registered": isRegistered,
+    "horario": horario == null
+        ? []
+        : List<dynamic>.from(horario!.map((x) => x.toJson())),
+  };
 }
 
 class Horario {

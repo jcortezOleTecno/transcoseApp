@@ -14,6 +14,9 @@ class SharedPreferencesLocal {
   static String get transcoseDataFooter => prefs.getString("transcoseDataFooter") ?? '';
   static set transcoseDataFooter(String value) => prefs.setString("transcoseDataFooter", value);
 
+  static String get veraneDAuthUser => prefs.getString("@auth_user") ?? '';
+  static set veraneDAuthUser(String value) => prefs.setString("@auth_user", value);
+
   static bool get transcoseDeleteUser => prefs.getBool("transcoseDeleteUser") ?? false;
   static set transcoseDeleteUser(bool value) => prefs.setBool("transcoseDeleteUser", value);
 

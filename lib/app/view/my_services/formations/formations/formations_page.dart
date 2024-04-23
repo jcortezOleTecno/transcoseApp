@@ -6,12 +6,15 @@ import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
+import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_cards/my_promotions_card.dart';
+import 'package:vemare/app/view/_components/my_cards/my_promotions_card_registered.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/my_services/formations/formations/bloc/formations_cubit.dart';
 import 'package:vemare/app/view/my_services/formations/formations/bloc/formations_state.dart';
+import 'package:vemare/app/view/my_services/formations/formations/formations_registered.dart';
 import 'package:vemare/app/view/my_services/formations/skillful_formation/skillful_formation.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
@@ -56,6 +59,27 @@ class FormationsPage extends StatelessWidget {
                         style: AppTextStyle.defaultStyle.copyWith(fontSize: 18)),
                     spacerXL,
                     BlocBuilder<FormationsCubit, FormationsState>(
+                        builder: (context, state) {
+                          return MyButton(
+                            onPressed: () {
+                              Navigator.push(context, MaterialPageRoute(builder:
+                                  (BuildContext context) => FormationsRegistered(
+                                formationsGroup: state.formations,
+                              )));
+                            },
+                            text: 'Formaciones inscritas  ',
+                            width: double.infinity,
+                            isLoading: false,
+                            disabled: false,
+                            childCenter: Image.asset(
+                              'assets/icons/arrow_next.png',
+                              scale: 2,color: Colors.white,
+                            ),
+                          );
+                        }
+                    ),
+                    spacerXL,
+                    BlocBuilder<FormationsCubit, FormationsState>(
                       builder: (context, state) {
                         if (state.loading) {
                           return Column(
@@ -71,45 +95,53 @@ class FormationsPage extends StatelessWidget {
                         return Column(
                           children: state.formations
                               .map(
-                                (e) => MySingleCard(
-                                  heightD: 195,
-                                  iconFormation: Image.network(e.image!),
-                                  title: e.title ?? '',
-                                  content: e.description ?? '',
-                                  margin: const EdgeInsets.only(bottom: 15),
-                                  maxLines: 3,
-                                  styleTitle: AppTextStyle.linkStyle.copyWith(fontSize: 20),
-                                  onTap: () {
-                                    if (e.type == 'ONLINE') {
-                                      launchUrlString(
-                                        e.externalLink ?? '',
+                                (e){
+
+                              int type = e.formationsCount > 0 ? 1 : 0;
+                              double h = type != 0 ? 0.27 : 0.25;
+
+                              return MySingleCardRegistered(
+                                type: type,
+                                cantRegister: e.formationsCount,
+                                heightD: MediaQuery.of(context).size.height * h,
+                                iconFormation: Image.network(e.image!),
+                                title: e.title ?? '',
+                                content: e.description ?? '',
+                                margin: const EdgeInsets.only(bottom: 15),
+                                maxLines: 3,
+                                styleTitle: AppTextStyle.linkStyle.copyWith(fontSize: 20),
+                                onTap: () {
+                                  if (e.type == 'ONLINE') {
+                                    launchUrlString(
+                                      e.externalLink ?? '',
+                                    );
+                                  } else {
+                                    if (LocalDataRepository().isLogged) {
+                                      Navigator.pushNamed(
+                                        context,
+                                        SkillFormationPage.route,
+                                        arguments: e,
                                       );
                                     } else {
-                                      if (LocalDataRepository().isLogged) {
-                                        Navigator.pushNamed(
-                                          context,
-                                          SkillFormationPage.route,
-                                          arguments: e,
-                                        );
-                                      } else {
-                                        Navigator.pushNamed(
-                                          context,
-                                          LoginPage.route,
-                                          arguments: 'Inicia sesión para conocer más detalles de esta formación',
-                                        ).then((_) {
-                                          if (LocalDataRepository().isLogged) {
-                                            Navigator.pushNamed(
-                                              context,
-                                              SkillFormationPage.route,
-                                              arguments: e,
-                                            );
-                                          }
-                                        });
-                                      }
+                                      Navigator.pushNamed(
+                                        context,
+                                        LoginPage.route,
+                                        arguments: 'Inicia sesión para conocer más detalles de esta formación',
+                                      ).then((_) {
+                                        if (LocalDataRepository().isLogged) {
+                                          Navigator.pushNamed(
+                                            context,
+                                            SkillFormationPage.route,
+                                            arguments: e,
+                                          );
+                                        }
+                                      });
                                     }
-                                  },
-                                ),
-                              )
+                                  }
+                                },
+                              );
+                            },
+                          )
                               .toList(),
                         );
                       },

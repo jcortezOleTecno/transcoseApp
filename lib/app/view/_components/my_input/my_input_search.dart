@@ -10,7 +10,8 @@ class MySearchInput extends StatelessWidget {
     this.initialValue,
     this.onFieldSubmitted,
     this.fillColor = Colors.white,
-    this.borderSideColor = Colors.black
+    this.borderSideColor = Colors.black,
+    this.borderCircular = 40.0,
   }) : super(key: key);
 
   final String? hintText;
@@ -20,6 +21,7 @@ class MySearchInput extends StatelessWidget {
   final void Function()? onTap;
   final Color fillColor;
   final Color borderSideColor;
+  final double borderCircular;
 
   @override
   Widget build(BuildContext context) {
@@ -32,15 +34,15 @@ class MySearchInput extends StatelessWidget {
         textInputAction: TextInputAction.search,
         decoration: InputDecoration(
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(40),
+            borderRadius: BorderRadius.circular(borderCircular),
             borderSide: BorderSide(color: borderSideColor, width: 1.0),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(40),
+            borderRadius: BorderRadius.circular(borderCircular),
             borderSide: BorderSide(color: borderSideColor, width: 1.0),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(40),
+            borderRadius: BorderRadius.circular(borderCircular),
             borderSide: BorderSide(color: borderSideColor, width: 1.0),
           ),
           filled: true,

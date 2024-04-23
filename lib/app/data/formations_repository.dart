@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:vemare/app/data/_api.dart';
 import 'package:vemare/app/data/_api_classes.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
+import 'package:vemare/app/data/shared_preferences_static.dart';
 import 'package:vemare/app/domain/model/employee.dart';
 import 'package:vemare/app/domain/model/formation.dart';
 import 'package:vemare/app/domain/model/locations.dart';
@@ -19,8 +20,15 @@ class FormationsRepository {
   FormationsRepository(this._apiClient);
 
   Future<List<TrainigGroup>> getTrainingGroup() async {
+    String dataUser = SharedPreferencesLocal.veraneDAuthUser;
+    if(dataUser.isNotEmpty){
+      dataUser = jsonDecode(dataUser)['id'].toString();
+    }
     final dynamic res =
-        await _apiClient.getRequest('$BASE_API_URL/api/grupos-formativos');
+    await _apiClient.getRequest('$BASE_API_URL/api/grupos-formativos',
+        params: <String, dynamic>{
+          'user_id': dataUser.isEmpty ? '0' : dataUser,
+        });
     return (res as List).map(TrainigGroup.fromJson).toList();
   }
 
@@ -84,5 +92,15 @@ class FormationsRepository {
       horarios: (res["data"]["horario"] as List).map(Horario.fromJson).toList(),
       showCalendar: res["data"]["show_calendar"] as bool,
     );
+  }
+
+  Future<List<Formation>> getRegisteredTrainings({String search = '', String formationGroupId = '', String orderByDateLocation = 'desc'}) async {
+
+    String url = '/api/formaciones/inscritas?orderByDateLocation=$orderByDateLocation';
+    if(search.isNotEmpty){ url = '$url&search=$search'; }
+    if(formationGroupId.isNotEmpty){ url = '$url&formationGroupId=$formationGroupId'; }
+    final dynamic res =
+    await _apiClient.getRequest('$BASE_API_URL$url');
+    return (res['data'] as List).map(Formation.fromJson).toList();
   }
 }
