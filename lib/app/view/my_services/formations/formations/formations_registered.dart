@@ -100,8 +100,20 @@ class _FormationsRegisteredState extends State<FormationsRegistered> {
                                   margin: EdgeInsets.fromLTRB(0,0,0,0),
                                 ),
                               ]else...[
-                                ...formationsRegisteredProvider.formations.map(
-                                        (e) => ItemFormation(e))
+                                if(formationsRegisteredProvider.textSearch.isNotEmpty ||
+                                    formationsRegisteredProvider.categorySelected != '0')...[
+                                  SizedBox(
+                                    width: double.infinity,
+                                    child: Text('Mostrando ${formationsRegisteredProvider.formations.length} resultados:',
+                                        style: AppTextStyle.h1Style.copyWith(fontSize: 22),textAlign: TextAlign.left),
+                                  ),
+                                ],
+                                if(formationsRegisteredProvider.formations.isNotEmpty)...[
+                                  ...formationsRegisteredProvider.formations.map(
+                                          (e) => ItemFormation(e))
+                                ]else...[
+                                  formationIsEmpty(),
+                                ]
                               ]
                             ],
                           ),
@@ -181,6 +193,30 @@ class _FormationsRegisteredState extends State<FormationsRegistered> {
           formationsRegisteredProvider.orderBy = value ?? '';
           formationsRegisteredProvider.filterData();
         },
+      ),
+    );
+  }
+
+  Widget formationIsEmpty(){
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        children: [
+          spacerS,
+          SizedBox(
+            width: 80,height: 80,
+            child: Image.asset('assets/icons/no_formations.png'),
+          ),
+          spacerS,
+          SizedBox(
+            width: double.infinity,
+            child: Text('¡Vaya! Parece que no hay nada.',
+                style: AppTextStyle.h1Style.copyWith(fontSize: 25),textAlign: TextAlign.center),
+          ),
+          Text('No se encuentra ninguna formación que corresponda con tu búsqueda. Prueba de nuevo',
+              style: AppTextStyle.defaultStyle.copyWith(fontSize: 18),textAlign: TextAlign.center),
+          spacerXL,
+        ],
       ),
     );
   }

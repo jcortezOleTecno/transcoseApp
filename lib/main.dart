@@ -127,6 +127,7 @@ class MyApp extends StatelessWidget {
           dragDevices: PointerDeviceKind.values.toSet(),
         ),
         theme: ThemeData(
+          scaffoldBackgroundColor: Colors.white,
           cardColor: Colors.white,
           dialogTheme: const DialogTheme(
             backgroundColor: Colors.white,
