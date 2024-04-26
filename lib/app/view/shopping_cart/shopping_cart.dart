@@ -25,6 +25,7 @@ import 'package:vemare/app/view/shopping_cart/providers/shopping_cart_provider.d
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
+import 'package:vemare/main.dart';
 
 class ShoppingCartPage extends StatelessWidget {
   const ShoppingCartPage._();
@@ -472,11 +473,17 @@ class _BuyData extends StatelessWidget {
           // ),
           // spacerS,
           const Text('¿Cómo deseas realizar tu pago?',style: AppTextStyle.inputLabelStyle,),
+          payToCard ?
           StringRadioButtons(
             options: (LocalDataRepository().user?.webservice?.permiteComprasCredito ?? false) ? ['Crédito', 'Tarjeta'] : ['Tarjeta'],
             onSelectionChanged: cubit.typePaySelect,
             initialValue: !state.typePaySelected ? null : (state.isCard ? 'Tarjeta' : 'Crédito'),
           )
+           : (LocalDataRepository().user?.webservice?.permiteComprasCredito ?? false) ? StringRadioButtons(
+            options: ['Crédito'],
+            onSelectionChanged: cubit.typePaySelect,
+            initialValue: !state.typePaySelected ? null : (state.isCard ? 'Tarjeta' : 'Crédito'),
+          ) : Container(),
         ],
       ),
     );

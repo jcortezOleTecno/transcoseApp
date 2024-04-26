@@ -3,7 +3,7 @@ class ShoppingCardProduct {
   String? image;
   String? productName;
   bool renting;
-  int? priceOld;
+  double? priceOld;
   double? priceSale;
   int? quantity;
   double? total;
@@ -40,7 +40,7 @@ class ShoppingCardProduct {
       image: json["image"] as String?,
       productName: json["product_name"] as String?,
       renting: json["renting"] as bool,
-      priceOld: json["price_old"] as int?,
+      priceOld: json["price_old"] == null ? 0 : double.parse(json["price_old"].toString()),
       priceSale: pS,
       quantity: json["quantity"] as int?,
       total: pTotal,

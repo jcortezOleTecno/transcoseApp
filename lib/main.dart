@@ -31,6 +31,7 @@ final navigatorKey = GlobalKey<NavigatorState>();
 NavigatorState get navigator => navigatorKey.currentState!;
 bool isReturns = false;
 bool isClaims = true;
+bool payToCard = false;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

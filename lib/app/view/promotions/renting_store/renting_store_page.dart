@@ -20,6 +20,7 @@ import 'package:vemare/app/view/promotions/renting_store/widgets/promotion_descr
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
+import 'package:vemare/main.dart';
 
 import '../detail_sale_rent/detail_sale_rent.dart';
 import 'bloc/renting_store_state.dart';
@@ -117,6 +118,7 @@ class RentingStorePage extends StatelessWidget {
               '¿Como deseas realizar tu pago?',
               style: AppTextStyle.h3Style,
             ),
+            payToCard ?
             RadioGroup<String?>.builder(
               groupValue: state.type,
               activeColor: AppColor.blue,
@@ -135,7 +137,21 @@ class RentingStorePage extends StatelessWidget {
                 value!,
                 textPosition: RadioButtonTextPosition.right,
               ),
-            ),
+            ) :
+            (LocalDataRepository().user?.webservice?.permiteComprasCredito ?? false) ?
+            RadioGroup<String?>.builder(
+              groupValue: state.type,
+              activeColor: AppColor.blue,
+              direction: Axis.vertical,
+              horizontalAlignment: MainAxisAlignment.center,
+              textStyle: AppTextStyle.inputLabelStyle,
+              onChanged: cubit.selectType,
+              items: ['Crédito'],
+              itemBuilder: (value) => RadioButtonBuilder(
+                value!,
+                textPosition: RadioButtonTextPosition.right,
+              ),
+            ) : Container(),
           ],
         ),
       ),
