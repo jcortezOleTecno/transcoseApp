@@ -5,6 +5,7 @@ import 'package:vemare/app/domain/model/brand.dart';
 import 'package:vemare/app/domain/model/category.dart';
 import 'package:vemare/app/domain/model/categoty_detail.dart';
 import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
+import 'package:vemare/app/domain/widgets_utils/web_view_global.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_dropdown_button/my_drop_down_button.dart';
@@ -175,15 +176,26 @@ class ProductPage extends StatelessWidget {
         itemCount: brands.length,
         controller: PageController(initialPage: 1, viewportFraction: 0.5),
         itemBuilder: (context, i) => ClipRRect(
-          child: Card(
-            clipBehavior: Clip.antiAlias,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(120),
-            ),
-            margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-            child: Image.network(
-              brands[i].image!,
-              fit: BoxFit.cover,
+          child: InkWell(
+            onTap: (){
+              if(brands[i].link .isNotEmpty){
+                Navigator.push(context, MaterialPageRoute(builder:
+                    (BuildContext context) => WebViewGlobal(
+                  url: brands[i].link,
+                  local: false,
+                )));
+              }
+            },
+            child: Card(
+              clipBehavior: Clip.antiAlias,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(120),
+              ),
+              margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+              child: Image.network(
+                brands[i].image!,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
         ),
