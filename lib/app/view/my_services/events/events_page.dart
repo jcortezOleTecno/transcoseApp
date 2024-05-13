@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/data/header_repository.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
+import 'package:vemare/app/view/_components/my_network_image/my_network_image.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/my_services/events/events_vemare/events_vemare_page.dart';
@@ -57,7 +59,9 @@ class EventsPage extends StatelessWidget {
                           title: 'Mis eventos',
                           content:
                               'Consulta las fechas y toda la información de tus próximos eventos y no te pierdas ningún detalle.',
-                          img: 'assets/imgs/misEventosIMG.png',
+                          // img: 'assets/imgs/misEventosIMG.png',
+                          img: '$BASE_API_URL/assets/images/services/mis-eventos.jpg',
+                          isUrl: true,
                           onTap: () {
                             if (LocalDataRepository().isLogged) {
                               Navigator.pushNamed(context, MyEventsPage.route);
@@ -106,7 +110,9 @@ class EventsPage extends StatelessWidget {
                         ),
                         _Item(
                           title: 'Eventos celebrados',
-                          img: 'assets/imgs/eventosVemareIMG.png',
+                          //img: 'assets/imgs/eventosVemareIMG.png',
+                          img: '$BASE_API_URL/assets/images/services/eventos-celebrados.jpg',
+                          isUrl: true,
                           content:
                               'Junto a nuestros proveedores creamos momentos únicos que ahora puedes consultar.',
                           onTap: () {
@@ -150,6 +156,7 @@ class _Item extends StatelessWidget {
     required this.title,
     required this.content,
     required this.img,
+    this.isUrl = false,
     Key? key,
   }) : super(key: key);
 
@@ -157,6 +164,7 @@ class _Item extends StatelessWidget {
   final String title;
   final String content;
   final String img;
+  final bool isUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -169,6 +177,12 @@ class _Item extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(children: [
+          isUrl ?
+          SizedBox(
+            width: double.infinity,
+            height: 150,
+            child: MyNetworkImage(image: img, fit: BoxFit.cover),
+          ) :
           Image.asset(
             img,
             width: double.infinity,

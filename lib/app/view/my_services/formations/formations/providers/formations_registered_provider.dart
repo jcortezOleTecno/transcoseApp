@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:vemare/app/data/formations_repository.dart';
 import 'package:vemare/app/domain/model/formation.dart';

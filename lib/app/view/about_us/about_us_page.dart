@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/data/about_us_repository.dart';
 import 'package:vemare/app/data/header_repository.dart';
 import 'package:vemare/app/data/library_repository.dart';
@@ -10,6 +11,7 @@ import 'package:vemare/app/data/pills_repository.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_cards/my_news_card.dart';
 import 'package:vemare/app/view/_components/my_filter_image/my_filter_image.dart';
+import 'package:vemare/app/view/_components/my_network_image/my_network_image.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/about_us/bloc/about_us_cubit.dart';
@@ -100,9 +102,15 @@ class _OurHistory extends StatelessWidget {
         height: MediaQuery.of(context).size.width * .80,
         width: double.infinity,
         child: Stack(fit: StackFit.expand, children: [
-          const Image(
-            image: AssetImage('assets/imgs/our_history.png'),
-            fit: BoxFit.cover,
+          // const Image(
+          //   image: AssetImage('assets/imgs/our_history.png'),
+          //   fit: BoxFit.cover,
+          // ),
+          SizedBox(
+            child: MyNetworkImage(
+                image: '$BASE_API_URL/assets/images/nuestra-historia.jpg',
+                fit: BoxFit.cover
+            ),
           ),
           const MyFilterImage(),
           Padding(
@@ -159,9 +167,15 @@ class _WhereWeAre extends StatelessWidget {
         height: 220,
         width: double.infinity,
         child: Stack(fit: StackFit.expand, children: [
-          const Image(
-            image: AssetImage('assets/imgs/DondeEstamos.jpeg'),
-            fit: BoxFit.cover,
+          // const Image(
+          //   image: AssetImage('assets/imgs/DondeEstamos.jpeg'),
+          //   fit: BoxFit.cover,
+          // ),
+          SizedBox(
+            child: MyNetworkImage(
+                image: '$BASE_API_URL/assets/images/donde-estamos.jpg',
+                fit: BoxFit.cover
+            ),
           ),
           const MyFilterImage(),
           Padding(
