@@ -23,8 +23,8 @@ class UrlDynamicProvider extends ChangeNotifier {
       //   url = url.substring(0,(url.length - 1));
       // }
     }catch(_){}
-    url = 'https://transcose.oletecnologia.com';
-    //url = 'https://desarrollo.grupovemare.com';
+    //url = 'https://transcose.oletecnologia.com';
+    url = 'https://desarrollo.transcose.com';
     log('URL : $url');
     return url;
   }
