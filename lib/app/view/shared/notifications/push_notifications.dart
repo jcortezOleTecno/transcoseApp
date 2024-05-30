@@ -46,8 +46,8 @@ class PushNotificationsProvider {
 
     //Notificacion en primer plano
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      log('onMessage');
       showNotification(message);
+      blocData.inList.add({'refreshNotification' : true});
     });
 
     // Click a la notificacion en segundo plano.

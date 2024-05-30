@@ -47,6 +47,9 @@ import 'package:vemare/app/domain/model/notification.dart' as model;
 // import '../../data/shopping_cart_repository.dart';
 import '../home/bloc/home_cubit.dart';
 import '../shared/userbloc/user_state.dart';
+import 'dart:async';
+import 'dart:developer';
+import 'package:vemare/main.dart';
 
 class MyMenu extends StatelessWidget {
   const MyMenu._({
@@ -182,6 +185,33 @@ class _IconsAppbar extends StatefulWidget {
 }
 
 class __IconsAppbarState extends State<_IconsAppbar> {
+
+  StreamSubscription? streamSubscriptionBloc;
+  late BuildContext contextNoti;
+
+  @override
+  void initState() {
+    super.initState();
+    initializeBloc();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    streamSubscriptionBloc?.cancel();
+  }
+
+  void initializeBloc(){
+    try {
+      // ignore: cancel_subscriptions
+      streamSubscriptionBloc = blocData.outList.listen((newVal) async {
+        if(newVal.containsKey('refreshNotification') && newVal['refreshNotification']){
+          contextNoti.read<NotificationsCounterCubit>().getNotifications();
+        }
+      });
+    } catch (_) {}
+  }
+
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<MenuCubit>();
@@ -192,6 +222,7 @@ class __IconsAppbarState extends State<_IconsAppbar> {
           BlocBuilder<NotificationsCounterCubit, NotificationsCounterState>(
             // bloc: NotificationsCounterCubit(getIt<NotificationsRepository>()),
             builder: (context, state) {
+              contextNoti = context;
               return InkWell(
                 onTap: (ModalRoute.of(context)!.settings.name ==
                         MyNotificationsPage.route)

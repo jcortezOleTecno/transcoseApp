@@ -26,12 +26,14 @@ import 'package:vemare/config/service_locator.dart';
 
 import 'app/data/notifications_repository.dart';
 import 'app/data/shopping_cart_repository.dart';
+import 'package:vemare/app/providers/bloc_data.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 NavigatorState get navigator => navigatorKey.currentState!;
 bool isReturns = false;
 bool isClaims = true;
 bool payToCard = false;
+BlocData blocData = BlocData();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
