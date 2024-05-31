@@ -19,6 +19,7 @@ mixin _$MenuState {
   bool get isOpenMenu => throw _privateConstructorUsedError;
   bool get isOpenNotification => throw _privateConstructorUsedError;
   List<Notification> get notifications => throw _privateConstructorUsedError;
+  WorkWithUs? get workWithUs => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MenuStateCopyWith<MenuState> get copyWith =>
@@ -33,7 +34,8 @@ abstract class $MenuStateCopyWith<$Res> {
   $Res call(
       {bool isOpenMenu,
       bool isOpenNotification,
-      List<Notification> notifications});
+      List<Notification> notifications,
+      WorkWithUs? workWithUs});
 }
 
 /// @nodoc
@@ -52,6 +54,7 @@ class _$MenuStateCopyWithImpl<$Res, $Val extends MenuState>
     Object? isOpenMenu = null,
     Object? isOpenNotification = null,
     Object? notifications = null,
+    Object? workWithUs = freezed,
   }) {
     return _then(_value.copyWith(
       isOpenMenu: null == isOpenMenu
@@ -66,6 +69,10 @@ class _$MenuStateCopyWithImpl<$Res, $Val extends MenuState>
           ? _value.notifications
           : notifications // ignore: cast_nullable_to_non_nullable
               as List<Notification>,
+      workWithUs: freezed == workWithUs
+          ? _value.workWithUs
+          : workWithUs // ignore: cast_nullable_to_non_nullable
+              as WorkWithUs?,
     ) as $Val);
   }
 }
@@ -80,7 +87,8 @@ abstract class _$$_MenuStateCopyWith<$Res> implements $MenuStateCopyWith<$Res> {
   $Res call(
       {bool isOpenMenu,
       bool isOpenNotification,
-      List<Notification> notifications});
+      List<Notification> notifications,
+      WorkWithUs? workWithUs});
 }
 
 /// @nodoc
@@ -97,6 +105,7 @@ class __$$_MenuStateCopyWithImpl<$Res>
     Object? isOpenMenu = null,
     Object? isOpenNotification = null,
     Object? notifications = null,
+    Object? workWithUs = freezed,
   }) {
     return _then(_$_MenuState(
       isOpenMenu: null == isOpenMenu
@@ -111,6 +120,10 @@ class __$$_MenuStateCopyWithImpl<$Res>
           ? _value._notifications
           : notifications // ignore: cast_nullable_to_non_nullable
               as List<Notification>,
+      workWithUs: freezed == workWithUs
+          ? _value.workWithUs
+          : workWithUs // ignore: cast_nullable_to_non_nullable
+              as WorkWithUs?,
     ));
   }
 }
@@ -121,7 +134,8 @@ class _$_MenuState extends _MenuState {
   const _$_MenuState(
       {this.isOpenMenu = false,
       this.isOpenNotification = false,
-      final List<Notification> notifications = const <Notification>[]})
+      final List<Notification> notifications = const <Notification>[],
+      this.workWithUs})
       : _notifications = notifications,
         super._();
 
@@ -141,8 +155,11 @@ class _$_MenuState extends _MenuState {
   }
 
   @override
+  final WorkWithUs? workWithUs;
+
+  @override
   String toString() {
-    return 'MenuState(isOpenMenu: $isOpenMenu, isOpenNotification: $isOpenNotification, notifications: $notifications)';
+    return 'MenuState(isOpenMenu: $isOpenMenu, isOpenNotification: $isOpenNotification, notifications: $notifications, workWithUs: $workWithUs)';
   }
 
   @override
@@ -155,12 +172,14 @@ class _$_MenuState extends _MenuState {
             (identical(other.isOpenNotification, isOpenNotification) ||
                 other.isOpenNotification == isOpenNotification) &&
             const DeepCollectionEquality()
-                .equals(other._notifications, _notifications));
+                .equals(other._notifications, _notifications) &&
+            (identical(other.workWithUs, workWithUs) ||
+                other.workWithUs == workWithUs));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, isOpenMenu, isOpenNotification,
-      const DeepCollectionEquality().hash(_notifications));
+      const DeepCollectionEquality().hash(_notifications), workWithUs);
 
   @JsonKey(ignore: true)
   @override
@@ -173,7 +192,8 @@ abstract class _MenuState extends MenuState {
   const factory _MenuState(
       {final bool isOpenMenu,
       final bool isOpenNotification,
-      final List<Notification> notifications}) = _$_MenuState;
+      final List<Notification> notifications,
+      final WorkWithUs? workWithUs}) = _$_MenuState;
   const _MenuState._() : super._();
 
   @override
@@ -182,6 +202,8 @@ abstract class _MenuState extends MenuState {
   bool get isOpenNotification;
   @override
   List<Notification> get notifications;
+  @override
+  WorkWithUs? get workWithUs;
   @override
   @JsonKey(ignore: true)
   _$$_MenuStateCopyWith<_$_MenuState> get copyWith =>

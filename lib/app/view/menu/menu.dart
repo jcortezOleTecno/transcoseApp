@@ -6,12 +6,14 @@ import 'package:slide_to_confirm/slide_to_confirm.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/notifications_repository.dart';
+import 'package:vemare/app/data/work_with_us_repository.dart';
 import 'package:vemare/app/domain/model/events.dart';
 import 'package:vemare/app/domain/model/formation.dart';
 import 'package:vemare/app/domain/model/promotion.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/about_us/about_us_page.dart';
+import 'package:vemare/app/view/home/bloc/home_state.dart';
 import 'package:vemare/app/view/home/home_page.dart';
 import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/menu/bloc/menu_cubit.dart';
@@ -39,6 +41,7 @@ import 'package:vemare/app/view/shopping_cart/shopping_cart.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
+import 'package:vemare/app/view/work_with_us/work_with_us_page.dart';
 import 'package:vemare/config/service_locator.dart';
 import 'package:vemare/app/domain/model/notification.dart' as model;
 
@@ -60,6 +63,7 @@ class MyMenu extends StatelessWidget {
     return BlocProvider(
       create: (context) => MenuCubit(
         getIt.get<NotificationsRepository>(),
+        getIt.get<WorkWithUsRepository>(),
       ),
       child: const MyMenu._(),
     );
@@ -341,6 +345,7 @@ class _Menu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<MenuCubit>();
+    //final cubitHome = context.read<HomeCubit>();
     // final permissions = LocalDataRepository().user?.permissions;
     return Container(
       color: AppColor.primaryBlue,
@@ -600,8 +605,19 @@ class _Menu extends StatelessWidget {
                               }).toList());
                   },
                 ),
-                spacerL,
-                if (LocalDataRepository().isLogged)
+                //spacerL,
+                divider,
+                _MenuItem(
+                  title: '¡Únete!',
+                  onTap: () {
+                    Navigator.pushNamed(context, WorkWithUsPage.route,
+                    arguments: state.workWithUs);
+                    cubit.toggleMenu();
+                  },
+                ),
+                divider,
+                if (LocalDataRepository().isLogged)...[
+                  spacerL,
                   BlocBuilder<UserCubit, UserState>(
                     builder: (context, state) {
                       return ConfirmationSlider(
@@ -623,7 +639,7 @@ class _Menu extends StatelessWidget {
                       );
                     },
                   ),
-                spacerL,
+                ],
               ],
             );
           },
