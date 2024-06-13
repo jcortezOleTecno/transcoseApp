@@ -611,9 +611,14 @@ class _Menu extends StatelessWidget {
                 _MenuItem(
                   title: '¡Únete!',
                   onTap: () {
-                    Navigator.pushNamed(context, WorkWithUsHome.route,
-                    arguments: state.workWithUs);
-                    cubit.toggleMenu();
+                    if(!LocalDataRepository().isLogged){
+                      Navigator.pushNamedAndRemoveUntil(
+                          ctx, LoginPage.route, (route) => false);
+                    }else{
+                      Navigator.pushNamed(context, WorkWithUsHome.route,
+                          arguments: state.workWithUs);
+                      cubit.toggleMenu();
+                    }
                   },
                 ),
                 divider,

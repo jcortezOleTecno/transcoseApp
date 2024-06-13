@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
+import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/domain/widgets_utils/web_view_global.dart';
 import 'package:vemare/app/providers/footer_provider.dart';
 import 'package:vemare/app/view/claims/claims_page.dart';
 import 'package:vemare/app/view/home/home_page.dart';
+import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/app/view/work_with_us/work_with_us_home.dart';
@@ -112,8 +114,13 @@ class Footer extends StatelessWidget {
           const SizedBox(height: 20),
           InkWell(
             onTap: (){
-              Navigator.pushNamed(context, WorkWithUsHome.route,
-                  arguments: homeStateGlobal.workWithUs);
+              if(!LocalDataRepository().isLogged){
+                Navigator.pushNamedAndRemoveUntil(
+                    context, LoginPage.route, (route) => false);
+              }else{
+                Navigator.pushNamed(context, WorkWithUsHome.route,
+                    arguments: homeStateGlobal.workWithUs);
+              }
             },
             child: const Column(
               children: [

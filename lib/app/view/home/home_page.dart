@@ -568,8 +568,13 @@ class _PageB extends StatelessWidget {
                 Center(
                   child: TextButton.icon(
                     onPressed: () {
-                      Navigator.pushNamed(context, WorkWithUsHome.route,
-                          arguments: state.workWithUs);
+                      if(!LocalDataRepository().isLogged){
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, LoginPage.route, (route) => false);
+                      }else{
+                        Navigator.pushNamed(context, WorkWithUsHome.route,
+                            arguments: state.workWithUs);
+                      }
                     },
                     label: Image.asset(
                       'assets/icons/arrow_next.png',
@@ -722,8 +727,13 @@ class _TrabajaConNosotros extends StatelessWidget {
                     )
                   : InkWell(
                     onTap: (){
-                      Navigator.pushNamed(context, WorkWithUsHome.route,
-                          arguments: state.workWithUs);
+                      if(!LocalDataRepository().isLogged){
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, LoginPage.route, (route) => false);
+                      }else{
+                        Navigator.pushNamed(context, WorkWithUsHome.route,
+                            arguments: state.workWithUs);
+                      }
                     },
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(12),
