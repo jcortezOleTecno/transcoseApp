@@ -8,6 +8,7 @@ import 'package:vemare/app/view/claims/claims_page.dart';
 import 'package:vemare/app/view/home/home_page.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
+import 'package:vemare/app/view/work_with_us/work_with_us_home.dart';
 import 'package:vemare/app/view/work_with_us/work_with_us_page.dart';
 import 'package:vemare/main.dart';
 
@@ -111,7 +112,7 @@ class Footer extends StatelessWidget {
           const SizedBox(height: 20),
           InkWell(
             onTap: (){
-              Navigator.pushNamed(context, WorkWithUsPage.route,
+              Navigator.pushNamed(context, WorkWithUsHome.route,
                   arguments: homeStateGlobal.workWithUs);
             },
             child: const Column(

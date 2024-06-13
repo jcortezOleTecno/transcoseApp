@@ -50,6 +50,7 @@ import 'package:vemare/app/view/shared/userbloc/user_cubit.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
+import 'package:vemare/app/view/work_with_us/work_with_us_home.dart';
 import 'package:vemare/app/view/work_with_us/work_with_us_page.dart';
 import 'package:vemare/app/view/workshop_networks/workshop_networks_page.dart';
 import 'package:vemare/config/service_locator.dart';
@@ -567,7 +568,7 @@ class _PageB extends StatelessWidget {
                 Center(
                   child: TextButton.icon(
                     onPressed: () {
-                      Navigator.pushNamed(context, WorkWithUsPage.route,
+                      Navigator.pushNamed(context, WorkWithUsHome.route,
                           arguments: state.workWithUs);
                     },
                     label: Image.asset(
@@ -721,7 +722,7 @@ class _TrabajaConNosotros extends StatelessWidget {
                     )
                   : InkWell(
                     onTap: (){
-                      Navigator.pushNamed(context, WorkWithUsPage.route,
+                      Navigator.pushNamed(context, WorkWithUsHome.route,
                           arguments: state.workWithUs);
                     },
                     child: ClipRRect(

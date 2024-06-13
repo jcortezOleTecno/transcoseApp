@@ -5,6 +5,7 @@ import 'package:vemare/app/data/_api.dart';
 import 'package:vemare/app/data/_api_classes.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/domain/model/api_response.dart';
+import 'package:vemare/app/domain/model/rrhh_models.dart';
 import 'package:vemare/app/domain/model/work_with_us.dart';
 import 'package:vemare/app/domain/value_object/email.dart';
 import 'package:vemare/app/domain/value_object/name.dart';
@@ -54,5 +55,12 @@ class WorkWithUsRepository {
       '$BASE_API_URL/api/trabaja_con_nosotros_opciones',
     );
     return Opciones.fromJson(res);
+  }
+
+  Future<List<RrhhModels>> getRrhh() async {
+    final dynamic res = await _apiClient.getRequest(
+      '$BASE_API_URL/api/rrhh',
+    );
+    return (res as List).map(RrhhModels.froJson).toList();
   }
 }

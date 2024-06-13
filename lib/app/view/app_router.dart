@@ -10,6 +10,7 @@ import 'package:vemare/app/domain/model/library.dart';
 import 'package:vemare/app/domain/model/notices.dart';
 import 'package:vemare/app/domain/model/pills.dart';
 import 'package:vemare/app/domain/model/promotion.dart';
+import 'package:vemare/app/domain/model/rrhh_models.dart';
 import 'package:vemare/app/domain/model/services.dart';
 import 'package:vemare/app/domain/model/type_of_vehicle.dart';
 import 'package:vemare/app/domain/model/warranty.dart';
@@ -68,6 +69,8 @@ import 'package:vemare/app/view/register/register_page.dart';
 import 'package:vemare/app/view/shopping_cart/shopping_cart.dart';
 import 'package:vemare/app/view/splash/splash_page.dart';
 import 'package:vemare/app/view/where_we_are/where_we_are_page.dart';
+import 'package:vemare/app/view/work_with_us/work_with_us_general.dart';
+import 'package:vemare/app/view/work_with_us/work_with_us_home.dart';
 import 'package:vemare/app/view/work_with_us/work_with_us_page.dart';
 import 'package:vemare/app/view/workshop_networks/workshop_networks_page.dart';
 
@@ -114,6 +117,18 @@ abstract class AppRouter {
         return MaterialPageRoute<void>(
           settings: settings,
           builder: (_) => WorkWithUsPage.create(workWithUs!),
+        );
+      case WorkWithUsHome.route:
+        final workWithUs = settings.arguments as WorkWithUs;
+        return MaterialPageRoute<void>(
+            settings: settings,
+            builder: (_) => WorkWithUsHome(workWithUs: workWithUs,)
+        );
+      case WorkWithUsGeneral.route:
+        final event = settings.arguments as RrhhModels?;
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => WorkWithUsGeneral(rrhhModels: event!),
         );
         case ClaimsPage.route:
         return MaterialPageRoute<void>(
