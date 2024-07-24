@@ -130,7 +130,7 @@ class _Item extends StatelessWidget {
           fit: BoxFit.cover,
           height: 220,
         ),
-        const MyFilterImage(),
+        //const MyFilterImage(),
         Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
