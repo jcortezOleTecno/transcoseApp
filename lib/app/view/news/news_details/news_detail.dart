@@ -8,6 +8,7 @@ import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_cards/my_news_card.dart';
 import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_network_image/my_network_image.dart';
+import 'package:vemare/app/view/_components/my_video_player/my_video_player.dart';
 import 'package:vemare/app/view/news/news_details/bloc/news_details_state.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
@@ -69,6 +70,12 @@ class NewsDetailPage extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: MyHtml(text: news.description ?? ''),
                   ),
+                  if(news.videos.isNotEmpty)...[
+                    ...news.videos.map((e) => Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 20),
+                      child: MyVideoPlayer(video: e.link!),
+                    )).toList()
+                  ],
                   if (state.details != null) ...[
                     if (state.details!.related?.isNotEmpty ?? false)
                       Padding(
