@@ -18,6 +18,7 @@ class EventsCubit extends Cubit<EventsState> {
     List<Header> res = await _eventsRepository.getHeaders();
     emit(state.copyWith(
       hPage: res.firstWhere((e) => e.module == "EventModule"),
+      hMyEvents: res.firstWhere((e) => e.module == "MyEvents"),
       hEventosVemare: res.firstWhere((e) => e.module == "Event"),
       hEventosCelebrados: res.firstWhere((e) => e.module == "EventVemare"),
       loading: false,

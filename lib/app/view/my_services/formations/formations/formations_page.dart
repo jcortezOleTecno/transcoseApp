@@ -68,7 +68,11 @@ class FormationsPage extends StatelessWidget {
                             height: 220,
                             child: imageObjet,
                           ),
-                          const MyBackButton(),
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            alignment: Alignment.centerLeft,
+                            child: const MyBackButton(),
+                          ),
                           Text(title,style: AppTextStyle.h1Style),
                           Text(description, style: AppTextStyle.defaultStyle.copyWith(fontSize: 18)),
                           spacerXL,

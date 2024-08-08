@@ -19,6 +19,7 @@ mixin _$EventsState {
   bool get loading =>
       throw _privateConstructorUsedError; // @Default(<Header>[]) List<Header> headers,
   Header? get hPage => throw _privateConstructorUsedError;
+  Header? get hMyEvents => throw _privateConstructorUsedError;
   Header? get hEventosVemare => throw _privateConstructorUsedError;
   Header? get hEventosCelebrados => throw _privateConstructorUsedError;
 
@@ -36,6 +37,7 @@ abstract class $EventsStateCopyWith<$Res> {
   $Res call(
       {bool loading,
       Header? hPage,
+      Header? hMyEvents,
       Header? hEventosVemare,
       Header? hEventosCelebrados});
 }
@@ -55,6 +57,7 @@ class _$EventsStateCopyWithImpl<$Res, $Val extends EventsState>
   $Res call({
     Object? loading = null,
     Object? hPage = freezed,
+    Object? hMyEvents = freezed,
     Object? hEventosVemare = freezed,
     Object? hEventosCelebrados = freezed,
   }) {
@@ -66,6 +69,10 @@ class _$EventsStateCopyWithImpl<$Res, $Val extends EventsState>
       hPage: freezed == hPage
           ? _value.hPage
           : hPage // ignore: cast_nullable_to_non_nullable
+              as Header?,
+      hMyEvents: freezed == hMyEvents
+          ? _value.hMyEvents
+          : hMyEvents // ignore: cast_nullable_to_non_nullable
               as Header?,
       hEventosVemare: freezed == hEventosVemare
           ? _value.hEventosVemare
@@ -90,6 +97,7 @@ abstract class _$$_EventsStateCopyWith<$Res>
   $Res call(
       {bool loading,
       Header? hPage,
+      Header? hMyEvents,
       Header? hEventosVemare,
       Header? hEventosCelebrados});
 }
@@ -107,6 +115,7 @@ class __$$_EventsStateCopyWithImpl<$Res>
   $Res call({
     Object? loading = null,
     Object? hPage = freezed,
+    Object? hMyEvents = freezed,
     Object? hEventosVemare = freezed,
     Object? hEventosCelebrados = freezed,
   }) {
@@ -118,6 +127,10 @@ class __$$_EventsStateCopyWithImpl<$Res>
       hPage: freezed == hPage
           ? _value.hPage
           : hPage // ignore: cast_nullable_to_non_nullable
+              as Header?,
+      hMyEvents: freezed == hMyEvents
+          ? _value.hMyEvents
+          : hMyEvents // ignore: cast_nullable_to_non_nullable
               as Header?,
       hEventosVemare: freezed == hEventosVemare
           ? _value.hEventosVemare
@@ -137,6 +150,7 @@ class _$_EventsState extends _EventsState {
   const _$_EventsState(
       {this.loading = false,
       this.hPage,
+      this.hMyEvents,
       this.hEventosVemare,
       this.hEventosCelebrados})
       : super._();
@@ -148,13 +162,15 @@ class _$_EventsState extends _EventsState {
   @override
   final Header? hPage;
   @override
+  final Header? hMyEvents;
+  @override
   final Header? hEventosVemare;
   @override
   final Header? hEventosCelebrados;
 
   @override
   String toString() {
-    return 'EventsState(loading: $loading, hPage: $hPage, hEventosVemare: $hEventosVemare, hEventosCelebrados: $hEventosCelebrados)';
+    return 'EventsState(loading: $loading, hPage: $hPage, hMyEvents: $hMyEvents, hEventosVemare: $hEventosVemare, hEventosCelebrados: $hEventosCelebrados)';
   }
 
   @override
@@ -164,6 +180,8 @@ class _$_EventsState extends _EventsState {
             other is _$_EventsState &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.hPage, hPage) || other.hPage == hPage) &&
+            (identical(other.hMyEvents, hMyEvents) ||
+                other.hMyEvents == hMyEvents) &&
             (identical(other.hEventosVemare, hEventosVemare) ||
                 other.hEventosVemare == hEventosVemare) &&
             (identical(other.hEventosCelebrados, hEventosCelebrados) ||
@@ -171,8 +189,8 @@ class _$_EventsState extends _EventsState {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, loading, hPage, hEventosVemare, hEventosCelebrados);
+  int get hashCode => Object.hash(runtimeType, loading, hPage, hMyEvents,
+      hEventosVemare, hEventosCelebrados);
 
   @JsonKey(ignore: true)
   @override
@@ -185,6 +203,7 @@ abstract class _EventsState extends EventsState {
   const factory _EventsState(
       {final bool loading,
       final Header? hPage,
+      final Header? hMyEvents,
       final Header? hEventosVemare,
       final Header? hEventosCelebrados}) = _$_EventsState;
   const _EventsState._() : super._();
@@ -193,6 +212,8 @@ abstract class _EventsState extends EventsState {
   bool get loading;
   @override // @Default(<Header>[]) List<Header> headers,
   Header? get hPage;
+  @override
+  Header? get hMyEvents;
   @override
   Header? get hEventosVemare;
   @override

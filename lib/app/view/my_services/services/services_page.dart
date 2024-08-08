@@ -138,6 +138,15 @@ class _ServicesPageState extends State<ServicesPage> {
                                   }
                                 }
 
+                                if(e.type == 'evento'){
+                                  for (var element in state.headers) {
+                                    if(element.module == 'EventModule'){
+                                      title = (element.landing == null || element.landing!.isEmpty) ? element.title! : element.landing!;
+                                      imageObjet = NetworkImage(element.image ?? e.image!);
+                                    }
+                                  }
+                                }
+
                                 return _CardService(
                                   title: title,
                                   image: imageObjet,

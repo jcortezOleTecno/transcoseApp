@@ -7,6 +7,7 @@ import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_network_image/my_network_image.dart';
+import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/my_services/events/events_vemare/events_vemare_page.dart';
@@ -45,7 +46,22 @@ class EventsPage extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: BlocBuilder<EventsCubit, EventsState>(
                   builder: (context, state) {
-                    return Column(
+                    return state.loading ?
+                    Column(
+                      children: List.generate(
+                        4,
+                            (_) => const Padding(
+                          padding: EdgeInsets.only(bottom: 20),
+                          child: MyShimmer(
+                            margin: EdgeInsets.zero,
+                            borderRadius: 0,
+                            height: 220,
+                          ),
+                        ),
+                      ),
+                    )
+                        :
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(state.hPage?.title ?? '',style: AppTextStyle.h1Style),
@@ -56,12 +72,19 @@ class EventsPage extends StatelessWidget {
                           spacerXL,
                         ],
                         _Item(
-                          title: 'Mis eventos',
-                          content:
-                              'Consulta las fechas y toda la información de tus próximos eventos y no te pierdas ningún detalle.',
-                          // img: 'assets/imgs/misEventosIMG.png',
-                          img: '$BASE_API_URL/assets/images/services/mis-eventos.jpg',
-                          isUrl: true,
+                          title: state.hMyEvents?.title ?? 'Mis eventos',
+                          content:state.hMyEvents?.description ?? 'Consulta las fechas y toda la información de tus próximos eventos y no te pierdas ningún detalle.',
+                          img: state.hMyEvents?.image != null ? Image.network(
+                            state.hMyEvents!.image!,
+                            width: double.infinity,
+                            height: 150,
+                            fit: BoxFit.cover,
+                          ) : Image.asset(
+                            'assets/imgs/misEventosIMG.png',
+                            width: double.infinity,
+                            height: 150,
+                            fit: BoxFit.cover,
+                          ),
                           onTap: () {
                             if (LocalDataRepository().isLogged) {
                               Navigator.pushNamed(context, MyEventsPage.route);
@@ -69,8 +92,7 @@ class EventsPage extends StatelessWidget {
                               Navigator.pushNamed(
                                 context,
                                 LoginPage.route,
-                                arguments:
-                                    'Para acceder a la información de los eventos tienes que iniciar sesión.',
+                                arguments: 'Para acceder a la información de los eventos tienes que iniciar sesión.',
                               ).then((_) {
                                 if (LocalDataRepository().isLogged) {
                                   Navigator.pushNamed(
@@ -81,9 +103,19 @@ class EventsPage extends StatelessWidget {
                           },
                         ),
                         _Item(
-                          title: 'Eventos Transcose',
-                          img: 'assets/imgs/otrosEventosIMG.png',
-                          content:
+                          title: state.hEventosVemare?.title ?? 'Eventos Transcose',
+                          img: state.hEventosVemare?.image != null ? Image.network(
+                            state.hEventosVemare!.image!,
+                            width: double.infinity,
+                            height: 150,
+                            fit: BoxFit.cover,
+                          ) : Image.asset(
+                            'assets/imgs/otrosEventosIMG.png',
+                            width: double.infinity,
+                            height: 150,
+                            fit: BoxFit.cover,
+                          ),
+                          content: state.hEventosVemare?.description ??
                               'Encuentros, charlas, presentaciones... Infórmate sobre todos los eventos que creamos para nuestros clientes.',
                           onTap: () {
                             // Navigator.pushNamed(context, OtherEventsListPage.route);
@@ -109,11 +141,19 @@ class EventsPage extends StatelessWidget {
                           },
                         ),
                         _Item(
-                          title: 'Eventos celebrados',
-                          //img: 'assets/imgs/eventosVemareIMG.png',
-                          img: '$BASE_API_URL/assets/images/services/eventos-celebrados.jpg',
-                          isUrl: true,
-                          content:
+                          title: state.hEventosCelebrados?.title ?? 'Eventos celebrados',
+                          img: state.hEventosCelebrados?.image != null ? Image.network(
+                            state.hEventosCelebrados!.image!,
+                            width: double.infinity,
+                            height: 150,
+                            fit: BoxFit.cover,
+                          ) : Image.asset(
+                            'assets/imgs/eventosVemareIMG.png',
+                            width: double.infinity,
+                            height: 150,
+                            fit: BoxFit.cover,
+                          ),
+                          content: state.hEventosCelebrados?.description ??
                               'Junto a nuestros proveedores creamos momentos únicos que ahora puedes consultar.',
                           onTap: () {
                             //Navigator.pushNamed(context, EventsVemarePage.route);
@@ -156,15 +196,13 @@ class _Item extends StatelessWidget {
     required this.title,
     required this.content,
     required this.img,
-    this.isUrl = false,
     Key? key,
   }) : super(key: key);
 
   final void Function()? onTap;
   final String title;
   final String content;
-  final String img;
-  final bool isUrl;
+  final Image img;
 
   @override
   Widget build(BuildContext context) {
@@ -177,18 +215,7 @@ class _Item extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(children: [
-          isUrl ?
-          SizedBox(
-            width: double.infinity,
-            height: 150,
-            child: MyNetworkImage(image: img, fit: BoxFit.cover),
-          ) :
-          Image.asset(
-            img,
-            width: double.infinity,
-            height: 150,
-            fit: BoxFit.cover,
-          ),
+          img,
           Container(
             padding: const EdgeInsets.all(15),
             child: Column(children: [
