@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/services.dart';
 import 'package:vemare/app/data/_api_classes.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
@@ -100,5 +101,18 @@ class EventsRepository {
       horarios: (res["data"]["horario"] as List).map(Horario.fromJson).toList(),
       showCalendar: res["data"]["show_calendar"] as bool,
     );
+  }
+  Future<Uint8List> postDownLoadImages({required String data}) async {
+    final body = {
+      'id': '6',
+      'selected_images': data,
+    };
+
+    var res = await _apiClient.postRequestUin8List(
+        '$BASE_API_URL/api/descargar-imagenes',
+        body: body,
+        customHeaders: headerImageDownloadZip
+    );
+    return res;
   }
 }

@@ -34,6 +34,20 @@ class MyApi extends MyApiClient {
   }
 
   @override
+  dynamic postRequestUin8List(
+      String url, {
+        Object? body,
+        Map<String, String>? customHeaders,
+      }) async {
+    final response = await http.post(
+      _parseUrl(url),
+      headers: {...await _getHeaders(), ...customHeaders ?? {}},
+      body: body,
+    );
+    return _handleResponseBytes(response);
+  }
+
+  @override
   dynamic postRequestDynamic(String url, {Object? body, Map<String, String>? customHeaders}) async{
     final response = await http.post(
       _parseUrl(url),
@@ -100,6 +114,17 @@ class MyApi extends MyApiClient {
     return jsonDecode(rawJsonString);
   }
 
+  dynamic _handleResponseBytes(http.Response response) {
+    final code = response.statusCode;
+    final rawJsonString = response.body == '' ? '{}' : response.bodyBytes;
+
+    if (code >= 400) {
+      throw ApiException(code: code, message: response.body);
+    }
+
+    return rawJsonString;
+  }
+
 }
 
 final allHeaders = {
@@ -111,3 +136,7 @@ const headerContentTypeApplicationJson = {
 const headerContentTypeApplicationUrlencoded = {
   'Content-Type': 'application/x-www-form-urlencoded',
 };
+const headerImageDownloadZip = {
+  'Accept': 'application/zip',
+};
+
