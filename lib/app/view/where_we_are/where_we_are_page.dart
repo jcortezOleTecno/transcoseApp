@@ -205,11 +205,11 @@ class _Item extends StatelessWidget {
                     },
                     child: ClipOval(
                       child: Container(
-                        color: AppColor.blue100,
-                        padding: const EdgeInsets.all(10),
+                        color: AppColor.white,
+                        height: 40, width: 40,
+                        padding: const EdgeInsets.all(5),
                         child: Image.asset(
-                          'assets/icons/link.png',
-                          scale: 1.8,
+                          'assets/icons/google_maps_icon.png',
                         ),
                       ),
                     ),
