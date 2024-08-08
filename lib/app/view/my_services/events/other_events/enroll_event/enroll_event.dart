@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/events_repository.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/domain/model/events.dart';
@@ -163,9 +164,8 @@ class EnrollEventPage extends StatelessWidget {
                                           });
                                         }
                                       });
-                                    }),
-
-                              //TEST
+                                    },
+                              ),
                             ],
                           ),
                         )
@@ -767,7 +767,14 @@ Future<bool?> _dialogConfirmSchedule(
                 spacerS,
                 Text('Ubicación:', style: style1),
                 spacerXs,
-                Text(horario.location ?? '',style: style2,textAlign: TextAlign.center),
+                InkWell(
+                  onTap: (){
+                    try{
+                      launchUrlString(horario.googleMaps, mode: LaunchMode.externalApplication);
+                    }catch(_){}
+                  },
+                  child: Text(horario.location ?? '',style: AppTextStyle.linkStyle,textAlign: TextAlign.center),
+                ),
                 spacerM,
                 Text(event.title ?? '',style: style2,),
                 spacerS,
@@ -944,8 +951,15 @@ class ResumenEvent extends StatelessWidget {
                   spacerS,
                   Text('Ubicación:',style: style1),
                   spacerXs,
-                  Text(
-                    state.horarios.first.location ?? '',style: style2,
+                  InkWell(
+                    onTap: (){
+                      try{
+                        launchUrlString(state.horarios.first.googleMaps, mode: LaunchMode.externalApplication);
+                      }catch(_){}
+                    },
+                    child: Text(
+                      state.horarios.first.location ?? '',style: AppTextStyle.linkStyle,
+                    ),
                   ),
                   spacerM,
                   Text(

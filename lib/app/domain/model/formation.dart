@@ -154,6 +154,7 @@ class Horario {
   int? occupiedPlaces;
   bool allDay;
   List<FormHour> hours;
+  String googleMaps;
 
   Horario({
     required this.dateId,
@@ -174,6 +175,7 @@ class Horario {
     this.places,
     this.occupiedPlaces,
     this.hours = const [],
+    this.googleMaps = '',
   });
 
   factory Horario.fromJson(dynamic json) => Horario(
@@ -195,7 +197,8 @@ class Horario {
     places: json["places"],
     occupiedPlaces: json["occupied_places"],
     allDay: json["all_day"],
-    hours: (json["hours"] as List).map(FormHour.fromJson).toList()
+    googleMaps: json["google_maps"],
+    hours: json["hours"] == null ? [] : (json["hours"] as List).map(FormHour.fromJson).toList()
   );
 
   Map<String, dynamic> toJson() => {
@@ -217,6 +220,7 @@ class Horario {
     "center_reference": centerReference,
     "places": places,
     "occupied_places": occupiedPlaces,
+    "google_maps": googleMaps,
     "all_day": allDay,
   };
 }
