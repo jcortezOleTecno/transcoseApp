@@ -8,7 +8,9 @@ class MyFilterImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned.fill(
+      top: MediaQuery.of(context).size.height * 0.2,
       child: Container(
+        padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.2),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [Colors.transparent, Colors.black],
