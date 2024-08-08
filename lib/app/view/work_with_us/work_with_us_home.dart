@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:vemare/app/data/header_repository.dart';
 import 'package:vemare/app/data/services_repository.dart';
 import 'package:vemare/app/data/work_with_us_repository.dart';
+import 'package:vemare/app/domain/model/header.dart';
 import 'package:vemare/app/domain/model/work_with_us.dart';
 import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
@@ -56,18 +57,36 @@ class _WorkWithUsHomeState extends State<WorkWithUsHome> {
       ),
       child: Consumer<WorkWithUsHomeProvider>(
         builder: (context2, provider, child){
+
+          String title = widget.workWithUs.title ?? '';
+          Widget image = MyNetworkImage(
+            image: widget.workWithUs.image ?? '',
+            height: 240,
+            width: double.infinity,
+            fit: BoxFit.cover,
+          );
+
+          if(provider.headers.isNotEmpty){
+            try{
+              Header? header = provider.headers.firstWhere((e) => e.module == "RRHHModel");
+              title = header.landing ?? title;
+              if(header.image != null){
+                image = Image(
+                  image: NetworkImage(header.image!),
+                  width: double.infinity,
+                  fit: BoxFit.contain,
+                );
+              }
+            }catch(_){}
+          }
+
           return MyTapToHideKeyboard(
             child: Scaffold(
               body: MyBody(
                 spacerTop: 45,
                 child: ListView(
                   children: [
-                    MyNetworkImage(
-                      image: widget.workWithUs.image ?? '',
-                      height: 240,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
+                    image,
                     const Align(
                       alignment: Alignment.centerLeft,
                       child: MyBackButton(
@@ -77,7 +96,7 @@ class _WorkWithUsHomeState extends State<WorkWithUsHome> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: Text(
-                          widget.workWithUs.title ?? '',
+                          title,
                           style: AppTextStyle.h1Style),
                     ),
                     spacerXs,

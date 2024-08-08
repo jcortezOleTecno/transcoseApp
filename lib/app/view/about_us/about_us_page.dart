@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -8,6 +10,7 @@ import 'package:vemare/app/data/library_repository.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/notices_repository.dart';
 import 'package:vemare/app/data/pills_repository.dart';
+import 'package:vemare/app/domain/model/header.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_cards/my_news_card.dart';
 import 'package:vemare/app/view/_components/my_filter_image/my_filter_image.dart';
@@ -159,51 +162,66 @@ class _OurHistory extends StatelessWidget {
 class _WhereWeAre extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, WhereWeArePage.route);
-      },
-      child: SizedBox(
-        height: 220,
-        width: double.infinity,
-        child: Stack(fit: StackFit.expand, children: [
-          // const Image(
-          //   image: AssetImage('assets/imgs/DondeEstamos.jpeg'),
-          //   fit: BoxFit.cover,
-          // ),
-          SizedBox(
-            child: MyNetworkImage(
-                image: '$BASE_API_URL/assets/images/donde-estamos.jpg',
-                fit: BoxFit.cover
+    return BlocBuilder<AboutUsCubit, AboutUsState>(
+        builder: (context, state){
+
+          String title = '¿Dónde estamoss?';
+          Image image = const Image(
+            image: AssetImage('assets/imgs/DondeEstamos.jpeg'),
+            fit: BoxFit.cover,
+          );
+          if(state.headers.isNotEmpty){
+            try{
+              Header? header = state.headers.firstWhere((e) => e.module == "Center");
+              title = header.title ?? '';
+              if(header.image != null){
+                image = Image(
+                  image: NetworkImage(header.image!),
+                  fit: BoxFit.cover,
+                );
+              }
+            }catch(e){
+              log('Error ${e.toString()}');
+            }
+          }
+
+          return GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, WhereWeArePage.route);
+            },
+            child: SizedBox(
+              height: 220,
+              width: double.infinity,
+              child: Stack(fit: StackFit.expand, children: [
+                image,
+                const MyFilterImage(),
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      const Spacer(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(title, style: AppTextStyle.linkStyle
+                              .copyWith(color: AppColor.white, fontSize: 22),
+                          ),
+                          Image.asset(
+                            'assets/icons/arrow_next.png',
+                            color: AppColor.white,
+                            scale: 2,
+                          ),
+                        ],
+                      ),
+                      spacerXs,
+                    ],
+                  ),
+                )
+              ]),
             ),
-          ),
-          const MyFilterImage(),
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                const Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '¿Dónde estamos?',
-                      style: AppTextStyle.linkStyle
-                          .copyWith(color: AppColor.white, fontSize: 22),
-                    ),
-                    Image.asset(
-                      'assets/icons/arrow_next.png',
-                      color: AppColor.white,
-                      scale: 2,
-                    ),
-                  ],
-                ),
-                spacerXs,
-              ],
-            ),
-          )
-        ]),
-      ),
+          );
+
+        }
     );
   }
 }

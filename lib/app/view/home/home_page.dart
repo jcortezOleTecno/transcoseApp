@@ -21,6 +21,7 @@ import 'package:vemare/app/data/services_repository.dart';
 import 'package:vemare/app/data/shared_preferences_static.dart';
 import 'package:vemare/app/data/work_with_us_repository.dart';
 import 'package:vemare/app/data/workshops_repository.dart';
+import 'package:vemare/app/domain/model/header.dart';
 import 'package:vemare/app/domain/utils/validators.dart';
 import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
@@ -701,6 +702,29 @@ class _TrabajaConNosotros extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
+
+        String title = state.workWithUs?.title ?? '';
+        Widget image = MyNetworkImage(
+          image: state.workWithUs?.image ?? '',
+          fit: BoxFit.cover,
+          width: MediaQuery.of(context).size.width * .90,
+          height: 200,
+        );
+
+        if(state.headers.isNotEmpty){
+          try{
+            Header? header = state.headers.firstWhere((e) => e.module == "RRHHModel");
+            title = header.title ?? title;
+            if(header.image != null){
+              image = Image(
+                image: NetworkImage(header.image!),
+                width: double.infinity,
+                fit: BoxFit.contain,
+              );
+            }
+          }catch(_){}
+        }
+
         return SizedBox(
           // height: 230,
           width: double.infinity,
@@ -712,7 +736,7 @@ class _TrabajaConNosotros extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      state.workWithUs?.title ?? '',
+                      title,
                       style: AppTextStyle.h1Style,
                       textAlign: TextAlign.left,
                     ),
@@ -735,15 +759,13 @@ class _TrabajaConNosotros extends StatelessWidget {
                             arguments: state.workWithUs);
                       }
                     },
-                    child: ClipRRect(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: ClipRRect(
                         borderRadius: BorderRadius.circular(12),
-                        child: MyNetworkImage(
-                          image: state.workWithUs?.image ?? '',
-                          fit: BoxFit.cover,
-                          width: MediaQuery.of(context).size.width * .90,
-                          height: 200,
-                        ),
+                        child: image,
                       ),
+                    ),
                   ),
             ],
           ),
