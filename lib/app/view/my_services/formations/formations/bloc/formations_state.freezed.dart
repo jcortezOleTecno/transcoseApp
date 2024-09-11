@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$FormationsState {
   bool get loading => throw _privateConstructorUsedError;
   FormStatus get status => throw _privateConstructorUsedError;
+  List<Header> get headers => throw _privateConstructorUsedError;
   List<TrainigGroup> get formations => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -31,7 +32,11 @@ abstract class $FormationsStateCopyWith<$Res> {
           FormationsState value, $Res Function(FormationsState) then) =
       _$FormationsStateCopyWithImpl<$Res, FormationsState>;
   @useResult
-  $Res call({bool loading, FormStatus status, List<TrainigGroup> formations});
+  $Res call(
+      {bool loading,
+      FormStatus status,
+      List<Header> headers,
+      List<TrainigGroup> formations});
 }
 
 /// @nodoc
@@ -49,6 +54,7 @@ class _$FormationsStateCopyWithImpl<$Res, $Val extends FormationsState>
   $Res call({
     Object? loading = null,
     Object? status = null,
+    Object? headers = null,
     Object? formations = null,
   }) {
     return _then(_value.copyWith(
@@ -60,6 +66,10 @@ class _$FormationsStateCopyWithImpl<$Res, $Val extends FormationsState>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormStatus,
+      headers: null == headers
+          ? _value.headers
+          : headers // ignore: cast_nullable_to_non_nullable
+              as List<Header>,
       formations: null == formations
           ? _value.formations
           : formations // ignore: cast_nullable_to_non_nullable
@@ -76,7 +86,11 @@ abstract class _$$_FormationsStateCopyWith<$Res>
       __$$_FormationsStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool loading, FormStatus status, List<TrainigGroup> formations});
+  $Res call(
+      {bool loading,
+      FormStatus status,
+      List<Header> headers,
+      List<TrainigGroup> formations});
 }
 
 /// @nodoc
@@ -92,6 +106,7 @@ class __$$_FormationsStateCopyWithImpl<$Res>
   $Res call({
     Object? loading = null,
     Object? status = null,
+    Object? headers = null,
     Object? formations = null,
   }) {
     return _then(_$_FormationsState(
@@ -103,6 +118,10 @@ class __$$_FormationsStateCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormStatus,
+      headers: null == headers
+          ? _value._headers
+          : headers // ignore: cast_nullable_to_non_nullable
+              as List<Header>,
       formations: null == formations
           ? _value._formations
           : formations // ignore: cast_nullable_to_non_nullable
@@ -117,8 +136,10 @@ class _$_FormationsState extends _FormationsState {
   const _$_FormationsState(
       {this.loading = false,
       this.status = FormStatus.editing,
+      final List<Header> headers = const <Header>[],
       final List<TrainigGroup> formations = const <TrainigGroup>[]})
-      : _formations = formations,
+      : _headers = headers,
+        _formations = formations,
         super._();
 
   @override
@@ -127,6 +148,15 @@ class _$_FormationsState extends _FormationsState {
   @override
   @JsonKey()
   final FormStatus status;
+  final List<Header> _headers;
+  @override
+  @JsonKey()
+  List<Header> get headers {
+    if (_headers is EqualUnmodifiableListView) return _headers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_headers);
+  }
+
   final List<TrainigGroup> _formations;
   @override
   @JsonKey()
@@ -138,7 +168,7 @@ class _$_FormationsState extends _FormationsState {
 
   @override
   String toString() {
-    return 'FormationsState(loading: $loading, status: $status, formations: $formations)';
+    return 'FormationsState(loading: $loading, status: $status, headers: $headers, formations: $formations)';
   }
 
   @override
@@ -148,12 +178,17 @@ class _$_FormationsState extends _FormationsState {
             other is _$_FormationsState &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.status, status) || other.status == status) &&
+            const DeepCollectionEquality().equals(other._headers, _headers) &&
             const DeepCollectionEquality()
                 .equals(other._formations, _formations));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, loading, status,
+  int get hashCode => Object.hash(
+      runtimeType,
+      loading,
+      status,
+      const DeepCollectionEquality().hash(_headers),
       const DeepCollectionEquality().hash(_formations));
 
   @JsonKey(ignore: true)
@@ -167,6 +202,7 @@ abstract class _FormationsState extends FormationsState {
   const factory _FormationsState(
       {final bool loading,
       final FormStatus status,
+      final List<Header> headers,
       final List<TrainigGroup> formations}) = _$_FormationsState;
   const _FormationsState._() : super._();
 
@@ -174,6 +210,8 @@ abstract class _FormationsState extends FormationsState {
   bool get loading;
   @override
   FormStatus get status;
+  @override
+  List<Header> get headers;
   @override
   List<TrainigGroup> get formations;
   @override

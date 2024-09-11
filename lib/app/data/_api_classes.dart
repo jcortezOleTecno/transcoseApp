@@ -14,6 +14,11 @@ abstract class MyApiClient {
     Object? body,
     Map<String, String>? customHeaders,
   });
+  dynamic postRequestUin8List(
+      String url, {
+        Object? body,
+        Map<String, String>? customHeaders,
+      });
   dynamic putRequest(
     String url, {
     Map<String, dynamic>? params,

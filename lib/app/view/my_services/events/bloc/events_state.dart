@@ -9,6 +9,7 @@ class EventsState with _$EventsState {
     @Default(false) bool loading,
     // @Default(<Header>[]) List<Header> headers,
     Header? hPage,
+    Header? hMyEvents,
     Header? hEventosVemare,
     Header? hEventosCelebrados,
     // Header? hMisEventos,

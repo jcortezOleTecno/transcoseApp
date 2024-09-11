@@ -180,19 +180,42 @@ class _Item extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              height: 180,
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(12),
-                    topLeft: Radius.circular(12)),
-              ),
-              child: MyNetworkImage(
-                image: center.image!,
-                height: 180,
-                fit: BoxFit.cover,
-              ),
+            Stack(
+              children: [
+                Container(
+                  height: 180,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(12),
+                        topLeft: Radius.circular(12)),
+                  ),
+                  child: MyNetworkImage(
+                    image: center.image!,
+                    height: 180,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Positioned(
+                  bottom: 5,
+                  right: 10,
+                  child: InkWell(
+                    onTap: (){
+                      launchUrlString(center.googleMaps, mode: LaunchMode.externalApplication);
+                    },
+                    child: ClipOval(
+                      child: Container(
+                        color: AppColor.white,
+                        height: 40, width: 40,
+                        padding: const EdgeInsets.all(5),
+                        child: Image.asset(
+                          'assets/icons/google_maps_icon.png',
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ],
             ),
             Padding(
               padding: const EdgeInsets.all(15),

@@ -7,6 +7,7 @@ class News {
   final String? description;
   final String? image;
   final String? imagePrivate;
+  List<NewsVideos> videos;
 
   News({
     this.id,
@@ -17,6 +18,7 @@ class News {
     this.title,
     this.image,
     this.imagePrivate,
+    this.videos = const [],
   });
   factory News.fromJson(dynamic map) {
     return News(
@@ -28,6 +30,8 @@ class News {
       title: map['title'] as String?,
       image: map['image'] as String?,
       imagePrivate: map['image_private'] as String?,
+      videos: map['videos'] == null ? [] :
+      (map['videos'] as List).map((e) => NewsVideos.fromJson(e)).toList(),
     );
   }
 
@@ -41,6 +45,38 @@ class News {
       'title': title,
       'image': image,
       'image_private': imagePrivate,
+      'videos': videos,
+    };
+  }
+}
+
+class NewsVideos {
+  final int? id;
+  final String? link;
+  final String? name;
+  final String? description;
+
+  NewsVideos({
+    this.id,
+    this.link,
+    this.name,
+    this.description,
+  });
+  factory NewsVideos.fromJson(dynamic map) {
+    return NewsVideos(
+      id: map['id'] as int?,
+      link: map['link'] as String?,
+      name: map['name'] as String?,
+      description: map['description'] as String?,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'id': id,
+      'link': link,
+      'name': name,
+      'description': description,
     };
   }
 }

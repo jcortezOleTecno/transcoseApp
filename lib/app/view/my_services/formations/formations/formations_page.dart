@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/formations_repository.dart';
+import 'package:vemare/app/data/header_repository.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
@@ -27,6 +28,7 @@ class FormationsPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => FormationsCubit(
         getIt.get<FormationsRepository>(),
+        getIt.get<HeaderRepository>(),
       ),
       child: const FormationsPage._(),
     );
@@ -40,26 +42,41 @@ class FormationsPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                alignment: Alignment.center,
-                width: double.infinity,
-                height: 220,
-                child: Image.asset("assets/imgs/banner-formaciones.jpg"),
-              ),
-              const MyBackButton(),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const Text('Formaciones Transcose',
-                        style: AppTextStyle.h1Style),
-                    Text('Consulta las formaciones disponibles para los profesionales de la reparación: electromecánica, diagnosis, carrocería, gestión comercial...',
-                        style: AppTextStyle.defaultStyle.copyWith(fontSize: 18)),
-                    spacerXL,
-                    BlocBuilder<FormationsCubit, FormationsState>(
-                        builder: (context, state) {
-                          return MyButton(
+              BlocBuilder<FormationsCubit, FormationsState>(
+                  builder: (context, state){
+
+                    String title = 'Formaciones Transcose';
+                    Image imageObjet = Image.asset("assets/imgs/banner-formaciones.jpg");
+                    String description = 'Consulta las formaciones disponibles para los profesionales de la reparación: electromecánica, diagnosis, carrocería, gestión comercial...';
+
+                    for (var element in state.headers) {
+                      if(element.module == 'Formation'){
+                        title = element.title ?? '';
+                        imageObjet = Image.network(element.image!);
+                        description = element.description ?? '';
+                      }
+                    }
+
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Container(
+                            alignment: Alignment.center,
+                            width: double.infinity,
+                            height: 220,
+                            child: imageObjet,
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            alignment: Alignment.centerLeft,
+                            child: const MyBackButton(),
+                          ),
+                          Text(title,style: AppTextStyle.h1Style),
+                          Text(description, style: AppTextStyle.defaultStyle.copyWith(fontSize: 18)),
+                          spacerXL,
+                          MyButton(
                             onPressed: () {
                               Navigator.push(context, MaterialPageRoute(builder:
                                   (BuildContext context) => FormationsRegistered(
@@ -74,79 +91,76 @@ class FormationsPage extends StatelessWidget {
                               'assets/icons/arrow_next.png',
                               scale: 2,color: Colors.white,
                             ),
-                          );
-                        }
-                    ),
-                    spacerXL,
-                    BlocBuilder<FormationsCubit, FormationsState>(
-                      builder: (context, state) {
-                        if (state.loading) {
-                          return Column(
-                            children: List.generate(
-                              4,
-                              (_) => const MyShimmer(
-                                borderRadius: 3,
-                                margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
+                          ),
+                          spacerXL,
+                          if (state.loading)...[
+                            Column(
+                              children: List.generate(
+                                4,
+                                    (_) => const MyShimmer(
+                                  borderRadius: 3,
+                                  margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
+                                ),
                               ),
-                            ),
-                          );
-                        }
-                        return Column(
-                          children: state.formations
-                              .map(
-                                (e){
+                            )
+                          ]else...[
+                            Column(
+                              children: state.formations
+                                  .map(
+                                    (e){
 
-                              int type = e.formationsCount > 0 ? 1 : 0;
-                              double h = type != 0 ? 0.27 : 0.25;
+                                  int type = e.formationsCount > 0 ? 1 : 0;
+                                  double h = type != 0 ? 0.27 : 0.25;
 
-                              return MySingleCardRegistered(
-                                type: type,
-                                cantRegister: e.formationsCount,
-                                heightD: MediaQuery.of(context).size.height * h,
-                                iconFormation: Image.network(e.image!),
-                                title: e.title ?? '',
-                                content: e.description ?? '',
-                                margin: const EdgeInsets.only(bottom: 15),
-                                maxLines: 3,
-                                styleTitle: AppTextStyle.linkStyle.copyWith(fontSize: 20),
-                                onTap: () {
-                                  if (e.type == 'ONLINE') {
-                                    launchUrlString(
-                                      e.externalLink ?? '',
-                                    );
-                                  } else {
-                                    if (LocalDataRepository().isLogged) {
-                                      Navigator.pushNamed(
-                                        context,
-                                        SkillFormationPage.route,
-                                        arguments: e,
-                                      );
-                                    } else {
-                                      Navigator.pushNamed(
-                                        context,
-                                        LoginPage.route,
-                                        arguments: 'Inicia sesión para conocer más detalles de esta formación',
-                                      ).then((_) {
+                                  return MySingleCardRegistered(
+                                    type: type,
+                                    cantRegister: e.formationsCount,
+                                    heightD: MediaQuery.of(context).size.height * h,
+                                    iconFormation: Image.network(e.image!),
+                                    title: e.title ?? '',
+                                    content: e.description ?? '',
+                                    margin: const EdgeInsets.only(bottom: 15),
+                                    maxLines: 3,
+                                    styleTitle: AppTextStyle.linkStyle.copyWith(fontSize: 20),
+                                    onTap: () {
+                                      if (e.type == 'ONLINE') {
+                                        launchUrlString(
+                                          e.externalLink ?? '',
+                                        );
+                                      } else {
                                         if (LocalDataRepository().isLogged) {
                                           Navigator.pushNamed(
                                             context,
                                             SkillFormationPage.route,
                                             arguments: e,
                                           );
+                                        } else {
+                                          Navigator.pushNamed(
+                                            context,
+                                            LoginPage.route,
+                                            arguments: 'Inicia sesión para conocer más detalles de esta formación',
+                                          ).then((_) {
+                                            if (LocalDataRepository().isLogged) {
+                                              Navigator.pushNamed(
+                                                context,
+                                                SkillFormationPage.route,
+                                                arguments: e,
+                                              );
+                                            }
+                                          });
                                         }
-                                      });
-                                    }
-                                  }
+                                      }
+                                    },
+                                  );
                                 },
-                              );
-                            },
-                          )
-                              .toList(),
-                        );
-                      },
-                    ),
-                  ],
-                ),
+                              )
+                                  .toList(),
+                            )
+                          ]
+                        ],
+                      ),
+                    );
+                  }
               ),
               const Footer(),
             ],

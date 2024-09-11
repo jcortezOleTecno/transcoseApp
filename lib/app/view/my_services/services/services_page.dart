@@ -124,25 +124,49 @@ class _ServicesPageState extends State<ServicesPage> {
                         ))
                       : Column(
                           children: state.services
-                              .map((e) => _CardService(
-                                    title: e.title ?? '',
-                                    image: NetworkImage(e.image!),
-                                    onTap: () {
-                                      if (e.type == 'formacion') {
-                                        Navigator.pushNamed(
-                                            context, FormationsPage.route);
-                                      } else if (e.type == 'evento') {
-                                        Navigator.pushNamed(
-                                            context, EventsPage.route);
-                                      } else {
-                                        Navigator.pushNamed(
-                                          context,
-                                          ServiceGeneralPage.route,
-                                          arguments: e,
-                                        );
-                                      }
-                                    },
-                                  ))
+                              .map((e){
+
+                                String title = e.title ?? '';
+                                ImageProvider<Object> imageObjet = NetworkImage(e.image!);
+
+                                if(e.type == 'formacion'){
+                                  for (var element in state.headers) {
+                                    if(element.module == 'Formation'){
+                                      title = (element.landing == null || element.landing!.isEmpty) ? element.title! : element.landing!;
+                                      imageObjet = NetworkImage(element.image ?? e.image!);
+                                    }
+                                  }
+                                }
+
+                                if(e.type == 'evento'){
+                                  for (var element in state.headers) {
+                                    if(element.module == 'EventModule'){
+                                      title = (element.landing == null || element.landing!.isEmpty) ? element.title! : element.landing!;
+                                      imageObjet = NetworkImage(element.image ?? e.image!);
+                                    }
+                                  }
+                                }
+
+                                return _CardService(
+                                  title: title,
+                                  image: imageObjet,
+                                  onTap: () {
+                                    if (e.type == 'formacion') {
+                                      Navigator.pushNamed(
+                                          context, FormationsPage.route);
+                                    } else if (e.type == 'evento') {
+                                      Navigator.pushNamed(
+                                          context, EventsPage.route);
+                                    } else {
+                                      Navigator.pushNamed(
+                                        context,
+                                        ServiceGeneralPage.route,
+                                        arguments: e,
+                                      );
+                                    }
+                                  },
+                                );
+                          })
                               .toList(),
                         ),
                   spacerS,
