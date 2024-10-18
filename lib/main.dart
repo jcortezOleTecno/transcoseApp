@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -43,6 +45,7 @@ void main() async {
   await Firebase.initializeApp();
   PushNotificationsProvider().initNotifications();
   setPathUrlStrategy();
+  HttpOverrides.global = MyHttpOverrides();
   runApp(const AppState());
 }
 
@@ -161,5 +164,12 @@ class _ClearFocusOnPush extends NavigatorObserver {
     super.didPush(route, previousRoute);
     final focus = FocusManager.instance.primaryFocus;
     focus?.unfocus();
+  }
+}
+class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
   }
 }
