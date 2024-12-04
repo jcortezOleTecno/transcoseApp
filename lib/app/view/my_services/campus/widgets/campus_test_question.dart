@@ -172,6 +172,13 @@ class _CampusTestQuestionState extends State<CampusTestQuestion> {
       width: sizeW,
       child: Column(
         children: [
+          SizedBox(
+            width: sizeW,
+            child: Text(question.question,style: AppTextStyle.h1Style.copyWith(
+              fontSize: sizeH * 0.025,
+            )),
+          ),
+          spacerS,
           if(question.image.isNotEmpty)...[
             Container(
               margin: EdgeInsets.symmetric(horizontal: sizeW * 0.05),
@@ -189,12 +196,6 @@ class _CampusTestQuestionState extends State<CampusTestQuestion> {
             ),
             SizedBox(height: sizeH * 0.02,),
           ],
-          SizedBox(
-            width: sizeW,
-            child: Text(question.question,style: AppTextStyle.h1Style.copyWith(
-              fontSize: sizeH * 0.025,
-            )),
-          ),
           ...question.options.map((e){
 
             if(questionMap['${question.id}-${e.line}'] == null) return Container();
