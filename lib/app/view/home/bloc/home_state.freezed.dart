@@ -26,6 +26,7 @@ mixin _$HomeState {
   List<News> get notices => throw _privateConstructorUsedError;
   List<Brand> get brands => throw _privateConstructorUsedError;
   List<Header> get headers => throw _privateConstructorUsedError;
+  List<CampusModel> get campus => throw _privateConstructorUsedError;
   Encuestas? get encuesta => throw _privateConstructorUsedError;
   HeroButtons? get heroButtons => throw _privateConstructorUsedError;
   WorkWithUs? get workWithUs => throw _privateConstructorUsedError;
@@ -51,6 +52,7 @@ abstract class $HomeStateCopyWith<$Res> {
       List<News> notices,
       List<Brand> brands,
       List<Header> headers,
+      List<CampusModel> campus,
       Encuestas? encuesta,
       HeroButtons? heroButtons,
       WorkWithUs? workWithUs});
@@ -79,6 +81,7 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     Object? notices = null,
     Object? brands = null,
     Object? headers = null,
+    Object? campus = null,
     Object? encuesta = freezed,
     Object? heroButtons = freezed,
     Object? workWithUs = freezed,
@@ -124,6 +127,10 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.headers
           : headers // ignore: cast_nullable_to_non_nullable
               as List<Header>,
+      campus: null == campus
+          ? _value.campus
+          : campus // ignore: cast_nullable_to_non_nullable
+              as List<CampusModel>,
       encuesta: freezed == encuesta
           ? _value.encuesta
           : encuesta // ignore: cast_nullable_to_non_nullable
@@ -158,6 +165,7 @@ abstract class _$$_HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
       List<News> notices,
       List<Brand> brands,
       List<Header> headers,
+      List<CampusModel> campus,
       Encuestas? encuesta,
       HeroButtons? heroButtons,
       WorkWithUs? workWithUs});
@@ -184,6 +192,7 @@ class __$$_HomeStateCopyWithImpl<$Res>
     Object? notices = null,
     Object? brands = null,
     Object? headers = null,
+    Object? campus = null,
     Object? encuesta = freezed,
     Object? heroButtons = freezed,
     Object? workWithUs = freezed,
@@ -229,6 +238,10 @@ class __$$_HomeStateCopyWithImpl<$Res>
           ? _value._headers
           : headers // ignore: cast_nullable_to_non_nullable
               as List<Header>,
+      campus: null == campus
+          ? _value._campus
+          : campus // ignore: cast_nullable_to_non_nullable
+              as List<CampusModel>,
       encuesta: freezed == encuesta
           ? _value.encuesta
           : encuesta // ignore: cast_nullable_to_non_nullable
@@ -259,6 +272,7 @@ class _$_HomeState extends _HomeState {
       final List<News> notices = const <News>[],
       final List<Brand> brands = const <Brand>[],
       final List<Header> headers = const <Header>[],
+      final List<CampusModel> campus = const <CampusModel>[],
       this.encuesta,
       this.heroButtons,
       this.workWithUs})
@@ -270,6 +284,7 @@ class _$_HomeState extends _HomeState {
         _notices = notices,
         _brands = brands,
         _headers = headers,
+        _campus = campus,
         super._();
 
   @override
@@ -350,6 +365,15 @@ class _$_HomeState extends _HomeState {
     return EqualUnmodifiableListView(_headers);
   }
 
+  final List<CampusModel> _campus;
+  @override
+  @JsonKey()
+  List<CampusModel> get campus {
+    if (_campus is EqualUnmodifiableListView) return _campus;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_campus);
+  }
+
   @override
   final Encuestas? encuesta;
   @override
@@ -359,7 +383,7 @@ class _$_HomeState extends _HomeState {
 
   @override
   String toString() {
-    return 'HomeState(loading: $loading, showSurvey: $showSurvey, hero: $hero, promotions: $promotions, products: $products, services: $services, workshop: $workshop, notices: $notices, brands: $brands, headers: $headers, encuesta: $encuesta, heroButtons: $heroButtons, workWithUs: $workWithUs)';
+    return 'HomeState(loading: $loading, showSurvey: $showSurvey, hero: $hero, promotions: $promotions, products: $products, services: $services, workshop: $workshop, notices: $notices, brands: $brands, headers: $headers, campus: $campus, encuesta: $encuesta, heroButtons: $heroButtons, workWithUs: $workWithUs)';
   }
 
   @override
@@ -379,6 +403,7 @@ class _$_HomeState extends _HomeState {
             const DeepCollectionEquality().equals(other._notices, _notices) &&
             const DeepCollectionEquality().equals(other._brands, _brands) &&
             const DeepCollectionEquality().equals(other._headers, _headers) &&
+            const DeepCollectionEquality().equals(other._campus, _campus) &&
             (identical(other.encuesta, encuesta) ||
                 other.encuesta == encuesta) &&
             (identical(other.heroButtons, heroButtons) ||
@@ -400,6 +425,7 @@ class _$_HomeState extends _HomeState {
       const DeepCollectionEquality().hash(_notices),
       const DeepCollectionEquality().hash(_brands),
       const DeepCollectionEquality().hash(_headers),
+      const DeepCollectionEquality().hash(_campus),
       encuesta,
       heroButtons,
       workWithUs);
@@ -423,6 +449,7 @@ abstract class _HomeState extends HomeState {
       final List<News> notices,
       final List<Brand> brands,
       final List<Header> headers,
+      final List<CampusModel> campus,
       final Encuestas? encuesta,
       final HeroButtons? heroButtons,
       final WorkWithUs? workWithUs}) = _$_HomeState;
@@ -448,6 +475,8 @@ abstract class _HomeState extends HomeState {
   List<Brand> get brands;
   @override
   List<Header> get headers;
+  @override
+  List<CampusModel> get campus;
   @override
   Encuestas? get encuesta;
   @override

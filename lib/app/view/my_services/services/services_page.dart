@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:vemare/app/data/campus_repository.dart';
 import 'package:vemare/app/data/header_repository.dart';
+import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/services_repository.dart';
 import 'package:vemare/app/data/shared_preferences_static.dart';
+import 'package:vemare/app/domain/model/campus_model.dart';
 import 'package:vemare/app/domain/utils/validators.dart';
 import 'package:vemare/app/domain/value_object/status.dart';
 import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
@@ -11,9 +14,12 @@ import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_filter_image/my_filter_image.dart';
 import 'package:vemare/app/view/_components/my_input/my_input.dart';
+import 'package:vemare/app/view/_components/my_network_image/my_network_image.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/tap_to_hide_keyboard/tap_to_hide_keyboard.dart';
+import 'package:vemare/app/view/my_services/campus/campus_page.dart';
+import 'package:vemare/app/view/my_services/campus/widgets/campus_detail_page.dart';
 import 'package:vemare/app/view/my_services/events/events_page.dart';
 import 'package:vemare/app/view/my_services/formations/formations/formations_page.dart';
 import 'package:vemare/app/view/my_services/services/bloc/services_cubit.dart';
@@ -36,6 +42,7 @@ class ServicesPage extends StatefulWidget {
       create: (context) => ServicesCubit(
         getIt.get<ServicesRepository>(),
         getIt.get<HeaderRepository>(),
+        getIt.get<CampusRepository>(),
       ),
       child: const ServicesPage._(),
     );
@@ -93,6 +100,24 @@ class _ServicesPageState extends State<ServicesPage> {
         }
       },
       builder: (context, state) {
+
+        String title = '';
+        String subTitle = '';
+        String image = '';
+
+        for (var element in state.headers) {
+          if(element.module == "Course"){
+            title = element.title ?? '';
+            subTitle = element.description ?? '';
+            image = element.image ?? '';
+          }
+        }
+
+        CampusModel? campusModel;
+        if(state.campus.isNotEmpty){
+          campusModel = state.campus.last;
+        }
+
         return MyTapToHideKeyboard(
           child: Scaffold(
             body: MyBody(
@@ -169,6 +194,106 @@ class _ServicesPageState extends State<ServicesPage> {
                           })
                               .toList(),
                         ),
+                  if(!state.loading && LocalDataRepository().isLogged)...[
+                    spacerS,
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            child: Text(state.headers.isEmpty
+                                ? ''
+                                : state.headers
+                                .firstWhere((e) => e.module == "Course")
+                                .landing ??
+                                '',
+                              style: AppTextStyle.h1Style,
+                            ),
+                          ),
+                          if(campusModel != null)...[
+                            SizedBox(
+                              height: 225,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    CampusDetailPage.route,
+                                    arguments: campusModel,
+                                  );
+                                },
+                                child: Card(
+                                  margin:
+                                  const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                                  clipBehavior: Clip.antiAlias,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Stack(
+                                    fit: StackFit.expand,
+                                    children: [
+                                      MyNetworkImage(
+                                        image: campusModel.image,
+                                        fit: BoxFit.cover,
+                                        height: 225,
+                                      ),
+                                      const MyFilterImage(),
+                                      Padding(
+                                        padding: const EdgeInsets.all(15),
+                                        child: Column(
+                                          children: [
+                                            const Spacer(),
+                                            Row(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Expanded(
+                                                  child: Text(
+                                                    campusModel.title,
+                                                    style: AppTextStyle.h2Style
+                                                        .copyWith(color: AppColor.white),
+                                                  ),
+                                                ),
+                                                Image.asset(
+                                                  'assets/icons/arrow_next.png',
+                                                  color: AppColor.white,
+                                                  scale: 2,
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                          spacerM,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            child: Center(
+                              child: TextButton.icon(
+                                onPressed: () {
+                                  Navigator.pushNamed(context, CampusPage.route,
+                                      arguments: CampusArg(title, image, subTitle));
+                                },
+                                label: Image.asset(
+                                  'assets/icons/arrow_next.png',
+                                  scale: 2,
+                                ),
+                                icon: const Text(
+                                  'Ver todos',
+                                  style: AppTextStyle.linkStyle,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                   spacerS,
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),

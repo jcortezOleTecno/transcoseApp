@@ -20,6 +20,7 @@ mixin _$ServicesState {
   FormStatus get status => throw _privateConstructorUsedError;
   List<Services> get services => throw _privateConstructorUsedError;
   List<Header> get headers => throw _privateConstructorUsedError;
+  List<CampusModel> get campus => throw _privateConstructorUsedError;
   Name? get name => throw _privateConstructorUsedError;
   Email? get email => throw _privateConstructorUsedError;
   Phone? get phone => throw _privateConstructorUsedError;
@@ -44,6 +45,7 @@ abstract class $ServicesStateCopyWith<$Res> {
       FormStatus status,
       List<Services> services,
       List<Header> headers,
+      List<CampusModel> campus,
       Name? name,
       Email? email,
       Phone? phone,
@@ -70,6 +72,7 @@ class _$ServicesStateCopyWithImpl<$Res, $Val extends ServicesState>
     Object? status = null,
     Object? services = null,
     Object? headers = null,
+    Object? campus = null,
     Object? name = freezed,
     Object? email = freezed,
     Object? phone = freezed,
@@ -95,6 +98,10 @@ class _$ServicesStateCopyWithImpl<$Res, $Val extends ServicesState>
           ? _value.headers
           : headers // ignore: cast_nullable_to_non_nullable
               as List<Header>,
+      campus: null == campus
+          ? _value.campus
+          : campus // ignore: cast_nullable_to_non_nullable
+              as List<CampusModel>,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -140,6 +147,7 @@ abstract class _$$_ServicesStateCopyWith<$Res>
       FormStatus status,
       List<Services> services,
       List<Header> headers,
+      List<CampusModel> campus,
       Name? name,
       Email? email,
       Phone? phone,
@@ -164,6 +172,7 @@ class __$$_ServicesStateCopyWithImpl<$Res>
     Object? status = null,
     Object? services = null,
     Object? headers = null,
+    Object? campus = null,
     Object? name = freezed,
     Object? email = freezed,
     Object? phone = freezed,
@@ -189,6 +198,10 @@ class __$$_ServicesStateCopyWithImpl<$Res>
           ? _value._headers
           : headers // ignore: cast_nullable_to_non_nullable
               as List<Header>,
+      campus: null == campus
+          ? _value._campus
+          : campus // ignore: cast_nullable_to_non_nullable
+              as List<CampusModel>,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -229,6 +242,7 @@ class _$_ServicesState extends _ServicesState {
       this.status = FormStatus.editing,
       final List<Services> services = const <Services>[],
       final List<Header> headers = const <Header>[],
+      final List<CampusModel> campus = const <CampusModel>[],
       this.name,
       this.email,
       this.phone,
@@ -238,6 +252,7 @@ class _$_ServicesState extends _ServicesState {
       this.weHelpYou})
       : _services = services,
         _headers = headers,
+        _campus = campus,
         super._();
 
   @override
@@ -264,6 +279,15 @@ class _$_ServicesState extends _ServicesState {
     return EqualUnmodifiableListView(_headers);
   }
 
+  final List<CampusModel> _campus;
+  @override
+  @JsonKey()
+  List<CampusModel> get campus {
+    if (_campus is EqualUnmodifiableListView) return _campus;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_campus);
+  }
+
   @override
   final Name? name;
   @override
@@ -281,7 +305,7 @@ class _$_ServicesState extends _ServicesState {
 
   @override
   String toString() {
-    return 'ServicesState(loading: $loading, status: $status, services: $services, headers: $headers, name: $name, email: $email, phone: $phone, provincia: $provincia, ciudad: $ciudad, message: $message, weHelpYou: $weHelpYou)';
+    return 'ServicesState(loading: $loading, status: $status, services: $services, headers: $headers, campus: $campus, name: $name, email: $email, phone: $phone, provincia: $provincia, ciudad: $ciudad, message: $message, weHelpYou: $weHelpYou)';
   }
 
   @override
@@ -293,6 +317,7 @@ class _$_ServicesState extends _ServicesState {
             (identical(other.status, status) || other.status == status) &&
             const DeepCollectionEquality().equals(other._services, _services) &&
             const DeepCollectionEquality().equals(other._headers, _headers) &&
+            const DeepCollectionEquality().equals(other._campus, _campus) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.phone, phone) || other.phone == phone) &&
@@ -311,6 +336,7 @@ class _$_ServicesState extends _ServicesState {
       status,
       const DeepCollectionEquality().hash(_services),
       const DeepCollectionEquality().hash(_headers),
+      const DeepCollectionEquality().hash(_campus),
       name,
       email,
       phone,
@@ -332,6 +358,7 @@ abstract class _ServicesState extends ServicesState {
       final FormStatus status,
       final List<Services> services,
       final List<Header> headers,
+      final List<CampusModel> campus,
       final Name? name,
       final Email? email,
       final Phone? phone,
@@ -349,6 +376,8 @@ abstract class _ServicesState extends ServicesState {
   List<Services> get services;
   @override
   List<Header> get headers;
+  @override
+  List<CampusModel> get campus;
   @override
   Name? get name;
   @override

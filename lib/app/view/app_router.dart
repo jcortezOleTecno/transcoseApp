@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vemare/app/domain/model/budget.dart';
+import 'package:vemare/app/domain/model/campus_model.dart';
 import 'package:vemare/app/domain/model/category.dart';
 import 'package:vemare/app/domain/model/contrats.dart';
 import 'package:vemare/app/domain/model/events.dart';
@@ -23,6 +24,11 @@ import 'package:vemare/app/view/library/library_details/library_detail.dart';
 import 'package:vemare/app/view/library/library_page.dart';
 import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/my_notifications/my_notifications_page.dart';
+import 'package:vemare/app/view/my_services/campus/campus_page.dart';
+import 'package:vemare/app/view/my_services/campus/provider/campus_detail_provider.dart';
+import 'package:vemare/app/view/my_services/campus/widgets/campus_detail_page.dart';
+import 'package:vemare/app/view/my_services/campus/widgets/campus_test.dart';
+import 'package:vemare/app/view/my_services/campus/widgets/campus_test_question.dart';
 import 'package:vemare/app/view/my_services/events/other_events/available_destinations/available_destinations_page.dart';
 import 'package:vemare/app/view/my_services/events/other_events/enroll_event/enroll_event.dart';
 import 'package:vemare/app/view/my_services/events/events_vemare/event_detail_page.dart';
@@ -124,13 +130,7 @@ abstract class AppRouter {
             settings: settings,
             builder: (_) => WorkWithUsHome(workWithUs: workWithUs,)
         );
-      case WorkWithUsGeneral.route:
-        final event = settings.arguments as RrhhModels?;
-        return MaterialPageRoute<void>(
-          settings: settings,
-          builder: (_) => WorkWithUsGeneral(rrhhModels: event!),
-        );
-        case ClaimsPage.route:
+      case ClaimsPage.route:
         return MaterialPageRoute<void>(
           settings: settings,
           builder: (_) => const ClaimsPage(),
@@ -211,6 +211,12 @@ abstract class AppRouter {
           settings: settings,
           builder: (_) => ServiceGeneralPage(service: service!),
         );
+      case WorkWithUsGeneral.route:
+        final event = settings.arguments as RrhhModels?;
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => WorkWithUsGeneral(rrhhModels: event!),
+        );
       case FormationsPage.route:
         return MaterialPageRoute<void>(
           settings: settings,
@@ -237,6 +243,34 @@ abstract class AppRouter {
         return MaterialPageRoute<void>(
           settings: settings,
           builder: (_) => DetailFormationPage(formation!),
+        );
+      case CampusPage.route:
+        var campusArg = settings.arguments as CampusArg?;
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => CampusPage(
+            title: campusArg!.title,
+            image: campusArg.image,
+            description: campusArg.description,
+          ),
+        );
+      case CampusDetailPage.route:
+        final CampusModel campusModel = settings.arguments as CampusModel;
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => CampusDetailPage(campusModel: campusModel),
+        );
+      case CampusTest.route:
+        final CampusDetailProvider campusModel = settings.arguments as CampusDetailProvider;
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => CampusTest(campusDetailProvider: campusModel),
+        );
+      case CampusTestQuestion.route:
+        final List campusModel = settings.arguments as List;
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => CampusTestQuestion(campusDetailProvider: campusModel[0],viewResult: campusModel[1],testResult: campusModel[2]),
         );
       case EnrollTrainingPage.route:
         final args = settings.arguments as EnrollTrainingPageArg?;
@@ -370,9 +404,10 @@ abstract class AppRouter {
           builder: (_) => PillsPage.create(),
         );
       case OurHistoryPage.route:
+        final title = settings.arguments as String;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => const OurHistoryPage(),
+          builder: (_) => OurHistoryPage(title: title),
         );
       case OtherEventsListPage.route:
         return MaterialPageRoute<void>(
@@ -432,7 +467,7 @@ abstract class AppRouter {
           settings: settings,
           builder: (_) => AvailableDestinationsFormationsPage.create(data!),
         );
-      /*case ShippingDataPage.route:
+    /*case ShippingDataPage.route:
         final data = settings.arguments as ShoppingCarArgs?;
         return MaterialPageRoute<void>(
           settings: settings,

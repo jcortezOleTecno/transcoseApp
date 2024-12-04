@@ -40,6 +40,7 @@ abstract class AppColor {
   static const primaryBlue = Color(0xFF0A276D);
   static const black = Color(0xFF040404);
   static const white = Color(0xFFF0F0F0);
+  static const whiteF = Color(0xFFFFFFFF);
 
   static const primary = blue;
 }

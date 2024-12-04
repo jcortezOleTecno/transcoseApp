@@ -6,6 +6,7 @@ import 'package:vemare/app/data/about_us_repository.dart';
 import 'package:vemare/app/data/auth_repository.dart';
 import 'package:vemare/app/data/brands_repository.dart';
 import 'package:vemare/app/data/budget_repository.dart';
+import 'package:vemare/app/data/campus_repository.dart';
 import 'package:vemare/app/data/center_repository.dart';
 import 'package:vemare/app/data/claims_repository.dart';
 import 'package:vemare/app/data/events_repository.dart';
@@ -47,6 +48,7 @@ abstract class ServiceLocator {
       ..registerFactory(() => PillsRepository(myApi))
       ..registerFactory(() => CenterRepository(myApi))
       ..registerFactory(() => FormationsRepository(myApi))
+      ..registerFactory(() => CampusRepository(myApi))
       ..registerFactory(() => EventsRepository(myApi))
       ..registerFactory(() => WorkWithUsRepository(myApi))
       ..registerFactory(() => ShoppingCardRepository(myApi))

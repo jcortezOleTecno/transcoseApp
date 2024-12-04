@@ -12,8 +12,8 @@ import 'package:vemare/app/view/our_history/bloc/our_history_state.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
 class OurHistoryPage extends StatelessWidget {
-  const OurHistoryPage({super.key});
-
+  const OurHistoryPage({super.key, this.title = 'Nuestra Historia'});
+  final String title;
   static const route = '/our_history';
 
   @override
@@ -30,9 +30,9 @@ class OurHistoryPage extends StatelessWidget {
                     MyBackButton(),
                   ],
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
-                  child: Text('Nuestra Historia', style: AppTextStyle.h1Style),
+                  child: Text(title, style: AppTextStyle.h1Style),
                 ),
                 ...state.articles.map((e) => _Article(e)).toList()
               ],

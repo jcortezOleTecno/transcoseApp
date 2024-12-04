@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vemare/app/data/brands_repository.dart';
+import 'package:vemare/app/data/campus_repository.dart';
 import 'package:vemare/app/data/header_repository.dart';
 import 'package:vemare/app/data/home_repository.dart';
 import 'package:vemare/app/data/notices_repository.dart';
@@ -12,6 +13,7 @@ import 'package:vemare/app/data/services_repository.dart';
 import 'package:vemare/app/data/work_with_us_repository.dart';
 import 'package:vemare/app/data/workshops_repository.dart';
 import 'package:vemare/app/domain/model/brand.dart';
+import 'package:vemare/app/domain/model/campus_model.dart';
 import 'package:vemare/app/domain/model/header.dart';
 import 'package:vemare/app/domain/model/hero.dart';
 import 'package:vemare/app/domain/model/hero_buttons.dart';
@@ -37,6 +39,7 @@ class HomeCubit extends Cubit<HomeState> {
     this._userCubit,
     this._workWithUsRepository,
     this._headerRepository,
+      this._campusRepository
   ) : super(const HomeState()) {
     fetchData();
     // encuesta();
@@ -52,6 +55,7 @@ class HomeCubit extends Cubit<HomeState> {
   final UserCubit _userCubit;
   final WorkWithUsRepository _workWithUsRepository;
   final HeaderRepository _headerRepository;
+  final CampusRepository _campusRepository;
 
   Future<void> fetchData() async {
     emit(state.copyWith(loading: true));
@@ -82,6 +86,7 @@ class HomeCubit extends Cubit<HomeState> {
     WorkWithUs? workWithUs;
     List<Header> header = [];
     HeroButtons? heroButtons;
+    List<CampusModel> campus = [];
 
     if (_userCubit.state.employees.isEmpty) {
       unawaited(_userCubit.getEmployeesAndEnterprises());
@@ -101,6 +106,7 @@ class HomeCubit extends Cubit<HomeState> {
       _brandsRepository.getBrands().then((v) => brands = v),
       _workWithUsRepository.getData().then((value) => workWithUs = value),
       _headerRepository.getHeaders().then((value) => header = value),
+      _campusRepository.getCampusHome().then((value) => campus = value),
     ]);
     contacDefault = heroButtons?.whatsapp ?? '';
     emit(state.copyWith(
@@ -115,6 +121,7 @@ class HomeCubit extends Cubit<HomeState> {
       brands: brands,
       workWithUs: workWithUs,
       headers: header,
+      campus: campus
     ));
   }
 
