@@ -26,7 +26,7 @@ class UrlDynamicProvider extends ChangeNotifier {
       url = 'https://desarrollo.transcose.com';
     }
     //url = 'https://transcose.oletecnologia.com';
-    url = 'https://desarrollo.transcose.com';
+    //url = 'https://desarrollo.transcose.com';
     //url = 'https://www.transcose.com';
     log('URL : $url');
     return url;

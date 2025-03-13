@@ -14,6 +14,7 @@ class MyContratsState with _$MyContratsState {
     @Default(<Contrats>[]) List<Contrats> crd,
     ContratoMillenium? mill,
     @Default(<ContratoPmp>[]) List<ContratoPmp> pmp,
+    @Default(<ContratoMillenium>[]) List<ContratoMillenium> millList,
     ContratoRappel? rappel,
     String? yearSelectMill,
     String? yearSelectRappel,

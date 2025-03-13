@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -75,6 +77,31 @@ class Millennium extends StatelessWidget {
                           }),
                     ),
                     spacerM,
+                    if(state.millList.isNotEmpty)...[
+                      const Text(
+                        'Seleccionar contrato',
+                        style: AppTextStyle.inputLabelStyle,
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: MyCustomDropdownButton(
+                            hint: DateTime.now().year.toString(),
+                            hintStyle: AppTextStyle.inputStyle,
+                            dropdownItems: state.millList.map((item) => DropdownMenuItem(
+                              value: item.codigoContrato,
+                              child: Text(item.tipoContrato ?? '',
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: AppTextStyle.inputStyle),
+                            ))
+                                .toList(),
+                            value: state.mill!.codigoContrato,
+                            onChanged: (value) {
+                              cubit.getMillContrato(value as int);
+                            }),
+                      ),
+                      spacerM,
+                    ],
                     if (state.loading)...[
                       const MyShimmer(
                         margin: EdgeInsets.zero,
@@ -88,7 +115,7 @@ class Millennium extends StatelessWidget {
                       ]else...[
                         Column(
                           children: [
-                            _ContractMillenium(state.mill!),
+                            contractMillenium(state.mill!),
                             if (state.mill?.serviciosContratados?.isNotEmpty ?? false)
                               _HiredServices(),
                             if (state.mill?.documentosFirmados?.isNotEmpty ?? false)
@@ -134,18 +161,8 @@ class Millennium extends StatelessWidget {
       },
     );
   }
-}
 
-class _ContractMillenium extends StatelessWidget {
-  const _ContractMillenium(
-    this.mill, {
-    Key? key,
-  }) : super(key: key);
-
-  final ContratoMillenium mill;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget contractMillenium(ContratoMillenium mill) {
     return Card(
       margin: const EdgeInsets.only(bottom: 20),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -154,241 +171,143 @@ class _ContractMillenium extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Información principal", style: AppTextStyle.h2Style),
-            // spacerM,
-            // DownloadPdfContracts(
-            //   onPressed: () {
-            //     return Future.delayed(const Duration(milliseconds: 2500));
-            //   },
-            //   // onPressed: () =>
-            //   //     getIt.get<ContratsRepository>().downloadPdfRappelDetalles(
-            //   //           codContrato: rappel.codigoContrato.toString(),
-            //   //           name: 'Rappel_${rappel.codigoContrato}.pdf',
-            //   //         ),
-            // ),
+            Text("Información principal", style: AppTextStyle.h2Style),
             spacerM,
             MyInput(
               key: const Key("Código del contrato"),
               label: "Código del contrato",
-              initialValue: mill.codigoContrato.toString(),
+              initialValue: null,
+              controller: TextEditingController(text: mill.codigoContrato.toString()),
               readOnly: true,
               variant: MyInputVariant.backgroundBlue,
             ),
             MyInput(
               key: const Key("Teléfono móvil"),
               label: "Teléfono móvil",
-              initialValue: mill.movil ?? '',
+              initialValue: null,
+              controller: TextEditingController(text: mill.movil ?? ''),
               readOnly: true,
               variant: MyInputVariant.backgroundBlue,
             ),
             MyInput(
               key: const Key("Email"),
               label: "Email",
-              initialValue: mill.email ?? '',
+              initialValue: null,
+              controller: TextEditingController(text: mill.email ?? ''),
               readOnly: true,
               variant: MyInputVariant.backgroundBlue,
             ),
             MyInput(
               key: const Key("Pack"),
               label: "Pack",
-              initialValue: mill.pack ?? '',
+              initialValue: null,
+              controller: TextEditingController(text: mill.pack ?? ''),
               readOnly: true,
               variant: MyInputVariant.backgroundBlue,
             ),
             MyInput(
               key: const Key("Valor de servicios"),
               label: "Valor de servicios",
-              initialValue: "${mill.valorServicios}€",
+              initialValue: null,
+              controller: TextEditingController(text: "${mill.valorServicios}€"),
               readOnly: true,
               variant: MyInputVariant.backgroundBlue,
             ),
             MyInput(
               key: const Key("Objetivo total"),
               label: "Objetivo total",
-              initialValue: "${mill.objetivoTotal}€",
+              initialValue: null,
+              controller: TextEditingController(text: "${mill.objetivoTotal}€"),
               readOnly: true,
               variant: MyInputVariant.backgroundBlue,
             ),
             MyInput(
               key: const Key("Cuota mensual"),
               label: "Cuota mensual",
-              initialValue: "${mill.cuotaMensual}€",
+              initialValue: null,
+              controller: TextEditingController(text: "${mill.cuotaMensual}€"),
               readOnly: true,
               variant: MyInputVariant.backgroundBlue,
             ),
             MyInput(
               key: const Key("Cuota anual"),
               label: "Cuota anual",
-              initialValue: "${mill.cuotaAnual}€",
+              initialValue: null,
+              controller: TextEditingController(text: "${mill.cuotaAnual}€"),
               readOnly: true,
               variant: MyInputVariant.backgroundBlue,
             ),
             MyInput(
               key: const Key("Cuota anual a devolver"),
               label: "Cuota anual a devolver",
-              initialValue: "${mill.cuotaAnualDevolver}€",
+              initialValue: null,
+              controller: TextEditingController(text: "${mill.cuotaAnualDevolver}€"),
               readOnly: true,
               variant: MyInputVariant.backgroundBlue,
             ),
             MyInput(
               key: const Key("Fecha inicio"),
               label: "Fecha de inicio",
-              initialValue: mill.fechaInicio ?? '',
+              initialValue: null,
+              controller: TextEditingController(text: mill.fechaInicio ?? ''),
               readOnly: true,
               variant: MyInputVariant.backgroundBlue,
             ),
             MyInput(
               key: const Key("Fecha de fin"),
               label: "Fecha de fin",
-              initialValue: mill.fechaFin ?? '',
+              initialValue: null,
+              controller: TextEditingController(text: mill.fechaFin ?? ''),
               readOnly: true,
               variant: MyInputVariant.backgroundBlue,
             ),
             MyInput(
               key: const Key("Fecha de baja"),
               label: "Fecha de baja",
-              initialValue: mill.fechaBaja ?? '',
+              initialValue: null,
+              controller: TextEditingController(text: mill.fechaBaja ?? ''),
               readOnly: true,
               variant: MyInputVariant.backgroundBlue,
             ),
             MyInput(
               key: const Key("Notas cliente"),
               label: "Notas cliente",
-              initialValue: mill.notasCliente ?? '',
+              initialValue: null,
+              controller: TextEditingController(text: mill.notasCliente ?? ''),
               readOnly: true,
               variant: MyInputVariant.backgroundBlue,
             ),
             MyInput(
               key: const Key("Contrato de cliente"),
               label: "Contrato de cliente",
-              initialValue: mill.clientesContrato ?? '',
+              initialValue: null,
+              controller: TextEditingController(text: mill.clientesContrato ?? ''),
               readOnly: true,
               variant: MyInputVariant.backgroundBlue,
             ),
             MyInput(
               key: const Key("Porcentaje de consecución"),
               label: "Porcentaje de consecución",
-              initialValue: "${mill.porcentajeConsecucion}%",
+              initialValue: null,
+              controller: TextEditingController(text: "${mill.porcentajeConsecucion}%"),
               readOnly: true,
               variant: MyInputVariant.backgroundBlue,
             ),
             MyInput(
               key: const Key("Firmado"),
               label: "Firmado",
-              initialValue: mill.firmado ?? '',
+              initialValue: null,
+              controller: TextEditingController(text: mill.firmado ?? ''),
               readOnly: true,
               variant: MyInputVariant.backgroundBlue,
             ),
-            // if (mill.serviciosContratados != null) ...[
-            //   spacerS,
-            //   const MyDivider(),
-            //   Visibility(
-            //     visible: mill.serviciosContratados!.isNotEmpty,
-            //     child: Text('SERVICIOS CONTRATADOS',
-            //         style: AppTextStyle.defaultStyle
-            //             .copyWith(fontWeight: FontWeight.bold)),
-            //   ),
-            //   const MyDivider()
-            // ],
-            // spacerS,
-            // if (mill.serviciosContratados != null)
-            //   ...mill.serviciosContratados!
-            //       .map((e) => Column(
-            //             crossAxisAlignment: CrossAxisAlignment.start,
-            //             children: [
-            //               Item(title: "SERVICIO", content: e.servicio ?? ''),
-            //               spacerS,
-            //               Row(
-            //                 children: [
-            //                   Expanded(
-            //                     child: Item(
-            //                         title: "SERVICIO DEL PACK",
-            //                         content: (e.servicioDelPack ?? false)
-            //                             ? 'SI'
-            //                             : 'NO'),
-            //                   ),
-            //                   Expanded(
-            //                     child: Item(
-            //                         title: "VALOR", content: '${e.valor}€'),
-            //                   ),
-            //                 ],
-            //               ),
-            //               spacerS,
-            //               Row(
-            //                 children: [
-            //                   Expanded(
-            //                     child: Item(
-            //                         title: "CANTIDAD",
-            //                         content: e.cantidad.toString()),
-            //                   ),
-            //                   Expanded(
-            //                     child: Item(
-            //                         title: "FECHA DE INICIO",
-            //                         content: e.fechaInicioServicio ?? ''),
-            //                   ),
-            //                 ],
-            //               ),
-            //               if (e != mill.serviciosContratados!.last)
-            //                 const MyDivider(),
-            //             ],
-            //           ))
-            //       .toList(),
-            // if (mill.documentosFirmados != null) ...[
-            //   spacerS,
-            //   const MyDivider(),
-            //   Visibility(
-            //     visible: mill.documentosFirmados!.isNotEmpty,
-            //     child: Text('DOCUMENTOS FIRMADOS',
-            //         style: AppTextStyle.defaultStyle
-            //             .copyWith(fontWeight: FontWeight.bold)),
-            //   ),
-            //   const MyDivider()
-            // ],
-            // spacerS,
-            // if (mill.documentosFirmados != null)
-            //   ...mill.documentosFirmados!
-            //       .map((e) => Column(
-            //             crossAxisAlignment: CrossAxisAlignment.start,
-            //             children: [
-            //               Row(
-            //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //                 children: [
-            //                   Item(
-            //                       title: "COD. DOCUMENTO",
-            //                       content: e.codigoDocumento?.toString() ?? ''),
-            //                   ButtonDownloadPdf(
-            //                     future: () => getIt
-            //                         .get<ContratsRepository>()
-            //                         .downloadPdfMill(
-            //                           anio: e.anio.toString(),
-            //                           codContrato:
-            //                               mill.codigoContrato.toString(),
-            //                           codDocumento:
-            //                               e.codigoDocumento.toString(),
-            //                           name: e.nombre ?? 'doc.pdf',
-            //                         ),
-            //                   ),
-            //                 ],
-            //               ),
-            //               spacerS,
-            //               Item(title: "NOMBRE", content: e.nombre ?? ''),
-            //               spacerS,
-            //               Item(
-            //                   title: "DESCRIPCIÓN",
-            //                   content: e.descripcion ?? ''),
-            //               spacerS,
-            //               Item(title: "AÑO", content: e.anio?.toString() ?? ''),
-            //               if (e != mill.documentosFirmados!.last)
-            //                 const MyDivider(),
-            //             ],
-            //           ))
-            //       .toList(),
           ],
         ),
       ),
     );
   }
 }
+
 
 class _HiredServices extends StatelessWidget {
   @override

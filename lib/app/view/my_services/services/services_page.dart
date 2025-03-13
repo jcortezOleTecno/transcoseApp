@@ -5,7 +5,6 @@ import 'package:vemare/app/data/campus_repository.dart';
 import 'package:vemare/app/data/header_repository.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/data/services_repository.dart';
-import 'package:vemare/app/data/shared_preferences_static.dart';
 import 'package:vemare/app/domain/model/campus_model.dart';
 import 'package:vemare/app/domain/utils/validators.dart';
 import 'package:vemare/app/domain/value_object/status.dart';
@@ -201,18 +200,18 @@ class _ServicesPageState extends State<ServicesPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                            child: Text(state.headers.isEmpty
-                                ? ''
-                                : state.headers
-                                .firstWhere((e) => e.module == "Course")
-                                .landing ??
-                                '',
-                              style: AppTextStyle.h1Style,
-                            ),
-                          ),
                           if(campusModel != null)...[
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                              child: Text(state.headers.isEmpty
+                                  ? ''
+                                  : state.headers
+                                  .firstWhere((e) => e.module == "Course")
+                                  .landing ??
+                                  '',
+                                style: AppTextStyle.h1Style,
+                              ),
+                            ),
                             SizedBox(
                               height: 225,
                               child: GestureDetector(
@@ -314,28 +313,26 @@ class _ServicesPageState extends State<ServicesPage> {
                           spacerS,
                           Row(
                             children: [
-                              if(SharedPreferencesLocal.transcoseAppSat)...[
-                                Expanded(
-                                    child: state.loading
-                                        ? const MyShimmer(
-                                      margin: EdgeInsets.zero,
-                                      height: 210,
-                                      borderRadius: 12,
-                                    )
-                                        : _CardWeHelpYou(
-                                      name:
-                                      state.weHelpYou?.sat?.title ?? '',
-                                      img:
-                                      state.weHelpYou?.sat?.image ?? '',
-                                      onTap: () {
-                                        Navigator.pushNamed(
-                                            context, SatIntroPage.route,
-                                            arguments:
-                                            state.weHelpYou?.sat);
-                                      },
-                                    )),
-                                spacerS,
-                              ],
+                              Expanded(
+                                  child: state.loading
+                                      ? const MyShimmer(
+                                          margin: EdgeInsets.zero,
+                                          height: 210,
+                                          borderRadius: 12,
+                                        )
+                                      : _CardWeHelpYou(
+                                          name:
+                                              state.weHelpYou?.sat?.title ?? '',
+                                          img:
+                                              state.weHelpYou?.sat?.image ?? '',
+                                          onTap: () {
+                                            Navigator.pushNamed(
+                                                context, SatIntroPage.route,
+                                                arguments:
+                                                    state.weHelpYou?.sat);
+                                          },
+                                        )),
+                              spacerS,
                               Expanded(
                                 child: state.loading
                                     ? const MyShimmer(

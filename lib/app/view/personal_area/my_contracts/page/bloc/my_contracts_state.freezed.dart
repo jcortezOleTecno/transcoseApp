@@ -20,6 +20,7 @@ mixin _$MyContratsState {
   List<Contrats> get crd => throw _privateConstructorUsedError;
   ContratoMillenium? get mill => throw _privateConstructorUsedError;
   List<ContratoPmp> get pmp => throw _privateConstructorUsedError;
+  List<ContratoMillenium> get millList => throw _privateConstructorUsedError;
   ContratoRappel? get rappel => throw _privateConstructorUsedError;
   String? get yearSelectMill => throw _privateConstructorUsedError;
   String? get yearSelectRappel => throw _privateConstructorUsedError;
@@ -53,6 +54,7 @@ abstract class $MyContratsStateCopyWith<$Res> {
       List<Contrats> crd,
       ContratoMillenium? mill,
       List<ContratoPmp> pmp,
+      List<ContratoMillenium> millList,
       ContratoRappel? rappel,
       String? yearSelectMill,
       String? yearSelectRappel,
@@ -85,6 +87,7 @@ class _$MyContratsStateCopyWithImpl<$Res, $Val extends MyContratsState>
     Object? crd = null,
     Object? mill = freezed,
     Object? pmp = null,
+    Object? millList = null,
     Object? rappel = freezed,
     Object? yearSelectMill = freezed,
     Object? yearSelectRappel = freezed,
@@ -116,6 +119,10 @@ class _$MyContratsStateCopyWithImpl<$Res, $Val extends MyContratsState>
           ? _value.pmp
           : pmp // ignore: cast_nullable_to_non_nullable
               as List<ContratoPmp>,
+      millList: null == millList
+          ? _value.millList
+          : millList // ignore: cast_nullable_to_non_nullable
+              as List<ContratoMillenium>,
       rappel: freezed == rappel
           ? _value.rappel
           : rappel // ignore: cast_nullable_to_non_nullable
@@ -185,6 +192,7 @@ abstract class _$$_MyContratsStateCopyWith<$Res>
       List<Contrats> crd,
       ContratoMillenium? mill,
       List<ContratoPmp> pmp,
+      List<ContratoMillenium> millList,
       ContratoRappel? rappel,
       String? yearSelectMill,
       String? yearSelectRappel,
@@ -215,6 +223,7 @@ class __$$_MyContratsStateCopyWithImpl<$Res>
     Object? crd = null,
     Object? mill = freezed,
     Object? pmp = null,
+    Object? millList = null,
     Object? rappel = freezed,
     Object? yearSelectMill = freezed,
     Object? yearSelectRappel = freezed,
@@ -246,6 +255,10 @@ class __$$_MyContratsStateCopyWithImpl<$Res>
           ? _value._pmp
           : pmp // ignore: cast_nullable_to_non_nullable
               as List<ContratoPmp>,
+      millList: null == millList
+          ? _value._millList
+          : millList // ignore: cast_nullable_to_non_nullable
+              as List<ContratoMillenium>,
       rappel: freezed == rappel
           ? _value.rappel
           : rappel // ignore: cast_nullable_to_non_nullable
@@ -310,6 +323,7 @@ class _$_MyContratsState implements _MyContratsState {
       final List<Contrats> crd = const <Contrats>[],
       this.mill,
       final List<ContratoPmp> pmp = const <ContratoPmp>[],
+      final List<ContratoMillenium> millList = const <ContratoMillenium>[],
       this.rappel,
       this.yearSelectMill,
       this.yearSelectRappel,
@@ -324,7 +338,8 @@ class _$_MyContratsState implements _MyContratsState {
       this.dataPMPFiltrado,
       this.dataCRDFiltrado})
       : _crd = crd,
-        _pmp = pmp;
+        _pmp = pmp,
+        _millList = millList;
 
   @override
   @JsonKey()
@@ -347,6 +362,15 @@ class _$_MyContratsState implements _MyContratsState {
     if (_pmp is EqualUnmodifiableListView) return _pmp;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_pmp);
+  }
+
+  final List<ContratoMillenium> _millList;
+  @override
+  @JsonKey()
+  List<ContratoMillenium> get millList {
+    if (_millList is EqualUnmodifiableListView) return _millList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_millList);
   }
 
   @override
@@ -378,7 +402,7 @@ class _$_MyContratsState implements _MyContratsState {
 
   @override
   String toString() {
-    return 'MyContratsState(loading: $loading, crd: $crd, mill: $mill, pmp: $pmp, rappel: $rappel, yearSelectMill: $yearSelectMill, yearSelectRappel: $yearSelectRappel, filtersCRD: $filtersCRD, filtersMILL: $filtersMILL, filtersRAPPEL: $filtersRAPPEL, dataRappels: $dataRappels, dataRappelsFiltrado: $dataRappelsFiltrado, dataMillennium: $dataMillennium, dataMillenniumFiltrado: $dataMillenniumFiltrado, dataMillenniumHiredServices: $dataMillenniumHiredServices, dataPMPFiltrado: $dataPMPFiltrado, dataCRDFiltrado: $dataCRDFiltrado)';
+    return 'MyContratsState(loading: $loading, crd: $crd, mill: $mill, pmp: $pmp, millList: $millList, rappel: $rappel, yearSelectMill: $yearSelectMill, yearSelectRappel: $yearSelectRappel, filtersCRD: $filtersCRD, filtersMILL: $filtersMILL, filtersRAPPEL: $filtersRAPPEL, dataRappels: $dataRappels, dataRappelsFiltrado: $dataRappelsFiltrado, dataMillennium: $dataMillennium, dataMillenniumFiltrado: $dataMillenniumFiltrado, dataMillenniumHiredServices: $dataMillenniumHiredServices, dataPMPFiltrado: $dataPMPFiltrado, dataCRDFiltrado: $dataCRDFiltrado)';
   }
 
   @override
@@ -390,6 +414,7 @@ class _$_MyContratsState implements _MyContratsState {
             const DeepCollectionEquality().equals(other._crd, _crd) &&
             (identical(other.mill, mill) || other.mill == mill) &&
             const DeepCollectionEquality().equals(other._pmp, _pmp) &&
+            const DeepCollectionEquality().equals(other._millList, _millList) &&
             (identical(other.rappel, rappel) || other.rappel == rappel) &&
             (identical(other.yearSelectMill, yearSelectMill) ||
                 other.yearSelectMill == yearSelectMill) &&
@@ -426,6 +451,7 @@ class _$_MyContratsState implements _MyContratsState {
       const DeepCollectionEquality().hash(_crd),
       mill,
       const DeepCollectionEquality().hash(_pmp),
+      const DeepCollectionEquality().hash(_millList),
       rappel,
       yearSelectMill,
       yearSelectRappel,
@@ -453,6 +479,7 @@ abstract class _MyContratsState implements MyContratsState {
       final List<Contrats> crd,
       final ContratoMillenium? mill,
       final List<ContratoPmp> pmp,
+      final List<ContratoMillenium> millList,
       final ContratoRappel? rappel,
       final String? yearSelectMill,
       final String? yearSelectRappel,
@@ -475,6 +502,8 @@ abstract class _MyContratsState implements MyContratsState {
   ContratoMillenium? get mill;
   @override
   List<ContratoPmp> get pmp;
+  @override
+  List<ContratoMillenium> get millList;
   @override
   ContratoRappel? get rappel;
   @override

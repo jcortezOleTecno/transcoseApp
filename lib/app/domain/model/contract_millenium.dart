@@ -22,6 +22,7 @@ class ContratoMillenium {
     this.notasCliente,
     this.clientesContrato,
     this.porcentajeConsecucion,
+    this.tipoContrato,
     this.serviciosContratados,
     this.documentosFirmados,
   });
@@ -46,6 +47,7 @@ class ContratoMillenium {
   String? notasCliente;
   String? clientesContrato;
   String? porcentajeConsecucion;
+  String? tipoContrato;
   List<ServiciosContratado>? serviciosContratados;
   List<DocumentosFirmado>? documentosFirmados;
 
@@ -70,6 +72,7 @@ class ContratoMillenium {
         notasCliente: json["notas_cliente"] as String?,
         clientesContrato: json["clientes_contrato"] as String?,
         porcentajeConsecucion: json["porcentaje_consecucion"] as String?,
+        tipoContrato: json["tipo_contrato"] as String?,
         serviciosContratados: json["servicios_contratados"] == null
             ? []
             : List<ServiciosContratado>.from(json["servicios_contratados"]!
@@ -101,6 +104,7 @@ class ContratoMillenium {
         "notas_cliente": notasCliente,
         "clientes_contrato": clientesContrato,
         "porcentaje_consecucion": porcentajeConsecucion,
+        "tipo_contrato": tipoContrato,
         "servicios_contratados": serviciosContratados == null
             ? []
             : List<dynamic>.from(serviciosContratados!.map((x) => x.toJson())),

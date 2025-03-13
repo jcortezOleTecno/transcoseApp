@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:vemare/app/data/contracts_repository.dart';
 import 'package:vemare/app/domain/model/contract_millenium.dart';
@@ -21,7 +23,7 @@ class MyContratsCubit extends Cubit<MyContratsState> {
   Future<void> getContrats({Filter? filter}) async {
     emit(state.copyWith(loading: true));
     List<Contrats> crd = [];
-    ContratoMillenium? mill;
+    List<ContratoMillenium> mill = [];
     List<ContratoPmp> pmp = [];
     ContratoRappel? rappel;
 
@@ -34,25 +36,21 @@ class MyContratsCubit extends Cubit<MyContratsState> {
       _contratsRepository.getContratReppel().then((value) => rappel = value),
     ]);
 
+    ContratoMillenium? millSelected = mill.isEmpty ? null : mill[0];
+
     emit(state.copyWith(
       crd: crd,
-      mill: mill,
+      mill: millSelected,
+      millList: mill,
       pmp: pmp,
       rappel: rappel,
       dataRappels: MyDataRappels(rappel?.documentosFirmados ?? [],
           codContrato: rappel?.codigoContrato?.toString() ?? '0'),
       dataRappelsFiltrado: MyDataRappels(rappel?.documentosFirmados ?? [],
           codContrato: rappel?.codigoContrato?.toString() ?? '0'),
-      dataMillennium: MyDataMillennium(
-        mill?.documentosFirmados ?? [],
-        contrato: mill,
-      ),
-      dataMillenniumFiltrado: MyDataMillennium(
-        mill?.documentosFirmados ?? [],
-        contrato: mill,
-      ),
-      dataMillenniumHiredServices:
-          MyDataMillenniumHiredServices(mill?.serviciosContratados ?? []),
+      dataMillennium: MyDataMillennium(mill.isEmpty ? [] : (millSelected!.documentosFirmados ?? []),contrato: mill.isEmpty ? null : millSelected!,),
+      dataMillenniumFiltrado: MyDataMillennium(mill.isEmpty ? [] : (millSelected!.documentosFirmados ?? []),contrato: mill.isEmpty ? null : millSelected!,),
+      dataMillenniumHiredServices: MyDataMillenniumHiredServices(mill.isEmpty ? [] : (millSelected!.serviciosContratados ?? [])),
       dataPMPFiltrado: MyDataPMP(pmp),
       dataCRDFiltrado: MyDataCRD(crd),
       loading: false,
@@ -70,13 +68,41 @@ class MyContratsCubit extends Cubit<MyContratsState> {
   }
 
   Future<void> getMill(String year) async {
-    emit(state.copyWith(yearSelectMill: year, loading: true));
-    var data = await _contratsRepository.getContratMill(anio: year);
     emit(state.copyWith(
-      mill: data,
+        yearSelectMill: year,
+        loading: true,
+      millList: [],
+    ));
+    List<ContratoMillenium> data = await _contratsRepository.getContratMill(anio: year);
+    emit(state.copyWith(
+      mill: data.isEmpty ? null : data[0],
+      millList: data,
       loading: false,
     ));
   }
+
+  Future<void> getMillContrato(int idContrato) async {
+    emit(state.copyWith(
+      loading: true,
+    ));
+
+    ContratoMillenium? contratoMillenium;
+    state.millList.forEach((element) {
+      if(element.codigoContrato! == idContrato){
+        contratoMillenium = element;
+      }
+    });
+
+    emit(state.copyWith(
+      mill: contratoMillenium,
+      dataMillennium: MyDataMillennium(contratoMillenium!.documentosFirmados ?? [],contrato: contratoMillenium,),
+      dataMillenniumFiltrado: MyDataMillennium(contratoMillenium!.documentosFirmados ?? [],contrato: contratoMillenium,),
+      dataMillenniumHiredServices: MyDataMillenniumHiredServices(contratoMillenium!.serviciosContratados ?? []),
+      loading: false,
+    ));
+  }
+
+
 
   Future<void> getRappel(String year) async {
     emit(state.copyWith(yearSelectRappel: year, loading: true));

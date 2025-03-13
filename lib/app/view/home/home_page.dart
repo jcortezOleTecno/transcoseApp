@@ -1189,39 +1189,35 @@ class _Promociones extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        BlocBuilder<HomeCubit, HomeState>(
-          builder: (context, state) {
-            return Padding(
+
+    return BlocBuilder<HomeCubit, HomeState>(
+      builder: (context, state){
+        return (state.loading) ?
+        const MyShimmer(
+          borderRadius: 4,
+          height: 148,
+        ) :
+        state.promotions.isEmpty ? Container() : Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Text(
                 state.headers.isEmpty
                     ? ''
                     : state.headers
-                            .firstWhere((e) => e.module == "Promotion")
-                            .landing ??
-                        '',
+                    .firstWhere((e) => e.module == "Promotion")
+                    .landing ??
+                    '',
                 style: AppTextStyle.h1Style,
               ),
-            );
-          },
-        ),
-        BlocBuilder<HomeCubit, HomeState>(
-          builder: (context, state) {
-            if (state.loading) {
-              return const MyShimmer(
-                borderRadius: 4,
-                height: 148,
-              );
-            }
-            return SizedBox(
+            ),
+            SizedBox(
               height: 140,
               child: PageView.builder(
                 itemCount: state.promotions.length,
                 controller:
-                    PageController(initialPage: 0, viewportFraction: 0.9),
+                PageController(initialPage: 0, viewportFraction: 0.9),
                 itemBuilder: (context, i) => MySingleCard(
                   title: state.promotions[i].name ?? '',
                   isHtml: false,
@@ -1247,32 +1243,34 @@ class _Promociones extends StatelessWidget {
                   },
                 ),
               ),
-            );
-          },
-        ),
-        spacerM,
-        Center(
-          child: TextButton.icon(
-            onPressed: () {
-              if(!LocalDataRepository().isLogged){
-                Navigator.pushNamedAndRemoveUntil(
-                    context, LoginPage.route, (route) => false);
-              }else{
-                Navigator.pushNamed(context, PromotionsPage.route);
-              }
-            },
-            label: Image.asset(
-              'assets/icons/arrow_next.png',
-              scale: 2,
             ),
-            icon: const Text(
-              'Ir a todas',
-              style: AppTextStyle.linkStyle,
+            spacerM,
+            Center(
+              child: TextButton.icon(
+                onPressed: () {
+                  if(!LocalDataRepository().isLogged){
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, LoginPage.route, (route) => false);
+                  }else{
+                    Navigator.pushNamed(context, PromotionsPage.route);
+                  }
+                },
+                label: Image.asset(
+                  'assets/icons/arrow_next.png',
+                  scale: 2,
+                ),
+                icon: const Text(
+                  'Ir a todas',
+                  style: AppTextStyle.linkStyle,
+                ),
+              ),
             ),
-          ),
-        ),
-      ],
+          ],
+        );
+      }
     );
+
+
   }
   Future<dynamic> _callDialog(BuildContext context, {required String number}) {
     return showCupertinoDialog(

@@ -83,15 +83,17 @@ class ContratsRepository {
     }
   }
 
-  Future<ContratoMillenium?> getContratMill({String? anio}) async {
+  Future<List<ContratoMillenium>> getContratMill({String? anio}) async {
     try {
       final dynamic res = await _apiClient.postRequest(
         '$BASE_API_URL/api/mi-cuenta/contratos_mll',
         body: <String, dynamic>{"year": anio ?? DateTime.now().year.toString()},
       );
-      return ContratoMillenium.fromJson(res["contrato_mll"]);
+      return (res["contratos_mll"] as List).map((e) => ContratoMillenium.fromJson(e)).toList();
+      // return ContratoMillenium.fromJson(res["contrato_mll"]);
+      // return (res["contratos_pmp"] as List).map(ContratoPmp.fromJson).toList();
     } catch (e) {
-      return null;
+      return [];
     }
   }
 
@@ -433,7 +435,7 @@ class ContratsRepository {
   }
 
   Future<bool> postAgregarProductoDevolucion({required Map<String,dynamic> body}) async {
-    try {
+    try {///TODO URL
       final dynamic res = await _apiClient.postRequest(
           '$BASE_API_URL/api/mi-cuenta/mis_devoluciones/agregar-producto-devolucion',
           body: body,
@@ -460,7 +462,7 @@ class ContratsRepository {
   }
 
   Future<bool> postRealizarPedido({required Map<String,dynamic> body}) async {
-    try {
+    try {///TODO URL
       final dynamic res = await _apiClient.postRequest(
           '$BASE_API_URL/api/mi-cuenta/mis_devoluciones/realizar_pedido',
           body: body,
