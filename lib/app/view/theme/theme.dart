@@ -64,13 +64,15 @@ abstract class AppTheme {
 
   static TextTheme get textTheme {
     return TextTheme(
-      headline1: AppTextStyle.h1Style,
-      headline2: AppTextStyle.h1Style.copyWith(fontSize: 20),
-      headline3: AppTextStyle.h1Style.copyWith(fontSize: 16),
-      headline4: AppTextStyle.h1Style.copyWith(fontSize: 14),
-      bodyText1: AppTextStyle.labelStyle,
-      bodyText2: AppTextStyle.labelStyle,
-      button: AppTextStyle.buttonTextStyle,
+      headlineLarge: AppTextStyle.h1Style.copyWith(fontSize: 20),
+      headlineMedium: AppTextStyle.h1Style.copyWith(fontSize: 16),
+      headlineSmall: AppTextStyle.h1Style.copyWith(fontSize: 14),
+      bodyLarge: AppTextStyle.labelStyle,
+      bodyMedium: AppTextStyle.labelStyle,
+      bodySmall: AppTextStyle.labelStyle,
+      displayLarge: AppTextStyle.buttonTextStyle,
+      displayMedium: AppTextStyle.buttonTextStyle,
+      displaySmall: AppTextStyle.buttonTextStyle,
     ).apply(
       bodyColor: AppColor.black,
       fontFamily: 'NunitoSans',

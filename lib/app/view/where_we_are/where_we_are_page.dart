@@ -378,7 +378,7 @@ class _MapState extends State<_Map> {
                     mapController: controller,
                     options: MapOptions(
                       center: state.location,
-                      absorbPanEventsOnScrollables: true,
+                      //absorbPanEventsOnScrollables: true,
                       enableScrollWheel: false,
                       maxZoom: 25,
                       minZoom: 5,
