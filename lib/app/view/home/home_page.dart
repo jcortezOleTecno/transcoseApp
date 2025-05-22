@@ -562,7 +562,7 @@ class _PageB extends StatelessWidget {
               const _ProductsVemare(),
               const _Promociones(),
               const _Servicios(),
-              if(!state.loading && LocalDataRepository().isLogged)...[
+              if(!state.loading && LocalDataRepository().isLogged && state.campus.isNotEmpty)...[
                 const _Campus(),
               ],
               spacerL,

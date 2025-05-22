@@ -15,9 +15,25 @@ class EventsVemareCubit extends Cubit<EventsVemareState> {
 
   Future<void> fetchData() async {
     emit(state.copyWith(loading: true));
-    List<EventsHeld> eventsVemare = await _eventsRepository.getEventsVemare();
+    EventsHeldData eventsVemare = await _eventsRepository.getEventsVemare();
     HeaderEvents header = await _eventsRepository.getHeaderEventsHeld();
     emit(state.copyWith(
-        eventsVemare: eventsVemare, header: header, loading: false));
+        eventsVemare: eventsVemare.data,
+        header: header,
+        loading: false,
+        yearSelected: eventsVemare.yearSelected,
+        yearsList: eventsVemare.years
+    ));
+  }
+
+  Future changeSelectedYear({required String year}) async {
+    emit(state.copyWith(loading: true));
+    EventsHeldData eventsVemare = await _eventsRepository.getEventsVemare(year: year);
+    emit(state.copyWith(
+        eventsVemare: eventsVemare.data,
+        loading: false,
+        yearSelected: eventsVemare.yearSelected,
+        yearsList: eventsVemare.years
+    ));
   }
 }

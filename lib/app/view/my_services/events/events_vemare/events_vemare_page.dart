@@ -4,6 +4,7 @@ import 'package:vemare/app/data/events_repository.dart';
 import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
+import 'package:vemare/app/view/_components/my_dropdown_button/my_drop_down_button.dart';
 import 'package:vemare/app/view/_components/my_filter_image/my_filter_image.dart';
 import 'package:vemare/app/view/_components/my_network_image/my_network_image.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
@@ -68,7 +69,7 @@ class EventsVemarePage extends StatelessWidget {
                         spacerS,
                         Text(state.header?.description ?? '',
                             style: AppTextStyle.defaultStyle),
-                        spacerXL,
+                        spacerS,
                       ],
                     );
                   },
@@ -76,6 +77,7 @@ class EventsVemarePage extends StatelessWidget {
               ),
               BlocBuilder<EventsVemareCubit, EventsVemareState>(
                 builder: (context, state) {
+                  final cubit = context.read<EventsVemareCubit>();
                   if (state.loading) {
                     return const Column(
                       children: [
@@ -92,45 +94,76 @@ class EventsVemarePage extends StatelessWidget {
                     );
                   }
                   return Column(
-                    children: state.eventsVemare
-                        .map((e) => Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 15),
-                              child: _MyEvents(
-                                  borderRadius: BorderRadius.circular(12),
-                                  img: (e.image != null)
-                                      ? MyNetworkImage(
-                                          image: e.image!,
-                                          fit: BoxFit.cover,
-                                          height: 220,
-                                        )
-                                      : Image.asset(
-                                          'assets/imgs/no_image.jpg',
-                                          fit: BoxFit.cover,
-                                        ),
-                                  title: e.title ?? '',
-                                  onTap: () {
-                                    if (LocalDataRepository().isLogged) {
-                                      Navigator.pushNamed(
-                                          context, EventDetailPage.route,
-                                          arguments: e);
-                                    } else {
-                                      Navigator.pushNamed(
-                                        context,
-                                        LoginPage.route,
-                                        arguments:
-                                            'Para acceder a la información de los eventos tienes que iniciar sesión.',
-                                      ).then((_) {
-                                        if (LocalDataRepository().isLogged) {
-                                          Navigator.pushNamed(
-                                              context, EventDetailPage.route,
-                                              arguments: e);
-                                        }
-                                      });
-                                    }
-                                  }),
-                            ))
-                        .toList(),
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 15),
+                        width: double.infinity,
+                        child: const Text(
+                          'Seleccionar año',
+                          style: AppTextStyle.defaultStyle,
+                          textAlign: TextAlign.left,
+                        ),
+                      ),
+                      spacerXs,
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 15),
+                        width: double.infinity,
+                        child: MyCustomDropdownButton(
+                            hint: DateTime.now().year.toString(),
+                            hintStyle: AppTextStyle.inputStyle,
+                            dropdownItems: state .yearsList.map((item) => DropdownMenuItem(
+                              value: item,
+                              child: Text(item,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: AppTextStyle.inputStyle),
+                            )).toList(),
+                            value: state.yearSelected,
+                            onChanged: (value) {
+                              cubit.changeSelectedYear(year: value!);
+                            }),
+                      ),
+                      spacerM,
+                      ...state.eventsVemare
+                          .map((e) => Padding(
+                        padding:
+                        const EdgeInsets.symmetric(horizontal: 15),
+                        child: _MyEvents(
+                            borderRadius: BorderRadius.circular(12),
+                            img: (e.image != null)
+                                ? MyNetworkImage(
+                              image: e.image!,
+                              fit: BoxFit.cover,
+                              height: 220,
+                            )
+                                : Image.asset(
+                              'assets/imgs/no_image.jpg',
+                              fit: BoxFit.cover,
+                            ),
+                            title: e.title ?? '',
+                            onTap: () {
+                              if (LocalDataRepository().isLogged) {
+                                Navigator.pushNamed(
+                                    context, EventDetailPage.route,
+                                    arguments: e);
+                              } else {
+                                Navigator.pushNamed(
+                                  context,
+                                  LoginPage.route,
+                                  arguments:
+                                  'Para acceder a la información de los eventos tienes que iniciar sesión.',
+                                ).then((_) {
+                                  if (LocalDataRepository().isLogged) {
+                                    Navigator.pushNamed(
+                                        context, EventDetailPage.route,
+                                        arguments: e);
+                                  }
+                                });
+                              }
+                            }),
+                      ))
+                          .toList()
+                    ],
                   );
                 },
               ),

@@ -9,7 +9,9 @@ class EventsVemareState with _$EventsVemareState {
   const factory EventsVemareState({
     @Default(false) bool loading,
     @Default(<EventsHeld>[]) List<EventsHeld> eventsVemare,
+    @Default(<String>[]) List<String> yearsList,
     HeaderEvents? header,
+    String? yearSelected,
   }) = _EventsVemareState;
   const EventsVemareState._();
 }

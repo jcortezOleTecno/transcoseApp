@@ -1,5 +1,31 @@
 import 'package:vemare/app/domain/model/galery.dart';
 
+class EventsHeldData {
+  EventsHeldData({
+    this.data = const [],
+    this.years = const [],
+    this.yearSelected = '',
+  });
+
+  List<EventsHeld> data;
+  List<String> years;
+  String yearSelected;
+
+  factory EventsHeldData.fromJson(dynamic json) => EventsHeldData(
+    yearSelected: json["yearSelected"].toString(),
+    data: json["data"] == null ? [] : List<EventsHeld>.from(json["data"]!.map((x) => EventsHeld.fromJson(x))),
+    years: json["years"] == null ? [] : List<String>.from(json["years"]!.map((x) => x.toString())),
+  );
+
+// Map<String, dynamic> toJson() => {
+//   "image": image,
+//   "gallery": gallery == null ? []
+//       : List<dynamic>.from(gallery!.map((x) => x.toJson())),
+//   "videos": videos == null ? []
+//       : List<dynamic>.from(videos!.map((x) => x.toJson())),
+// };
+}
+
 class EventsHeld {
   EventsHeld({
     this.id,

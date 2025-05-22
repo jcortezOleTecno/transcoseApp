@@ -18,7 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$EventsVemareState {
   bool get loading => throw _privateConstructorUsedError;
   List<EventsHeld> get eventsVemare => throw _privateConstructorUsedError;
+  List<String> get yearsList => throw _privateConstructorUsedError;
   HeaderEvents? get header => throw _privateConstructorUsedError;
+  String? get yearSelected => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $EventsVemareStateCopyWith<EventsVemareState> get copyWith =>
@@ -32,7 +34,11 @@ abstract class $EventsVemareStateCopyWith<$Res> {
       _$EventsVemareStateCopyWithImpl<$Res, EventsVemareState>;
   @useResult
   $Res call(
-      {bool loading, List<EventsHeld> eventsVemare, HeaderEvents? header});
+      {bool loading,
+      List<EventsHeld> eventsVemare,
+      List<String> yearsList,
+      HeaderEvents? header,
+      String? yearSelected});
 }
 
 /// @nodoc
@@ -50,7 +56,9 @@ class _$EventsVemareStateCopyWithImpl<$Res, $Val extends EventsVemareState>
   $Res call({
     Object? loading = null,
     Object? eventsVemare = null,
+    Object? yearsList = null,
     Object? header = freezed,
+    Object? yearSelected = freezed,
   }) {
     return _then(_value.copyWith(
       loading: null == loading
@@ -61,10 +69,18 @@ class _$EventsVemareStateCopyWithImpl<$Res, $Val extends EventsVemareState>
           ? _value.eventsVemare
           : eventsVemare // ignore: cast_nullable_to_non_nullable
               as List<EventsHeld>,
+      yearsList: null == yearsList
+          ? _value.yearsList
+          : yearsList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       header: freezed == header
           ? _value.header
           : header // ignore: cast_nullable_to_non_nullable
               as HeaderEvents?,
+      yearSelected: freezed == yearSelected
+          ? _value.yearSelected
+          : yearSelected // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -78,7 +94,11 @@ abstract class _$$_EventsVemareStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {bool loading, List<EventsHeld> eventsVemare, HeaderEvents? header});
+      {bool loading,
+      List<EventsHeld> eventsVemare,
+      List<String> yearsList,
+      HeaderEvents? header,
+      String? yearSelected});
 }
 
 /// @nodoc
@@ -94,7 +114,9 @@ class __$$_EventsVemareStateCopyWithImpl<$Res>
   $Res call({
     Object? loading = null,
     Object? eventsVemare = null,
+    Object? yearsList = null,
     Object? header = freezed,
+    Object? yearSelected = freezed,
   }) {
     return _then(_$_EventsVemareState(
       loading: null == loading
@@ -105,10 +127,18 @@ class __$$_EventsVemareStateCopyWithImpl<$Res>
           ? _value._eventsVemare
           : eventsVemare // ignore: cast_nullable_to_non_nullable
               as List<EventsHeld>,
+      yearsList: null == yearsList
+          ? _value._yearsList
+          : yearsList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       header: freezed == header
           ? _value.header
           : header // ignore: cast_nullable_to_non_nullable
               as HeaderEvents?,
+      yearSelected: freezed == yearSelected
+          ? _value.yearSelected
+          : yearSelected // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -119,8 +149,11 @@ class _$_EventsVemareState extends _EventsVemareState {
   const _$_EventsVemareState(
       {this.loading = false,
       final List<EventsHeld> eventsVemare = const <EventsHeld>[],
-      this.header})
+      final List<String> yearsList = const <String>[],
+      this.header,
+      this.yearSelected})
       : _eventsVemare = eventsVemare,
+        _yearsList = yearsList,
         super._();
 
   @override
@@ -135,12 +168,23 @@ class _$_EventsVemareState extends _EventsVemareState {
     return EqualUnmodifiableListView(_eventsVemare);
   }
 
+  final List<String> _yearsList;
+  @override
+  @JsonKey()
+  List<String> get yearsList {
+    if (_yearsList is EqualUnmodifiableListView) return _yearsList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_yearsList);
+  }
+
   @override
   final HeaderEvents? header;
+  @override
+  final String? yearSelected;
 
   @override
   String toString() {
-    return 'EventsVemareState(loading: $loading, eventsVemare: $eventsVemare, header: $header)';
+    return 'EventsVemareState(loading: $loading, eventsVemare: $eventsVemare, yearsList: $yearsList, header: $header, yearSelected: $yearSelected)';
   }
 
   @override
@@ -151,12 +195,21 @@ class _$_EventsVemareState extends _EventsVemareState {
             (identical(other.loading, loading) || other.loading == loading) &&
             const DeepCollectionEquality()
                 .equals(other._eventsVemare, _eventsVemare) &&
-            (identical(other.header, header) || other.header == header));
+            const DeepCollectionEquality()
+                .equals(other._yearsList, _yearsList) &&
+            (identical(other.header, header) || other.header == header) &&
+            (identical(other.yearSelected, yearSelected) ||
+                other.yearSelected == yearSelected));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, loading,
-      const DeepCollectionEquality().hash(_eventsVemare), header);
+  int get hashCode => Object.hash(
+      runtimeType,
+      loading,
+      const DeepCollectionEquality().hash(_eventsVemare),
+      const DeepCollectionEquality().hash(_yearsList),
+      header,
+      yearSelected);
 
   @JsonKey(ignore: true)
   @override
@@ -170,7 +223,9 @@ abstract class _EventsVemareState extends EventsVemareState {
   const factory _EventsVemareState(
       {final bool loading,
       final List<EventsHeld> eventsVemare,
-      final HeaderEvents? header}) = _$_EventsVemareState;
+      final List<String> yearsList,
+      final HeaderEvents? header,
+      final String? yearSelected}) = _$_EventsVemareState;
   const _EventsVemareState._() : super._();
 
   @override
@@ -178,7 +233,11 @@ abstract class _EventsVemareState extends EventsVemareState {
   @override
   List<EventsHeld> get eventsVemare;
   @override
+  List<String> get yearsList;
+  @override
   HeaderEvents? get header;
+  @override
+  String? get yearSelected;
   @override
   @JsonKey(ignore: true)
   _$$_EventsVemareStateCopyWith<_$_EventsVemareState> get copyWith =>

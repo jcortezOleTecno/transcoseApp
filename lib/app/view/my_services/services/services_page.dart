@@ -193,7 +193,7 @@ class _ServicesPageState extends State<ServicesPage> {
                           })
                               .toList(),
                         ),
-                  if(!state.loading && LocalDataRepository().isLogged)...[
+                  if(!state.loading && LocalDataRepository().isLogged && state.campus.isNotEmpty)...[
                     spacerS,
                     SizedBox(
                       width: MediaQuery.of(context).size.width,

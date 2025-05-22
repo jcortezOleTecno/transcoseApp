@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/services.dart';
 import 'package:vemare/app/data/_api_classes.dart';
@@ -22,10 +23,12 @@ class EventsRepository {
 
   EventsRepository(this._apiClient);
 
-  Future<List<EventsHeld>> getEventsVemare() async {
-    final dynamic res =
-        await _apiClient.getRequest('$BASE_API_URL/api/eventos_vemare');
-    return (res as List).map(EventsHeld.fromJson).toList();
+  Future<EventsHeldData> getEventsVemare({String? year}) async {
+    final dynamic res = await _apiClient.getRequest(
+        '$BASE_API_URL/api/eventos_vemare',
+        params: {"anio": year ?? ''}
+    );
+    return EventsHeldData.fromJson(res);
   }
 
   Future<List<Events>> getEvents() async {
