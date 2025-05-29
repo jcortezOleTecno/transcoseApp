@@ -145,7 +145,7 @@ class EventsVemarePage extends StatelessWidget {
                               if (LocalDataRepository().isLogged) {
                                 Navigator.pushNamed(
                                     context, EventDetailPage.route,
-                                    arguments: e);
+                                    arguments: {'event' : e, 'anio' : state.yearSelected.toString()},);
                               } else {
                                 Navigator.pushNamed(
                                   context,
@@ -156,7 +156,7 @@ class EventsVemarePage extends StatelessWidget {
                                   if (LocalDataRepository().isLogged) {
                                     Navigator.pushNamed(
                                         context, EventDetailPage.route,
-                                        arguments: e);
+                                        arguments: {'event' : e, 'anio' : state.yearSelected.toString()},);
                                   }
                                 });
                               }

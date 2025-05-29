@@ -13,6 +13,7 @@ import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_back_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_network_image/my_network_image.dart';
+import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/_components/my_video_player/my_video_player.dart';
 import 'package:vemare/app/view/my_services/events/events_vemare/widgets/event_detail_images_page.dart';
@@ -23,11 +24,10 @@ import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/config/service_locator.dart';
 
 class EventDetailPage extends StatefulWidget {
-  const EventDetailPage(this.event, {super.key});
+  const EventDetailPage(this.event, {super.key, required this.anio});
   static const route = '/event_detail_page';
-
   final EventsHeld event;
-
+  final String anio;
   @override
   State<EventDetailPage> createState() => _EventDetailPageState();
 }
@@ -52,8 +52,8 @@ class _EventDetailPageState extends State<EventDetailPage> {
     return ChangeNotifierProvider(
         create: (context1) => PaginationLogic(
             contextController: context,
-            galleryAux: widget.event.gallery ?? [],
-            videosAux: widget.event.videos ?? []
+            event: widget.event,
+            anio: widget.anio,
         ),
         child: Consumer<PaginationLogic>(
             builder: (context2, provider, child){
@@ -69,43 +69,68 @@ class _EventDetailPageState extends State<EventDetailPage> {
                           edgeInsets: EdgeInsets.symmetric(horizontal: 0,vertical: 6),
                         ),
                         Text(widget.event.title ?? '', style: AppTextStyle.h2Style),
-                        spacerS,
-                        if(logic.pageSelect == 0)...[
-                          MyIconButton(
-                            onPressed: (){
-                              logic.downloadImages();
-                            },
-                            text: logic.imageCheck.isEmpty ? 'Descargar todas las fotos' : 'Descargar ${logic.imageCheck.length} imágenes',
-                            icon: logic.loadDownLoadImage ?
-                            circularProgressColors() :
-                            Image.asset(
-                              'assets/icons/Download.png',
-                              scale: 1.5,
+                        if(logic.loadingData)...[
+                          const SizedBox(
+                            height: 100,
+                            child: MyShimmer.full(
+                              borderRadius: 10,
+                              margin: EdgeInsets.only(bottom: 10),
                             ),
-                            variant: MyButtonVariant.outlinedBold,
                           ),
+                          const SizedBox(
+                            height: 150,
+                            child: MyShimmer.full(
+                              borderRadius: 10,
+                              margin: EdgeInsets.only(bottom: 20),
+                            ),
+                          ),
+                          const Expanded(
+                            child: SizedBox(
+                              child: MyShimmer.full(
+                                borderRadius: 10,
+                                margin: EdgeInsets.only(bottom: 20),
+                              ),
+                            ),
+                          ),
+                        ]else...[
+                          spacerS,
+                          if(logic.pageSelect == 0)...[
+                            MyIconButton(
+                              onPressed: (){
+                                logic.downloadImages();
+                              },
+                              text: logic.imageCheck.isEmpty ? 'Descargar todas las fotos' : 'Descargar ${logic.imageCheck.length} imágenes',
+                              icon: logic.loadDownLoadImage ?
+                              circularProgressColors() :
+                              Image.asset(
+                                'assets/icons/Download.png',
+                                scale: 1.5,
+                              ),
+                              variant: MyButtonVariant.outlinedBold,
+                            ),
+                            spacerS,
+                          ],
+                          buttonsHeader(),
+                          if(logic.pageSelect == 0)...[
+                            const Expanded(
+                              child: EventDetailImagesPage(),
+                            ),
+                          ],
+                          if(logic.pageSelect == 1)...[
+                            const Expanded(
+                              child: EventDetailVideosPage(),
+                            ),
+                          ],
+                          if (logic.loadingImage || logic.loadingVideo)...[
+                            Container(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: Center(
+                                child: circularProgressColors(),
+                              ),
+                            ),
+                          ],
                           spacerS,
                         ],
-                        buttonsHeader(),
-                        if(logic.pageSelect == 0)...[
-                          const Expanded(
-                            child: EventDetailImagesPage(),
-                          ),
-                        ],
-                        if(logic.pageSelect == 1)...[
-                          const Expanded(
-                            child: EventDetailVideosPage(),
-                          ),
-                        ],
-                        if (logic.loadingImage || logic.loadingVideo)...[
-                          Container(
-                            padding: const EdgeInsets.symmetric(vertical: 5),
-                            child: Center(
-                              child: circularProgressColors(),
-                            ),
-                          ),
-                        ],
-                        spacerS,
                       ],
                     ),
                   ),
@@ -435,9 +460,24 @@ class _DownloadButtonState extends State<DownloadButton> {
 
 class PaginationLogic extends ChangeNotifier {
 
-  PaginationLogic({required List<Gallery> galleryAux, required List<Video> videosAux, required BuildContext contextController}){
-    gallery = galleryAux;
-    videos = videosAux;
+  PaginationLogic({required EventsHeld event, required BuildContext contextController, required String anio}){
+    initialData(
+        contextController: contextController,
+        event: event,
+        anio: anio
+    );
+  }
+
+  Future initialData({required EventsHeld event, required BuildContext contextController, required String anio}) async{
+
+    loadingData = true;
+    contextPage = contextController;
+    _eventsRepository = getIt.get<EventsRepository>();
+
+    EventsHeld eventsVemare = await _eventsRepository.getEventsVemareDetails(id: event.id.toString(),year: anio);
+
+    gallery = eventsVemare.gallery ?? [];
+    videos = eventsVemare.videos ?? [];
 
     totalItemsImage = gallery.length;
     totalItemsVideo = videos.length;
@@ -445,11 +485,9 @@ class PaginationLogic extends ChangeNotifier {
     controllerImage.addListener(_onListenerImage);
     controllerVideo.addListener(_onListenerVideo);
 
-    contextPage = contextController;
-    _eventsRepository = getIt.get<EventsRepository>();
-
     loadDataImage();
     loadDataVideo();
+    loadingData = false;
   }
 
   late EventsRepository _eventsRepository;
@@ -458,6 +496,9 @@ class PaginationLogic extends ChangeNotifier {
   final controllerImage = ScrollController();
   final controllerVideo = ScrollController();
 
+  bool _loadingData = true;
+  bool get loadingData => _loadingData;
+  set loadingData (bool value){ _loadingData = value;  notifyListeners(); }
   bool _loadingImage = false;
   bool get loadingImage => _loadingImage;
   set loadingImage (bool value){ _loadingImage = value;  notifyListeners(); }

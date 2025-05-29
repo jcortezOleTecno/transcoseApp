@@ -4,7 +4,6 @@ import 'package:vemare/app/domain/model/campus_model.dart';
 import 'package:vemare/app/domain/model/category.dart';
 import 'package:vemare/app/domain/model/contrats.dart';
 import 'package:vemare/app/domain/model/events.dart';
-import 'package:vemare/app/domain/model/events_vemare.dart';
 import 'package:vemare/app/domain/model/formation.dart';
 import 'package:vemare/app/domain/model/intervenciones.dart';
 import 'package:vemare/app/domain/model/library.dart';
@@ -372,10 +371,10 @@ abstract class AppRouter {
           builder: (_) => MyEventsPage.create(),
         );
       case EventDetailPage.route:
-        final event = settings.arguments as EventsHeld?;
+        final event = settings.arguments as Map;
         return MaterialPageRoute<void>(
           settings: settings,
-          builder: (_) => EventDetailPage(event!),
+          builder: (_) => EventDetailPage(event['event'],anio: event['anio']),
         );
       case WorkshopNetworksPage.route:
         final int? id = settings.arguments as int?;
