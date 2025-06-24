@@ -1,16 +1,13 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:vemare/app/data/contracts_repository.dart';
-import 'package:vemare/app/domain/model/contract_conventions.dart';
 import 'package:vemare/app/domain/model/contract_millenium.dart';
 import 'package:vemare/app/domain/model/contrato_pmp.dart';
 import 'package:vemare/app/domain/model/contrato_rappel.dart';
 import 'package:vemare/app/domain/model/contrats.dart';
 import 'package:vemare/app/domain/model/filter.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/page/bloc/my_contracts_state.dart';
-import 'package:vemare/app/view/personal_area/my_contracts/page/conventions.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/page/crd.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/page/millennium.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/page/pmp.dart';
@@ -24,20 +21,17 @@ class MyContratsCubit extends Cubit<MyContratsState> {
   final ContratsRepository _contratsRepository;
 
   Future<void> getContrats({Filter? filter}) async {
-    emit(state.copyWith(
-      loading: true,
-      yearSelectedConvention: DateTime.now().year.toString(),
-    ));
+    emit(state.copyWith(loading: true));
     List<Contrats> crd = [];
     List<ContratoMillenium> mill = [];
     List<ContratoPmp> pmp = [];
-    List<ContratoConventionsModel> conventionsList = [];
     ContratoRappel? rappel;
 
     await Future.wait([
-      _contratsRepository.getContratsCRD().then((value) => crd.addAll(value.data as List<Contrats>)),
+      _contratsRepository
+          .getContratsCRD()
+          .then((value) => crd.addAll(value.data as List<Contrats>)),
       _contratsRepository.getContratMill().then((value) => mill = value),
-      _contratsRepository.getContratConventions(anio: DateTime.now().year.toString()).then((value) => conventionsList = value),
       _contratsRepository.getContratsPMP().then((value) => pmp.addAll(value)),
       _contratsRepository.getContratReppel().then((value) => rappel = value),
     ]);
@@ -60,13 +54,6 @@ class MyContratsCubit extends Cubit<MyContratsState> {
       dataPMPFiltrado: MyDataPMP(pmp),
       dataCRDFiltrado: MyDataCRD(crd),
       loading: false,
-
-      yearSelectedConvention: DateTime.now().year.toString(),
-      contratoConventionsList: conventionsList,
-      contratoConventionsModel: conventionsList.isNotEmpty ? conventionsList[0] : null,
-      dataConventionHiredServicesConvention: MyDataConvencionHiredServices(conventionsList.isNotEmpty ? (conventionsList[0].serviciosContratados ?? []) : []),
-      dataConventionFiltradoConvention: MyDataTableConvencione(conventionsList.isNotEmpty ? (conventionsList[0].documentosFirmados ?? []) : [],contrato: conventionsList.isNotEmpty ? (conventionsList[0]) : null),
-      loadDataConvention: false,
     ));
   }
 
@@ -126,7 +113,11 @@ class MyContratsCubit extends Cubit<MyContratsState> {
     ));
   }
 
-  Future<void> signMill({required String name,required String nif,required String signature,}) async {
+  Future<void> signMill({
+    required String name,
+    required String nif,
+    required String signature,
+  }) async {
     await _contratsRepository
         .signMill(
             codigoContrato: state.mill!.codigoContrato.toString(),
@@ -140,7 +131,11 @@ class MyContratsCubit extends Cubit<MyContratsState> {
     });
   }
 
-  Future<void> signRappel({required String name,required String nif,required String signature,}) async {
+  Future<void> signRappel({
+    required String name,
+    required String nif,
+    required String signature,
+  }) async {
     await _contratsRepository
         .signRappel(
             codigoContrato: state.rappel!.codigoContrato.toString(),
@@ -222,116 +217,5 @@ class MyContratsCubit extends Cubit<MyContratsState> {
         }).toList()),
       ),
     );
-  }
-
-  Future changeDateConvention({required String anio}) async{
-    emit(state.copyWith( yearSelectedConvention: anio,));
-    getConventions();
-  }
-
-  Future getConventions() async{
-
-    emit(state.copyWith(
-      contratoConventionsModel: null,
-      loadDataConvention: true,
-    ));
-
-    List<ContratoConventionsModel> conventionsListAux = [];
-    DataTableSource? dataConventionHiredServicesAux;
-    DataTableSource? dataConventionFiltradoAux;
-    ContratoConventionsModel? contratoConventionsModelAux;
-
-    try{
-      conventionsListAux = await _contratsRepository.getContratConventions(anio: state.yearSelectedConvention);
-      if(conventionsListAux.isNotEmpty){
-        contratoConventionsModelAux = conventionsListAux[0];
-        dataConventionHiredServicesAux = MyDataConvencionHiredServices(contratoConventionsModelAux.serviciosContratados ?? []);
-        dataConventionFiltradoAux = MyDataTableConvencione(contratoConventionsModelAux.documentosFirmados ?? [], contrato: contratoConventionsModelAux);
-      }
-    }catch(e){
-      log(e.toString());
-    }
-
-    emit(state.copyWith(
-      contratoConventionsModel: contratoConventionsModelAux,
-      contratoConventionsList: conventionsListAux,
-      dataConventionHiredServicesConvention: dataConventionHiredServicesAux,
-      dataConventionFiltradoConvention: dataConventionFiltradoAux,
-      loadDataConvention: false,
-    ));
-  }
-
-  Future<void> signConvenciones({required String name,required String nif,required String signature}) async {
-    emit(state.copyWith( loadDataConvention: true,));
-
-    try{
-      bool value = await _contratsRepository.signConvencion(
-          codigoContrato: state.contratoConventionsModel!.codigoContrato.toString(),
-          name: name,
-          nif: nif,
-          signature: signature
-      );
-
-      if (value) {
-        getConventions();
-      }
-    }catch(e){
-      log(e.toString());
-    }
-
-    emit(state.copyWith( loadDataConvention: false,));
-  }
-
-  Future getConvencionSelect(int idContrato) async{
-    emit(state.copyWith(
-      contratoConventionsModel: null,
-      loadDataConvention: true,
-    ));
-
-    DataTableSource? dataConventionHiredServicesAux;
-    DataTableSource? dataConventionFiltradoAux;
-    ContratoConventionsModel? contratoConventionsModelAux;
-
-    try{
-      for (int x = 0; x < state.contratoConventionsList.length; x++) {
-        if(state.contratoConventionsList[x].codigoContrato! == idContrato){
-          contratoConventionsModelAux = state.contratoConventionsList[x];
-          dataConventionHiredServicesAux = MyDataConvencionHiredServices(contratoConventionsModelAux.serviciosContratados ?? []);
-          dataConventionFiltradoAux = MyDataTableConvencione(contratoConventionsModelAux.documentosFirmados ?? [],contrato: contratoConventionsModelAux);
-        }
-      }
-    }catch(e){
-      log('Error ${e.toString()}');
-    }
-
-    emit(state.copyWith(
-      contratoConventionsModel: contratoConventionsModelAux,
-      dataConventionHiredServicesConvention: dataConventionHiredServicesAux,
-      dataConventionFiltradoConvention: dataConventionFiltradoAux,
-      loadDataConvention: false,
-    ));
-  }
-
-  void filtroConvencionesHiredServices(String? value) {
-    DataTableSource? dataConventionHiredServicesAux = MyDataConvencionHiredServices(
-        state.contratoConventionsModel!.serviciosContratados!.where((e) {
-          return e.toFilter().toLowerCase().contains(value!.trim().toLowerCase());
-        }).toList());
-    emit(state.copyWith(
-      dataConventionHiredServicesConvention: dataConventionHiredServicesAux,
-    ));
-  }
-
-  void filtroConventionFirmados(String? value) {
-    DataTableSource? dataConventionFiltradoAux = MyDataTableConvencione(
-        state.contratoConventionsModel!.documentosFirmados!.where((e) {
-          return e
-              .toFilter()
-              .toLowerCase()
-              .contains(value!.trim().toLowerCase());
-        }).toList(), contrato: state.contratoConventionsModel);
-    emit(state.copyWith(
-      dataConventionFiltradoConvention: dataConventionFiltradoAux,
-    ));
   }
 }

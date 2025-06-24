@@ -97,16 +97,15 @@ class ContratsRepository {
     }
   }
 
-  Future<List<ContratoConventionsModel>> getContratConventions({String? anio}) async {
+  Future<ContratoConventionsModel?> getContratConventions({String? anio}) async {
     try {
       final dynamic res = await _apiClient.postRequest(
         '$BASE_API_URL/api/mi-cuenta/contratos_convenciones',
         body: <String, dynamic>{"year": anio ?? DateTime.now().year.toString()},
       );
-      return (res["contrato_convencion"] as List).map((e) => ContratoConventionsModel.fromJson(e)).toList();
-      //return ContratoConventionsModel.fromJson(res["contrato_convencion"]);
+      return ContratoConventionsModel.fromJson(res["contrato_convencion"]);
     } catch (e) {
-      return [];
+      return null;
     }
   }
 
