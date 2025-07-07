@@ -12,7 +12,8 @@ part of 'work_with_us_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$WorkWithUsState {
@@ -28,7 +29,9 @@ mixin _$WorkWithUsState {
   Opciones? get opciones => throw _privateConstructorUsedError;
   WorkWithUs? get workWithUs => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of WorkWithUsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $WorkWithUsStateCopyWith<WorkWithUsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -36,21 +39,23 @@ mixin _$WorkWithUsState {
 /// @nodoc
 abstract class $WorkWithUsStateCopyWith<$Res> {
   factory $WorkWithUsStateCopyWith(
-          WorkWithUsState value, $Res Function(WorkWithUsState) then) =
-      _$WorkWithUsStateCopyWithImpl<$Res, WorkWithUsState>;
+    WorkWithUsState value,
+    $Res Function(WorkWithUsState) then,
+  ) = _$WorkWithUsStateCopyWithImpl<$Res, WorkWithUsState>;
   @useResult
-  $Res call(
-      {FormStatus status,
-      bool acceptPolicy,
-      Name? name,
-      Phone? phone,
-      Email? email,
-      File? doc,
-      String? message,
-      String? zone,
-      String? job,
-      Opciones? opciones,
-      WorkWithUs? workWithUs});
+  $Res call({
+    FormStatus status,
+    bool acceptPolicy,
+    Name? name,
+    Phone? phone,
+    Email? email,
+    File? doc,
+    String? message,
+    String? zone,
+    String? job,
+    Opciones? opciones,
+    WorkWithUs? workWithUs,
+  });
 }
 
 /// @nodoc
@@ -63,6 +68,8 @@ class _$WorkWithUsStateCopyWithImpl<$Res, $Val extends WorkWithUsState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of WorkWithUsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -78,85 +85,104 @@ class _$WorkWithUsStateCopyWithImpl<$Res, $Val extends WorkWithUsState>
     Object? opciones = freezed,
     Object? workWithUs = freezed,
   }) {
-    return _then(_value.copyWith(
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as FormStatus,
-      acceptPolicy: null == acceptPolicy
-          ? _value.acceptPolicy
-          : acceptPolicy // ignore: cast_nullable_to_non_nullable
-              as bool,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as Name?,
-      phone: freezed == phone
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
-              as Phone?,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as Email?,
-      doc: freezed == doc
-          ? _value.doc
-          : doc // ignore: cast_nullable_to_non_nullable
-              as File?,
-      message: freezed == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String?,
-      zone: freezed == zone
-          ? _value.zone
-          : zone // ignore: cast_nullable_to_non_nullable
-              as String?,
-      job: freezed == job
-          ? _value.job
-          : job // ignore: cast_nullable_to_non_nullable
-              as String?,
-      opciones: freezed == opciones
-          ? _value.opciones
-          : opciones // ignore: cast_nullable_to_non_nullable
-              as Opciones?,
-      workWithUs: freezed == workWithUs
-          ? _value.workWithUs
-          : workWithUs // ignore: cast_nullable_to_non_nullable
-              as WorkWithUs?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            status:
+                null == status
+                    ? _value.status
+                    : status // ignore: cast_nullable_to_non_nullable
+                        as FormStatus,
+            acceptPolicy:
+                null == acceptPolicy
+                    ? _value.acceptPolicy
+                    : acceptPolicy // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            name:
+                freezed == name
+                    ? _value.name
+                    : name // ignore: cast_nullable_to_non_nullable
+                        as Name?,
+            phone:
+                freezed == phone
+                    ? _value.phone
+                    : phone // ignore: cast_nullable_to_non_nullable
+                        as Phone?,
+            email:
+                freezed == email
+                    ? _value.email
+                    : email // ignore: cast_nullable_to_non_nullable
+                        as Email?,
+            doc:
+                freezed == doc
+                    ? _value.doc
+                    : doc // ignore: cast_nullable_to_non_nullable
+                        as File?,
+            message:
+                freezed == message
+                    ? _value.message
+                    : message // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            zone:
+                freezed == zone
+                    ? _value.zone
+                    : zone // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            job:
+                freezed == job
+                    ? _value.job
+                    : job // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            opciones:
+                freezed == opciones
+                    ? _value.opciones
+                    : opciones // ignore: cast_nullable_to_non_nullable
+                        as Opciones?,
+            workWithUs:
+                freezed == workWithUs
+                    ? _value.workWithUs
+                    : workWithUs // ignore: cast_nullable_to_non_nullable
+                        as WorkWithUs?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_WorkWithUsStateCopyWith<$Res>
+abstract class _$$WorkWithUsStateImplCopyWith<$Res>
     implements $WorkWithUsStateCopyWith<$Res> {
-  factory _$$_WorkWithUsStateCopyWith(
-          _$_WorkWithUsState value, $Res Function(_$_WorkWithUsState) then) =
-      __$$_WorkWithUsStateCopyWithImpl<$Res>;
+  factory _$$WorkWithUsStateImplCopyWith(
+    _$WorkWithUsStateImpl value,
+    $Res Function(_$WorkWithUsStateImpl) then,
+  ) = __$$WorkWithUsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {FormStatus status,
-      bool acceptPolicy,
-      Name? name,
-      Phone? phone,
-      Email? email,
-      File? doc,
-      String? message,
-      String? zone,
-      String? job,
-      Opciones? opciones,
-      WorkWithUs? workWithUs});
+  $Res call({
+    FormStatus status,
+    bool acceptPolicy,
+    Name? name,
+    Phone? phone,
+    Email? email,
+    File? doc,
+    String? message,
+    String? zone,
+    String? job,
+    Opciones? opciones,
+    WorkWithUs? workWithUs,
+  });
 }
 
 /// @nodoc
-class __$$_WorkWithUsStateCopyWithImpl<$Res>
-    extends _$WorkWithUsStateCopyWithImpl<$Res, _$_WorkWithUsState>
-    implements _$$_WorkWithUsStateCopyWith<$Res> {
-  __$$_WorkWithUsStateCopyWithImpl(
-      _$_WorkWithUsState _value, $Res Function(_$_WorkWithUsState) _then)
-      : super(_value, _then);
+class __$$WorkWithUsStateImplCopyWithImpl<$Res>
+    extends _$WorkWithUsStateCopyWithImpl<$Res, _$WorkWithUsStateImpl>
+    implements _$$WorkWithUsStateImplCopyWith<$Res> {
+  __$$WorkWithUsStateImplCopyWithImpl(
+    _$WorkWithUsStateImpl _value,
+    $Res Function(_$WorkWithUsStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of WorkWithUsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -172,71 +198,84 @@ class __$$_WorkWithUsStateCopyWithImpl<$Res>
     Object? opciones = freezed,
     Object? workWithUs = freezed,
   }) {
-    return _then(_$_WorkWithUsState(
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as FormStatus,
-      acceptPolicy: null == acceptPolicy
-          ? _value.acceptPolicy
-          : acceptPolicy // ignore: cast_nullable_to_non_nullable
-              as bool,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as Name?,
-      phone: freezed == phone
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
-              as Phone?,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as Email?,
-      doc: freezed == doc
-          ? _value.doc
-          : doc // ignore: cast_nullable_to_non_nullable
-              as File?,
-      message: freezed == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String?,
-      zone: freezed == zone
-          ? _value.zone
-          : zone // ignore: cast_nullable_to_non_nullable
-              as String?,
-      job: freezed == job
-          ? _value.job
-          : job // ignore: cast_nullable_to_non_nullable
-              as String?,
-      opciones: freezed == opciones
-          ? _value.opciones
-          : opciones // ignore: cast_nullable_to_non_nullable
-              as Opciones?,
-      workWithUs: freezed == workWithUs
-          ? _value.workWithUs
-          : workWithUs // ignore: cast_nullable_to_non_nullable
-              as WorkWithUs?,
-    ));
+    return _then(
+      _$WorkWithUsStateImpl(
+        status:
+            null == status
+                ? _value.status
+                : status // ignore: cast_nullable_to_non_nullable
+                    as FormStatus,
+        acceptPolicy:
+            null == acceptPolicy
+                ? _value.acceptPolicy
+                : acceptPolicy // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        name:
+            freezed == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                    as Name?,
+        phone:
+            freezed == phone
+                ? _value.phone
+                : phone // ignore: cast_nullable_to_non_nullable
+                    as Phone?,
+        email:
+            freezed == email
+                ? _value.email
+                : email // ignore: cast_nullable_to_non_nullable
+                    as Email?,
+        doc:
+            freezed == doc
+                ? _value.doc
+                : doc // ignore: cast_nullable_to_non_nullable
+                    as File?,
+        message:
+            freezed == message
+                ? _value.message
+                : message // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        zone:
+            freezed == zone
+                ? _value.zone
+                : zone // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        job:
+            freezed == job
+                ? _value.job
+                : job // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        opciones:
+            freezed == opciones
+                ? _value.opciones
+                : opciones // ignore: cast_nullable_to_non_nullable
+                    as Opciones?,
+        workWithUs:
+            freezed == workWithUs
+                ? _value.workWithUs
+                : workWithUs // ignore: cast_nullable_to_non_nullable
+                    as WorkWithUs?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_WorkWithUsState extends _WorkWithUsState {
-  const _$_WorkWithUsState(
-      {this.status = FormStatus.editing,
-      this.acceptPolicy = false,
-      this.name,
-      this.phone,
-      this.email,
-      this.doc,
-      this.message,
-      this.zone,
-      this.job,
-      this.opciones,
-      this.workWithUs})
-      : super._();
+class _$WorkWithUsStateImpl extends _WorkWithUsState {
+  const _$WorkWithUsStateImpl({
+    this.status = FormStatus.editing,
+    this.acceptPolicy = false,
+    this.name,
+    this.phone,
+    this.email,
+    this.doc,
+    this.message,
+    this.zone,
+    this.job,
+    this.opciones,
+    this.workWithUs,
+  }) : super._();
 
   @override
   @JsonKey()
@@ -269,10 +308,10 @@ class _$_WorkWithUsState extends _WorkWithUsState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_WorkWithUsState &&
+            other is _$WorkWithUsStateImpl &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.acceptPolicy, acceptPolicy) ||
                 other.acceptPolicy == acceptPolicy) &&
@@ -290,29 +329,47 @@ class _$_WorkWithUsState extends _WorkWithUsState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, acceptPolicy, name,
-      phone, email, doc, message, zone, job, opciones, workWithUs);
+  int get hashCode => Object.hash(
+    runtimeType,
+    status,
+    acceptPolicy,
+    name,
+    phone,
+    email,
+    doc,
+    message,
+    zone,
+    job,
+    opciones,
+    workWithUs,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of WorkWithUsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_WorkWithUsStateCopyWith<_$_WorkWithUsState> get copyWith =>
-      __$$_WorkWithUsStateCopyWithImpl<_$_WorkWithUsState>(this, _$identity);
+  _$$WorkWithUsStateImplCopyWith<_$WorkWithUsStateImpl> get copyWith =>
+      __$$WorkWithUsStateImplCopyWithImpl<_$WorkWithUsStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _WorkWithUsState extends WorkWithUsState {
-  const factory _WorkWithUsState(
-      {final FormStatus status,
-      final bool acceptPolicy,
-      final Name? name,
-      final Phone? phone,
-      final Email? email,
-      final File? doc,
-      final String? message,
-      final String? zone,
-      final String? job,
-      final Opciones? opciones,
-      final WorkWithUs? workWithUs}) = _$_WorkWithUsState;
+  const factory _WorkWithUsState({
+    final FormStatus status,
+    final bool acceptPolicy,
+    final Name? name,
+    final Phone? phone,
+    final Email? email,
+    final File? doc,
+    final String? message,
+    final String? zone,
+    final String? job,
+    final Opciones? opciones,
+    final WorkWithUs? workWithUs,
+  }) = _$WorkWithUsStateImpl;
   const _WorkWithUsState._() : super._();
 
   @override
@@ -337,8 +394,11 @@ abstract class _WorkWithUsState extends WorkWithUsState {
   Opciones? get opciones;
   @override
   WorkWithUs? get workWithUs;
+
+  /// Create a copy of WorkWithUsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_WorkWithUsStateCopyWith<_$_WorkWithUsState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$WorkWithUsStateImplCopyWith<_$WorkWithUsStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

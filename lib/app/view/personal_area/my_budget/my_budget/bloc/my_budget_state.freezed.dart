@@ -12,7 +12,8 @@ part of 'my_budget_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$BudgetState {
@@ -21,7 +22,9 @@ mixin _$BudgetState {
   String? get filters => throw _privateConstructorUsedError;
   DataTableSource? get dataBudget => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of BudgetState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $BudgetStateCopyWith<BudgetState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -29,14 +32,16 @@ mixin _$BudgetState {
 /// @nodoc
 abstract class $BudgetStateCopyWith<$Res> {
   factory $BudgetStateCopyWith(
-          BudgetState value, $Res Function(BudgetState) then) =
-      _$BudgetStateCopyWithImpl<$Res, BudgetState>;
+    BudgetState value,
+    $Res Function(BudgetState) then,
+  ) = _$BudgetStateCopyWithImpl<$Res, BudgetState>;
   @useResult
-  $Res call(
-      {bool loading,
-      List<Budget> budget,
-      String? filters,
-      DataTableSource? dataBudget});
+  $Res call({
+    bool loading,
+    List<Budget> budget,
+    String? filters,
+    DataTableSource? dataBudget,
+  });
 }
 
 /// @nodoc
@@ -49,6 +54,8 @@ class _$BudgetStateCopyWithImpl<$Res, $Val extends BudgetState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of BudgetState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -57,50 +64,62 @@ class _$BudgetStateCopyWithImpl<$Res, $Val extends BudgetState>
     Object? filters = freezed,
     Object? dataBudget = freezed,
   }) {
-    return _then(_value.copyWith(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      budget: null == budget
-          ? _value.budget
-          : budget // ignore: cast_nullable_to_non_nullable
-              as List<Budget>,
-      filters: freezed == filters
-          ? _value.filters
-          : filters // ignore: cast_nullable_to_non_nullable
-              as String?,
-      dataBudget: freezed == dataBudget
-          ? _value.dataBudget
-          : dataBudget // ignore: cast_nullable_to_non_nullable
-              as DataTableSource?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            loading:
+                null == loading
+                    ? _value.loading
+                    : loading // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            budget:
+                null == budget
+                    ? _value.budget
+                    : budget // ignore: cast_nullable_to_non_nullable
+                        as List<Budget>,
+            filters:
+                freezed == filters
+                    ? _value.filters
+                    : filters // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            dataBudget:
+                freezed == dataBudget
+                    ? _value.dataBudget
+                    : dataBudget // ignore: cast_nullable_to_non_nullable
+                        as DataTableSource?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_BudgetStateCopyWith<$Res>
+abstract class _$$BudgetStateImplCopyWith<$Res>
     implements $BudgetStateCopyWith<$Res> {
-  factory _$$_BudgetStateCopyWith(
-          _$_BudgetState value, $Res Function(_$_BudgetState) then) =
-      __$$_BudgetStateCopyWithImpl<$Res>;
+  factory _$$BudgetStateImplCopyWith(
+    _$BudgetStateImpl value,
+    $Res Function(_$BudgetStateImpl) then,
+  ) = __$$BudgetStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {bool loading,
-      List<Budget> budget,
-      String? filters,
-      DataTableSource? dataBudget});
+  $Res call({
+    bool loading,
+    List<Budget> budget,
+    String? filters,
+    DataTableSource? dataBudget,
+  });
 }
 
 /// @nodoc
-class __$$_BudgetStateCopyWithImpl<$Res>
-    extends _$BudgetStateCopyWithImpl<$Res, _$_BudgetState>
-    implements _$$_BudgetStateCopyWith<$Res> {
-  __$$_BudgetStateCopyWithImpl(
-      _$_BudgetState _value, $Res Function(_$_BudgetState) _then)
-      : super(_value, _then);
+class __$$BudgetStateImplCopyWithImpl<$Res>
+    extends _$BudgetStateCopyWithImpl<$Res, _$BudgetStateImpl>
+    implements _$$BudgetStateImplCopyWith<$Res> {
+  __$$BudgetStateImplCopyWithImpl(
+    _$BudgetStateImpl _value,
+    $Res Function(_$BudgetStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of BudgetState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -109,37 +128,43 @@ class __$$_BudgetStateCopyWithImpl<$Res>
     Object? filters = freezed,
     Object? dataBudget = freezed,
   }) {
-    return _then(_$_BudgetState(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      budget: null == budget
-          ? _value._budget
-          : budget // ignore: cast_nullable_to_non_nullable
-              as List<Budget>,
-      filters: freezed == filters
-          ? _value.filters
-          : filters // ignore: cast_nullable_to_non_nullable
-              as String?,
-      dataBudget: freezed == dataBudget
-          ? _value.dataBudget
-          : dataBudget // ignore: cast_nullable_to_non_nullable
-              as DataTableSource?,
-    ));
+    return _then(
+      _$BudgetStateImpl(
+        loading:
+            null == loading
+                ? _value.loading
+                : loading // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        budget:
+            null == budget
+                ? _value._budget
+                : budget // ignore: cast_nullable_to_non_nullable
+                    as List<Budget>,
+        filters:
+            freezed == filters
+                ? _value.filters
+                : filters // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        dataBudget:
+            freezed == dataBudget
+                ? _value.dataBudget
+                : dataBudget // ignore: cast_nullable_to_non_nullable
+                    as DataTableSource?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_BudgetState extends _BudgetState {
-  const _$_BudgetState(
-      {this.loading = false,
-      final List<Budget> budget = const <Budget>[],
-      this.filters,
-      this.dataBudget})
-      : _budget = budget,
-        super._();
+class _$BudgetStateImpl extends _BudgetState {
+  const _$BudgetStateImpl({
+    this.loading = false,
+    final List<Budget> budget = const <Budget>[],
+    this.filters,
+    this.dataBudget,
+  }) : _budget = budget,
+       super._();
 
   @override
   @JsonKey()
@@ -164,10 +189,10 @@ class _$_BudgetState extends _BudgetState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_BudgetState &&
+            other is _$BudgetStateImpl &&
             (identical(other.loading, loading) || other.loading == loading) &&
             const DeepCollectionEquality().equals(other._budget, _budget) &&
             (identical(other.filters, filters) || other.filters == filters) &&
@@ -176,22 +201,30 @@ class _$_BudgetState extends _BudgetState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, loading,
-      const DeepCollectionEquality().hash(_budget), filters, dataBudget);
+  int get hashCode => Object.hash(
+    runtimeType,
+    loading,
+    const DeepCollectionEquality().hash(_budget),
+    filters,
+    dataBudget,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of BudgetState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_BudgetStateCopyWith<_$_BudgetState> get copyWith =>
-      __$$_BudgetStateCopyWithImpl<_$_BudgetState>(this, _$identity);
+  _$$BudgetStateImplCopyWith<_$BudgetStateImpl> get copyWith =>
+      __$$BudgetStateImplCopyWithImpl<_$BudgetStateImpl>(this, _$identity);
 }
 
 abstract class _BudgetState extends BudgetState {
-  const factory _BudgetState(
-      {final bool loading,
-      final List<Budget> budget,
-      final String? filters,
-      final DataTableSource? dataBudget}) = _$_BudgetState;
+  const factory _BudgetState({
+    final bool loading,
+    final List<Budget> budget,
+    final String? filters,
+    final DataTableSource? dataBudget,
+  }) = _$BudgetStateImpl;
   const _BudgetState._() : super._();
 
   @override
@@ -202,8 +235,11 @@ abstract class _BudgetState extends BudgetState {
   String? get filters;
   @override
   DataTableSource? get dataBudget;
+
+  /// Create a copy of BudgetState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_BudgetStateCopyWith<_$_BudgetState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$BudgetStateImplCopyWith<_$BudgetStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

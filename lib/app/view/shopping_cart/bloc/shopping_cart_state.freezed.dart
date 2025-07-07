@@ -12,7 +12,8 @@ part of 'shopping_cart_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$ShoppingCardState {
@@ -33,7 +34,9 @@ mixin _$ShoppingCardState {
       throw _privateConstructorUsedError;
   PayResponse? get payResponse => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ShoppingCardState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ShoppingCardStateCopyWith<ShoppingCardState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -41,24 +44,26 @@ mixin _$ShoppingCardState {
 /// @nodoc
 abstract class $ShoppingCardStateCopyWith<$Res> {
   factory $ShoppingCardStateCopyWith(
-          ShoppingCardState value, $Res Function(ShoppingCardState) then) =
-      _$ShoppingCardStateCopyWithImpl<$Res, ShoppingCardState>;
+    ShoppingCardState value,
+    $Res Function(ShoppingCardState) then,
+  ) = _$ShoppingCardStateCopyWithImpl<$Res, ShoppingCardState>;
   @useResult
-  $Res call(
-      {bool loading,
-      FormStatus status,
-      bool deleting,
-      bool buying,
-      bool isCard,
-      bool typePaySelected,
-      double total,
-      int counter,
-      double totalRenting,
-      double totalTienda,
-      List<ShoppingCardProduct> products,
-      List<ShoppingCardProduct> productsTienda,
-      List<ShoppingCardProduct> productsRenting,
-      PayResponse? payResponse});
+  $Res call({
+    bool loading,
+    FormStatus status,
+    bool deleting,
+    bool buying,
+    bool isCard,
+    bool typePaySelected,
+    double total,
+    int counter,
+    double totalRenting,
+    double totalTienda,
+    List<ShoppingCardProduct> products,
+    List<ShoppingCardProduct> productsTienda,
+    List<ShoppingCardProduct> productsRenting,
+    PayResponse? payResponse,
+  });
 }
 
 /// @nodoc
@@ -71,6 +76,8 @@ class _$ShoppingCardStateCopyWithImpl<$Res, $Val extends ShoppingCardState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ShoppingCardState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -89,100 +96,122 @@ class _$ShoppingCardStateCopyWithImpl<$Res, $Val extends ShoppingCardState>
     Object? productsRenting = null,
     Object? payResponse = freezed,
   }) {
-    return _then(_value.copyWith(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as FormStatus,
-      deleting: null == deleting
-          ? _value.deleting
-          : deleting // ignore: cast_nullable_to_non_nullable
-              as bool,
-      buying: null == buying
-          ? _value.buying
-          : buying // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isCard: null == isCard
-          ? _value.isCard
-          : isCard // ignore: cast_nullable_to_non_nullable
-              as bool,
-      typePaySelected: null == typePaySelected
-          ? _value.typePaySelected
-          : typePaySelected // ignore: cast_nullable_to_non_nullable
-              as bool,
-      total: null == total
-          ? _value.total
-          : total // ignore: cast_nullable_to_non_nullable
-              as double,
-      counter: null == counter
-          ? _value.counter
-          : counter // ignore: cast_nullable_to_non_nullable
-              as int,
-      totalRenting: null == totalRenting
-          ? _value.totalRenting
-          : totalRenting // ignore: cast_nullable_to_non_nullable
-              as double,
-      totalTienda: null == totalTienda
-          ? _value.totalTienda
-          : totalTienda // ignore: cast_nullable_to_non_nullable
-              as double,
-      products: null == products
-          ? _value.products
-          : products // ignore: cast_nullable_to_non_nullable
-              as List<ShoppingCardProduct>,
-      productsTienda: null == productsTienda
-          ? _value.productsTienda
-          : productsTienda // ignore: cast_nullable_to_non_nullable
-              as List<ShoppingCardProduct>,
-      productsRenting: null == productsRenting
-          ? _value.productsRenting
-          : productsRenting // ignore: cast_nullable_to_non_nullable
-              as List<ShoppingCardProduct>,
-      payResponse: freezed == payResponse
-          ? _value.payResponse
-          : payResponse // ignore: cast_nullable_to_non_nullable
-              as PayResponse?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            loading:
+                null == loading
+                    ? _value.loading
+                    : loading // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            status:
+                null == status
+                    ? _value.status
+                    : status // ignore: cast_nullable_to_non_nullable
+                        as FormStatus,
+            deleting:
+                null == deleting
+                    ? _value.deleting
+                    : deleting // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            buying:
+                null == buying
+                    ? _value.buying
+                    : buying // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            isCard:
+                null == isCard
+                    ? _value.isCard
+                    : isCard // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            typePaySelected:
+                null == typePaySelected
+                    ? _value.typePaySelected
+                    : typePaySelected // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            total:
+                null == total
+                    ? _value.total
+                    : total // ignore: cast_nullable_to_non_nullable
+                        as double,
+            counter:
+                null == counter
+                    ? _value.counter
+                    : counter // ignore: cast_nullable_to_non_nullable
+                        as int,
+            totalRenting:
+                null == totalRenting
+                    ? _value.totalRenting
+                    : totalRenting // ignore: cast_nullable_to_non_nullable
+                        as double,
+            totalTienda:
+                null == totalTienda
+                    ? _value.totalTienda
+                    : totalTienda // ignore: cast_nullable_to_non_nullable
+                        as double,
+            products:
+                null == products
+                    ? _value.products
+                    : products // ignore: cast_nullable_to_non_nullable
+                        as List<ShoppingCardProduct>,
+            productsTienda:
+                null == productsTienda
+                    ? _value.productsTienda
+                    : productsTienda // ignore: cast_nullable_to_non_nullable
+                        as List<ShoppingCardProduct>,
+            productsRenting:
+                null == productsRenting
+                    ? _value.productsRenting
+                    : productsRenting // ignore: cast_nullable_to_non_nullable
+                        as List<ShoppingCardProduct>,
+            payResponse:
+                freezed == payResponse
+                    ? _value.payResponse
+                    : payResponse // ignore: cast_nullable_to_non_nullable
+                        as PayResponse?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_ShoppingCardStateCopyWith<$Res>
+abstract class _$$ShoppingCardStateImplCopyWith<$Res>
     implements $ShoppingCardStateCopyWith<$Res> {
-  factory _$$_ShoppingCardStateCopyWith(_$_ShoppingCardState value,
-          $Res Function(_$_ShoppingCardState) then) =
-      __$$_ShoppingCardStateCopyWithImpl<$Res>;
+  factory _$$ShoppingCardStateImplCopyWith(
+    _$ShoppingCardStateImpl value,
+    $Res Function(_$ShoppingCardStateImpl) then,
+  ) = __$$ShoppingCardStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {bool loading,
-      FormStatus status,
-      bool deleting,
-      bool buying,
-      bool isCard,
-      bool typePaySelected,
-      double total,
-      int counter,
-      double totalRenting,
-      double totalTienda,
-      List<ShoppingCardProduct> products,
-      List<ShoppingCardProduct> productsTienda,
-      List<ShoppingCardProduct> productsRenting,
-      PayResponse? payResponse});
+  $Res call({
+    bool loading,
+    FormStatus status,
+    bool deleting,
+    bool buying,
+    bool isCard,
+    bool typePaySelected,
+    double total,
+    int counter,
+    double totalRenting,
+    double totalTienda,
+    List<ShoppingCardProduct> products,
+    List<ShoppingCardProduct> productsTienda,
+    List<ShoppingCardProduct> productsRenting,
+    PayResponse? payResponse,
+  });
 }
 
 /// @nodoc
-class __$$_ShoppingCardStateCopyWithImpl<$Res>
-    extends _$ShoppingCardStateCopyWithImpl<$Res, _$_ShoppingCardState>
-    implements _$$_ShoppingCardStateCopyWith<$Res> {
-  __$$_ShoppingCardStateCopyWithImpl(
-      _$_ShoppingCardState _value, $Res Function(_$_ShoppingCardState) _then)
-      : super(_value, _then);
+class __$$ShoppingCardStateImplCopyWithImpl<$Res>
+    extends _$ShoppingCardStateCopyWithImpl<$Res, _$ShoppingCardStateImpl>
+    implements _$$ShoppingCardStateImplCopyWith<$Res> {
+  __$$ShoppingCardStateImplCopyWithImpl(
+    _$ShoppingCardStateImpl _value,
+    $Res Function(_$ShoppingCardStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of ShoppingCardState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -201,91 +230,107 @@ class __$$_ShoppingCardStateCopyWithImpl<$Res>
     Object? productsRenting = null,
     Object? payResponse = freezed,
   }) {
-    return _then(_$_ShoppingCardState(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as FormStatus,
-      deleting: null == deleting
-          ? _value.deleting
-          : deleting // ignore: cast_nullable_to_non_nullable
-              as bool,
-      buying: null == buying
-          ? _value.buying
-          : buying // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isCard: null == isCard
-          ? _value.isCard
-          : isCard // ignore: cast_nullable_to_non_nullable
-              as bool,
-      typePaySelected: null == typePaySelected
-          ? _value.typePaySelected
-          : typePaySelected // ignore: cast_nullable_to_non_nullable
-              as bool,
-      total: null == total
-          ? _value.total
-          : total // ignore: cast_nullable_to_non_nullable
-              as double,
-      counter: null == counter
-          ? _value.counter
-          : counter // ignore: cast_nullable_to_non_nullable
-              as int,
-      totalRenting: null == totalRenting
-          ? _value.totalRenting
-          : totalRenting // ignore: cast_nullable_to_non_nullable
-              as double,
-      totalTienda: null == totalTienda
-          ? _value.totalTienda
-          : totalTienda // ignore: cast_nullable_to_non_nullable
-              as double,
-      products: null == products
-          ? _value._products
-          : products // ignore: cast_nullable_to_non_nullable
-              as List<ShoppingCardProduct>,
-      productsTienda: null == productsTienda
-          ? _value._productsTienda
-          : productsTienda // ignore: cast_nullable_to_non_nullable
-              as List<ShoppingCardProduct>,
-      productsRenting: null == productsRenting
-          ? _value._productsRenting
-          : productsRenting // ignore: cast_nullable_to_non_nullable
-              as List<ShoppingCardProduct>,
-      payResponse: freezed == payResponse
-          ? _value.payResponse
-          : payResponse // ignore: cast_nullable_to_non_nullable
-              as PayResponse?,
-    ));
+    return _then(
+      _$ShoppingCardStateImpl(
+        loading:
+            null == loading
+                ? _value.loading
+                : loading // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        status:
+            null == status
+                ? _value.status
+                : status // ignore: cast_nullable_to_non_nullable
+                    as FormStatus,
+        deleting:
+            null == deleting
+                ? _value.deleting
+                : deleting // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        buying:
+            null == buying
+                ? _value.buying
+                : buying // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        isCard:
+            null == isCard
+                ? _value.isCard
+                : isCard // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        typePaySelected:
+            null == typePaySelected
+                ? _value.typePaySelected
+                : typePaySelected // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        total:
+            null == total
+                ? _value.total
+                : total // ignore: cast_nullable_to_non_nullable
+                    as double,
+        counter:
+            null == counter
+                ? _value.counter
+                : counter // ignore: cast_nullable_to_non_nullable
+                    as int,
+        totalRenting:
+            null == totalRenting
+                ? _value.totalRenting
+                : totalRenting // ignore: cast_nullable_to_non_nullable
+                    as double,
+        totalTienda:
+            null == totalTienda
+                ? _value.totalTienda
+                : totalTienda // ignore: cast_nullable_to_non_nullable
+                    as double,
+        products:
+            null == products
+                ? _value._products
+                : products // ignore: cast_nullable_to_non_nullable
+                    as List<ShoppingCardProduct>,
+        productsTienda:
+            null == productsTienda
+                ? _value._productsTienda
+                : productsTienda // ignore: cast_nullable_to_non_nullable
+                    as List<ShoppingCardProduct>,
+        productsRenting:
+            null == productsRenting
+                ? _value._productsRenting
+                : productsRenting // ignore: cast_nullable_to_non_nullable
+                    as List<ShoppingCardProduct>,
+        payResponse:
+            freezed == payResponse
+                ? _value.payResponse
+                : payResponse // ignore: cast_nullable_to_non_nullable
+                    as PayResponse?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_ShoppingCardState extends _ShoppingCardState {
-  const _$_ShoppingCardState(
-      {this.loading = false,
-      this.status = FormStatus.editing,
-      this.deleting = false,
-      this.buying = false,
-      this.isCard = false,
-      this.typePaySelected = false,
-      this.total = 0.0,
-      this.counter = 0,
-      this.totalRenting = 0,
-      this.totalTienda = 0,
-      final List<ShoppingCardProduct> products = const <ShoppingCardProduct>[],
-      final List<ShoppingCardProduct> productsTienda =
-          const <ShoppingCardProduct>[],
-      final List<ShoppingCardProduct> productsRenting =
-          const <ShoppingCardProduct>[],
-      this.payResponse})
-      : _products = products,
-        _productsTienda = productsTienda,
-        _productsRenting = productsRenting,
-        super._();
+class _$ShoppingCardStateImpl extends _ShoppingCardState {
+  const _$ShoppingCardStateImpl({
+    this.loading = false,
+    this.status = FormStatus.editing,
+    this.deleting = false,
+    this.buying = false,
+    this.isCard = false,
+    this.typePaySelected = false,
+    this.total = 0.0,
+    this.counter = 0,
+    this.totalRenting = 0,
+    this.totalTienda = 0,
+    final List<ShoppingCardProduct> products = const <ShoppingCardProduct>[],
+    final List<ShoppingCardProduct> productsTienda =
+        const <ShoppingCardProduct>[],
+    final List<ShoppingCardProduct> productsRenting =
+        const <ShoppingCardProduct>[],
+    this.payResponse,
+  }) : _products = products,
+       _productsTienda = productsTienda,
+       _productsRenting = productsRenting,
+       super._();
 
   @override
   @JsonKey()
@@ -353,10 +398,10 @@ class _$_ShoppingCardState extends _ShoppingCardState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ShoppingCardState &&
+            other is _$ShoppingCardStateImpl &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.deleting, deleting) ||
@@ -372,56 +417,66 @@ class _$_ShoppingCardState extends _ShoppingCardState {
             (identical(other.totalTienda, totalTienda) ||
                 other.totalTienda == totalTienda) &&
             const DeepCollectionEquality().equals(other._products, _products) &&
-            const DeepCollectionEquality()
-                .equals(other._productsTienda, _productsTienda) &&
-            const DeepCollectionEquality()
-                .equals(other._productsRenting, _productsRenting) &&
+            const DeepCollectionEquality().equals(
+              other._productsTienda,
+              _productsTienda,
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._productsRenting,
+              _productsRenting,
+            ) &&
             (identical(other.payResponse, payResponse) ||
                 other.payResponse == payResponse));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      loading,
-      status,
-      deleting,
-      buying,
-      isCard,
-      typePaySelected,
-      total,
-      counter,
-      totalRenting,
-      totalTienda,
-      const DeepCollectionEquality().hash(_products),
-      const DeepCollectionEquality().hash(_productsTienda),
-      const DeepCollectionEquality().hash(_productsRenting),
-      payResponse);
+    runtimeType,
+    loading,
+    status,
+    deleting,
+    buying,
+    isCard,
+    typePaySelected,
+    total,
+    counter,
+    totalRenting,
+    totalTienda,
+    const DeepCollectionEquality().hash(_products),
+    const DeepCollectionEquality().hash(_productsTienda),
+    const DeepCollectionEquality().hash(_productsRenting),
+    payResponse,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ShoppingCardState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ShoppingCardStateCopyWith<_$_ShoppingCardState> get copyWith =>
-      __$$_ShoppingCardStateCopyWithImpl<_$_ShoppingCardState>(
-          this, _$identity);
+  _$$ShoppingCardStateImplCopyWith<_$ShoppingCardStateImpl> get copyWith =>
+      __$$ShoppingCardStateImplCopyWithImpl<_$ShoppingCardStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _ShoppingCardState extends ShoppingCardState {
-  const factory _ShoppingCardState(
-      {final bool loading,
-      final FormStatus status,
-      final bool deleting,
-      final bool buying,
-      final bool isCard,
-      final bool typePaySelected,
-      final double total,
-      final int counter,
-      final double totalRenting,
-      final double totalTienda,
-      final List<ShoppingCardProduct> products,
-      final List<ShoppingCardProduct> productsTienda,
-      final List<ShoppingCardProduct> productsRenting,
-      final PayResponse? payResponse}) = _$_ShoppingCardState;
+  const factory _ShoppingCardState({
+    final bool loading,
+    final FormStatus status,
+    final bool deleting,
+    final bool buying,
+    final bool isCard,
+    final bool typePaySelected,
+    final double total,
+    final int counter,
+    final double totalRenting,
+    final double totalTienda,
+    final List<ShoppingCardProduct> products,
+    final List<ShoppingCardProduct> productsTienda,
+    final List<ShoppingCardProduct> productsRenting,
+    final PayResponse? payResponse,
+  }) = _$ShoppingCardStateImpl;
   const _ShoppingCardState._() : super._();
 
   @override
@@ -452,8 +507,11 @@ abstract class _ShoppingCardState extends ShoppingCardState {
   List<ShoppingCardProduct> get productsRenting;
   @override
   PayResponse? get payResponse;
+
+  /// Create a copy of ShoppingCardState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_ShoppingCardStateCopyWith<_$_ShoppingCardState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ShoppingCardStateImplCopyWith<_$ShoppingCardStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

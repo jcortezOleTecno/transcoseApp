@@ -12,7 +12,8 @@ part of 'my_account_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$MyAccountState {
@@ -28,7 +29,9 @@ mixin _$MyAccountState {
   String? get postalCode => throw _privateConstructorUsedError;
   File? get foto => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MyAccountState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $MyAccountStateCopyWith<MyAccountState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -36,21 +39,23 @@ mixin _$MyAccountState {
 /// @nodoc
 abstract class $MyAccountStateCopyWith<$Res> {
   factory $MyAccountStateCopyWith(
-          MyAccountState value, $Res Function(MyAccountState) then) =
-      _$MyAccountStateCopyWithImpl<$Res, MyAccountState>;
+    MyAccountState value,
+    $Res Function(MyAccountState) then,
+  ) = _$MyAccountStateCopyWithImpl<$Res, MyAccountState>;
   @useResult
-  $Res call(
-      {FormStatus status,
-      String? name,
-      String? email,
-      String? code,
-      String? cif,
-      String? phone,
-      String? address,
-      String? city,
-      String? province,
-      String? postalCode,
-      File? foto});
+  $Res call({
+    FormStatus status,
+    String? name,
+    String? email,
+    String? code,
+    String? cif,
+    String? phone,
+    String? address,
+    String? city,
+    String? province,
+    String? postalCode,
+    File? foto,
+  });
 }
 
 /// @nodoc
@@ -63,6 +68,8 @@ class _$MyAccountStateCopyWithImpl<$Res, $Val extends MyAccountState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of MyAccountState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -78,85 +85,104 @@ class _$MyAccountStateCopyWithImpl<$Res, $Val extends MyAccountState>
     Object? postalCode = freezed,
     Object? foto = freezed,
   }) {
-    return _then(_value.copyWith(
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as FormStatus,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String?,
-      code: freezed == code
-          ? _value.code
-          : code // ignore: cast_nullable_to_non_nullable
-              as String?,
-      cif: freezed == cif
-          ? _value.cif
-          : cif // ignore: cast_nullable_to_non_nullable
-              as String?,
-      phone: freezed == phone
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
-              as String?,
-      address: freezed == address
-          ? _value.address
-          : address // ignore: cast_nullable_to_non_nullable
-              as String?,
-      city: freezed == city
-          ? _value.city
-          : city // ignore: cast_nullable_to_non_nullable
-              as String?,
-      province: freezed == province
-          ? _value.province
-          : province // ignore: cast_nullable_to_non_nullable
-              as String?,
-      postalCode: freezed == postalCode
-          ? _value.postalCode
-          : postalCode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      foto: freezed == foto
-          ? _value.foto
-          : foto // ignore: cast_nullable_to_non_nullable
-              as File?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            status:
+                null == status
+                    ? _value.status
+                    : status // ignore: cast_nullable_to_non_nullable
+                        as FormStatus,
+            name:
+                freezed == name
+                    ? _value.name
+                    : name // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            email:
+                freezed == email
+                    ? _value.email
+                    : email // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            code:
+                freezed == code
+                    ? _value.code
+                    : code // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            cif:
+                freezed == cif
+                    ? _value.cif
+                    : cif // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            phone:
+                freezed == phone
+                    ? _value.phone
+                    : phone // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            address:
+                freezed == address
+                    ? _value.address
+                    : address // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            city:
+                freezed == city
+                    ? _value.city
+                    : city // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            province:
+                freezed == province
+                    ? _value.province
+                    : province // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            postalCode:
+                freezed == postalCode
+                    ? _value.postalCode
+                    : postalCode // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            foto:
+                freezed == foto
+                    ? _value.foto
+                    : foto // ignore: cast_nullable_to_non_nullable
+                        as File?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_MyAccountStateCopyWith<$Res>
+abstract class _$$MyAccountStateImplCopyWith<$Res>
     implements $MyAccountStateCopyWith<$Res> {
-  factory _$$_MyAccountStateCopyWith(
-          _$_MyAccountState value, $Res Function(_$_MyAccountState) then) =
-      __$$_MyAccountStateCopyWithImpl<$Res>;
+  factory _$$MyAccountStateImplCopyWith(
+    _$MyAccountStateImpl value,
+    $Res Function(_$MyAccountStateImpl) then,
+  ) = __$$MyAccountStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {FormStatus status,
-      String? name,
-      String? email,
-      String? code,
-      String? cif,
-      String? phone,
-      String? address,
-      String? city,
-      String? province,
-      String? postalCode,
-      File? foto});
+  $Res call({
+    FormStatus status,
+    String? name,
+    String? email,
+    String? code,
+    String? cif,
+    String? phone,
+    String? address,
+    String? city,
+    String? province,
+    String? postalCode,
+    File? foto,
+  });
 }
 
 /// @nodoc
-class __$$_MyAccountStateCopyWithImpl<$Res>
-    extends _$MyAccountStateCopyWithImpl<$Res, _$_MyAccountState>
-    implements _$$_MyAccountStateCopyWith<$Res> {
-  __$$_MyAccountStateCopyWithImpl(
-      _$_MyAccountState _value, $Res Function(_$_MyAccountState) _then)
-      : super(_value, _then);
+class __$$MyAccountStateImplCopyWithImpl<$Res>
+    extends _$MyAccountStateCopyWithImpl<$Res, _$MyAccountStateImpl>
+    implements _$$MyAccountStateImplCopyWith<$Res> {
+  __$$MyAccountStateImplCopyWithImpl(
+    _$MyAccountStateImpl _value,
+    $Res Function(_$MyAccountStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of MyAccountState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -172,70 +198,84 @@ class __$$_MyAccountStateCopyWithImpl<$Res>
     Object? postalCode = freezed,
     Object? foto = freezed,
   }) {
-    return _then(_$_MyAccountState(
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as FormStatus,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String?,
-      code: freezed == code
-          ? _value.code
-          : code // ignore: cast_nullable_to_non_nullable
-              as String?,
-      cif: freezed == cif
-          ? _value.cif
-          : cif // ignore: cast_nullable_to_non_nullable
-              as String?,
-      phone: freezed == phone
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
-              as String?,
-      address: freezed == address
-          ? _value.address
-          : address // ignore: cast_nullable_to_non_nullable
-              as String?,
-      city: freezed == city
-          ? _value.city
-          : city // ignore: cast_nullable_to_non_nullable
-              as String?,
-      province: freezed == province
-          ? _value.province
-          : province // ignore: cast_nullable_to_non_nullable
-              as String?,
-      postalCode: freezed == postalCode
-          ? _value.postalCode
-          : postalCode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      foto: freezed == foto
-          ? _value.foto
-          : foto // ignore: cast_nullable_to_non_nullable
-              as File?,
-    ));
+    return _then(
+      _$MyAccountStateImpl(
+        status:
+            null == status
+                ? _value.status
+                : status // ignore: cast_nullable_to_non_nullable
+                    as FormStatus,
+        name:
+            freezed == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        email:
+            freezed == email
+                ? _value.email
+                : email // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        code:
+            freezed == code
+                ? _value.code
+                : code // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        cif:
+            freezed == cif
+                ? _value.cif
+                : cif // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        phone:
+            freezed == phone
+                ? _value.phone
+                : phone // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        address:
+            freezed == address
+                ? _value.address
+                : address // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        city:
+            freezed == city
+                ? _value.city
+                : city // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        province:
+            freezed == province
+                ? _value.province
+                : province // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        postalCode:
+            freezed == postalCode
+                ? _value.postalCode
+                : postalCode // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        foto:
+            freezed == foto
+                ? _value.foto
+                : foto // ignore: cast_nullable_to_non_nullable
+                    as File?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_MyAccountState implements _MyAccountState {
-  const _$_MyAccountState(
-      {this.status = FormStatus.editing,
-      this.name,
-      this.email,
-      this.code,
-      this.cif,
-      this.phone,
-      this.address,
-      this.city,
-      this.province,
-      this.postalCode,
-      this.foto});
+class _$MyAccountStateImpl implements _MyAccountState {
+  const _$MyAccountStateImpl({
+    this.status = FormStatus.editing,
+    this.name,
+    this.email,
+    this.code,
+    this.cif,
+    this.phone,
+    this.address,
+    this.city,
+    this.province,
+    this.postalCode,
+    this.foto,
+  });
 
   @override
   @JsonKey()
@@ -267,10 +307,10 @@ class _$_MyAccountState implements _MyAccountState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_MyAccountState &&
+            other is _$MyAccountStateImpl &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email) &&
@@ -287,29 +327,47 @@ class _$_MyAccountState implements _MyAccountState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, name, email, code, cif,
-      phone, address, city, province, postalCode, foto);
+  int get hashCode => Object.hash(
+    runtimeType,
+    status,
+    name,
+    email,
+    code,
+    cif,
+    phone,
+    address,
+    city,
+    province,
+    postalCode,
+    foto,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MyAccountState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_MyAccountStateCopyWith<_$_MyAccountState> get copyWith =>
-      __$$_MyAccountStateCopyWithImpl<_$_MyAccountState>(this, _$identity);
+  _$$MyAccountStateImplCopyWith<_$MyAccountStateImpl> get copyWith =>
+      __$$MyAccountStateImplCopyWithImpl<_$MyAccountStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _MyAccountState implements MyAccountState {
-  const factory _MyAccountState(
-      {final FormStatus status,
-      final String? name,
-      final String? email,
-      final String? code,
-      final String? cif,
-      final String? phone,
-      final String? address,
-      final String? city,
-      final String? province,
-      final String? postalCode,
-      final File? foto}) = _$_MyAccountState;
+  const factory _MyAccountState({
+    final FormStatus status,
+    final String? name,
+    final String? email,
+    final String? code,
+    final String? cif,
+    final String? phone,
+    final String? address,
+    final String? city,
+    final String? province,
+    final String? postalCode,
+    final File? foto,
+  }) = _$MyAccountStateImpl;
 
   @override
   FormStatus get status;
@@ -333,8 +391,11 @@ abstract class _MyAccountState implements MyAccountState {
   String? get postalCode;
   @override
   File? get foto;
+
+  /// Create a copy of MyAccountState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_MyAccountStateCopyWith<_$_MyAccountState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$MyAccountStateImplCopyWith<_$MyAccountStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

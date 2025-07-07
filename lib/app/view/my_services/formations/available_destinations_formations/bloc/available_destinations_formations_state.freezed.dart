@@ -12,7 +12,8 @@ part of 'available_destinations_formations_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$AvailableDestinationsFormationsState {
@@ -21,30 +22,39 @@ mixin _$AvailableDestinationsFormationsState {
   List<Locations> get locationReferences => throw _privateConstructorUsedError;
   Formation? get formation => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AvailableDestinationsFormationsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AvailableDestinationsFormationsStateCopyWith<
-          AvailableDestinationsFormationsState>
-      get copyWith => throw _privateConstructorUsedError;
+    AvailableDestinationsFormationsState
+  >
+  get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $AvailableDestinationsFormationsStateCopyWith<$Res> {
   factory $AvailableDestinationsFormationsStateCopyWith(
-          AvailableDestinationsFormationsState value,
-          $Res Function(AvailableDestinationsFormationsState) then) =
-      _$AvailableDestinationsFormationsStateCopyWithImpl<$Res,
-          AvailableDestinationsFormationsState>;
+    AvailableDestinationsFormationsState value,
+    $Res Function(AvailableDestinationsFormationsState) then,
+  ) =
+      _$AvailableDestinationsFormationsStateCopyWithImpl<
+        $Res,
+        AvailableDestinationsFormationsState
+      >;
   @useResult
-  $Res call(
-      {bool loading,
-      List<Locations> location,
-      List<Locations> locationReferences,
-      Formation? formation});
+  $Res call({
+    bool loading,
+    List<Locations> location,
+    List<Locations> locationReferences,
+    Formation? formation,
+  });
 }
 
 /// @nodoc
-class _$AvailableDestinationsFormationsStateCopyWithImpl<$Res,
-        $Val extends AvailableDestinationsFormationsState>
+class _$AvailableDestinationsFormationsStateCopyWithImpl<
+  $Res,
+  $Val extends AvailableDestinationsFormationsState
+>
     implements $AvailableDestinationsFormationsStateCopyWith<$Res> {
   _$AvailableDestinationsFormationsStateCopyWithImpl(this._value, this._then);
 
@@ -53,6 +63,8 @@ class _$AvailableDestinationsFormationsStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AvailableDestinationsFormationsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -61,53 +73,66 @@ class _$AvailableDestinationsFormationsStateCopyWithImpl<$Res,
     Object? locationReferences = null,
     Object? formation = freezed,
   }) {
-    return _then(_value.copyWith(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      location: null == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
-              as List<Locations>,
-      locationReferences: null == locationReferences
-          ? _value.locationReferences
-          : locationReferences // ignore: cast_nullable_to_non_nullable
-              as List<Locations>,
-      formation: freezed == formation
-          ? _value.formation
-          : formation // ignore: cast_nullable_to_non_nullable
-              as Formation?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            loading:
+                null == loading
+                    ? _value.loading
+                    : loading // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            location:
+                null == location
+                    ? _value.location
+                    : location // ignore: cast_nullable_to_non_nullable
+                        as List<Locations>,
+            locationReferences:
+                null == locationReferences
+                    ? _value.locationReferences
+                    : locationReferences // ignore: cast_nullable_to_non_nullable
+                        as List<Locations>,
+            formation:
+                freezed == formation
+                    ? _value.formation
+                    : formation // ignore: cast_nullable_to_non_nullable
+                        as Formation?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_AvailableDestinationsFormationsStateCopyWith<$Res>
+abstract class _$$AvailableDestinationsFormationsStateImplCopyWith<$Res>
     implements $AvailableDestinationsFormationsStateCopyWith<$Res> {
-  factory _$$_AvailableDestinationsFormationsStateCopyWith(
-          _$_AvailableDestinationsFormationsState value,
-          $Res Function(_$_AvailableDestinationsFormationsState) then) =
-      __$$_AvailableDestinationsFormationsStateCopyWithImpl<$Res>;
+  factory _$$AvailableDestinationsFormationsStateImplCopyWith(
+    _$AvailableDestinationsFormationsStateImpl value,
+    $Res Function(_$AvailableDestinationsFormationsStateImpl) then,
+  ) = __$$AvailableDestinationsFormationsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {bool loading,
-      List<Locations> location,
-      List<Locations> locationReferences,
-      Formation? formation});
+  $Res call({
+    bool loading,
+    List<Locations> location,
+    List<Locations> locationReferences,
+    Formation? formation,
+  });
 }
 
 /// @nodoc
-class __$$_AvailableDestinationsFormationsStateCopyWithImpl<$Res>
-    extends _$AvailableDestinationsFormationsStateCopyWithImpl<$Res,
-        _$_AvailableDestinationsFormationsState>
-    implements _$$_AvailableDestinationsFormationsStateCopyWith<$Res> {
-  __$$_AvailableDestinationsFormationsStateCopyWithImpl(
-      _$_AvailableDestinationsFormationsState _value,
-      $Res Function(_$_AvailableDestinationsFormationsState) _then)
-      : super(_value, _then);
+class __$$AvailableDestinationsFormationsStateImplCopyWithImpl<$Res>
+    extends
+        _$AvailableDestinationsFormationsStateCopyWithImpl<
+          $Res,
+          _$AvailableDestinationsFormationsStateImpl
+        >
+    implements _$$AvailableDestinationsFormationsStateImplCopyWith<$Res> {
+  __$$AvailableDestinationsFormationsStateImplCopyWithImpl(
+    _$AvailableDestinationsFormationsStateImpl _value,
+    $Res Function(_$AvailableDestinationsFormationsStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of AvailableDestinationsFormationsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -116,39 +141,45 @@ class __$$_AvailableDestinationsFormationsStateCopyWithImpl<$Res>
     Object? locationReferences = null,
     Object? formation = freezed,
   }) {
-    return _then(_$_AvailableDestinationsFormationsState(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      location: null == location
-          ? _value._location
-          : location // ignore: cast_nullable_to_non_nullable
-              as List<Locations>,
-      locationReferences: null == locationReferences
-          ? _value._locationReferences
-          : locationReferences // ignore: cast_nullable_to_non_nullable
-              as List<Locations>,
-      formation: freezed == formation
-          ? _value.formation
-          : formation // ignore: cast_nullable_to_non_nullable
-              as Formation?,
-    ));
+    return _then(
+      _$AvailableDestinationsFormationsStateImpl(
+        loading:
+            null == loading
+                ? _value.loading
+                : loading // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        location:
+            null == location
+                ? _value._location
+                : location // ignore: cast_nullable_to_non_nullable
+                    as List<Locations>,
+        locationReferences:
+            null == locationReferences
+                ? _value._locationReferences
+                : locationReferences // ignore: cast_nullable_to_non_nullable
+                    as List<Locations>,
+        formation:
+            freezed == formation
+                ? _value.formation
+                : formation // ignore: cast_nullable_to_non_nullable
+                    as Formation?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_AvailableDestinationsFormationsState
+class _$AvailableDestinationsFormationsStateImpl
     extends _AvailableDestinationsFormationsState {
-  const _$_AvailableDestinationsFormationsState(
-      {this.loading = false,
-      final List<Locations> location = const <Locations>[],
-      final List<Locations> locationReferences = const <Locations>[],
-      this.formation})
-      : _location = location,
-        _locationReferences = locationReferences,
-        super._();
+  const _$AvailableDestinationsFormationsStateImpl({
+    this.loading = false,
+    final List<Locations> location = const <Locations>[],
+    final List<Locations> locationReferences = const <Locations>[],
+    this.formation,
+  }) : _location = location,
+       _locationReferences = locationReferences,
+       super._();
 
   @override
   @JsonKey()
@@ -181,42 +212,50 @@ class _$_AvailableDestinationsFormationsState
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AvailableDestinationsFormationsState &&
+            other is _$AvailableDestinationsFormationsStateImpl &&
             (identical(other.loading, loading) || other.loading == loading) &&
             const DeepCollectionEquality().equals(other._location, _location) &&
-            const DeepCollectionEquality()
-                .equals(other._locationReferences, _locationReferences) &&
+            const DeepCollectionEquality().equals(
+              other._locationReferences,
+              _locationReferences,
+            ) &&
             (identical(other.formation, formation) ||
                 other.formation == formation));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      loading,
-      const DeepCollectionEquality().hash(_location),
-      const DeepCollectionEquality().hash(_locationReferences),
-      formation);
+    runtimeType,
+    loading,
+    const DeepCollectionEquality().hash(_location),
+    const DeepCollectionEquality().hash(_locationReferences),
+    formation,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AvailableDestinationsFormationsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AvailableDestinationsFormationsStateCopyWith<
-          _$_AvailableDestinationsFormationsState>
-      get copyWith => __$$_AvailableDestinationsFormationsStateCopyWithImpl<
-          _$_AvailableDestinationsFormationsState>(this, _$identity);
+  _$$AvailableDestinationsFormationsStateImplCopyWith<
+    _$AvailableDestinationsFormationsStateImpl
+  >
+  get copyWith => __$$AvailableDestinationsFormationsStateImplCopyWithImpl<
+    _$AvailableDestinationsFormationsStateImpl
+  >(this, _$identity);
 }
 
 abstract class _AvailableDestinationsFormationsState
     extends AvailableDestinationsFormationsState {
-  const factory _AvailableDestinationsFormationsState(
-      {final bool loading,
-      final List<Locations> location,
-      final List<Locations> locationReferences,
-      final Formation? formation}) = _$_AvailableDestinationsFormationsState;
+  const factory _AvailableDestinationsFormationsState({
+    final bool loading,
+    final List<Locations> location,
+    final List<Locations> locationReferences,
+    final Formation? formation,
+  }) = _$AvailableDestinationsFormationsStateImpl;
   const _AvailableDestinationsFormationsState._() : super._();
 
   @override
@@ -227,9 +266,13 @@ abstract class _AvailableDestinationsFormationsState
   List<Locations> get locationReferences;
   @override
   Formation? get formation;
+
+  /// Create a copy of AvailableDestinationsFormationsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_AvailableDestinationsFormationsStateCopyWith<
-          _$_AvailableDestinationsFormationsState>
-      get copyWith => throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$AvailableDestinationsFormationsStateImplCopyWith<
+    _$AvailableDestinationsFormationsStateImpl
+  >
+  get copyWith => throw _privateConstructorUsedError;
 }

@@ -12,7 +12,8 @@ part of 'budget_detail_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$BudgetDetailState {
@@ -21,7 +22,9 @@ mixin _$BudgetDetailState {
   Budget? get budget => throw _privateConstructorUsedError;
   DataTableSource? get dataBudgetDetail => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of BudgetDetailState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $BudgetDetailStateCopyWith<BudgetDetailState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -29,14 +32,16 @@ mixin _$BudgetDetailState {
 /// @nodoc
 abstract class $BudgetDetailStateCopyWith<$Res> {
   factory $BudgetDetailStateCopyWith(
-          BudgetDetailState value, $Res Function(BudgetDetailState) then) =
-      _$BudgetDetailStateCopyWithImpl<$Res, BudgetDetailState>;
+    BudgetDetailState value,
+    $Res Function(BudgetDetailState) then,
+  ) = _$BudgetDetailStateCopyWithImpl<$Res, BudgetDetailState>;
   @useResult
-  $Res call(
-      {bool loading,
-      BudgetDetail? budgetDetails,
-      Budget? budget,
-      DataTableSource? dataBudgetDetail});
+  $Res call({
+    bool loading,
+    BudgetDetail? budgetDetails,
+    Budget? budget,
+    DataTableSource? dataBudgetDetail,
+  });
 }
 
 /// @nodoc
@@ -49,6 +54,8 @@ class _$BudgetDetailStateCopyWithImpl<$Res, $Val extends BudgetDetailState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of BudgetDetailState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -57,50 +64,62 @@ class _$BudgetDetailStateCopyWithImpl<$Res, $Val extends BudgetDetailState>
     Object? budget = freezed,
     Object? dataBudgetDetail = freezed,
   }) {
-    return _then(_value.copyWith(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      budgetDetails: freezed == budgetDetails
-          ? _value.budgetDetails
-          : budgetDetails // ignore: cast_nullable_to_non_nullable
-              as BudgetDetail?,
-      budget: freezed == budget
-          ? _value.budget
-          : budget // ignore: cast_nullable_to_non_nullable
-              as Budget?,
-      dataBudgetDetail: freezed == dataBudgetDetail
-          ? _value.dataBudgetDetail
-          : dataBudgetDetail // ignore: cast_nullable_to_non_nullable
-              as DataTableSource?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            loading:
+                null == loading
+                    ? _value.loading
+                    : loading // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            budgetDetails:
+                freezed == budgetDetails
+                    ? _value.budgetDetails
+                    : budgetDetails // ignore: cast_nullable_to_non_nullable
+                        as BudgetDetail?,
+            budget:
+                freezed == budget
+                    ? _value.budget
+                    : budget // ignore: cast_nullable_to_non_nullable
+                        as Budget?,
+            dataBudgetDetail:
+                freezed == dataBudgetDetail
+                    ? _value.dataBudgetDetail
+                    : dataBudgetDetail // ignore: cast_nullable_to_non_nullable
+                        as DataTableSource?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_BudgetDetailStateCopyWith<$Res>
+abstract class _$$BudgetDetailStateImplCopyWith<$Res>
     implements $BudgetDetailStateCopyWith<$Res> {
-  factory _$$_BudgetDetailStateCopyWith(_$_BudgetDetailState value,
-          $Res Function(_$_BudgetDetailState) then) =
-      __$$_BudgetDetailStateCopyWithImpl<$Res>;
+  factory _$$BudgetDetailStateImplCopyWith(
+    _$BudgetDetailStateImpl value,
+    $Res Function(_$BudgetDetailStateImpl) then,
+  ) = __$$BudgetDetailStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {bool loading,
-      BudgetDetail? budgetDetails,
-      Budget? budget,
-      DataTableSource? dataBudgetDetail});
+  $Res call({
+    bool loading,
+    BudgetDetail? budgetDetails,
+    Budget? budget,
+    DataTableSource? dataBudgetDetail,
+  });
 }
 
 /// @nodoc
-class __$$_BudgetDetailStateCopyWithImpl<$Res>
-    extends _$BudgetDetailStateCopyWithImpl<$Res, _$_BudgetDetailState>
-    implements _$$_BudgetDetailStateCopyWith<$Res> {
-  __$$_BudgetDetailStateCopyWithImpl(
-      _$_BudgetDetailState _value, $Res Function(_$_BudgetDetailState) _then)
-      : super(_value, _then);
+class __$$BudgetDetailStateImplCopyWithImpl<$Res>
+    extends _$BudgetDetailStateCopyWithImpl<$Res, _$BudgetDetailStateImpl>
+    implements _$$BudgetDetailStateImplCopyWith<$Res> {
+  __$$BudgetDetailStateImplCopyWithImpl(
+    _$BudgetDetailStateImpl _value,
+    $Res Function(_$BudgetDetailStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of BudgetDetailState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -109,36 +128,42 @@ class __$$_BudgetDetailStateCopyWithImpl<$Res>
     Object? budget = freezed,
     Object? dataBudgetDetail = freezed,
   }) {
-    return _then(_$_BudgetDetailState(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      budgetDetails: freezed == budgetDetails
-          ? _value.budgetDetails
-          : budgetDetails // ignore: cast_nullable_to_non_nullable
-              as BudgetDetail?,
-      budget: freezed == budget
-          ? _value.budget
-          : budget // ignore: cast_nullable_to_non_nullable
-              as Budget?,
-      dataBudgetDetail: freezed == dataBudgetDetail
-          ? _value.dataBudgetDetail
-          : dataBudgetDetail // ignore: cast_nullable_to_non_nullable
-              as DataTableSource?,
-    ));
+    return _then(
+      _$BudgetDetailStateImpl(
+        loading:
+            null == loading
+                ? _value.loading
+                : loading // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        budgetDetails:
+            freezed == budgetDetails
+                ? _value.budgetDetails
+                : budgetDetails // ignore: cast_nullable_to_non_nullable
+                    as BudgetDetail?,
+        budget:
+            freezed == budget
+                ? _value.budget
+                : budget // ignore: cast_nullable_to_non_nullable
+                    as Budget?,
+        dataBudgetDetail:
+            freezed == dataBudgetDetail
+                ? _value.dataBudgetDetail
+                : dataBudgetDetail // ignore: cast_nullable_to_non_nullable
+                    as DataTableSource?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_BudgetDetailState extends _BudgetDetailState {
-  const _$_BudgetDetailState(
-      {this.loading = false,
-      this.budgetDetails,
-      this.budget,
-      this.dataBudgetDetail})
-      : super._();
+class _$BudgetDetailStateImpl extends _BudgetDetailState {
+  const _$BudgetDetailStateImpl({
+    this.loading = false,
+    this.budgetDetails,
+    this.budget,
+    this.dataBudgetDetail,
+  }) : super._();
 
   @override
   @JsonKey()
@@ -156,10 +181,10 @@ class _$_BudgetDetailState extends _BudgetDetailState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_BudgetDetailState &&
+            other is _$BudgetDetailStateImpl &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.budgetDetails, budgetDetails) ||
                 other.budgetDetails == budgetDetails) &&
@@ -170,22 +195,32 @@ class _$_BudgetDetailState extends _BudgetDetailState {
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, loading, budgetDetails, budget, dataBudgetDetail);
+    runtimeType,
+    loading,
+    budgetDetails,
+    budget,
+    dataBudgetDetail,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of BudgetDetailState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_BudgetDetailStateCopyWith<_$_BudgetDetailState> get copyWith =>
-      __$$_BudgetDetailStateCopyWithImpl<_$_BudgetDetailState>(
-          this, _$identity);
+  _$$BudgetDetailStateImplCopyWith<_$BudgetDetailStateImpl> get copyWith =>
+      __$$BudgetDetailStateImplCopyWithImpl<_$BudgetDetailStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _BudgetDetailState extends BudgetDetailState {
-  const factory _BudgetDetailState(
-      {final bool loading,
-      final BudgetDetail? budgetDetails,
-      final Budget? budget,
-      final DataTableSource? dataBudgetDetail}) = _$_BudgetDetailState;
+  const factory _BudgetDetailState({
+    final bool loading,
+    final BudgetDetail? budgetDetails,
+    final Budget? budget,
+    final DataTableSource? dataBudgetDetail,
+  }) = _$BudgetDetailStateImpl;
   const _BudgetDetailState._() : super._();
 
   @override
@@ -196,8 +231,11 @@ abstract class _BudgetDetailState extends BudgetDetailState {
   Budget? get budget;
   @override
   DataTableSource? get dataBudgetDetail;
+
+  /// Create a copy of BudgetDetailState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_BudgetDetailStateCopyWith<_$_BudgetDetailState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$BudgetDetailStateImplCopyWith<_$BudgetDetailStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

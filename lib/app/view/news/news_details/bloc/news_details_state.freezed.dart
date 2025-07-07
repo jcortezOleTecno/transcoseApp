@@ -12,14 +12,17 @@ part of 'news_details_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$NewsDetailsState {
   String? get id => throw _privateConstructorUsedError;
   ArticleNewsDetails? get details => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NewsDetailsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $NewsDetailsStateCopyWith<NewsDetailsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -27,8 +30,9 @@ mixin _$NewsDetailsState {
 /// @nodoc
 abstract class $NewsDetailsStateCopyWith<$Res> {
   factory $NewsDetailsStateCopyWith(
-          NewsDetailsState value, $Res Function(NewsDetailsState) then) =
-      _$NewsDetailsStateCopyWithImpl<$Res, NewsDetailsState>;
+    NewsDetailsState value,
+    $Res Function(NewsDetailsState) then,
+  ) = _$NewsDetailsStateCopyWithImpl<$Res, NewsDetailsState>;
   @useResult
   $Res call({String? id, ArticleNewsDetails? details});
 }
@@ -43,67 +47,76 @@ class _$NewsDetailsStateCopyWithImpl<$Res, $Val extends NewsDetailsState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of NewsDetailsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? id = freezed,
-    Object? details = freezed,
-  }) {
-    return _then(_value.copyWith(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      details: freezed == details
-          ? _value.details
-          : details // ignore: cast_nullable_to_non_nullable
-              as ArticleNewsDetails?,
-    ) as $Val);
+  $Res call({Object? id = freezed, Object? details = freezed}) {
+    return _then(
+      _value.copyWith(
+            id:
+                freezed == id
+                    ? _value.id
+                    : id // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            details:
+                freezed == details
+                    ? _value.details
+                    : details // ignore: cast_nullable_to_non_nullable
+                        as ArticleNewsDetails?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_NewsDetailsStateCopyWith<$Res>
+abstract class _$$NewsDetailsStateImplCopyWith<$Res>
     implements $NewsDetailsStateCopyWith<$Res> {
-  factory _$$_NewsDetailsStateCopyWith(
-          _$_NewsDetailsState value, $Res Function(_$_NewsDetailsState) then) =
-      __$$_NewsDetailsStateCopyWithImpl<$Res>;
+  factory _$$NewsDetailsStateImplCopyWith(
+    _$NewsDetailsStateImpl value,
+    $Res Function(_$NewsDetailsStateImpl) then,
+  ) = __$$NewsDetailsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String? id, ArticleNewsDetails? details});
 }
 
 /// @nodoc
-class __$$_NewsDetailsStateCopyWithImpl<$Res>
-    extends _$NewsDetailsStateCopyWithImpl<$Res, _$_NewsDetailsState>
-    implements _$$_NewsDetailsStateCopyWith<$Res> {
-  __$$_NewsDetailsStateCopyWithImpl(
-      _$_NewsDetailsState _value, $Res Function(_$_NewsDetailsState) _then)
-      : super(_value, _then);
+class __$$NewsDetailsStateImplCopyWithImpl<$Res>
+    extends _$NewsDetailsStateCopyWithImpl<$Res, _$NewsDetailsStateImpl>
+    implements _$$NewsDetailsStateImplCopyWith<$Res> {
+  __$$NewsDetailsStateImplCopyWithImpl(
+    _$NewsDetailsStateImpl _value,
+    $Res Function(_$NewsDetailsStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of NewsDetailsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? id = freezed,
-    Object? details = freezed,
-  }) {
-    return _then(_$_NewsDetailsState(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      details: freezed == details
-          ? _value.details
-          : details // ignore: cast_nullable_to_non_nullable
-              as ArticleNewsDetails?,
-    ));
+  $Res call({Object? id = freezed, Object? details = freezed}) {
+    return _then(
+      _$NewsDetailsStateImpl(
+        id:
+            freezed == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        details:
+            freezed == details
+                ? _value.details
+                : details // ignore: cast_nullable_to_non_nullable
+                    as ArticleNewsDetails?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_NewsDetailsState extends _NewsDetailsState {
-  const _$_NewsDetailsState({this.id, this.details}) : super._();
+class _$NewsDetailsStateImpl extends _NewsDetailsState {
+  const _$NewsDetailsStateImpl({this.id, this.details}) : super._();
 
   @override
   final String? id;
@@ -116,10 +129,10 @@ class _$_NewsDetailsState extends _NewsDetailsState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_NewsDetailsState &&
+            other is _$NewsDetailsStateImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.details, details) || other.details == details));
   }
@@ -127,25 +140,34 @@ class _$_NewsDetailsState extends _NewsDetailsState {
   @override
   int get hashCode => Object.hash(runtimeType, id, details);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NewsDetailsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_NewsDetailsStateCopyWith<_$_NewsDetailsState> get copyWith =>
-      __$$_NewsDetailsStateCopyWithImpl<_$_NewsDetailsState>(this, _$identity);
+  _$$NewsDetailsStateImplCopyWith<_$NewsDetailsStateImpl> get copyWith =>
+      __$$NewsDetailsStateImplCopyWithImpl<_$NewsDetailsStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _NewsDetailsState extends NewsDetailsState {
-  const factory _NewsDetailsState(
-      {final String? id,
-      final ArticleNewsDetails? details}) = _$_NewsDetailsState;
+  const factory _NewsDetailsState({
+    final String? id,
+    final ArticleNewsDetails? details,
+  }) = _$NewsDetailsStateImpl;
   const _NewsDetailsState._() : super._();
 
   @override
   String? get id;
   @override
   ArticleNewsDetails? get details;
+
+  /// Create a copy of NewsDetailsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_NewsDetailsStateCopyWith<_$_NewsDetailsState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$NewsDetailsStateImplCopyWith<_$NewsDetailsStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

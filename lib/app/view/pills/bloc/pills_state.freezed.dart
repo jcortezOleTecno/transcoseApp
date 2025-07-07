@@ -12,14 +12,17 @@ part of 'pills_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$PillsState {
   List<Pills> get mostRead => throw _privateConstructorUsedError;
   List<Pills> get pills => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PillsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PillsStateCopyWith<PillsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -27,8 +30,9 @@ mixin _$PillsState {
 /// @nodoc
 abstract class $PillsStateCopyWith<$Res> {
   factory $PillsStateCopyWith(
-          PillsState value, $Res Function(PillsState) then) =
-      _$PillsStateCopyWithImpl<$Res, PillsState>;
+    PillsState value,
+    $Res Function(PillsState) then,
+  ) = _$PillsStateCopyWithImpl<$Res, PillsState>;
   @useResult
   $Res call({List<Pills> mostRead, List<Pills> pills});
 }
@@ -43,72 +47,81 @@ class _$PillsStateCopyWithImpl<$Res, $Val extends PillsState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PillsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? mostRead = null,
-    Object? pills = null,
-  }) {
-    return _then(_value.copyWith(
-      mostRead: null == mostRead
-          ? _value.mostRead
-          : mostRead // ignore: cast_nullable_to_non_nullable
-              as List<Pills>,
-      pills: null == pills
-          ? _value.pills
-          : pills // ignore: cast_nullable_to_non_nullable
-              as List<Pills>,
-    ) as $Val);
+  $Res call({Object? mostRead = null, Object? pills = null}) {
+    return _then(
+      _value.copyWith(
+            mostRead:
+                null == mostRead
+                    ? _value.mostRead
+                    : mostRead // ignore: cast_nullable_to_non_nullable
+                        as List<Pills>,
+            pills:
+                null == pills
+                    ? _value.pills
+                    : pills // ignore: cast_nullable_to_non_nullable
+                        as List<Pills>,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_PillsStateCopyWith<$Res>
+abstract class _$$PillsStateImplCopyWith<$Res>
     implements $PillsStateCopyWith<$Res> {
-  factory _$$_PillsStateCopyWith(
-          _$_PillsState value, $Res Function(_$_PillsState) then) =
-      __$$_PillsStateCopyWithImpl<$Res>;
+  factory _$$PillsStateImplCopyWith(
+    _$PillsStateImpl value,
+    $Res Function(_$PillsStateImpl) then,
+  ) = __$$PillsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<Pills> mostRead, List<Pills> pills});
 }
 
 /// @nodoc
-class __$$_PillsStateCopyWithImpl<$Res>
-    extends _$PillsStateCopyWithImpl<$Res, _$_PillsState>
-    implements _$$_PillsStateCopyWith<$Res> {
-  __$$_PillsStateCopyWithImpl(
-      _$_PillsState _value, $Res Function(_$_PillsState) _then)
-      : super(_value, _then);
+class __$$PillsStateImplCopyWithImpl<$Res>
+    extends _$PillsStateCopyWithImpl<$Res, _$PillsStateImpl>
+    implements _$$PillsStateImplCopyWith<$Res> {
+  __$$PillsStateImplCopyWithImpl(
+    _$PillsStateImpl _value,
+    $Res Function(_$PillsStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of PillsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? mostRead = null,
-    Object? pills = null,
-  }) {
-    return _then(_$_PillsState(
-      mostRead: null == mostRead
-          ? _value._mostRead
-          : mostRead // ignore: cast_nullable_to_non_nullable
-              as List<Pills>,
-      pills: null == pills
-          ? _value._pills
-          : pills // ignore: cast_nullable_to_non_nullable
-              as List<Pills>,
-    ));
+  $Res call({Object? mostRead = null, Object? pills = null}) {
+    return _then(
+      _$PillsStateImpl(
+        mostRead:
+            null == mostRead
+                ? _value._mostRead
+                : mostRead // ignore: cast_nullable_to_non_nullable
+                    as List<Pills>,
+        pills:
+            null == pills
+                ? _value._pills
+                : pills // ignore: cast_nullable_to_non_nullable
+                    as List<Pills>,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_PillsState extends _PillsState {
-  const _$_PillsState(
-      {final List<Pills> mostRead = const <Pills>[],
-      final List<Pills> pills = const <Pills>[]})
-      : _mostRead = mostRead,
-        _pills = pills,
-        super._();
+class _$PillsStateImpl extends _PillsState {
+  const _$PillsStateImpl({
+    final List<Pills> mostRead = const <Pills>[],
+    final List<Pills> pills = const <Pills>[],
+  }) : _mostRead = mostRead,
+       _pills = pills,
+       super._();
 
   final List<Pills> _mostRead;
   @override
@@ -134,38 +147,46 @@ class _$_PillsState extends _PillsState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PillsState &&
+            other is _$PillsStateImpl &&
             const DeepCollectionEquality().equals(other._mostRead, _mostRead) &&
             const DeepCollectionEquality().equals(other._pills, _pills));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_mostRead),
-      const DeepCollectionEquality().hash(_pills));
+    runtimeType,
+    const DeepCollectionEquality().hash(_mostRead),
+    const DeepCollectionEquality().hash(_pills),
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PillsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PillsStateCopyWith<_$_PillsState> get copyWith =>
-      __$$_PillsStateCopyWithImpl<_$_PillsState>(this, _$identity);
+  _$$PillsStateImplCopyWith<_$PillsStateImpl> get copyWith =>
+      __$$PillsStateImplCopyWithImpl<_$PillsStateImpl>(this, _$identity);
 }
 
 abstract class _PillsState extends PillsState {
-  const factory _PillsState(
-      {final List<Pills> mostRead, final List<Pills> pills}) = _$_PillsState;
+  const factory _PillsState({
+    final List<Pills> mostRead,
+    final List<Pills> pills,
+  }) = _$PillsStateImpl;
   const _PillsState._() : super._();
 
   @override
   List<Pills> get mostRead;
   @override
   List<Pills> get pills;
+
+  /// Create a copy of PillsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_PillsStateCopyWith<_$_PillsState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$PillsStateImplCopyWith<_$PillsStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

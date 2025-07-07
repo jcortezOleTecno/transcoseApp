@@ -12,30 +12,36 @@ part of 'my_trainigs_and_events_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$MyTrainigsAndEventsState {
   bool get loading => throw _privateConstructorUsedError;
   List<TrainingsEvents> get data => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MyTrainigsAndEventsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $MyTrainigsAndEventsStateCopyWith<MyTrainigsAndEventsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $MyTrainigsAndEventsStateCopyWith<$Res> {
-  factory $MyTrainigsAndEventsStateCopyWith(MyTrainigsAndEventsState value,
-          $Res Function(MyTrainigsAndEventsState) then) =
-      _$MyTrainigsAndEventsStateCopyWithImpl<$Res, MyTrainigsAndEventsState>;
+  factory $MyTrainigsAndEventsStateCopyWith(
+    MyTrainigsAndEventsState value,
+    $Res Function(MyTrainigsAndEventsState) then,
+  ) = _$MyTrainigsAndEventsStateCopyWithImpl<$Res, MyTrainigsAndEventsState>;
   @useResult
   $Res call({bool loading, List<TrainingsEvents> data});
 }
 
 /// @nodoc
-class _$MyTrainigsAndEventsStateCopyWithImpl<$Res,
-        $Val extends MyTrainigsAndEventsState>
+class _$MyTrainigsAndEventsStateCopyWithImpl<
+  $Res,
+  $Val extends MyTrainigsAndEventsState
+>
     implements $MyTrainigsAndEventsStateCopyWith<$Res> {
   _$MyTrainigsAndEventsStateCopyWithImpl(this._value, this._then);
 
@@ -44,72 +50,83 @@ class _$MyTrainigsAndEventsStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of MyTrainigsAndEventsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? loading = null,
-    Object? data = null,
-  }) {
-    return _then(_value.copyWith(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      data: null == data
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as List<TrainingsEvents>,
-    ) as $Val);
+  $Res call({Object? loading = null, Object? data = null}) {
+    return _then(
+      _value.copyWith(
+            loading:
+                null == loading
+                    ? _value.loading
+                    : loading // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            data:
+                null == data
+                    ? _value.data
+                    : data // ignore: cast_nullable_to_non_nullable
+                        as List<TrainingsEvents>,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_MyTrainigsAndEventsStateCopyWith<$Res>
+abstract class _$$MyTrainigsAndEventsStateImplCopyWith<$Res>
     implements $MyTrainigsAndEventsStateCopyWith<$Res> {
-  factory _$$_MyTrainigsAndEventsStateCopyWith(
-          _$_MyTrainigsAndEventsState value,
-          $Res Function(_$_MyTrainigsAndEventsState) then) =
-      __$$_MyTrainigsAndEventsStateCopyWithImpl<$Res>;
+  factory _$$MyTrainigsAndEventsStateImplCopyWith(
+    _$MyTrainigsAndEventsStateImpl value,
+    $Res Function(_$MyTrainigsAndEventsStateImpl) then,
+  ) = __$$MyTrainigsAndEventsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({bool loading, List<TrainingsEvents> data});
 }
 
 /// @nodoc
-class __$$_MyTrainigsAndEventsStateCopyWithImpl<$Res>
-    extends _$MyTrainigsAndEventsStateCopyWithImpl<$Res,
-        _$_MyTrainigsAndEventsState>
-    implements _$$_MyTrainigsAndEventsStateCopyWith<$Res> {
-  __$$_MyTrainigsAndEventsStateCopyWithImpl(_$_MyTrainigsAndEventsState _value,
-      $Res Function(_$_MyTrainigsAndEventsState) _then)
-      : super(_value, _then);
+class __$$MyTrainigsAndEventsStateImplCopyWithImpl<$Res>
+    extends
+        _$MyTrainigsAndEventsStateCopyWithImpl<
+          $Res,
+          _$MyTrainigsAndEventsStateImpl
+        >
+    implements _$$MyTrainigsAndEventsStateImplCopyWith<$Res> {
+  __$$MyTrainigsAndEventsStateImplCopyWithImpl(
+    _$MyTrainigsAndEventsStateImpl _value,
+    $Res Function(_$MyTrainigsAndEventsStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of MyTrainigsAndEventsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? loading = null,
-    Object? data = null,
-  }) {
-    return _then(_$_MyTrainigsAndEventsState(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      data: null == data
-          ? _value._data
-          : data // ignore: cast_nullable_to_non_nullable
-              as List<TrainingsEvents>,
-    ));
+  $Res call({Object? loading = null, Object? data = null}) {
+    return _then(
+      _$MyTrainigsAndEventsStateImpl(
+        loading:
+            null == loading
+                ? _value.loading
+                : loading // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        data:
+            null == data
+                ? _value._data
+                : data // ignore: cast_nullable_to_non_nullable
+                    as List<TrainingsEvents>,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_MyTrainigsAndEventsState implements _MyTrainigsAndEventsState {
-  const _$_MyTrainigsAndEventsState(
-      {this.loading = false,
-      final List<TrainingsEvents> data = const <TrainingsEvents>[]})
-      : _data = data;
+class _$MyTrainigsAndEventsStateImpl implements _MyTrainigsAndEventsState {
+  const _$MyTrainigsAndEventsStateImpl({
+    this.loading = false,
+    final List<TrainingsEvents> data = const <TrainingsEvents>[],
+  }) : _data = data;
 
   @override
   @JsonKey()
@@ -129,37 +146,47 @@ class _$_MyTrainigsAndEventsState implements _MyTrainigsAndEventsState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_MyTrainigsAndEventsState &&
+            other is _$MyTrainigsAndEventsStateImpl &&
             (identical(other.loading, loading) || other.loading == loading) &&
             const DeepCollectionEquality().equals(other._data, _data));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, loading, const DeepCollectionEquality().hash(_data));
+    runtimeType,
+    loading,
+    const DeepCollectionEquality().hash(_data),
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MyTrainigsAndEventsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_MyTrainigsAndEventsStateCopyWith<_$_MyTrainigsAndEventsState>
-      get copyWith => __$$_MyTrainigsAndEventsStateCopyWithImpl<
-          _$_MyTrainigsAndEventsState>(this, _$identity);
+  _$$MyTrainigsAndEventsStateImplCopyWith<_$MyTrainigsAndEventsStateImpl>
+  get copyWith => __$$MyTrainigsAndEventsStateImplCopyWithImpl<
+    _$MyTrainigsAndEventsStateImpl
+  >(this, _$identity);
 }
 
 abstract class _MyTrainigsAndEventsState implements MyTrainigsAndEventsState {
-  const factory _MyTrainigsAndEventsState(
-      {final bool loading,
-      final List<TrainingsEvents> data}) = _$_MyTrainigsAndEventsState;
+  const factory _MyTrainigsAndEventsState({
+    final bool loading,
+    final List<TrainingsEvents> data,
+  }) = _$MyTrainigsAndEventsStateImpl;
 
   @override
   bool get loading;
   @override
   List<TrainingsEvents> get data;
+
+  /// Create a copy of MyTrainigsAndEventsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_MyTrainigsAndEventsStateCopyWith<_$_MyTrainigsAndEventsState>
-      get copyWith => throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$MyTrainigsAndEventsStateImplCopyWith<_$MyTrainigsAndEventsStateImpl>
+  get copyWith => throw _privateConstructorUsedError;
 }

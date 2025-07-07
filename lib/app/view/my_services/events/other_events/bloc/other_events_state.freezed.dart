@@ -12,7 +12,8 @@ part of 'other_events_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$OtherEventsState {
@@ -20,7 +21,9 @@ mixin _$OtherEventsState {
   List<Events> get events => throw _privateConstructorUsedError;
   HeaderEvents? get header => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of OtherEventsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $OtherEventsStateCopyWith<OtherEventsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -28,8 +31,9 @@ mixin _$OtherEventsState {
 /// @nodoc
 abstract class $OtherEventsStateCopyWith<$Res> {
   factory $OtherEventsStateCopyWith(
-          OtherEventsState value, $Res Function(OtherEventsState) then) =
-      _$OtherEventsStateCopyWithImpl<$Res, OtherEventsState>;
+    OtherEventsState value,
+    $Res Function(OtherEventsState) then,
+  ) = _$OtherEventsStateCopyWithImpl<$Res, OtherEventsState>;
   @useResult
   $Res call({bool loading, List<Events> events, HeaderEvents? header});
 }
@@ -44,6 +48,8 @@ class _$OtherEventsStateCopyWithImpl<$Res, $Val extends OtherEventsState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of OtherEventsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -51,42 +57,52 @@ class _$OtherEventsStateCopyWithImpl<$Res, $Val extends OtherEventsState>
     Object? events = null,
     Object? header = freezed,
   }) {
-    return _then(_value.copyWith(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      events: null == events
-          ? _value.events
-          : events // ignore: cast_nullable_to_non_nullable
-              as List<Events>,
-      header: freezed == header
-          ? _value.header
-          : header // ignore: cast_nullable_to_non_nullable
-              as HeaderEvents?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            loading:
+                null == loading
+                    ? _value.loading
+                    : loading // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            events:
+                null == events
+                    ? _value.events
+                    : events // ignore: cast_nullable_to_non_nullable
+                        as List<Events>,
+            header:
+                freezed == header
+                    ? _value.header
+                    : header // ignore: cast_nullable_to_non_nullable
+                        as HeaderEvents?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_OtherEventsStateCopyWith<$Res>
+abstract class _$$OtherEventsStateImplCopyWith<$Res>
     implements $OtherEventsStateCopyWith<$Res> {
-  factory _$$_OtherEventsStateCopyWith(
-          _$_OtherEventsState value, $Res Function(_$_OtherEventsState) then) =
-      __$$_OtherEventsStateCopyWithImpl<$Res>;
+  factory _$$OtherEventsStateImplCopyWith(
+    _$OtherEventsStateImpl value,
+    $Res Function(_$OtherEventsStateImpl) then,
+  ) = __$$OtherEventsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({bool loading, List<Events> events, HeaderEvents? header});
 }
 
 /// @nodoc
-class __$$_OtherEventsStateCopyWithImpl<$Res>
-    extends _$OtherEventsStateCopyWithImpl<$Res, _$_OtherEventsState>
-    implements _$$_OtherEventsStateCopyWith<$Res> {
-  __$$_OtherEventsStateCopyWithImpl(
-      _$_OtherEventsState _value, $Res Function(_$_OtherEventsState) _then)
-      : super(_value, _then);
+class __$$OtherEventsStateImplCopyWithImpl<$Res>
+    extends _$OtherEventsStateCopyWithImpl<$Res, _$OtherEventsStateImpl>
+    implements _$$OtherEventsStateImplCopyWith<$Res> {
+  __$$OtherEventsStateImplCopyWithImpl(
+    _$OtherEventsStateImpl _value,
+    $Res Function(_$OtherEventsStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of OtherEventsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -94,32 +110,37 @@ class __$$_OtherEventsStateCopyWithImpl<$Res>
     Object? events = null,
     Object? header = freezed,
   }) {
-    return _then(_$_OtherEventsState(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      events: null == events
-          ? _value._events
-          : events // ignore: cast_nullable_to_non_nullable
-              as List<Events>,
-      header: freezed == header
-          ? _value.header
-          : header // ignore: cast_nullable_to_non_nullable
-              as HeaderEvents?,
-    ));
+    return _then(
+      _$OtherEventsStateImpl(
+        loading:
+            null == loading
+                ? _value.loading
+                : loading // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        events:
+            null == events
+                ? _value._events
+                : events // ignore: cast_nullable_to_non_nullable
+                    as List<Events>,
+        header:
+            freezed == header
+                ? _value.header
+                : header // ignore: cast_nullable_to_non_nullable
+                    as HeaderEvents?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_OtherEventsState extends _OtherEventsState {
-  const _$_OtherEventsState(
-      {this.loading = false,
-      final List<Events> events = const <Events>[],
-      this.header})
-      : _events = events,
-        super._();
+class _$OtherEventsStateImpl extends _OtherEventsState {
+  const _$OtherEventsStateImpl({
+    this.loading = false,
+    final List<Events> events = const <Events>[],
+    this.header,
+  }) : _events = events,
+       super._();
 
   @override
   @JsonKey()
@@ -142,31 +163,41 @@ class _$_OtherEventsState extends _OtherEventsState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_OtherEventsState &&
+            other is _$OtherEventsStateImpl &&
             (identical(other.loading, loading) || other.loading == loading) &&
             const DeepCollectionEquality().equals(other._events, _events) &&
             (identical(other.header, header) || other.header == header));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, loading,
-      const DeepCollectionEquality().hash(_events), header);
+  int get hashCode => Object.hash(
+    runtimeType,
+    loading,
+    const DeepCollectionEquality().hash(_events),
+    header,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of OtherEventsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_OtherEventsStateCopyWith<_$_OtherEventsState> get copyWith =>
-      __$$_OtherEventsStateCopyWithImpl<_$_OtherEventsState>(this, _$identity);
+  _$$OtherEventsStateImplCopyWith<_$OtherEventsStateImpl> get copyWith =>
+      __$$OtherEventsStateImplCopyWithImpl<_$OtherEventsStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _OtherEventsState extends OtherEventsState {
-  const factory _OtherEventsState(
-      {final bool loading,
-      final List<Events> events,
-      final HeaderEvents? header}) = _$_OtherEventsState;
+  const factory _OtherEventsState({
+    final bool loading,
+    final List<Events> events,
+    final HeaderEvents? header,
+  }) = _$OtherEventsStateImpl;
   const _OtherEventsState._() : super._();
 
   @override
@@ -175,8 +206,11 @@ abstract class _OtherEventsState extends OtherEventsState {
   List<Events> get events;
   @override
   HeaderEvents? get header;
+
+  /// Create a copy of OtherEventsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_OtherEventsStateCopyWith<_$_OtherEventsState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$OtherEventsStateImplCopyWith<_$OtherEventsStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

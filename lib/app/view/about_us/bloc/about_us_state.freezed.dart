@@ -12,7 +12,8 @@ part of 'about_us_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$AboutUsState {
@@ -22,7 +23,9 @@ mixin _$AboutUsState {
   List<Header> get headers => throw _privateConstructorUsedError;
   RedesSociales? get redes => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AboutUsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AboutUsStateCopyWith<AboutUsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -30,15 +33,17 @@ mixin _$AboutUsState {
 /// @nodoc
 abstract class $AboutUsStateCopyWith<$Res> {
   factory $AboutUsStateCopyWith(
-          AboutUsState value, $Res Function(AboutUsState) then) =
-      _$AboutUsStateCopyWithImpl<$Res, AboutUsState>;
+    AboutUsState value,
+    $Res Function(AboutUsState) then,
+  ) = _$AboutUsStateCopyWithImpl<$Res, AboutUsState>;
   @useResult
-  $Res call(
-      {List<Library> libraries,
-      List<Pills> pills,
-      List<News> news,
-      List<Header> headers,
-      RedesSociales? redes});
+  $Res call({
+    List<Library> libraries,
+    List<Pills> pills,
+    List<News> news,
+    List<Header> headers,
+    RedesSociales? redes,
+  });
 }
 
 /// @nodoc
@@ -51,6 +56,8 @@ class _$AboutUsStateCopyWithImpl<$Res, $Val extends AboutUsState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AboutUsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -60,55 +67,68 @@ class _$AboutUsStateCopyWithImpl<$Res, $Val extends AboutUsState>
     Object? headers = null,
     Object? redes = freezed,
   }) {
-    return _then(_value.copyWith(
-      libraries: null == libraries
-          ? _value.libraries
-          : libraries // ignore: cast_nullable_to_non_nullable
-              as List<Library>,
-      pills: null == pills
-          ? _value.pills
-          : pills // ignore: cast_nullable_to_non_nullable
-              as List<Pills>,
-      news: null == news
-          ? _value.news
-          : news // ignore: cast_nullable_to_non_nullable
-              as List<News>,
-      headers: null == headers
-          ? _value.headers
-          : headers // ignore: cast_nullable_to_non_nullable
-              as List<Header>,
-      redes: freezed == redes
-          ? _value.redes
-          : redes // ignore: cast_nullable_to_non_nullable
-              as RedesSociales?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            libraries:
+                null == libraries
+                    ? _value.libraries
+                    : libraries // ignore: cast_nullable_to_non_nullable
+                        as List<Library>,
+            pills:
+                null == pills
+                    ? _value.pills
+                    : pills // ignore: cast_nullable_to_non_nullable
+                        as List<Pills>,
+            news:
+                null == news
+                    ? _value.news
+                    : news // ignore: cast_nullable_to_non_nullable
+                        as List<News>,
+            headers:
+                null == headers
+                    ? _value.headers
+                    : headers // ignore: cast_nullable_to_non_nullable
+                        as List<Header>,
+            redes:
+                freezed == redes
+                    ? _value.redes
+                    : redes // ignore: cast_nullable_to_non_nullable
+                        as RedesSociales?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_AboutUsStateCopyWith<$Res>
+abstract class _$$AboutUsStateImplCopyWith<$Res>
     implements $AboutUsStateCopyWith<$Res> {
-  factory _$$_AboutUsStateCopyWith(
-          _$_AboutUsState value, $Res Function(_$_AboutUsState) then) =
-      __$$_AboutUsStateCopyWithImpl<$Res>;
+  factory _$$AboutUsStateImplCopyWith(
+    _$AboutUsStateImpl value,
+    $Res Function(_$AboutUsStateImpl) then,
+  ) = __$$AboutUsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {List<Library> libraries,
-      List<Pills> pills,
-      List<News> news,
-      List<Header> headers,
-      RedesSociales? redes});
+  $Res call({
+    List<Library> libraries,
+    List<Pills> pills,
+    List<News> news,
+    List<Header> headers,
+    RedesSociales? redes,
+  });
 }
 
 /// @nodoc
-class __$$_AboutUsStateCopyWithImpl<$Res>
-    extends _$AboutUsStateCopyWithImpl<$Res, _$_AboutUsState>
-    implements _$$_AboutUsStateCopyWith<$Res> {
-  __$$_AboutUsStateCopyWithImpl(
-      _$_AboutUsState _value, $Res Function(_$_AboutUsState) _then)
-      : super(_value, _then);
+class __$$AboutUsStateImplCopyWithImpl<$Res>
+    extends _$AboutUsStateCopyWithImpl<$Res, _$AboutUsStateImpl>
+    implements _$$AboutUsStateImplCopyWith<$Res> {
+  __$$AboutUsStateImplCopyWithImpl(
+    _$AboutUsStateImpl _value,
+    $Res Function(_$AboutUsStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of AboutUsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -118,45 +138,52 @@ class __$$_AboutUsStateCopyWithImpl<$Res>
     Object? headers = null,
     Object? redes = freezed,
   }) {
-    return _then(_$_AboutUsState(
-      libraries: null == libraries
-          ? _value._libraries
-          : libraries // ignore: cast_nullable_to_non_nullable
-              as List<Library>,
-      pills: null == pills
-          ? _value._pills
-          : pills // ignore: cast_nullable_to_non_nullable
-              as List<Pills>,
-      news: null == news
-          ? _value._news
-          : news // ignore: cast_nullable_to_non_nullable
-              as List<News>,
-      headers: null == headers
-          ? _value._headers
-          : headers // ignore: cast_nullable_to_non_nullable
-              as List<Header>,
-      redes: freezed == redes
-          ? _value.redes
-          : redes // ignore: cast_nullable_to_non_nullable
-              as RedesSociales?,
-    ));
+    return _then(
+      _$AboutUsStateImpl(
+        libraries:
+            null == libraries
+                ? _value._libraries
+                : libraries // ignore: cast_nullable_to_non_nullable
+                    as List<Library>,
+        pills:
+            null == pills
+                ? _value._pills
+                : pills // ignore: cast_nullable_to_non_nullable
+                    as List<Pills>,
+        news:
+            null == news
+                ? _value._news
+                : news // ignore: cast_nullable_to_non_nullable
+                    as List<News>,
+        headers:
+            null == headers
+                ? _value._headers
+                : headers // ignore: cast_nullable_to_non_nullable
+                    as List<Header>,
+        redes:
+            freezed == redes
+                ? _value.redes
+                : redes // ignore: cast_nullable_to_non_nullable
+                    as RedesSociales?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_AboutUsState extends _AboutUsState {
-  const _$_AboutUsState(
-      {final List<Library> libraries = const <Library>[],
-      final List<Pills> pills = const <Pills>[],
-      final List<News> news = const <News>[],
-      final List<Header> headers = const <Header>[],
-      this.redes})
-      : _libraries = libraries,
-        _pills = pills,
-        _news = news,
-        _headers = headers,
-        super._();
+class _$AboutUsStateImpl extends _AboutUsState {
+  const _$AboutUsStateImpl({
+    final List<Library> libraries = const <Library>[],
+    final List<Pills> pills = const <Pills>[],
+    final List<News> news = const <News>[],
+    final List<Header> headers = const <Header>[],
+    this.redes,
+  }) : _libraries = libraries,
+       _pills = pills,
+       _news = news,
+       _headers = headers,
+       super._();
 
   final List<Library> _libraries;
   @override
@@ -203,12 +230,14 @@ class _$_AboutUsState extends _AboutUsState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AboutUsState &&
-            const DeepCollectionEquality()
-                .equals(other._libraries, _libraries) &&
+            other is _$AboutUsStateImpl &&
+            const DeepCollectionEquality().equals(
+              other._libraries,
+              _libraries,
+            ) &&
             const DeepCollectionEquality().equals(other._pills, _pills) &&
             const DeepCollectionEquality().equals(other._news, _news) &&
             const DeepCollectionEquality().equals(other._headers, _headers) &&
@@ -217,27 +246,31 @@ class _$_AboutUsState extends _AboutUsState {
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_libraries),
-      const DeepCollectionEquality().hash(_pills),
-      const DeepCollectionEquality().hash(_news),
-      const DeepCollectionEquality().hash(_headers),
-      redes);
+    runtimeType,
+    const DeepCollectionEquality().hash(_libraries),
+    const DeepCollectionEquality().hash(_pills),
+    const DeepCollectionEquality().hash(_news),
+    const DeepCollectionEquality().hash(_headers),
+    redes,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AboutUsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AboutUsStateCopyWith<_$_AboutUsState> get copyWith =>
-      __$$_AboutUsStateCopyWithImpl<_$_AboutUsState>(this, _$identity);
+  _$$AboutUsStateImplCopyWith<_$AboutUsStateImpl> get copyWith =>
+      __$$AboutUsStateImplCopyWithImpl<_$AboutUsStateImpl>(this, _$identity);
 }
 
 abstract class _AboutUsState extends AboutUsState {
-  const factory _AboutUsState(
-      {final List<Library> libraries,
-      final List<Pills> pills,
-      final List<News> news,
-      final List<Header> headers,
-      final RedesSociales? redes}) = _$_AboutUsState;
+  const factory _AboutUsState({
+    final List<Library> libraries,
+    final List<Pills> pills,
+    final List<News> news,
+    final List<Header> headers,
+    final RedesSociales? redes,
+  }) = _$AboutUsStateImpl;
   const _AboutUsState._() : super._();
 
   @override
@@ -250,8 +283,11 @@ abstract class _AboutUsState extends AboutUsState {
   List<Header> get headers;
   @override
   RedesSociales? get redes;
+
+  /// Create a copy of AboutUsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_AboutUsStateCopyWith<_$_AboutUsState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$AboutUsStateImplCopyWith<_$AboutUsStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

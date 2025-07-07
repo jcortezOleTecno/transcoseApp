@@ -12,14 +12,17 @@ part of 'news_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$NewsState {
   List<News> get news => throw _privateConstructorUsedError;
   List<News> get mostRead => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NewsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $NewsStateCopyWith<NewsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -42,71 +45,81 @@ class _$NewsStateCopyWithImpl<$Res, $Val extends NewsState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of NewsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? news = null,
-    Object? mostRead = null,
-  }) {
-    return _then(_value.copyWith(
-      news: null == news
-          ? _value.news
-          : news // ignore: cast_nullable_to_non_nullable
-              as List<News>,
-      mostRead: null == mostRead
-          ? _value.mostRead
-          : mostRead // ignore: cast_nullable_to_non_nullable
-              as List<News>,
-    ) as $Val);
+  $Res call({Object? news = null, Object? mostRead = null}) {
+    return _then(
+      _value.copyWith(
+            news:
+                null == news
+                    ? _value.news
+                    : news // ignore: cast_nullable_to_non_nullable
+                        as List<News>,
+            mostRead:
+                null == mostRead
+                    ? _value.mostRead
+                    : mostRead // ignore: cast_nullable_to_non_nullable
+                        as List<News>,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_NewsStateCopyWith<$Res> implements $NewsStateCopyWith<$Res> {
-  factory _$$_NewsStateCopyWith(
-          _$_NewsState value, $Res Function(_$_NewsState) then) =
-      __$$_NewsStateCopyWithImpl<$Res>;
+abstract class _$$NewsStateImplCopyWith<$Res>
+    implements $NewsStateCopyWith<$Res> {
+  factory _$$NewsStateImplCopyWith(
+    _$NewsStateImpl value,
+    $Res Function(_$NewsStateImpl) then,
+  ) = __$$NewsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<News> news, List<News> mostRead});
 }
 
 /// @nodoc
-class __$$_NewsStateCopyWithImpl<$Res>
-    extends _$NewsStateCopyWithImpl<$Res, _$_NewsState>
-    implements _$$_NewsStateCopyWith<$Res> {
-  __$$_NewsStateCopyWithImpl(
-      _$_NewsState _value, $Res Function(_$_NewsState) _then)
-      : super(_value, _then);
+class __$$NewsStateImplCopyWithImpl<$Res>
+    extends _$NewsStateCopyWithImpl<$Res, _$NewsStateImpl>
+    implements _$$NewsStateImplCopyWith<$Res> {
+  __$$NewsStateImplCopyWithImpl(
+    _$NewsStateImpl _value,
+    $Res Function(_$NewsStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of NewsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? news = null,
-    Object? mostRead = null,
-  }) {
-    return _then(_$_NewsState(
-      news: null == news
-          ? _value._news
-          : news // ignore: cast_nullable_to_non_nullable
-              as List<News>,
-      mostRead: null == mostRead
-          ? _value._mostRead
-          : mostRead // ignore: cast_nullable_to_non_nullable
-              as List<News>,
-    ));
+  $Res call({Object? news = null, Object? mostRead = null}) {
+    return _then(
+      _$NewsStateImpl(
+        news:
+            null == news
+                ? _value._news
+                : news // ignore: cast_nullable_to_non_nullable
+                    as List<News>,
+        mostRead:
+            null == mostRead
+                ? _value._mostRead
+                : mostRead // ignore: cast_nullable_to_non_nullable
+                    as List<News>,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_NewsState extends _NewsState {
-  const _$_NewsState(
-      {final List<News> news = const <News>[],
-      final List<News> mostRead = const <News>[]})
-      : _news = news,
-        _mostRead = mostRead,
-        super._();
+class _$NewsStateImpl extends _NewsState {
+  const _$NewsStateImpl({
+    final List<News> news = const <News>[],
+    final List<News> mostRead = const <News>[],
+  }) : _news = news,
+       _mostRead = mostRead,
+       super._();
 
   final List<News> _news;
   @override
@@ -132,38 +145,44 @@ class _$_NewsState extends _NewsState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_NewsState &&
+            other is _$NewsStateImpl &&
             const DeepCollectionEquality().equals(other._news, _news) &&
             const DeepCollectionEquality().equals(other._mostRead, _mostRead));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_news),
-      const DeepCollectionEquality().hash(_mostRead));
+    runtimeType,
+    const DeepCollectionEquality().hash(_news),
+    const DeepCollectionEquality().hash(_mostRead),
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NewsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_NewsStateCopyWith<_$_NewsState> get copyWith =>
-      __$$_NewsStateCopyWithImpl<_$_NewsState>(this, _$identity);
+  _$$NewsStateImplCopyWith<_$NewsStateImpl> get copyWith =>
+      __$$NewsStateImplCopyWithImpl<_$NewsStateImpl>(this, _$identity);
 }
 
 abstract class _NewsState extends NewsState {
   const factory _NewsState({final List<News> news, final List<News> mostRead}) =
-      _$_NewsState;
+      _$NewsStateImpl;
   const _NewsState._() : super._();
 
   @override
   List<News> get news;
   @override
   List<News> get mostRead;
+
+  /// Create a copy of NewsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_NewsStateCopyWith<_$_NewsState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$NewsStateImplCopyWith<_$NewsStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

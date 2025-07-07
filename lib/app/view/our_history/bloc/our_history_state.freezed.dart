@@ -12,13 +12,16 @@ part of 'our_history_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$OurHistoryState {
   List<ArticleAboutUs> get articles => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of OurHistoryState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $OurHistoryStateCopyWith<OurHistoryState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -26,8 +29,9 @@ mixin _$OurHistoryState {
 /// @nodoc
 abstract class $OurHistoryStateCopyWith<$Res> {
   factory $OurHistoryStateCopyWith(
-          OurHistoryState value, $Res Function(OurHistoryState) then) =
-      _$OurHistoryStateCopyWithImpl<$Res, OurHistoryState>;
+    OurHistoryState value,
+    $Res Function(OurHistoryState) then,
+  ) = _$OurHistoryStateCopyWithImpl<$Res, OurHistoryState>;
   @useResult
   $Res call({List<ArticleAboutUs> articles});
 }
@@ -42,60 +46,69 @@ class _$OurHistoryStateCopyWithImpl<$Res, $Val extends OurHistoryState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of OurHistoryState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? articles = null,
-  }) {
-    return _then(_value.copyWith(
-      articles: null == articles
-          ? _value.articles
-          : articles // ignore: cast_nullable_to_non_nullable
-              as List<ArticleAboutUs>,
-    ) as $Val);
+  $Res call({Object? articles = null}) {
+    return _then(
+      _value.copyWith(
+            articles:
+                null == articles
+                    ? _value.articles
+                    : articles // ignore: cast_nullable_to_non_nullable
+                        as List<ArticleAboutUs>,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_OurHistoryStateCopyWith<$Res>
+abstract class _$$OurHistoryStateImplCopyWith<$Res>
     implements $OurHistoryStateCopyWith<$Res> {
-  factory _$$_OurHistoryStateCopyWith(
-          _$_OurHistoryState value, $Res Function(_$_OurHistoryState) then) =
-      __$$_OurHistoryStateCopyWithImpl<$Res>;
+  factory _$$OurHistoryStateImplCopyWith(
+    _$OurHistoryStateImpl value,
+    $Res Function(_$OurHistoryStateImpl) then,
+  ) = __$$OurHistoryStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<ArticleAboutUs> articles});
 }
 
 /// @nodoc
-class __$$_OurHistoryStateCopyWithImpl<$Res>
-    extends _$OurHistoryStateCopyWithImpl<$Res, _$_OurHistoryState>
-    implements _$$_OurHistoryStateCopyWith<$Res> {
-  __$$_OurHistoryStateCopyWithImpl(
-      _$_OurHistoryState _value, $Res Function(_$_OurHistoryState) _then)
-      : super(_value, _then);
+class __$$OurHistoryStateImplCopyWithImpl<$Res>
+    extends _$OurHistoryStateCopyWithImpl<$Res, _$OurHistoryStateImpl>
+    implements _$$OurHistoryStateImplCopyWith<$Res> {
+  __$$OurHistoryStateImplCopyWithImpl(
+    _$OurHistoryStateImpl _value,
+    $Res Function(_$OurHistoryStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of OurHistoryState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? articles = null,
-  }) {
-    return _then(_$_OurHistoryState(
-      articles: null == articles
-          ? _value._articles
-          : articles // ignore: cast_nullable_to_non_nullable
-              as List<ArticleAboutUs>,
-    ));
+  $Res call({Object? articles = null}) {
+    return _then(
+      _$OurHistoryStateImpl(
+        articles:
+            null == articles
+                ? _value._articles
+                : articles // ignore: cast_nullable_to_non_nullable
+                    as List<ArticleAboutUs>,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_OurHistoryState extends _OurHistoryState {
-  const _$_OurHistoryState(
-      {final List<ArticleAboutUs> articles = const <ArticleAboutUs>[]})
-      : _articles = articles,
-        super._();
+class _$OurHistoryStateImpl extends _OurHistoryState {
+  const _$OurHistoryStateImpl({
+    final List<ArticleAboutUs> articles = const <ArticleAboutUs>[],
+  }) : _articles = articles,
+       super._();
 
   final List<ArticleAboutUs> _articles;
   @override
@@ -112,10 +125,10 @@ class _$_OurHistoryState extends _OurHistoryState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_OurHistoryState &&
+            other is _$OurHistoryStateImpl &&
             const DeepCollectionEquality().equals(other._articles, _articles));
   }
 
@@ -123,22 +136,30 @@ class _$_OurHistoryState extends _OurHistoryState {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_articles));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of OurHistoryState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_OurHistoryStateCopyWith<_$_OurHistoryState> get copyWith =>
-      __$$_OurHistoryStateCopyWithImpl<_$_OurHistoryState>(this, _$identity);
+  _$$OurHistoryStateImplCopyWith<_$OurHistoryStateImpl> get copyWith =>
+      __$$OurHistoryStateImplCopyWithImpl<_$OurHistoryStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _OurHistoryState extends OurHistoryState {
   const factory _OurHistoryState({final List<ArticleAboutUs> articles}) =
-      _$_OurHistoryState;
+      _$OurHistoryStateImpl;
   const _OurHistoryState._() : super._();
 
   @override
   List<ArticleAboutUs> get articles;
+
+  /// Create a copy of OurHistoryState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_OurHistoryStateCopyWith<_$_OurHistoryState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$OurHistoryStateImplCopyWith<_$OurHistoryStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -12,7 +12,8 @@ part of 'contract_pmp_details_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$ContratPMPDetailState {
@@ -22,28 +23,34 @@ mixin _$ContratPMPDetailState {
   DataTableSource? get dataMaquinas => throw _privateConstructorUsedError;
   DataTableSource? get dataServicios => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ContratPMPDetailState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ContratPMPDetailStateCopyWith<ContratPMPDetailState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $ContratPMPDetailStateCopyWith<$Res> {
-  factory $ContratPMPDetailStateCopyWith(ContratPMPDetailState value,
-          $Res Function(ContratPMPDetailState) then) =
-      _$ContratPMPDetailStateCopyWithImpl<$Res, ContratPMPDetailState>;
+  factory $ContratPMPDetailStateCopyWith(
+    ContratPMPDetailState value,
+    $Res Function(ContratPMPDetailState) then,
+  ) = _$ContratPMPDetailStateCopyWithImpl<$Res, ContratPMPDetailState>;
   @useResult
-  $Res call(
-      {bool loading,
-      ContratPmpDetail? detail,
-      ContratoPmp? contract,
-      DataTableSource? dataMaquinas,
-      DataTableSource? dataServicios});
+  $Res call({
+    bool loading,
+    ContratPmpDetail? detail,
+    ContratoPmp? contract,
+    DataTableSource? dataMaquinas,
+    DataTableSource? dataServicios,
+  });
 }
 
 /// @nodoc
-class _$ContratPMPDetailStateCopyWithImpl<$Res,
-        $Val extends ContratPMPDetailState>
+class _$ContratPMPDetailStateCopyWithImpl<
+  $Res,
+  $Val extends ContratPMPDetailState
+>
     implements $ContratPMPDetailStateCopyWith<$Res> {
   _$ContratPMPDetailStateCopyWithImpl(this._value, this._then);
 
@@ -52,6 +59,8 @@ class _$ContratPMPDetailStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ContratPMPDetailState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -61,55 +70,69 @@ class _$ContratPMPDetailStateCopyWithImpl<$Res,
     Object? dataMaquinas = freezed,
     Object? dataServicios = freezed,
   }) {
-    return _then(_value.copyWith(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      detail: freezed == detail
-          ? _value.detail
-          : detail // ignore: cast_nullable_to_non_nullable
-              as ContratPmpDetail?,
-      contract: freezed == contract
-          ? _value.contract
-          : contract // ignore: cast_nullable_to_non_nullable
-              as ContratoPmp?,
-      dataMaquinas: freezed == dataMaquinas
-          ? _value.dataMaquinas
-          : dataMaquinas // ignore: cast_nullable_to_non_nullable
-              as DataTableSource?,
-      dataServicios: freezed == dataServicios
-          ? _value.dataServicios
-          : dataServicios // ignore: cast_nullable_to_non_nullable
-              as DataTableSource?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            loading:
+                null == loading
+                    ? _value.loading
+                    : loading // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            detail:
+                freezed == detail
+                    ? _value.detail
+                    : detail // ignore: cast_nullable_to_non_nullable
+                        as ContratPmpDetail?,
+            contract:
+                freezed == contract
+                    ? _value.contract
+                    : contract // ignore: cast_nullable_to_non_nullable
+                        as ContratoPmp?,
+            dataMaquinas:
+                freezed == dataMaquinas
+                    ? _value.dataMaquinas
+                    : dataMaquinas // ignore: cast_nullable_to_non_nullable
+                        as DataTableSource?,
+            dataServicios:
+                freezed == dataServicios
+                    ? _value.dataServicios
+                    : dataServicios // ignore: cast_nullable_to_non_nullable
+                        as DataTableSource?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_ContratPMPDetailStateCopyWith<$Res>
+abstract class _$$ContratPMPDetailStateImplCopyWith<$Res>
     implements $ContratPMPDetailStateCopyWith<$Res> {
-  factory _$$_ContratPMPDetailStateCopyWith(_$_ContratPMPDetailState value,
-          $Res Function(_$_ContratPMPDetailState) then) =
-      __$$_ContratPMPDetailStateCopyWithImpl<$Res>;
+  factory _$$ContratPMPDetailStateImplCopyWith(
+    _$ContratPMPDetailStateImpl value,
+    $Res Function(_$ContratPMPDetailStateImpl) then,
+  ) = __$$ContratPMPDetailStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {bool loading,
-      ContratPmpDetail? detail,
-      ContratoPmp? contract,
-      DataTableSource? dataMaquinas,
-      DataTableSource? dataServicios});
+  $Res call({
+    bool loading,
+    ContratPmpDetail? detail,
+    ContratoPmp? contract,
+    DataTableSource? dataMaquinas,
+    DataTableSource? dataServicios,
+  });
 }
 
 /// @nodoc
-class __$$_ContratPMPDetailStateCopyWithImpl<$Res>
-    extends _$ContratPMPDetailStateCopyWithImpl<$Res, _$_ContratPMPDetailState>
-    implements _$$_ContratPMPDetailStateCopyWith<$Res> {
-  __$$_ContratPMPDetailStateCopyWithImpl(_$_ContratPMPDetailState _value,
-      $Res Function(_$_ContratPMPDetailState) _then)
-      : super(_value, _then);
+class __$$ContratPMPDetailStateImplCopyWithImpl<$Res>
+    extends
+        _$ContratPMPDetailStateCopyWithImpl<$Res, _$ContratPMPDetailStateImpl>
+    implements _$$ContratPMPDetailStateImplCopyWith<$Res> {
+  __$$ContratPMPDetailStateImplCopyWithImpl(
+    _$ContratPMPDetailStateImpl _value,
+    $Res Function(_$ContratPMPDetailStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of ContratPMPDetailState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -119,40 +142,48 @@ class __$$_ContratPMPDetailStateCopyWithImpl<$Res>
     Object? dataMaquinas = freezed,
     Object? dataServicios = freezed,
   }) {
-    return _then(_$_ContratPMPDetailState(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      detail: freezed == detail
-          ? _value.detail
-          : detail // ignore: cast_nullable_to_non_nullable
-              as ContratPmpDetail?,
-      contract: freezed == contract
-          ? _value.contract
-          : contract // ignore: cast_nullable_to_non_nullable
-              as ContratoPmp?,
-      dataMaquinas: freezed == dataMaquinas
-          ? _value.dataMaquinas
-          : dataMaquinas // ignore: cast_nullable_to_non_nullable
-              as DataTableSource?,
-      dataServicios: freezed == dataServicios
-          ? _value.dataServicios
-          : dataServicios // ignore: cast_nullable_to_non_nullable
-              as DataTableSource?,
-    ));
+    return _then(
+      _$ContratPMPDetailStateImpl(
+        loading:
+            null == loading
+                ? _value.loading
+                : loading // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        detail:
+            freezed == detail
+                ? _value.detail
+                : detail // ignore: cast_nullable_to_non_nullable
+                    as ContratPmpDetail?,
+        contract:
+            freezed == contract
+                ? _value.contract
+                : contract // ignore: cast_nullable_to_non_nullable
+                    as ContratoPmp?,
+        dataMaquinas:
+            freezed == dataMaquinas
+                ? _value.dataMaquinas
+                : dataMaquinas // ignore: cast_nullable_to_non_nullable
+                    as DataTableSource?,
+        dataServicios:
+            freezed == dataServicios
+                ? _value.dataServicios
+                : dataServicios // ignore: cast_nullable_to_non_nullable
+                    as DataTableSource?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_ContratPMPDetailState implements _ContratPMPDetailState {
-  const _$_ContratPMPDetailState(
-      {this.loading = false,
-      this.detail,
-      this.contract,
-      this.dataMaquinas,
-      this.dataServicios});
+class _$ContratPMPDetailStateImpl implements _ContratPMPDetailState {
+  const _$ContratPMPDetailStateImpl({
+    this.loading = false,
+    this.detail,
+    this.contract,
+    this.dataMaquinas,
+    this.dataServicios,
+  });
 
   @override
   @JsonKey()
@@ -172,10 +203,10 @@ class _$_ContratPMPDetailState implements _ContratPMPDetailState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ContratPMPDetailState &&
+            other is _$ContratPMPDetailStateImpl &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.detail, detail) || other.detail == detail) &&
             (identical(other.contract, contract) ||
@@ -188,23 +219,35 @@ class _$_ContratPMPDetailState implements _ContratPMPDetailState {
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, loading, detail, contract, dataMaquinas, dataServicios);
+    runtimeType,
+    loading,
+    detail,
+    contract,
+    dataMaquinas,
+    dataServicios,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ContratPMPDetailState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ContratPMPDetailStateCopyWith<_$_ContratPMPDetailState> get copyWith =>
-      __$$_ContratPMPDetailStateCopyWithImpl<_$_ContratPMPDetailState>(
-          this, _$identity);
+  _$$ContratPMPDetailStateImplCopyWith<_$ContratPMPDetailStateImpl>
+  get copyWith =>
+      __$$ContratPMPDetailStateImplCopyWithImpl<_$ContratPMPDetailStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _ContratPMPDetailState implements ContratPMPDetailState {
-  const factory _ContratPMPDetailState(
-      {final bool loading,
-      final ContratPmpDetail? detail,
-      final ContratoPmp? contract,
-      final DataTableSource? dataMaquinas,
-      final DataTableSource? dataServicios}) = _$_ContratPMPDetailState;
+  const factory _ContratPMPDetailState({
+    final bool loading,
+    final ContratPmpDetail? detail,
+    final ContratoPmp? contract,
+    final DataTableSource? dataMaquinas,
+    final DataTableSource? dataServicios,
+  }) = _$ContratPMPDetailStateImpl;
 
   @override
   bool get loading;
@@ -216,8 +259,11 @@ abstract class _ContratPMPDetailState implements ContratPMPDetailState {
   DataTableSource? get dataMaquinas;
   @override
   DataTableSource? get dataServicios;
+
+  /// Create a copy of ContratPMPDetailState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_ContratPMPDetailStateCopyWith<_$_ContratPMPDetailState> get copyWith =>
-      throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ContratPMPDetailStateImplCopyWith<_$ContratPMPDetailStateImpl>
+  get copyWith => throw _privateConstructorUsedError;
 }

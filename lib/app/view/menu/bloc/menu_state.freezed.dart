@@ -12,7 +12,8 @@ part of 'menu_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$MenuState {
@@ -21,7 +22,9 @@ mixin _$MenuState {
   List<Notification> get notifications => throw _privateConstructorUsedError;
   WorkWithUs? get workWithUs => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MenuState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $MenuStateCopyWith<MenuState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -31,11 +34,12 @@ abstract class $MenuStateCopyWith<$Res> {
   factory $MenuStateCopyWith(MenuState value, $Res Function(MenuState) then) =
       _$MenuStateCopyWithImpl<$Res, MenuState>;
   @useResult
-  $Res call(
-      {bool isOpenMenu,
-      bool isOpenNotification,
-      List<Notification> notifications,
-      WorkWithUs? workWithUs});
+  $Res call({
+    bool isOpenMenu,
+    bool isOpenNotification,
+    List<Notification> notifications,
+    WorkWithUs? workWithUs,
+  });
 }
 
 /// @nodoc
@@ -48,6 +52,8 @@ class _$MenuStateCopyWithImpl<$Res, $Val extends MenuState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of MenuState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -56,49 +62,62 @@ class _$MenuStateCopyWithImpl<$Res, $Val extends MenuState>
     Object? notifications = null,
     Object? workWithUs = freezed,
   }) {
-    return _then(_value.copyWith(
-      isOpenMenu: null == isOpenMenu
-          ? _value.isOpenMenu
-          : isOpenMenu // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isOpenNotification: null == isOpenNotification
-          ? _value.isOpenNotification
-          : isOpenNotification // ignore: cast_nullable_to_non_nullable
-              as bool,
-      notifications: null == notifications
-          ? _value.notifications
-          : notifications // ignore: cast_nullable_to_non_nullable
-              as List<Notification>,
-      workWithUs: freezed == workWithUs
-          ? _value.workWithUs
-          : workWithUs // ignore: cast_nullable_to_non_nullable
-              as WorkWithUs?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            isOpenMenu:
+                null == isOpenMenu
+                    ? _value.isOpenMenu
+                    : isOpenMenu // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            isOpenNotification:
+                null == isOpenNotification
+                    ? _value.isOpenNotification
+                    : isOpenNotification // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            notifications:
+                null == notifications
+                    ? _value.notifications
+                    : notifications // ignore: cast_nullable_to_non_nullable
+                        as List<Notification>,
+            workWithUs:
+                freezed == workWithUs
+                    ? _value.workWithUs
+                    : workWithUs // ignore: cast_nullable_to_non_nullable
+                        as WorkWithUs?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_MenuStateCopyWith<$Res> implements $MenuStateCopyWith<$Res> {
-  factory _$$_MenuStateCopyWith(
-          _$_MenuState value, $Res Function(_$_MenuState) then) =
-      __$$_MenuStateCopyWithImpl<$Res>;
+abstract class _$$MenuStateImplCopyWith<$Res>
+    implements $MenuStateCopyWith<$Res> {
+  factory _$$MenuStateImplCopyWith(
+    _$MenuStateImpl value,
+    $Res Function(_$MenuStateImpl) then,
+  ) = __$$MenuStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {bool isOpenMenu,
-      bool isOpenNotification,
-      List<Notification> notifications,
-      WorkWithUs? workWithUs});
+  $Res call({
+    bool isOpenMenu,
+    bool isOpenNotification,
+    List<Notification> notifications,
+    WorkWithUs? workWithUs,
+  });
 }
 
 /// @nodoc
-class __$$_MenuStateCopyWithImpl<$Res>
-    extends _$MenuStateCopyWithImpl<$Res, _$_MenuState>
-    implements _$$_MenuStateCopyWith<$Res> {
-  __$$_MenuStateCopyWithImpl(
-      _$_MenuState _value, $Res Function(_$_MenuState) _then)
-      : super(_value, _then);
+class __$$MenuStateImplCopyWithImpl<$Res>
+    extends _$MenuStateCopyWithImpl<$Res, _$MenuStateImpl>
+    implements _$$MenuStateImplCopyWith<$Res> {
+  __$$MenuStateImplCopyWithImpl(
+    _$MenuStateImpl _value,
+    $Res Function(_$MenuStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of MenuState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -107,37 +126,43 @@ class __$$_MenuStateCopyWithImpl<$Res>
     Object? notifications = null,
     Object? workWithUs = freezed,
   }) {
-    return _then(_$_MenuState(
-      isOpenMenu: null == isOpenMenu
-          ? _value.isOpenMenu
-          : isOpenMenu // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isOpenNotification: null == isOpenNotification
-          ? _value.isOpenNotification
-          : isOpenNotification // ignore: cast_nullable_to_non_nullable
-              as bool,
-      notifications: null == notifications
-          ? _value._notifications
-          : notifications // ignore: cast_nullable_to_non_nullable
-              as List<Notification>,
-      workWithUs: freezed == workWithUs
-          ? _value.workWithUs
-          : workWithUs // ignore: cast_nullable_to_non_nullable
-              as WorkWithUs?,
-    ));
+    return _then(
+      _$MenuStateImpl(
+        isOpenMenu:
+            null == isOpenMenu
+                ? _value.isOpenMenu
+                : isOpenMenu // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        isOpenNotification:
+            null == isOpenNotification
+                ? _value.isOpenNotification
+                : isOpenNotification // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        notifications:
+            null == notifications
+                ? _value._notifications
+                : notifications // ignore: cast_nullable_to_non_nullable
+                    as List<Notification>,
+        workWithUs:
+            freezed == workWithUs
+                ? _value.workWithUs
+                : workWithUs // ignore: cast_nullable_to_non_nullable
+                    as WorkWithUs?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_MenuState extends _MenuState {
-  const _$_MenuState(
-      {this.isOpenMenu = false,
-      this.isOpenNotification = false,
-      final List<Notification> notifications = const <Notification>[],
-      this.workWithUs})
-      : _notifications = notifications,
-        super._();
+class _$MenuStateImpl extends _MenuState {
+  const _$MenuStateImpl({
+    this.isOpenMenu = false,
+    this.isOpenNotification = false,
+    final List<Notification> notifications = const <Notification>[],
+    this.workWithUs,
+  }) : _notifications = notifications,
+       super._();
 
   @override
   @JsonKey()
@@ -163,37 +188,47 @@ class _$_MenuState extends _MenuState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_MenuState &&
+            other is _$MenuStateImpl &&
             (identical(other.isOpenMenu, isOpenMenu) ||
                 other.isOpenMenu == isOpenMenu) &&
             (identical(other.isOpenNotification, isOpenNotification) ||
                 other.isOpenNotification == isOpenNotification) &&
-            const DeepCollectionEquality()
-                .equals(other._notifications, _notifications) &&
+            const DeepCollectionEquality().equals(
+              other._notifications,
+              _notifications,
+            ) &&
             (identical(other.workWithUs, workWithUs) ||
                 other.workWithUs == workWithUs));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isOpenMenu, isOpenNotification,
-      const DeepCollectionEquality().hash(_notifications), workWithUs);
+  int get hashCode => Object.hash(
+    runtimeType,
+    isOpenMenu,
+    isOpenNotification,
+    const DeepCollectionEquality().hash(_notifications),
+    workWithUs,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MenuState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_MenuStateCopyWith<_$_MenuState> get copyWith =>
-      __$$_MenuStateCopyWithImpl<_$_MenuState>(this, _$identity);
+  _$$MenuStateImplCopyWith<_$MenuStateImpl> get copyWith =>
+      __$$MenuStateImplCopyWithImpl<_$MenuStateImpl>(this, _$identity);
 }
 
 abstract class _MenuState extends MenuState {
-  const factory _MenuState(
-      {final bool isOpenMenu,
-      final bool isOpenNotification,
-      final List<Notification> notifications,
-      final WorkWithUs? workWithUs}) = _$_MenuState;
+  const factory _MenuState({
+    final bool isOpenMenu,
+    final bool isOpenNotification,
+    final List<Notification> notifications,
+    final WorkWithUs? workWithUs,
+  }) = _$MenuStateImpl;
   const _MenuState._() : super._();
 
   @override
@@ -204,8 +239,11 @@ abstract class _MenuState extends MenuState {
   List<Notification> get notifications;
   @override
   WorkWithUs? get workWithUs;
+
+  /// Create a copy of MenuState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_MenuStateCopyWith<_$_MenuState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$MenuStateImplCopyWith<_$MenuStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

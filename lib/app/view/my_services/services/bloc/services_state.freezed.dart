@@ -12,7 +12,8 @@ part of 'services_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$ServicesState {
@@ -29,7 +30,9 @@ mixin _$ServicesState {
   Observation? get message => throw _privateConstructorUsedError;
   WeHelpYou? get weHelpYou => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ServicesState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ServicesStateCopyWith<ServicesState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -37,22 +40,24 @@ mixin _$ServicesState {
 /// @nodoc
 abstract class $ServicesStateCopyWith<$Res> {
   factory $ServicesStateCopyWith(
-          ServicesState value, $Res Function(ServicesState) then) =
-      _$ServicesStateCopyWithImpl<$Res, ServicesState>;
+    ServicesState value,
+    $Res Function(ServicesState) then,
+  ) = _$ServicesStateCopyWithImpl<$Res, ServicesState>;
   @useResult
-  $Res call(
-      {bool loading,
-      FormStatus status,
-      List<Services> services,
-      List<Header> headers,
-      List<CampusModel> campus,
-      Name? name,
-      Email? email,
-      Phone? phone,
-      Name? provincia,
-      Name? ciudad,
-      Observation? message,
-      WeHelpYou? weHelpYou});
+  $Res call({
+    bool loading,
+    FormStatus status,
+    List<Services> services,
+    List<Header> headers,
+    List<CampusModel> campus,
+    Name? name,
+    Email? email,
+    Phone? phone,
+    Name? provincia,
+    Name? ciudad,
+    Observation? message,
+    WeHelpYou? weHelpYou,
+  });
 }
 
 /// @nodoc
@@ -65,6 +70,8 @@ class _$ServicesStateCopyWithImpl<$Res, $Val extends ServicesState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ServicesState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -81,90 +88,110 @@ class _$ServicesStateCopyWithImpl<$Res, $Val extends ServicesState>
     Object? message = freezed,
     Object? weHelpYou = freezed,
   }) {
-    return _then(_value.copyWith(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as FormStatus,
-      services: null == services
-          ? _value.services
-          : services // ignore: cast_nullable_to_non_nullable
-              as List<Services>,
-      headers: null == headers
-          ? _value.headers
-          : headers // ignore: cast_nullable_to_non_nullable
-              as List<Header>,
-      campus: null == campus
-          ? _value.campus
-          : campus // ignore: cast_nullable_to_non_nullable
-              as List<CampusModel>,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as Name?,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as Email?,
-      phone: freezed == phone
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
-              as Phone?,
-      provincia: freezed == provincia
-          ? _value.provincia
-          : provincia // ignore: cast_nullable_to_non_nullable
-              as Name?,
-      ciudad: freezed == ciudad
-          ? _value.ciudad
-          : ciudad // ignore: cast_nullable_to_non_nullable
-              as Name?,
-      message: freezed == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as Observation?,
-      weHelpYou: freezed == weHelpYou
-          ? _value.weHelpYou
-          : weHelpYou // ignore: cast_nullable_to_non_nullable
-              as WeHelpYou?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            loading:
+                null == loading
+                    ? _value.loading
+                    : loading // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            status:
+                null == status
+                    ? _value.status
+                    : status // ignore: cast_nullable_to_non_nullable
+                        as FormStatus,
+            services:
+                null == services
+                    ? _value.services
+                    : services // ignore: cast_nullable_to_non_nullable
+                        as List<Services>,
+            headers:
+                null == headers
+                    ? _value.headers
+                    : headers // ignore: cast_nullable_to_non_nullable
+                        as List<Header>,
+            campus:
+                null == campus
+                    ? _value.campus
+                    : campus // ignore: cast_nullable_to_non_nullable
+                        as List<CampusModel>,
+            name:
+                freezed == name
+                    ? _value.name
+                    : name // ignore: cast_nullable_to_non_nullable
+                        as Name?,
+            email:
+                freezed == email
+                    ? _value.email
+                    : email // ignore: cast_nullable_to_non_nullable
+                        as Email?,
+            phone:
+                freezed == phone
+                    ? _value.phone
+                    : phone // ignore: cast_nullable_to_non_nullable
+                        as Phone?,
+            provincia:
+                freezed == provincia
+                    ? _value.provincia
+                    : provincia // ignore: cast_nullable_to_non_nullable
+                        as Name?,
+            ciudad:
+                freezed == ciudad
+                    ? _value.ciudad
+                    : ciudad // ignore: cast_nullable_to_non_nullable
+                        as Name?,
+            message:
+                freezed == message
+                    ? _value.message
+                    : message // ignore: cast_nullable_to_non_nullable
+                        as Observation?,
+            weHelpYou:
+                freezed == weHelpYou
+                    ? _value.weHelpYou
+                    : weHelpYou // ignore: cast_nullable_to_non_nullable
+                        as WeHelpYou?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_ServicesStateCopyWith<$Res>
+abstract class _$$ServicesStateImplCopyWith<$Res>
     implements $ServicesStateCopyWith<$Res> {
-  factory _$$_ServicesStateCopyWith(
-          _$_ServicesState value, $Res Function(_$_ServicesState) then) =
-      __$$_ServicesStateCopyWithImpl<$Res>;
+  factory _$$ServicesStateImplCopyWith(
+    _$ServicesStateImpl value,
+    $Res Function(_$ServicesStateImpl) then,
+  ) = __$$ServicesStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {bool loading,
-      FormStatus status,
-      List<Services> services,
-      List<Header> headers,
-      List<CampusModel> campus,
-      Name? name,
-      Email? email,
-      Phone? phone,
-      Name? provincia,
-      Name? ciudad,
-      Observation? message,
-      WeHelpYou? weHelpYou});
+  $Res call({
+    bool loading,
+    FormStatus status,
+    List<Services> services,
+    List<Header> headers,
+    List<CampusModel> campus,
+    Name? name,
+    Email? email,
+    Phone? phone,
+    Name? provincia,
+    Name? ciudad,
+    Observation? message,
+    WeHelpYou? weHelpYou,
+  });
 }
 
 /// @nodoc
-class __$$_ServicesStateCopyWithImpl<$Res>
-    extends _$ServicesStateCopyWithImpl<$Res, _$_ServicesState>
-    implements _$$_ServicesStateCopyWith<$Res> {
-  __$$_ServicesStateCopyWithImpl(
-      _$_ServicesState _value, $Res Function(_$_ServicesState) _then)
-      : super(_value, _then);
+class __$$ServicesStateImplCopyWithImpl<$Res>
+    extends _$ServicesStateCopyWithImpl<$Res, _$ServicesStateImpl>
+    implements _$$ServicesStateImplCopyWith<$Res> {
+  __$$ServicesStateImplCopyWithImpl(
+    _$ServicesStateImpl _value,
+    $Res Function(_$ServicesStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of ServicesState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -181,79 +208,93 @@ class __$$_ServicesStateCopyWithImpl<$Res>
     Object? message = freezed,
     Object? weHelpYou = freezed,
   }) {
-    return _then(_$_ServicesState(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as FormStatus,
-      services: null == services
-          ? _value._services
-          : services // ignore: cast_nullable_to_non_nullable
-              as List<Services>,
-      headers: null == headers
-          ? _value._headers
-          : headers // ignore: cast_nullable_to_non_nullable
-              as List<Header>,
-      campus: null == campus
-          ? _value._campus
-          : campus // ignore: cast_nullable_to_non_nullable
-              as List<CampusModel>,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as Name?,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as Email?,
-      phone: freezed == phone
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
-              as Phone?,
-      provincia: freezed == provincia
-          ? _value.provincia
-          : provincia // ignore: cast_nullable_to_non_nullable
-              as Name?,
-      ciudad: freezed == ciudad
-          ? _value.ciudad
-          : ciudad // ignore: cast_nullable_to_non_nullable
-              as Name?,
-      message: freezed == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as Observation?,
-      weHelpYou: freezed == weHelpYou
-          ? _value.weHelpYou
-          : weHelpYou // ignore: cast_nullable_to_non_nullable
-              as WeHelpYou?,
-    ));
+    return _then(
+      _$ServicesStateImpl(
+        loading:
+            null == loading
+                ? _value.loading
+                : loading // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        status:
+            null == status
+                ? _value.status
+                : status // ignore: cast_nullable_to_non_nullable
+                    as FormStatus,
+        services:
+            null == services
+                ? _value._services
+                : services // ignore: cast_nullable_to_non_nullable
+                    as List<Services>,
+        headers:
+            null == headers
+                ? _value._headers
+                : headers // ignore: cast_nullable_to_non_nullable
+                    as List<Header>,
+        campus:
+            null == campus
+                ? _value._campus
+                : campus // ignore: cast_nullable_to_non_nullable
+                    as List<CampusModel>,
+        name:
+            freezed == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                    as Name?,
+        email:
+            freezed == email
+                ? _value.email
+                : email // ignore: cast_nullable_to_non_nullable
+                    as Email?,
+        phone:
+            freezed == phone
+                ? _value.phone
+                : phone // ignore: cast_nullable_to_non_nullable
+                    as Phone?,
+        provincia:
+            freezed == provincia
+                ? _value.provincia
+                : provincia // ignore: cast_nullable_to_non_nullable
+                    as Name?,
+        ciudad:
+            freezed == ciudad
+                ? _value.ciudad
+                : ciudad // ignore: cast_nullable_to_non_nullable
+                    as Name?,
+        message:
+            freezed == message
+                ? _value.message
+                : message // ignore: cast_nullable_to_non_nullable
+                    as Observation?,
+        weHelpYou:
+            freezed == weHelpYou
+                ? _value.weHelpYou
+                : weHelpYou // ignore: cast_nullable_to_non_nullable
+                    as WeHelpYou?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_ServicesState extends _ServicesState {
-  const _$_ServicesState(
-      {this.loading = false,
-      this.status = FormStatus.editing,
-      final List<Services> services = const <Services>[],
-      final List<Header> headers = const <Header>[],
-      final List<CampusModel> campus = const <CampusModel>[],
-      this.name,
-      this.email,
-      this.phone,
-      this.provincia,
-      this.ciudad,
-      this.message,
-      this.weHelpYou})
-      : _services = services,
-        _headers = headers,
-        _campus = campus,
-        super._();
+class _$ServicesStateImpl extends _ServicesState {
+  const _$ServicesStateImpl({
+    this.loading = false,
+    this.status = FormStatus.editing,
+    final List<Services> services = const <Services>[],
+    final List<Header> headers = const <Header>[],
+    final List<CampusModel> campus = const <CampusModel>[],
+    this.name,
+    this.email,
+    this.phone,
+    this.provincia,
+    this.ciudad,
+    this.message,
+    this.weHelpYou,
+  }) : _services = services,
+       _headers = headers,
+       _campus = campus,
+       super._();
 
   @override
   @JsonKey()
@@ -309,10 +350,10 @@ class _$_ServicesState extends _ServicesState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ServicesState &&
+            other is _$ServicesStateImpl &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.status, status) || other.status == status) &&
             const DeepCollectionEquality().equals(other._services, _services) &&
@@ -331,41 +372,45 @@ class _$_ServicesState extends _ServicesState {
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      loading,
-      status,
-      const DeepCollectionEquality().hash(_services),
-      const DeepCollectionEquality().hash(_headers),
-      const DeepCollectionEquality().hash(_campus),
-      name,
-      email,
-      phone,
-      provincia,
-      ciudad,
-      message,
-      weHelpYou);
+    runtimeType,
+    loading,
+    status,
+    const DeepCollectionEquality().hash(_services),
+    const DeepCollectionEquality().hash(_headers),
+    const DeepCollectionEquality().hash(_campus),
+    name,
+    email,
+    phone,
+    provincia,
+    ciudad,
+    message,
+    weHelpYou,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ServicesState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ServicesStateCopyWith<_$_ServicesState> get copyWith =>
-      __$$_ServicesStateCopyWithImpl<_$_ServicesState>(this, _$identity);
+  _$$ServicesStateImplCopyWith<_$ServicesStateImpl> get copyWith =>
+      __$$ServicesStateImplCopyWithImpl<_$ServicesStateImpl>(this, _$identity);
 }
 
 abstract class _ServicesState extends ServicesState {
-  const factory _ServicesState(
-      {final bool loading,
-      final FormStatus status,
-      final List<Services> services,
-      final List<Header> headers,
-      final List<CampusModel> campus,
-      final Name? name,
-      final Email? email,
-      final Phone? phone,
-      final Name? provincia,
-      final Name? ciudad,
-      final Observation? message,
-      final WeHelpYou? weHelpYou}) = _$_ServicesState;
+  const factory _ServicesState({
+    final bool loading,
+    final FormStatus status,
+    final List<Services> services,
+    final List<Header> headers,
+    final List<CampusModel> campus,
+    final Name? name,
+    final Email? email,
+    final Phone? phone,
+    final Name? provincia,
+    final Name? ciudad,
+    final Observation? message,
+    final WeHelpYou? weHelpYou,
+  }) = _$ServicesStateImpl;
   const _ServicesState._() : super._();
 
   @override
@@ -392,8 +437,11 @@ abstract class _ServicesState extends ServicesState {
   Observation? get message;
   @override
   WeHelpYou? get weHelpYou;
+
+  /// Create a copy of ServicesState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_ServicesStateCopyWith<_$_ServicesState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ServicesStateImplCopyWith<_$ServicesStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

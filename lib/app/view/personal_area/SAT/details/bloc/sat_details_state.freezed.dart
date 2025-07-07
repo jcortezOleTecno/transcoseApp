@@ -12,7 +12,8 @@ part of 'sat_details_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$SatDetailState {
@@ -22,7 +23,9 @@ mixin _$SatDetailState {
   DataTableSource? get dataMaquinas => throw _privateConstructorUsedError;
   DataTableSource? get dataMateriales => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SatDetailState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SatDetailStateCopyWith<SatDetailState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -30,15 +33,17 @@ mixin _$SatDetailState {
 /// @nodoc
 abstract class $SatDetailStateCopyWith<$Res> {
   factory $SatDetailStateCopyWith(
-          SatDetailState value, $Res Function(SatDetailState) then) =
-      _$SatDetailStateCopyWithImpl<$Res, SatDetailState>;
+    SatDetailState value,
+    $Res Function(SatDetailState) then,
+  ) = _$SatDetailStateCopyWithImpl<$Res, SatDetailState>;
   @useResult
-  $Res call(
-      {bool loading,
-      IntervencionesDetalle? detail,
-      Intervenciones? intervencion,
-      DataTableSource? dataMaquinas,
-      DataTableSource? dataMateriales});
+  $Res call({
+    bool loading,
+    IntervencionesDetalle? detail,
+    Intervenciones? intervencion,
+    DataTableSource? dataMaquinas,
+    DataTableSource? dataMateriales,
+  });
 }
 
 /// @nodoc
@@ -51,6 +56,8 @@ class _$SatDetailStateCopyWithImpl<$Res, $Val extends SatDetailState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SatDetailState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -60,55 +67,68 @@ class _$SatDetailStateCopyWithImpl<$Res, $Val extends SatDetailState>
     Object? dataMaquinas = freezed,
     Object? dataMateriales = freezed,
   }) {
-    return _then(_value.copyWith(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      detail: freezed == detail
-          ? _value.detail
-          : detail // ignore: cast_nullable_to_non_nullable
-              as IntervencionesDetalle?,
-      intervencion: freezed == intervencion
-          ? _value.intervencion
-          : intervencion // ignore: cast_nullable_to_non_nullable
-              as Intervenciones?,
-      dataMaquinas: freezed == dataMaquinas
-          ? _value.dataMaquinas
-          : dataMaquinas // ignore: cast_nullable_to_non_nullable
-              as DataTableSource?,
-      dataMateriales: freezed == dataMateriales
-          ? _value.dataMateriales
-          : dataMateriales // ignore: cast_nullable_to_non_nullable
-              as DataTableSource?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            loading:
+                null == loading
+                    ? _value.loading
+                    : loading // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            detail:
+                freezed == detail
+                    ? _value.detail
+                    : detail // ignore: cast_nullable_to_non_nullable
+                        as IntervencionesDetalle?,
+            intervencion:
+                freezed == intervencion
+                    ? _value.intervencion
+                    : intervencion // ignore: cast_nullable_to_non_nullable
+                        as Intervenciones?,
+            dataMaquinas:
+                freezed == dataMaquinas
+                    ? _value.dataMaquinas
+                    : dataMaquinas // ignore: cast_nullable_to_non_nullable
+                        as DataTableSource?,
+            dataMateriales:
+                freezed == dataMateriales
+                    ? _value.dataMateriales
+                    : dataMateriales // ignore: cast_nullable_to_non_nullable
+                        as DataTableSource?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_SatDetailStateCopyWith<$Res>
+abstract class _$$SatDetailStateImplCopyWith<$Res>
     implements $SatDetailStateCopyWith<$Res> {
-  factory _$$_SatDetailStateCopyWith(
-          _$_SatDetailState value, $Res Function(_$_SatDetailState) then) =
-      __$$_SatDetailStateCopyWithImpl<$Res>;
+  factory _$$SatDetailStateImplCopyWith(
+    _$SatDetailStateImpl value,
+    $Res Function(_$SatDetailStateImpl) then,
+  ) = __$$SatDetailStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {bool loading,
-      IntervencionesDetalle? detail,
-      Intervenciones? intervencion,
-      DataTableSource? dataMaquinas,
-      DataTableSource? dataMateriales});
+  $Res call({
+    bool loading,
+    IntervencionesDetalle? detail,
+    Intervenciones? intervencion,
+    DataTableSource? dataMaquinas,
+    DataTableSource? dataMateriales,
+  });
 }
 
 /// @nodoc
-class __$$_SatDetailStateCopyWithImpl<$Res>
-    extends _$SatDetailStateCopyWithImpl<$Res, _$_SatDetailState>
-    implements _$$_SatDetailStateCopyWith<$Res> {
-  __$$_SatDetailStateCopyWithImpl(
-      _$_SatDetailState _value, $Res Function(_$_SatDetailState) _then)
-      : super(_value, _then);
+class __$$SatDetailStateImplCopyWithImpl<$Res>
+    extends _$SatDetailStateCopyWithImpl<$Res, _$SatDetailStateImpl>
+    implements _$$SatDetailStateImplCopyWith<$Res> {
+  __$$SatDetailStateImplCopyWithImpl(
+    _$SatDetailStateImpl _value,
+    $Res Function(_$SatDetailStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of SatDetailState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -118,40 +138,48 @@ class __$$_SatDetailStateCopyWithImpl<$Res>
     Object? dataMaquinas = freezed,
     Object? dataMateriales = freezed,
   }) {
-    return _then(_$_SatDetailState(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      detail: freezed == detail
-          ? _value.detail
-          : detail // ignore: cast_nullable_to_non_nullable
-              as IntervencionesDetalle?,
-      intervencion: freezed == intervencion
-          ? _value.intervencion
-          : intervencion // ignore: cast_nullable_to_non_nullable
-              as Intervenciones?,
-      dataMaquinas: freezed == dataMaquinas
-          ? _value.dataMaquinas
-          : dataMaquinas // ignore: cast_nullable_to_non_nullable
-              as DataTableSource?,
-      dataMateriales: freezed == dataMateriales
-          ? _value.dataMateriales
-          : dataMateriales // ignore: cast_nullable_to_non_nullable
-              as DataTableSource?,
-    ));
+    return _then(
+      _$SatDetailStateImpl(
+        loading:
+            null == loading
+                ? _value.loading
+                : loading // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        detail:
+            freezed == detail
+                ? _value.detail
+                : detail // ignore: cast_nullable_to_non_nullable
+                    as IntervencionesDetalle?,
+        intervencion:
+            freezed == intervencion
+                ? _value.intervencion
+                : intervencion // ignore: cast_nullable_to_non_nullable
+                    as Intervenciones?,
+        dataMaquinas:
+            freezed == dataMaquinas
+                ? _value.dataMaquinas
+                : dataMaquinas // ignore: cast_nullable_to_non_nullable
+                    as DataTableSource?,
+        dataMateriales:
+            freezed == dataMateriales
+                ? _value.dataMateriales
+                : dataMateriales // ignore: cast_nullable_to_non_nullable
+                    as DataTableSource?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_SatDetailState implements _SatDetailState {
-  const _$_SatDetailState(
-      {this.loading = false,
-      this.detail,
-      this.intervencion,
-      this.dataMaquinas,
-      this.dataMateriales});
+class _$SatDetailStateImpl implements _SatDetailState {
+  const _$SatDetailStateImpl({
+    this.loading = false,
+    this.detail,
+    this.intervencion,
+    this.dataMaquinas,
+    this.dataMateriales,
+  });
 
   @override
   @JsonKey()
@@ -171,10 +199,10 @@ class _$_SatDetailState implements _SatDetailState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SatDetailState &&
+            other is _$SatDetailStateImpl &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.detail, detail) || other.detail == detail) &&
             (identical(other.intervencion, intervencion) ||
@@ -187,22 +215,34 @@ class _$_SatDetailState implements _SatDetailState {
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, loading, detail, intervencion, dataMaquinas, dataMateriales);
+    runtimeType,
+    loading,
+    detail,
+    intervencion,
+    dataMaquinas,
+    dataMateriales,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SatDetailState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SatDetailStateCopyWith<_$_SatDetailState> get copyWith =>
-      __$$_SatDetailStateCopyWithImpl<_$_SatDetailState>(this, _$identity);
+  _$$SatDetailStateImplCopyWith<_$SatDetailStateImpl> get copyWith =>
+      __$$SatDetailStateImplCopyWithImpl<_$SatDetailStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _SatDetailState implements SatDetailState {
-  const factory _SatDetailState(
-      {final bool loading,
-      final IntervencionesDetalle? detail,
-      final Intervenciones? intervencion,
-      final DataTableSource? dataMaquinas,
-      final DataTableSource? dataMateriales}) = _$_SatDetailState;
+  const factory _SatDetailState({
+    final bool loading,
+    final IntervencionesDetalle? detail,
+    final Intervenciones? intervencion,
+    final DataTableSource? dataMaquinas,
+    final DataTableSource? dataMateriales,
+  }) = _$SatDetailStateImpl;
 
   @override
   bool get loading;
@@ -214,8 +254,11 @@ abstract class _SatDetailState implements SatDetailState {
   DataTableSource? get dataMaquinas;
   @override
   DataTableSource? get dataMateriales;
+
+  /// Create a copy of SatDetailState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_SatDetailStateCopyWith<_$_SatDetailState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SatDetailStateImplCopyWith<_$SatDetailStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

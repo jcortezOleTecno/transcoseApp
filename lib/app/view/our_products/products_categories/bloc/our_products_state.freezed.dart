@@ -12,7 +12,8 @@ part of 'our_products_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$OurProductsState {
@@ -22,7 +23,9 @@ mixin _$OurProductsState {
   Category? get category => throw _privateConstructorUsedError;
   String? get query => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of OurProductsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $OurProductsStateCopyWith<OurProductsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -30,15 +33,17 @@ mixin _$OurProductsState {
 /// @nodoc
 abstract class $OurProductsStateCopyWith<$Res> {
   factory $OurProductsStateCopyWith(
-          OurProductsState value, $Res Function(OurProductsState) then) =
-      _$OurProductsStateCopyWithImpl<$Res, OurProductsState>;
+    OurProductsState value,
+    $Res Function(OurProductsState) then,
+  ) = _$OurProductsStateCopyWithImpl<$Res, OurProductsState>;
   @useResult
-  $Res call(
-      {List<Category> categories,
-      bool loading,
-      TypeOfVehicle? typeOfVehicle,
-      Category? category,
-      String? query});
+  $Res call({
+    List<Category> categories,
+    bool loading,
+    TypeOfVehicle? typeOfVehicle,
+    Category? category,
+    String? query,
+  });
 }
 
 /// @nodoc
@@ -51,6 +56,8 @@ class _$OurProductsStateCopyWithImpl<$Res, $Val extends OurProductsState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of OurProductsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -60,55 +67,68 @@ class _$OurProductsStateCopyWithImpl<$Res, $Val extends OurProductsState>
     Object? category = freezed,
     Object? query = freezed,
   }) {
-    return _then(_value.copyWith(
-      categories: null == categories
-          ? _value.categories
-          : categories // ignore: cast_nullable_to_non_nullable
-              as List<Category>,
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      typeOfVehicle: freezed == typeOfVehicle
-          ? _value.typeOfVehicle
-          : typeOfVehicle // ignore: cast_nullable_to_non_nullable
-              as TypeOfVehicle?,
-      category: freezed == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as Category?,
-      query: freezed == query
-          ? _value.query
-          : query // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            categories:
+                null == categories
+                    ? _value.categories
+                    : categories // ignore: cast_nullable_to_non_nullable
+                        as List<Category>,
+            loading:
+                null == loading
+                    ? _value.loading
+                    : loading // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            typeOfVehicle:
+                freezed == typeOfVehicle
+                    ? _value.typeOfVehicle
+                    : typeOfVehicle // ignore: cast_nullable_to_non_nullable
+                        as TypeOfVehicle?,
+            category:
+                freezed == category
+                    ? _value.category
+                    : category // ignore: cast_nullable_to_non_nullable
+                        as Category?,
+            query:
+                freezed == query
+                    ? _value.query
+                    : query // ignore: cast_nullable_to_non_nullable
+                        as String?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_OurProductsStateCopyWith<$Res>
+abstract class _$$OurProductsStateImplCopyWith<$Res>
     implements $OurProductsStateCopyWith<$Res> {
-  factory _$$_OurProductsStateCopyWith(
-          _$_OurProductsState value, $Res Function(_$_OurProductsState) then) =
-      __$$_OurProductsStateCopyWithImpl<$Res>;
+  factory _$$OurProductsStateImplCopyWith(
+    _$OurProductsStateImpl value,
+    $Res Function(_$OurProductsStateImpl) then,
+  ) = __$$OurProductsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {List<Category> categories,
-      bool loading,
-      TypeOfVehicle? typeOfVehicle,
-      Category? category,
-      String? query});
+  $Res call({
+    List<Category> categories,
+    bool loading,
+    TypeOfVehicle? typeOfVehicle,
+    Category? category,
+    String? query,
+  });
 }
 
 /// @nodoc
-class __$$_OurProductsStateCopyWithImpl<$Res>
-    extends _$OurProductsStateCopyWithImpl<$Res, _$_OurProductsState>
-    implements _$$_OurProductsStateCopyWith<$Res> {
-  __$$_OurProductsStateCopyWithImpl(
-      _$_OurProductsState _value, $Res Function(_$_OurProductsState) _then)
-      : super(_value, _then);
+class __$$OurProductsStateImplCopyWithImpl<$Res>
+    extends _$OurProductsStateCopyWithImpl<$Res, _$OurProductsStateImpl>
+    implements _$$OurProductsStateImplCopyWith<$Res> {
+  __$$OurProductsStateImplCopyWithImpl(
+    _$OurProductsStateImpl _value,
+    $Res Function(_$OurProductsStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of OurProductsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -118,42 +138,49 @@ class __$$_OurProductsStateCopyWithImpl<$Res>
     Object? category = freezed,
     Object? query = freezed,
   }) {
-    return _then(_$_OurProductsState(
-      categories: null == categories
-          ? _value._categories
-          : categories // ignore: cast_nullable_to_non_nullable
-              as List<Category>,
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      typeOfVehicle: freezed == typeOfVehicle
-          ? _value.typeOfVehicle
-          : typeOfVehicle // ignore: cast_nullable_to_non_nullable
-              as TypeOfVehicle?,
-      category: freezed == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as Category?,
-      query: freezed == query
-          ? _value.query
-          : query // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
+    return _then(
+      _$OurProductsStateImpl(
+        categories:
+            null == categories
+                ? _value._categories
+                : categories // ignore: cast_nullable_to_non_nullable
+                    as List<Category>,
+        loading:
+            null == loading
+                ? _value.loading
+                : loading // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        typeOfVehicle:
+            freezed == typeOfVehicle
+                ? _value.typeOfVehicle
+                : typeOfVehicle // ignore: cast_nullable_to_non_nullable
+                    as TypeOfVehicle?,
+        category:
+            freezed == category
+                ? _value.category
+                : category // ignore: cast_nullable_to_non_nullable
+                    as Category?,
+        query:
+            freezed == query
+                ? _value.query
+                : query // ignore: cast_nullable_to_non_nullable
+                    as String?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_OurProductsState extends _OurProductsState {
-  const _$_OurProductsState(
-      {final List<Category> categories = const <Category>[],
-      this.loading = false,
-      this.typeOfVehicle,
-      this.category,
-      this.query})
-      : _categories = categories,
-        super._();
+class _$OurProductsStateImpl extends _OurProductsState {
+  const _$OurProductsStateImpl({
+    final List<Category> categories = const <Category>[],
+    this.loading = false,
+    this.typeOfVehicle,
+    this.category,
+    this.query,
+  }) : _categories = categories,
+       super._();
 
   final List<Category> _categories;
   @override
@@ -180,12 +207,14 @@ class _$_OurProductsState extends _OurProductsState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_OurProductsState &&
-            const DeepCollectionEquality()
-                .equals(other._categories, _categories) &&
+            other is _$OurProductsStateImpl &&
+            const DeepCollectionEquality().equals(
+              other._categories,
+              _categories,
+            ) &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.typeOfVehicle, typeOfVehicle) ||
                 other.typeOfVehicle == typeOfVehicle) &&
@@ -196,27 +225,34 @@ class _$_OurProductsState extends _OurProductsState {
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_categories),
-      loading,
-      typeOfVehicle,
-      category,
-      query);
+    runtimeType,
+    const DeepCollectionEquality().hash(_categories),
+    loading,
+    typeOfVehicle,
+    category,
+    query,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of OurProductsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_OurProductsStateCopyWith<_$_OurProductsState> get copyWith =>
-      __$$_OurProductsStateCopyWithImpl<_$_OurProductsState>(this, _$identity);
+  _$$OurProductsStateImplCopyWith<_$OurProductsStateImpl> get copyWith =>
+      __$$OurProductsStateImplCopyWithImpl<_$OurProductsStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _OurProductsState extends OurProductsState {
-  const factory _OurProductsState(
-      {final List<Category> categories,
-      final bool loading,
-      final TypeOfVehicle? typeOfVehicle,
-      final Category? category,
-      final String? query}) = _$_OurProductsState;
+  const factory _OurProductsState({
+    final List<Category> categories,
+    final bool loading,
+    final TypeOfVehicle? typeOfVehicle,
+    final Category? category,
+    final String? query,
+  }) = _$OurProductsStateImpl;
   const _OurProductsState._() : super._();
 
   @override
@@ -229,8 +265,11 @@ abstract class _OurProductsState extends OurProductsState {
   Category? get category;
   @override
   String? get query;
+
+  /// Create a copy of OurProductsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_OurProductsStateCopyWith<_$_OurProductsState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$OurProductsStateImplCopyWith<_$OurProductsStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

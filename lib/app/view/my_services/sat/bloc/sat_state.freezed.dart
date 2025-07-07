@@ -12,7 +12,8 @@ part of 'sat_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$SatState {
@@ -40,7 +41,9 @@ mixin _$SatState {
   String? get fechaCita => throw _privateConstructorUsedError;
   String? get franjaHoraria => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SatState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SatStateCopyWith<SatState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -50,30 +53,31 @@ abstract class $SatStateCopyWith<$Res> {
   factory $SatStateCopyWith(SatState value, $Res Function(SatState) then) =
       _$SatStateCopyWithImpl<$Res, SatState>;
   @useResult
-  $Res call(
-      {bool loading,
-      List<SatForms> dataForms,
-      List<String> forms,
-      List<String> tipoMaquinaValores,
-      List<DateTime> diasOcupados,
-      FormStatus status,
-      String? formSelect,
-      String? tipoMaquina,
-      Name? marca,
-      Name? modelo,
-      Name? producto,
-      Name? numeroSerie,
-      Name? tipoAveria,
-      String? tipoIncidencia,
-      Name? codCliente,
-      Name? razonSocial,
-      Name? cif,
-      Name? poblacion,
-      Name? persona,
-      Phone? telefono,
-      Email? email,
-      String? fechaCita,
-      String? franjaHoraria});
+  $Res call({
+    bool loading,
+    List<SatForms> dataForms,
+    List<String> forms,
+    List<String> tipoMaquinaValores,
+    List<DateTime> diasOcupados,
+    FormStatus status,
+    String? formSelect,
+    String? tipoMaquina,
+    Name? marca,
+    Name? modelo,
+    Name? producto,
+    Name? numeroSerie,
+    Name? tipoAveria,
+    String? tipoIncidencia,
+    Name? codCliente,
+    Name? razonSocial,
+    Name? cif,
+    Name? poblacion,
+    Name? persona,
+    Phone? telefono,
+    Email? email,
+    String? fechaCita,
+    String? franjaHoraria,
+  });
 }
 
 /// @nodoc
@@ -86,6 +90,8 @@ class _$SatStateCopyWithImpl<$Res, $Val extends SatState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SatState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -113,144 +119,176 @@ class _$SatStateCopyWithImpl<$Res, $Val extends SatState>
     Object? fechaCita = freezed,
     Object? franjaHoraria = freezed,
   }) {
-    return _then(_value.copyWith(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      dataForms: null == dataForms
-          ? _value.dataForms
-          : dataForms // ignore: cast_nullable_to_non_nullable
-              as List<SatForms>,
-      forms: null == forms
-          ? _value.forms
-          : forms // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      tipoMaquinaValores: null == tipoMaquinaValores
-          ? _value.tipoMaquinaValores
-          : tipoMaquinaValores // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      diasOcupados: null == diasOcupados
-          ? _value.diasOcupados
-          : diasOcupados // ignore: cast_nullable_to_non_nullable
-              as List<DateTime>,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as FormStatus,
-      formSelect: freezed == formSelect
-          ? _value.formSelect
-          : formSelect // ignore: cast_nullable_to_non_nullable
-              as String?,
-      tipoMaquina: freezed == tipoMaquina
-          ? _value.tipoMaquina
-          : tipoMaquina // ignore: cast_nullable_to_non_nullable
-              as String?,
-      marca: freezed == marca
-          ? _value.marca
-          : marca // ignore: cast_nullable_to_non_nullable
-              as Name?,
-      modelo: freezed == modelo
-          ? _value.modelo
-          : modelo // ignore: cast_nullable_to_non_nullable
-              as Name?,
-      producto: freezed == producto
-          ? _value.producto
-          : producto // ignore: cast_nullable_to_non_nullable
-              as Name?,
-      numeroSerie: freezed == numeroSerie
-          ? _value.numeroSerie
-          : numeroSerie // ignore: cast_nullable_to_non_nullable
-              as Name?,
-      tipoAveria: freezed == tipoAveria
-          ? _value.tipoAveria
-          : tipoAveria // ignore: cast_nullable_to_non_nullable
-              as Name?,
-      tipoIncidencia: freezed == tipoIncidencia
-          ? _value.tipoIncidencia
-          : tipoIncidencia // ignore: cast_nullable_to_non_nullable
-              as String?,
-      codCliente: freezed == codCliente
-          ? _value.codCliente
-          : codCliente // ignore: cast_nullable_to_non_nullable
-              as Name?,
-      razonSocial: freezed == razonSocial
-          ? _value.razonSocial
-          : razonSocial // ignore: cast_nullable_to_non_nullable
-              as Name?,
-      cif: freezed == cif
-          ? _value.cif
-          : cif // ignore: cast_nullable_to_non_nullable
-              as Name?,
-      poblacion: freezed == poblacion
-          ? _value.poblacion
-          : poblacion // ignore: cast_nullable_to_non_nullable
-              as Name?,
-      persona: freezed == persona
-          ? _value.persona
-          : persona // ignore: cast_nullable_to_non_nullable
-              as Name?,
-      telefono: freezed == telefono
-          ? _value.telefono
-          : telefono // ignore: cast_nullable_to_non_nullable
-              as Phone?,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as Email?,
-      fechaCita: freezed == fechaCita
-          ? _value.fechaCita
-          : fechaCita // ignore: cast_nullable_to_non_nullable
-              as String?,
-      franjaHoraria: freezed == franjaHoraria
-          ? _value.franjaHoraria
-          : franjaHoraria // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            loading:
+                null == loading
+                    ? _value.loading
+                    : loading // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            dataForms:
+                null == dataForms
+                    ? _value.dataForms
+                    : dataForms // ignore: cast_nullable_to_non_nullable
+                        as List<SatForms>,
+            forms:
+                null == forms
+                    ? _value.forms
+                    : forms // ignore: cast_nullable_to_non_nullable
+                        as List<String>,
+            tipoMaquinaValores:
+                null == tipoMaquinaValores
+                    ? _value.tipoMaquinaValores
+                    : tipoMaquinaValores // ignore: cast_nullable_to_non_nullable
+                        as List<String>,
+            diasOcupados:
+                null == diasOcupados
+                    ? _value.diasOcupados
+                    : diasOcupados // ignore: cast_nullable_to_non_nullable
+                        as List<DateTime>,
+            status:
+                null == status
+                    ? _value.status
+                    : status // ignore: cast_nullable_to_non_nullable
+                        as FormStatus,
+            formSelect:
+                freezed == formSelect
+                    ? _value.formSelect
+                    : formSelect // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            tipoMaquina:
+                freezed == tipoMaquina
+                    ? _value.tipoMaquina
+                    : tipoMaquina // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            marca:
+                freezed == marca
+                    ? _value.marca
+                    : marca // ignore: cast_nullable_to_non_nullable
+                        as Name?,
+            modelo:
+                freezed == modelo
+                    ? _value.modelo
+                    : modelo // ignore: cast_nullable_to_non_nullable
+                        as Name?,
+            producto:
+                freezed == producto
+                    ? _value.producto
+                    : producto // ignore: cast_nullable_to_non_nullable
+                        as Name?,
+            numeroSerie:
+                freezed == numeroSerie
+                    ? _value.numeroSerie
+                    : numeroSerie // ignore: cast_nullable_to_non_nullable
+                        as Name?,
+            tipoAveria:
+                freezed == tipoAveria
+                    ? _value.tipoAveria
+                    : tipoAveria // ignore: cast_nullable_to_non_nullable
+                        as Name?,
+            tipoIncidencia:
+                freezed == tipoIncidencia
+                    ? _value.tipoIncidencia
+                    : tipoIncidencia // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            codCliente:
+                freezed == codCliente
+                    ? _value.codCliente
+                    : codCliente // ignore: cast_nullable_to_non_nullable
+                        as Name?,
+            razonSocial:
+                freezed == razonSocial
+                    ? _value.razonSocial
+                    : razonSocial // ignore: cast_nullable_to_non_nullable
+                        as Name?,
+            cif:
+                freezed == cif
+                    ? _value.cif
+                    : cif // ignore: cast_nullable_to_non_nullable
+                        as Name?,
+            poblacion:
+                freezed == poblacion
+                    ? _value.poblacion
+                    : poblacion // ignore: cast_nullable_to_non_nullable
+                        as Name?,
+            persona:
+                freezed == persona
+                    ? _value.persona
+                    : persona // ignore: cast_nullable_to_non_nullable
+                        as Name?,
+            telefono:
+                freezed == telefono
+                    ? _value.telefono
+                    : telefono // ignore: cast_nullable_to_non_nullable
+                        as Phone?,
+            email:
+                freezed == email
+                    ? _value.email
+                    : email // ignore: cast_nullable_to_non_nullable
+                        as Email?,
+            fechaCita:
+                freezed == fechaCita
+                    ? _value.fechaCita
+                    : fechaCita // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            franjaHoraria:
+                freezed == franjaHoraria
+                    ? _value.franjaHoraria
+                    : franjaHoraria // ignore: cast_nullable_to_non_nullable
+                        as String?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_SatStateCopyWith<$Res> implements $SatStateCopyWith<$Res> {
-  factory _$$_SatStateCopyWith(
-          _$_SatState value, $Res Function(_$_SatState) then) =
-      __$$_SatStateCopyWithImpl<$Res>;
+abstract class _$$SatStateImplCopyWith<$Res>
+    implements $SatStateCopyWith<$Res> {
+  factory _$$SatStateImplCopyWith(
+    _$SatStateImpl value,
+    $Res Function(_$SatStateImpl) then,
+  ) = __$$SatStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {bool loading,
-      List<SatForms> dataForms,
-      List<String> forms,
-      List<String> tipoMaquinaValores,
-      List<DateTime> diasOcupados,
-      FormStatus status,
-      String? formSelect,
-      String? tipoMaquina,
-      Name? marca,
-      Name? modelo,
-      Name? producto,
-      Name? numeroSerie,
-      Name? tipoAveria,
-      String? tipoIncidencia,
-      Name? codCliente,
-      Name? razonSocial,
-      Name? cif,
-      Name? poblacion,
-      Name? persona,
-      Phone? telefono,
-      Email? email,
-      String? fechaCita,
-      String? franjaHoraria});
+  $Res call({
+    bool loading,
+    List<SatForms> dataForms,
+    List<String> forms,
+    List<String> tipoMaquinaValores,
+    List<DateTime> diasOcupados,
+    FormStatus status,
+    String? formSelect,
+    String? tipoMaquina,
+    Name? marca,
+    Name? modelo,
+    Name? producto,
+    Name? numeroSerie,
+    Name? tipoAveria,
+    String? tipoIncidencia,
+    Name? codCliente,
+    Name? razonSocial,
+    Name? cif,
+    Name? poblacion,
+    Name? persona,
+    Phone? telefono,
+    Email? email,
+    String? fechaCita,
+    String? franjaHoraria,
+  });
 }
 
 /// @nodoc
-class __$$_SatStateCopyWithImpl<$Res>
-    extends _$SatStateCopyWithImpl<$Res, _$_SatState>
-    implements _$$_SatStateCopyWith<$Res> {
-  __$$_SatStateCopyWithImpl(
-      _$_SatState _value, $Res Function(_$_SatState) _then)
-      : super(_value, _then);
+class __$$SatStateImplCopyWithImpl<$Res>
+    extends _$SatStateCopyWithImpl<$Res, _$SatStateImpl>
+    implements _$$SatStateImplCopyWith<$Res> {
+  __$$SatStateImplCopyWithImpl(
+    _$SatStateImpl _value,
+    $Res Function(_$SatStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of SatState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -278,135 +316,160 @@ class __$$_SatStateCopyWithImpl<$Res>
     Object? fechaCita = freezed,
     Object? franjaHoraria = freezed,
   }) {
-    return _then(_$_SatState(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      dataForms: null == dataForms
-          ? _value._dataForms
-          : dataForms // ignore: cast_nullable_to_non_nullable
-              as List<SatForms>,
-      forms: null == forms
-          ? _value._forms
-          : forms // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      tipoMaquinaValores: null == tipoMaquinaValores
-          ? _value._tipoMaquinaValores
-          : tipoMaquinaValores // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      diasOcupados: null == diasOcupados
-          ? _value._diasOcupados
-          : diasOcupados // ignore: cast_nullable_to_non_nullable
-              as List<DateTime>,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as FormStatus,
-      formSelect: freezed == formSelect
-          ? _value.formSelect
-          : formSelect // ignore: cast_nullable_to_non_nullable
-              as String?,
-      tipoMaquina: freezed == tipoMaquina
-          ? _value.tipoMaquina
-          : tipoMaquina // ignore: cast_nullable_to_non_nullable
-              as String?,
-      marca: freezed == marca
-          ? _value.marca
-          : marca // ignore: cast_nullable_to_non_nullable
-              as Name?,
-      modelo: freezed == modelo
-          ? _value.modelo
-          : modelo // ignore: cast_nullable_to_non_nullable
-              as Name?,
-      producto: freezed == producto
-          ? _value.producto
-          : producto // ignore: cast_nullable_to_non_nullable
-              as Name?,
-      numeroSerie: freezed == numeroSerie
-          ? _value.numeroSerie
-          : numeroSerie // ignore: cast_nullable_to_non_nullable
-              as Name?,
-      tipoAveria: freezed == tipoAveria
-          ? _value.tipoAveria
-          : tipoAveria // ignore: cast_nullable_to_non_nullable
-              as Name?,
-      tipoIncidencia: freezed == tipoIncidencia
-          ? _value.tipoIncidencia
-          : tipoIncidencia // ignore: cast_nullable_to_non_nullable
-              as String?,
-      codCliente: freezed == codCliente
-          ? _value.codCliente
-          : codCliente // ignore: cast_nullable_to_non_nullable
-              as Name?,
-      razonSocial: freezed == razonSocial
-          ? _value.razonSocial
-          : razonSocial // ignore: cast_nullable_to_non_nullable
-              as Name?,
-      cif: freezed == cif
-          ? _value.cif
-          : cif // ignore: cast_nullable_to_non_nullable
-              as Name?,
-      poblacion: freezed == poblacion
-          ? _value.poblacion
-          : poblacion // ignore: cast_nullable_to_non_nullable
-              as Name?,
-      persona: freezed == persona
-          ? _value.persona
-          : persona // ignore: cast_nullable_to_non_nullable
-              as Name?,
-      telefono: freezed == telefono
-          ? _value.telefono
-          : telefono // ignore: cast_nullable_to_non_nullable
-              as Phone?,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as Email?,
-      fechaCita: freezed == fechaCita
-          ? _value.fechaCita
-          : fechaCita // ignore: cast_nullable_to_non_nullable
-              as String?,
-      franjaHoraria: freezed == franjaHoraria
-          ? _value.franjaHoraria
-          : franjaHoraria // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
+    return _then(
+      _$SatStateImpl(
+        loading:
+            null == loading
+                ? _value.loading
+                : loading // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        dataForms:
+            null == dataForms
+                ? _value._dataForms
+                : dataForms // ignore: cast_nullable_to_non_nullable
+                    as List<SatForms>,
+        forms:
+            null == forms
+                ? _value._forms
+                : forms // ignore: cast_nullable_to_non_nullable
+                    as List<String>,
+        tipoMaquinaValores:
+            null == tipoMaquinaValores
+                ? _value._tipoMaquinaValores
+                : tipoMaquinaValores // ignore: cast_nullable_to_non_nullable
+                    as List<String>,
+        diasOcupados:
+            null == diasOcupados
+                ? _value._diasOcupados
+                : diasOcupados // ignore: cast_nullable_to_non_nullable
+                    as List<DateTime>,
+        status:
+            null == status
+                ? _value.status
+                : status // ignore: cast_nullable_to_non_nullable
+                    as FormStatus,
+        formSelect:
+            freezed == formSelect
+                ? _value.formSelect
+                : formSelect // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        tipoMaquina:
+            freezed == tipoMaquina
+                ? _value.tipoMaquina
+                : tipoMaquina // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        marca:
+            freezed == marca
+                ? _value.marca
+                : marca // ignore: cast_nullable_to_non_nullable
+                    as Name?,
+        modelo:
+            freezed == modelo
+                ? _value.modelo
+                : modelo // ignore: cast_nullable_to_non_nullable
+                    as Name?,
+        producto:
+            freezed == producto
+                ? _value.producto
+                : producto // ignore: cast_nullable_to_non_nullable
+                    as Name?,
+        numeroSerie:
+            freezed == numeroSerie
+                ? _value.numeroSerie
+                : numeroSerie // ignore: cast_nullable_to_non_nullable
+                    as Name?,
+        tipoAveria:
+            freezed == tipoAveria
+                ? _value.tipoAveria
+                : tipoAveria // ignore: cast_nullable_to_non_nullable
+                    as Name?,
+        tipoIncidencia:
+            freezed == tipoIncidencia
+                ? _value.tipoIncidencia
+                : tipoIncidencia // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        codCliente:
+            freezed == codCliente
+                ? _value.codCliente
+                : codCliente // ignore: cast_nullable_to_non_nullable
+                    as Name?,
+        razonSocial:
+            freezed == razonSocial
+                ? _value.razonSocial
+                : razonSocial // ignore: cast_nullable_to_non_nullable
+                    as Name?,
+        cif:
+            freezed == cif
+                ? _value.cif
+                : cif // ignore: cast_nullable_to_non_nullable
+                    as Name?,
+        poblacion:
+            freezed == poblacion
+                ? _value.poblacion
+                : poblacion // ignore: cast_nullable_to_non_nullable
+                    as Name?,
+        persona:
+            freezed == persona
+                ? _value.persona
+                : persona // ignore: cast_nullable_to_non_nullable
+                    as Name?,
+        telefono:
+            freezed == telefono
+                ? _value.telefono
+                : telefono // ignore: cast_nullable_to_non_nullable
+                    as Phone?,
+        email:
+            freezed == email
+                ? _value.email
+                : email // ignore: cast_nullable_to_non_nullable
+                    as Email?,
+        fechaCita:
+            freezed == fechaCita
+                ? _value.fechaCita
+                : fechaCita // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        franjaHoraria:
+            freezed == franjaHoraria
+                ? _value.franjaHoraria
+                : franjaHoraria // ignore: cast_nullable_to_non_nullable
+                    as String?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_SatState extends _SatState {
-  const _$_SatState(
-      {this.loading = false,
-      final List<SatForms> dataForms = const <SatForms>[],
-      final List<String> forms = const <String>[],
-      final List<String> tipoMaquinaValores = const <String>[],
-      final List<DateTime> diasOcupados = const <DateTime>[],
-      this.status = FormStatus.editing,
-      this.formSelect,
-      this.tipoMaquina,
-      this.marca,
-      this.modelo,
-      this.producto,
-      this.numeroSerie,
-      this.tipoAveria,
-      this.tipoIncidencia,
-      this.codCliente,
-      this.razonSocial,
-      this.cif,
-      this.poblacion,
-      this.persona,
-      this.telefono,
-      this.email,
-      this.fechaCita,
-      this.franjaHoraria})
-      : _dataForms = dataForms,
-        _forms = forms,
-        _tipoMaquinaValores = tipoMaquinaValores,
-        _diasOcupados = diasOcupados,
-        super._();
+class _$SatStateImpl extends _SatState {
+  const _$SatStateImpl({
+    this.loading = false,
+    final List<SatForms> dataForms = const <SatForms>[],
+    final List<String> forms = const <String>[],
+    final List<String> tipoMaquinaValores = const <String>[],
+    final List<DateTime> diasOcupados = const <DateTime>[],
+    this.status = FormStatus.editing,
+    this.formSelect,
+    this.tipoMaquina,
+    this.marca,
+    this.modelo,
+    this.producto,
+    this.numeroSerie,
+    this.tipoAveria,
+    this.tipoIncidencia,
+    this.codCliente,
+    this.razonSocial,
+    this.cif,
+    this.poblacion,
+    this.persona,
+    this.telefono,
+    this.email,
+    this.fechaCita,
+    this.franjaHoraria,
+  }) : _dataForms = dataForms,
+       _forms = forms,
+       _tipoMaquinaValores = tipoMaquinaValores,
+       _diasOcupados = diasOcupados,
+       super._();
 
   @override
   @JsonKey()
@@ -492,18 +555,24 @@ class _$_SatState extends _SatState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SatState &&
+            other is _$SatStateImpl &&
             (identical(other.loading, loading) || other.loading == loading) &&
-            const DeepCollectionEquality()
-                .equals(other._dataForms, _dataForms) &&
+            const DeepCollectionEquality().equals(
+              other._dataForms,
+              _dataForms,
+            ) &&
             const DeepCollectionEquality().equals(other._forms, _forms) &&
-            const DeepCollectionEquality()
-                .equals(other._tipoMaquinaValores, _tipoMaquinaValores) &&
-            const DeepCollectionEquality()
-                .equals(other._diasOcupados, _diasOcupados) &&
+            const DeepCollectionEquality().equals(
+              other._tipoMaquinaValores,
+              _tipoMaquinaValores,
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._diasOcupados,
+              _diasOcupados,
+            ) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.formSelect, formSelect) ||
                 other.formSelect == formSelect) &&
@@ -538,64 +607,67 @@ class _$_SatState extends _SatState {
 
   @override
   int get hashCode => Object.hashAll([
-        runtimeType,
-        loading,
-        const DeepCollectionEquality().hash(_dataForms),
-        const DeepCollectionEquality().hash(_forms),
-        const DeepCollectionEquality().hash(_tipoMaquinaValores),
-        const DeepCollectionEquality().hash(_diasOcupados),
-        status,
-        formSelect,
-        tipoMaquina,
-        marca,
-        modelo,
-        producto,
-        numeroSerie,
-        tipoAveria,
-        tipoIncidencia,
-        codCliente,
-        razonSocial,
-        cif,
-        poblacion,
-        persona,
-        telefono,
-        email,
-        fechaCita,
-        franjaHoraria
-      ]);
+    runtimeType,
+    loading,
+    const DeepCollectionEquality().hash(_dataForms),
+    const DeepCollectionEquality().hash(_forms),
+    const DeepCollectionEquality().hash(_tipoMaquinaValores),
+    const DeepCollectionEquality().hash(_diasOcupados),
+    status,
+    formSelect,
+    tipoMaquina,
+    marca,
+    modelo,
+    producto,
+    numeroSerie,
+    tipoAveria,
+    tipoIncidencia,
+    codCliente,
+    razonSocial,
+    cif,
+    poblacion,
+    persona,
+    telefono,
+    email,
+    fechaCita,
+    franjaHoraria,
+  ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SatState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SatStateCopyWith<_$_SatState> get copyWith =>
-      __$$_SatStateCopyWithImpl<_$_SatState>(this, _$identity);
+  _$$SatStateImplCopyWith<_$SatStateImpl> get copyWith =>
+      __$$SatStateImplCopyWithImpl<_$SatStateImpl>(this, _$identity);
 }
 
 abstract class _SatState extends SatState {
-  const factory _SatState(
-      {final bool loading,
-      final List<SatForms> dataForms,
-      final List<String> forms,
-      final List<String> tipoMaquinaValores,
-      final List<DateTime> diasOcupados,
-      final FormStatus status,
-      final String? formSelect,
-      final String? tipoMaquina,
-      final Name? marca,
-      final Name? modelo,
-      final Name? producto,
-      final Name? numeroSerie,
-      final Name? tipoAveria,
-      final String? tipoIncidencia,
-      final Name? codCliente,
-      final Name? razonSocial,
-      final Name? cif,
-      final Name? poblacion,
-      final Name? persona,
-      final Phone? telefono,
-      final Email? email,
-      final String? fechaCita,
-      final String? franjaHoraria}) = _$_SatState;
+  const factory _SatState({
+    final bool loading,
+    final List<SatForms> dataForms,
+    final List<String> forms,
+    final List<String> tipoMaquinaValores,
+    final List<DateTime> diasOcupados,
+    final FormStatus status,
+    final String? formSelect,
+    final String? tipoMaquina,
+    final Name? marca,
+    final Name? modelo,
+    final Name? producto,
+    final Name? numeroSerie,
+    final Name? tipoAveria,
+    final String? tipoIncidencia,
+    final Name? codCliente,
+    final Name? razonSocial,
+    final Name? cif,
+    final Name? poblacion,
+    final Name? persona,
+    final Phone? telefono,
+    final Email? email,
+    final String? fechaCita,
+    final String? franjaHoraria,
+  }) = _$SatStateImpl;
   const _SatState._() : super._();
 
   @override
@@ -644,8 +716,11 @@ abstract class _SatState extends SatState {
   String? get fechaCita;
   @override
   String? get franjaHoraria;
+
+  /// Create a copy of SatState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_SatStateCopyWith<_$_SatState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SatStateImplCopyWith<_$SatStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

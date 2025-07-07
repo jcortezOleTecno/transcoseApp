@@ -12,7 +12,8 @@ part of 'home_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$HomeState {
@@ -31,7 +32,9 @@ mixin _$HomeState {
   HeroButtons? get heroButtons => throw _privateConstructorUsedError;
   WorkWithUs? get workWithUs => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $HomeStateCopyWith<HomeState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -41,21 +44,22 @@ abstract class $HomeStateCopyWith<$Res> {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) then) =
       _$HomeStateCopyWithImpl<$Res, HomeState>;
   @useResult
-  $Res call(
-      {bool loading,
-      bool showSurvey,
-      List<HeroHome> hero,
-      List<Category> promotions,
-      List<Category> products,
-      List<Services> services,
-      List<WorkShop> workshop,
-      List<News> notices,
-      List<Brand> brands,
-      List<Header> headers,
-      List<CampusModel> campus,
-      Encuestas? encuesta,
-      HeroButtons? heroButtons,
-      WorkWithUs? workWithUs});
+  $Res call({
+    bool loading,
+    bool showSurvey,
+    List<HeroHome> hero,
+    List<Category> promotions,
+    List<Category> products,
+    List<Services> services,
+    List<WorkShop> workshop,
+    List<News> notices,
+    List<Brand> brands,
+    List<Header> headers,
+    List<CampusModel> campus,
+    Encuestas? encuesta,
+    HeroButtons? heroButtons,
+    WorkWithUs? workWithUs,
+  });
 }
 
 /// @nodoc
@@ -68,6 +72,8 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -86,99 +92,122 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     Object? heroButtons = freezed,
     Object? workWithUs = freezed,
   }) {
-    return _then(_value.copyWith(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      showSurvey: null == showSurvey
-          ? _value.showSurvey
-          : showSurvey // ignore: cast_nullable_to_non_nullable
-              as bool,
-      hero: null == hero
-          ? _value.hero
-          : hero // ignore: cast_nullable_to_non_nullable
-              as List<HeroHome>,
-      promotions: null == promotions
-          ? _value.promotions
-          : promotions // ignore: cast_nullable_to_non_nullable
-              as List<Category>,
-      products: null == products
-          ? _value.products
-          : products // ignore: cast_nullable_to_non_nullable
-              as List<Category>,
-      services: null == services
-          ? _value.services
-          : services // ignore: cast_nullable_to_non_nullable
-              as List<Services>,
-      workshop: null == workshop
-          ? _value.workshop
-          : workshop // ignore: cast_nullable_to_non_nullable
-              as List<WorkShop>,
-      notices: null == notices
-          ? _value.notices
-          : notices // ignore: cast_nullable_to_non_nullable
-              as List<News>,
-      brands: null == brands
-          ? _value.brands
-          : brands // ignore: cast_nullable_to_non_nullable
-              as List<Brand>,
-      headers: null == headers
-          ? _value.headers
-          : headers // ignore: cast_nullable_to_non_nullable
-              as List<Header>,
-      campus: null == campus
-          ? _value.campus
-          : campus // ignore: cast_nullable_to_non_nullable
-              as List<CampusModel>,
-      encuesta: freezed == encuesta
-          ? _value.encuesta
-          : encuesta // ignore: cast_nullable_to_non_nullable
-              as Encuestas?,
-      heroButtons: freezed == heroButtons
-          ? _value.heroButtons
-          : heroButtons // ignore: cast_nullable_to_non_nullable
-              as HeroButtons?,
-      workWithUs: freezed == workWithUs
-          ? _value.workWithUs
-          : workWithUs // ignore: cast_nullable_to_non_nullable
-              as WorkWithUs?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            loading:
+                null == loading
+                    ? _value.loading
+                    : loading // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            showSurvey:
+                null == showSurvey
+                    ? _value.showSurvey
+                    : showSurvey // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            hero:
+                null == hero
+                    ? _value.hero
+                    : hero // ignore: cast_nullable_to_non_nullable
+                        as List<HeroHome>,
+            promotions:
+                null == promotions
+                    ? _value.promotions
+                    : promotions // ignore: cast_nullable_to_non_nullable
+                        as List<Category>,
+            products:
+                null == products
+                    ? _value.products
+                    : products // ignore: cast_nullable_to_non_nullable
+                        as List<Category>,
+            services:
+                null == services
+                    ? _value.services
+                    : services // ignore: cast_nullable_to_non_nullable
+                        as List<Services>,
+            workshop:
+                null == workshop
+                    ? _value.workshop
+                    : workshop // ignore: cast_nullable_to_non_nullable
+                        as List<WorkShop>,
+            notices:
+                null == notices
+                    ? _value.notices
+                    : notices // ignore: cast_nullable_to_non_nullable
+                        as List<News>,
+            brands:
+                null == brands
+                    ? _value.brands
+                    : brands // ignore: cast_nullable_to_non_nullable
+                        as List<Brand>,
+            headers:
+                null == headers
+                    ? _value.headers
+                    : headers // ignore: cast_nullable_to_non_nullable
+                        as List<Header>,
+            campus:
+                null == campus
+                    ? _value.campus
+                    : campus // ignore: cast_nullable_to_non_nullable
+                        as List<CampusModel>,
+            encuesta:
+                freezed == encuesta
+                    ? _value.encuesta
+                    : encuesta // ignore: cast_nullable_to_non_nullable
+                        as Encuestas?,
+            heroButtons:
+                freezed == heroButtons
+                    ? _value.heroButtons
+                    : heroButtons // ignore: cast_nullable_to_non_nullable
+                        as HeroButtons?,
+            workWithUs:
+                freezed == workWithUs
+                    ? _value.workWithUs
+                    : workWithUs // ignore: cast_nullable_to_non_nullable
+                        as WorkWithUs?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
-  factory _$$_HomeStateCopyWith(
-          _$_HomeState value, $Res Function(_$_HomeState) then) =
-      __$$_HomeStateCopyWithImpl<$Res>;
+abstract class _$$HomeStateImplCopyWith<$Res>
+    implements $HomeStateCopyWith<$Res> {
+  factory _$$HomeStateImplCopyWith(
+    _$HomeStateImpl value,
+    $Res Function(_$HomeStateImpl) then,
+  ) = __$$HomeStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {bool loading,
-      bool showSurvey,
-      List<HeroHome> hero,
-      List<Category> promotions,
-      List<Category> products,
-      List<Services> services,
-      List<WorkShop> workshop,
-      List<News> notices,
-      List<Brand> brands,
-      List<Header> headers,
-      List<CampusModel> campus,
-      Encuestas? encuesta,
-      HeroButtons? heroButtons,
-      WorkWithUs? workWithUs});
+  $Res call({
+    bool loading,
+    bool showSurvey,
+    List<HeroHome> hero,
+    List<Category> promotions,
+    List<Category> products,
+    List<Services> services,
+    List<WorkShop> workshop,
+    List<News> notices,
+    List<Brand> brands,
+    List<Header> headers,
+    List<CampusModel> campus,
+    Encuestas? encuesta,
+    HeroButtons? heroButtons,
+    WorkWithUs? workWithUs,
+  });
 }
 
 /// @nodoc
-class __$$_HomeStateCopyWithImpl<$Res>
-    extends _$HomeStateCopyWithImpl<$Res, _$_HomeState>
-    implements _$$_HomeStateCopyWith<$Res> {
-  __$$_HomeStateCopyWithImpl(
-      _$_HomeState _value, $Res Function(_$_HomeState) _then)
-      : super(_value, _then);
+class __$$HomeStateImplCopyWithImpl<$Res>
+    extends _$HomeStateCopyWithImpl<$Res, _$HomeStateImpl>
+    implements _$$HomeStateImplCopyWith<$Res> {
+  __$$HomeStateImplCopyWithImpl(
+    _$HomeStateImpl _value,
+    $Res Function(_$HomeStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -197,95 +226,111 @@ class __$$_HomeStateCopyWithImpl<$Res>
     Object? heroButtons = freezed,
     Object? workWithUs = freezed,
   }) {
-    return _then(_$_HomeState(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      showSurvey: null == showSurvey
-          ? _value.showSurvey
-          : showSurvey // ignore: cast_nullable_to_non_nullable
-              as bool,
-      hero: null == hero
-          ? _value._hero
-          : hero // ignore: cast_nullable_to_non_nullable
-              as List<HeroHome>,
-      promotions: null == promotions
-          ? _value._promotions
-          : promotions // ignore: cast_nullable_to_non_nullable
-              as List<Category>,
-      products: null == products
-          ? _value._products
-          : products // ignore: cast_nullable_to_non_nullable
-              as List<Category>,
-      services: null == services
-          ? _value._services
-          : services // ignore: cast_nullable_to_non_nullable
-              as List<Services>,
-      workshop: null == workshop
-          ? _value._workshop
-          : workshop // ignore: cast_nullable_to_non_nullable
-              as List<WorkShop>,
-      notices: null == notices
-          ? _value._notices
-          : notices // ignore: cast_nullable_to_non_nullable
-              as List<News>,
-      brands: null == brands
-          ? _value._brands
-          : brands // ignore: cast_nullable_to_non_nullable
-              as List<Brand>,
-      headers: null == headers
-          ? _value._headers
-          : headers // ignore: cast_nullable_to_non_nullable
-              as List<Header>,
-      campus: null == campus
-          ? _value._campus
-          : campus // ignore: cast_nullable_to_non_nullable
-              as List<CampusModel>,
-      encuesta: freezed == encuesta
-          ? _value.encuesta
-          : encuesta // ignore: cast_nullable_to_non_nullable
-              as Encuestas?,
-      heroButtons: freezed == heroButtons
-          ? _value.heroButtons
-          : heroButtons // ignore: cast_nullable_to_non_nullable
-              as HeroButtons?,
-      workWithUs: freezed == workWithUs
-          ? _value.workWithUs
-          : workWithUs // ignore: cast_nullable_to_non_nullable
-              as WorkWithUs?,
-    ));
+    return _then(
+      _$HomeStateImpl(
+        loading:
+            null == loading
+                ? _value.loading
+                : loading // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        showSurvey:
+            null == showSurvey
+                ? _value.showSurvey
+                : showSurvey // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        hero:
+            null == hero
+                ? _value._hero
+                : hero // ignore: cast_nullable_to_non_nullable
+                    as List<HeroHome>,
+        promotions:
+            null == promotions
+                ? _value._promotions
+                : promotions // ignore: cast_nullable_to_non_nullable
+                    as List<Category>,
+        products:
+            null == products
+                ? _value._products
+                : products // ignore: cast_nullable_to_non_nullable
+                    as List<Category>,
+        services:
+            null == services
+                ? _value._services
+                : services // ignore: cast_nullable_to_non_nullable
+                    as List<Services>,
+        workshop:
+            null == workshop
+                ? _value._workshop
+                : workshop // ignore: cast_nullable_to_non_nullable
+                    as List<WorkShop>,
+        notices:
+            null == notices
+                ? _value._notices
+                : notices // ignore: cast_nullable_to_non_nullable
+                    as List<News>,
+        brands:
+            null == brands
+                ? _value._brands
+                : brands // ignore: cast_nullable_to_non_nullable
+                    as List<Brand>,
+        headers:
+            null == headers
+                ? _value._headers
+                : headers // ignore: cast_nullable_to_non_nullable
+                    as List<Header>,
+        campus:
+            null == campus
+                ? _value._campus
+                : campus // ignore: cast_nullable_to_non_nullable
+                    as List<CampusModel>,
+        encuesta:
+            freezed == encuesta
+                ? _value.encuesta
+                : encuesta // ignore: cast_nullable_to_non_nullable
+                    as Encuestas?,
+        heroButtons:
+            freezed == heroButtons
+                ? _value.heroButtons
+                : heroButtons // ignore: cast_nullable_to_non_nullable
+                    as HeroButtons?,
+        workWithUs:
+            freezed == workWithUs
+                ? _value.workWithUs
+                : workWithUs // ignore: cast_nullable_to_non_nullable
+                    as WorkWithUs?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_HomeState extends _HomeState {
-  const _$_HomeState(
-      {this.loading = false,
-      this.showSurvey = false,
-      final List<HeroHome> hero = const <HeroHome>[],
-      final List<Category> promotions = const <Category>[],
-      final List<Category> products = const <Category>[],
-      final List<Services> services = const <Services>[],
-      final List<WorkShop> workshop = const <WorkShop>[],
-      final List<News> notices = const <News>[],
-      final List<Brand> brands = const <Brand>[],
-      final List<Header> headers = const <Header>[],
-      final List<CampusModel> campus = const <CampusModel>[],
-      this.encuesta,
-      this.heroButtons,
-      this.workWithUs})
-      : _hero = hero,
-        _promotions = promotions,
-        _products = products,
-        _services = services,
-        _workshop = workshop,
-        _notices = notices,
-        _brands = brands,
-        _headers = headers,
-        _campus = campus,
-        super._();
+class _$HomeStateImpl extends _HomeState {
+  const _$HomeStateImpl({
+    this.loading = false,
+    this.showSurvey = false,
+    final List<HeroHome> hero = const <HeroHome>[],
+    final List<Category> promotions = const <Category>[],
+    final List<Category> products = const <Category>[],
+    final List<Services> services = const <Services>[],
+    final List<WorkShop> workshop = const <WorkShop>[],
+    final List<News> notices = const <News>[],
+    final List<Brand> brands = const <Brand>[],
+    final List<Header> headers = const <Header>[],
+    final List<CampusModel> campus = const <CampusModel>[],
+    this.encuesta,
+    this.heroButtons,
+    this.workWithUs,
+  }) : _hero = hero,
+       _promotions = promotions,
+       _products = products,
+       _services = services,
+       _workshop = workshop,
+       _notices = notices,
+       _brands = brands,
+       _headers = headers,
+       _campus = campus,
+       super._();
 
   @override
   @JsonKey()
@@ -387,16 +432,18 @@ class _$_HomeState extends _HomeState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_HomeState &&
+            other is _$HomeStateImpl &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.showSurvey, showSurvey) ||
                 other.showSurvey == showSurvey) &&
             const DeepCollectionEquality().equals(other._hero, _hero) &&
-            const DeepCollectionEquality()
-                .equals(other._promotions, _promotions) &&
+            const DeepCollectionEquality().equals(
+              other._promotions,
+              _promotions,
+            ) &&
             const DeepCollectionEquality().equals(other._products, _products) &&
             const DeepCollectionEquality().equals(other._services, _services) &&
             const DeepCollectionEquality().equals(other._workshop, _workshop) &&
@@ -414,45 +461,49 @@ class _$_HomeState extends _HomeState {
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      loading,
-      showSurvey,
-      const DeepCollectionEquality().hash(_hero),
-      const DeepCollectionEquality().hash(_promotions),
-      const DeepCollectionEquality().hash(_products),
-      const DeepCollectionEquality().hash(_services),
-      const DeepCollectionEquality().hash(_workshop),
-      const DeepCollectionEquality().hash(_notices),
-      const DeepCollectionEquality().hash(_brands),
-      const DeepCollectionEquality().hash(_headers),
-      const DeepCollectionEquality().hash(_campus),
-      encuesta,
-      heroButtons,
-      workWithUs);
+    runtimeType,
+    loading,
+    showSurvey,
+    const DeepCollectionEquality().hash(_hero),
+    const DeepCollectionEquality().hash(_promotions),
+    const DeepCollectionEquality().hash(_products),
+    const DeepCollectionEquality().hash(_services),
+    const DeepCollectionEquality().hash(_workshop),
+    const DeepCollectionEquality().hash(_notices),
+    const DeepCollectionEquality().hash(_brands),
+    const DeepCollectionEquality().hash(_headers),
+    const DeepCollectionEquality().hash(_campus),
+    encuesta,
+    heroButtons,
+    workWithUs,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_HomeStateCopyWith<_$_HomeState> get copyWith =>
-      __$$_HomeStateCopyWithImpl<_$_HomeState>(this, _$identity);
+  _$$HomeStateImplCopyWith<_$HomeStateImpl> get copyWith =>
+      __$$HomeStateImplCopyWithImpl<_$HomeStateImpl>(this, _$identity);
 }
 
 abstract class _HomeState extends HomeState {
-  const factory _HomeState(
-      {final bool loading,
-      final bool showSurvey,
-      final List<HeroHome> hero,
-      final List<Category> promotions,
-      final List<Category> products,
-      final List<Services> services,
-      final List<WorkShop> workshop,
-      final List<News> notices,
-      final List<Brand> brands,
-      final List<Header> headers,
-      final List<CampusModel> campus,
-      final Encuestas? encuesta,
-      final HeroButtons? heroButtons,
-      final WorkWithUs? workWithUs}) = _$_HomeState;
+  const factory _HomeState({
+    final bool loading,
+    final bool showSurvey,
+    final List<HeroHome> hero,
+    final List<Category> promotions,
+    final List<Category> products,
+    final List<Services> services,
+    final List<WorkShop> workshop,
+    final List<News> notices,
+    final List<Brand> brands,
+    final List<Header> headers,
+    final List<CampusModel> campus,
+    final Encuestas? encuesta,
+    final HeroButtons? heroButtons,
+    final WorkWithUs? workWithUs,
+  }) = _$HomeStateImpl;
   const _HomeState._() : super._();
 
   @override
@@ -483,8 +534,11 @@ abstract class _HomeState extends HomeState {
   HeroButtons? get heroButtons;
   @override
   WorkWithUs? get workWithUs;
+
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_HomeStateCopyWith<_$_HomeState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$HomeStateImplCopyWith<_$HomeStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

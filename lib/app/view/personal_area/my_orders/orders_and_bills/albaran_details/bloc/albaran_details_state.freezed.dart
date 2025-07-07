@@ -12,7 +12,8 @@ part of 'albaran_details_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$AlbaranDetailState {
@@ -20,7 +21,9 @@ mixin _$AlbaranDetailState {
   List<AlbaranDetails> get details => throw _privateConstructorUsedError;
   Albaran? get albaran => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AlbaranDetailState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AlbaranDetailStateCopyWith<AlbaranDetailState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -28,8 +31,9 @@ mixin _$AlbaranDetailState {
 /// @nodoc
 abstract class $AlbaranDetailStateCopyWith<$Res> {
   factory $AlbaranDetailStateCopyWith(
-          AlbaranDetailState value, $Res Function(AlbaranDetailState) then) =
-      _$AlbaranDetailStateCopyWithImpl<$Res, AlbaranDetailState>;
+    AlbaranDetailState value,
+    $Res Function(AlbaranDetailState) then,
+  ) = _$AlbaranDetailStateCopyWithImpl<$Res, AlbaranDetailState>;
   @useResult
   $Res call({bool loading, List<AlbaranDetails> details, Albaran? albaran});
 }
@@ -44,6 +48,8 @@ class _$AlbaranDetailStateCopyWithImpl<$Res, $Val extends AlbaranDetailState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AlbaranDetailState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -51,42 +57,52 @@ class _$AlbaranDetailStateCopyWithImpl<$Res, $Val extends AlbaranDetailState>
     Object? details = null,
     Object? albaran = freezed,
   }) {
-    return _then(_value.copyWith(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      details: null == details
-          ? _value.details
-          : details // ignore: cast_nullable_to_non_nullable
-              as List<AlbaranDetails>,
-      albaran: freezed == albaran
-          ? _value.albaran
-          : albaran // ignore: cast_nullable_to_non_nullable
-              as Albaran?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            loading:
+                null == loading
+                    ? _value.loading
+                    : loading // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            details:
+                null == details
+                    ? _value.details
+                    : details // ignore: cast_nullable_to_non_nullable
+                        as List<AlbaranDetails>,
+            albaran:
+                freezed == albaran
+                    ? _value.albaran
+                    : albaran // ignore: cast_nullable_to_non_nullable
+                        as Albaran?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_AlbaranDetailStateCopyWith<$Res>
+abstract class _$$AlbaranDetailStateImplCopyWith<$Res>
     implements $AlbaranDetailStateCopyWith<$Res> {
-  factory _$$_AlbaranDetailStateCopyWith(_$_AlbaranDetailState value,
-          $Res Function(_$_AlbaranDetailState) then) =
-      __$$_AlbaranDetailStateCopyWithImpl<$Res>;
+  factory _$$AlbaranDetailStateImplCopyWith(
+    _$AlbaranDetailStateImpl value,
+    $Res Function(_$AlbaranDetailStateImpl) then,
+  ) = __$$AlbaranDetailStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({bool loading, List<AlbaranDetails> details, Albaran? albaran});
 }
 
 /// @nodoc
-class __$$_AlbaranDetailStateCopyWithImpl<$Res>
-    extends _$AlbaranDetailStateCopyWithImpl<$Res, _$_AlbaranDetailState>
-    implements _$$_AlbaranDetailStateCopyWith<$Res> {
-  __$$_AlbaranDetailStateCopyWithImpl(
-      _$_AlbaranDetailState _value, $Res Function(_$_AlbaranDetailState) _then)
-      : super(_value, _then);
+class __$$AlbaranDetailStateImplCopyWithImpl<$Res>
+    extends _$AlbaranDetailStateCopyWithImpl<$Res, _$AlbaranDetailStateImpl>
+    implements _$$AlbaranDetailStateImplCopyWith<$Res> {
+  __$$AlbaranDetailStateImplCopyWithImpl(
+    _$AlbaranDetailStateImpl _value,
+    $Res Function(_$AlbaranDetailStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of AlbaranDetailState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -94,32 +110,37 @@ class __$$_AlbaranDetailStateCopyWithImpl<$Res>
     Object? details = null,
     Object? albaran = freezed,
   }) {
-    return _then(_$_AlbaranDetailState(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      details: null == details
-          ? _value._details
-          : details // ignore: cast_nullable_to_non_nullable
-              as List<AlbaranDetails>,
-      albaran: freezed == albaran
-          ? _value.albaran
-          : albaran // ignore: cast_nullable_to_non_nullable
-              as Albaran?,
-    ));
+    return _then(
+      _$AlbaranDetailStateImpl(
+        loading:
+            null == loading
+                ? _value.loading
+                : loading // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        details:
+            null == details
+                ? _value._details
+                : details // ignore: cast_nullable_to_non_nullable
+                    as List<AlbaranDetails>,
+        albaran:
+            freezed == albaran
+                ? _value.albaran
+                : albaran // ignore: cast_nullable_to_non_nullable
+                    as Albaran?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_AlbaranDetailState extends _AlbaranDetailState {
-  const _$_AlbaranDetailState(
-      {this.loading = false,
-      final List<AlbaranDetails> details = const <AlbaranDetails>[],
-      this.albaran})
-      : _details = details,
-        super._();
+class _$AlbaranDetailStateImpl extends _AlbaranDetailState {
+  const _$AlbaranDetailStateImpl({
+    this.loading = false,
+    final List<AlbaranDetails> details = const <AlbaranDetails>[],
+    this.albaran,
+  }) : _details = details,
+       super._();
 
   @override
   @JsonKey()
@@ -142,32 +163,41 @@ class _$_AlbaranDetailState extends _AlbaranDetailState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AlbaranDetailState &&
+            other is _$AlbaranDetailStateImpl &&
             (identical(other.loading, loading) || other.loading == loading) &&
             const DeepCollectionEquality().equals(other._details, _details) &&
             (identical(other.albaran, albaran) || other.albaran == albaran));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, loading,
-      const DeepCollectionEquality().hash(_details), albaran);
+  int get hashCode => Object.hash(
+    runtimeType,
+    loading,
+    const DeepCollectionEquality().hash(_details),
+    albaran,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AlbaranDetailState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AlbaranDetailStateCopyWith<_$_AlbaranDetailState> get copyWith =>
-      __$$_AlbaranDetailStateCopyWithImpl<_$_AlbaranDetailState>(
-          this, _$identity);
+  _$$AlbaranDetailStateImplCopyWith<_$AlbaranDetailStateImpl> get copyWith =>
+      __$$AlbaranDetailStateImplCopyWithImpl<_$AlbaranDetailStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _AlbaranDetailState extends AlbaranDetailState {
-  const factory _AlbaranDetailState(
-      {final bool loading,
-      final List<AlbaranDetails> details,
-      final Albaran? albaran}) = _$_AlbaranDetailState;
+  const factory _AlbaranDetailState({
+    final bool loading,
+    final List<AlbaranDetails> details,
+    final Albaran? albaran,
+  }) = _$AlbaranDetailStateImpl;
   const _AlbaranDetailState._() : super._();
 
   @override
@@ -176,8 +206,11 @@ abstract class _AlbaranDetailState extends AlbaranDetailState {
   List<AlbaranDetails> get details;
   @override
   Albaran? get albaran;
+
+  /// Create a copy of AlbaranDetailState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_AlbaranDetailStateCopyWith<_$_AlbaranDetailState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$AlbaranDetailStateImplCopyWith<_$AlbaranDetailStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -12,7 +12,8 @@ part of 'my_orders_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$MyOrdersState {
@@ -36,7 +37,9 @@ mixin _$MyOrdersState {
   DataTableSource? get dataAbonos => throw _privateConstructorUsedError;
   DataTableSource? get dataAbonosFiltrado => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MyOrdersState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $MyOrdersStateCopyWith<MyOrdersState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -44,27 +47,29 @@ mixin _$MyOrdersState {
 /// @nodoc
 abstract class $MyOrdersStateCopyWith<$Res> {
   factory $MyOrdersStateCopyWith(
-          MyOrdersState value, $Res Function(MyOrdersState) then) =
-      _$MyOrdersStateCopyWithImpl<$Res, MyOrdersState>;
+    MyOrdersState value,
+    $Res Function(MyOrdersState) then,
+  ) = _$MyOrdersStateCopyWithImpl<$Res, MyOrdersState>;
   @useResult
-  $Res call(
-      {bool loading,
-      List<Warranty> guarantee,
-      List<Albaran> orders,
-      List<Albaran> bills,
-      StatusWarranty? statusWarranty,
-      String? filterPedidos,
-      String? filterGarantias,
-      String? filterAbonos,
-      int? totalImporteCliente,
-      int? totalImporteGarantias,
-      int? totalImporteVemare,
-      DataTableSource? dataPedidos,
-      DataTableSource? dataPedidosFiltrado,
-      DataTableSource? dataGarantias,
-      DataTableSource? dataGarantiasFiltrado,
-      DataTableSource? dataAbonos,
-      DataTableSource? dataAbonosFiltrado});
+  $Res call({
+    bool loading,
+    List<Warranty> guarantee,
+    List<Albaran> orders,
+    List<Albaran> bills,
+    StatusWarranty? statusWarranty,
+    String? filterPedidos,
+    String? filterGarantias,
+    String? filterAbonos,
+    int? totalImporteCliente,
+    int? totalImporteGarantias,
+    int? totalImporteVemare,
+    DataTableSource? dataPedidos,
+    DataTableSource? dataPedidosFiltrado,
+    DataTableSource? dataGarantias,
+    DataTableSource? dataGarantiasFiltrado,
+    DataTableSource? dataAbonos,
+    DataTableSource? dataAbonosFiltrado,
+  });
 }
 
 /// @nodoc
@@ -77,6 +82,8 @@ class _$MyOrdersStateCopyWithImpl<$Res, $Val extends MyOrdersState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of MyOrdersState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -98,115 +105,140 @@ class _$MyOrdersStateCopyWithImpl<$Res, $Val extends MyOrdersState>
     Object? dataAbonos = freezed,
     Object? dataAbonosFiltrado = freezed,
   }) {
-    return _then(_value.copyWith(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      guarantee: null == guarantee
-          ? _value.guarantee
-          : guarantee // ignore: cast_nullable_to_non_nullable
-              as List<Warranty>,
-      orders: null == orders
-          ? _value.orders
-          : orders // ignore: cast_nullable_to_non_nullable
-              as List<Albaran>,
-      bills: null == bills
-          ? _value.bills
-          : bills // ignore: cast_nullable_to_non_nullable
-              as List<Albaran>,
-      statusWarranty: freezed == statusWarranty
-          ? _value.statusWarranty
-          : statusWarranty // ignore: cast_nullable_to_non_nullable
-              as StatusWarranty?,
-      filterPedidos: freezed == filterPedidos
-          ? _value.filterPedidos
-          : filterPedidos // ignore: cast_nullable_to_non_nullable
-              as String?,
-      filterGarantias: freezed == filterGarantias
-          ? _value.filterGarantias
-          : filterGarantias // ignore: cast_nullable_to_non_nullable
-              as String?,
-      filterAbonos: freezed == filterAbonos
-          ? _value.filterAbonos
-          : filterAbonos // ignore: cast_nullable_to_non_nullable
-              as String?,
-      totalImporteCliente: freezed == totalImporteCliente
-          ? _value.totalImporteCliente
-          : totalImporteCliente // ignore: cast_nullable_to_non_nullable
-              as int?,
-      totalImporteGarantias: freezed == totalImporteGarantias
-          ? _value.totalImporteGarantias
-          : totalImporteGarantias // ignore: cast_nullable_to_non_nullable
-              as int?,
-      totalImporteVemare: freezed == totalImporteVemare
-          ? _value.totalImporteVemare
-          : totalImporteVemare // ignore: cast_nullable_to_non_nullable
-              as int?,
-      dataPedidos: freezed == dataPedidos
-          ? _value.dataPedidos
-          : dataPedidos // ignore: cast_nullable_to_non_nullable
-              as DataTableSource?,
-      dataPedidosFiltrado: freezed == dataPedidosFiltrado
-          ? _value.dataPedidosFiltrado
-          : dataPedidosFiltrado // ignore: cast_nullable_to_non_nullable
-              as DataTableSource?,
-      dataGarantias: freezed == dataGarantias
-          ? _value.dataGarantias
-          : dataGarantias // ignore: cast_nullable_to_non_nullable
-              as DataTableSource?,
-      dataGarantiasFiltrado: freezed == dataGarantiasFiltrado
-          ? _value.dataGarantiasFiltrado
-          : dataGarantiasFiltrado // ignore: cast_nullable_to_non_nullable
-              as DataTableSource?,
-      dataAbonos: freezed == dataAbonos
-          ? _value.dataAbonos
-          : dataAbonos // ignore: cast_nullable_to_non_nullable
-              as DataTableSource?,
-      dataAbonosFiltrado: freezed == dataAbonosFiltrado
-          ? _value.dataAbonosFiltrado
-          : dataAbonosFiltrado // ignore: cast_nullable_to_non_nullable
-              as DataTableSource?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            loading:
+                null == loading
+                    ? _value.loading
+                    : loading // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            guarantee:
+                null == guarantee
+                    ? _value.guarantee
+                    : guarantee // ignore: cast_nullable_to_non_nullable
+                        as List<Warranty>,
+            orders:
+                null == orders
+                    ? _value.orders
+                    : orders // ignore: cast_nullable_to_non_nullable
+                        as List<Albaran>,
+            bills:
+                null == bills
+                    ? _value.bills
+                    : bills // ignore: cast_nullable_to_non_nullable
+                        as List<Albaran>,
+            statusWarranty:
+                freezed == statusWarranty
+                    ? _value.statusWarranty
+                    : statusWarranty // ignore: cast_nullable_to_non_nullable
+                        as StatusWarranty?,
+            filterPedidos:
+                freezed == filterPedidos
+                    ? _value.filterPedidos
+                    : filterPedidos // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            filterGarantias:
+                freezed == filterGarantias
+                    ? _value.filterGarantias
+                    : filterGarantias // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            filterAbonos:
+                freezed == filterAbonos
+                    ? _value.filterAbonos
+                    : filterAbonos // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            totalImporteCliente:
+                freezed == totalImporteCliente
+                    ? _value.totalImporteCliente
+                    : totalImporteCliente // ignore: cast_nullable_to_non_nullable
+                        as int?,
+            totalImporteGarantias:
+                freezed == totalImporteGarantias
+                    ? _value.totalImporteGarantias
+                    : totalImporteGarantias // ignore: cast_nullable_to_non_nullable
+                        as int?,
+            totalImporteVemare:
+                freezed == totalImporteVemare
+                    ? _value.totalImporteVemare
+                    : totalImporteVemare // ignore: cast_nullable_to_non_nullable
+                        as int?,
+            dataPedidos:
+                freezed == dataPedidos
+                    ? _value.dataPedidos
+                    : dataPedidos // ignore: cast_nullable_to_non_nullable
+                        as DataTableSource?,
+            dataPedidosFiltrado:
+                freezed == dataPedidosFiltrado
+                    ? _value.dataPedidosFiltrado
+                    : dataPedidosFiltrado // ignore: cast_nullable_to_non_nullable
+                        as DataTableSource?,
+            dataGarantias:
+                freezed == dataGarantias
+                    ? _value.dataGarantias
+                    : dataGarantias // ignore: cast_nullable_to_non_nullable
+                        as DataTableSource?,
+            dataGarantiasFiltrado:
+                freezed == dataGarantiasFiltrado
+                    ? _value.dataGarantiasFiltrado
+                    : dataGarantiasFiltrado // ignore: cast_nullable_to_non_nullable
+                        as DataTableSource?,
+            dataAbonos:
+                freezed == dataAbonos
+                    ? _value.dataAbonos
+                    : dataAbonos // ignore: cast_nullable_to_non_nullable
+                        as DataTableSource?,
+            dataAbonosFiltrado:
+                freezed == dataAbonosFiltrado
+                    ? _value.dataAbonosFiltrado
+                    : dataAbonosFiltrado // ignore: cast_nullable_to_non_nullable
+                        as DataTableSource?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_MyOrdersStateCopyWith<$Res>
+abstract class _$$MyOrdersStateImplCopyWith<$Res>
     implements $MyOrdersStateCopyWith<$Res> {
-  factory _$$_MyOrdersStateCopyWith(
-          _$_MyOrdersState value, $Res Function(_$_MyOrdersState) then) =
-      __$$_MyOrdersStateCopyWithImpl<$Res>;
+  factory _$$MyOrdersStateImplCopyWith(
+    _$MyOrdersStateImpl value,
+    $Res Function(_$MyOrdersStateImpl) then,
+  ) = __$$MyOrdersStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {bool loading,
-      List<Warranty> guarantee,
-      List<Albaran> orders,
-      List<Albaran> bills,
-      StatusWarranty? statusWarranty,
-      String? filterPedidos,
-      String? filterGarantias,
-      String? filterAbonos,
-      int? totalImporteCliente,
-      int? totalImporteGarantias,
-      int? totalImporteVemare,
-      DataTableSource? dataPedidos,
-      DataTableSource? dataPedidosFiltrado,
-      DataTableSource? dataGarantias,
-      DataTableSource? dataGarantiasFiltrado,
-      DataTableSource? dataAbonos,
-      DataTableSource? dataAbonosFiltrado});
+  $Res call({
+    bool loading,
+    List<Warranty> guarantee,
+    List<Albaran> orders,
+    List<Albaran> bills,
+    StatusWarranty? statusWarranty,
+    String? filterPedidos,
+    String? filterGarantias,
+    String? filterAbonos,
+    int? totalImporteCliente,
+    int? totalImporteGarantias,
+    int? totalImporteVemare,
+    DataTableSource? dataPedidos,
+    DataTableSource? dataPedidosFiltrado,
+    DataTableSource? dataGarantias,
+    DataTableSource? dataGarantiasFiltrado,
+    DataTableSource? dataAbonos,
+    DataTableSource? dataAbonosFiltrado,
+  });
 }
 
 /// @nodoc
-class __$$_MyOrdersStateCopyWithImpl<$Res>
-    extends _$MyOrdersStateCopyWithImpl<$Res, _$_MyOrdersState>
-    implements _$$_MyOrdersStateCopyWith<$Res> {
-  __$$_MyOrdersStateCopyWithImpl(
-      _$_MyOrdersState _value, $Res Function(_$_MyOrdersState) _then)
-      : super(_value, _then);
+class __$$MyOrdersStateImplCopyWithImpl<$Res>
+    extends _$MyOrdersStateCopyWithImpl<$Res, _$MyOrdersStateImpl>
+    implements _$$MyOrdersStateImplCopyWith<$Res> {
+  __$$MyOrdersStateImplCopyWithImpl(
+    _$MyOrdersStateImpl _value,
+    $Res Function(_$MyOrdersStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of MyOrdersState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -228,104 +260,123 @@ class __$$_MyOrdersStateCopyWithImpl<$Res>
     Object? dataAbonos = freezed,
     Object? dataAbonosFiltrado = freezed,
   }) {
-    return _then(_$_MyOrdersState(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      guarantee: null == guarantee
-          ? _value._guarantee
-          : guarantee // ignore: cast_nullable_to_non_nullable
-              as List<Warranty>,
-      orders: null == orders
-          ? _value._orders
-          : orders // ignore: cast_nullable_to_non_nullable
-              as List<Albaran>,
-      bills: null == bills
-          ? _value._bills
-          : bills // ignore: cast_nullable_to_non_nullable
-              as List<Albaran>,
-      statusWarranty: freezed == statusWarranty
-          ? _value.statusWarranty
-          : statusWarranty // ignore: cast_nullable_to_non_nullable
-              as StatusWarranty?,
-      filterPedidos: freezed == filterPedidos
-          ? _value.filterPedidos
-          : filterPedidos // ignore: cast_nullable_to_non_nullable
-              as String?,
-      filterGarantias: freezed == filterGarantias
-          ? _value.filterGarantias
-          : filterGarantias // ignore: cast_nullable_to_non_nullable
-              as String?,
-      filterAbonos: freezed == filterAbonos
-          ? _value.filterAbonos
-          : filterAbonos // ignore: cast_nullable_to_non_nullable
-              as String?,
-      totalImporteCliente: freezed == totalImporteCliente
-          ? _value.totalImporteCliente
-          : totalImporteCliente // ignore: cast_nullable_to_non_nullable
-              as int?,
-      totalImporteGarantias: freezed == totalImporteGarantias
-          ? _value.totalImporteGarantias
-          : totalImporteGarantias // ignore: cast_nullable_to_non_nullable
-              as int?,
-      totalImporteVemare: freezed == totalImporteVemare
-          ? _value.totalImporteVemare
-          : totalImporteVemare // ignore: cast_nullable_to_non_nullable
-              as int?,
-      dataPedidos: freezed == dataPedidos
-          ? _value.dataPedidos
-          : dataPedidos // ignore: cast_nullable_to_non_nullable
-              as DataTableSource?,
-      dataPedidosFiltrado: freezed == dataPedidosFiltrado
-          ? _value.dataPedidosFiltrado
-          : dataPedidosFiltrado // ignore: cast_nullable_to_non_nullable
-              as DataTableSource?,
-      dataGarantias: freezed == dataGarantias
-          ? _value.dataGarantias
-          : dataGarantias // ignore: cast_nullable_to_non_nullable
-              as DataTableSource?,
-      dataGarantiasFiltrado: freezed == dataGarantiasFiltrado
-          ? _value.dataGarantiasFiltrado
-          : dataGarantiasFiltrado // ignore: cast_nullable_to_non_nullable
-              as DataTableSource?,
-      dataAbonos: freezed == dataAbonos
-          ? _value.dataAbonos
-          : dataAbonos // ignore: cast_nullable_to_non_nullable
-              as DataTableSource?,
-      dataAbonosFiltrado: freezed == dataAbonosFiltrado
-          ? _value.dataAbonosFiltrado
-          : dataAbonosFiltrado // ignore: cast_nullable_to_non_nullable
-              as DataTableSource?,
-    ));
+    return _then(
+      _$MyOrdersStateImpl(
+        loading:
+            null == loading
+                ? _value.loading
+                : loading // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        guarantee:
+            null == guarantee
+                ? _value._guarantee
+                : guarantee // ignore: cast_nullable_to_non_nullable
+                    as List<Warranty>,
+        orders:
+            null == orders
+                ? _value._orders
+                : orders // ignore: cast_nullable_to_non_nullable
+                    as List<Albaran>,
+        bills:
+            null == bills
+                ? _value._bills
+                : bills // ignore: cast_nullable_to_non_nullable
+                    as List<Albaran>,
+        statusWarranty:
+            freezed == statusWarranty
+                ? _value.statusWarranty
+                : statusWarranty // ignore: cast_nullable_to_non_nullable
+                    as StatusWarranty?,
+        filterPedidos:
+            freezed == filterPedidos
+                ? _value.filterPedidos
+                : filterPedidos // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        filterGarantias:
+            freezed == filterGarantias
+                ? _value.filterGarantias
+                : filterGarantias // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        filterAbonos:
+            freezed == filterAbonos
+                ? _value.filterAbonos
+                : filterAbonos // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        totalImporteCliente:
+            freezed == totalImporteCliente
+                ? _value.totalImporteCliente
+                : totalImporteCliente // ignore: cast_nullable_to_non_nullable
+                    as int?,
+        totalImporteGarantias:
+            freezed == totalImporteGarantias
+                ? _value.totalImporteGarantias
+                : totalImporteGarantias // ignore: cast_nullable_to_non_nullable
+                    as int?,
+        totalImporteVemare:
+            freezed == totalImporteVemare
+                ? _value.totalImporteVemare
+                : totalImporteVemare // ignore: cast_nullable_to_non_nullable
+                    as int?,
+        dataPedidos:
+            freezed == dataPedidos
+                ? _value.dataPedidos
+                : dataPedidos // ignore: cast_nullable_to_non_nullable
+                    as DataTableSource?,
+        dataPedidosFiltrado:
+            freezed == dataPedidosFiltrado
+                ? _value.dataPedidosFiltrado
+                : dataPedidosFiltrado // ignore: cast_nullable_to_non_nullable
+                    as DataTableSource?,
+        dataGarantias:
+            freezed == dataGarantias
+                ? _value.dataGarantias
+                : dataGarantias // ignore: cast_nullable_to_non_nullable
+                    as DataTableSource?,
+        dataGarantiasFiltrado:
+            freezed == dataGarantiasFiltrado
+                ? _value.dataGarantiasFiltrado
+                : dataGarantiasFiltrado // ignore: cast_nullable_to_non_nullable
+                    as DataTableSource?,
+        dataAbonos:
+            freezed == dataAbonos
+                ? _value.dataAbonos
+                : dataAbonos // ignore: cast_nullable_to_non_nullable
+                    as DataTableSource?,
+        dataAbonosFiltrado:
+            freezed == dataAbonosFiltrado
+                ? _value.dataAbonosFiltrado
+                : dataAbonosFiltrado // ignore: cast_nullable_to_non_nullable
+                    as DataTableSource?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_MyOrdersState extends _MyOrdersState {
-  const _$_MyOrdersState(
-      {this.loading = false,
-      final List<Warranty> guarantee = const <Warranty>[],
-      final List<Albaran> orders = const <Albaran>[],
-      final List<Albaran> bills = const <Albaran>[],
-      this.statusWarranty,
-      this.filterPedidos,
-      this.filterGarantias,
-      this.filterAbonos,
-      this.totalImporteCliente,
-      this.totalImporteGarantias,
-      this.totalImporteVemare,
-      this.dataPedidos,
-      this.dataPedidosFiltrado,
-      this.dataGarantias,
-      this.dataGarantiasFiltrado,
-      this.dataAbonos,
-      this.dataAbonosFiltrado})
-      : _guarantee = guarantee,
-        _orders = orders,
-        _bills = bills,
-        super._();
+class _$MyOrdersStateImpl extends _MyOrdersState {
+  const _$MyOrdersStateImpl({
+    this.loading = false,
+    final List<Warranty> guarantee = const <Warranty>[],
+    final List<Albaran> orders = const <Albaran>[],
+    final List<Albaran> bills = const <Albaran>[],
+    this.statusWarranty,
+    this.filterPedidos,
+    this.filterGarantias,
+    this.filterAbonos,
+    this.totalImporteCliente,
+    this.totalImporteGarantias,
+    this.totalImporteVemare,
+    this.dataPedidos,
+    this.dataPedidosFiltrado,
+    this.dataGarantias,
+    this.dataGarantiasFiltrado,
+    this.dataAbonos,
+    this.dataAbonosFiltrado,
+  }) : _guarantee = guarantee,
+       _orders = orders,
+       _bills = bills,
+       super._();
 
   @override
   @JsonKey()
@@ -390,13 +441,15 @@ class _$_MyOrdersState extends _MyOrdersState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_MyOrdersState &&
+            other is _$MyOrdersStateImpl &&
             (identical(other.loading, loading) || other.loading == loading) &&
-            const DeepCollectionEquality()
-                .equals(other._guarantee, _guarantee) &&
+            const DeepCollectionEquality().equals(
+              other._guarantee,
+              _guarantee,
+            ) &&
             const DeepCollectionEquality().equals(other._orders, _orders) &&
             const DeepCollectionEquality().equals(other._bills, _bills) &&
             (identical(other.statusWarranty, statusWarranty) ||
@@ -429,51 +482,55 @@ class _$_MyOrdersState extends _MyOrdersState {
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      loading,
-      const DeepCollectionEquality().hash(_guarantee),
-      const DeepCollectionEquality().hash(_orders),
-      const DeepCollectionEquality().hash(_bills),
-      statusWarranty,
-      filterPedidos,
-      filterGarantias,
-      filterAbonos,
-      totalImporteCliente,
-      totalImporteGarantias,
-      totalImporteVemare,
-      dataPedidos,
-      dataPedidosFiltrado,
-      dataGarantias,
-      dataGarantiasFiltrado,
-      dataAbonos,
-      dataAbonosFiltrado);
+    runtimeType,
+    loading,
+    const DeepCollectionEquality().hash(_guarantee),
+    const DeepCollectionEquality().hash(_orders),
+    const DeepCollectionEquality().hash(_bills),
+    statusWarranty,
+    filterPedidos,
+    filterGarantias,
+    filterAbonos,
+    totalImporteCliente,
+    totalImporteGarantias,
+    totalImporteVemare,
+    dataPedidos,
+    dataPedidosFiltrado,
+    dataGarantias,
+    dataGarantiasFiltrado,
+    dataAbonos,
+    dataAbonosFiltrado,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MyOrdersState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_MyOrdersStateCopyWith<_$_MyOrdersState> get copyWith =>
-      __$$_MyOrdersStateCopyWithImpl<_$_MyOrdersState>(this, _$identity);
+  _$$MyOrdersStateImplCopyWith<_$MyOrdersStateImpl> get copyWith =>
+      __$$MyOrdersStateImplCopyWithImpl<_$MyOrdersStateImpl>(this, _$identity);
 }
 
 abstract class _MyOrdersState extends MyOrdersState {
-  const factory _MyOrdersState(
-      {final bool loading,
-      final List<Warranty> guarantee,
-      final List<Albaran> orders,
-      final List<Albaran> bills,
-      final StatusWarranty? statusWarranty,
-      final String? filterPedidos,
-      final String? filterGarantias,
-      final String? filterAbonos,
-      final int? totalImporteCliente,
-      final int? totalImporteGarantias,
-      final int? totalImporteVemare,
-      final DataTableSource? dataPedidos,
-      final DataTableSource? dataPedidosFiltrado,
-      final DataTableSource? dataGarantias,
-      final DataTableSource? dataGarantiasFiltrado,
-      final DataTableSource? dataAbonos,
-      final DataTableSource? dataAbonosFiltrado}) = _$_MyOrdersState;
+  const factory _MyOrdersState({
+    final bool loading,
+    final List<Warranty> guarantee,
+    final List<Albaran> orders,
+    final List<Albaran> bills,
+    final StatusWarranty? statusWarranty,
+    final String? filterPedidos,
+    final String? filterGarantias,
+    final String? filterAbonos,
+    final int? totalImporteCliente,
+    final int? totalImporteGarantias,
+    final int? totalImporteVemare,
+    final DataTableSource? dataPedidos,
+    final DataTableSource? dataPedidosFiltrado,
+    final DataTableSource? dataGarantias,
+    final DataTableSource? dataGarantiasFiltrado,
+    final DataTableSource? dataAbonos,
+    final DataTableSource? dataAbonosFiltrado,
+  }) = _$MyOrdersStateImpl;
   const _MyOrdersState._() : super._();
 
   @override
@@ -510,8 +567,11 @@ abstract class _MyOrdersState extends MyOrdersState {
   DataTableSource? get dataAbonos;
   @override
   DataTableSource? get dataAbonosFiltrado;
+
+  /// Create a copy of MyOrdersState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_MyOrdersStateCopyWith<_$_MyOrdersState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$MyOrdersStateImplCopyWith<_$MyOrdersStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -12,7 +12,8 @@ part of 'recover_password_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$RecoverPasswordState {
@@ -21,27 +22,33 @@ mixin _$RecoverPasswordState {
   String? get successMessage => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of RecoverPasswordState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $RecoverPasswordStateCopyWith<RecoverPasswordState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $RecoverPasswordStateCopyWith<$Res> {
-  factory $RecoverPasswordStateCopyWith(RecoverPasswordState value,
-          $Res Function(RecoverPasswordState) then) =
-      _$RecoverPasswordStateCopyWithImpl<$Res, RecoverPasswordState>;
+  factory $RecoverPasswordStateCopyWith(
+    RecoverPasswordState value,
+    $Res Function(RecoverPasswordState) then,
+  ) = _$RecoverPasswordStateCopyWithImpl<$Res, RecoverPasswordState>;
   @useResult
-  $Res call(
-      {FormStatus status,
-      String? email,
-      String? successMessage,
-      String? errorMessage});
+  $Res call({
+    FormStatus status,
+    String? email,
+    String? successMessage,
+    String? errorMessage,
+  });
 }
 
 /// @nodoc
-class _$RecoverPasswordStateCopyWithImpl<$Res,
-        $Val extends RecoverPasswordState>
+class _$RecoverPasswordStateCopyWithImpl<
+  $Res,
+  $Val extends RecoverPasswordState
+>
     implements $RecoverPasswordStateCopyWith<$Res> {
   _$RecoverPasswordStateCopyWithImpl(this._value, this._then);
 
@@ -50,6 +57,8 @@ class _$RecoverPasswordStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of RecoverPasswordState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -58,50 +67,62 @@ class _$RecoverPasswordStateCopyWithImpl<$Res,
     Object? successMessage = freezed,
     Object? errorMessage = freezed,
   }) {
-    return _then(_value.copyWith(
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as FormStatus,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String?,
-      successMessage: freezed == successMessage
-          ? _value.successMessage
-          : successMessage // ignore: cast_nullable_to_non_nullable
-              as String?,
-      errorMessage: freezed == errorMessage
-          ? _value.errorMessage
-          : errorMessage // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            status:
+                null == status
+                    ? _value.status
+                    : status // ignore: cast_nullable_to_non_nullable
+                        as FormStatus,
+            email:
+                freezed == email
+                    ? _value.email
+                    : email // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            successMessage:
+                freezed == successMessage
+                    ? _value.successMessage
+                    : successMessage // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            errorMessage:
+                freezed == errorMessage
+                    ? _value.errorMessage
+                    : errorMessage // ignore: cast_nullable_to_non_nullable
+                        as String?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_RecoverPasswordStateCopyWith<$Res>
+abstract class _$$RecoverPasswordStateImplCopyWith<$Res>
     implements $RecoverPasswordStateCopyWith<$Res> {
-  factory _$$_RecoverPasswordStateCopyWith(_$_RecoverPasswordState value,
-          $Res Function(_$_RecoverPasswordState) then) =
-      __$$_RecoverPasswordStateCopyWithImpl<$Res>;
+  factory _$$RecoverPasswordStateImplCopyWith(
+    _$RecoverPasswordStateImpl value,
+    $Res Function(_$RecoverPasswordStateImpl) then,
+  ) = __$$RecoverPasswordStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {FormStatus status,
-      String? email,
-      String? successMessage,
-      String? errorMessage});
+  $Res call({
+    FormStatus status,
+    String? email,
+    String? successMessage,
+    String? errorMessage,
+  });
 }
 
 /// @nodoc
-class __$$_RecoverPasswordStateCopyWithImpl<$Res>
-    extends _$RecoverPasswordStateCopyWithImpl<$Res, _$_RecoverPasswordState>
-    implements _$$_RecoverPasswordStateCopyWith<$Res> {
-  __$$_RecoverPasswordStateCopyWithImpl(_$_RecoverPasswordState _value,
-      $Res Function(_$_RecoverPasswordState) _then)
-      : super(_value, _then);
+class __$$RecoverPasswordStateImplCopyWithImpl<$Res>
+    extends _$RecoverPasswordStateCopyWithImpl<$Res, _$RecoverPasswordStateImpl>
+    implements _$$RecoverPasswordStateImplCopyWith<$Res> {
+  __$$RecoverPasswordStateImplCopyWithImpl(
+    _$RecoverPasswordStateImpl _value,
+    $Res Function(_$RecoverPasswordStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of RecoverPasswordState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -110,36 +131,42 @@ class __$$_RecoverPasswordStateCopyWithImpl<$Res>
     Object? successMessage = freezed,
     Object? errorMessage = freezed,
   }) {
-    return _then(_$_RecoverPasswordState(
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as FormStatus,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String?,
-      successMessage: freezed == successMessage
-          ? _value.successMessage
-          : successMessage // ignore: cast_nullable_to_non_nullable
-              as String?,
-      errorMessage: freezed == errorMessage
-          ? _value.errorMessage
-          : errorMessage // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
+    return _then(
+      _$RecoverPasswordStateImpl(
+        status:
+            null == status
+                ? _value.status
+                : status // ignore: cast_nullable_to_non_nullable
+                    as FormStatus,
+        email:
+            freezed == email
+                ? _value.email
+                : email // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        successMessage:
+            freezed == successMessage
+                ? _value.successMessage
+                : successMessage // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        errorMessage:
+            freezed == errorMessage
+                ? _value.errorMessage
+                : errorMessage // ignore: cast_nullable_to_non_nullable
+                    as String?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_RecoverPasswordState extends _RecoverPasswordState {
-  const _$_RecoverPasswordState(
-      {this.status = FormStatus.editing,
-      this.email,
-      this.successMessage,
-      this.errorMessage})
-      : super._();
+class _$RecoverPasswordStateImpl extends _RecoverPasswordState {
+  const _$RecoverPasswordStateImpl({
+    this.status = FormStatus.editing,
+    this.email,
+    this.successMessage,
+    this.errorMessage,
+  }) : super._();
 
   @override
   @JsonKey()
@@ -157,10 +184,10 @@ class _$_RecoverPasswordState extends _RecoverPasswordState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RecoverPasswordState &&
+            other is _$RecoverPasswordStateImpl &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.successMessage, successMessage) ||
@@ -173,20 +200,26 @@ class _$_RecoverPasswordState extends _RecoverPasswordState {
   int get hashCode =>
       Object.hash(runtimeType, status, email, successMessage, errorMessage);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of RecoverPasswordState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_RecoverPasswordStateCopyWith<_$_RecoverPasswordState> get copyWith =>
-      __$$_RecoverPasswordStateCopyWithImpl<_$_RecoverPasswordState>(
-          this, _$identity);
+  _$$RecoverPasswordStateImplCopyWith<_$RecoverPasswordStateImpl>
+  get copyWith =>
+      __$$RecoverPasswordStateImplCopyWithImpl<_$RecoverPasswordStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _RecoverPasswordState extends RecoverPasswordState {
-  const factory _RecoverPasswordState(
-      {final FormStatus status,
-      final String? email,
-      final String? successMessage,
-      final String? errorMessage}) = _$_RecoverPasswordState;
+  const factory _RecoverPasswordState({
+    final FormStatus status,
+    final String? email,
+    final String? successMessage,
+    final String? errorMessage,
+  }) = _$RecoverPasswordStateImpl;
   const _RecoverPasswordState._() : super._();
 
   @override
@@ -197,8 +230,11 @@ abstract class _RecoverPasswordState extends RecoverPasswordState {
   String? get successMessage;
   @override
   String? get errorMessage;
+
+  /// Create a copy of RecoverPasswordState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_RecoverPasswordStateCopyWith<_$_RecoverPasswordState> get copyWith =>
-      throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$RecoverPasswordStateImplCopyWith<_$RecoverPasswordStateImpl>
+  get copyWith => throw _privateConstructorUsedError;
 }

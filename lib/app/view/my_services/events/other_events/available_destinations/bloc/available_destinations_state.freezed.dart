@@ -12,7 +12,8 @@ part of 'available_destinations_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$AvailableDestinationsState {
@@ -21,28 +22,37 @@ mixin _$AvailableDestinationsState {
   List<Locations> get locationReferences => throw _privateConstructorUsedError;
   List<Locations> get location => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AvailableDestinationsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AvailableDestinationsStateCopyWith<AvailableDestinationsState>
-      get copyWith => throw _privateConstructorUsedError;
+  get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $AvailableDestinationsStateCopyWith<$Res> {
-  factory $AvailableDestinationsStateCopyWith(AvailableDestinationsState value,
-          $Res Function(AvailableDestinationsState) then) =
-      _$AvailableDestinationsStateCopyWithImpl<$Res,
-          AvailableDestinationsState>;
+  factory $AvailableDestinationsStateCopyWith(
+    AvailableDestinationsState value,
+    $Res Function(AvailableDestinationsState) then,
+  ) =
+      _$AvailableDestinationsStateCopyWithImpl<
+        $Res,
+        AvailableDestinationsState
+      >;
   @useResult
-  $Res call(
-      {Events? event,
-      bool loading,
-      List<Locations> locationReferences,
-      List<Locations> location});
+  $Res call({
+    Events? event,
+    bool loading,
+    List<Locations> locationReferences,
+    List<Locations> location,
+  });
 }
 
 /// @nodoc
-class _$AvailableDestinationsStateCopyWithImpl<$Res,
-        $Val extends AvailableDestinationsState>
+class _$AvailableDestinationsStateCopyWithImpl<
+  $Res,
+  $Val extends AvailableDestinationsState
+>
     implements $AvailableDestinationsStateCopyWith<$Res> {
   _$AvailableDestinationsStateCopyWithImpl(this._value, this._then);
 
@@ -51,6 +61,8 @@ class _$AvailableDestinationsStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AvailableDestinationsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -59,53 +71,66 @@ class _$AvailableDestinationsStateCopyWithImpl<$Res,
     Object? locationReferences = null,
     Object? location = null,
   }) {
-    return _then(_value.copyWith(
-      event: freezed == event
-          ? _value.event
-          : event // ignore: cast_nullable_to_non_nullable
-              as Events?,
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      locationReferences: null == locationReferences
-          ? _value.locationReferences
-          : locationReferences // ignore: cast_nullable_to_non_nullable
-              as List<Locations>,
-      location: null == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
-              as List<Locations>,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            event:
+                freezed == event
+                    ? _value.event
+                    : event // ignore: cast_nullable_to_non_nullable
+                        as Events?,
+            loading:
+                null == loading
+                    ? _value.loading
+                    : loading // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            locationReferences:
+                null == locationReferences
+                    ? _value.locationReferences
+                    : locationReferences // ignore: cast_nullable_to_non_nullable
+                        as List<Locations>,
+            location:
+                null == location
+                    ? _value.location
+                    : location // ignore: cast_nullable_to_non_nullable
+                        as List<Locations>,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_AvailableDestinationsStateCopyWith<$Res>
+abstract class _$$AvailableDestinationsStateImplCopyWith<$Res>
     implements $AvailableDestinationsStateCopyWith<$Res> {
-  factory _$$_AvailableDestinationsStateCopyWith(
-          _$_AvailableDestinationsState value,
-          $Res Function(_$_AvailableDestinationsState) then) =
-      __$$_AvailableDestinationsStateCopyWithImpl<$Res>;
+  factory _$$AvailableDestinationsStateImplCopyWith(
+    _$AvailableDestinationsStateImpl value,
+    $Res Function(_$AvailableDestinationsStateImpl) then,
+  ) = __$$AvailableDestinationsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {Events? event,
-      bool loading,
-      List<Locations> locationReferences,
-      List<Locations> location});
+  $Res call({
+    Events? event,
+    bool loading,
+    List<Locations> locationReferences,
+    List<Locations> location,
+  });
 }
 
 /// @nodoc
-class __$$_AvailableDestinationsStateCopyWithImpl<$Res>
-    extends _$AvailableDestinationsStateCopyWithImpl<$Res,
-        _$_AvailableDestinationsState>
-    implements _$$_AvailableDestinationsStateCopyWith<$Res> {
-  __$$_AvailableDestinationsStateCopyWithImpl(
-      _$_AvailableDestinationsState _value,
-      $Res Function(_$_AvailableDestinationsState) _then)
-      : super(_value, _then);
+class __$$AvailableDestinationsStateImplCopyWithImpl<$Res>
+    extends
+        _$AvailableDestinationsStateCopyWithImpl<
+          $Res,
+          _$AvailableDestinationsStateImpl
+        >
+    implements _$$AvailableDestinationsStateImplCopyWith<$Res> {
+  __$$AvailableDestinationsStateImplCopyWithImpl(
+    _$AvailableDestinationsStateImpl _value,
+    $Res Function(_$AvailableDestinationsStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of AvailableDestinationsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -114,38 +139,44 @@ class __$$_AvailableDestinationsStateCopyWithImpl<$Res>
     Object? locationReferences = null,
     Object? location = null,
   }) {
-    return _then(_$_AvailableDestinationsState(
-      event: freezed == event
-          ? _value.event
-          : event // ignore: cast_nullable_to_non_nullable
-              as Events?,
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      locationReferences: null == locationReferences
-          ? _value._locationReferences
-          : locationReferences // ignore: cast_nullable_to_non_nullable
-              as List<Locations>,
-      location: null == location
-          ? _value._location
-          : location // ignore: cast_nullable_to_non_nullable
-              as List<Locations>,
-    ));
+    return _then(
+      _$AvailableDestinationsStateImpl(
+        event:
+            freezed == event
+                ? _value.event
+                : event // ignore: cast_nullable_to_non_nullable
+                    as Events?,
+        loading:
+            null == loading
+                ? _value.loading
+                : loading // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        locationReferences:
+            null == locationReferences
+                ? _value._locationReferences
+                : locationReferences // ignore: cast_nullable_to_non_nullable
+                    as List<Locations>,
+        location:
+            null == location
+                ? _value._location
+                : location // ignore: cast_nullable_to_non_nullable
+                    as List<Locations>,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_AvailableDestinationsState extends _AvailableDestinationsState {
-  const _$_AvailableDestinationsState(
-      {this.event,
-      this.loading = false,
-      final List<Locations> locationReferences = const <Locations>[],
-      final List<Locations> location = const <Locations>[]})
-      : _locationReferences = locationReferences,
-        _location = location,
-        super._();
+class _$AvailableDestinationsStateImpl extends _AvailableDestinationsState {
+  const _$AvailableDestinationsStateImpl({
+    this.event,
+    this.loading = false,
+    final List<Locations> locationReferences = const <Locations>[],
+    final List<Locations> location = const <Locations>[],
+  }) : _locationReferences = locationReferences,
+       _location = location,
+       super._();
 
   @override
   final Events? event;
@@ -177,39 +208,46 @@ class _$_AvailableDestinationsState extends _AvailableDestinationsState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AvailableDestinationsState &&
+            other is _$AvailableDestinationsStateImpl &&
             (identical(other.event, event) || other.event == event) &&
             (identical(other.loading, loading) || other.loading == loading) &&
-            const DeepCollectionEquality()
-                .equals(other._locationReferences, _locationReferences) &&
+            const DeepCollectionEquality().equals(
+              other._locationReferences,
+              _locationReferences,
+            ) &&
             const DeepCollectionEquality().equals(other._location, _location));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      event,
-      loading,
-      const DeepCollectionEquality().hash(_locationReferences),
-      const DeepCollectionEquality().hash(_location));
+    runtimeType,
+    event,
+    loading,
+    const DeepCollectionEquality().hash(_locationReferences),
+    const DeepCollectionEquality().hash(_location),
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AvailableDestinationsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AvailableDestinationsStateCopyWith<_$_AvailableDestinationsState>
-      get copyWith => __$$_AvailableDestinationsStateCopyWithImpl<
-          _$_AvailableDestinationsState>(this, _$identity);
+  _$$AvailableDestinationsStateImplCopyWith<_$AvailableDestinationsStateImpl>
+  get copyWith => __$$AvailableDestinationsStateImplCopyWithImpl<
+    _$AvailableDestinationsStateImpl
+  >(this, _$identity);
 }
 
 abstract class _AvailableDestinationsState extends AvailableDestinationsState {
-  const factory _AvailableDestinationsState(
-      {final Events? event,
-      final bool loading,
-      final List<Locations> locationReferences,
-      final List<Locations> location}) = _$_AvailableDestinationsState;
+  const factory _AvailableDestinationsState({
+    final Events? event,
+    final bool loading,
+    final List<Locations> locationReferences,
+    final List<Locations> location,
+  }) = _$AvailableDestinationsStateImpl;
   const _AvailableDestinationsState._() : super._();
 
   @override
@@ -220,8 +258,11 @@ abstract class _AvailableDestinationsState extends AvailableDestinationsState {
   List<Locations> get locationReferences;
   @override
   List<Locations> get location;
+
+  /// Create a copy of AvailableDestinationsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_AvailableDestinationsStateCopyWith<_$_AvailableDestinationsState>
-      get copyWith => throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$AvailableDestinationsStateImplCopyWith<_$AvailableDestinationsStateImpl>
+  get copyWith => throw _privateConstructorUsedError;
 }

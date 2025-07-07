@@ -12,7 +12,8 @@ part of 'user_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$UserState {
@@ -21,7 +22,9 @@ mixin _$UserState {
   VemareContacts? get contacts => throw _privateConstructorUsedError;
   UserData? get user => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UserState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $UserStateCopyWith<UserState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -31,11 +34,12 @@ abstract class $UserStateCopyWith<$Res> {
   factory $UserStateCopyWith(UserState value, $Res Function(UserState) then) =
       _$UserStateCopyWithImpl<$Res, UserState>;
   @useResult
-  $Res call(
-      {List<Employee> employees,
-      List<Enterprise> enterprises,
-      VemareContacts? contacts,
-      UserData? user});
+  $Res call({
+    List<Employee> employees,
+    List<Enterprise> enterprises,
+    VemareContacts? contacts,
+    UserData? user,
+  });
 }
 
 /// @nodoc
@@ -48,6 +52,8 @@ class _$UserStateCopyWithImpl<$Res, $Val extends UserState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of UserState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -56,49 +62,62 @@ class _$UserStateCopyWithImpl<$Res, $Val extends UserState>
     Object? contacts = freezed,
     Object? user = freezed,
   }) {
-    return _then(_value.copyWith(
-      employees: null == employees
-          ? _value.employees
-          : employees // ignore: cast_nullable_to_non_nullable
-              as List<Employee>,
-      enterprises: null == enterprises
-          ? _value.enterprises
-          : enterprises // ignore: cast_nullable_to_non_nullable
-              as List<Enterprise>,
-      contacts: freezed == contacts
-          ? _value.contacts
-          : contacts // ignore: cast_nullable_to_non_nullable
-              as VemareContacts?,
-      user: freezed == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as UserData?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            employees:
+                null == employees
+                    ? _value.employees
+                    : employees // ignore: cast_nullable_to_non_nullable
+                        as List<Employee>,
+            enterprises:
+                null == enterprises
+                    ? _value.enterprises
+                    : enterprises // ignore: cast_nullable_to_non_nullable
+                        as List<Enterprise>,
+            contacts:
+                freezed == contacts
+                    ? _value.contacts
+                    : contacts // ignore: cast_nullable_to_non_nullable
+                        as VemareContacts?,
+            user:
+                freezed == user
+                    ? _value.user
+                    : user // ignore: cast_nullable_to_non_nullable
+                        as UserData?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_UserStateCopyWith<$Res> implements $UserStateCopyWith<$Res> {
-  factory _$$_UserStateCopyWith(
-          _$_UserState value, $Res Function(_$_UserState) then) =
-      __$$_UserStateCopyWithImpl<$Res>;
+abstract class _$$UserStateImplCopyWith<$Res>
+    implements $UserStateCopyWith<$Res> {
+  factory _$$UserStateImplCopyWith(
+    _$UserStateImpl value,
+    $Res Function(_$UserStateImpl) then,
+  ) = __$$UserStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {List<Employee> employees,
-      List<Enterprise> enterprises,
-      VemareContacts? contacts,
-      UserData? user});
+  $Res call({
+    List<Employee> employees,
+    List<Enterprise> enterprises,
+    VemareContacts? contacts,
+    UserData? user,
+  });
 }
 
 /// @nodoc
-class __$$_UserStateCopyWithImpl<$Res>
-    extends _$UserStateCopyWithImpl<$Res, _$_UserState>
-    implements _$$_UserStateCopyWith<$Res> {
-  __$$_UserStateCopyWithImpl(
-      _$_UserState _value, $Res Function(_$_UserState) _then)
-      : super(_value, _then);
+class __$$UserStateImplCopyWithImpl<$Res>
+    extends _$UserStateCopyWithImpl<$Res, _$UserStateImpl>
+    implements _$$UserStateImplCopyWith<$Res> {
+  __$$UserStateImplCopyWithImpl(
+    _$UserStateImpl _value,
+    $Res Function(_$UserStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of UserState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -107,38 +126,44 @@ class __$$_UserStateCopyWithImpl<$Res>
     Object? contacts = freezed,
     Object? user = freezed,
   }) {
-    return _then(_$_UserState(
-      employees: null == employees
-          ? _value._employees
-          : employees // ignore: cast_nullable_to_non_nullable
-              as List<Employee>,
-      enterprises: null == enterprises
-          ? _value._enterprises
-          : enterprises // ignore: cast_nullable_to_non_nullable
-              as List<Enterprise>,
-      contacts: freezed == contacts
-          ? _value.contacts
-          : contacts // ignore: cast_nullable_to_non_nullable
-              as VemareContacts?,
-      user: freezed == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as UserData?,
-    ));
+    return _then(
+      _$UserStateImpl(
+        employees:
+            null == employees
+                ? _value._employees
+                : employees // ignore: cast_nullable_to_non_nullable
+                    as List<Employee>,
+        enterprises:
+            null == enterprises
+                ? _value._enterprises
+                : enterprises // ignore: cast_nullable_to_non_nullable
+                    as List<Enterprise>,
+        contacts:
+            freezed == contacts
+                ? _value.contacts
+                : contacts // ignore: cast_nullable_to_non_nullable
+                    as VemareContacts?,
+        user:
+            freezed == user
+                ? _value.user
+                : user // ignore: cast_nullable_to_non_nullable
+                    as UserData?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_UserState extends _UserState {
-  const _$_UserState(
-      {final List<Employee> employees = const <Employee>[],
-      final List<Enterprise> enterprises = const <Enterprise>[],
-      this.contacts,
-      this.user})
-      : _employees = employees,
-        _enterprises = enterprises,
-        super._();
+class _$UserStateImpl extends _UserState {
+  const _$UserStateImpl({
+    final List<Employee> employees = const <Employee>[],
+    final List<Enterprise> enterprises = const <Enterprise>[],
+    this.contacts,
+    this.user,
+  }) : _employees = employees,
+       _enterprises = enterprises,
+       super._();
 
   final List<Employee> _employees;
   @override
@@ -169,14 +194,18 @@ class _$_UserState extends _UserState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UserState &&
-            const DeepCollectionEquality()
-                .equals(other._employees, _employees) &&
-            const DeepCollectionEquality()
-                .equals(other._enterprises, _enterprises) &&
+            other is _$UserStateImpl &&
+            const DeepCollectionEquality().equals(
+              other._employees,
+              _employees,
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._enterprises,
+              _enterprises,
+            ) &&
             (identical(other.contacts, contacts) ||
                 other.contacts == contacts) &&
             (identical(other.user, user) || other.user == user));
@@ -184,25 +213,29 @@ class _$_UserState extends _UserState {
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_employees),
-      const DeepCollectionEquality().hash(_enterprises),
-      contacts,
-      user);
+    runtimeType,
+    const DeepCollectionEquality().hash(_employees),
+    const DeepCollectionEquality().hash(_enterprises),
+    contacts,
+    user,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UserState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UserStateCopyWith<_$_UserState> get copyWith =>
-      __$$_UserStateCopyWithImpl<_$_UserState>(this, _$identity);
+  _$$UserStateImplCopyWith<_$UserStateImpl> get copyWith =>
+      __$$UserStateImplCopyWithImpl<_$UserStateImpl>(this, _$identity);
 }
 
 abstract class _UserState extends UserState {
-  const factory _UserState(
-      {final List<Employee> employees,
-      final List<Enterprise> enterprises,
-      final VemareContacts? contacts,
-      final UserData? user}) = _$_UserState;
+  const factory _UserState({
+    final List<Employee> employees,
+    final List<Enterprise> enterprises,
+    final VemareContacts? contacts,
+    final UserData? user,
+  }) = _$UserStateImpl;
   const _UserState._() : super._();
 
   @override
@@ -213,8 +246,11 @@ abstract class _UserState extends UserState {
   VemareContacts? get contacts;
   @override
   UserData? get user;
+
+  /// Create a copy of UserState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_UserStateCopyWith<_$_UserState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$UserStateImplCopyWith<_$UserStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

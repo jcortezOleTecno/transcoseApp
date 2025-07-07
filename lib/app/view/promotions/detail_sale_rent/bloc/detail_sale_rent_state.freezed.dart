@@ -12,7 +12,8 @@ part of 'detail_sale_rent_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$DetailSaleRentState {
@@ -23,7 +24,9 @@ mixin _$DetailSaleRentState {
   Promotion? get promotion => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DetailSaleRentState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $DetailSaleRentStateCopyWith<DetailSaleRentState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -31,16 +34,18 @@ mixin _$DetailSaleRentState {
 /// @nodoc
 abstract class $DetailSaleRentStateCopyWith<$Res> {
   factory $DetailSaleRentStateCopyWith(
-          DetailSaleRentState value, $Res Function(DetailSaleRentState) then) =
-      _$DetailSaleRentStateCopyWithImpl<$Res, DetailSaleRentState>;
+    DetailSaleRentState value,
+    $Res Function(DetailSaleRentState) then,
+  ) = _$DetailSaleRentStateCopyWithImpl<$Res, DetailSaleRentState>;
   @useResult
-  $Res call(
-      {bool loading,
-      bool isTienda,
-      int quantity,
-      int adds,
-      Promotion? promotion,
-      String? message});
+  $Res call({
+    bool loading,
+    bool isTienda,
+    int quantity,
+    int adds,
+    Promotion? promotion,
+    String? message,
+  });
 }
 
 /// @nodoc
@@ -53,6 +58,8 @@ class _$DetailSaleRentStateCopyWithImpl<$Res, $Val extends DetailSaleRentState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of DetailSaleRentState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -63,60 +70,74 @@ class _$DetailSaleRentStateCopyWithImpl<$Res, $Val extends DetailSaleRentState>
     Object? promotion = freezed,
     Object? message = freezed,
   }) {
-    return _then(_value.copyWith(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isTienda: null == isTienda
-          ? _value.isTienda
-          : isTienda // ignore: cast_nullable_to_non_nullable
-              as bool,
-      quantity: null == quantity
-          ? _value.quantity
-          : quantity // ignore: cast_nullable_to_non_nullable
-              as int,
-      adds: null == adds
-          ? _value.adds
-          : adds // ignore: cast_nullable_to_non_nullable
-              as int,
-      promotion: freezed == promotion
-          ? _value.promotion
-          : promotion // ignore: cast_nullable_to_non_nullable
-              as Promotion?,
-      message: freezed == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            loading:
+                null == loading
+                    ? _value.loading
+                    : loading // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            isTienda:
+                null == isTienda
+                    ? _value.isTienda
+                    : isTienda // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            quantity:
+                null == quantity
+                    ? _value.quantity
+                    : quantity // ignore: cast_nullable_to_non_nullable
+                        as int,
+            adds:
+                null == adds
+                    ? _value.adds
+                    : adds // ignore: cast_nullable_to_non_nullable
+                        as int,
+            promotion:
+                freezed == promotion
+                    ? _value.promotion
+                    : promotion // ignore: cast_nullable_to_non_nullable
+                        as Promotion?,
+            message:
+                freezed == message
+                    ? _value.message
+                    : message // ignore: cast_nullable_to_non_nullable
+                        as String?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_DetailSaleRentStateCopyWith<$Res>
+abstract class _$$DetailSaleRentStateImplCopyWith<$Res>
     implements $DetailSaleRentStateCopyWith<$Res> {
-  factory _$$_DetailSaleRentStateCopyWith(_$_DetailSaleRentState value,
-          $Res Function(_$_DetailSaleRentState) then) =
-      __$$_DetailSaleRentStateCopyWithImpl<$Res>;
+  factory _$$DetailSaleRentStateImplCopyWith(
+    _$DetailSaleRentStateImpl value,
+    $Res Function(_$DetailSaleRentStateImpl) then,
+  ) = __$$DetailSaleRentStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {bool loading,
-      bool isTienda,
-      int quantity,
-      int adds,
-      Promotion? promotion,
-      String? message});
+  $Res call({
+    bool loading,
+    bool isTienda,
+    int quantity,
+    int adds,
+    Promotion? promotion,
+    String? message,
+  });
 }
 
 /// @nodoc
-class __$$_DetailSaleRentStateCopyWithImpl<$Res>
-    extends _$DetailSaleRentStateCopyWithImpl<$Res, _$_DetailSaleRentState>
-    implements _$$_DetailSaleRentStateCopyWith<$Res> {
-  __$$_DetailSaleRentStateCopyWithImpl(_$_DetailSaleRentState _value,
-      $Res Function(_$_DetailSaleRentState) _then)
-      : super(_value, _then);
+class __$$DetailSaleRentStateImplCopyWithImpl<$Res>
+    extends _$DetailSaleRentStateCopyWithImpl<$Res, _$DetailSaleRentStateImpl>
+    implements _$$DetailSaleRentStateImplCopyWith<$Res> {
+  __$$DetailSaleRentStateImplCopyWithImpl(
+    _$DetailSaleRentStateImpl _value,
+    $Res Function(_$DetailSaleRentStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of DetailSaleRentState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -127,46 +148,54 @@ class __$$_DetailSaleRentStateCopyWithImpl<$Res>
     Object? promotion = freezed,
     Object? message = freezed,
   }) {
-    return _then(_$_DetailSaleRentState(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isTienda: null == isTienda
-          ? _value.isTienda
-          : isTienda // ignore: cast_nullable_to_non_nullable
-              as bool,
-      quantity: null == quantity
-          ? _value.quantity
-          : quantity // ignore: cast_nullable_to_non_nullable
-              as int,
-      adds: null == adds
-          ? _value.adds
-          : adds // ignore: cast_nullable_to_non_nullable
-              as int,
-      promotion: freezed == promotion
-          ? _value.promotion
-          : promotion // ignore: cast_nullable_to_non_nullable
-              as Promotion?,
-      message: freezed == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
+    return _then(
+      _$DetailSaleRentStateImpl(
+        loading:
+            null == loading
+                ? _value.loading
+                : loading // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        isTienda:
+            null == isTienda
+                ? _value.isTienda
+                : isTienda // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        quantity:
+            null == quantity
+                ? _value.quantity
+                : quantity // ignore: cast_nullable_to_non_nullable
+                    as int,
+        adds:
+            null == adds
+                ? _value.adds
+                : adds // ignore: cast_nullable_to_non_nullable
+                    as int,
+        promotion:
+            freezed == promotion
+                ? _value.promotion
+                : promotion // ignore: cast_nullable_to_non_nullable
+                    as Promotion?,
+        message:
+            freezed == message
+                ? _value.message
+                : message // ignore: cast_nullable_to_non_nullable
+                    as String?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_DetailSaleRentState extends _DetailSaleRentState {
-  const _$_DetailSaleRentState(
-      {this.loading = false,
-      this.isTienda = true,
-      this.quantity = 1,
-      this.adds = 1,
-      this.promotion,
-      this.message})
-      : super._();
+class _$DetailSaleRentStateImpl extends _DetailSaleRentState {
+  const _$DetailSaleRentStateImpl({
+    this.loading = false,
+    this.isTienda = true,
+    this.quantity = 1,
+    this.adds = 1,
+    this.promotion,
+    this.message,
+  }) : super._();
 
   @override
   @JsonKey()
@@ -191,10 +220,10 @@ class _$_DetailSaleRentState extends _DetailSaleRentState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_DetailSaleRentState &&
+            other is _$DetailSaleRentStateImpl &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.isTienda, isTienda) ||
                 other.isTienda == isTienda) &&
@@ -208,24 +237,36 @@ class _$_DetailSaleRentState extends _DetailSaleRentState {
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, loading, isTienda, quantity, adds, promotion, message);
+    runtimeType,
+    loading,
+    isTienda,
+    quantity,
+    adds,
+    promotion,
+    message,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DetailSaleRentState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DetailSaleRentStateCopyWith<_$_DetailSaleRentState> get copyWith =>
-      __$$_DetailSaleRentStateCopyWithImpl<_$_DetailSaleRentState>(
-          this, _$identity);
+  _$$DetailSaleRentStateImplCopyWith<_$DetailSaleRentStateImpl> get copyWith =>
+      __$$DetailSaleRentStateImplCopyWithImpl<_$DetailSaleRentStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _DetailSaleRentState extends DetailSaleRentState {
-  const factory _DetailSaleRentState(
-      {final bool loading,
-      final bool isTienda,
-      final int quantity,
-      final int adds,
-      final Promotion? promotion,
-      final String? message}) = _$_DetailSaleRentState;
+  const factory _DetailSaleRentState({
+    final bool loading,
+    final bool isTienda,
+    final int quantity,
+    final int adds,
+    final Promotion? promotion,
+    final String? message,
+  }) = _$DetailSaleRentStateImpl;
   const _DetailSaleRentState._() : super._();
 
   @override
@@ -240,8 +281,11 @@ abstract class _DetailSaleRentState extends DetailSaleRentState {
   Promotion? get promotion;
   @override
   String? get message;
+
+  /// Create a copy of DetailSaleRentState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_DetailSaleRentStateCopyWith<_$_DetailSaleRentState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$DetailSaleRentStateImplCopyWith<_$DetailSaleRentStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

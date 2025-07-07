@@ -12,7 +12,8 @@ part of 'contract_details_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$ContratDetailState {
@@ -21,7 +22,9 @@ mixin _$ContratDetailState {
   ContratDetail? get detail => throw _privateConstructorUsedError;
   Contrats? get contract => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ContratDetailState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ContratDetailStateCopyWith<ContratDetailState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -29,14 +32,16 @@ mixin _$ContratDetailState {
 /// @nodoc
 abstract class $ContratDetailStateCopyWith<$Res> {
   factory $ContratDetailStateCopyWith(
-          ContratDetailState value, $Res Function(ContratDetailState) then) =
-      _$ContratDetailStateCopyWithImpl<$Res, ContratDetailState>;
+    ContratDetailState value,
+    $Res Function(ContratDetailState) then,
+  ) = _$ContratDetailStateCopyWithImpl<$Res, ContratDetailState>;
   @useResult
-  $Res call(
-      {bool loading,
-      bool loadingPDF,
-      ContratDetail? detail,
-      Contrats? contract});
+  $Res call({
+    bool loading,
+    bool loadingPDF,
+    ContratDetail? detail,
+    Contrats? contract,
+  });
 }
 
 /// @nodoc
@@ -49,6 +54,8 @@ class _$ContratDetailStateCopyWithImpl<$Res, $Val extends ContratDetailState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ContratDetailState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -57,50 +64,62 @@ class _$ContratDetailStateCopyWithImpl<$Res, $Val extends ContratDetailState>
     Object? detail = freezed,
     Object? contract = freezed,
   }) {
-    return _then(_value.copyWith(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      loadingPDF: null == loadingPDF
-          ? _value.loadingPDF
-          : loadingPDF // ignore: cast_nullable_to_non_nullable
-              as bool,
-      detail: freezed == detail
-          ? _value.detail
-          : detail // ignore: cast_nullable_to_non_nullable
-              as ContratDetail?,
-      contract: freezed == contract
-          ? _value.contract
-          : contract // ignore: cast_nullable_to_non_nullable
-              as Contrats?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            loading:
+                null == loading
+                    ? _value.loading
+                    : loading // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            loadingPDF:
+                null == loadingPDF
+                    ? _value.loadingPDF
+                    : loadingPDF // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            detail:
+                freezed == detail
+                    ? _value.detail
+                    : detail // ignore: cast_nullable_to_non_nullable
+                        as ContratDetail?,
+            contract:
+                freezed == contract
+                    ? _value.contract
+                    : contract // ignore: cast_nullable_to_non_nullable
+                        as Contrats?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_ContratDetailStateCopyWith<$Res>
+abstract class _$$ContratDetailStateImplCopyWith<$Res>
     implements $ContratDetailStateCopyWith<$Res> {
-  factory _$$_ContratDetailStateCopyWith(_$_ContratDetailState value,
-          $Res Function(_$_ContratDetailState) then) =
-      __$$_ContratDetailStateCopyWithImpl<$Res>;
+  factory _$$ContratDetailStateImplCopyWith(
+    _$ContratDetailStateImpl value,
+    $Res Function(_$ContratDetailStateImpl) then,
+  ) = __$$ContratDetailStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {bool loading,
-      bool loadingPDF,
-      ContratDetail? detail,
-      Contrats? contract});
+  $Res call({
+    bool loading,
+    bool loadingPDF,
+    ContratDetail? detail,
+    Contrats? contract,
+  });
 }
 
 /// @nodoc
-class __$$_ContratDetailStateCopyWithImpl<$Res>
-    extends _$ContratDetailStateCopyWithImpl<$Res, _$_ContratDetailState>
-    implements _$$_ContratDetailStateCopyWith<$Res> {
-  __$$_ContratDetailStateCopyWithImpl(
-      _$_ContratDetailState _value, $Res Function(_$_ContratDetailState) _then)
-      : super(_value, _then);
+class __$$ContratDetailStateImplCopyWithImpl<$Res>
+    extends _$ContratDetailStateCopyWithImpl<$Res, _$ContratDetailStateImpl>
+    implements _$$ContratDetailStateImplCopyWith<$Res> {
+  __$$ContratDetailStateImplCopyWithImpl(
+    _$ContratDetailStateImpl _value,
+    $Res Function(_$ContratDetailStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of ContratDetailState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -109,35 +128,42 @@ class __$$_ContratDetailStateCopyWithImpl<$Res>
     Object? detail = freezed,
     Object? contract = freezed,
   }) {
-    return _then(_$_ContratDetailState(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      loadingPDF: null == loadingPDF
-          ? _value.loadingPDF
-          : loadingPDF // ignore: cast_nullable_to_non_nullable
-              as bool,
-      detail: freezed == detail
-          ? _value.detail
-          : detail // ignore: cast_nullable_to_non_nullable
-              as ContratDetail?,
-      contract: freezed == contract
-          ? _value.contract
-          : contract // ignore: cast_nullable_to_non_nullable
-              as Contrats?,
-    ));
+    return _then(
+      _$ContratDetailStateImpl(
+        loading:
+            null == loading
+                ? _value.loading
+                : loading // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        loadingPDF:
+            null == loadingPDF
+                ? _value.loadingPDF
+                : loadingPDF // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        detail:
+            freezed == detail
+                ? _value.detail
+                : detail // ignore: cast_nullable_to_non_nullable
+                    as ContratDetail?,
+        contract:
+            freezed == contract
+                ? _value.contract
+                : contract // ignore: cast_nullable_to_non_nullable
+                    as Contrats?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_ContratDetailState implements _ContratDetailState {
-  const _$_ContratDetailState(
-      {this.loading = false,
-      this.loadingPDF = false,
-      this.detail,
-      this.contract});
+class _$ContratDetailStateImpl implements _ContratDetailState {
+  const _$ContratDetailStateImpl({
+    this.loading = false,
+    this.loadingPDF = false,
+    this.detail,
+    this.contract,
+  });
 
   @override
   @JsonKey()
@@ -156,10 +182,10 @@ class _$_ContratDetailState implements _ContratDetailState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ContratDetailState &&
+            other is _$ContratDetailStateImpl &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.loadingPDF, loadingPDF) ||
                 other.loadingPDF == loadingPDF) &&
@@ -172,20 +198,25 @@ class _$_ContratDetailState implements _ContratDetailState {
   int get hashCode =>
       Object.hash(runtimeType, loading, loadingPDF, detail, contract);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ContratDetailState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ContratDetailStateCopyWith<_$_ContratDetailState> get copyWith =>
-      __$$_ContratDetailStateCopyWithImpl<_$_ContratDetailState>(
-          this, _$identity);
+  _$$ContratDetailStateImplCopyWith<_$ContratDetailStateImpl> get copyWith =>
+      __$$ContratDetailStateImplCopyWithImpl<_$ContratDetailStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _ContratDetailState implements ContratDetailState {
-  const factory _ContratDetailState(
-      {final bool loading,
-      final bool loadingPDF,
-      final ContratDetail? detail,
-      final Contrats? contract}) = _$_ContratDetailState;
+  const factory _ContratDetailState({
+    final bool loading,
+    final bool loadingPDF,
+    final ContratDetail? detail,
+    final Contrats? contract,
+  }) = _$ContratDetailStateImpl;
 
   @override
   bool get loading;
@@ -195,8 +226,11 @@ abstract class _ContratDetailState implements ContratDetailState {
   ContratDetail? get detail;
   @override
   Contrats? get contract;
+
+  /// Create a copy of ContratDetailState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_ContratDetailStateCopyWith<_$_ContratDetailState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ContratDetailStateImplCopyWith<_$ContratDetailStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -12,7 +12,8 @@ part of 'notifications_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$NotificationsState {
@@ -20,7 +21,9 @@ mixin _$NotificationsState {
   NotificationType get type => throw _privateConstructorUsedError;
   List<Notification> get notifications => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NotificationsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $NotificationsStateCopyWith<NotificationsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -28,11 +31,15 @@ mixin _$NotificationsState {
 /// @nodoc
 abstract class $NotificationsStateCopyWith<$Res> {
   factory $NotificationsStateCopyWith(
-          NotificationsState value, $Res Function(NotificationsState) then) =
-      _$NotificationsStateCopyWithImpl<$Res, NotificationsState>;
+    NotificationsState value,
+    $Res Function(NotificationsState) then,
+  ) = _$NotificationsStateCopyWithImpl<$Res, NotificationsState>;
   @useResult
-  $Res call(
-      {bool loading, NotificationType type, List<Notification> notifications});
+  $Res call({
+    bool loading,
+    NotificationType type,
+    List<Notification> notifications,
+  });
 }
 
 /// @nodoc
@@ -45,6 +52,8 @@ class _$NotificationsStateCopyWithImpl<$Res, $Val extends NotificationsState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of NotificationsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -52,43 +61,56 @@ class _$NotificationsStateCopyWithImpl<$Res, $Val extends NotificationsState>
     Object? type = null,
     Object? notifications = null,
   }) {
-    return _then(_value.copyWith(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as NotificationType,
-      notifications: null == notifications
-          ? _value.notifications
-          : notifications // ignore: cast_nullable_to_non_nullable
-              as List<Notification>,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            loading:
+                null == loading
+                    ? _value.loading
+                    : loading // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            type:
+                null == type
+                    ? _value.type
+                    : type // ignore: cast_nullable_to_non_nullable
+                        as NotificationType,
+            notifications:
+                null == notifications
+                    ? _value.notifications
+                    : notifications // ignore: cast_nullable_to_non_nullable
+                        as List<Notification>,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_NotificationsStateCopyWith<$Res>
+abstract class _$$NotificationsStateImplCopyWith<$Res>
     implements $NotificationsStateCopyWith<$Res> {
-  factory _$$_NotificationsStateCopyWith(_$_NotificationsState value,
-          $Res Function(_$_NotificationsState) then) =
-      __$$_NotificationsStateCopyWithImpl<$Res>;
+  factory _$$NotificationsStateImplCopyWith(
+    _$NotificationsStateImpl value,
+    $Res Function(_$NotificationsStateImpl) then,
+  ) = __$$NotificationsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {bool loading, NotificationType type, List<Notification> notifications});
+  $Res call({
+    bool loading,
+    NotificationType type,
+    List<Notification> notifications,
+  });
 }
 
 /// @nodoc
-class __$$_NotificationsStateCopyWithImpl<$Res>
-    extends _$NotificationsStateCopyWithImpl<$Res, _$_NotificationsState>
-    implements _$$_NotificationsStateCopyWith<$Res> {
-  __$$_NotificationsStateCopyWithImpl(
-      _$_NotificationsState _value, $Res Function(_$_NotificationsState) _then)
-      : super(_value, _then);
+class __$$NotificationsStateImplCopyWithImpl<$Res>
+    extends _$NotificationsStateCopyWithImpl<$Res, _$NotificationsStateImpl>
+    implements _$$NotificationsStateImplCopyWith<$Res> {
+  __$$NotificationsStateImplCopyWithImpl(
+    _$NotificationsStateImpl _value,
+    $Res Function(_$NotificationsStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of NotificationsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -96,31 +118,36 @@ class __$$_NotificationsStateCopyWithImpl<$Res>
     Object? type = null,
     Object? notifications = null,
   }) {
-    return _then(_$_NotificationsState(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as NotificationType,
-      notifications: null == notifications
-          ? _value._notifications
-          : notifications // ignore: cast_nullable_to_non_nullable
-              as List<Notification>,
-    ));
+    return _then(
+      _$NotificationsStateImpl(
+        loading:
+            null == loading
+                ? _value.loading
+                : loading // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        type:
+            null == type
+                ? _value.type
+                : type // ignore: cast_nullable_to_non_nullable
+                    as NotificationType,
+        notifications:
+            null == notifications
+                ? _value._notifications
+                : notifications // ignore: cast_nullable_to_non_nullable
+                    as List<Notification>,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_NotificationsState implements _NotificationsState {
-  const _$_NotificationsState(
-      {this.loading = false,
-      this.type = NotificationType.general,
-      final List<Notification> notifications = const <Notification>[]})
-      : _notifications = notifications;
+class _$NotificationsStateImpl implements _NotificationsState {
+  const _$NotificationsStateImpl({
+    this.loading = false,
+    this.type = NotificationType.general,
+    final List<Notification> notifications = const <Notification>[],
+  }) : _notifications = notifications;
 
   @override
   @JsonKey()
@@ -143,33 +170,44 @@ class _$_NotificationsState implements _NotificationsState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_NotificationsState &&
+            other is _$NotificationsStateImpl &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.type, type) || other.type == type) &&
-            const DeepCollectionEquality()
-                .equals(other._notifications, _notifications));
+            const DeepCollectionEquality().equals(
+              other._notifications,
+              _notifications,
+            ));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, loading, type,
-      const DeepCollectionEquality().hash(_notifications));
+  int get hashCode => Object.hash(
+    runtimeType,
+    loading,
+    type,
+    const DeepCollectionEquality().hash(_notifications),
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NotificationsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_NotificationsStateCopyWith<_$_NotificationsState> get copyWith =>
-      __$$_NotificationsStateCopyWithImpl<_$_NotificationsState>(
-          this, _$identity);
+  _$$NotificationsStateImplCopyWith<_$NotificationsStateImpl> get copyWith =>
+      __$$NotificationsStateImplCopyWithImpl<_$NotificationsStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _NotificationsState implements NotificationsState {
-  const factory _NotificationsState(
-      {final bool loading,
-      final NotificationType type,
-      final List<Notification> notifications}) = _$_NotificationsState;
+  const factory _NotificationsState({
+    final bool loading,
+    final NotificationType type,
+    final List<Notification> notifications,
+  }) = _$NotificationsStateImpl;
 
   @override
   bool get loading;
@@ -177,8 +215,11 @@ abstract class _NotificationsState implements NotificationsState {
   NotificationType get type;
   @override
   List<Notification> get notifications;
+
+  /// Create a copy of NotificationsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_NotificationsStateCopyWith<_$_NotificationsState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$NotificationsStateImplCopyWith<_$NotificationsStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -12,29 +12,35 @@ part of 'notifications_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$NotificationsCounterState {
   int get notifications => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NotificationsCounterState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $NotificationsCounterStateCopyWith<NotificationsCounterState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $NotificationsCounterStateCopyWith<$Res> {
-  factory $NotificationsCounterStateCopyWith(NotificationsCounterState value,
-          $Res Function(NotificationsCounterState) then) =
-      _$NotificationsCounterStateCopyWithImpl<$Res, NotificationsCounterState>;
+  factory $NotificationsCounterStateCopyWith(
+    NotificationsCounterState value,
+    $Res Function(NotificationsCounterState) then,
+  ) = _$NotificationsCounterStateCopyWithImpl<$Res, NotificationsCounterState>;
   @useResult
   $Res call({int notifications});
 }
 
 /// @nodoc
-class _$NotificationsCounterStateCopyWithImpl<$Res,
-        $Val extends NotificationsCounterState>
+class _$NotificationsCounterStateCopyWithImpl<
+  $Res,
+  $Val extends NotificationsCounterState
+>
     implements $NotificationsCounterStateCopyWith<$Res> {
   _$NotificationsCounterStateCopyWithImpl(this._value, this._then);
 
@@ -43,60 +49,70 @@ class _$NotificationsCounterStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of NotificationsCounterState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? notifications = null,
-  }) {
-    return _then(_value.copyWith(
-      notifications: null == notifications
-          ? _value.notifications
-          : notifications // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
+  $Res call({Object? notifications = null}) {
+    return _then(
+      _value.copyWith(
+            notifications:
+                null == notifications
+                    ? _value.notifications
+                    : notifications // ignore: cast_nullable_to_non_nullable
+                        as int,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_NotificationsCounterStateCopyWith<$Res>
+abstract class _$$NotificationsCounterStateImplCopyWith<$Res>
     implements $NotificationsCounterStateCopyWith<$Res> {
-  factory _$$_NotificationsCounterStateCopyWith(
-          _$_NotificationsCounterState value,
-          $Res Function(_$_NotificationsCounterState) then) =
-      __$$_NotificationsCounterStateCopyWithImpl<$Res>;
+  factory _$$NotificationsCounterStateImplCopyWith(
+    _$NotificationsCounterStateImpl value,
+    $Res Function(_$NotificationsCounterStateImpl) then,
+  ) = __$$NotificationsCounterStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int notifications});
 }
 
 /// @nodoc
-class __$$_NotificationsCounterStateCopyWithImpl<$Res>
-    extends _$NotificationsCounterStateCopyWithImpl<$Res,
-        _$_NotificationsCounterState>
-    implements _$$_NotificationsCounterStateCopyWith<$Res> {
-  __$$_NotificationsCounterStateCopyWithImpl(
-      _$_NotificationsCounterState _value,
-      $Res Function(_$_NotificationsCounterState) _then)
-      : super(_value, _then);
+class __$$NotificationsCounterStateImplCopyWithImpl<$Res>
+    extends
+        _$NotificationsCounterStateCopyWithImpl<
+          $Res,
+          _$NotificationsCounterStateImpl
+        >
+    implements _$$NotificationsCounterStateImplCopyWith<$Res> {
+  __$$NotificationsCounterStateImplCopyWithImpl(
+    _$NotificationsCounterStateImpl _value,
+    $Res Function(_$NotificationsCounterStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of NotificationsCounterState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? notifications = null,
-  }) {
-    return _then(_$_NotificationsCounterState(
-      notifications: null == notifications
-          ? _value.notifications
-          : notifications // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
+  $Res call({Object? notifications = null}) {
+    return _then(
+      _$NotificationsCounterStateImpl(
+        notifications:
+            null == notifications
+                ? _value.notifications
+                : notifications // ignore: cast_nullable_to_non_nullable
+                    as int,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_NotificationsCounterState extends _NotificationsCounterState {
-  const _$_NotificationsCounterState({this.notifications = 0}) : super._();
+class _$NotificationsCounterStateImpl extends _NotificationsCounterState {
+  const _$NotificationsCounterStateImpl({this.notifications = 0}) : super._();
 
   @override
   @JsonKey()
@@ -108,10 +124,10 @@ class _$_NotificationsCounterState extends _NotificationsCounterState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_NotificationsCounterState &&
+            other is _$NotificationsCounterStateImpl &&
             (identical(other.notifications, notifications) ||
                 other.notifications == notifications));
   }
@@ -119,23 +135,29 @@ class _$_NotificationsCounterState extends _NotificationsCounterState {
   @override
   int get hashCode => Object.hash(runtimeType, notifications);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NotificationsCounterState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_NotificationsCounterStateCopyWith<_$_NotificationsCounterState>
-      get copyWith => __$$_NotificationsCounterStateCopyWithImpl<
-          _$_NotificationsCounterState>(this, _$identity);
+  _$$NotificationsCounterStateImplCopyWith<_$NotificationsCounterStateImpl>
+  get copyWith => __$$NotificationsCounterStateImplCopyWithImpl<
+    _$NotificationsCounterStateImpl
+  >(this, _$identity);
 }
 
 abstract class _NotificationsCounterState extends NotificationsCounterState {
   const factory _NotificationsCounterState({final int notifications}) =
-      _$_NotificationsCounterState;
+      _$NotificationsCounterStateImpl;
   const _NotificationsCounterState._() : super._();
 
   @override
   int get notifications;
+
+  /// Create a copy of NotificationsCounterState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_NotificationsCounterStateCopyWith<_$_NotificationsCounterState>
-      get copyWith => throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$NotificationsCounterStateImplCopyWith<_$NotificationsCounterStateImpl>
+  get copyWith => throw _privateConstructorUsedError;
 }

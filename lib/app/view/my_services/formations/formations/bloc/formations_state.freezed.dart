@@ -12,7 +12,8 @@ part of 'formations_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$FormationsState {
@@ -21,7 +22,9 @@ mixin _$FormationsState {
   List<Header> get headers => throw _privateConstructorUsedError;
   List<TrainigGroup> get formations => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of FormationsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $FormationsStateCopyWith<FormationsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -29,14 +32,16 @@ mixin _$FormationsState {
 /// @nodoc
 abstract class $FormationsStateCopyWith<$Res> {
   factory $FormationsStateCopyWith(
-          FormationsState value, $Res Function(FormationsState) then) =
-      _$FormationsStateCopyWithImpl<$Res, FormationsState>;
+    FormationsState value,
+    $Res Function(FormationsState) then,
+  ) = _$FormationsStateCopyWithImpl<$Res, FormationsState>;
   @useResult
-  $Res call(
-      {bool loading,
-      FormStatus status,
-      List<Header> headers,
-      List<TrainigGroup> formations});
+  $Res call({
+    bool loading,
+    FormStatus status,
+    List<Header> headers,
+    List<TrainigGroup> formations,
+  });
 }
 
 /// @nodoc
@@ -49,6 +54,8 @@ class _$FormationsStateCopyWithImpl<$Res, $Val extends FormationsState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of FormationsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -57,50 +64,62 @@ class _$FormationsStateCopyWithImpl<$Res, $Val extends FormationsState>
     Object? headers = null,
     Object? formations = null,
   }) {
-    return _then(_value.copyWith(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as FormStatus,
-      headers: null == headers
-          ? _value.headers
-          : headers // ignore: cast_nullable_to_non_nullable
-              as List<Header>,
-      formations: null == formations
-          ? _value.formations
-          : formations // ignore: cast_nullable_to_non_nullable
-              as List<TrainigGroup>,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            loading:
+                null == loading
+                    ? _value.loading
+                    : loading // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            status:
+                null == status
+                    ? _value.status
+                    : status // ignore: cast_nullable_to_non_nullable
+                        as FormStatus,
+            headers:
+                null == headers
+                    ? _value.headers
+                    : headers // ignore: cast_nullable_to_non_nullable
+                        as List<Header>,
+            formations:
+                null == formations
+                    ? _value.formations
+                    : formations // ignore: cast_nullable_to_non_nullable
+                        as List<TrainigGroup>,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_FormationsStateCopyWith<$Res>
+abstract class _$$FormationsStateImplCopyWith<$Res>
     implements $FormationsStateCopyWith<$Res> {
-  factory _$$_FormationsStateCopyWith(
-          _$_FormationsState value, $Res Function(_$_FormationsState) then) =
-      __$$_FormationsStateCopyWithImpl<$Res>;
+  factory _$$FormationsStateImplCopyWith(
+    _$FormationsStateImpl value,
+    $Res Function(_$FormationsStateImpl) then,
+  ) = __$$FormationsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {bool loading,
-      FormStatus status,
-      List<Header> headers,
-      List<TrainigGroup> formations});
+  $Res call({
+    bool loading,
+    FormStatus status,
+    List<Header> headers,
+    List<TrainigGroup> formations,
+  });
 }
 
 /// @nodoc
-class __$$_FormationsStateCopyWithImpl<$Res>
-    extends _$FormationsStateCopyWithImpl<$Res, _$_FormationsState>
-    implements _$$_FormationsStateCopyWith<$Res> {
-  __$$_FormationsStateCopyWithImpl(
-      _$_FormationsState _value, $Res Function(_$_FormationsState) _then)
-      : super(_value, _then);
+class __$$FormationsStateImplCopyWithImpl<$Res>
+    extends _$FormationsStateCopyWithImpl<$Res, _$FormationsStateImpl>
+    implements _$$FormationsStateImplCopyWith<$Res> {
+  __$$FormationsStateImplCopyWithImpl(
+    _$FormationsStateImpl _value,
+    $Res Function(_$FormationsStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of FormationsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -109,38 +128,44 @@ class __$$_FormationsStateCopyWithImpl<$Res>
     Object? headers = null,
     Object? formations = null,
   }) {
-    return _then(_$_FormationsState(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as FormStatus,
-      headers: null == headers
-          ? _value._headers
-          : headers // ignore: cast_nullable_to_non_nullable
-              as List<Header>,
-      formations: null == formations
-          ? _value._formations
-          : formations // ignore: cast_nullable_to_non_nullable
-              as List<TrainigGroup>,
-    ));
+    return _then(
+      _$FormationsStateImpl(
+        loading:
+            null == loading
+                ? _value.loading
+                : loading // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        status:
+            null == status
+                ? _value.status
+                : status // ignore: cast_nullable_to_non_nullable
+                    as FormStatus,
+        headers:
+            null == headers
+                ? _value._headers
+                : headers // ignore: cast_nullable_to_non_nullable
+                    as List<Header>,
+        formations:
+            null == formations
+                ? _value._formations
+                : formations // ignore: cast_nullable_to_non_nullable
+                    as List<TrainigGroup>,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_FormationsState extends _FormationsState {
-  const _$_FormationsState(
-      {this.loading = false,
-      this.status = FormStatus.editing,
-      final List<Header> headers = const <Header>[],
-      final List<TrainigGroup> formations = const <TrainigGroup>[]})
-      : _headers = headers,
-        _formations = formations,
-        super._();
+class _$FormationsStateImpl extends _FormationsState {
+  const _$FormationsStateImpl({
+    this.loading = false,
+    this.status = FormStatus.editing,
+    final List<Header> headers = const <Header>[],
+    final List<TrainigGroup> formations = const <TrainigGroup>[],
+  }) : _headers = headers,
+       _formations = formations,
+       super._();
 
   @override
   @JsonKey()
@@ -172,38 +197,47 @@ class _$_FormationsState extends _FormationsState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_FormationsState &&
+            other is _$FormationsStateImpl &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.status, status) || other.status == status) &&
             const DeepCollectionEquality().equals(other._headers, _headers) &&
-            const DeepCollectionEquality()
-                .equals(other._formations, _formations));
+            const DeepCollectionEquality().equals(
+              other._formations,
+              _formations,
+            ));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      loading,
-      status,
-      const DeepCollectionEquality().hash(_headers),
-      const DeepCollectionEquality().hash(_formations));
+    runtimeType,
+    loading,
+    status,
+    const DeepCollectionEquality().hash(_headers),
+    const DeepCollectionEquality().hash(_formations),
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of FormationsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_FormationsStateCopyWith<_$_FormationsState> get copyWith =>
-      __$$_FormationsStateCopyWithImpl<_$_FormationsState>(this, _$identity);
+  _$$FormationsStateImplCopyWith<_$FormationsStateImpl> get copyWith =>
+      __$$FormationsStateImplCopyWithImpl<_$FormationsStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _FormationsState extends FormationsState {
-  const factory _FormationsState(
-      {final bool loading,
-      final FormStatus status,
-      final List<Header> headers,
-      final List<TrainigGroup> formations}) = _$_FormationsState;
+  const factory _FormationsState({
+    final bool loading,
+    final FormStatus status,
+    final List<Header> headers,
+    final List<TrainigGroup> formations,
+  }) = _$FormationsStateImpl;
   const _FormationsState._() : super._();
 
   @override
@@ -214,8 +248,11 @@ abstract class _FormationsState extends FormationsState {
   List<Header> get headers;
   @override
   List<TrainigGroup> get formations;
+
+  /// Create a copy of FormationsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_FormationsStateCopyWith<_$_FormationsState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$FormationsStateImplCopyWith<_$FormationsStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

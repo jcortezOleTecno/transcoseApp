@@ -12,7 +12,8 @@ part of 'enroll_event_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$EnrollEventState {
@@ -24,7 +25,9 @@ mixin _$EnrollEventState {
   Events? get event => throw _privateConstructorUsedError;
   Horario? get horarioSelected => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of EnrollEventState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $EnrollEventStateCopyWith<EnrollEventState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -32,17 +35,19 @@ mixin _$EnrollEventState {
 /// @nodoc
 abstract class $EnrollEventStateCopyWith<$Res> {
   factory $EnrollEventStateCopyWith(
-          EnrollEventState value, $Res Function(EnrollEventState) then) =
-      _$EnrollEventStateCopyWithImpl<$Res, EnrollEventState>;
+    EnrollEventState value,
+    $Res Function(EnrollEventState) then,
+  ) = _$EnrollEventStateCopyWithImpl<$Res, EnrollEventState>;
   @useResult
-  $Res call(
-      {bool loading,
-      bool showCalendar,
-      int peopleCounter,
-      List<Horario> horarios,
-      Locations? locations,
-      Events? event,
-      Horario? horarioSelected});
+  $Res call({
+    bool loading,
+    bool showCalendar,
+    int peopleCounter,
+    List<Horario> horarios,
+    Locations? locations,
+    Events? event,
+    Horario? horarioSelected,
+  });
 }
 
 /// @nodoc
@@ -55,6 +60,8 @@ class _$EnrollEventStateCopyWithImpl<$Res, $Val extends EnrollEventState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of EnrollEventState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -66,65 +73,80 @@ class _$EnrollEventStateCopyWithImpl<$Res, $Val extends EnrollEventState>
     Object? event = freezed,
     Object? horarioSelected = freezed,
   }) {
-    return _then(_value.copyWith(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      showCalendar: null == showCalendar
-          ? _value.showCalendar
-          : showCalendar // ignore: cast_nullable_to_non_nullable
-              as bool,
-      peopleCounter: null == peopleCounter
-          ? _value.peopleCounter
-          : peopleCounter // ignore: cast_nullable_to_non_nullable
-              as int,
-      horarios: null == horarios
-          ? _value.horarios
-          : horarios // ignore: cast_nullable_to_non_nullable
-              as List<Horario>,
-      locations: freezed == locations
-          ? _value.locations
-          : locations // ignore: cast_nullable_to_non_nullable
-              as Locations?,
-      event: freezed == event
-          ? _value.event
-          : event // ignore: cast_nullable_to_non_nullable
-              as Events?,
-      horarioSelected: freezed == horarioSelected
-          ? _value.horarioSelected
-          : horarioSelected // ignore: cast_nullable_to_non_nullable
-              as Horario?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            loading:
+                null == loading
+                    ? _value.loading
+                    : loading // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            showCalendar:
+                null == showCalendar
+                    ? _value.showCalendar
+                    : showCalendar // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            peopleCounter:
+                null == peopleCounter
+                    ? _value.peopleCounter
+                    : peopleCounter // ignore: cast_nullable_to_non_nullable
+                        as int,
+            horarios:
+                null == horarios
+                    ? _value.horarios
+                    : horarios // ignore: cast_nullable_to_non_nullable
+                        as List<Horario>,
+            locations:
+                freezed == locations
+                    ? _value.locations
+                    : locations // ignore: cast_nullable_to_non_nullable
+                        as Locations?,
+            event:
+                freezed == event
+                    ? _value.event
+                    : event // ignore: cast_nullable_to_non_nullable
+                        as Events?,
+            horarioSelected:
+                freezed == horarioSelected
+                    ? _value.horarioSelected
+                    : horarioSelected // ignore: cast_nullable_to_non_nullable
+                        as Horario?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_EnrollTrainingStateCopyWith<$Res>
+abstract class _$$EnrollTrainingStateImplCopyWith<$Res>
     implements $EnrollEventStateCopyWith<$Res> {
-  factory _$$_EnrollTrainingStateCopyWith(_$_EnrollTrainingState value,
-          $Res Function(_$_EnrollTrainingState) then) =
-      __$$_EnrollTrainingStateCopyWithImpl<$Res>;
+  factory _$$EnrollTrainingStateImplCopyWith(
+    _$EnrollTrainingStateImpl value,
+    $Res Function(_$EnrollTrainingStateImpl) then,
+  ) = __$$EnrollTrainingStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {bool loading,
-      bool showCalendar,
-      int peopleCounter,
-      List<Horario> horarios,
-      Locations? locations,
-      Events? event,
-      Horario? horarioSelected});
+  $Res call({
+    bool loading,
+    bool showCalendar,
+    int peopleCounter,
+    List<Horario> horarios,
+    Locations? locations,
+    Events? event,
+    Horario? horarioSelected,
+  });
 }
 
 /// @nodoc
-class __$$_EnrollTrainingStateCopyWithImpl<$Res>
-    extends _$EnrollEventStateCopyWithImpl<$Res, _$_EnrollTrainingState>
-    implements _$$_EnrollTrainingStateCopyWith<$Res> {
-  __$$_EnrollTrainingStateCopyWithImpl(_$_EnrollTrainingState _value,
-      $Res Function(_$_EnrollTrainingState) _then)
-      : super(_value, _then);
+class __$$EnrollTrainingStateImplCopyWithImpl<$Res>
+    extends _$EnrollEventStateCopyWithImpl<$Res, _$EnrollTrainingStateImpl>
+    implements _$$EnrollTrainingStateImplCopyWith<$Res> {
+  __$$EnrollTrainingStateImplCopyWithImpl(
+    _$EnrollTrainingStateImpl _value,
+    $Res Function(_$EnrollTrainingStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of EnrollEventState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -136,52 +158,61 @@ class __$$_EnrollTrainingStateCopyWithImpl<$Res>
     Object? event = freezed,
     Object? horarioSelected = freezed,
   }) {
-    return _then(_$_EnrollTrainingState(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      showCalendar: null == showCalendar
-          ? _value.showCalendar
-          : showCalendar // ignore: cast_nullable_to_non_nullable
-              as bool,
-      peopleCounter: null == peopleCounter
-          ? _value.peopleCounter
-          : peopleCounter // ignore: cast_nullable_to_non_nullable
-              as int,
-      horarios: null == horarios
-          ? _value._horarios
-          : horarios // ignore: cast_nullable_to_non_nullable
-              as List<Horario>,
-      locations: freezed == locations
-          ? _value.locations
-          : locations // ignore: cast_nullable_to_non_nullable
-              as Locations?,
-      event: freezed == event
-          ? _value.event
-          : event // ignore: cast_nullable_to_non_nullable
-              as Events?,
-      horarioSelected: freezed == horarioSelected
-          ? _value.horarioSelected
-          : horarioSelected // ignore: cast_nullable_to_non_nullable
-              as Horario?,
-    ));
+    return _then(
+      _$EnrollTrainingStateImpl(
+        loading:
+            null == loading
+                ? _value.loading
+                : loading // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        showCalendar:
+            null == showCalendar
+                ? _value.showCalendar
+                : showCalendar // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        peopleCounter:
+            null == peopleCounter
+                ? _value.peopleCounter
+                : peopleCounter // ignore: cast_nullable_to_non_nullable
+                    as int,
+        horarios:
+            null == horarios
+                ? _value._horarios
+                : horarios // ignore: cast_nullable_to_non_nullable
+                    as List<Horario>,
+        locations:
+            freezed == locations
+                ? _value.locations
+                : locations // ignore: cast_nullable_to_non_nullable
+                    as Locations?,
+        event:
+            freezed == event
+                ? _value.event
+                : event // ignore: cast_nullable_to_non_nullable
+                    as Events?,
+        horarioSelected:
+            freezed == horarioSelected
+                ? _value.horarioSelected
+                : horarioSelected // ignore: cast_nullable_to_non_nullable
+                    as Horario?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_EnrollTrainingState extends _EnrollTrainingState {
-  const _$_EnrollTrainingState(
-      {this.loading = false,
-      this.showCalendar = false,
-      this.peopleCounter = 0,
-      final List<Horario> horarios = const <Horario>[],
-      this.locations,
-      this.event,
-      this.horarioSelected})
-      : _horarios = horarios,
-        super._();
+class _$EnrollTrainingStateImpl extends _EnrollTrainingState {
+  const _$EnrollTrainingStateImpl({
+    this.loading = false,
+    this.showCalendar = false,
+    this.peopleCounter = 0,
+    final List<Horario> horarios = const <Horario>[],
+    this.locations,
+    this.event,
+    this.horarioSelected,
+  }) : _horarios = horarios,
+       super._();
 
   @override
   @JsonKey()
@@ -214,10 +245,10 @@ class _$_EnrollTrainingState extends _EnrollTrainingState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_EnrollTrainingState &&
+            other is _$EnrollTrainingStateImpl &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.showCalendar, showCalendar) ||
                 other.showCalendar == showCalendar) &&
@@ -233,32 +264,38 @@ class _$_EnrollTrainingState extends _EnrollTrainingState {
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      loading,
-      showCalendar,
-      peopleCounter,
-      const DeepCollectionEquality().hash(_horarios),
-      locations,
-      event,
-      horarioSelected);
+    runtimeType,
+    loading,
+    showCalendar,
+    peopleCounter,
+    const DeepCollectionEquality().hash(_horarios),
+    locations,
+    event,
+    horarioSelected,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of EnrollEventState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_EnrollTrainingStateCopyWith<_$_EnrollTrainingState> get copyWith =>
-      __$$_EnrollTrainingStateCopyWithImpl<_$_EnrollTrainingState>(
-          this, _$identity);
+  _$$EnrollTrainingStateImplCopyWith<_$EnrollTrainingStateImpl> get copyWith =>
+      __$$EnrollTrainingStateImplCopyWithImpl<_$EnrollTrainingStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _EnrollTrainingState extends EnrollEventState {
-  const factory _EnrollTrainingState(
-      {final bool loading,
-      final bool showCalendar,
-      final int peopleCounter,
-      final List<Horario> horarios,
-      final Locations? locations,
-      final Events? event,
-      final Horario? horarioSelected}) = _$_EnrollTrainingState;
+  const factory _EnrollTrainingState({
+    final bool loading,
+    final bool showCalendar,
+    final int peopleCounter,
+    final List<Horario> horarios,
+    final Locations? locations,
+    final Events? event,
+    final Horario? horarioSelected,
+  }) = _$EnrollTrainingStateImpl;
   const _EnrollTrainingState._() : super._();
 
   @override
@@ -275,8 +312,11 @@ abstract class _EnrollTrainingState extends EnrollEventState {
   Events? get event;
   @override
   Horario? get horarioSelected;
+
+  /// Create a copy of EnrollEventState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_EnrollTrainingStateCopyWith<_$_EnrollTrainingState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$EnrollTrainingStateImplCopyWith<_$EnrollTrainingStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

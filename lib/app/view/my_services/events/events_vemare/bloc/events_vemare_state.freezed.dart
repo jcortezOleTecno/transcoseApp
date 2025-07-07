@@ -12,7 +12,8 @@ part of 'events_vemare_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$EventsVemareState {
@@ -22,7 +23,9 @@ mixin _$EventsVemareState {
   HeaderEvents? get header => throw _privateConstructorUsedError;
   String? get yearSelected => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of EventsVemareState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $EventsVemareStateCopyWith<EventsVemareState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -30,15 +33,17 @@ mixin _$EventsVemareState {
 /// @nodoc
 abstract class $EventsVemareStateCopyWith<$Res> {
   factory $EventsVemareStateCopyWith(
-          EventsVemareState value, $Res Function(EventsVemareState) then) =
-      _$EventsVemareStateCopyWithImpl<$Res, EventsVemareState>;
+    EventsVemareState value,
+    $Res Function(EventsVemareState) then,
+  ) = _$EventsVemareStateCopyWithImpl<$Res, EventsVemareState>;
   @useResult
-  $Res call(
-      {bool loading,
-      List<EventsHeld> eventsVemare,
-      List<String> yearsList,
-      HeaderEvents? header,
-      String? yearSelected});
+  $Res call({
+    bool loading,
+    List<EventsHeld> eventsVemare,
+    List<String> yearsList,
+    HeaderEvents? header,
+    String? yearSelected,
+  });
 }
 
 /// @nodoc
@@ -51,6 +56,8 @@ class _$EventsVemareStateCopyWithImpl<$Res, $Val extends EventsVemareState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of EventsVemareState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -60,55 +67,68 @@ class _$EventsVemareStateCopyWithImpl<$Res, $Val extends EventsVemareState>
     Object? header = freezed,
     Object? yearSelected = freezed,
   }) {
-    return _then(_value.copyWith(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      eventsVemare: null == eventsVemare
-          ? _value.eventsVemare
-          : eventsVemare // ignore: cast_nullable_to_non_nullable
-              as List<EventsHeld>,
-      yearsList: null == yearsList
-          ? _value.yearsList
-          : yearsList // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      header: freezed == header
-          ? _value.header
-          : header // ignore: cast_nullable_to_non_nullable
-              as HeaderEvents?,
-      yearSelected: freezed == yearSelected
-          ? _value.yearSelected
-          : yearSelected // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            loading:
+                null == loading
+                    ? _value.loading
+                    : loading // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            eventsVemare:
+                null == eventsVemare
+                    ? _value.eventsVemare
+                    : eventsVemare // ignore: cast_nullable_to_non_nullable
+                        as List<EventsHeld>,
+            yearsList:
+                null == yearsList
+                    ? _value.yearsList
+                    : yearsList // ignore: cast_nullable_to_non_nullable
+                        as List<String>,
+            header:
+                freezed == header
+                    ? _value.header
+                    : header // ignore: cast_nullable_to_non_nullable
+                        as HeaderEvents?,
+            yearSelected:
+                freezed == yearSelected
+                    ? _value.yearSelected
+                    : yearSelected // ignore: cast_nullable_to_non_nullable
+                        as String?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_EventsVemareStateCopyWith<$Res>
+abstract class _$$EventsVemareStateImplCopyWith<$Res>
     implements $EventsVemareStateCopyWith<$Res> {
-  factory _$$_EventsVemareStateCopyWith(_$_EventsVemareState value,
-          $Res Function(_$_EventsVemareState) then) =
-      __$$_EventsVemareStateCopyWithImpl<$Res>;
+  factory _$$EventsVemareStateImplCopyWith(
+    _$EventsVemareStateImpl value,
+    $Res Function(_$EventsVemareStateImpl) then,
+  ) = __$$EventsVemareStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {bool loading,
-      List<EventsHeld> eventsVemare,
-      List<String> yearsList,
-      HeaderEvents? header,
-      String? yearSelected});
+  $Res call({
+    bool loading,
+    List<EventsHeld> eventsVemare,
+    List<String> yearsList,
+    HeaderEvents? header,
+    String? yearSelected,
+  });
 }
 
 /// @nodoc
-class __$$_EventsVemareStateCopyWithImpl<$Res>
-    extends _$EventsVemareStateCopyWithImpl<$Res, _$_EventsVemareState>
-    implements _$$_EventsVemareStateCopyWith<$Res> {
-  __$$_EventsVemareStateCopyWithImpl(
-      _$_EventsVemareState _value, $Res Function(_$_EventsVemareState) _then)
-      : super(_value, _then);
+class __$$EventsVemareStateImplCopyWithImpl<$Res>
+    extends _$EventsVemareStateCopyWithImpl<$Res, _$EventsVemareStateImpl>
+    implements _$$EventsVemareStateImplCopyWith<$Res> {
+  __$$EventsVemareStateImplCopyWithImpl(
+    _$EventsVemareStateImpl _value,
+    $Res Function(_$EventsVemareStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of EventsVemareState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -118,43 +138,50 @@ class __$$_EventsVemareStateCopyWithImpl<$Res>
     Object? header = freezed,
     Object? yearSelected = freezed,
   }) {
-    return _then(_$_EventsVemareState(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      eventsVemare: null == eventsVemare
-          ? _value._eventsVemare
-          : eventsVemare // ignore: cast_nullable_to_non_nullable
-              as List<EventsHeld>,
-      yearsList: null == yearsList
-          ? _value._yearsList
-          : yearsList // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      header: freezed == header
-          ? _value.header
-          : header // ignore: cast_nullable_to_non_nullable
-              as HeaderEvents?,
-      yearSelected: freezed == yearSelected
-          ? _value.yearSelected
-          : yearSelected // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
+    return _then(
+      _$EventsVemareStateImpl(
+        loading:
+            null == loading
+                ? _value.loading
+                : loading // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        eventsVemare:
+            null == eventsVemare
+                ? _value._eventsVemare
+                : eventsVemare // ignore: cast_nullable_to_non_nullable
+                    as List<EventsHeld>,
+        yearsList:
+            null == yearsList
+                ? _value._yearsList
+                : yearsList // ignore: cast_nullable_to_non_nullable
+                    as List<String>,
+        header:
+            freezed == header
+                ? _value.header
+                : header // ignore: cast_nullable_to_non_nullable
+                    as HeaderEvents?,
+        yearSelected:
+            freezed == yearSelected
+                ? _value.yearSelected
+                : yearSelected // ignore: cast_nullable_to_non_nullable
+                    as String?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_EventsVemareState extends _EventsVemareState {
-  const _$_EventsVemareState(
-      {this.loading = false,
-      final List<EventsHeld> eventsVemare = const <EventsHeld>[],
-      final List<String> yearsList = const <String>[],
-      this.header,
-      this.yearSelected})
-      : _eventsVemare = eventsVemare,
-        _yearsList = yearsList,
-        super._();
+class _$EventsVemareStateImpl extends _EventsVemareState {
+  const _$EventsVemareStateImpl({
+    this.loading = false,
+    final List<EventsHeld> eventsVemare = const <EventsHeld>[],
+    final List<String> yearsList = const <String>[],
+    this.header,
+    this.yearSelected,
+  }) : _eventsVemare = eventsVemare,
+       _yearsList = yearsList,
+       super._();
 
   @override
   @JsonKey()
@@ -188,15 +215,19 @@ class _$_EventsVemareState extends _EventsVemareState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_EventsVemareState &&
+            other is _$EventsVemareStateImpl &&
             (identical(other.loading, loading) || other.loading == loading) &&
-            const DeepCollectionEquality()
-                .equals(other._eventsVemare, _eventsVemare) &&
-            const DeepCollectionEquality()
-                .equals(other._yearsList, _yearsList) &&
+            const DeepCollectionEquality().equals(
+              other._eventsVemare,
+              _eventsVemare,
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._yearsList,
+              _yearsList,
+            ) &&
             (identical(other.header, header) || other.header == header) &&
             (identical(other.yearSelected, yearSelected) ||
                 other.yearSelected == yearSelected));
@@ -204,28 +235,34 @@ class _$_EventsVemareState extends _EventsVemareState {
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      loading,
-      const DeepCollectionEquality().hash(_eventsVemare),
-      const DeepCollectionEquality().hash(_yearsList),
-      header,
-      yearSelected);
+    runtimeType,
+    loading,
+    const DeepCollectionEquality().hash(_eventsVemare),
+    const DeepCollectionEquality().hash(_yearsList),
+    header,
+    yearSelected,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of EventsVemareState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_EventsVemareStateCopyWith<_$_EventsVemareState> get copyWith =>
-      __$$_EventsVemareStateCopyWithImpl<_$_EventsVemareState>(
-          this, _$identity);
+  _$$EventsVemareStateImplCopyWith<_$EventsVemareStateImpl> get copyWith =>
+      __$$EventsVemareStateImplCopyWithImpl<_$EventsVemareStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _EventsVemareState extends EventsVemareState {
-  const factory _EventsVemareState(
-      {final bool loading,
-      final List<EventsHeld> eventsVemare,
-      final List<String> yearsList,
-      final HeaderEvents? header,
-      final String? yearSelected}) = _$_EventsVemareState;
+  const factory _EventsVemareState({
+    final bool loading,
+    final List<EventsHeld> eventsVemare,
+    final List<String> yearsList,
+    final HeaderEvents? header,
+    final String? yearSelected,
+  }) = _$EventsVemareStateImpl;
   const _EventsVemareState._() : super._();
 
   @override
@@ -238,8 +275,11 @@ abstract class _EventsVemareState extends EventsVemareState {
   HeaderEvents? get header;
   @override
   String? get yearSelected;
+
+  /// Create a copy of EventsVemareState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_EventsVemareStateCopyWith<_$_EventsVemareState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$EventsVemareStateImplCopyWith<_$EventsVemareStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

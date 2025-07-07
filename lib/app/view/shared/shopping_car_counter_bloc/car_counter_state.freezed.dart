@@ -12,13 +12,16 @@ part of 'car_counter_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$CarCounterState {
   int get products => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CarCounterState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CarCounterStateCopyWith<CarCounterState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -26,8 +29,9 @@ mixin _$CarCounterState {
 /// @nodoc
 abstract class $CarCounterStateCopyWith<$Res> {
   factory $CarCounterStateCopyWith(
-          CarCounterState value, $Res Function(CarCounterState) then) =
-      _$CarCounterStateCopyWithImpl<$Res, CarCounterState>;
+    CarCounterState value,
+    $Res Function(CarCounterState) then,
+  ) = _$CarCounterStateCopyWithImpl<$Res, CarCounterState>;
   @useResult
   $Res call({int products});
 }
@@ -42,57 +46,66 @@ class _$CarCounterStateCopyWithImpl<$Res, $Val extends CarCounterState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CarCounterState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? products = null,
-  }) {
-    return _then(_value.copyWith(
-      products: null == products
-          ? _value.products
-          : products // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
+  $Res call({Object? products = null}) {
+    return _then(
+      _value.copyWith(
+            products:
+                null == products
+                    ? _value.products
+                    : products // ignore: cast_nullable_to_non_nullable
+                        as int,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_UserStateCopyWith<$Res>
+abstract class _$$UserStateImplCopyWith<$Res>
     implements $CarCounterStateCopyWith<$Res> {
-  factory _$$_UserStateCopyWith(
-          _$_UserState value, $Res Function(_$_UserState) then) =
-      __$$_UserStateCopyWithImpl<$Res>;
+  factory _$$UserStateImplCopyWith(
+    _$UserStateImpl value,
+    $Res Function(_$UserStateImpl) then,
+  ) = __$$UserStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int products});
 }
 
 /// @nodoc
-class __$$_UserStateCopyWithImpl<$Res>
-    extends _$CarCounterStateCopyWithImpl<$Res, _$_UserState>
-    implements _$$_UserStateCopyWith<$Res> {
-  __$$_UserStateCopyWithImpl(
-      _$_UserState _value, $Res Function(_$_UserState) _then)
-      : super(_value, _then);
+class __$$UserStateImplCopyWithImpl<$Res>
+    extends _$CarCounterStateCopyWithImpl<$Res, _$UserStateImpl>
+    implements _$$UserStateImplCopyWith<$Res> {
+  __$$UserStateImplCopyWithImpl(
+    _$UserStateImpl _value,
+    $Res Function(_$UserStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of CarCounterState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? products = null,
-  }) {
-    return _then(_$_UserState(
-      products: null == products
-          ? _value.products
-          : products // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
+  $Res call({Object? products = null}) {
+    return _then(
+      _$UserStateImpl(
+        products:
+            null == products
+                ? _value.products
+                : products // ignore: cast_nullable_to_non_nullable
+                    as int,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_UserState extends _UserState {
-  const _$_UserState({this.products = 0}) : super._();
+class _$UserStateImpl extends _UserState {
+  const _$UserStateImpl({this.products = 0}) : super._();
 
   @override
   @JsonKey()
@@ -104,10 +117,10 @@ class _$_UserState extends _UserState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UserState &&
+            other is _$UserStateImpl &&
             (identical(other.products, products) ||
                 other.products == products));
   }
@@ -115,21 +128,26 @@ class _$_UserState extends _UserState {
   @override
   int get hashCode => Object.hash(runtimeType, products);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CarCounterState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UserStateCopyWith<_$_UserState> get copyWith =>
-      __$$_UserStateCopyWithImpl<_$_UserState>(this, _$identity);
+  _$$UserStateImplCopyWith<_$UserStateImpl> get copyWith =>
+      __$$UserStateImplCopyWithImpl<_$UserStateImpl>(this, _$identity);
 }
 
 abstract class _UserState extends CarCounterState {
-  const factory _UserState({final int products}) = _$_UserState;
+  const factory _UserState({final int products}) = _$UserStateImpl;
   const _UserState._() : super._();
 
   @override
   int get products;
+
+  /// Create a copy of CarCounterState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_UserStateCopyWith<_$_UserState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$UserStateImplCopyWith<_$UserStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -12,7 +12,8 @@ part of 'register_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$RegisterState {
@@ -35,7 +36,9 @@ mixin _$RegisterState {
   String? get roleId => throw _privateConstructorUsedError;
   String? get parentId => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of RegisterState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $RegisterStateCopyWith<RegisterState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -43,28 +46,30 @@ mixin _$RegisterState {
 /// @nodoc
 abstract class $RegisterStateCopyWith<$Res> {
   factory $RegisterStateCopyWith(
-          RegisterState value, $Res Function(RegisterState) then) =
-      _$RegisterStateCopyWithImpl<$Res, RegisterState>;
+    RegisterState value,
+    $Res Function(RegisterState) then,
+  ) = _$RegisterStateCopyWithImpl<$Res, RegisterState>;
   @useResult
-  $Res call(
-      {FormStatus status,
-      bool privacyPolicy,
-      bool receiveInformation,
-      List<UserRol> roles,
-      List<Enterprise> enterprises,
-      Enterprise? selectedEnterprise,
-      UserRol? selectedRol,
-      String? msgError,
-      String? name,
-      String? cif,
-      Email? email,
-      String? phone,
-      String? responsibleName,
-      String? responsibleLastName,
-      Password? password,
-      Password? confirmPassword,
-      String? roleId,
-      String? parentId});
+  $Res call({
+    FormStatus status,
+    bool privacyPolicy,
+    bool receiveInformation,
+    List<UserRol> roles,
+    List<Enterprise> enterprises,
+    Enterprise? selectedEnterprise,
+    UserRol? selectedRol,
+    String? msgError,
+    String? name,
+    String? cif,
+    Email? email,
+    String? phone,
+    String? responsibleName,
+    String? responsibleLastName,
+    Password? password,
+    Password? confirmPassword,
+    String? roleId,
+    String? parentId,
+  });
 }
 
 /// @nodoc
@@ -77,6 +82,8 @@ class _$RegisterStateCopyWithImpl<$Res, $Val extends RegisterState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of RegisterState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -99,120 +106,146 @@ class _$RegisterStateCopyWithImpl<$Res, $Val extends RegisterState>
     Object? roleId = freezed,
     Object? parentId = freezed,
   }) {
-    return _then(_value.copyWith(
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as FormStatus,
-      privacyPolicy: null == privacyPolicy
-          ? _value.privacyPolicy
-          : privacyPolicy // ignore: cast_nullable_to_non_nullable
-              as bool,
-      receiveInformation: null == receiveInformation
-          ? _value.receiveInformation
-          : receiveInformation // ignore: cast_nullable_to_non_nullable
-              as bool,
-      roles: null == roles
-          ? _value.roles
-          : roles // ignore: cast_nullable_to_non_nullable
-              as List<UserRol>,
-      enterprises: null == enterprises
-          ? _value.enterprises
-          : enterprises // ignore: cast_nullable_to_non_nullable
-              as List<Enterprise>,
-      selectedEnterprise: freezed == selectedEnterprise
-          ? _value.selectedEnterprise
-          : selectedEnterprise // ignore: cast_nullable_to_non_nullable
-              as Enterprise?,
-      selectedRol: freezed == selectedRol
-          ? _value.selectedRol
-          : selectedRol // ignore: cast_nullable_to_non_nullable
-              as UserRol?,
-      msgError: freezed == msgError
-          ? _value.msgError
-          : msgError // ignore: cast_nullable_to_non_nullable
-              as String?,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      cif: freezed == cif
-          ? _value.cif
-          : cif // ignore: cast_nullable_to_non_nullable
-              as String?,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as Email?,
-      phone: freezed == phone
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
-              as String?,
-      responsibleName: freezed == responsibleName
-          ? _value.responsibleName
-          : responsibleName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      responsibleLastName: freezed == responsibleLastName
-          ? _value.responsibleLastName
-          : responsibleLastName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      password: freezed == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as Password?,
-      confirmPassword: freezed == confirmPassword
-          ? _value.confirmPassword
-          : confirmPassword // ignore: cast_nullable_to_non_nullable
-              as Password?,
-      roleId: freezed == roleId
-          ? _value.roleId
-          : roleId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      parentId: freezed == parentId
-          ? _value.parentId
-          : parentId // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            status:
+                null == status
+                    ? _value.status
+                    : status // ignore: cast_nullable_to_non_nullable
+                        as FormStatus,
+            privacyPolicy:
+                null == privacyPolicy
+                    ? _value.privacyPolicy
+                    : privacyPolicy // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            receiveInformation:
+                null == receiveInformation
+                    ? _value.receiveInformation
+                    : receiveInformation // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            roles:
+                null == roles
+                    ? _value.roles
+                    : roles // ignore: cast_nullable_to_non_nullable
+                        as List<UserRol>,
+            enterprises:
+                null == enterprises
+                    ? _value.enterprises
+                    : enterprises // ignore: cast_nullable_to_non_nullable
+                        as List<Enterprise>,
+            selectedEnterprise:
+                freezed == selectedEnterprise
+                    ? _value.selectedEnterprise
+                    : selectedEnterprise // ignore: cast_nullable_to_non_nullable
+                        as Enterprise?,
+            selectedRol:
+                freezed == selectedRol
+                    ? _value.selectedRol
+                    : selectedRol // ignore: cast_nullable_to_non_nullable
+                        as UserRol?,
+            msgError:
+                freezed == msgError
+                    ? _value.msgError
+                    : msgError // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            name:
+                freezed == name
+                    ? _value.name
+                    : name // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            cif:
+                freezed == cif
+                    ? _value.cif
+                    : cif // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            email:
+                freezed == email
+                    ? _value.email
+                    : email // ignore: cast_nullable_to_non_nullable
+                        as Email?,
+            phone:
+                freezed == phone
+                    ? _value.phone
+                    : phone // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            responsibleName:
+                freezed == responsibleName
+                    ? _value.responsibleName
+                    : responsibleName // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            responsibleLastName:
+                freezed == responsibleLastName
+                    ? _value.responsibleLastName
+                    : responsibleLastName // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            password:
+                freezed == password
+                    ? _value.password
+                    : password // ignore: cast_nullable_to_non_nullable
+                        as Password?,
+            confirmPassword:
+                freezed == confirmPassword
+                    ? _value.confirmPassword
+                    : confirmPassword // ignore: cast_nullable_to_non_nullable
+                        as Password?,
+            roleId:
+                freezed == roleId
+                    ? _value.roleId
+                    : roleId // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            parentId:
+                freezed == parentId
+                    ? _value.parentId
+                    : parentId // ignore: cast_nullable_to_non_nullable
+                        as String?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_RegisterStateCopyWith<$Res>
+abstract class _$$RegisterStateImplCopyWith<$Res>
     implements $RegisterStateCopyWith<$Res> {
-  factory _$$_RegisterStateCopyWith(
-          _$_RegisterState value, $Res Function(_$_RegisterState) then) =
-      __$$_RegisterStateCopyWithImpl<$Res>;
+  factory _$$RegisterStateImplCopyWith(
+    _$RegisterStateImpl value,
+    $Res Function(_$RegisterStateImpl) then,
+  ) = __$$RegisterStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {FormStatus status,
-      bool privacyPolicy,
-      bool receiveInformation,
-      List<UserRol> roles,
-      List<Enterprise> enterprises,
-      Enterprise? selectedEnterprise,
-      UserRol? selectedRol,
-      String? msgError,
-      String? name,
-      String? cif,
-      Email? email,
-      String? phone,
-      String? responsibleName,
-      String? responsibleLastName,
-      Password? password,
-      Password? confirmPassword,
-      String? roleId,
-      String? parentId});
+  $Res call({
+    FormStatus status,
+    bool privacyPolicy,
+    bool receiveInformation,
+    List<UserRol> roles,
+    List<Enterprise> enterprises,
+    Enterprise? selectedEnterprise,
+    UserRol? selectedRol,
+    String? msgError,
+    String? name,
+    String? cif,
+    Email? email,
+    String? phone,
+    String? responsibleName,
+    String? responsibleLastName,
+    Password? password,
+    Password? confirmPassword,
+    String? roleId,
+    String? parentId,
+  });
 }
 
 /// @nodoc
-class __$$_RegisterStateCopyWithImpl<$Res>
-    extends _$RegisterStateCopyWithImpl<$Res, _$_RegisterState>
-    implements _$$_RegisterStateCopyWith<$Res> {
-  __$$_RegisterStateCopyWithImpl(
-      _$_RegisterState _value, $Res Function(_$_RegisterState) _then)
-      : super(_value, _then);
+class __$$RegisterStateImplCopyWithImpl<$Res>
+    extends _$RegisterStateCopyWithImpl<$Res, _$RegisterStateImpl>
+    implements _$$RegisterStateImplCopyWith<$Res> {
+  __$$RegisterStateImplCopyWithImpl(
+    _$RegisterStateImpl _value,
+    $Res Function(_$RegisterStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of RegisterState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -235,108 +268,128 @@ class __$$_RegisterStateCopyWithImpl<$Res>
     Object? roleId = freezed,
     Object? parentId = freezed,
   }) {
-    return _then(_$_RegisterState(
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as FormStatus,
-      privacyPolicy: null == privacyPolicy
-          ? _value.privacyPolicy
-          : privacyPolicy // ignore: cast_nullable_to_non_nullable
-              as bool,
-      receiveInformation: null == receiveInformation
-          ? _value.receiveInformation
-          : receiveInformation // ignore: cast_nullable_to_non_nullable
-              as bool,
-      roles: null == roles
-          ? _value._roles
-          : roles // ignore: cast_nullable_to_non_nullable
-              as List<UserRol>,
-      enterprises: null == enterprises
-          ? _value._enterprises
-          : enterprises // ignore: cast_nullable_to_non_nullable
-              as List<Enterprise>,
-      selectedEnterprise: freezed == selectedEnterprise
-          ? _value.selectedEnterprise
-          : selectedEnterprise // ignore: cast_nullable_to_non_nullable
-              as Enterprise?,
-      selectedRol: freezed == selectedRol
-          ? _value.selectedRol
-          : selectedRol // ignore: cast_nullable_to_non_nullable
-              as UserRol?,
-      msgError: freezed == msgError
-          ? _value.msgError
-          : msgError // ignore: cast_nullable_to_non_nullable
-              as String?,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      cif: freezed == cif
-          ? _value.cif
-          : cif // ignore: cast_nullable_to_non_nullable
-              as String?,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as Email?,
-      phone: freezed == phone
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
-              as String?,
-      responsibleName: freezed == responsibleName
-          ? _value.responsibleName
-          : responsibleName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      responsibleLastName: freezed == responsibleLastName
-          ? _value.responsibleLastName
-          : responsibleLastName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      password: freezed == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as Password?,
-      confirmPassword: freezed == confirmPassword
-          ? _value.confirmPassword
-          : confirmPassword // ignore: cast_nullable_to_non_nullable
-              as Password?,
-      roleId: freezed == roleId
-          ? _value.roleId
-          : roleId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      parentId: freezed == parentId
-          ? _value.parentId
-          : parentId // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
+    return _then(
+      _$RegisterStateImpl(
+        status:
+            null == status
+                ? _value.status
+                : status // ignore: cast_nullable_to_non_nullable
+                    as FormStatus,
+        privacyPolicy:
+            null == privacyPolicy
+                ? _value.privacyPolicy
+                : privacyPolicy // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        receiveInformation:
+            null == receiveInformation
+                ? _value.receiveInformation
+                : receiveInformation // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        roles:
+            null == roles
+                ? _value._roles
+                : roles // ignore: cast_nullable_to_non_nullable
+                    as List<UserRol>,
+        enterprises:
+            null == enterprises
+                ? _value._enterprises
+                : enterprises // ignore: cast_nullable_to_non_nullable
+                    as List<Enterprise>,
+        selectedEnterprise:
+            freezed == selectedEnterprise
+                ? _value.selectedEnterprise
+                : selectedEnterprise // ignore: cast_nullable_to_non_nullable
+                    as Enterprise?,
+        selectedRol:
+            freezed == selectedRol
+                ? _value.selectedRol
+                : selectedRol // ignore: cast_nullable_to_non_nullable
+                    as UserRol?,
+        msgError:
+            freezed == msgError
+                ? _value.msgError
+                : msgError // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        name:
+            freezed == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        cif:
+            freezed == cif
+                ? _value.cif
+                : cif // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        email:
+            freezed == email
+                ? _value.email
+                : email // ignore: cast_nullable_to_non_nullable
+                    as Email?,
+        phone:
+            freezed == phone
+                ? _value.phone
+                : phone // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        responsibleName:
+            freezed == responsibleName
+                ? _value.responsibleName
+                : responsibleName // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        responsibleLastName:
+            freezed == responsibleLastName
+                ? _value.responsibleLastName
+                : responsibleLastName // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        password:
+            freezed == password
+                ? _value.password
+                : password // ignore: cast_nullable_to_non_nullable
+                    as Password?,
+        confirmPassword:
+            freezed == confirmPassword
+                ? _value.confirmPassword
+                : confirmPassword // ignore: cast_nullable_to_non_nullable
+                    as Password?,
+        roleId:
+            freezed == roleId
+                ? _value.roleId
+                : roleId // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        parentId:
+            freezed == parentId
+                ? _value.parentId
+                : parentId // ignore: cast_nullable_to_non_nullable
+                    as String?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_RegisterState extends _RegisterState {
-  const _$_RegisterState(
-      {this.status = FormStatus.editing,
-      this.privacyPolicy = false,
-      this.receiveInformation = false,
-      final List<UserRol> roles = const <UserRol>[],
-      final List<Enterprise> enterprises = const <Enterprise>[],
-      this.selectedEnterprise,
-      this.selectedRol,
-      this.msgError,
-      this.name,
-      this.cif,
-      this.email,
-      this.phone,
-      this.responsibleName,
-      this.responsibleLastName,
-      this.password,
-      this.confirmPassword,
-      this.roleId,
-      this.parentId})
-      : _roles = roles,
-        _enterprises = enterprises,
-        super._();
+class _$RegisterStateImpl extends _RegisterState {
+  const _$RegisterStateImpl({
+    this.status = FormStatus.editing,
+    this.privacyPolicy = false,
+    this.receiveInformation = false,
+    final List<UserRol> roles = const <UserRol>[],
+    final List<Enterprise> enterprises = const <Enterprise>[],
+    this.selectedEnterprise,
+    this.selectedRol,
+    this.msgError,
+    this.name,
+    this.cif,
+    this.email,
+    this.phone,
+    this.responsibleName,
+    this.responsibleLastName,
+    this.password,
+    this.confirmPassword,
+    this.roleId,
+    this.parentId,
+  }) : _roles = roles,
+       _enterprises = enterprises,
+       super._();
 
   @override
   @JsonKey()
@@ -398,18 +451,20 @@ class _$_RegisterState extends _RegisterState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RegisterState &&
+            other is _$RegisterStateImpl &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.privacyPolicy, privacyPolicy) ||
                 other.privacyPolicy == privacyPolicy) &&
             (identical(other.receiveInformation, receiveInformation) ||
                 other.receiveInformation == receiveInformation) &&
             const DeepCollectionEquality().equals(other._roles, _roles) &&
-            const DeepCollectionEquality()
-                .equals(other._enterprises, _enterprises) &&
+            const DeepCollectionEquality().equals(
+              other._enterprises,
+              _enterprises,
+            ) &&
             (identical(other.selectedEnterprise, selectedEnterprise) ||
                 other.selectedEnterprise == selectedEnterprise) &&
             (identical(other.selectedRol, selectedRol) ||
@@ -435,53 +490,57 @@ class _$_RegisterState extends _RegisterState {
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      status,
-      privacyPolicy,
-      receiveInformation,
-      const DeepCollectionEquality().hash(_roles),
-      const DeepCollectionEquality().hash(_enterprises),
-      selectedEnterprise,
-      selectedRol,
-      msgError,
-      name,
-      cif,
-      email,
-      phone,
-      responsibleName,
-      responsibleLastName,
-      password,
-      confirmPassword,
-      roleId,
-      parentId);
+    runtimeType,
+    status,
+    privacyPolicy,
+    receiveInformation,
+    const DeepCollectionEquality().hash(_roles),
+    const DeepCollectionEquality().hash(_enterprises),
+    selectedEnterprise,
+    selectedRol,
+    msgError,
+    name,
+    cif,
+    email,
+    phone,
+    responsibleName,
+    responsibleLastName,
+    password,
+    confirmPassword,
+    roleId,
+    parentId,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of RegisterState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_RegisterStateCopyWith<_$_RegisterState> get copyWith =>
-      __$$_RegisterStateCopyWithImpl<_$_RegisterState>(this, _$identity);
+  _$$RegisterStateImplCopyWith<_$RegisterStateImpl> get copyWith =>
+      __$$RegisterStateImplCopyWithImpl<_$RegisterStateImpl>(this, _$identity);
 }
 
 abstract class _RegisterState extends RegisterState {
-  const factory _RegisterState(
-      {final FormStatus status,
-      final bool privacyPolicy,
-      final bool receiveInformation,
-      final List<UserRol> roles,
-      final List<Enterprise> enterprises,
-      final Enterprise? selectedEnterprise,
-      final UserRol? selectedRol,
-      final String? msgError,
-      final String? name,
-      final String? cif,
-      final Email? email,
-      final String? phone,
-      final String? responsibleName,
-      final String? responsibleLastName,
-      final Password? password,
-      final Password? confirmPassword,
-      final String? roleId,
-      final String? parentId}) = _$_RegisterState;
+  const factory _RegisterState({
+    final FormStatus status,
+    final bool privacyPolicy,
+    final bool receiveInformation,
+    final List<UserRol> roles,
+    final List<Enterprise> enterprises,
+    final Enterprise? selectedEnterprise,
+    final UserRol? selectedRol,
+    final String? msgError,
+    final String? name,
+    final String? cif,
+    final Email? email,
+    final String? phone,
+    final String? responsibleName,
+    final String? responsibleLastName,
+    final Password? password,
+    final Password? confirmPassword,
+    final String? roleId,
+    final String? parentId,
+  }) = _$RegisterStateImpl;
   const _RegisterState._() : super._();
 
   @override
@@ -520,8 +579,11 @@ abstract class _RegisterState extends RegisterState {
   String? get roleId;
   @override
   String? get parentId;
+
+  /// Create a copy of RegisterState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_RegisterStateCopyWith<_$_RegisterState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$RegisterStateImplCopyWith<_$RegisterStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

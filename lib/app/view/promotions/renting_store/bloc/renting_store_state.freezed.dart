@@ -12,7 +12,8 @@ part of 'renting_store_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$RentingStoreState {
@@ -22,7 +23,9 @@ mixin _$RentingStoreState {
   String? get type => throw _privateConstructorUsedError;
   PayResponse? get payResponse => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of RentingStoreState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $RentingStoreStateCopyWith<RentingStoreState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -30,15 +33,17 @@ mixin _$RentingStoreState {
 /// @nodoc
 abstract class $RentingStoreStateCopyWith<$Res> {
   factory $RentingStoreStateCopyWith(
-          RentingStoreState value, $Res Function(RentingStoreState) then) =
-      _$RentingStoreStateCopyWithImpl<$Res, RentingStoreState>;
+    RentingStoreState value,
+    $Res Function(RentingStoreState) then,
+  ) = _$RentingStoreStateCopyWithImpl<$Res, RentingStoreState>;
   @useResult
-  $Res call(
-      {FormStatus status,
-      bool tarjeta,
-      StoreArgs? arg,
-      String? type,
-      PayResponse? payResponse});
+  $Res call({
+    FormStatus status,
+    bool tarjeta,
+    StoreArgs? arg,
+    String? type,
+    PayResponse? payResponse,
+  });
 }
 
 /// @nodoc
@@ -51,6 +56,8 @@ class _$RentingStoreStateCopyWithImpl<$Res, $Val extends RentingStoreState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of RentingStoreState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -60,55 +67,68 @@ class _$RentingStoreStateCopyWithImpl<$Res, $Val extends RentingStoreState>
     Object? type = freezed,
     Object? payResponse = freezed,
   }) {
-    return _then(_value.copyWith(
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as FormStatus,
-      tarjeta: null == tarjeta
-          ? _value.tarjeta
-          : tarjeta // ignore: cast_nullable_to_non_nullable
-              as bool,
-      arg: freezed == arg
-          ? _value.arg
-          : arg // ignore: cast_nullable_to_non_nullable
-              as StoreArgs?,
-      type: freezed == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String?,
-      payResponse: freezed == payResponse
-          ? _value.payResponse
-          : payResponse // ignore: cast_nullable_to_non_nullable
-              as PayResponse?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            status:
+                null == status
+                    ? _value.status
+                    : status // ignore: cast_nullable_to_non_nullable
+                        as FormStatus,
+            tarjeta:
+                null == tarjeta
+                    ? _value.tarjeta
+                    : tarjeta // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            arg:
+                freezed == arg
+                    ? _value.arg
+                    : arg // ignore: cast_nullable_to_non_nullable
+                        as StoreArgs?,
+            type:
+                freezed == type
+                    ? _value.type
+                    : type // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            payResponse:
+                freezed == payResponse
+                    ? _value.payResponse
+                    : payResponse // ignore: cast_nullable_to_non_nullable
+                        as PayResponse?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_RentingStoreStateCopyWith<$Res>
+abstract class _$$RentingStoreStateImplCopyWith<$Res>
     implements $RentingStoreStateCopyWith<$Res> {
-  factory _$$_RentingStoreStateCopyWith(_$_RentingStoreState value,
-          $Res Function(_$_RentingStoreState) then) =
-      __$$_RentingStoreStateCopyWithImpl<$Res>;
+  factory _$$RentingStoreStateImplCopyWith(
+    _$RentingStoreStateImpl value,
+    $Res Function(_$RentingStoreStateImpl) then,
+  ) = __$$RentingStoreStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {FormStatus status,
-      bool tarjeta,
-      StoreArgs? arg,
-      String? type,
-      PayResponse? payResponse});
+  $Res call({
+    FormStatus status,
+    bool tarjeta,
+    StoreArgs? arg,
+    String? type,
+    PayResponse? payResponse,
+  });
 }
 
 /// @nodoc
-class __$$_RentingStoreStateCopyWithImpl<$Res>
-    extends _$RentingStoreStateCopyWithImpl<$Res, _$_RentingStoreState>
-    implements _$$_RentingStoreStateCopyWith<$Res> {
-  __$$_RentingStoreStateCopyWithImpl(
-      _$_RentingStoreState _value, $Res Function(_$_RentingStoreState) _then)
-      : super(_value, _then);
+class __$$RentingStoreStateImplCopyWithImpl<$Res>
+    extends _$RentingStoreStateCopyWithImpl<$Res, _$RentingStoreStateImpl>
+    implements _$$RentingStoreStateImplCopyWith<$Res> {
+  __$$RentingStoreStateImplCopyWithImpl(
+    _$RentingStoreStateImpl _value,
+    $Res Function(_$RentingStoreStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of RentingStoreState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -118,41 +138,48 @@ class __$$_RentingStoreStateCopyWithImpl<$Res>
     Object? type = freezed,
     Object? payResponse = freezed,
   }) {
-    return _then(_$_RentingStoreState(
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as FormStatus,
-      tarjeta: null == tarjeta
-          ? _value.tarjeta
-          : tarjeta // ignore: cast_nullable_to_non_nullable
-              as bool,
-      arg: freezed == arg
-          ? _value.arg
-          : arg // ignore: cast_nullable_to_non_nullable
-              as StoreArgs?,
-      type: freezed == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String?,
-      payResponse: freezed == payResponse
-          ? _value.payResponse
-          : payResponse // ignore: cast_nullable_to_non_nullable
-              as PayResponse?,
-    ));
+    return _then(
+      _$RentingStoreStateImpl(
+        status:
+            null == status
+                ? _value.status
+                : status // ignore: cast_nullable_to_non_nullable
+                    as FormStatus,
+        tarjeta:
+            null == tarjeta
+                ? _value.tarjeta
+                : tarjeta // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        arg:
+            freezed == arg
+                ? _value.arg
+                : arg // ignore: cast_nullable_to_non_nullable
+                    as StoreArgs?,
+        type:
+            freezed == type
+                ? _value.type
+                : type // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        payResponse:
+            freezed == payResponse
+                ? _value.payResponse
+                : payResponse // ignore: cast_nullable_to_non_nullable
+                    as PayResponse?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_RentingStoreState extends _RentingStoreState {
-  const _$_RentingStoreState(
-      {this.status = FormStatus.editing,
-      this.tarjeta = true,
-      this.arg,
-      this.type,
-      this.payResponse})
-      : super._();
+class _$RentingStoreStateImpl extends _RentingStoreState {
+  const _$RentingStoreStateImpl({
+    this.status = FormStatus.editing,
+    this.tarjeta = true,
+    this.arg,
+    this.type,
+    this.payResponse,
+  }) : super._();
 
   @override
   @JsonKey()
@@ -173,10 +200,10 @@ class _$_RentingStoreState extends _RentingStoreState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RentingStoreState &&
+            other is _$RentingStoreStateImpl &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.tarjeta, tarjeta) || other.tarjeta == tarjeta) &&
             (identical(other.arg, arg) || other.arg == arg) &&
@@ -189,21 +216,26 @@ class _$_RentingStoreState extends _RentingStoreState {
   int get hashCode =>
       Object.hash(runtimeType, status, tarjeta, arg, type, payResponse);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of RentingStoreState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_RentingStoreStateCopyWith<_$_RentingStoreState> get copyWith =>
-      __$$_RentingStoreStateCopyWithImpl<_$_RentingStoreState>(
-          this, _$identity);
+  _$$RentingStoreStateImplCopyWith<_$RentingStoreStateImpl> get copyWith =>
+      __$$RentingStoreStateImplCopyWithImpl<_$RentingStoreStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _RentingStoreState extends RentingStoreState {
-  const factory _RentingStoreState(
-      {final FormStatus status,
-      final bool tarjeta,
-      final StoreArgs? arg,
-      final String? type,
-      final PayResponse? payResponse}) = _$_RentingStoreState;
+  const factory _RentingStoreState({
+    final FormStatus status,
+    final bool tarjeta,
+    final StoreArgs? arg,
+    final String? type,
+    final PayResponse? payResponse,
+  }) = _$RentingStoreStateImpl;
   const _RentingStoreState._() : super._();
 
   @override
@@ -216,8 +248,11 @@ abstract class _RentingStoreState extends RentingStoreState {
   String? get type;
   @override
   PayResponse? get payResponse;
+
+  /// Create a copy of RentingStoreState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_RentingStoreStateCopyWith<_$_RentingStoreState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$RentingStoreStateImplCopyWith<_$RentingStoreStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

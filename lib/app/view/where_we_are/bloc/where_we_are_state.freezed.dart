@@ -12,7 +12,8 @@ part of 'where_we_are_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$WhereWeAreState {
@@ -26,7 +27,9 @@ mixin _$WhereWeAreState {
   LatLng? get centerSelect => throw _privateConstructorUsedError;
   Header? get header => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of WhereWeAreState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $WhereWeAreStateCopyWith<WhereWeAreState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -34,19 +37,21 @@ mixin _$WhereWeAreState {
 /// @nodoc
 abstract class $WhereWeAreStateCopyWith<$Res> {
   factory $WhereWeAreStateCopyWith(
-          WhereWeAreState value, $Res Function(WhereWeAreState) then) =
-      _$WhereWeAreStateCopyWithImpl<$Res, WhereWeAreState>;
+    WhereWeAreState value,
+    $Res Function(WhereWeAreState) then,
+  ) = _$WhereWeAreStateCopyWithImpl<$Res, WhereWeAreState>;
   @useResult
-  $Res call(
-      {bool loading,
-      bool loadingCenters,
-      bool loadingData,
-      List<Center> centers,
-      List<String> countries,
-      List<String> postalCodes,
-      LatLng? location,
-      LatLng? centerSelect,
-      Header? header});
+  $Res call({
+    bool loading,
+    bool loadingCenters,
+    bool loadingData,
+    List<Center> centers,
+    List<String> countries,
+    List<String> postalCodes,
+    LatLng? location,
+    LatLng? centerSelect,
+    Header? header,
+  });
 }
 
 /// @nodoc
@@ -59,6 +64,8 @@ class _$WhereWeAreStateCopyWithImpl<$Res, $Val extends WhereWeAreState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of WhereWeAreState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -72,75 +79,92 @@ class _$WhereWeAreStateCopyWithImpl<$Res, $Val extends WhereWeAreState>
     Object? centerSelect = freezed,
     Object? header = freezed,
   }) {
-    return _then(_value.copyWith(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      loadingCenters: null == loadingCenters
-          ? _value.loadingCenters
-          : loadingCenters // ignore: cast_nullable_to_non_nullable
-              as bool,
-      loadingData: null == loadingData
-          ? _value.loadingData
-          : loadingData // ignore: cast_nullable_to_non_nullable
-              as bool,
-      centers: null == centers
-          ? _value.centers
-          : centers // ignore: cast_nullable_to_non_nullable
-              as List<Center>,
-      countries: null == countries
-          ? _value.countries
-          : countries // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      postalCodes: null == postalCodes
-          ? _value.postalCodes
-          : postalCodes // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      location: freezed == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
-              as LatLng?,
-      centerSelect: freezed == centerSelect
-          ? _value.centerSelect
-          : centerSelect // ignore: cast_nullable_to_non_nullable
-              as LatLng?,
-      header: freezed == header
-          ? _value.header
-          : header // ignore: cast_nullable_to_non_nullable
-              as Header?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            loading:
+                null == loading
+                    ? _value.loading
+                    : loading // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            loadingCenters:
+                null == loadingCenters
+                    ? _value.loadingCenters
+                    : loadingCenters // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            loadingData:
+                null == loadingData
+                    ? _value.loadingData
+                    : loadingData // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            centers:
+                null == centers
+                    ? _value.centers
+                    : centers // ignore: cast_nullable_to_non_nullable
+                        as List<Center>,
+            countries:
+                null == countries
+                    ? _value.countries
+                    : countries // ignore: cast_nullable_to_non_nullable
+                        as List<String>,
+            postalCodes:
+                null == postalCodes
+                    ? _value.postalCodes
+                    : postalCodes // ignore: cast_nullable_to_non_nullable
+                        as List<String>,
+            location:
+                freezed == location
+                    ? _value.location
+                    : location // ignore: cast_nullable_to_non_nullable
+                        as LatLng?,
+            centerSelect:
+                freezed == centerSelect
+                    ? _value.centerSelect
+                    : centerSelect // ignore: cast_nullable_to_non_nullable
+                        as LatLng?,
+            header:
+                freezed == header
+                    ? _value.header
+                    : header // ignore: cast_nullable_to_non_nullable
+                        as Header?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_WhereWeAreStateCopyWith<$Res>
+abstract class _$$WhereWeAreStateImplCopyWith<$Res>
     implements $WhereWeAreStateCopyWith<$Res> {
-  factory _$$_WhereWeAreStateCopyWith(
-          _$_WhereWeAreState value, $Res Function(_$_WhereWeAreState) then) =
-      __$$_WhereWeAreStateCopyWithImpl<$Res>;
+  factory _$$WhereWeAreStateImplCopyWith(
+    _$WhereWeAreStateImpl value,
+    $Res Function(_$WhereWeAreStateImpl) then,
+  ) = __$$WhereWeAreStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {bool loading,
-      bool loadingCenters,
-      bool loadingData,
-      List<Center> centers,
-      List<String> countries,
-      List<String> postalCodes,
-      LatLng? location,
-      LatLng? centerSelect,
-      Header? header});
+  $Res call({
+    bool loading,
+    bool loadingCenters,
+    bool loadingData,
+    List<Center> centers,
+    List<String> countries,
+    List<String> postalCodes,
+    LatLng? location,
+    LatLng? centerSelect,
+    Header? header,
+  });
 }
 
 /// @nodoc
-class __$$_WhereWeAreStateCopyWithImpl<$Res>
-    extends _$WhereWeAreStateCopyWithImpl<$Res, _$_WhereWeAreState>
-    implements _$$_WhereWeAreStateCopyWith<$Res> {
-  __$$_WhereWeAreStateCopyWithImpl(
-      _$_WhereWeAreState _value, $Res Function(_$_WhereWeAreState) _then)
-      : super(_value, _then);
+class __$$WhereWeAreStateImplCopyWithImpl<$Res>
+    extends _$WhereWeAreStateCopyWithImpl<$Res, _$WhereWeAreStateImpl>
+    implements _$$WhereWeAreStateImplCopyWith<$Res> {
+  __$$WhereWeAreStateImplCopyWithImpl(
+    _$WhereWeAreStateImpl _value,
+    $Res Function(_$WhereWeAreStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of WhereWeAreState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -154,64 +178,75 @@ class __$$_WhereWeAreStateCopyWithImpl<$Res>
     Object? centerSelect = freezed,
     Object? header = freezed,
   }) {
-    return _then(_$_WhereWeAreState(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      loadingCenters: null == loadingCenters
-          ? _value.loadingCenters
-          : loadingCenters // ignore: cast_nullable_to_non_nullable
-              as bool,
-      loadingData: null == loadingData
-          ? _value.loadingData
-          : loadingData // ignore: cast_nullable_to_non_nullable
-              as bool,
-      centers: null == centers
-          ? _value._centers
-          : centers // ignore: cast_nullable_to_non_nullable
-              as List<Center>,
-      countries: null == countries
-          ? _value._countries
-          : countries // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      postalCodes: null == postalCodes
-          ? _value._postalCodes
-          : postalCodes // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      location: freezed == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
-              as LatLng?,
-      centerSelect: freezed == centerSelect
-          ? _value.centerSelect
-          : centerSelect // ignore: cast_nullable_to_non_nullable
-              as LatLng?,
-      header: freezed == header
-          ? _value.header
-          : header // ignore: cast_nullable_to_non_nullable
-              as Header?,
-    ));
+    return _then(
+      _$WhereWeAreStateImpl(
+        loading:
+            null == loading
+                ? _value.loading
+                : loading // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        loadingCenters:
+            null == loadingCenters
+                ? _value.loadingCenters
+                : loadingCenters // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        loadingData:
+            null == loadingData
+                ? _value.loadingData
+                : loadingData // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        centers:
+            null == centers
+                ? _value._centers
+                : centers // ignore: cast_nullable_to_non_nullable
+                    as List<Center>,
+        countries:
+            null == countries
+                ? _value._countries
+                : countries // ignore: cast_nullable_to_non_nullable
+                    as List<String>,
+        postalCodes:
+            null == postalCodes
+                ? _value._postalCodes
+                : postalCodes // ignore: cast_nullable_to_non_nullable
+                    as List<String>,
+        location:
+            freezed == location
+                ? _value.location
+                : location // ignore: cast_nullable_to_non_nullable
+                    as LatLng?,
+        centerSelect:
+            freezed == centerSelect
+                ? _value.centerSelect
+                : centerSelect // ignore: cast_nullable_to_non_nullable
+                    as LatLng?,
+        header:
+            freezed == header
+                ? _value.header
+                : header // ignore: cast_nullable_to_non_nullable
+                    as Header?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_WhereWeAreState extends _WhereWeAreState {
-  const _$_WhereWeAreState(
-      {this.loading = false,
-      this.loadingCenters = false,
-      this.loadingData = false,
-      final List<Center> centers = const <Center>[],
-      final List<String> countries = const <String>[],
-      final List<String> postalCodes = const <String>[],
-      this.location,
-      this.centerSelect,
-      this.header})
-      : _centers = centers,
-        _countries = countries,
-        _postalCodes = postalCodes,
-        super._();
+class _$WhereWeAreStateImpl extends _WhereWeAreState {
+  const _$WhereWeAreStateImpl({
+    this.loading = false,
+    this.loadingCenters = false,
+    this.loadingData = false,
+    final List<Center> centers = const <Center>[],
+    final List<String> countries = const <String>[],
+    final List<String> postalCodes = const <String>[],
+    this.location,
+    this.centerSelect,
+    this.header,
+  }) : _centers = centers,
+       _countries = countries,
+       _postalCodes = postalCodes,
+       super._();
 
   @override
   @JsonKey()
@@ -262,20 +297,24 @@ class _$_WhereWeAreState extends _WhereWeAreState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_WhereWeAreState &&
+            other is _$WhereWeAreStateImpl &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.loadingCenters, loadingCenters) ||
                 other.loadingCenters == loadingCenters) &&
             (identical(other.loadingData, loadingData) ||
                 other.loadingData == loadingData) &&
             const DeepCollectionEquality().equals(other._centers, _centers) &&
-            const DeepCollectionEquality()
-                .equals(other._countries, _countries) &&
-            const DeepCollectionEquality()
-                .equals(other._postalCodes, _postalCodes) &&
+            const DeepCollectionEquality().equals(
+              other._countries,
+              _countries,
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._postalCodes,
+              _postalCodes,
+            ) &&
             (identical(other.location, location) ||
                 other.location == location) &&
             (identical(other.centerSelect, centerSelect) ||
@@ -285,35 +324,42 @@ class _$_WhereWeAreState extends _WhereWeAreState {
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      loading,
-      loadingCenters,
-      loadingData,
-      const DeepCollectionEquality().hash(_centers),
-      const DeepCollectionEquality().hash(_countries),
-      const DeepCollectionEquality().hash(_postalCodes),
-      location,
-      centerSelect,
-      header);
+    runtimeType,
+    loading,
+    loadingCenters,
+    loadingData,
+    const DeepCollectionEquality().hash(_centers),
+    const DeepCollectionEquality().hash(_countries),
+    const DeepCollectionEquality().hash(_postalCodes),
+    location,
+    centerSelect,
+    header,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of WhereWeAreState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_WhereWeAreStateCopyWith<_$_WhereWeAreState> get copyWith =>
-      __$$_WhereWeAreStateCopyWithImpl<_$_WhereWeAreState>(this, _$identity);
+  _$$WhereWeAreStateImplCopyWith<_$WhereWeAreStateImpl> get copyWith =>
+      __$$WhereWeAreStateImplCopyWithImpl<_$WhereWeAreStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _WhereWeAreState extends WhereWeAreState {
-  const factory _WhereWeAreState(
-      {final bool loading,
-      final bool loadingCenters,
-      final bool loadingData,
-      final List<Center> centers,
-      final List<String> countries,
-      final List<String> postalCodes,
-      final LatLng? location,
-      final LatLng? centerSelect,
-      final Header? header}) = _$_WhereWeAreState;
+  const factory _WhereWeAreState({
+    final bool loading,
+    final bool loadingCenters,
+    final bool loadingData,
+    final List<Center> centers,
+    final List<String> countries,
+    final List<String> postalCodes,
+    final LatLng? location,
+    final LatLng? centerSelect,
+    final Header? header,
+  }) = _$WhereWeAreStateImpl;
   const _WhereWeAreState._() : super._();
 
   @override
@@ -334,8 +380,11 @@ abstract class _WhereWeAreState extends WhereWeAreState {
   LatLng? get centerSelect;
   @override
   Header? get header;
+
+  /// Create a copy of WhereWeAreState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_WhereWeAreStateCopyWith<_$_WhereWeAreState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$WhereWeAreStateImplCopyWith<_$WhereWeAreStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

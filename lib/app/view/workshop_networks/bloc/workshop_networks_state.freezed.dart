@@ -12,7 +12,8 @@ part of 'workshop_networks_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$WorkshopNetworksState {
@@ -24,30 +25,36 @@ mixin _$WorkshopNetworksState {
   Phone? get phone => throw _privateConstructorUsedError;
   Observation? get observation => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of WorkshopNetworksState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $WorkshopNetworksStateCopyWith<WorkshopNetworksState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $WorkshopNetworksStateCopyWith<$Res> {
-  factory $WorkshopNetworksStateCopyWith(WorkshopNetworksState value,
-          $Res Function(WorkshopNetworksState) then) =
-      _$WorkshopNetworksStateCopyWithImpl<$Res, WorkshopNetworksState>;
+  factory $WorkshopNetworksStateCopyWith(
+    WorkshopNetworksState value,
+    $Res Function(WorkshopNetworksState) then,
+  ) = _$WorkshopNetworksStateCopyWithImpl<$Res, WorkshopNetworksState>;
   @useResult
-  $Res call(
-      {WorkShop? workShop,
-      FormStatus status,
-      List<WorkShop> workShops,
-      Name? name,
-      Email? email,
-      Phone? phone,
-      Observation? observation});
+  $Res call({
+    WorkShop? workShop,
+    FormStatus status,
+    List<WorkShop> workShops,
+    Name? name,
+    Email? email,
+    Phone? phone,
+    Observation? observation,
+  });
 }
 
 /// @nodoc
-class _$WorkshopNetworksStateCopyWithImpl<$Res,
-        $Val extends WorkshopNetworksState>
+class _$WorkshopNetworksStateCopyWithImpl<
+  $Res,
+  $Val extends WorkshopNetworksState
+>
     implements $WorkshopNetworksStateCopyWith<$Res> {
   _$WorkshopNetworksStateCopyWithImpl(this._value, this._then);
 
@@ -56,6 +63,8 @@ class _$WorkshopNetworksStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of WorkshopNetworksState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -67,65 +76,81 @@ class _$WorkshopNetworksStateCopyWithImpl<$Res,
     Object? phone = freezed,
     Object? observation = freezed,
   }) {
-    return _then(_value.copyWith(
-      workShop: freezed == workShop
-          ? _value.workShop
-          : workShop // ignore: cast_nullable_to_non_nullable
-              as WorkShop?,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as FormStatus,
-      workShops: null == workShops
-          ? _value.workShops
-          : workShops // ignore: cast_nullable_to_non_nullable
-              as List<WorkShop>,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as Name?,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as Email?,
-      phone: freezed == phone
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
-              as Phone?,
-      observation: freezed == observation
-          ? _value.observation
-          : observation // ignore: cast_nullable_to_non_nullable
-              as Observation?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            workShop:
+                freezed == workShop
+                    ? _value.workShop
+                    : workShop // ignore: cast_nullable_to_non_nullable
+                        as WorkShop?,
+            status:
+                null == status
+                    ? _value.status
+                    : status // ignore: cast_nullable_to_non_nullable
+                        as FormStatus,
+            workShops:
+                null == workShops
+                    ? _value.workShops
+                    : workShops // ignore: cast_nullable_to_non_nullable
+                        as List<WorkShop>,
+            name:
+                freezed == name
+                    ? _value.name
+                    : name // ignore: cast_nullable_to_non_nullable
+                        as Name?,
+            email:
+                freezed == email
+                    ? _value.email
+                    : email // ignore: cast_nullable_to_non_nullable
+                        as Email?,
+            phone:
+                freezed == phone
+                    ? _value.phone
+                    : phone // ignore: cast_nullable_to_non_nullable
+                        as Phone?,
+            observation:
+                freezed == observation
+                    ? _value.observation
+                    : observation // ignore: cast_nullable_to_non_nullable
+                        as Observation?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_WorkshopNetworksStateCopyWith<$Res>
+abstract class _$$WorkshopNetworksStateImplCopyWith<$Res>
     implements $WorkshopNetworksStateCopyWith<$Res> {
-  factory _$$_WorkshopNetworksStateCopyWith(_$_WorkshopNetworksState value,
-          $Res Function(_$_WorkshopNetworksState) then) =
-      __$$_WorkshopNetworksStateCopyWithImpl<$Res>;
+  factory _$$WorkshopNetworksStateImplCopyWith(
+    _$WorkshopNetworksStateImpl value,
+    $Res Function(_$WorkshopNetworksStateImpl) then,
+  ) = __$$WorkshopNetworksStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {WorkShop? workShop,
-      FormStatus status,
-      List<WorkShop> workShops,
-      Name? name,
-      Email? email,
-      Phone? phone,
-      Observation? observation});
+  $Res call({
+    WorkShop? workShop,
+    FormStatus status,
+    List<WorkShop> workShops,
+    Name? name,
+    Email? email,
+    Phone? phone,
+    Observation? observation,
+  });
 }
 
 /// @nodoc
-class __$$_WorkshopNetworksStateCopyWithImpl<$Res>
-    extends _$WorkshopNetworksStateCopyWithImpl<$Res, _$_WorkshopNetworksState>
-    implements _$$_WorkshopNetworksStateCopyWith<$Res> {
-  __$$_WorkshopNetworksStateCopyWithImpl(_$_WorkshopNetworksState _value,
-      $Res Function(_$_WorkshopNetworksState) _then)
-      : super(_value, _then);
+class __$$WorkshopNetworksStateImplCopyWithImpl<$Res>
+    extends
+        _$WorkshopNetworksStateCopyWithImpl<$Res, _$WorkshopNetworksStateImpl>
+    implements _$$WorkshopNetworksStateImplCopyWith<$Res> {
+  __$$WorkshopNetworksStateImplCopyWithImpl(
+    _$WorkshopNetworksStateImpl _value,
+    $Res Function(_$WorkshopNetworksStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of WorkshopNetworksState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -137,52 +162,61 @@ class __$$_WorkshopNetworksStateCopyWithImpl<$Res>
     Object? phone = freezed,
     Object? observation = freezed,
   }) {
-    return _then(_$_WorkshopNetworksState(
-      workShop: freezed == workShop
-          ? _value.workShop
-          : workShop // ignore: cast_nullable_to_non_nullable
-              as WorkShop?,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as FormStatus,
-      workShops: null == workShops
-          ? _value._workShops
-          : workShops // ignore: cast_nullable_to_non_nullable
-              as List<WorkShop>,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as Name?,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as Email?,
-      phone: freezed == phone
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
-              as Phone?,
-      observation: freezed == observation
-          ? _value.observation
-          : observation // ignore: cast_nullable_to_non_nullable
-              as Observation?,
-    ));
+    return _then(
+      _$WorkshopNetworksStateImpl(
+        workShop:
+            freezed == workShop
+                ? _value.workShop
+                : workShop // ignore: cast_nullable_to_non_nullable
+                    as WorkShop?,
+        status:
+            null == status
+                ? _value.status
+                : status // ignore: cast_nullable_to_non_nullable
+                    as FormStatus,
+        workShops:
+            null == workShops
+                ? _value._workShops
+                : workShops // ignore: cast_nullable_to_non_nullable
+                    as List<WorkShop>,
+        name:
+            freezed == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                    as Name?,
+        email:
+            freezed == email
+                ? _value.email
+                : email // ignore: cast_nullable_to_non_nullable
+                    as Email?,
+        phone:
+            freezed == phone
+                ? _value.phone
+                : phone // ignore: cast_nullable_to_non_nullable
+                    as Phone?,
+        observation:
+            freezed == observation
+                ? _value.observation
+                : observation // ignore: cast_nullable_to_non_nullable
+                    as Observation?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_WorkshopNetworksState extends _WorkshopNetworksState {
-  const _$_WorkshopNetworksState(
-      {this.workShop,
-      this.status = FormStatus.editing,
-      final List<WorkShop> workShops = const <WorkShop>[],
-      this.name,
-      this.email,
-      this.phone,
-      this.observation})
-      : _workShops = workShops,
-        super._();
+class _$WorkshopNetworksStateImpl extends _WorkshopNetworksState {
+  const _$WorkshopNetworksStateImpl({
+    this.workShop,
+    this.status = FormStatus.editing,
+    final List<WorkShop> workShops = const <WorkShop>[],
+    this.name,
+    this.email,
+    this.phone,
+    this.observation,
+  }) : _workShops = workShops,
+       super._();
 
   @override
   final WorkShop? workShop;
@@ -213,15 +247,17 @@ class _$_WorkshopNetworksState extends _WorkshopNetworksState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_WorkshopNetworksState &&
+            other is _$WorkshopNetworksStateImpl &&
             (identical(other.workShop, workShop) ||
                 other.workShop == workShop) &&
             (identical(other.status, status) || other.status == status) &&
-            const DeepCollectionEquality()
-                .equals(other._workShops, _workShops) &&
+            const DeepCollectionEquality().equals(
+              other._workShops,
+              _workShops,
+            ) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.phone, phone) || other.phone == phone) &&
@@ -231,32 +267,39 @@ class _$_WorkshopNetworksState extends _WorkshopNetworksState {
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      workShop,
-      status,
-      const DeepCollectionEquality().hash(_workShops),
-      name,
-      email,
-      phone,
-      observation);
+    runtimeType,
+    workShop,
+    status,
+    const DeepCollectionEquality().hash(_workShops),
+    name,
+    email,
+    phone,
+    observation,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of WorkshopNetworksState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_WorkshopNetworksStateCopyWith<_$_WorkshopNetworksState> get copyWith =>
-      __$$_WorkshopNetworksStateCopyWithImpl<_$_WorkshopNetworksState>(
-          this, _$identity);
+  _$$WorkshopNetworksStateImplCopyWith<_$WorkshopNetworksStateImpl>
+  get copyWith =>
+      __$$WorkshopNetworksStateImplCopyWithImpl<_$WorkshopNetworksStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _WorkshopNetworksState extends WorkshopNetworksState {
-  const factory _WorkshopNetworksState(
-      {final WorkShop? workShop,
-      final FormStatus status,
-      final List<WorkShop> workShops,
-      final Name? name,
-      final Email? email,
-      final Phone? phone,
-      final Observation? observation}) = _$_WorkshopNetworksState;
+  const factory _WorkshopNetworksState({
+    final WorkShop? workShop,
+    final FormStatus status,
+    final List<WorkShop> workShops,
+    final Name? name,
+    final Email? email,
+    final Phone? phone,
+    final Observation? observation,
+  }) = _$WorkshopNetworksStateImpl;
   const _WorkshopNetworksState._() : super._();
 
   @override
@@ -273,8 +316,11 @@ abstract class _WorkshopNetworksState extends WorkshopNetworksState {
   Phone? get phone;
   @override
   Observation? get observation;
+
+  /// Create a copy of WorkshopNetworksState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_WorkshopNetworksStateCopyWith<_$_WorkshopNetworksState> get copyWith =>
-      throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$WorkshopNetworksStateImplCopyWith<_$WorkshopNetworksStateImpl>
+  get copyWith => throw _privateConstructorUsedError;
 }

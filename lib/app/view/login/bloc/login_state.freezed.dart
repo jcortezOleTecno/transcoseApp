@@ -12,7 +12,8 @@ part of 'login_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$LoginState {
@@ -25,7 +26,9 @@ mixin _$LoginState {
   Email? get email => throw _privateConstructorUsedError;
   Password? get password => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LoginState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $LoginStateCopyWith<LoginState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -33,18 +36,20 @@ mixin _$LoginState {
 /// @nodoc
 abstract class $LoginStateCopyWith<$Res> {
   factory $LoginStateCopyWith(
-          LoginState value, $Res Function(LoginState) then) =
-      _$LoginStateCopyWithImpl<$Res, LoginState>;
+    LoginState value,
+    $Res Function(LoginState) then,
+  ) = _$LoginStateCopyWithImpl<$Res, LoginState>;
   @useResult
-  $Res call(
-      {FormStatus status,
-      bool rememberData,
-      String? msgError,
-      String? msgGoBack,
-      String? initialEmail,
-      String? initialPassword,
-      Email? email,
-      Password? password});
+  $Res call({
+    FormStatus status,
+    bool rememberData,
+    String? msgError,
+    String? msgGoBack,
+    String? initialEmail,
+    String? initialPassword,
+    Email? email,
+    Password? password,
+  });
 }
 
 /// @nodoc
@@ -57,6 +62,8 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of LoginState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -69,70 +76,86 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
     Object? email = freezed,
     Object? password = freezed,
   }) {
-    return _then(_value.copyWith(
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as FormStatus,
-      rememberData: null == rememberData
-          ? _value.rememberData
-          : rememberData // ignore: cast_nullable_to_non_nullable
-              as bool,
-      msgError: freezed == msgError
-          ? _value.msgError
-          : msgError // ignore: cast_nullable_to_non_nullable
-              as String?,
-      msgGoBack: freezed == msgGoBack
-          ? _value.msgGoBack
-          : msgGoBack // ignore: cast_nullable_to_non_nullable
-              as String?,
-      initialEmail: freezed == initialEmail
-          ? _value.initialEmail
-          : initialEmail // ignore: cast_nullable_to_non_nullable
-              as String?,
-      initialPassword: freezed == initialPassword
-          ? _value.initialPassword
-          : initialPassword // ignore: cast_nullable_to_non_nullable
-              as String?,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as Email?,
-      password: freezed == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as Password?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            status:
+                null == status
+                    ? _value.status
+                    : status // ignore: cast_nullable_to_non_nullable
+                        as FormStatus,
+            rememberData:
+                null == rememberData
+                    ? _value.rememberData
+                    : rememberData // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            msgError:
+                freezed == msgError
+                    ? _value.msgError
+                    : msgError // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            msgGoBack:
+                freezed == msgGoBack
+                    ? _value.msgGoBack
+                    : msgGoBack // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            initialEmail:
+                freezed == initialEmail
+                    ? _value.initialEmail
+                    : initialEmail // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            initialPassword:
+                freezed == initialPassword
+                    ? _value.initialPassword
+                    : initialPassword // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            email:
+                freezed == email
+                    ? _value.email
+                    : email // ignore: cast_nullable_to_non_nullable
+                        as Email?,
+            password:
+                freezed == password
+                    ? _value.password
+                    : password // ignore: cast_nullable_to_non_nullable
+                        as Password?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_LoginStateCopyWith<$Res>
+abstract class _$$LoginStateImplCopyWith<$Res>
     implements $LoginStateCopyWith<$Res> {
-  factory _$$_LoginStateCopyWith(
-          _$_LoginState value, $Res Function(_$_LoginState) then) =
-      __$$_LoginStateCopyWithImpl<$Res>;
+  factory _$$LoginStateImplCopyWith(
+    _$LoginStateImpl value,
+    $Res Function(_$LoginStateImpl) then,
+  ) = __$$LoginStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {FormStatus status,
-      bool rememberData,
-      String? msgError,
-      String? msgGoBack,
-      String? initialEmail,
-      String? initialPassword,
-      Email? email,
-      Password? password});
+  $Res call({
+    FormStatus status,
+    bool rememberData,
+    String? msgError,
+    String? msgGoBack,
+    String? initialEmail,
+    String? initialPassword,
+    Email? email,
+    Password? password,
+  });
 }
 
 /// @nodoc
-class __$$_LoginStateCopyWithImpl<$Res>
-    extends _$LoginStateCopyWithImpl<$Res, _$_LoginState>
-    implements _$$_LoginStateCopyWith<$Res> {
-  __$$_LoginStateCopyWithImpl(
-      _$_LoginState _value, $Res Function(_$_LoginState) _then)
-      : super(_value, _then);
+class __$$LoginStateImplCopyWithImpl<$Res>
+    extends _$LoginStateCopyWithImpl<$Res, _$LoginStateImpl>
+    implements _$$LoginStateImplCopyWith<$Res> {
+  __$$LoginStateImplCopyWithImpl(
+    _$LoginStateImpl _value,
+    $Res Function(_$LoginStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of LoginState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -145,56 +168,66 @@ class __$$_LoginStateCopyWithImpl<$Res>
     Object? email = freezed,
     Object? password = freezed,
   }) {
-    return _then(_$_LoginState(
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as FormStatus,
-      rememberData: null == rememberData
-          ? _value.rememberData
-          : rememberData // ignore: cast_nullable_to_non_nullable
-              as bool,
-      msgError: freezed == msgError
-          ? _value.msgError
-          : msgError // ignore: cast_nullable_to_non_nullable
-              as String?,
-      msgGoBack: freezed == msgGoBack
-          ? _value.msgGoBack
-          : msgGoBack // ignore: cast_nullable_to_non_nullable
-              as String?,
-      initialEmail: freezed == initialEmail
-          ? _value.initialEmail
-          : initialEmail // ignore: cast_nullable_to_non_nullable
-              as String?,
-      initialPassword: freezed == initialPassword
-          ? _value.initialPassword
-          : initialPassword // ignore: cast_nullable_to_non_nullable
-              as String?,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as Email?,
-      password: freezed == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as Password?,
-    ));
+    return _then(
+      _$LoginStateImpl(
+        status:
+            null == status
+                ? _value.status
+                : status // ignore: cast_nullable_to_non_nullable
+                    as FormStatus,
+        rememberData:
+            null == rememberData
+                ? _value.rememberData
+                : rememberData // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        msgError:
+            freezed == msgError
+                ? _value.msgError
+                : msgError // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        msgGoBack:
+            freezed == msgGoBack
+                ? _value.msgGoBack
+                : msgGoBack // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        initialEmail:
+            freezed == initialEmail
+                ? _value.initialEmail
+                : initialEmail // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        initialPassword:
+            freezed == initialPassword
+                ? _value.initialPassword
+                : initialPassword // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        email:
+            freezed == email
+                ? _value.email
+                : email // ignore: cast_nullable_to_non_nullable
+                    as Email?,
+        password:
+            freezed == password
+                ? _value.password
+                : password // ignore: cast_nullable_to_non_nullable
+                    as Password?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_LoginState extends _LoginState {
-  const _$_LoginState(
-      {this.status = FormStatus.editing,
-      this.rememberData = false,
-      this.msgError,
-      this.msgGoBack,
-      this.initialEmail,
-      this.initialPassword,
-      this.email,
-      this.password})
-      : super._();
+class _$LoginStateImpl extends _LoginState {
+  const _$LoginStateImpl({
+    this.status = FormStatus.editing,
+    this.rememberData = false,
+    this.msgError,
+    this.msgGoBack,
+    this.initialEmail,
+    this.initialPassword,
+    this.email,
+    this.password,
+  }) : super._();
 
   @override
   @JsonKey()
@@ -221,10 +254,10 @@ class _$_LoginState extends _LoginState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_LoginState &&
+            other is _$LoginStateImpl &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.rememberData, rememberData) ||
                 other.rememberData == rememberData) &&
@@ -242,26 +275,38 @@ class _$_LoginState extends _LoginState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, rememberData, msgError,
-      msgGoBack, initialEmail, initialPassword, email, password);
+  int get hashCode => Object.hash(
+    runtimeType,
+    status,
+    rememberData,
+    msgError,
+    msgGoBack,
+    initialEmail,
+    initialPassword,
+    email,
+    password,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LoginState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_LoginStateCopyWith<_$_LoginState> get copyWith =>
-      __$$_LoginStateCopyWithImpl<_$_LoginState>(this, _$identity);
+  _$$LoginStateImplCopyWith<_$LoginStateImpl> get copyWith =>
+      __$$LoginStateImplCopyWithImpl<_$LoginStateImpl>(this, _$identity);
 }
 
 abstract class _LoginState extends LoginState {
-  const factory _LoginState(
-      {final FormStatus status,
-      final bool rememberData,
-      final String? msgError,
-      final String? msgGoBack,
-      final String? initialEmail,
-      final String? initialPassword,
-      final Email? email,
-      final Password? password}) = _$_LoginState;
+  const factory _LoginState({
+    final FormStatus status,
+    final bool rememberData,
+    final String? msgError,
+    final String? msgGoBack,
+    final String? initialEmail,
+    final String? initialPassword,
+    final Email? email,
+    final Password? password,
+  }) = _$LoginStateImpl;
   const _LoginState._() : super._();
 
   @override
@@ -280,8 +325,11 @@ abstract class _LoginState extends LoginState {
   Email? get email;
   @override
   Password? get password;
+
+  /// Create a copy of LoginState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_LoginStateCopyWith<_$_LoginState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$LoginStateImplCopyWith<_$LoginStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

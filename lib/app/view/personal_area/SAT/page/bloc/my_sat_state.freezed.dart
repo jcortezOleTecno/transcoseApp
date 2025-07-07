@@ -12,7 +12,8 @@ part of 'my_sat_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$MySatState {
@@ -22,7 +23,9 @@ mixin _$MySatState {
   DataTableSource? get dataFiltrada => throw _privateConstructorUsedError;
   String? get filters => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MySatState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $MySatStateCopyWith<MySatState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -30,15 +33,17 @@ mixin _$MySatState {
 /// @nodoc
 abstract class $MySatStateCopyWith<$Res> {
   factory $MySatStateCopyWith(
-          MySatState value, $Res Function(MySatState) then) =
-      _$MySatStateCopyWithImpl<$Res, MySatState>;
+    MySatState value,
+    $Res Function(MySatState) then,
+  ) = _$MySatStateCopyWithImpl<$Res, MySatState>;
   @useResult
-  $Res call(
-      {bool loading,
-      List<Intervenciones> sats,
-      DataTableSource? data,
-      DataTableSource? dataFiltrada,
-      String? filters});
+  $Res call({
+    bool loading,
+    List<Intervenciones> sats,
+    DataTableSource? data,
+    DataTableSource? dataFiltrada,
+    String? filters,
+  });
 }
 
 /// @nodoc
@@ -51,6 +56,8 @@ class _$MySatStateCopyWithImpl<$Res, $Val extends MySatState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of MySatState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -60,55 +67,68 @@ class _$MySatStateCopyWithImpl<$Res, $Val extends MySatState>
     Object? dataFiltrada = freezed,
     Object? filters = freezed,
   }) {
-    return _then(_value.copyWith(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      sats: null == sats
-          ? _value.sats
-          : sats // ignore: cast_nullable_to_non_nullable
-              as List<Intervenciones>,
-      data: freezed == data
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as DataTableSource?,
-      dataFiltrada: freezed == dataFiltrada
-          ? _value.dataFiltrada
-          : dataFiltrada // ignore: cast_nullable_to_non_nullable
-              as DataTableSource?,
-      filters: freezed == filters
-          ? _value.filters
-          : filters // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            loading:
+                null == loading
+                    ? _value.loading
+                    : loading // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            sats:
+                null == sats
+                    ? _value.sats
+                    : sats // ignore: cast_nullable_to_non_nullable
+                        as List<Intervenciones>,
+            data:
+                freezed == data
+                    ? _value.data
+                    : data // ignore: cast_nullable_to_non_nullable
+                        as DataTableSource?,
+            dataFiltrada:
+                freezed == dataFiltrada
+                    ? _value.dataFiltrada
+                    : dataFiltrada // ignore: cast_nullable_to_non_nullable
+                        as DataTableSource?,
+            filters:
+                freezed == filters
+                    ? _value.filters
+                    : filters // ignore: cast_nullable_to_non_nullable
+                        as String?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_MySatStateCopyWith<$Res>
+abstract class _$$MySatStateImplCopyWith<$Res>
     implements $MySatStateCopyWith<$Res> {
-  factory _$$_MySatStateCopyWith(
-          _$_MySatState value, $Res Function(_$_MySatState) then) =
-      __$$_MySatStateCopyWithImpl<$Res>;
+  factory _$$MySatStateImplCopyWith(
+    _$MySatStateImpl value,
+    $Res Function(_$MySatStateImpl) then,
+  ) = __$$MySatStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {bool loading,
-      List<Intervenciones> sats,
-      DataTableSource? data,
-      DataTableSource? dataFiltrada,
-      String? filters});
+  $Res call({
+    bool loading,
+    List<Intervenciones> sats,
+    DataTableSource? data,
+    DataTableSource? dataFiltrada,
+    String? filters,
+  });
 }
 
 /// @nodoc
-class __$$_MySatStateCopyWithImpl<$Res>
-    extends _$MySatStateCopyWithImpl<$Res, _$_MySatState>
-    implements _$$_MySatStateCopyWith<$Res> {
-  __$$_MySatStateCopyWithImpl(
-      _$_MySatState _value, $Res Function(_$_MySatState) _then)
-      : super(_value, _then);
+class __$$MySatStateImplCopyWithImpl<$Res>
+    extends _$MySatStateCopyWithImpl<$Res, _$MySatStateImpl>
+    implements _$$MySatStateImplCopyWith<$Res> {
+  __$$MySatStateImplCopyWithImpl(
+    _$MySatStateImpl _value,
+    $Res Function(_$MySatStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of MySatState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -118,41 +138,48 @@ class __$$_MySatStateCopyWithImpl<$Res>
     Object? dataFiltrada = freezed,
     Object? filters = freezed,
   }) {
-    return _then(_$_MySatState(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      sats: null == sats
-          ? _value._sats
-          : sats // ignore: cast_nullable_to_non_nullable
-              as List<Intervenciones>,
-      data: freezed == data
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as DataTableSource?,
-      dataFiltrada: freezed == dataFiltrada
-          ? _value.dataFiltrada
-          : dataFiltrada // ignore: cast_nullable_to_non_nullable
-              as DataTableSource?,
-      filters: freezed == filters
-          ? _value.filters
-          : filters // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
+    return _then(
+      _$MySatStateImpl(
+        loading:
+            null == loading
+                ? _value.loading
+                : loading // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        sats:
+            null == sats
+                ? _value._sats
+                : sats // ignore: cast_nullable_to_non_nullable
+                    as List<Intervenciones>,
+        data:
+            freezed == data
+                ? _value.data
+                : data // ignore: cast_nullable_to_non_nullable
+                    as DataTableSource?,
+        dataFiltrada:
+            freezed == dataFiltrada
+                ? _value.dataFiltrada
+                : dataFiltrada // ignore: cast_nullable_to_non_nullable
+                    as DataTableSource?,
+        filters:
+            freezed == filters
+                ? _value.filters
+                : filters // ignore: cast_nullable_to_non_nullable
+                    as String?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_MySatState implements _MySatState {
-  const _$_MySatState(
-      {this.loading = false,
-      final List<Intervenciones> sats = const <Intervenciones>[],
-      this.data,
-      this.dataFiltrada,
-      this.filters})
-      : _sats = sats;
+class _$MySatStateImpl implements _MySatState {
+  const _$MySatStateImpl({
+    this.loading = false,
+    final List<Intervenciones> sats = const <Intervenciones>[],
+    this.data,
+    this.dataFiltrada,
+    this.filters,
+  }) : _sats = sats;
 
   @override
   @JsonKey()
@@ -179,10 +206,10 @@ class _$_MySatState implements _MySatState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_MySatState &&
+            other is _$MySatStateImpl &&
             (identical(other.loading, loading) || other.loading == loading) &&
             const DeepCollectionEquality().equals(other._sats, _sats) &&
             (identical(other.data, data) || other.data == data) &&
@@ -192,23 +219,32 @@ class _$_MySatState implements _MySatState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, loading,
-      const DeepCollectionEquality().hash(_sats), data, dataFiltrada, filters);
+  int get hashCode => Object.hash(
+    runtimeType,
+    loading,
+    const DeepCollectionEquality().hash(_sats),
+    data,
+    dataFiltrada,
+    filters,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MySatState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_MySatStateCopyWith<_$_MySatState> get copyWith =>
-      __$$_MySatStateCopyWithImpl<_$_MySatState>(this, _$identity);
+  _$$MySatStateImplCopyWith<_$MySatStateImpl> get copyWith =>
+      __$$MySatStateImplCopyWithImpl<_$MySatStateImpl>(this, _$identity);
 }
 
 abstract class _MySatState implements MySatState {
-  const factory _MySatState(
-      {final bool loading,
-      final List<Intervenciones> sats,
-      final DataTableSource? data,
-      final DataTableSource? dataFiltrada,
-      final String? filters}) = _$_MySatState;
+  const factory _MySatState({
+    final bool loading,
+    final List<Intervenciones> sats,
+    final DataTableSource? data,
+    final DataTableSource? dataFiltrada,
+    final String? filters,
+  }) = _$MySatStateImpl;
 
   @override
   bool get loading;
@@ -220,8 +256,11 @@ abstract class _MySatState implements MySatState {
   DataTableSource? get dataFiltrada;
   @override
   String? get filters;
+
+  /// Create a copy of MySatState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_MySatStateCopyWith<_$_MySatState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$MySatStateImplCopyWith<_$MySatStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

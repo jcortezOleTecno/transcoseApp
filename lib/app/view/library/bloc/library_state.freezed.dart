@@ -12,14 +12,17 @@ part of 'library_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$LibraryState {
   List<Library> get library => throw _privateConstructorUsedError;
   List<Library> get mostRead => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LibraryState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $LibraryStateCopyWith<LibraryState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -27,8 +30,9 @@ mixin _$LibraryState {
 /// @nodoc
 abstract class $LibraryStateCopyWith<$Res> {
   factory $LibraryStateCopyWith(
-          LibraryState value, $Res Function(LibraryState) then) =
-      _$LibraryStateCopyWithImpl<$Res, LibraryState>;
+    LibraryState value,
+    $Res Function(LibraryState) then,
+  ) = _$LibraryStateCopyWithImpl<$Res, LibraryState>;
   @useResult
   $Res call({List<Library> library, List<Library> mostRead});
 }
@@ -43,72 +47,81 @@ class _$LibraryStateCopyWithImpl<$Res, $Val extends LibraryState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of LibraryState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? library = null,
-    Object? mostRead = null,
-  }) {
-    return _then(_value.copyWith(
-      library: null == library
-          ? _value.library
-          : library // ignore: cast_nullable_to_non_nullable
-              as List<Library>,
-      mostRead: null == mostRead
-          ? _value.mostRead
-          : mostRead // ignore: cast_nullable_to_non_nullable
-              as List<Library>,
-    ) as $Val);
+  $Res call({Object? library = null, Object? mostRead = null}) {
+    return _then(
+      _value.copyWith(
+            library:
+                null == library
+                    ? _value.library
+                    : library // ignore: cast_nullable_to_non_nullable
+                        as List<Library>,
+            mostRead:
+                null == mostRead
+                    ? _value.mostRead
+                    : mostRead // ignore: cast_nullable_to_non_nullable
+                        as List<Library>,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_LibraryStateCopyWith<$Res>
+abstract class _$$LibraryStateImplCopyWith<$Res>
     implements $LibraryStateCopyWith<$Res> {
-  factory _$$_LibraryStateCopyWith(
-          _$_LibraryState value, $Res Function(_$_LibraryState) then) =
-      __$$_LibraryStateCopyWithImpl<$Res>;
+  factory _$$LibraryStateImplCopyWith(
+    _$LibraryStateImpl value,
+    $Res Function(_$LibraryStateImpl) then,
+  ) = __$$LibraryStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<Library> library, List<Library> mostRead});
 }
 
 /// @nodoc
-class __$$_LibraryStateCopyWithImpl<$Res>
-    extends _$LibraryStateCopyWithImpl<$Res, _$_LibraryState>
-    implements _$$_LibraryStateCopyWith<$Res> {
-  __$$_LibraryStateCopyWithImpl(
-      _$_LibraryState _value, $Res Function(_$_LibraryState) _then)
-      : super(_value, _then);
+class __$$LibraryStateImplCopyWithImpl<$Res>
+    extends _$LibraryStateCopyWithImpl<$Res, _$LibraryStateImpl>
+    implements _$$LibraryStateImplCopyWith<$Res> {
+  __$$LibraryStateImplCopyWithImpl(
+    _$LibraryStateImpl _value,
+    $Res Function(_$LibraryStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of LibraryState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? library = null,
-    Object? mostRead = null,
-  }) {
-    return _then(_$_LibraryState(
-      library: null == library
-          ? _value._library
-          : library // ignore: cast_nullable_to_non_nullable
-              as List<Library>,
-      mostRead: null == mostRead
-          ? _value._mostRead
-          : mostRead // ignore: cast_nullable_to_non_nullable
-              as List<Library>,
-    ));
+  $Res call({Object? library = null, Object? mostRead = null}) {
+    return _then(
+      _$LibraryStateImpl(
+        library:
+            null == library
+                ? _value._library
+                : library // ignore: cast_nullable_to_non_nullable
+                    as List<Library>,
+        mostRead:
+            null == mostRead
+                ? _value._mostRead
+                : mostRead // ignore: cast_nullable_to_non_nullable
+                    as List<Library>,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_LibraryState extends _LibraryState {
-  const _$_LibraryState(
-      {final List<Library> library = const <Library>[],
-      final List<Library> mostRead = const <Library>[]})
-      : _library = library,
-        _mostRead = mostRead,
-        super._();
+class _$LibraryStateImpl extends _LibraryState {
+  const _$LibraryStateImpl({
+    final List<Library> library = const <Library>[],
+    final List<Library> mostRead = const <Library>[],
+  }) : _library = library,
+       _mostRead = mostRead,
+       super._();
 
   final List<Library> _library;
   @override
@@ -134,39 +147,46 @@ class _$_LibraryState extends _LibraryState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_LibraryState &&
+            other is _$LibraryStateImpl &&
             const DeepCollectionEquality().equals(other._library, _library) &&
             const DeepCollectionEquality().equals(other._mostRead, _mostRead));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_library),
-      const DeepCollectionEquality().hash(_mostRead));
+    runtimeType,
+    const DeepCollectionEquality().hash(_library),
+    const DeepCollectionEquality().hash(_mostRead),
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LibraryState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_LibraryStateCopyWith<_$_LibraryState> get copyWith =>
-      __$$_LibraryStateCopyWithImpl<_$_LibraryState>(this, _$identity);
+  _$$LibraryStateImplCopyWith<_$LibraryStateImpl> get copyWith =>
+      __$$LibraryStateImplCopyWithImpl<_$LibraryStateImpl>(this, _$identity);
 }
 
 abstract class _LibraryState extends LibraryState {
-  const factory _LibraryState(
-      {final List<Library> library,
-      final List<Library> mostRead}) = _$_LibraryState;
+  const factory _LibraryState({
+    final List<Library> library,
+    final List<Library> mostRead,
+  }) = _$LibraryStateImpl;
   const _LibraryState._() : super._();
 
   @override
   List<Library> get library;
   @override
   List<Library> get mostRead;
+
+  /// Create a copy of LibraryState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_LibraryStateCopyWith<_$_LibraryState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$LibraryStateImplCopyWith<_$LibraryStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

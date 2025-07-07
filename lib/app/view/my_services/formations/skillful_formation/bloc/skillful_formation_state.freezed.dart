@@ -12,7 +12,8 @@ part of 'skillful_formation_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$SkillfulFormationState {
@@ -20,24 +21,32 @@ mixin _$SkillfulFormationState {
   bool get loading => throw _privateConstructorUsedError;
   TrainigGroup? get trainigGroup => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SkillfulFormationState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SkillfulFormationStateCopyWith<SkillfulFormationState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $SkillfulFormationStateCopyWith<$Res> {
-  factory $SkillfulFormationStateCopyWith(SkillfulFormationState value,
-          $Res Function(SkillfulFormationState) then) =
-      _$SkillfulFormationStateCopyWithImpl<$Res, SkillfulFormationState>;
+  factory $SkillfulFormationStateCopyWith(
+    SkillfulFormationState value,
+    $Res Function(SkillfulFormationState) then,
+  ) = _$SkillfulFormationStateCopyWithImpl<$Res, SkillfulFormationState>;
   @useResult
-  $Res call(
-      {List<Formation> formations, bool loading, TrainigGroup? trainigGroup});
+  $Res call({
+    List<Formation> formations,
+    bool loading,
+    TrainigGroup? trainigGroup,
+  });
 }
 
 /// @nodoc
-class _$SkillfulFormationStateCopyWithImpl<$Res,
-        $Val extends SkillfulFormationState>
+class _$SkillfulFormationStateCopyWithImpl<
+  $Res,
+  $Val extends SkillfulFormationState
+>
     implements $SkillfulFormationStateCopyWith<$Res> {
   _$SkillfulFormationStateCopyWithImpl(this._value, this._then);
 
@@ -46,6 +55,8 @@ class _$SkillfulFormationStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SkillfulFormationState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -53,44 +64,57 @@ class _$SkillfulFormationStateCopyWithImpl<$Res,
     Object? loading = null,
     Object? trainigGroup = freezed,
   }) {
-    return _then(_value.copyWith(
-      formations: null == formations
-          ? _value.formations
-          : formations // ignore: cast_nullable_to_non_nullable
-              as List<Formation>,
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      trainigGroup: freezed == trainigGroup
-          ? _value.trainigGroup
-          : trainigGroup // ignore: cast_nullable_to_non_nullable
-              as TrainigGroup?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            formations:
+                null == formations
+                    ? _value.formations
+                    : formations // ignore: cast_nullable_to_non_nullable
+                        as List<Formation>,
+            loading:
+                null == loading
+                    ? _value.loading
+                    : loading // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            trainigGroup:
+                freezed == trainigGroup
+                    ? _value.trainigGroup
+                    : trainigGroup // ignore: cast_nullable_to_non_nullable
+                        as TrainigGroup?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_SkillfulFormationStateCopyWith<$Res>
+abstract class _$$SkillfulFormationStateImplCopyWith<$Res>
     implements $SkillfulFormationStateCopyWith<$Res> {
-  factory _$$_SkillfulFormationStateCopyWith(_$_SkillfulFormationState value,
-          $Res Function(_$_SkillfulFormationState) then) =
-      __$$_SkillfulFormationStateCopyWithImpl<$Res>;
+  factory _$$SkillfulFormationStateImplCopyWith(
+    _$SkillfulFormationStateImpl value,
+    $Res Function(_$SkillfulFormationStateImpl) then,
+  ) = __$$SkillfulFormationStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {List<Formation> formations, bool loading, TrainigGroup? trainigGroup});
+  $Res call({
+    List<Formation> formations,
+    bool loading,
+    TrainigGroup? trainigGroup,
+  });
 }
 
 /// @nodoc
-class __$$_SkillfulFormationStateCopyWithImpl<$Res>
-    extends _$SkillfulFormationStateCopyWithImpl<$Res,
-        _$_SkillfulFormationState>
-    implements _$$_SkillfulFormationStateCopyWith<$Res> {
-  __$$_SkillfulFormationStateCopyWithImpl(_$_SkillfulFormationState _value,
-      $Res Function(_$_SkillfulFormationState) _then)
-      : super(_value, _then);
+class __$$SkillfulFormationStateImplCopyWithImpl<$Res>
+    extends
+        _$SkillfulFormationStateCopyWithImpl<$Res, _$SkillfulFormationStateImpl>
+    implements _$$SkillfulFormationStateImplCopyWith<$Res> {
+  __$$SkillfulFormationStateImplCopyWithImpl(
+    _$SkillfulFormationStateImpl _value,
+    $Res Function(_$SkillfulFormationStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of SkillfulFormationState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -98,32 +122,37 @@ class __$$_SkillfulFormationStateCopyWithImpl<$Res>
     Object? loading = null,
     Object? trainigGroup = freezed,
   }) {
-    return _then(_$_SkillfulFormationState(
-      formations: null == formations
-          ? _value._formations
-          : formations // ignore: cast_nullable_to_non_nullable
-              as List<Formation>,
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      trainigGroup: freezed == trainigGroup
-          ? _value.trainigGroup
-          : trainigGroup // ignore: cast_nullable_to_non_nullable
-              as TrainigGroup?,
-    ));
+    return _then(
+      _$SkillfulFormationStateImpl(
+        formations:
+            null == formations
+                ? _value._formations
+                : formations // ignore: cast_nullable_to_non_nullable
+                    as List<Formation>,
+        loading:
+            null == loading
+                ? _value.loading
+                : loading // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        trainigGroup:
+            freezed == trainigGroup
+                ? _value.trainigGroup
+                : trainigGroup // ignore: cast_nullable_to_non_nullable
+                    as TrainigGroup?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_SkillfulFormationState extends _SkillfulFormationState {
-  const _$_SkillfulFormationState(
-      {final List<Formation> formations = const <Formation>[],
-      this.loading = false,
-      this.trainigGroup})
-      : _formations = formations,
-        super._();
+class _$SkillfulFormationStateImpl extends _SkillfulFormationState {
+  const _$SkillfulFormationStateImpl({
+    final List<Formation> formations = const <Formation>[],
+    this.loading = false,
+    this.trainigGroup,
+  }) : _formations = formations,
+       super._();
 
   final List<Formation> _formations;
   @override
@@ -146,34 +175,46 @@ class _$_SkillfulFormationState extends _SkillfulFormationState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SkillfulFormationState &&
-            const DeepCollectionEquality()
-                .equals(other._formations, _formations) &&
+            other is _$SkillfulFormationStateImpl &&
+            const DeepCollectionEquality().equals(
+              other._formations,
+              _formations,
+            ) &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.trainigGroup, trainigGroup) ||
                 other.trainigGroup == trainigGroup));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_formations), loading, trainigGroup);
+  int get hashCode => Object.hash(
+    runtimeType,
+    const DeepCollectionEquality().hash(_formations),
+    loading,
+    trainigGroup,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SkillfulFormationState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SkillfulFormationStateCopyWith<_$_SkillfulFormationState> get copyWith =>
-      __$$_SkillfulFormationStateCopyWithImpl<_$_SkillfulFormationState>(
-          this, _$identity);
+  _$$SkillfulFormationStateImplCopyWith<_$SkillfulFormationStateImpl>
+  get copyWith =>
+      __$$SkillfulFormationStateImplCopyWithImpl<_$SkillfulFormationStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _SkillfulFormationState extends SkillfulFormationState {
-  const factory _SkillfulFormationState(
-      {final List<Formation> formations,
-      final bool loading,
-      final TrainigGroup? trainigGroup}) = _$_SkillfulFormationState;
+  const factory _SkillfulFormationState({
+    final List<Formation> formations,
+    final bool loading,
+    final TrainigGroup? trainigGroup,
+  }) = _$SkillfulFormationStateImpl;
   const _SkillfulFormationState._() : super._();
 
   @override
@@ -182,8 +223,11 @@ abstract class _SkillfulFormationState extends SkillfulFormationState {
   bool get loading;
   @override
   TrainigGroup? get trainigGroup;
+
+  /// Create a copy of SkillfulFormationState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_SkillfulFormationStateCopyWith<_$_SkillfulFormationState> get copyWith =>
-      throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SkillfulFormationStateImplCopyWith<_$SkillfulFormationStateImpl>
+  get copyWith => throw _privateConstructorUsedError;
 }

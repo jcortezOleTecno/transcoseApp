@@ -12,7 +12,8 @@ part of 'type_of_vehicle_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$TypeOfVehicleState {
@@ -21,7 +22,9 @@ mixin _$TypeOfVehicleState {
   Category? get category => throw _privateConstructorUsedError;
   Header? get header => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TypeOfVehicleState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TypeOfVehicleStateCopyWith<TypeOfVehicleState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -29,14 +32,16 @@ mixin _$TypeOfVehicleState {
 /// @nodoc
 abstract class $TypeOfVehicleStateCopyWith<$Res> {
   factory $TypeOfVehicleStateCopyWith(
-          TypeOfVehicleState value, $Res Function(TypeOfVehicleState) then) =
-      _$TypeOfVehicleStateCopyWithImpl<$Res, TypeOfVehicleState>;
+    TypeOfVehicleState value,
+    $Res Function(TypeOfVehicleState) then,
+  ) = _$TypeOfVehicleStateCopyWithImpl<$Res, TypeOfVehicleState>;
   @useResult
-  $Res call(
-      {bool loading,
-      List<TypeOfVehicle> types,
-      Category? category,
-      Header? header});
+  $Res call({
+    bool loading,
+    List<TypeOfVehicle> types,
+    Category? category,
+    Header? header,
+  });
 }
 
 /// @nodoc
@@ -49,6 +54,8 @@ class _$TypeOfVehicleStateCopyWithImpl<$Res, $Val extends TypeOfVehicleState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of TypeOfVehicleState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -57,50 +64,62 @@ class _$TypeOfVehicleStateCopyWithImpl<$Res, $Val extends TypeOfVehicleState>
     Object? category = freezed,
     Object? header = freezed,
   }) {
-    return _then(_value.copyWith(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      types: null == types
-          ? _value.types
-          : types // ignore: cast_nullable_to_non_nullable
-              as List<TypeOfVehicle>,
-      category: freezed == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as Category?,
-      header: freezed == header
-          ? _value.header
-          : header // ignore: cast_nullable_to_non_nullable
-              as Header?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            loading:
+                null == loading
+                    ? _value.loading
+                    : loading // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            types:
+                null == types
+                    ? _value.types
+                    : types // ignore: cast_nullable_to_non_nullable
+                        as List<TypeOfVehicle>,
+            category:
+                freezed == category
+                    ? _value.category
+                    : category // ignore: cast_nullable_to_non_nullable
+                        as Category?,
+            header:
+                freezed == header
+                    ? _value.header
+                    : header // ignore: cast_nullable_to_non_nullable
+                        as Header?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_TypeOfVehicleStateCopyWith<$Res>
+abstract class _$$TypeOfVehicleStateImplCopyWith<$Res>
     implements $TypeOfVehicleStateCopyWith<$Res> {
-  factory _$$_TypeOfVehicleStateCopyWith(_$_TypeOfVehicleState value,
-          $Res Function(_$_TypeOfVehicleState) then) =
-      __$$_TypeOfVehicleStateCopyWithImpl<$Res>;
+  factory _$$TypeOfVehicleStateImplCopyWith(
+    _$TypeOfVehicleStateImpl value,
+    $Res Function(_$TypeOfVehicleStateImpl) then,
+  ) = __$$TypeOfVehicleStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {bool loading,
-      List<TypeOfVehicle> types,
-      Category? category,
-      Header? header});
+  $Res call({
+    bool loading,
+    List<TypeOfVehicle> types,
+    Category? category,
+    Header? header,
+  });
 }
 
 /// @nodoc
-class __$$_TypeOfVehicleStateCopyWithImpl<$Res>
-    extends _$TypeOfVehicleStateCopyWithImpl<$Res, _$_TypeOfVehicleState>
-    implements _$$_TypeOfVehicleStateCopyWith<$Res> {
-  __$$_TypeOfVehicleStateCopyWithImpl(
-      _$_TypeOfVehicleState _value, $Res Function(_$_TypeOfVehicleState) _then)
-      : super(_value, _then);
+class __$$TypeOfVehicleStateImplCopyWithImpl<$Res>
+    extends _$TypeOfVehicleStateCopyWithImpl<$Res, _$TypeOfVehicleStateImpl>
+    implements _$$TypeOfVehicleStateImplCopyWith<$Res> {
+  __$$TypeOfVehicleStateImplCopyWithImpl(
+    _$TypeOfVehicleStateImpl _value,
+    $Res Function(_$TypeOfVehicleStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of TypeOfVehicleState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -109,37 +128,43 @@ class __$$_TypeOfVehicleStateCopyWithImpl<$Res>
     Object? category = freezed,
     Object? header = freezed,
   }) {
-    return _then(_$_TypeOfVehicleState(
-      loading: null == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      types: null == types
-          ? _value._types
-          : types // ignore: cast_nullable_to_non_nullable
-              as List<TypeOfVehicle>,
-      category: freezed == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as Category?,
-      header: freezed == header
-          ? _value.header
-          : header // ignore: cast_nullable_to_non_nullable
-              as Header?,
-    ));
+    return _then(
+      _$TypeOfVehicleStateImpl(
+        loading:
+            null == loading
+                ? _value.loading
+                : loading // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        types:
+            null == types
+                ? _value._types
+                : types // ignore: cast_nullable_to_non_nullable
+                    as List<TypeOfVehicle>,
+        category:
+            freezed == category
+                ? _value.category
+                : category // ignore: cast_nullable_to_non_nullable
+                    as Category?,
+        header:
+            freezed == header
+                ? _value.header
+                : header // ignore: cast_nullable_to_non_nullable
+                    as Header?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_TypeOfVehicleState extends _TypeOfVehicleState {
-  const _$_TypeOfVehicleState(
-      {this.loading = false,
-      final List<TypeOfVehicle> types = const <TypeOfVehicle>[],
-      this.category,
-      this.header})
-      : _types = types,
-        super._();
+class _$TypeOfVehicleStateImpl extends _TypeOfVehicleState {
+  const _$TypeOfVehicleStateImpl({
+    this.loading = false,
+    final List<TypeOfVehicle> types = const <TypeOfVehicle>[],
+    this.category,
+    this.header,
+  }) : _types = types,
+       super._();
 
   @override
   @JsonKey()
@@ -164,10 +189,10 @@ class _$_TypeOfVehicleState extends _TypeOfVehicleState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TypeOfVehicleState &&
+            other is _$TypeOfVehicleStateImpl &&
             (identical(other.loading, loading) || other.loading == loading) &&
             const DeepCollectionEquality().equals(other._types, _types) &&
             (identical(other.category, category) ||
@@ -176,23 +201,33 @@ class _$_TypeOfVehicleState extends _TypeOfVehicleState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, loading,
-      const DeepCollectionEquality().hash(_types), category, header);
+  int get hashCode => Object.hash(
+    runtimeType,
+    loading,
+    const DeepCollectionEquality().hash(_types),
+    category,
+    header,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TypeOfVehicleState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TypeOfVehicleStateCopyWith<_$_TypeOfVehicleState> get copyWith =>
-      __$$_TypeOfVehicleStateCopyWithImpl<_$_TypeOfVehicleState>(
-          this, _$identity);
+  _$$TypeOfVehicleStateImplCopyWith<_$TypeOfVehicleStateImpl> get copyWith =>
+      __$$TypeOfVehicleStateImplCopyWithImpl<_$TypeOfVehicleStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _TypeOfVehicleState extends TypeOfVehicleState {
-  const factory _TypeOfVehicleState(
-      {final bool loading,
-      final List<TypeOfVehicle> types,
-      final Category? category,
-      final Header? header}) = _$_TypeOfVehicleState;
+  const factory _TypeOfVehicleState({
+    final bool loading,
+    final List<TypeOfVehicle> types,
+    final Category? category,
+    final Header? header,
+  }) = _$TypeOfVehicleStateImpl;
   const _TypeOfVehicleState._() : super._();
 
   @override
@@ -203,8 +238,11 @@ abstract class _TypeOfVehicleState extends TypeOfVehicleState {
   Category? get category;
   @override
   Header? get header;
+
+  /// Create a copy of TypeOfVehicleState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_TypeOfVehicleStateCopyWith<_$_TypeOfVehicleState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$TypeOfVehicleStateImplCopyWith<_$TypeOfVehicleStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

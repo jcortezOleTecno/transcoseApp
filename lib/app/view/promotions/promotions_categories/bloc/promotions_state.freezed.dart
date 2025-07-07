@@ -12,7 +12,8 @@ part of 'promotions_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$PromotionsState {
@@ -22,7 +23,9 @@ mixin _$PromotionsState {
   List<Promotion> get promotions => throw _privateConstructorUsedError;
   Header? get header => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PromotionsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PromotionsStateCopyWith<PromotionsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -30,15 +33,17 @@ mixin _$PromotionsState {
 /// @nodoc
 abstract class $PromotionsStateCopyWith<$Res> {
   factory $PromotionsStateCopyWith(
-          PromotionsState value, $Res Function(PromotionsState) then) =
-      _$PromotionsStateCopyWithImpl<$Res, PromotionsState>;
+    PromotionsState value,
+    $Res Function(PromotionsState) then,
+  ) = _$PromotionsStateCopyWithImpl<$Res, PromotionsState>;
   @useResult
-  $Res call(
-      {List<Category> categories,
-      Category? categorySelected,
-      String? query,
-      List<Promotion> promotions,
-      Header? header});
+  $Res call({
+    List<Category> categories,
+    Category? categorySelected,
+    String? query,
+    List<Promotion> promotions,
+    Header? header,
+  });
 }
 
 /// @nodoc
@@ -51,6 +56,8 @@ class _$PromotionsStateCopyWithImpl<$Res, $Val extends PromotionsState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PromotionsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -60,55 +67,68 @@ class _$PromotionsStateCopyWithImpl<$Res, $Val extends PromotionsState>
     Object? promotions = null,
     Object? header = freezed,
   }) {
-    return _then(_value.copyWith(
-      categories: null == categories
-          ? _value.categories
-          : categories // ignore: cast_nullable_to_non_nullable
-              as List<Category>,
-      categorySelected: freezed == categorySelected
-          ? _value.categorySelected
-          : categorySelected // ignore: cast_nullable_to_non_nullable
-              as Category?,
-      query: freezed == query
-          ? _value.query
-          : query // ignore: cast_nullable_to_non_nullable
-              as String?,
-      promotions: null == promotions
-          ? _value.promotions
-          : promotions // ignore: cast_nullable_to_non_nullable
-              as List<Promotion>,
-      header: freezed == header
-          ? _value.header
-          : header // ignore: cast_nullable_to_non_nullable
-              as Header?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            categories:
+                null == categories
+                    ? _value.categories
+                    : categories // ignore: cast_nullable_to_non_nullable
+                        as List<Category>,
+            categorySelected:
+                freezed == categorySelected
+                    ? _value.categorySelected
+                    : categorySelected // ignore: cast_nullable_to_non_nullable
+                        as Category?,
+            query:
+                freezed == query
+                    ? _value.query
+                    : query // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            promotions:
+                null == promotions
+                    ? _value.promotions
+                    : promotions // ignore: cast_nullable_to_non_nullable
+                        as List<Promotion>,
+            header:
+                freezed == header
+                    ? _value.header
+                    : header // ignore: cast_nullable_to_non_nullable
+                        as Header?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
-abstract class _$$_PromotionsStateCopyWith<$Res>
+abstract class _$$PromotionsStateImplCopyWith<$Res>
     implements $PromotionsStateCopyWith<$Res> {
-  factory _$$_PromotionsStateCopyWith(
-          _$_PromotionsState value, $Res Function(_$_PromotionsState) then) =
-      __$$_PromotionsStateCopyWithImpl<$Res>;
+  factory _$$PromotionsStateImplCopyWith(
+    _$PromotionsStateImpl value,
+    $Res Function(_$PromotionsStateImpl) then,
+  ) = __$$PromotionsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {List<Category> categories,
-      Category? categorySelected,
-      String? query,
-      List<Promotion> promotions,
-      Header? header});
+  $Res call({
+    List<Category> categories,
+    Category? categorySelected,
+    String? query,
+    List<Promotion> promotions,
+    Header? header,
+  });
 }
 
 /// @nodoc
-class __$$_PromotionsStateCopyWithImpl<$Res>
-    extends _$PromotionsStateCopyWithImpl<$Res, _$_PromotionsState>
-    implements _$$_PromotionsStateCopyWith<$Res> {
-  __$$_PromotionsStateCopyWithImpl(
-      _$_PromotionsState _value, $Res Function(_$_PromotionsState) _then)
-      : super(_value, _then);
+class __$$PromotionsStateImplCopyWithImpl<$Res>
+    extends _$PromotionsStateCopyWithImpl<$Res, _$PromotionsStateImpl>
+    implements _$$PromotionsStateImplCopyWith<$Res> {
+  __$$PromotionsStateImplCopyWithImpl(
+    _$PromotionsStateImpl _value,
+    $Res Function(_$PromotionsStateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of PromotionsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -118,43 +138,50 @@ class __$$_PromotionsStateCopyWithImpl<$Res>
     Object? promotions = null,
     Object? header = freezed,
   }) {
-    return _then(_$_PromotionsState(
-      categories: null == categories
-          ? _value._categories
-          : categories // ignore: cast_nullable_to_non_nullable
-              as List<Category>,
-      categorySelected: freezed == categorySelected
-          ? _value.categorySelected
-          : categorySelected // ignore: cast_nullable_to_non_nullable
-              as Category?,
-      query: freezed == query
-          ? _value.query
-          : query // ignore: cast_nullable_to_non_nullable
-              as String?,
-      promotions: null == promotions
-          ? _value._promotions
-          : promotions // ignore: cast_nullable_to_non_nullable
-              as List<Promotion>,
-      header: freezed == header
-          ? _value.header
-          : header // ignore: cast_nullable_to_non_nullable
-              as Header?,
-    ));
+    return _then(
+      _$PromotionsStateImpl(
+        categories:
+            null == categories
+                ? _value._categories
+                : categories // ignore: cast_nullable_to_non_nullable
+                    as List<Category>,
+        categorySelected:
+            freezed == categorySelected
+                ? _value.categorySelected
+                : categorySelected // ignore: cast_nullable_to_non_nullable
+                    as Category?,
+        query:
+            freezed == query
+                ? _value.query
+                : query // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        promotions:
+            null == promotions
+                ? _value._promotions
+                : promotions // ignore: cast_nullable_to_non_nullable
+                    as List<Promotion>,
+        header:
+            freezed == header
+                ? _value.header
+                : header // ignore: cast_nullable_to_non_nullable
+                    as Header?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$_PromotionsState extends _PromotionsState {
-  const _$_PromotionsState(
-      {final List<Category> categories = const <Category>[],
-      this.categorySelected,
-      this.query,
-      final List<Promotion> promotions = const <Promotion>[],
-      this.header})
-      : _categories = categories,
-        _promotions = promotions,
-        super._();
+class _$PromotionsStateImpl extends _PromotionsState {
+  const _$PromotionsStateImpl({
+    final List<Category> categories = const <Category>[],
+    this.categorySelected,
+    this.query,
+    final List<Promotion> promotions = const <Promotion>[],
+    this.header,
+  }) : _categories = categories,
+       _promotions = promotions,
+       super._();
 
   final List<Category> _categories;
   @override
@@ -187,43 +214,54 @@ class _$_PromotionsState extends _PromotionsState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PromotionsState &&
-            const DeepCollectionEquality()
-                .equals(other._categories, _categories) &&
+            other is _$PromotionsStateImpl &&
+            const DeepCollectionEquality().equals(
+              other._categories,
+              _categories,
+            ) &&
             (identical(other.categorySelected, categorySelected) ||
                 other.categorySelected == categorySelected) &&
             (identical(other.query, query) || other.query == query) &&
-            const DeepCollectionEquality()
-                .equals(other._promotions, _promotions) &&
+            const DeepCollectionEquality().equals(
+              other._promotions,
+              _promotions,
+            ) &&
             (identical(other.header, header) || other.header == header));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_categories),
-      categorySelected,
-      query,
-      const DeepCollectionEquality().hash(_promotions),
-      header);
+    runtimeType,
+    const DeepCollectionEquality().hash(_categories),
+    categorySelected,
+    query,
+    const DeepCollectionEquality().hash(_promotions),
+    header,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PromotionsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PromotionsStateCopyWith<_$_PromotionsState> get copyWith =>
-      __$$_PromotionsStateCopyWithImpl<_$_PromotionsState>(this, _$identity);
+  _$$PromotionsStateImplCopyWith<_$PromotionsStateImpl> get copyWith =>
+      __$$PromotionsStateImplCopyWithImpl<_$PromotionsStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _PromotionsState extends PromotionsState {
-  const factory _PromotionsState(
-      {final List<Category> categories,
-      final Category? categorySelected,
-      final String? query,
-      final List<Promotion> promotions,
-      final Header? header}) = _$_PromotionsState;
+  const factory _PromotionsState({
+    final List<Category> categories,
+    final Category? categorySelected,
+    final String? query,
+    final List<Promotion> promotions,
+    final Header? header,
+  }) = _$PromotionsStateImpl;
   const _PromotionsState._() : super._();
 
   @override
@@ -236,8 +274,11 @@ abstract class _PromotionsState extends PromotionsState {
   List<Promotion> get promotions;
   @override
   Header? get header;
+
+  /// Create a copy of PromotionsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_PromotionsStateCopyWith<_$_PromotionsState> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$PromotionsStateImplCopyWith<_$PromotionsStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
