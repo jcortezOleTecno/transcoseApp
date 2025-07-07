@@ -66,7 +66,7 @@ class _WebViewGlobalState extends State<WebViewGlobal> {
                 width: double.infinity,
                 height: double.infinity,
                 child: InAppWebView(
-                  initialUrlRequest: URLRequest(url: Uri.parse(url),),// .https("${BASE_API_URL.replaceAll('https://', '')}\/politicas-de-privacidad")),
+                  initialUrlRequest: URLRequest(url: WebUri.uri(Uri.parse(url)),),// .https("${BASE_API_URL.replaceAll('https://', '')}\/politicas-de-privacidad")),
                   initialOptions: InAppWebViewGroupOptions(
                       android: AndroidInAppWebViewOptions(
 

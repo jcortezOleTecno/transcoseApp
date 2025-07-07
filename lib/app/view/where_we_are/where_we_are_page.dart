@@ -375,83 +375,73 @@ class _MapState extends State<_Map> {
             child: state.loading
                 ? const MyShimmer.full()
                 : FlutterMap(
-                    mapController: controller,
-                    options: MapOptions(
-                      center: state.location,
-                      absorbPanEventsOnScrollables: true,
-                      enableScrollWheel: false,
-                      maxZoom: 25,
-                      minZoom: 5,
-                      zoom: 14,
-                      debugMultiFingerGestureWinner: true,
-                      enableMultiFingerGestureRace: true,
-                    ),
-                    nonRotatedChildren: [
-                      TileLayer(
-                        urlTemplate:
-                            'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}',
-                        additionalOptions: const {
-                          'accessToken': accessToken,
-                          'id': 'mapbox/streets-v12'
-                        },
-                        maxZoom: 25,
-                        minZoom: 5,
-                        zoomOffset: 0.0,
-                        maxNativeZoom: 25,
-                        minNativeZoom: 5,
+              mapController: controller,
+              options: MapOptions(
+                initialCenter: state.location ?? const LatLng(0.0, 0.0),
+                maxZoom: 25,
+                minZoom: 5,
+                initialZoom: 14,
+              ),
+              children: [
+                TileLayer(
+                  urlTemplate: 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}',
+                  additionalOptions: const {
+                    'accessToken': accessToken,
+                    'id': 'mapbox/streets-v12'
+                  },
+                  maxZoom: 25,
+                  minZoom: 5,
+                  zoomOffset: 0.0,
+                  maxNativeZoom: 25,
+                  minNativeZoom: 5,
+                ),
+                if (state.centers.isNotEmpty)
+                  MarkerLayer(
+                    markers: [
+                      Marker(
+                          point: state.location!,
+                          child: const Icon(
+                            Icons.location_on_rounded,
+                            color: AppColor.primaryBlue,
+                            size: 35,
+                          )
                       ),
-                      if (state.centers.isNotEmpty)
-                        MarkerLayer(
-                          markers: [
-                            Marker(
-                              point: state.location!,
-                              builder: (context) {
-                                return const Icon(
-                                  Icons.location_on_rounded,
-                                  color: AppColor.primaryBlue,
-                                  size: 35,
-                                );
-                              },
-                            ),
-                            ...state.centers.map(
-                              (e) => Marker(
-                                point: LatLng(double.parse(e.latitude ?? '0'),
-                                    double.parse(e.longitude ?? '0')),
-                                width: 80,
-                                height: 60,
-                                builder: (context) {
-                                  return Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      const Icon(
-                                        Icons.location_on_rounded,
-                                        color: AppColor.primaryBlue,
-                                        size: 35,
-                                      ),
-                                      Expanded(
-                                        child: Text(
-                                          e.name ?? '',
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                          textAlign: TextAlign.center,
-                                          style: const TextStyle(
-                                              fontSize: 12,
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      )
-                                    ],
-                                  );
-                                },
+                      ...state.centers.map(
+                            (e) => Marker(
+                          point: LatLng(double.parse(e.latitude ?? '0'), double.parse(e.longitude ?? '0')),
+                          width: 80,
+                          height: 60,
+                          child: Column(
+                            crossAxisAlignment:
+                            CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Icon(
+                                Icons.location_on_rounded,
+                                color: AppColor.primaryBlue,
+                                size: 35,
                               ),
-                            )
-                          ],
-                        )
+                              Expanded(
+                                child: Text(
+                                  e.name ?? '',
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      )
                     ],
-                  ),
+                  )
+              ],
+            ),
           ),
         );
       },

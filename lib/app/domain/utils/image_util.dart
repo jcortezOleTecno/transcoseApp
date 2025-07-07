@@ -57,7 +57,7 @@ class ImageUtil {
       sourcePath: image.path,
       compressQuality: compressQuality,
       aspectRatio: aspectRatio,
-      aspectRatioPresets: aspectRatioPresets,
+      //aspectRatioPresets: aspectRatioPresets,
       compressFormat: ImageCompressFormat.jpg,
       uiSettings: [
         AndroidUiSettings(

@@ -18,7 +18,7 @@ class NotificationUtils {
         AndroidInitializationSettings('appicon');
 
     final initializationSettingsIOS = DarwinInitializationSettings(
-      onDidReceiveLocalNotification: onDidReceiveLocalNotification,
+      //onDidReceiveLocalNotification: onDidReceiveLocalNotification,
     );
 
     final initializationSettings = InitializationSettings(
