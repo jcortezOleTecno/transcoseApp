@@ -225,7 +225,10 @@ class MyContratsCubit extends Cubit<MyContratsState> {
   }
 
   Future changeDateConvention({required String anio}) async{
-    emit(state.copyWith( yearSelectedConvention: anio,));
+    emit(state.copyWith(
+      yearSelectedConvention: anio,
+      contratoConventionsList: [],
+    ));
     getConventions();
   }
 
