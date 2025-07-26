@@ -32,7 +32,7 @@ import 'package:vemare/app/providers/bloc_data.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 NavigatorState get navigator => navigatorKey.currentState!;
-bool isReturns = false;
+bool isReturns = true;
 bool isClaims = true;
 bool payToCard = false;
 BlocData blocData = BlocData();

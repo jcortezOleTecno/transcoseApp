@@ -20,7 +20,7 @@ class FooterProvider extends ChangeNotifier {
       dataFooter = await getIt.get<UrlDynamicRepository>().getFooter();
       SharedPreferencesLocal.transcoseDataFooter = jsonEncode(dataFooter);
 
-      SharedPreferencesLocal.transcoseAppDevoluciones = dataFooter['app_devoluciones'];
+      // SharedPreferencesLocal.transcoseAppDevoluciones = dataFooter['app_devoluciones'];
       SharedPreferencesLocal.transcoseAppSat = dataFooter['app_sat'];
 
     }catch(e){

@@ -29,4 +29,16 @@ class SharedPreferencesLocal {
   static bool get transcoseAppDevolucionesPermission => prefs.getBool("transcoseAppDevolucionesPermission") ?? false;
   static set transcoseAppDevolucionesPermission(bool value) => prefs.setBool("transcoseAppDevolucionesPermission", value);
 
+  static bool get veraneValidatedDevolucion => prefs.getBool("veraneValidatedDevolucion") ?? false;
+  static set veraneValidatedDevolucion(bool value) => prefs.setBool("veraneValidatedDevolucion", value);
+
+  static bool get veraneValidatedPedidos => prefs.getBool("veraneValidatedPedidos") ?? false;
+  static set veraneValidatedPedidos(bool value) => prefs.setBool("veraneValidatedPedidos", value);
+
+  static bool get veraneValidatedGarantia => prefs.getBool("veraneValidatedGarantia") ?? false;
+  static set veraneValidatedGarantia(bool value) => prefs.setBool("veraneValidatedGarantia", value);
+
+  static bool get veraneValidatedAbonos => prefs.getBool("veraneValidatedAbonos") ?? false;
+  static set veraneValidatedAbonos(bool value) => prefs.setBool("veraneValidatedAbonos", value);
+
 }

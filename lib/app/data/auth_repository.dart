@@ -31,15 +31,40 @@ class AuthRepository {
     LocalDataRepository().isLogged = true;
     LocalDataRepository().user = user;
 
-    if(user.permissions != null){
-      bool exists = false;
-      for(int x = 0; x < user.permissions!.length; x++){
-        if(user.permissions![x].id! == 14){
-          exists = true; x = user.permissions!.length;
-        }
-      }
-      SharedPreferencesLocal.transcoseAppDevolucionesPermission = exists;
-    }
+    // if(user.permissions != null){
+    //   bool exists = false;
+    //   for(int x = 0; x < user.permissions!.length; x++){
+    //     if(user.permissions![x].id! == 14){
+    //       exists = true; x = user.permissions!.length;
+    //     }
+    //   }
+    //   SharedPreferencesLocal.transcoseAppDevolucionesPermission = exists;
+    // }
+
+    try{
+      final dynamic res = await apiClient.postRequest('$BASE_API_URL/api/validar-permiso', body: {
+        "namePermission": 'Devoluciones'
+      });
+      SharedPreferencesLocal.veraneValidatedDevolucion = res['validated'] ?? false;
+    }catch(_){}
+    try{
+      final dynamic res = await apiClient.postRequest('$BASE_API_URL/api/validar-permiso', body: {
+        "namePermission": 'Pedidos'
+      });
+      SharedPreferencesLocal.veraneValidatedPedidos = res['validated'] ?? false;
+    }catch(_){}
+    try{
+      final dynamic res = await apiClient.postRequest('$BASE_API_URL/api/validar-permiso', body: {
+        "namePermission": 'Abonos'
+      });
+      SharedPreferencesLocal.veraneValidatedAbonos = res['validated'] ?? false;
+    }catch(_){}
+    try{
+      final dynamic res = await apiClient.postRequest('$BASE_API_URL/api/validar-permiso', body: {
+        "namePermission": 'Garantias'
+      });
+      SharedPreferencesLocal.veraneValidatedGarantia = res['validated'] ?? false;
+    }catch(_){}
 
   }
 

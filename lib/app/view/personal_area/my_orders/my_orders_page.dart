@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vemare/app/data/my_account_repository.dart';
+import 'package:vemare/app/data/shared_preferences_static.dart';
 import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/personal_area/my_orders/returns/returns_widget.dart';
@@ -38,6 +39,8 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
   bool _showAppbar = true; //this is to show app bar
   final ScrollController scrollBottomBarController = ScrollController(); // set controller on scrolling
   bool isScrollingDown = false;
+  final PageController pageController = PageController(initialPage: 0);
+  int page = 0;
 
   @override
   void initState() {
@@ -78,68 +81,99 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
 
     double sizeW = MediaQuery.of(context).size.width;
 
+    List<Widget> listW = [];
+    List<Widget> listW2 = [];
+    if(SharedPreferencesLocal.veraneValidatedPedidos){
+      listW.add(MyOrders(scrollBottomBarController: scrollBottomBarController));
+      listW2.add(Expanded(child: cardText(type: 0)));
+    }
+    if(SharedPreferencesLocal.veraneValidatedGarantia){
+      listW.add(MyWarranty(scrollBottomBarController: scrollBottomBarController));
+      listW2.add(Expanded(child: cardText(type: 1)));
+    }
+    if(SharedPreferencesLocal.veraneValidatedAbonos){
+      listW.add(MyBills(scrollBottomBarController: scrollBottomBarController));
+      listW2.add(Expanded(child: cardText(type: 2)));
+    }
+    if(SharedPreferencesLocal.veraneValidatedDevolucion){
+      listW.add(ReturnsScreen(scrollBottomBarController: scrollBottomBarController));
+      listW2.add(Expanded(child: cardText(type: 3)));
+    }
+
     return Scaffold(
+      backgroundColor: AppColor.neutral10,
       body: MyBody(
-        child: DefaultTabController(
-          length: isReturns ? 4 : 3,
-          child: Column(
-            children: [
-              if(_showAppbar)...[
-                spacerS,
-                Visibility(
-                  visible: _showAppbar,
-                  child: TabBar(
-                    isScrollable: true,
-                    indicator: const BoxDecoration(
-                      color: AppColor.blue100,
-                      border: Border(bottom: BorderSide(color: AppColor.primaryBlue, width: 2.5),),
-                    ),
-                    labelColor: AppColor.primaryBlue,
-                    indicatorColor: AppColor.primaryBlue,
-                    indicatorWeight: 2.5,
-                    indicatorSize: TabBarIndicatorSize.tab,
-                    labelStyle: const TextStyle(fontWeight: FontWeight.bold,),
-                    unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.normal),
-                    unselectedLabelColor: AppColor.primaryBlue,
-                    tabs: [
-                      SizedBox(
-                        width: isReturns ? sizeW * 0.14 : sizeW * 0.24,
-                        child: const Tab(text: 'Pedidos'),
-                      ),
-                      SizedBox(
-                        width: isReturns ? sizeW * 0.14 : sizeW * 0.24,
-                        child: const Tab(text: 'Garantías'),
-                      ),
-                      SizedBox(
-                        width: isReturns ? sizeW * 0.14 : sizeW * 0.24,
-                        child: const Tab(text: 'Abonos'),
-                      ),
-                      if(isReturns)...[
-                        SizedBox(
-                          width: sizeW * 0.24,
-                          child: const Tab(text: 'Devoluciones'),
-                        ),
-                      ],
-                    ],
-                  ),
-                ),
-                const Divider(height: 0,thickness: 2,indent: 15,endIndent: 15,),
-              ],
+        child: Column(
+          children: [
+            SizedBox(
+              width: sizeW,
+              child: Row(
+                children: listW2,
+              ),
+            ),
+            if(listW.isNotEmpty)...[
               Expanded(
-                child: TabBarView(
+                child: PageView(
+                  controller: pageController,
+                  onPageChanged: (value){
+                    page = value;
+                    setState(() {});
+                  },
                   physics: const NeverScrollableScrollPhysics(),
-                  children: [
-                    MyOrders(scrollBottomBarController: scrollBottomBarController),
-                    MyWarranty(scrollBottomBarController: scrollBottomBarController),
-                    MyBills(scrollBottomBarController: scrollBottomBarController),
-                    if(isReturns)...[
-                      ReturnsScreen(scrollBottomBarController: scrollBottomBarController),
-                    ],
-                  ],
+                  children: listW,
+                ),
+              )
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget cardText({required int type}){
+    bool isSelected = type == page;
+    String title = '';
+    if(type == 0){
+      title = 'Pedidos';
+    }
+    if(type == 1){
+      title = 'Garantías';
+    }
+    if(type == 2){
+      title = 'Abonos';
+    }
+    if(type == 3){
+      title = 'Devoluciones';
+    }
+
+    return InkWell(
+      onTap: (){
+        pageController.animateToPage(type,duration: const Duration(milliseconds: 200,),curve: Curves.easeIn);
+        page = type;
+        setState(() {});
+      },
+      child: SizedBox(
+        height: 60,
+        child: Column(
+          children: [
+            Expanded(
+              child: Container(
+                height: 60,
+                padding: EdgeInsets.symmetric(vertical: 15),
+                decoration: BoxDecoration(
+                    color: isSelected ? AppColor.blue100 : Colors.transparent
+                ),
+                child: Center(
+                  child: Text(title,style: AppTextStyle.h12Style.copyWith(color: AppColor.primaryBlue),textAlign: TextAlign.center,),
                 ),
               ),
-            ],
-          ),
+            ),
+            Container(
+              width: double.infinity,
+              height: 1.5,
+              color: AppColor.primaryBlue,
+            )
+          ],
         ),
       ),
     );

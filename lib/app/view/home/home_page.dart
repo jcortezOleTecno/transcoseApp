@@ -108,7 +108,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
 
-    isReturns = SharedPreferencesLocal.transcoseAppDevoluciones || SharedPreferencesLocal.transcoseAppDevolucionesPermission;
+    // isReturns = SharedPreferencesLocal.transcoseAppDevoluciones || SharedPreferencesLocal.transcoseAppDevolucionesPermission;
 
     return Scaffold(
         body: MyBody(
