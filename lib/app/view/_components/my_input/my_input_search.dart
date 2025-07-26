@@ -12,6 +12,7 @@ class MySearchInput extends StatelessWidget {
     this.fillColor = Colors.white,
     this.borderSideColor = Colors.black,
     this.borderCircular = 40.0,
+    this.controller,
   }) : super(key: key);
 
   final String? hintText;
@@ -22,12 +23,14 @@ class MySearchInput extends StatelessWidget {
   final Color fillColor;
   final Color borderSideColor;
   final double borderCircular;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 45,
       child: TextFormField(
+        controller: controller,
         onFieldSubmitted: onFieldSubmitted,
         initialValue: initialValue,
         onChanged: onChanged,

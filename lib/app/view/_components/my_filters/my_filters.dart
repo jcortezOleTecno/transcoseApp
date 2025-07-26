@@ -16,11 +16,11 @@ import '../my_dropdown_button/my_drop_down_button.dart';
 import '../my_spacer/my_spacer.dart';
 
 Future<Filter?> myFilters(
-  BuildContext context, {
-  bool status = false,
-  List<String>? estadosSustitucion,
-  List<String>? estadosTramitacion,
-}) {
+    BuildContext context, {
+      bool status = false,
+      List<String>? estadosSustitucion,
+      List<String>? estadosTramitacion,
+    }) {
   Months? monthsSelect;
   String? yearSelect;
   DateTime? startDate;
@@ -74,19 +74,53 @@ Future<Filter?> myFilters(
                                     text: startDate == null
                                         ? 'Desde'
                                         : DateFormat.yMd('es')
-                                            .format(startDate!),
+                                        .format(startDate!),
                                     onPressed: () async {
                                       showRoundedDatePicker(
-                                        context: context,
-                                        initialDate: DateTime.now(),
-                                        firstDate:
-                                            DateTime(DateTime.now().year - 20),
-                                        lastDate: DateTime.now()
-                                            .add(const Duration(days: 1)),
-                                        locale: const Locale('es', 'ES'),
-                                        height: 340,
-                                        borderRadius: 16,
-                                        theme: AppTheme.light,
+                                          context: context,
+                                          initialDate: DateTime.now(),
+                                          firstDate: DateTime(DateTime.now().year - 20),
+                                          lastDate: DateTime.now().add(const Duration(days: 1)),
+                                          locale: const Locale('es', 'ES'),
+                                          height: 340,
+                                          borderRadius: 16,
+                                          styleYearPicker: MaterialRoundedYearPickerStyle(
+                                            textStyleYear: const TextStyle(fontSize: 16, color: AppColor.whiteF),
+                                          ),
+                                          styleDatePicker: MaterialRoundedDatePickerStyle(
+                                            textStyleDayButton: const TextStyle(fontSize: 26, color: Colors.white),
+                                            textStyleYearButton: const TextStyle(fontSize: 22,color: Colors.white,),
+                                            textStyleDayHeader: const TextStyle(fontSize: 18,color: AppColor.primary,),
+                                            textStyleMonthYearHeader: const TextStyle(fontSize: 22, color: AppColor.primary, fontWeight: FontWeight.bold),
+                                            colorArrowNext: AppColor.primary,
+                                            colorArrowPrevious: AppColor.primary,
+                                            textStyleButtonPositive: const TextStyle(fontSize: 18, color: AppColor.primary, fontWeight: FontWeight.bold),
+                                            textStyleButtonNegative: const TextStyle(fontSize: 18, color: AppColor.primary),
+
+                                            textStyleCurrentDayOnCalendar: const TextStyle(fontSize: 20, color: AppColor.primary, fontWeight: FontWeight.bold),
+                                            textStyleDayOnCalendar: const TextStyle(fontSize: 20, color: AppColor.primary),
+                                            textStyleDayOnCalendarSelected: const TextStyle(fontSize: 22, color: AppColor.whiteF, fontWeight: FontWeight.bold),
+                                            textStyleDayOnCalendarDisabled: TextStyle(fontSize: 20, color: AppColor.primary.withOpacity(0.1)),
+                                          ),
+                                          theme: ThemeData(
+                                              primaryColor: AppColor.primary,
+                                              colorScheme: const ColorScheme.light(
+                                                primary: AppColor.primary,
+                                                surface: AppColor.whiteF,
+                                                onSurface: AppColor.whiteF,
+                                                onPrimary: Colors.black,
+                                              ),
+                                              disabledColor: Colors.black,
+                                              dialogBackgroundColor: AppColor.whiteF, // Fondo del diálogo
+                                              dialogTheme: DialogTheme(
+                                                titleTextStyle: AppTextStyle.inputHintStyle.copyWith(color: AppColor.whiteF),
+                                                surfaceTintColor: AppColor.whiteF,
+                                                backgroundColor: AppColor.whiteF,
+                                                contentTextStyle: AppTextStyle.inputHintStyle.copyWith(color: AppColor.whiteF),
+                                                shadowColor: AppColor.whiteF,
+                                              )
+                                          ),
+                                          background: AppColor.whiteF
                                       ).then((date) {
                                         if (date != null) {
                                           setState(() {
@@ -110,28 +144,63 @@ Future<Filter?> myFilters(
                                     onPressed: startDate == null
                                         ? null
                                         : () {
-                                            showRoundedDatePicker(
-                                              context: context,
-                                              initialDate: startDate!,
-                                              firstDate: startDate!,
-                                              lastDate: DateTime.now()
-                                                  .add(const Duration(days: 1)),
-                                              locale: const Locale('es', 'ES'),
-                                              height: 340,
-                                              borderRadius: 16,
-                                              theme: AppTheme.light,
-                                            ).then((date) {
-                                              if (date != null) {
-                                                setState(() {
-                                                  endDate = date;
+                                      showRoundedDatePicker(
+                                        context: context,
+                                        initialDate: startDate!,
+                                        firstDate: startDate!,
+                                        lastDate: DateTime.now()
+                                            .add(const Duration(days: 1)),
+                                        locale: const Locale('es', 'ES'),
+                                        height: 340,
+                                        borderRadius: 16,
+                                        styleYearPicker: MaterialRoundedYearPickerStyle(
+                                          textStyleYear: const TextStyle(fontSize: 16, color: AppColor.whiteF),
+                                        ),
+                                        styleDatePicker: MaterialRoundedDatePickerStyle(
+                                          textStyleDayButton: const TextStyle(fontSize: 26, color: Colors.white),
+                                          textStyleYearButton: const TextStyle(fontSize: 22,color: Colors.white,),
+                                          textStyleDayHeader: const TextStyle(fontSize: 18,color: AppColor.primary,),
+                                          textStyleMonthYearHeader: const TextStyle(fontSize: 22, color: AppColor.primary, fontWeight: FontWeight.bold),
+                                          colorArrowNext: AppColor.primary,
+                                          colorArrowPrevious: AppColor.primary,
+                                          textStyleButtonPositive: const TextStyle(fontSize: 18, color: AppColor.primary, fontWeight: FontWeight.bold),
+                                          textStyleButtonNegative: const TextStyle(fontSize: 18, color: AppColor.primary),
 
-                                                  yearSelect = null;
-                                                  monthsSelect = null;
-                                                  quarter = null;
-                                                });
-                                              }
-                                            });
-                                          },
+                                          textStyleCurrentDayOnCalendar: const TextStyle(fontSize: 20, color: AppColor.primary, fontWeight: FontWeight.bold),
+                                          textStyleDayOnCalendar: const TextStyle(fontSize: 20, color: AppColor.primary),
+                                          textStyleDayOnCalendarSelected: const TextStyle(fontSize: 22, color: AppColor.whiteF, fontWeight: FontWeight.bold),
+                                          textStyleDayOnCalendarDisabled: TextStyle(fontSize: 20, color: AppColor.primary.withOpacity(0.1)),
+                                        ),
+                                        theme: ThemeData(
+                                            primaryColor: AppColor.primary,
+                                            colorScheme: const ColorScheme.light(
+                                              primary: AppColor.primary,
+                                              surface: AppColor.whiteF,
+                                              onSurface: AppColor.whiteF,
+                                              onPrimary: Colors.black,
+                                            ),
+                                            disabledColor: Colors.black,
+                                            dialogBackgroundColor: AppColor.whiteF, // Fondo del diálogo
+                                            dialogTheme: DialogTheme(
+                                              titleTextStyle: AppTextStyle.inputHintStyle.copyWith(color: AppColor.whiteF),
+                                              surfaceTintColor: AppColor.whiteF,
+                                              backgroundColor: AppColor.whiteF,
+                                              contentTextStyle: AppTextStyle.inputHintStyle.copyWith(color: AppColor.whiteF),
+                                              shadowColor: AppColor.whiteF,
+                                            )
+                                        ),
+                                      ).then((date) {
+                                        if (date != null) {
+                                          setState(() {
+                                            endDate = date;
+
+                                            yearSelect = null;
+                                            monthsSelect = null;
+                                            quarter = null;
+                                          });
+                                        }
+                                      });
+                                    },
                                     textColor: endDate == null
                                         ? Colors.grey[600]!
                                         : Colors.black),
@@ -146,14 +215,14 @@ Future<Filter?> myFilters(
                               hint: 'Selecciona un mes',
                               dropdownItems: monthsList
                                   .map((item) => DropdownMenuItem(
-                                        value: item,
-                                        child: Text(
-                                          item.name,
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                          style: AppTextStyle.inputStyle,
-                                        ),
-                                      ))
+                                value: item,
+                                child: Text(
+                                  item.name,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: AppTextStyle.inputStyle,
+                                ),
+                              ))
                                   .toList(),
                               buttonWidth: double.infinity,
                               value: monthsSelect,
@@ -175,14 +244,14 @@ Future<Filter?> myFilters(
                               hint: 'Selecciona un año',
                               dropdownItems: yearsList
                                   .map((item) => DropdownMenuItem(
-                                        value: item,
-                                        child: Text(
-                                          item,
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                          style: AppTextStyle.inputStyle,
-                                        ),
-                                      ))
+                                value: item,
+                                child: Text(
+                                  item,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: AppTextStyle.inputStyle,
+                                ),
+                              ))
                                   .toList(),
                               buttonWidth: double.infinity,
                               value: yearSelect,
@@ -203,14 +272,14 @@ Future<Filter?> myFilters(
                               hint: 'Selecciona un trimestre',
                               dropdownItems: [1, 2, 3, 4]
                                   .map((item) => DropdownMenuItem(
-                                        value: item,
-                                        child: Text(
-                                          item.toString(),
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                          style: AppTextStyle.inputStyle,
-                                        ),
-                                      ))
+                                value: item,
+                                child: Text(
+                                  item.toString(),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: AppTextStyle.inputStyle,
+                                ),
+                              ))
                                   .toList(),
                               buttonWidth: double.infinity,
                               value: quarter,
@@ -233,14 +302,14 @@ Future<Filter?> myFilters(
                                 hint: 'Selecciona un estado',
                                 dropdownItems: estados
                                     .map((item) => DropdownMenuItem(
-                                          value: item,
-                                          child: Text(
-                                            item.toUpperCase(),
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            style: AppTextStyle.inputStyle,
-                                          ),
-                                        ))
+                                  value: item,
+                                  child: Text(
+                                    item.toUpperCase(),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    style: AppTextStyle.inputStyle,
+                                  ),
+                                ))
                                     .toList(),
                                 buttonWidth: double.infinity,
                                 value: estado,
@@ -261,14 +330,14 @@ Future<Filter?> myFilters(
                                 hint: 'Selecciona un estado',
                                 dropdownItems: estadosTramitacion
                                     .map((item) => DropdownMenuItem(
-                                          value: item,
-                                          child: Text(
-                                            item.toUpperCase(),
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            style: AppTextStyle.inputStyle,
-                                          ),
-                                        ))
+                                  value: item,
+                                  child: Text(
+                                    item.toUpperCase(),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    style: AppTextStyle.inputStyle,
+                                  ),
+                                ))
                                     .toList(),
                                 buttonWidth: double.infinity,
                                 value: estTramitacion,
@@ -289,14 +358,14 @@ Future<Filter?> myFilters(
                                 hint: 'Selecciona un estado',
                                 dropdownItems: estadosSustitucion
                                     .map((item) => DropdownMenuItem(
-                                          value: item,
-                                          child: Text(
-                                            item.toUpperCase(),
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            style: AppTextStyle.inputStyle,
-                                          ),
-                                        ))
+                                  value: item,
+                                  child: Text(
+                                    item.toUpperCase(),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    style: AppTextStyle.inputStyle,
+                                  ),
+                                ))
                                     .toList(),
                                 buttonWidth: double.infinity,
                                 value: estSustitucion,
@@ -374,28 +443,47 @@ Future<Filter?> myFilters(
 class ButtonFilter extends StatelessWidget {
   const ButtonFilter(
       {Key? key,
-      required this.textColor,
-      required this.onPressed,
-      required this.text})
+        required this.textColor,
+        required this.onPressed,
+        required this.text,
+        this.elevation = 2,
+        this.icon,
+        this.radiu = 4
+      })
       : super(key: key);
 
   final Color textColor;
   final String text;
   final void Function()? onPressed;
+  final double elevation;
+  final Widget? icon;
+  final double radiu;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
         child: MaterialButton(
-      onPressed: onPressed,
-      color: Colors.white,
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-      height: 44,
-      child: Align(
-          alignment: Alignment.centerLeft,
-          child: Text(text,
-              style: AppTextStyle.inputStyle.copyWith(color: textColor))),
-    ));
+          onPressed: onPressed,
+          color: Colors.white,
+          elevation: elevation,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radiu)),
+          height: 44,
+          child: icon == null ?
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(text,
+                style: AppTextStyle.inputStyle.copyWith(color: textColor)),
+          ) :
+          Row(
+            children: [
+              Expanded(
+                child: Text(text,
+                    style: AppTextStyle.inputStyle.copyWith(color: textColor)),
+              ),
+              icon!,
+            ],
+          ),
+        )
+    );
   }
 }

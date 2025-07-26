@@ -6,7 +6,9 @@ import 'package:vemare/app/data/contracts_repository.dart';
 import 'package:vemare/app/domain/model/albaran_returns_model.dart';
 import 'package:vemare/app/domain/model/filter.dart';
 import 'package:vemare/app/domain/model/returns_cart_model.dart';
+import 'package:vemare/app/domain/model/returns_model.dart';
 import 'package:vemare/app/domain/utils/months_list.dart';
+import 'package:vemare/app/view/personal_area/my_orders/returns/returns_widget.dart';
 import 'package:vemare/app/view/personal_area/my_orders/returns/widgets/returns_cart.dart';
 import 'package:vemare/app/view/personal_area/my_orders/returns/widgets/returns_new_orders.dart';
 

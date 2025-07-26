@@ -18,9 +18,23 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$MyOrdersState {
   bool get loading => throw _privateConstructorUsedError;
+  bool get selectedAlbaran => throw _privateConstructorUsedError;
+  int get cantSelectedAlbaran => throw _privateConstructorUsedError;
   List<Warranty> get guarantee => throw _privateConstructorUsedError;
-  List<Albaran> get orders => throw _privateConstructorUsedError;
-  List<Albaran> get bills => throw _privateConstructorUsedError;
+  List<AlbaranISI> get orders => throw _privateConstructorUsedError;
+  List<AlbaranISI> get ordersFilter => throw _privateConstructorUsedError;
+  List<AlbaranISI> get bills => throw _privateConstructorUsedError;
+  List<AlbaranMotivos> get albaranMotivos => throw _privateConstructorUsedError;
+  Map<String, bool>? get statePedidosSelected =>
+      throw _privateConstructorUsedError;
+  Map<String, bool>? get statePedidosOpen => throw _privateConstructorUsedError;
+  Map<String, List<LineasAlbaran>>? get ordersDetails =>
+      throw _privateConstructorUsedError;
+  int get currentPage => throw _privateConstructorUsedError;
+  PageController? get pageController => throw _privateConstructorUsedError;
+  TextEditingController? get controllerText =>
+      throw _privateConstructorUsedError;
+  ScrollController? get scrollController => throw _privateConstructorUsedError;
   StatusWarranty? get statusWarranty => throw _privateConstructorUsedError;
   String? get filterPedidos => throw _privateConstructorUsedError;
   String? get filterGarantias => throw _privateConstructorUsedError;
@@ -32,10 +46,12 @@ mixin _$MyOrdersState {
   DataTableSource? get dataPedidosFiltrado =>
       throw _privateConstructorUsedError;
   DataTableSource? get dataGarantias => throw _privateConstructorUsedError;
+  DataTableSource? get dataAbonosFiltrado => throw _privateConstructorUsedError;
   DataTableSource? get dataGarantiasFiltrado =>
       throw _privateConstructorUsedError;
   DataTableSource? get dataAbonos => throw _privateConstructorUsedError;
-  DataTableSource? get dataAbonosFiltrado => throw _privateConstructorUsedError;
+  DateTime? get startDate => throw _privateConstructorUsedError;
+  DateTime? get endDate => throw _privateConstructorUsedError;
 
   /// Create a copy of MyOrdersState
   /// with the given fields replaced by the non-null parameter values.
@@ -53,9 +69,20 @@ abstract class $MyOrdersStateCopyWith<$Res> {
   @useResult
   $Res call({
     bool loading,
+    bool selectedAlbaran,
+    int cantSelectedAlbaran,
     List<Warranty> guarantee,
-    List<Albaran> orders,
-    List<Albaran> bills,
+    List<AlbaranISI> orders,
+    List<AlbaranISI> ordersFilter,
+    List<AlbaranISI> bills,
+    List<AlbaranMotivos> albaranMotivos,
+    Map<String, bool>? statePedidosSelected,
+    Map<String, bool>? statePedidosOpen,
+    Map<String, List<LineasAlbaran>>? ordersDetails,
+    int currentPage,
+    PageController? pageController,
+    TextEditingController? controllerText,
+    ScrollController? scrollController,
     StatusWarranty? statusWarranty,
     String? filterPedidos,
     String? filterGarantias,
@@ -66,9 +93,11 @@ abstract class $MyOrdersStateCopyWith<$Res> {
     DataTableSource? dataPedidos,
     DataTableSource? dataPedidosFiltrado,
     DataTableSource? dataGarantias,
+    DataTableSource? dataAbonosFiltrado,
     DataTableSource? dataGarantiasFiltrado,
     DataTableSource? dataAbonos,
-    DataTableSource? dataAbonosFiltrado,
+    DateTime? startDate,
+    DateTime? endDate,
   });
 }
 
@@ -88,9 +117,20 @@ class _$MyOrdersStateCopyWithImpl<$Res, $Val extends MyOrdersState>
   @override
   $Res call({
     Object? loading = null,
+    Object? selectedAlbaran = null,
+    Object? cantSelectedAlbaran = null,
     Object? guarantee = null,
     Object? orders = null,
+    Object? ordersFilter = null,
     Object? bills = null,
+    Object? albaranMotivos = null,
+    Object? statePedidosSelected = freezed,
+    Object? statePedidosOpen = freezed,
+    Object? ordersDetails = freezed,
+    Object? currentPage = null,
+    Object? pageController = freezed,
+    Object? controllerText = freezed,
+    Object? scrollController = freezed,
     Object? statusWarranty = freezed,
     Object? filterPedidos = freezed,
     Object? filterGarantias = freezed,
@@ -101,9 +141,11 @@ class _$MyOrdersStateCopyWithImpl<$Res, $Val extends MyOrdersState>
     Object? dataPedidos = freezed,
     Object? dataPedidosFiltrado = freezed,
     Object? dataGarantias = freezed,
+    Object? dataAbonosFiltrado = freezed,
     Object? dataGarantiasFiltrado = freezed,
     Object? dataAbonos = freezed,
-    Object? dataAbonosFiltrado = freezed,
+    Object? startDate = freezed,
+    Object? endDate = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -112,6 +154,16 @@ class _$MyOrdersStateCopyWithImpl<$Res, $Val extends MyOrdersState>
                     ? _value.loading
                     : loading // ignore: cast_nullable_to_non_nullable
                         as bool,
+            selectedAlbaran:
+                null == selectedAlbaran
+                    ? _value.selectedAlbaran
+                    : selectedAlbaran // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            cantSelectedAlbaran:
+                null == cantSelectedAlbaran
+                    ? _value.cantSelectedAlbaran
+                    : cantSelectedAlbaran // ignore: cast_nullable_to_non_nullable
+                        as int,
             guarantee:
                 null == guarantee
                     ? _value.guarantee
@@ -121,12 +173,57 @@ class _$MyOrdersStateCopyWithImpl<$Res, $Val extends MyOrdersState>
                 null == orders
                     ? _value.orders
                     : orders // ignore: cast_nullable_to_non_nullable
-                        as List<Albaran>,
+                        as List<AlbaranISI>,
+            ordersFilter:
+                null == ordersFilter
+                    ? _value.ordersFilter
+                    : ordersFilter // ignore: cast_nullable_to_non_nullable
+                        as List<AlbaranISI>,
             bills:
                 null == bills
                     ? _value.bills
                     : bills // ignore: cast_nullable_to_non_nullable
-                        as List<Albaran>,
+                        as List<AlbaranISI>,
+            albaranMotivos:
+                null == albaranMotivos
+                    ? _value.albaranMotivos
+                    : albaranMotivos // ignore: cast_nullable_to_non_nullable
+                        as List<AlbaranMotivos>,
+            statePedidosSelected:
+                freezed == statePedidosSelected
+                    ? _value.statePedidosSelected
+                    : statePedidosSelected // ignore: cast_nullable_to_non_nullable
+                        as Map<String, bool>?,
+            statePedidosOpen:
+                freezed == statePedidosOpen
+                    ? _value.statePedidosOpen
+                    : statePedidosOpen // ignore: cast_nullable_to_non_nullable
+                        as Map<String, bool>?,
+            ordersDetails:
+                freezed == ordersDetails
+                    ? _value.ordersDetails
+                    : ordersDetails // ignore: cast_nullable_to_non_nullable
+                        as Map<String, List<LineasAlbaran>>?,
+            currentPage:
+                null == currentPage
+                    ? _value.currentPage
+                    : currentPage // ignore: cast_nullable_to_non_nullable
+                        as int,
+            pageController:
+                freezed == pageController
+                    ? _value.pageController
+                    : pageController // ignore: cast_nullable_to_non_nullable
+                        as PageController?,
+            controllerText:
+                freezed == controllerText
+                    ? _value.controllerText
+                    : controllerText // ignore: cast_nullable_to_non_nullable
+                        as TextEditingController?,
+            scrollController:
+                freezed == scrollController
+                    ? _value.scrollController
+                    : scrollController // ignore: cast_nullable_to_non_nullable
+                        as ScrollController?,
             statusWarranty:
                 freezed == statusWarranty
                     ? _value.statusWarranty
@@ -177,6 +274,11 @@ class _$MyOrdersStateCopyWithImpl<$Res, $Val extends MyOrdersState>
                     ? _value.dataGarantias
                     : dataGarantias // ignore: cast_nullable_to_non_nullable
                         as DataTableSource?,
+            dataAbonosFiltrado:
+                freezed == dataAbonosFiltrado
+                    ? _value.dataAbonosFiltrado
+                    : dataAbonosFiltrado // ignore: cast_nullable_to_non_nullable
+                        as DataTableSource?,
             dataGarantiasFiltrado:
                 freezed == dataGarantiasFiltrado
                     ? _value.dataGarantiasFiltrado
@@ -187,11 +289,16 @@ class _$MyOrdersStateCopyWithImpl<$Res, $Val extends MyOrdersState>
                     ? _value.dataAbonos
                     : dataAbonos // ignore: cast_nullable_to_non_nullable
                         as DataTableSource?,
-            dataAbonosFiltrado:
-                freezed == dataAbonosFiltrado
-                    ? _value.dataAbonosFiltrado
-                    : dataAbonosFiltrado // ignore: cast_nullable_to_non_nullable
-                        as DataTableSource?,
+            startDate:
+                freezed == startDate
+                    ? _value.startDate
+                    : startDate // ignore: cast_nullable_to_non_nullable
+                        as DateTime?,
+            endDate:
+                freezed == endDate
+                    ? _value.endDate
+                    : endDate // ignore: cast_nullable_to_non_nullable
+                        as DateTime?,
           )
           as $Val,
     );
@@ -209,9 +316,20 @@ abstract class _$$MyOrdersStateImplCopyWith<$Res>
   @useResult
   $Res call({
     bool loading,
+    bool selectedAlbaran,
+    int cantSelectedAlbaran,
     List<Warranty> guarantee,
-    List<Albaran> orders,
-    List<Albaran> bills,
+    List<AlbaranISI> orders,
+    List<AlbaranISI> ordersFilter,
+    List<AlbaranISI> bills,
+    List<AlbaranMotivos> albaranMotivos,
+    Map<String, bool>? statePedidosSelected,
+    Map<String, bool>? statePedidosOpen,
+    Map<String, List<LineasAlbaran>>? ordersDetails,
+    int currentPage,
+    PageController? pageController,
+    TextEditingController? controllerText,
+    ScrollController? scrollController,
     StatusWarranty? statusWarranty,
     String? filterPedidos,
     String? filterGarantias,
@@ -222,9 +340,11 @@ abstract class _$$MyOrdersStateImplCopyWith<$Res>
     DataTableSource? dataPedidos,
     DataTableSource? dataPedidosFiltrado,
     DataTableSource? dataGarantias,
+    DataTableSource? dataAbonosFiltrado,
     DataTableSource? dataGarantiasFiltrado,
     DataTableSource? dataAbonos,
-    DataTableSource? dataAbonosFiltrado,
+    DateTime? startDate,
+    DateTime? endDate,
   });
 }
 
@@ -243,9 +363,20 @@ class __$$MyOrdersStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? loading = null,
+    Object? selectedAlbaran = null,
+    Object? cantSelectedAlbaran = null,
     Object? guarantee = null,
     Object? orders = null,
+    Object? ordersFilter = null,
     Object? bills = null,
+    Object? albaranMotivos = null,
+    Object? statePedidosSelected = freezed,
+    Object? statePedidosOpen = freezed,
+    Object? ordersDetails = freezed,
+    Object? currentPage = null,
+    Object? pageController = freezed,
+    Object? controllerText = freezed,
+    Object? scrollController = freezed,
     Object? statusWarranty = freezed,
     Object? filterPedidos = freezed,
     Object? filterGarantias = freezed,
@@ -256,9 +387,11 @@ class __$$MyOrdersStateImplCopyWithImpl<$Res>
     Object? dataPedidos = freezed,
     Object? dataPedidosFiltrado = freezed,
     Object? dataGarantias = freezed,
+    Object? dataAbonosFiltrado = freezed,
     Object? dataGarantiasFiltrado = freezed,
     Object? dataAbonos = freezed,
-    Object? dataAbonosFiltrado = freezed,
+    Object? startDate = freezed,
+    Object? endDate = freezed,
   }) {
     return _then(
       _$MyOrdersStateImpl(
@@ -267,6 +400,16 @@ class __$$MyOrdersStateImplCopyWithImpl<$Res>
                 ? _value.loading
                 : loading // ignore: cast_nullable_to_non_nullable
                     as bool,
+        selectedAlbaran:
+            null == selectedAlbaran
+                ? _value.selectedAlbaran
+                : selectedAlbaran // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        cantSelectedAlbaran:
+            null == cantSelectedAlbaran
+                ? _value.cantSelectedAlbaran
+                : cantSelectedAlbaran // ignore: cast_nullable_to_non_nullable
+                    as int,
         guarantee:
             null == guarantee
                 ? _value._guarantee
@@ -276,12 +419,57 @@ class __$$MyOrdersStateImplCopyWithImpl<$Res>
             null == orders
                 ? _value._orders
                 : orders // ignore: cast_nullable_to_non_nullable
-                    as List<Albaran>,
+                    as List<AlbaranISI>,
+        ordersFilter:
+            null == ordersFilter
+                ? _value._ordersFilter
+                : ordersFilter // ignore: cast_nullable_to_non_nullable
+                    as List<AlbaranISI>,
         bills:
             null == bills
                 ? _value._bills
                 : bills // ignore: cast_nullable_to_non_nullable
-                    as List<Albaran>,
+                    as List<AlbaranISI>,
+        albaranMotivos:
+            null == albaranMotivos
+                ? _value._albaranMotivos
+                : albaranMotivos // ignore: cast_nullable_to_non_nullable
+                    as List<AlbaranMotivos>,
+        statePedidosSelected:
+            freezed == statePedidosSelected
+                ? _value._statePedidosSelected
+                : statePedidosSelected // ignore: cast_nullable_to_non_nullable
+                    as Map<String, bool>?,
+        statePedidosOpen:
+            freezed == statePedidosOpen
+                ? _value._statePedidosOpen
+                : statePedidosOpen // ignore: cast_nullable_to_non_nullable
+                    as Map<String, bool>?,
+        ordersDetails:
+            freezed == ordersDetails
+                ? _value._ordersDetails
+                : ordersDetails // ignore: cast_nullable_to_non_nullable
+                    as Map<String, List<LineasAlbaran>>?,
+        currentPage:
+            null == currentPage
+                ? _value.currentPage
+                : currentPage // ignore: cast_nullable_to_non_nullable
+                    as int,
+        pageController:
+            freezed == pageController
+                ? _value.pageController
+                : pageController // ignore: cast_nullable_to_non_nullable
+                    as PageController?,
+        controllerText:
+            freezed == controllerText
+                ? _value.controllerText
+                : controllerText // ignore: cast_nullable_to_non_nullable
+                    as TextEditingController?,
+        scrollController:
+            freezed == scrollController
+                ? _value.scrollController
+                : scrollController // ignore: cast_nullable_to_non_nullable
+                    as ScrollController?,
         statusWarranty:
             freezed == statusWarranty
                 ? _value.statusWarranty
@@ -332,6 +520,11 @@ class __$$MyOrdersStateImplCopyWithImpl<$Res>
                 ? _value.dataGarantias
                 : dataGarantias // ignore: cast_nullable_to_non_nullable
                     as DataTableSource?,
+        dataAbonosFiltrado:
+            freezed == dataAbonosFiltrado
+                ? _value.dataAbonosFiltrado
+                : dataAbonosFiltrado // ignore: cast_nullable_to_non_nullable
+                    as DataTableSource?,
         dataGarantiasFiltrado:
             freezed == dataGarantiasFiltrado
                 ? _value.dataGarantiasFiltrado
@@ -342,11 +535,16 @@ class __$$MyOrdersStateImplCopyWithImpl<$Res>
                 ? _value.dataAbonos
                 : dataAbonos // ignore: cast_nullable_to_non_nullable
                     as DataTableSource?,
-        dataAbonosFiltrado:
-            freezed == dataAbonosFiltrado
-                ? _value.dataAbonosFiltrado
-                : dataAbonosFiltrado // ignore: cast_nullable_to_non_nullable
-                    as DataTableSource?,
+        startDate:
+            freezed == startDate
+                ? _value.startDate
+                : startDate // ignore: cast_nullable_to_non_nullable
+                    as DateTime?,
+        endDate:
+            freezed == endDate
+                ? _value.endDate
+                : endDate // ignore: cast_nullable_to_non_nullable
+                    as DateTime?,
       ),
     );
   }
@@ -357,9 +555,21 @@ class __$$MyOrdersStateImplCopyWithImpl<$Res>
 class _$MyOrdersStateImpl extends _MyOrdersState {
   const _$MyOrdersStateImpl({
     this.loading = false,
+    this.selectedAlbaran = false,
+    this.cantSelectedAlbaran = 0,
     final List<Warranty> guarantee = const <Warranty>[],
-    final List<Albaran> orders = const <Albaran>[],
-    final List<Albaran> bills = const <Albaran>[],
+    final List<AlbaranISI> orders = const <AlbaranISI>[],
+    final List<AlbaranISI> ordersFilter = const <AlbaranISI>[],
+    final List<AlbaranISI> bills = const <AlbaranISI>[],
+    final List<AlbaranMotivos> albaranMotivos = const <AlbaranMotivos>[],
+    final Map<String, bool>? statePedidosSelected = const <String, bool>{},
+    final Map<String, bool>? statePedidosOpen = const <String, bool>{},
+    final Map<String, List<LineasAlbaran>>? ordersDetails =
+        const <String, List<LineasAlbaran>>{},
+    this.currentPage = 0,
+    this.pageController,
+    this.controllerText,
+    this.scrollController,
     this.statusWarranty,
     this.filterPedidos,
     this.filterGarantias,
@@ -370,17 +580,30 @@ class _$MyOrdersStateImpl extends _MyOrdersState {
     this.dataPedidos,
     this.dataPedidosFiltrado,
     this.dataGarantias,
+    this.dataAbonosFiltrado,
     this.dataGarantiasFiltrado,
     this.dataAbonos,
-    this.dataAbonosFiltrado,
+    this.startDate,
+    this.endDate,
   }) : _guarantee = guarantee,
        _orders = orders,
+       _ordersFilter = ordersFilter,
        _bills = bills,
+       _albaranMotivos = albaranMotivos,
+       _statePedidosSelected = statePedidosSelected,
+       _statePedidosOpen = statePedidosOpen,
+       _ordersDetails = ordersDetails,
        super._();
 
   @override
   @JsonKey()
   final bool loading;
+  @override
+  @JsonKey()
+  final bool selectedAlbaran;
+  @override
+  @JsonKey()
+  final int cantSelectedAlbaran;
   final List<Warranty> _guarantee;
   @override
   @JsonKey()
@@ -390,24 +613,85 @@ class _$MyOrdersStateImpl extends _MyOrdersState {
     return EqualUnmodifiableListView(_guarantee);
   }
 
-  final List<Albaran> _orders;
+  final List<AlbaranISI> _orders;
   @override
   @JsonKey()
-  List<Albaran> get orders {
+  List<AlbaranISI> get orders {
     if (_orders is EqualUnmodifiableListView) return _orders;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_orders);
   }
 
-  final List<Albaran> _bills;
+  final List<AlbaranISI> _ordersFilter;
   @override
   @JsonKey()
-  List<Albaran> get bills {
+  List<AlbaranISI> get ordersFilter {
+    if (_ordersFilter is EqualUnmodifiableListView) return _ordersFilter;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_ordersFilter);
+  }
+
+  final List<AlbaranISI> _bills;
+  @override
+  @JsonKey()
+  List<AlbaranISI> get bills {
     if (_bills is EqualUnmodifiableListView) return _bills;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_bills);
   }
 
+  final List<AlbaranMotivos> _albaranMotivos;
+  @override
+  @JsonKey()
+  List<AlbaranMotivos> get albaranMotivos {
+    if (_albaranMotivos is EqualUnmodifiableListView) return _albaranMotivos;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_albaranMotivos);
+  }
+
+  final Map<String, bool>? _statePedidosSelected;
+  @override
+  @JsonKey()
+  Map<String, bool>? get statePedidosSelected {
+    final value = _statePedidosSelected;
+    if (value == null) return null;
+    if (_statePedidosSelected is EqualUnmodifiableMapView)
+      return _statePedidosSelected;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
+  final Map<String, bool>? _statePedidosOpen;
+  @override
+  @JsonKey()
+  Map<String, bool>? get statePedidosOpen {
+    final value = _statePedidosOpen;
+    if (value == null) return null;
+    if (_statePedidosOpen is EqualUnmodifiableMapView) return _statePedidosOpen;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
+  final Map<String, List<LineasAlbaran>>? _ordersDetails;
+  @override
+  @JsonKey()
+  Map<String, List<LineasAlbaran>>? get ordersDetails {
+    final value = _ordersDetails;
+    if (value == null) return null;
+    if (_ordersDetails is EqualUnmodifiableMapView) return _ordersDetails;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
+  @override
+  @JsonKey()
+  final int currentPage;
+  @override
+  final PageController? pageController;
+  @override
+  final TextEditingController? controllerText;
+  @override
+  final ScrollController? scrollController;
   @override
   final StatusWarranty? statusWarranty;
   @override
@@ -429,15 +713,19 @@ class _$MyOrdersStateImpl extends _MyOrdersState {
   @override
   final DataTableSource? dataGarantias;
   @override
+  final DataTableSource? dataAbonosFiltrado;
+  @override
   final DataTableSource? dataGarantiasFiltrado;
   @override
   final DataTableSource? dataAbonos;
   @override
-  final DataTableSource? dataAbonosFiltrado;
+  final DateTime? startDate;
+  @override
+  final DateTime? endDate;
 
   @override
   String toString() {
-    return 'MyOrdersState(loading: $loading, guarantee: $guarantee, orders: $orders, bills: $bills, statusWarranty: $statusWarranty, filterPedidos: $filterPedidos, filterGarantias: $filterGarantias, filterAbonos: $filterAbonos, totalImporteCliente: $totalImporteCliente, totalImporteGarantias: $totalImporteGarantias, totalImporteVemare: $totalImporteVemare, dataPedidos: $dataPedidos, dataPedidosFiltrado: $dataPedidosFiltrado, dataGarantias: $dataGarantias, dataGarantiasFiltrado: $dataGarantiasFiltrado, dataAbonos: $dataAbonos, dataAbonosFiltrado: $dataAbonosFiltrado)';
+    return 'MyOrdersState(loading: $loading, selectedAlbaran: $selectedAlbaran, cantSelectedAlbaran: $cantSelectedAlbaran, guarantee: $guarantee, orders: $orders, ordersFilter: $ordersFilter, bills: $bills, albaranMotivos: $albaranMotivos, statePedidosSelected: $statePedidosSelected, statePedidosOpen: $statePedidosOpen, ordersDetails: $ordersDetails, currentPage: $currentPage, pageController: $pageController, controllerText: $controllerText, scrollController: $scrollController, statusWarranty: $statusWarranty, filterPedidos: $filterPedidos, filterGarantias: $filterGarantias, filterAbonos: $filterAbonos, totalImporteCliente: $totalImporteCliente, totalImporteGarantias: $totalImporteGarantias, totalImporteVemare: $totalImporteVemare, dataPedidos: $dataPedidos, dataPedidosFiltrado: $dataPedidosFiltrado, dataGarantias: $dataGarantias, dataAbonosFiltrado: $dataAbonosFiltrado, dataGarantiasFiltrado: $dataGarantiasFiltrado, dataAbonos: $dataAbonos, startDate: $startDate, endDate: $endDate)';
   }
 
   @override
@@ -446,12 +734,44 @@ class _$MyOrdersStateImpl extends _MyOrdersState {
         (other.runtimeType == runtimeType &&
             other is _$MyOrdersStateImpl &&
             (identical(other.loading, loading) || other.loading == loading) &&
+            (identical(other.selectedAlbaran, selectedAlbaran) ||
+                other.selectedAlbaran == selectedAlbaran) &&
+            (identical(other.cantSelectedAlbaran, cantSelectedAlbaran) ||
+                other.cantSelectedAlbaran == cantSelectedAlbaran) &&
             const DeepCollectionEquality().equals(
               other._guarantee,
               _guarantee,
             ) &&
             const DeepCollectionEquality().equals(other._orders, _orders) &&
+            const DeepCollectionEquality().equals(
+              other._ordersFilter,
+              _ordersFilter,
+            ) &&
             const DeepCollectionEquality().equals(other._bills, _bills) &&
+            const DeepCollectionEquality().equals(
+              other._albaranMotivos,
+              _albaranMotivos,
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._statePedidosSelected,
+              _statePedidosSelected,
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._statePedidosOpen,
+              _statePedidosOpen,
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._ordersDetails,
+              _ordersDetails,
+            ) &&
+            (identical(other.currentPage, currentPage) ||
+                other.currentPage == currentPage) &&
+            (identical(other.pageController, pageController) ||
+                other.pageController == pageController) &&
+            (identical(other.controllerText, controllerText) ||
+                other.controllerText == controllerText) &&
+            (identical(other.scrollController, scrollController) ||
+                other.scrollController == scrollController) &&
             (identical(other.statusWarranty, statusWarranty) ||
                 other.statusWarranty == statusWarranty) &&
             (identical(other.filterPedidos, filterPedidos) ||
@@ -472,21 +792,35 @@ class _$MyOrdersStateImpl extends _MyOrdersState {
                 other.dataPedidosFiltrado == dataPedidosFiltrado) &&
             (identical(other.dataGarantias, dataGarantias) ||
                 other.dataGarantias == dataGarantias) &&
+            (identical(other.dataAbonosFiltrado, dataAbonosFiltrado) ||
+                other.dataAbonosFiltrado == dataAbonosFiltrado) &&
             (identical(other.dataGarantiasFiltrado, dataGarantiasFiltrado) ||
                 other.dataGarantiasFiltrado == dataGarantiasFiltrado) &&
             (identical(other.dataAbonos, dataAbonos) ||
                 other.dataAbonos == dataAbonos) &&
-            (identical(other.dataAbonosFiltrado, dataAbonosFiltrado) ||
-                other.dataAbonosFiltrado == dataAbonosFiltrado));
+            (identical(other.startDate, startDate) ||
+                other.startDate == startDate) &&
+            (identical(other.endDate, endDate) || other.endDate == endDate));
   }
 
   @override
-  int get hashCode => Object.hash(
+  int get hashCode => Object.hashAll([
     runtimeType,
     loading,
+    selectedAlbaran,
+    cantSelectedAlbaran,
     const DeepCollectionEquality().hash(_guarantee),
     const DeepCollectionEquality().hash(_orders),
+    const DeepCollectionEquality().hash(_ordersFilter),
     const DeepCollectionEquality().hash(_bills),
+    const DeepCollectionEquality().hash(_albaranMotivos),
+    const DeepCollectionEquality().hash(_statePedidosSelected),
+    const DeepCollectionEquality().hash(_statePedidosOpen),
+    const DeepCollectionEquality().hash(_ordersDetails),
+    currentPage,
+    pageController,
+    controllerText,
+    scrollController,
     statusWarranty,
     filterPedidos,
     filterGarantias,
@@ -497,10 +831,12 @@ class _$MyOrdersStateImpl extends _MyOrdersState {
     dataPedidos,
     dataPedidosFiltrado,
     dataGarantias,
+    dataAbonosFiltrado,
     dataGarantiasFiltrado,
     dataAbonos,
-    dataAbonosFiltrado,
-  );
+    startDate,
+    endDate,
+  ]);
 
   /// Create a copy of MyOrdersState
   /// with the given fields replaced by the non-null parameter values.
@@ -514,9 +850,20 @@ class _$MyOrdersStateImpl extends _MyOrdersState {
 abstract class _MyOrdersState extends MyOrdersState {
   const factory _MyOrdersState({
     final bool loading,
+    final bool selectedAlbaran,
+    final int cantSelectedAlbaran,
     final List<Warranty> guarantee,
-    final List<Albaran> orders,
-    final List<Albaran> bills,
+    final List<AlbaranISI> orders,
+    final List<AlbaranISI> ordersFilter,
+    final List<AlbaranISI> bills,
+    final List<AlbaranMotivos> albaranMotivos,
+    final Map<String, bool>? statePedidosSelected,
+    final Map<String, bool>? statePedidosOpen,
+    final Map<String, List<LineasAlbaran>>? ordersDetails,
+    final int currentPage,
+    final PageController? pageController,
+    final TextEditingController? controllerText,
+    final ScrollController? scrollController,
     final StatusWarranty? statusWarranty,
     final String? filterPedidos,
     final String? filterGarantias,
@@ -527,20 +874,44 @@ abstract class _MyOrdersState extends MyOrdersState {
     final DataTableSource? dataPedidos,
     final DataTableSource? dataPedidosFiltrado,
     final DataTableSource? dataGarantias,
+    final DataTableSource? dataAbonosFiltrado,
     final DataTableSource? dataGarantiasFiltrado,
     final DataTableSource? dataAbonos,
-    final DataTableSource? dataAbonosFiltrado,
+    final DateTime? startDate,
+    final DateTime? endDate,
   }) = _$MyOrdersStateImpl;
   const _MyOrdersState._() : super._();
 
   @override
   bool get loading;
   @override
+  bool get selectedAlbaran;
+  @override
+  int get cantSelectedAlbaran;
+  @override
   List<Warranty> get guarantee;
   @override
-  List<Albaran> get orders;
+  List<AlbaranISI> get orders;
   @override
-  List<Albaran> get bills;
+  List<AlbaranISI> get ordersFilter;
+  @override
+  List<AlbaranISI> get bills;
+  @override
+  List<AlbaranMotivos> get albaranMotivos;
+  @override
+  Map<String, bool>? get statePedidosSelected;
+  @override
+  Map<String, bool>? get statePedidosOpen;
+  @override
+  Map<String, List<LineasAlbaran>>? get ordersDetails;
+  @override
+  int get currentPage;
+  @override
+  PageController? get pageController;
+  @override
+  TextEditingController? get controllerText;
+  @override
+  ScrollController? get scrollController;
   @override
   StatusWarranty? get statusWarranty;
   @override
@@ -562,11 +933,15 @@ abstract class _MyOrdersState extends MyOrdersState {
   @override
   DataTableSource? get dataGarantias;
   @override
+  DataTableSource? get dataAbonosFiltrado;
+  @override
   DataTableSource? get dataGarantiasFiltrado;
   @override
   DataTableSource? get dataAbonos;
   @override
-  DataTableSource? get dataAbonosFiltrado;
+  DateTime? get startDate;
+  @override
+  DateTime? get endDate;
 
   /// Create a copy of MyOrdersState
   /// with the given fields replaced by the non-null parameter values.

@@ -9,7 +9,8 @@ class AlbaranDetailState with _$AlbaranDetailState {
   const factory AlbaranDetailState({
     @Default(false) bool loading,
     @Default(<AlbaranDetails>[]) List<AlbaranDetails> details,
-    Albaran? albaran,
+    @Default(0) int currentPage,
+    AlbaranISI? albaran,
   }) = _AlbaranDetailState;
   const AlbaranDetailState._();
 }

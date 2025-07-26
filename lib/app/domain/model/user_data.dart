@@ -64,7 +64,7 @@ class UserData {
       permissions: map["permissions"] == null
           ? []
           : List<Permission>.from(
-              map["permissions"]!.map((x) => Permission.fromJson(x))),
+          map["permissions"]!.map((x) => Permission.fromJson(x))),
       parentId: map["parent_id"] as int?,
       status: map["status"] as String?,
       logo: map["logo"] as String?,
@@ -113,14 +113,14 @@ class Permission {
   });
 
   factory Permission.fromJson(Map<String, dynamic> json) => Permission(
-        id: json["id"],
-        name: json["name"],
-      );
+    id: json["id"],
+    name: json["name"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-      };
+    "id": id,
+    "name": name,
+  };
 }
 
 class Webservice {
@@ -143,6 +143,7 @@ class Webservice {
     this.convencion,
     this.plazasEventos,
     this.plazasFormaciones,
+    this.meses_buscar_albaranes = 0,
   });
 
   int? codigo;
@@ -163,63 +164,66 @@ class Webservice {
   bool? convencion;
   int? plazasEventos;
   int? plazasFormaciones;
+  int meses_buscar_albaranes;
 
   factory Webservice.fromJson(Map<String, dynamic> json) => Webservice(
-        codigo: json["codigo"],
-        nombre: json["nombre"],
-        cif: json["cif"],
-        direccion: json["direccion"],
-        cp: json["cp"],
-        poblacion: json["poblacion"],
-        telefono1: json["telefono1"],
-        telefono2: json["telefono2"],
-        comerciales: json["comerciales"] == null
-            ? []
-            : List<Comerciale>.from(
-                json["comerciales"]!.map((x) => Comerciale.fromJson(x))),
-        centroReparto: json["centro_reparto"] == null
-            ? []
-            : List<CentroReparto>.from(
-                json["centro_reparto"]!.map((x) => CentroReparto.fromJson(x))),
-        otrosCodigos: json["otros_codigos"] == null
-            ? []
-            : List<OtrosCodigo>.from(
-                json["otros_codigos"]!.map((x) => OtrosCodigo.fromJson(x))),
-        permiteComprasCredito: json["permite_compras_credito"],
-        latitud: json["latitud"]?.toDouble(),
-        longitud: json["longitud"]?.toDouble(),
-        millennium: json["millennium"],
-        convencion: json["convencion"],
-        plazasEventos: json["plazas_eventos"],
-        plazasFormaciones: json["plazas_formaciones"],
-      );
+    codigo: json["codigo"],
+    nombre: json["nombre"],
+    cif: json["cif"],
+    direccion: json["direccion"],
+    cp: json["cp"],
+    poblacion: json["poblacion"],
+    telefono1: json["telefono1"],
+    telefono2: json["telefono2"],
+    comerciales: json["comerciales"] == null
+        ? []
+        : List<Comerciale>.from(
+        json["comerciales"]!.map((x) => Comerciale.fromJson(x))),
+    centroReparto: json["centro_reparto"] == null
+        ? []
+        : List<CentroReparto>.from(
+        json["centro_reparto"]!.map((x) => CentroReparto.fromJson(x))),
+    otrosCodigos: json["otros_codigos"] == null
+        ? []
+        : List<OtrosCodigo>.from(
+        json["otros_codigos"]!.map((x) => OtrosCodigo.fromJson(x))),
+    permiteComprasCredito: json["permite_compras_credito"],
+    latitud: json["latitud"]?.toDouble(),
+    longitud: json["longitud"]?.toDouble(),
+    millennium: json["millennium"],
+    convencion: json["convencion"],
+    meses_buscar_albaranes: json["meses_buscar_albaranes"] ?? 0,
+    plazasEventos: json["plazas_eventos"],
+    plazasFormaciones: json["plazas_formaciones"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "codigo": codigo,
-        "nombre": nombre,
-        "cif": cif,
-        "direccion": direccion,
-        "cp": cp,
-        "poblacion": poblacion,
-        "telefono1": telefono1,
-        "telefono2": telefono2,
-        "comerciales": comerciales == null
-            ? []
-            : List<dynamic>.from(comerciales!.map((x) => x.toJson())),
-        "centro_reparto": centroReparto == null
-            ? []
-            : List<dynamic>.from(centroReparto!.map((x) => x.toJson())),
-        "otros_codigos": otrosCodigos == null
-            ? []
-            : List<dynamic>.from(otrosCodigos!.map((x) => x.toJson())),
-        "permite_compras_credito": permiteComprasCredito,
-        "latitud": latitud,
-        "longitud": longitud,
-        "millennium": millennium,
-        "convencion": convencion,
-        "plazas_eventos": plazasEventos,
-        "plazas_formaciones": plazasFormaciones,
-      };
+    "codigo": codigo,
+    "nombre": nombre,
+    "cif": cif,
+    "direccion": direccion,
+    "cp": cp,
+    "poblacion": poblacion,
+    "telefono1": telefono1,
+    "telefono2": telefono2,
+    "comerciales": comerciales == null
+        ? []
+        : List<dynamic>.from(comerciales!.map((x) => x.toJson())),
+    "centro_reparto": centroReparto == null
+        ? []
+        : List<dynamic>.from(centroReparto!.map((x) => x.toJson())),
+    "otros_codigos": otrosCodigos == null
+        ? []
+        : List<dynamic>.from(otrosCodigos!.map((x) => x.toJson())),
+    "permite_compras_credito": permiteComprasCredito,
+    "latitud": latitud,
+    "longitud": longitud,
+    "millennium": millennium,
+    "convencion": convencion,
+    "meses_buscar_albaranes": meses_buscar_albaranes,
+    "plazas_eventos": plazasEventos,
+    "plazas_formaciones": plazasFormaciones,
+  };
 }
 
 class CentroReparto {
@@ -244,26 +248,26 @@ class CentroReparto {
   String? horario;
 
   factory CentroReparto.fromJson(Map<String, dynamic> json) => CentroReparto(
-        nombre: json["nombre"],
-        direccion: json["direccion"],
-        cp: json["cp"],
-        poblacion: json["poblacion"],
-        telefonos: json["telefonos"],
-        movil: json["movil"],
-        email: json["email"],
-        horario: json["horario"],
-      );
+    nombre: json["nombre"],
+    direccion: json["direccion"],
+    cp: json["cp"],
+    poblacion: json["poblacion"],
+    telefonos: json["telefonos"],
+    movil: json["movil"],
+    email: json["email"],
+    horario: json["horario"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "nombre": nombre,
-        "direccion": direccion,
-        "cp": cp,
-        "poblacion": poblacion,
-        "telefonos": telefonos,
-        "movil": movil,
-        "email": email,
-        "horario": horario,
-      };
+    "nombre": nombre,
+    "direccion": direccion,
+    "cp": cp,
+    "poblacion": poblacion,
+    "telefonos": telefonos,
+    "movil": movil,
+    "email": email,
+    "horario": horario,
+  };
 }
 
 class Comerciale {
@@ -282,20 +286,20 @@ class Comerciale {
   String? tipoComercial;
 
   factory Comerciale.fromJson(Map<String, dynamic> json) => Comerciale(
-        nombre: json["nombre"],
-        eMail: json["e_mail"],
-        telefono: json["telefono"],
-        telefonoMovil: json["telefono_movil"],
-        tipoComercial: json["tipo_comercial"],
-      );
+    nombre: json["nombre"],
+    eMail: json["e_mail"],
+    telefono: json["telefono"],
+    telefonoMovil: json["telefono_movil"],
+    tipoComercial: json["tipo_comercial"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "nombre": nombre,
-        "e_mail": eMail,
-        "telefono": telefono,
-        "telefono_movil": telefonoMovil,
-        "tipo_comercial": tipoComercial,
-      };
+    "nombre": nombre,
+    "e_mail": eMail,
+    "telefono": telefono,
+    "telefono_movil": telefonoMovil,
+    "tipo_comercial": tipoComercial,
+  };
 }
 
 class OtrosCodigo {
@@ -308,12 +312,12 @@ class OtrosCodigo {
   String? nombre;
 
   factory OtrosCodigo.fromJson(Map<String, dynamic> json) => OtrosCodigo(
-        codigo: json["codigo"],
-        nombre: json["nombre"],
-      );
+    codigo: json["codigo"],
+    nombre: json["nombre"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "codigo": codigo,
-        "nombre": nombre,
-      };
+    "codigo": codigo,
+    "nombre": nombre,
+  };
 }

@@ -37,11 +37,35 @@ abstract class AppTextStyle {
     fontWeight: FontWeight.w700,
     color: AppColor.black,
   );
+
+  static const TextStyle nunitoSans70012 = TextStyle(
+    fontFamily: 'NunitoSans',
+    fontSize: 12,
+    fontWeight: FontWeight.w700,
+    color: AppColor.neutral40,
+  );
+  static const TextStyle nunitoSans40014 = TextStyle(
+    fontFamily: 'NunitoSans',
+    fontSize: 14,
+    fontWeight: FontWeight.w700,
+    color: AppColor.neutral40,
+  );
+  static const TextStyle nunitoSans70014 = TextStyle(
+    fontFamily: 'NunitoSans',
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    color: AppColor.neutral40,
+  );
   static const TextStyle h1Style = TextStyle(
     fontFamily: 'Nunito',
     fontSize: 32,
     fontWeight: FontWeight.bold,
     color: AppColor.black,
+  );
+  static const TextStyle nunito18 = TextStyle(
+    fontFamily: 'Nunito',
+    fontSize: 18,
+    color: AppColor.neutral40,
   );
   static const TextStyle nunito800 = TextStyle(
     fontFamily: 'Nunito',
@@ -53,6 +77,13 @@ abstract class AppTextStyle {
     fontFamily: 'Nunito',
     fontSize: 24,
     fontWeight: FontWeight.bold,
+    color: AppColor.black,
+  );
+
+  static const TextStyle nunito80024 = TextStyle(
+    fontFamily: 'Nunito',
+    fontSize: 24,
+    fontWeight: FontWeight.w800,
     color: AppColor.black,
   );
   static const TextStyle h3Style = TextStyle(

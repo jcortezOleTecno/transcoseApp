@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:vemare/app/domain/model/albaran_product_model.dart';
+import 'package:vemare/app/domain/widgets_utils/textfield_general.dart';
 import 'package:vemare/app/view/_components/no_result/no_result_table.dart';
 import '../../theme/button_style.dart';
 import '../../theme/color.dart';
@@ -251,4 +252,163 @@ class MyDataReturnsProductsAlbaran extends DataTableSource {
   }
 
   Map<String,int> get dataDetailsAll => dataDetails;
+}
+
+Future<bool?> myDialogDeleteProduct({ required BuildContext context}){
+  return showDialog(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return Dialog(
+              child: SizedBox(
+                width: double.infinity,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    spacerM,
+                    const SizedBox(
+                      width: double.infinity,
+                      child: Text('¿Estás seguro de que deseas eliminar este producto?',
+                          style: AppTextStyle.h2Style,textAlign: TextAlign.center),
+                    ),
+                    spacerS,
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 20),
+                      child: MyButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(true);
+                        },
+                        text: 'Eliminar ',
+                        width: double.infinity,
+                        disabled: false,
+                      ),
+                    ),
+                    spacerS,
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 20),
+                      child: MyButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(false);
+                        },
+                        text: 'Cancelar ',
+                        width: double.infinity,
+                        disabled: false,
+                      ),
+                    ),
+                    spacerM,
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      });
+}
+
+Future<Map<String,dynamic>?> myDialogSendProduct({ required BuildContext context}){
+
+  TextEditingController controller = TextEditingController();
+  TextEditingController controller2 = TextEditingController();
+
+  return showDialog(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return Dialog(
+              child: SizedBox(
+                width: double.infinity,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    spacerM,
+                    const SizedBox(
+                      width: double.infinity,
+                      child: Text('¿Quieres añadir un\ncomentario a tu\ndevolución?',
+                          style: AppTextStyle.h2Style,textAlign: TextAlign.center),
+                    ),
+                    spacerS,
+                    Container(
+                      width: double.infinity,
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Text('Dirección de recogida',
+                          style: AppTextStyle.h2Style.copyWith(fontSize: 16),textAlign: TextAlign.left),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      child: TextFieldGeneral(
+                        textEditingController: controller2,
+                        initialValue: null,
+                        hintText: 'Escriba la dirección aquí...',
+                        sizeH: 100,
+                        sizeW: double.infinity,
+                      ),
+                    ),
+                    spacerS,
+                    Container(
+                      width: double.infinity,
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Text('Comentario',
+                          style: AppTextStyle.h2Style.copyWith(fontSize: 16),textAlign: TextAlign.left),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      child: TextFieldGeneral(
+                        textEditingController: controller,
+                        initialValue: null,
+                        sizeH: 100,
+                        sizeW: double.infinity,
+                        textInputType: TextInputType.multiline,
+                        maxLines: 4,
+                        hintText: 'Escriba aquí...',
+                      ),
+                    ),
+                    spacerS,
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 20),
+                      child: MyButton(
+                        onPressed: () {
+                          Navigator.of(context).pop({
+                            'comment' : controller.text,
+                            'address' : controller2.text,
+                            'res' : true
+                          });
+                        },
+                        text: 'Finalizar Pedido ',
+                        width: double.infinity,
+                        disabled: false,
+                        childCenter: Image.asset(
+                          'assets/icons/arrow_next.png',
+                          scale: 2,color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    spacerS,
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 20),
+                      child: MyButton(
+                        variant: MyButtonVariant.outlinedBold,
+                        onPressed: () {
+                          Navigator.of(context).pop({
+                            'comment' : '', 'res' : false
+                          });
+                        },
+                        text: 'Volver ',
+                        width: double.infinity,
+                        disabled: false,
+                      ),
+                    ),
+                    spacerM,
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      });
 }

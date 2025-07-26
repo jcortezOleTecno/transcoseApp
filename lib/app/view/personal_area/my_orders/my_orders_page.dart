@@ -39,6 +39,9 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
   final ScrollController scrollBottomBarController = ScrollController(); // set controller on scrolling
   bool isScrollingDown = false;
 
+  int page = 0;
+  final PageController pageController = PageController(initialPage: 0);
+
   @override
   void initState() {
     super.initState();
@@ -75,10 +78,119 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
 
   @override
   Widget build(BuildContext context) {
+    return body();
+  }
 
+  Widget body(){
+
+
+    return Scaffold(
+      backgroundColor: AppColor.neutral10,
+      body: MyBody(
+        child: Column(
+          children: [
+
+            Expanded(
+              child: PageView(
+                physics: const NeverScrollableScrollPhysics(),
+                controller: pageController,
+                onPageChanged: (int value) {
+                  setState(() {
+                    page = value;
+                  });
+                },
+                children: [
+                  cardBody(
+                    child: MyOrders(scrollBottomBarController: scrollBottomBarController),
+                  ),
+                  cardBody(
+                    child: MyWarranty(scrollBottomBarController: scrollBottomBarController),
+                  ),
+                  cardBody(
+                    child: MyBills(scrollBottomBarController: scrollBottomBarController),
+                  ),
+                  if(isReturns)...[
+                    cardBody(
+                      child: ReturnsScreen(scrollBottomBarController: scrollBottomBarController),
+                    ),
+                  ],
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget cardBody({required Widget child}){
+
+    Size size = MediaQuery.of(context).size;
+
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          SizedBox(
+            width: size.width,
+            child: Row(
+              children: [
+                cardTab(type: 0),
+                cardTab(type: 1),
+                cardTab(type: 2),
+                if(isReturns)...[
+                  cardTab(type: 3),
+                ]
+              ],
+            ),
+          ),
+          child,
+        ],
+      ),
+    );
+  }
+
+  Widget cardTab({required int type}){
+    TextStyle style = AppTextStyle.nunitoSans70014.copyWith(fontWeight: FontWeight.bold,);
+    TextStyle styleNormal = AppTextStyle.nunitoSans70014.copyWith(fontWeight: FontWeight.normal);
+
+    String title = '';
+    if(type == 0){ title = 'Pedido'; }
+    if(type == 1){ title = 'Garantías'; }
+    if(type == 2){ title = 'Abonos'; }
+    if(type == 3){ title = 'Devoluciones'; }
+
+    return Expanded(
+      child: InkWell(
+        onTap: (){
+          pageController.jumpToPage(type);
+          setState(() {});
+        },
+        child: SizedBox(
+          child: Column(
+            children: [
+              Container(
+                height: 50,
+                color: page == type ? AppColor.blue100 : AppColor.neutral10,
+                child: Center(
+                  child: Text(title,style: page == type ? style : styleNormal),
+                ),
+              ),
+              Container(
+                height: 2,
+                color: page == type ? AppColor.primaryBlue : AppColor.neutral20,
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget bodyOld(){
     double sizeW = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      backgroundColor: AppColor.neutral10,
       body: MyBody(
         child: DefaultTabController(
           length: isReturns ? 4 : 3,
@@ -98,9 +210,10 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
                     indicatorColor: AppColor.primaryBlue,
                     indicatorWeight: 2.5,
                     indicatorSize: TabBarIndicatorSize.tab,
-                    labelStyle: const TextStyle(fontWeight: FontWeight.bold,),
-                    unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.normal),
+                    labelStyle: AppTextStyle.nunitoSans70014.copyWith(fontWeight: FontWeight.bold,),
+                    unselectedLabelStyle: AppTextStyle.nunitoSans70014.copyWith(fontWeight: FontWeight.normal),
                     unselectedLabelColor: AppColor.primaryBlue,
+
                     tabs: [
                       SizedBox(
                         width: isReturns ? sizeW * 0.14 : sizeW * 0.24,
@@ -123,7 +236,7 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
                     ],
                   ),
                 ),
-                const Divider(height: 0,thickness: 2,indent: 15,endIndent: 15,),
+                //const Divider(height: 0,thickness: 2,indent: 15,endIndent: 15,),
               ],
               Expanded(
                 child: TabBarView(
@@ -144,12 +257,14 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
       ),
     );
   }
+
 }
 
 class StatusLabelWidget extends StatelessWidget {
-  const StatusLabelWidget(this.facturado, {super.key});
+  const StatusLabelWidget(this.facturado,{super.key,this.isCenter = false});
 
   final bool facturado;
+  final bool isCenter;
 
   @override
   Widget build(BuildContext context) {
@@ -163,6 +278,7 @@ class StatusLabelWidget extends StatelessWidget {
         facturado ? '• Facturado' : '• No Facturado',
         style: AppTextStyle.inputLabelStyle.copyWith(
             color: facturado ? AppColor.success500 : AppColor.error500),
+        textAlign: isCenter ? TextAlign.center : TextAlign.left,
       ),
     );
   }

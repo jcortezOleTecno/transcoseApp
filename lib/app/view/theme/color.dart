@@ -34,6 +34,7 @@ abstract class AppColor {
   static const neutral40 = Color(0xFF737379);
   static const neutral20 = Color(0xFFB0B0B6);
   static const neutral10 = Color(0xFFECECF2);
+  static const neutral15 = Color(0xFCECECF2);
   static const neutral05 = Color(0xFFF5F6F9);
   static const neutral00 = Color(0xFFFFFFFF);
 
@@ -43,4 +44,14 @@ abstract class AppColor {
   static const whiteF = Color(0xFFFFFFFF);
 
   static const primary = blue;
+
+  static const statusReturn1 = Color(0xFFE1EAFF);
+  static const statusReturn2 = Color(0xFFFFEEC2);
+  static const statusReturn3 = Color(0xFFE0F8ED);
+  static const statusReturn4 = Color(0xFFFDD7DC);
+  static const statusReturnText1 = blue;
+  static const statusReturnText2 = Color(0xFFBC901F);
+  static const statusReturnText3 = Color(0xFF048849);
+  static const statusReturnText4 = Color(0xFF9C0000);
+
 }

@@ -3,6 +3,7 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:vemare/app/domain/model/returns_cart_model.dart';
 import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
@@ -18,6 +19,7 @@ import 'package:vemare/app/view/_components/no_result/no_result_table.dart';
 import 'package:vemare/app/view/personal_area/my_orders/returns/providers/returns_new_orders_provider.dart';
 import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
+import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/app/view/theme/theme.dart';
 
@@ -203,9 +205,46 @@ class ReturnsCart extends StatelessWidget {
                   firstDate: DateTime.parse('2010-01-01'),
                   lastDate: DateTime.parse('2040-12-31'),
                   locale: const Locale('es', 'ES'),
+                  textNegativeButton: "Cancelar", // Texto en minúscula para el botón Cancelar
+                  textPositiveButton: "Aceptar", // Texto en minúscula para el botón Aceptar
                   height: 340,
                   borderRadius: 16,
-                  theme: AppTheme.light,
+                  styleYearPicker: MaterialRoundedYearPickerStyle(
+                    textStyleYear: const TextStyle(fontSize: 16, color: AppColor.whiteF),
+                  ),
+                  styleDatePicker: MaterialRoundedDatePickerStyle(
+                    textStyleDayButton: const TextStyle(fontSize: 26, color: Colors.white),
+                    textStyleYearButton: const TextStyle(fontSize: 22,color: Colors.white,),
+                    textStyleDayHeader: const TextStyle(fontSize: 18,color: AppColor.primary,),
+                    textStyleMonthYearHeader: const TextStyle(fontSize: 22, color: AppColor.primary, fontWeight: FontWeight.bold),
+                    colorArrowNext: AppColor.primary,
+                    colorArrowPrevious: AppColor.primary,
+                    textStyleButtonPositive: const TextStyle(fontSize: 18, color: AppColor.primary, fontWeight: FontWeight.bold),
+                    textStyleButtonNegative: const TextStyle(fontSize: 18, color: AppColor.primary),
+
+                    textStyleCurrentDayOnCalendar: const TextStyle(fontSize: 20, color: AppColor.primary, fontWeight: FontWeight.bold),
+                    textStyleDayOnCalendar: const TextStyle(fontSize: 20, color: AppColor.primary),
+                    textStyleDayOnCalendarSelected: const TextStyle(fontSize: 22, color: AppColor.whiteF, fontWeight: FontWeight.bold),
+                    textStyleDayOnCalendarDisabled: TextStyle(fontSize: 20, color: AppColor.primary.withOpacity(0.1)),
+                  ),
+                  theme: ThemeData(
+                      primaryColor: AppColor.primary,
+                      colorScheme: const ColorScheme.light(
+                        primary: AppColor.primary,
+                        surface: AppColor.whiteF,
+                        onSurface: AppColor.whiteF,
+                        onPrimary: Colors.black,
+                      ),
+                      disabledColor: Colors.black,
+                      dialogBackgroundColor: AppColor.whiteF, // Fondo del diálogo
+                      dialogTheme: DialogTheme(
+                        titleTextStyle: AppTextStyle.inputHintStyle.copyWith(color: AppColor.whiteF),
+                        surfaceTintColor: AppColor.whiteF,
+                        backgroundColor: AppColor.whiteF,
+                        contentTextStyle: AppTextStyle.inputHintStyle.copyWith(color: AppColor.whiteF),
+                        shadowColor: AppColor.whiteF,
+                      )
+                  ),
                 ).then((date) {
                   if (date != null) {
                     provider.dateSelected = date;

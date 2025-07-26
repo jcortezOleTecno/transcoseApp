@@ -1,7 +1,11 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:vemare/app/data/_api_classes.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/domain/model/albaran.dart';
 import 'package:vemare/app/domain/model/albaran_details.dart';
+import 'package:vemare/app/domain/model/albaran_motivos.dart';
 import 'package:vemare/app/domain/model/answer_with_filters.dart';
 import 'package:vemare/app/domain/model/detail_event.dart';
 import 'package:vemare/app/domain/model/expedition.dart';
@@ -19,17 +23,37 @@ class MyAccountRepository {
 
   MyAccountRepository(this._apiClient);
 
-  Future<AnswerWithFilters> getMyOrders({Filter? filter}) async {
-    final dynamic res = await _apiClient.postRequest(
-        '$BASE_API_URL/api/mi-cuenta/pedidos',
-        body: filter?.toJson() ?? {"anio": DateTime.now().year.toString()});
+  Future<AnswerWithFilters> getMyOrders({Map<String,dynamic>? filter}) async {
+
+    DateTime date30 = DateTime.now().add(const Duration(days: -30));
+    DateTime date = DateTime.now();
+
+    String date30St = '${date30.day.toString().padLeft(2,'0')}/${date30.month.toString().padLeft(2,'0')}/${date30.year} 00:00:00';
+    String dateSt = '${date.day.toString().padLeft(2,'0')}/${date.month.toString().padLeft(2,'0')}/${date.year} 00:00:00';
+    if(filter != null){
+      date30 = filter['start_date'];
+      date = filter['end_date'];
+      date30St = '${date30.day.toString().padLeft(2,'0')}/${date30.month.toString().padLeft(2,'0')}/${date30.year}';
+      dateSt = '${date.day.toString().padLeft(2,'0')}/${date.month.toString().padLeft(2,'0')}/${date.year}';
+    }
+    try{
+      final dynamic res = await _apiClient.postRequest('$BASE_API_URL/api/mi-cuenta/pedidos_isi'
+          ,body: {'start_date' : date30St,'end_date' : dateSt});
+      return AnswerWithFilters(
+        data: (res["data"]["status"] as bool)
+            ? (res["data"]["datos"]["albaranes"] as List).map(AlbaranISI.fromJson).toList()
+            : <AlbaranISI>[],
+        filter: res["filters"],
+      );
+    }catch(e){
+      log('message ${e.toString()}');
+    }
     return AnswerWithFilters(
-      data: (res["data"]["status"] as bool)
-          ? (res["data"]["datos"]["albaranes"] as List)
-              .map(Albaran.fromJson)
-              .toList()
-          : <Albaran>[],
-      filter: res["filters"],
+      filter: '',
+      data: [],
+      totalImporteCliente: 0,
+      totalImporteGarantia: 0,
+      totalImporteVemare: 0,
     );
   }
 
@@ -75,6 +99,32 @@ class MyAccountRepository {
     } catch (e) {
       return AnswerWithFilters(data: []);
     }
+  }
+
+
+  Future<bool> postSendOrder({required Map<String,dynamic> body}) async {
+    bool result = false;
+    try {
+      await _apiClient.postRequest(
+          '$BASE_API_URL/api/mi-cuenta/mis_devoluciones/guardar_pedido',
+          body: jsonEncode(body));
+      result = true;
+    } catch (e) {
+      result = false;
+    }
+    return result;
+  }
+
+  Future<List<AlbaranMotivos>> getMotivosAlbaranes() async {
+
+    List<AlbaranMotivos> list = [];
+    try{
+      final dynamic res = await _apiClient.postRequest('$BASE_API_URL/api/mi-cuenta/mis_devoluciones/motivos');
+      list = !res["status"] ? [] : (res['estados'] as List).map((e) => AlbaranMotivos.fromJson(e)).toList();
+    }catch(e){
+      log('message ${e.toString()}');
+    }
+    return list;
   }
 
   Future<WarrantyDetailModel> getWarrantyDetail(

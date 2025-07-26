@@ -35,6 +35,7 @@ class MyInput extends StatefulWidget {
     this.textInputAction,
     this.hintText,
     this.inputFormatters,
+    this.styleText = AppTextStyle.inputLabelStyle,
   }) : super(key: key);
 
   final TextEditingController? controller;
@@ -63,6 +64,7 @@ class MyInput extends StatefulWidget {
   final Widget? suffixWidget;
   final TextInputAction? textInputAction;
   final List<TextInputFormatter>? inputFormatters;
+  final TextStyle styleText;
 
   @override
   State<MyInput> createState() => _MyInputState();
@@ -98,14 +100,14 @@ class _MyInputState extends State<MyInput> {
         Text.rich(
           TextSpan(
             text: widget.label,
-            style: AppTextStyle.inputLabelStyle,
+            style: widget.styleText,
             children: widget.required
                 ? [
-                    const TextSpan(
-                      text: ' *',
-                      style: TextStyle(color: Colors.black),
-                    )
-                  ]
+              const TextSpan(
+                text: ' *',
+                style: TextStyle(color: Colors.black),
+              )
+            ]
                 : [],
           ),
         ),
@@ -147,45 +149,45 @@ class _MyInputState extends State<MyInput> {
             filled: true,
             fillColor: fillColor ?? Colors.white,
             contentPadding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             hintText: widget.hintText,
             hintStyle: AppTextStyle.inputHintStyle,
             suffixIcon: (widget.suffixWidget != null)
                 ? widget.suffixWidget
                 : widget.hideInput
-                    ? GestureDetector(
-                        onTap: (){
-                          setState(() {
-                            hideInput = !hideInput;
-                          });
-                        },
-                        // onTapDown: (details) {
-                        //   setState(() {
-                        //     hideInput = false;
-                        //   });
-                        // },
-                        // onTapUp: (details) {
-                        //   setState(() {
-                        //     hideInput = true;
-                        //   });
-                        // },
-                        child: Image.asset(
-                          hideInput
-                              ? 'assets/icons/eye-off.png'
-                              : 'assets/icons/eye-on.png',
-                          color: AppColor.blue,
+                ? GestureDetector(
+              onTap: (){
+                setState(() {
+                  hideInput = !hideInput;
+                });
+              },
+              // onTapDown: (details) {
+              //   setState(() {
+              //     hideInput = false;
+              //   });
+              // },
+              // onTapUp: (details) {
+              //   setState(() {
+              //     hideInput = true;
+              //   });
+              // },
+              child: Image.asset(
+                hideInput
+                    ? 'assets/icons/eye-off.png'
+                    : 'assets/icons/eye-on.png',
+                color: AppColor.blue,
 
-                          // fit: BoxFit.fill,
-                          scale: 2.5,
-                        ),
-                      )
-                    : Visibility(
-                        visible: widget.icon != null,
-                        child: Icon(
-                          widget.icon,
-                          color: iconColor,
-                        ),
-                      ),
+                // fit: BoxFit.fill,
+                scale: 2.5,
+              ),
+            )
+                : Visibility(
+              visible: widget.icon != null,
+              child: Icon(
+                widget.icon,
+                color: iconColor,
+              ),
+            ),
           ),
         ),
       ],

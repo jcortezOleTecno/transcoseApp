@@ -31,12 +31,16 @@ class ReturnsDetails extends StatelessWidget {
             builder: (context2, provider, child){
 
               String numberOrder = '';
+              String statusOrder = 'Anulada';
               if(provider.returnsModel != null && provider.returnsModel!.numeroDevolucion != null){
                 numberOrder = provider.returnsModel!.numeroDevolucion.toString();
+                statusOrder = provider.returnsModel!.estado.toString();
               }
+              Size size = MediaQuery.of(context).size;
 
 
               return Scaffold(
+                backgroundColor: AppColor.white,
                 body: MyBody(
                   child: SingleChildScrollView(
                     child: Column(
@@ -48,12 +52,40 @@ class ReturnsDetails extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const MyBackButton(),
-                              Text(numberOrder, style: AppTextStyle.h12Style.copyWith(
-                                fontSize: 24,
-                              )),
-                              Text('Pedido de devolución', style: AppTextStyle.h12Style.copyWith(
-                                fontWeight: FontWeight.normal,
-                              )),
+                              if(!provider.loadData)...[
+                                Text('Código de pedido de devolución', style: AppTextStyle.h12Style.copyWith(
+                                  fontWeight: FontWeight.normal,
+                                )),
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: Row(
+                                    children: [
+                                      Text(numberOrder, style: AppTextStyle.h12Style.copyWith(
+                                        fontSize: 24,
+                                      )),
+                                      Container(
+                                        padding: EdgeInsets.symmetric(vertical: size.height * 0.01,horizontal: size.width * 0.02),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(15),
+                                          color: provider.statusColorBg[statusOrder],
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Icon(Icons.circle,color: provider.statusColorText[statusOrder],size: size.height * 0.01),
+                                                SizedBox(width: size.width * 0.01,),
+                                                Text(provider.statusTraduccion[statusOrder]!,style: AppTextStyle.nunito18.copyWith(fontSize: 16,fontWeight: FontWeight.bold,color: provider.statusColorText[statusOrder])),
+                                              ],
+                                            ),
+
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ],
                               spacerS,
                               if(provider.loadData)...[
                                 spacerS,spacerS,spacerS,
@@ -71,7 +103,7 @@ class ReturnsDetails extends StatelessWidget {
                                 ]else...[
                                   returnsDetailsData(provider: provider),
                                   spacerS,
-                                  merchandiseReturns(provider: provider),
+                                  merchandiseReturns(provider: provider,context: context),
                                 ],
                               ],
                             ],
@@ -90,95 +122,179 @@ class ReturnsDetails extends StatelessWidget {
   }
 
   Widget returnsDetailsData({required ReturnsDetailsProvider provider}) {
-    return Card(
+    return Container(
       margin: const EdgeInsets.only(bottom: 20),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: Container(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // MyInput(
-            //   key: const Key("Código devolución"),
-            //   label: "Código devolución",
-            //   initialValue: provider.returnsModel!.codigoDevolucion!.toString(),
-            //   readOnly: true,
-            //   variant: MyInputVariant.backgroundBlue,
-            // ),
-            MyInput(
-              key: const Key("Nº pedido"),
-              label: "Nº pedido",
-              initialValue: provider.returnsModel!.numeroDevolucion ?? '',
-              readOnly: true,
-              variant: MyInputVariant.backgroundBlue,
-            ),
-            MyInput(
-              key: const Key("Fecha solicitud"),
-              label: "Fecha solicitud",
-              initialValue: provider.returnsModel!.fechaSolicitud ?? '',
-              readOnly: true,
-              variant: MyInputVariant.backgroundBlue,
-            ),
-            MyInput(
-              key: const Key("Fecha cierre"),
-              label: "Fecha cierre",
-              initialValue: provider.returnsModel!.fechaCierre ?? '',
-              readOnly: true,
-              variant: MyInputVariant.backgroundBlue,
-            ),
-            MyInput(
-              key: const Key("Nombre cliente"),
-              label: "Nombre cliente",
-              initialValue: provider.returnsModel!.nombreClienteRecogida ?? '',
-              readOnly: true,
-              variant: MyInputVariant.backgroundBlue,
-            ),
-            MyInput(
-              key: const Key("Código cliente"),
-              label: "Código cliente",
-              initialValue: provider.returnsModel!.codigoClienteRecogida!.toString(),
-              readOnly: true,
-              variant: MyInputVariant.backgroundBlue,
-            ),
-            MyInput(
-              key: const Key("Recoger en"),
-              label: "Recoger en",
-              initialValue: provider.returnsModel!.recogerEn ?? '',
-              readOnly: true,
-              variant: MyInputVariant.backgroundBlue,
-            ),
-            MyInput(
-              key: const Key("Almacen gestión"),
-              label: "Almacen gestión",
-              initialValue: provider.returnsModel!.almacenGestion ?? '',
-              readOnly: true,
-              variant: MyInputVariant.backgroundBlue,
-            ),
-            MyInput(
-              key: const Key("Dirección"),
-              label: "Dirección",
-              initialValue: provider.returnsModel!.direccionRecogida ?? '',
-              readOnly: true,
-              variant: MyInputVariant.backgroundBlue,
-            ),
-            MyInput(
-              key: const Key("Notas"),
-              label: "Notas",
-              initialValue: provider.returnsModel!.notasRecogida ?? '',
-              readOnly: true,
-              variant: MyInputVariant.backgroundBlue,
-            ),
-            SizedBox(
-              width: double.infinity,
-              child: StatusLabelReturnsWidget(status: provider.returnsModel!.estado ?? ''),
-            ),
-          ],
-        ),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        color: AppColor.whiteF,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // MyInput(
+          //   key: const Key("Código devolución"),
+          //   label: "Código devolución",
+          //   initialValue: provider.returnsModel!.codigoDevolucion!.toString(),
+          //   readOnly: true,
+          //   variant: MyInputVariant.backgroundBlue,
+          // ),
+          MyInput(
+            key: const Key("Nº pedido"),
+            label: "Nº pedido",
+            initialValue: provider.returnsModel!.numeroDevolucion ?? '',
+            readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
+            styleText: AppTextStyle.inputLabelStyle.copyWith(fontWeight: FontWeight.bold),
+          ),
+          MyInput(
+            key: const Key("Fecha solicitud"),
+            label: "Fecha solicitud",
+            initialValue: provider.returnsModel!.fechaSolicitud ?? '',
+            readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
+            styleText: AppTextStyle.inputLabelStyle.copyWith(fontWeight: FontWeight.bold),
+          ),
+          MyInput(
+            key: const Key("Fecha cierre"),
+            label: "Fecha cierre",
+            initialValue: provider.returnsModel!.fechaCierre ?? '',
+            readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
+            styleText: AppTextStyle.inputLabelStyle.copyWith(fontWeight: FontWeight.bold),
+          ),
+          // MyInput(
+          //   key: const Key("Nombre cliente"),
+          //   label: "Nombre cliente",
+          //   initialValue: provider.returnsModel!.nombreClienteRecogida ?? '',
+          //   readOnly: true,
+          //   variant: MyInputVariant.backgroundBlue,
+          //   styleText: AppTextStyle.inputLabelStyle.copyWith(fontWeight: FontWeight.bold),
+          // ),
+          // MyInput(
+          //   key: const Key("Código cliente"),
+          //   label: "Código cliente",
+          //   initialValue: provider.returnsModel!.codigoClienteRecogida!.toString(),
+          //   readOnly: true,
+          //   variant: MyInputVariant.backgroundBlue,
+          //   styleText: AppTextStyle.inputLabelStyle.copyWith(fontWeight: FontWeight.bold),
+          // ),
+          MyInput(
+            key: const Key("Recoger en"),
+            label: "Recoger en",
+            initialValue: provider.returnsModel!.recogerEn ?? '',
+            readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
+            styleText: AppTextStyle.inputLabelStyle.copyWith(fontWeight: FontWeight.bold),
+          ),
+          MyInput(
+            key: const Key("Almacen gestión"),
+            label: "Almacen gestión",
+            initialValue: provider.returnsModel!.almacenGestion ?? '',
+            readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
+            styleText: AppTextStyle.inputLabelStyle.copyWith(fontWeight: FontWeight.bold),
+          ),
+          MyInput(
+            key: const Key("Dirección"),
+            label: "Dirección",
+            initialValue: provider.returnsModel!.direccionRecogida ?? '',
+            readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
+            styleText: AppTextStyle.inputLabelStyle.copyWith(fontWeight: FontWeight.bold),
+          ),
+          MyInput(
+            key: const Key("Notas"),
+            label: "Notas",
+            initialValue: provider.returnsModel!.notasRecogida ?? '',
+            readOnly: true,
+            variant: MyInputVariant.backgroundBlue,
+            styleText: AppTextStyle.inputLabelStyle.copyWith(fontWeight: FontWeight.bold),
+          ),
+          // SizedBox(
+          //   width: double.infinity,
+          //   child: StatusLabelReturnsWidget(status: provider.returnsModel!.estado ?? ''),
+          // ),
+        ],
       ),
     );
   }
 
-  Widget merchandiseReturns ({required ReturnsDetailsProvider provider}){
+  Widget merchandiseReturns ({required ReturnsDetailsProvider provider, required BuildContext context}){
+    Size size = MediaQuery.of(context).size;
+    List<Widget> listW = [];
+    Widget line = Container(
+      width: size.width, height: 1,
+      color: AppColor.blue100,
+      margin: EdgeInsets.symmetric(horizontal: size.width * 0.015),
+    );
+    for (var element in provider.listReturnsItems) {
+      listW.add(cardItems(item: element,context: context));
+      listW.add(spacerS);
+      listW.add(line);
+      listW.add(spacerS);
+    }
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        color: AppColor.whiteF,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                spacerS,
+                const Text('Mercancías del pedido de devolución',style: AppTextStyle.h3Style,),
+                spacerXs,
+                Text('${provider.dataTable!.rowCount} Total',style: AppTextStyle.h14StyleNeu40,),
+              ],
+            ),
+          ),
+          spacerS,
+          line,
+          spacerS,
+          ...listW
+        ],
+      ),
+    );
+  }
+
+  Widget cardItems({required ReturnsItemsModel item, required BuildContext context}){
+    Size size = MediaQuery.of(context).size;
+
+    TextStyle style = AppTextStyle.nunito18;
+
+    return SizedBox(
+      width: size.width,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('REFERENCIA',style: style),
+          Text(item.referencia!.split('-')[0],style: style.copyWith(fontWeight: FontWeight.bold)),
+          spacerXs,
+          Text('NÚMERO DE ALBARÁN',style: style),
+          Text(item.referencia!.split('-')[1].trim(),style: style.copyWith(fontWeight: FontWeight.bold)),
+          spacerXs,
+          Text('CANTIDAD',style: style),
+          Text(item.cantidad.toString(),style: style.copyWith(fontWeight: FontWeight.bold)),
+          spacerXs,
+          Text('DESCRIPCIÓN',style: style),
+          Text(item.descripcion ?? '',style: style.copyWith(fontWeight: FontWeight.bold)),
+        ],
+      ),
+    );
+  }
+
+  Widget merchandiseReturnsOld ({required ReturnsDetailsProvider provider}){
 
     double hSize = 350;
     if(provider.dataTable!.rowCount <= 5){

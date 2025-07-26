@@ -7,6 +7,7 @@ import 'package:vemare/app/domain/model/filter.dart';
 import 'package:vemare/app/domain/model/returns_model.dart';
 import 'package:vemare/app/domain/utils/months_list.dart';
 import 'package:vemare/app/view/personal_area/my_orders/returns/returns_widget.dart';
+import 'package:vemare/app/view/theme/color.dart';
 
 class ReturnsProvider with ChangeNotifier{
 
@@ -21,9 +22,35 @@ class ReturnsProvider with ChangeNotifier{
   bool get loadData => _loadData;
   set loadData(bool value){ _loadData = value; notifyListeners();}
 
+  int _currentPage = 0;
+  int get currentPage => _currentPage;
+  set currentPage(int value){ _currentPage = value; notifyListeners();}
+
+  Map<String,String> statusTraduccion = {
+    'Pendiente' : 'Solicitada',
+    'En Gestión' : 'En gestión',
+    'Abonada' : 'Reembolsada',
+    'Anulada' : 'Cancelada',
+  };
+  Map<String,Color> statusColorBg = {
+    'Pendiente' : AppColor.statusReturn1,
+    'En Gestión' : AppColor.statusReturn2,
+    'Abonada' : AppColor.statusReturn3,
+    'Anulada' : AppColor.statusReturn4,
+  };
+  Map<String,Color> statusColorText = {
+    'Pendiente' : AppColor.statusReturnText1,
+    'En Gestión' : AppColor.statusReturnText2,
+    'Abonada' : AppColor.statusReturnText3,
+    'Anulada' : AppColor.statusReturnText3,
+  };
+
+
   FilterReturns filter = FilterReturns();
 
   List<ReturnsModel> listReturns = [];
+  List<ReturnsModel> listReturnsOrigin = [];
+
   List<ReturnsStatusModel> listStatusReturns = [];
   List<String> listSituaReturns = [];
 
@@ -34,6 +61,7 @@ class ReturnsProvider with ChangeNotifier{
     loadData = true;
 
     listReturns = await _contratsRepository.getMisDevoluciones(filter: filter);
+    listReturnsOrigin = listReturns.map((e) => e).toList();
 
     dataPedidosFiltrado = MyDataReturns(data: listReturns,context: contextReturns);
 
@@ -47,17 +75,18 @@ class ReturnsProvider with ChangeNotifier{
 
   void filtroReturns(String? value) {
 
-    if(value != null && value.isNotEmpty){
-      dataPedidosFiltrado = MyDataReturns(data: listReturns.where((element){
-        return element
-            .toFilter()
-            .toLowerCase()
-            .contains(value.trim().toLowerCase());
-      }).toList(),context: contextReturns);
+    if(value != null && value.isEmpty){
+      listReturns = listReturnsOrigin.map((e) => e).toList();
     }else{
-      dataPedidosFiltrado = MyDataReturns(data: listReturns,context: contextReturns);
+      listReturns = listReturnsOrigin.where((element){
+        return element.toFilter().toLowerCase().contains(value!.trim().toLowerCase());
+      }).toList();
     }
+    notifyListeners();
+  }
 
+  void reset(){
+    listReturns = listReturnsOrigin.map((e) => e).toList();
     notifyListeners();
   }
 
