@@ -166,17 +166,19 @@ class _PageA extends StatelessWidget {
                     ),
                   ),
                   spacerM,
-                  MyIconButton(
-                    onPressed: () => cubit.openWhatsApp(
-                        phone: state.heroButtons?.whatsapp ?? ''),
-                    text: 'Escribir un Whatsapp',
-                    icon: Image.asset(
-                      'assets/icons/Whatsapp-.png',
-                      scale: 1.5,
+                  if(state.heroButtons?.whatsapp != null && state.heroButtons!.whatsapp!.isNotEmpty)...[
+                    MyIconButton(
+                      onPressed: () => cubit.openWhatsApp(
+                          phone: state.heroButtons?.whatsapp ?? ''),
+                      text: 'Escribir un Whatsapp',
+                      icon: Image.asset(
+                        'assets/icons/Whatsapp-.png',
+                        scale: 1.5,
+                      ),
+                      variant: MyButtonVariant.outlinedBold,
                     ),
-                    variant: MyButtonVariant.outlinedBold,
-                  ),
-                  spacerM,
+                    spacerM,
+                  ],
                   MyIconButton(
                     onPressed: () {
                       showDialog<bool>(
