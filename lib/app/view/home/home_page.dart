@@ -30,6 +30,7 @@ import 'package:vemare/app/view/_components/my_body/my_body.dart';
 import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_cards/my_promotions_card.dart';
+import 'package:vemare/app/view/_components/my_dialogs/my_dialogs.dart';
 import 'package:vemare/app/view/_components/my_filter_image/my_filter_image.dart';
 import 'package:vemare/app/view/_components/my_html/my_html.dart';
 import 'package:vemare/app/view/_components/my_input/my_input.dart';
@@ -168,8 +169,13 @@ class _PageA extends StatelessWidget {
                   spacerM,
                   if(state.heroButtons?.whatsapp != null && state.heroButtons!.whatsapp!.isNotEmpty)...[
                     MyIconButton(
-                      onPressed: () => cubit.openWhatsApp(
-                          phone: state.heroButtons?.whatsapp ?? ''),
+                      onPressed: () async {
+                        bool? res = await myDialogWhatsapp(context);
+                        if(res != null && res){
+                          cubit.openWhatsApp(
+                              phone: state.heroButtons?.whatsapp ?? '');
+                        }
+                      },
                       text: 'Escribir un Whatsapp',
                       icon: Image.asset(
                         'assets/icons/Whatsapp-.png',
