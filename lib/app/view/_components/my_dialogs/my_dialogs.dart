@@ -52,6 +52,9 @@ Future<bool?> promotionDialog(
 }
 
 Future<bool?> myDialogWhatsapp(BuildContext context) async {
+
+  Size size = MediaQuery.of(context).size;
+
   return await showDialog<bool>(
       context: context,
       builder: (context) {
@@ -63,42 +66,63 @@ Future<bool?> myDialogWhatsapp(BuildContext context) async {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                // SizedBox(
+                //   width: double.infinity,
+                //   child: Row(
+                //     children: [
+                //       Expanded(child: Container(),),
+                //       InkWell(
+                //         onTap: (){
+                //           Navigator.of(context).pop(false);
+                //         },
+                //         child: Icon(CupertinoIcons.xmark,size: 16,color: AppColor.neutral,),
+                //       )
+                //     ],
+                //   ),
+                // ),
+                SizedBox(height: 15,),
                 SizedBox(
-                  width: double.infinity,
-                  child: Row(
-                    children: [
-                      Expanded(child: Container(),),
-                      InkWell(
-                        onTap: (){
-                          Navigator.of(context).pop(false);
-                        },
-                        child: Icon(CupertinoIcons.xmark,size: 16,color: AppColor.neutral,),
-                      )
-                    ],
+                  width: size.width,
+                  child: Center(
+                    child: Container(
+                      padding: EdgeInsets.all(10.0),
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AppColor.blue100,
+                      ),
+                      height: 50,
+                      width: 50,
+                      child: Image.asset(
+                        'assets/icons/advert.png',
+                        color: AppColor.primaryBlue,
+                        scale: 1,
+                      ),
+                    ),
                   ),
                 ),
+                SizedBox(height: 15,),
                 Text(
                   'Protección de Datos',
-                  style: AppTextStyle.h1Style,
+                  style: AppTextStyle.h1Style.copyWith(fontSize: 28,fontWeight: FontWeight.w800),
                 ),
                 spacerM,
                 Text.rich(
                   textAlign: TextAlign.center,
                   TextSpan(
-                    text: 'A través del uso de este chat ', // Parte inicial
-                    style: AppTextStyle.defaultStyle.copyWith(fontSize: 16),
+                    text: 'Al usar este chat, AD Transcose Soluciones tratará sus datos únicamente para atender sus consultas, dudas o reclamaciones.\n\n', // Parte inicial
+                    style: AppTextStyle.defaultStyle.copyWith(fontSize: 15),
                     children: <TextSpan>[
+                      // TextSpan(
+                      //   text: 'AD TRANSCOSE SOLUCIONES', // Parte en negrita y roja
+                      //   style: AppTextStyle.defaultStyle.copyWith(fontSize: 16,fontWeight: FontWeight.bold),
+                      // ),
                       TextSpan(
-                        text: 'AD TRANSCOSE SOLUCIONES', // Parte en negrita y roja
-                        style: AppTextStyle.defaultStyle.copyWith(fontSize: 16,fontWeight: FontWeight.bold),
+                        text: 'Puede ejercer en cualquier momento sus derechos de acceso, rectificación, supresión, portabilidad, limitación u oposición, tal y como se detalla en nuestra ', // Parte final
+                        style: AppTextStyle.defaultStyle.copyWith(fontSize: 15),
                       ),
                       TextSpan(
-                        text: ' tratará sus datos con la finalidad de contestar a sus consultas, dudas o reclamos.\n\nPuede ejercer sus derechos de acceso, rectificación, supresión, portabilidad, limitación y oposición, como le informamos en nuestras ', // Parte final
-                        style: AppTextStyle.defaultStyle.copyWith(fontSize: 16),
-                      ),
-                      TextSpan(
-                        text: 'Política de Privacidad', // Parte final
-                        style: AppTextStyle.defaultStyle.copyWith(fontSize: 16,color: AppColor.blue300,fontWeight: FontWeight.bold),
+                        text: 'Política de Privacidad.\n', // Parte final
+                        style: AppTextStyle.defaultStyle.copyWith(fontSize: 15,color: AppColor.blue,fontWeight: FontWeight.bold),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
                             Navigator.push(context, MaterialPageRoute(builder:
@@ -109,6 +133,14 @@ Future<bool?> myDialogWhatsapp(BuildContext context) async {
                     ],
                   ),
                 ),
+                spacerS,
+                MyButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(true);
+                  },
+                  text: 'Aceptar',
+                  width: double.infinity,
+                ),
                 spacerM,
                 MyButton(
                   onPressed: () {
@@ -118,14 +150,7 @@ Future<bool?> myDialogWhatsapp(BuildContext context) async {
                   width: double.infinity,
                   variant: MyButtonVariant.outlinedBold,
                 ),
-                spacerM,
-                MyButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(true);
-                  },
-                  text: 'Continuar a WhatsApp',
-                  width: double.infinity,
-                )
+                spacerS,
               ],
             ),
           ),
