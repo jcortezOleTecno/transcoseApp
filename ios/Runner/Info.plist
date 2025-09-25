@@ -43,6 +43,8 @@
 	<string>Necesitamos acceder a tu ubicación para mostrarte nuestros centros más cercanos a ti.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Necesitamos acceder a tus fotos para poder completar este paso. La imagen seleccionada será utilizada como tu foto de perfil y compartida con el resto de usuarios de la aplicación.</string>
+	<key>NSCameraUsageDescription</key>
+    <string>Necesitamos acceder a camara para poder completar este paso. La imagen será utilizada para extraer la infomracion que viene en ella.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIBackgroundModes</key>

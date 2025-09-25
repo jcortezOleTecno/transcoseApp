@@ -362,8 +362,10 @@ class ContratsRepository {
         body: filter?.toJson(),
         customHeaders: allHeaders
       );
+      log('message');
       return (res["data"] as List).map(ReturnsModel.fromJson).toList();
     } catch (e) {
+      log('message');
       return [];
     }
   }

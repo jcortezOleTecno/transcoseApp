@@ -1,7 +1,11 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:vemare/app/data/_api_classes.dart';
 import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/domain/model/albaran.dart';
 import 'package:vemare/app/domain/model/albaran_details.dart';
+import 'package:vemare/app/domain/model/albaran_motivos.dart';
 import 'package:vemare/app/domain/model/answer_with_filters.dart';
 import 'package:vemare/app/domain/model/detail_event.dart';
 import 'package:vemare/app/domain/model/expedition.dart';
@@ -19,25 +23,45 @@ class MyAccountRepository {
 
   MyAccountRepository(this._apiClient);
 
-  Future<AnswerWithFilters> getMyOrders({Filter? filter}) async {
-    final dynamic res = await _apiClient.postRequest(
-        '$BASE_API_URL/api/mi-cuenta/pedidos',
-        body: filter?.toJson() ?? {"anio": DateTime.now().year.toString()});
+  Future<AnswerWithFilters> getMyOrders({Map<String,dynamic>? filter}) async {
+
+    DateTime date30 = DateTime.now().add(const Duration(days: -30));
+    DateTime date = DateTime.now();
+
+    String date30St = '${date30.day.toString().padLeft(2,'0')}/${date30.month.toString().padLeft(2,'0')}/${date30.year} 00:00:00';
+    String dateSt = '${date.day.toString().padLeft(2,'0')}/${date.month.toString().padLeft(2,'0')}/${date.year} 00:00:00';
+    if(filter != null){
+      date30 = filter['start_date'];
+      date = filter['end_date'];
+      date30St = '${date30.day.toString().padLeft(2,'0')}/${date30.month.toString().padLeft(2,'0')}/${date30.year}';
+      dateSt = '${date.day.toString().padLeft(2,'0')}/${date.month.toString().padLeft(2,'0')}/${date.year}';
+    }
+    try{
+      final dynamic res = await _apiClient.postRequest('$BASE_API_URL/api/mi-cuenta/pedidos'
+          ,body: {'start_date' : date30St,'end_date' : dateSt});
+      return AnswerWithFilters(
+        data: (res["data"]["status"] as bool)
+            ? (res["data"]["datos"]["albaranes"] as List).map((value)=>AlbaranISI.fromJson2(value, res["data"]["datos"]["cli"].toString())).toList()
+            : <AlbaranISI>[],
+        filter: res["filters"],
+      );
+    }catch(e){
+      log('message ${e.toString()}');
+    }
     return AnswerWithFilters(
-      data: (res["data"]["status"] as bool)
-          ? (res["data"]["datos"]["albaranes"] as List)
-              .map(Albaran.fromJson)
-              .toList()
-          : <Albaran>[],
-      filter: res["filters"],
+      filter: '',
+      data: [],
+      totalImporteCliente: 0,
+      totalImporteGarantia: 0,
+      totalImporteVemare: 0,
     );
   }
 
   Future<List<AlbaranDetails>> getOrderDetail(
       {required String contador,
-      required String documento,
-      required String ejercicio,
-      required String tipoAlbaran}) async {
+        required String documento,
+        required String ejercicio,
+        required String tipoAlbaran}) async {
     try {
       final dynamic res = await _apiClient.postRequest(
           '$BASE_API_URL/api/mi-cuenta/pedidos/detalle',
@@ -55,6 +79,31 @@ class MyAccountRepository {
     }
   }
 
+  Future<Map<String,dynamic>> postSendOrder({required Map<String,dynamic> body}) async {
+    Map<String,dynamic> result = { 'result' : false, 'error' : ''};
+    try {
+      final dynamic res = await _apiClient.postRequest(
+          '$BASE_API_URL/api/mi-cuenta/mis_devoluciones/guardar_pedido',
+          body: body);
+      result = { 'result' : true, 'error' : '' };
+    } catch (e) {
+      result = { 'result' : false, 'error' : e.toString()};
+    }
+    return result;
+  }
+
+  Future<List<AlbaranMotivos>> getMotivosAlbaranes() async {
+
+    List<AlbaranMotivos> list = [];
+    try{
+      final dynamic res = await _apiClient.postRequest('$BASE_API_URL/api/mi-cuenta/mis_devoluciones/motivos');
+      list = !res["status"] ? [] : (res['estados'] as List).map((e) => AlbaranMotivos.fromJson(e)).toList();
+    }catch(e){
+      log('message ${e.toString()}');
+    }
+    return list;
+  }
+
   Future<AnswerWithFilters> getWarranties({Filter? filter}) async {
     try {
       final dynamic res = await _apiClient.postRequest(
@@ -66,11 +115,11 @@ class MyAccountRepository {
             .toList(),
         filter: res['filters'],
         totalImporteCliente:
-            res["data"]["datos"]["total_importe_cliente"] as int?,
+        res["data"]["datos"]["total_importe_cliente"] as int?,
         totalImporteVemare:
-            res["data"]["datos"]["total_importe_vemare"] as int?,
+        res["data"]["datos"]["total_importe_vemare"] as int?,
         totalImporteGarantia:
-            res["data"]["datos"]["total_importe_garantias"] as int?,
+        res["data"]["datos"]["total_importe_garantias"] as int?,
       );
     } catch (e) {
       return AnswerWithFilters(data: []);
@@ -87,9 +136,9 @@ class MyAccountRepository {
 
   Future<bool> signWarranty(
       {required String codigoGarantia,
-      required String persona,
-      required String nif,
-      required String firma}) async {
+        required String persona,
+        required String nif,
+        required String firma}) async {
     final body = {
       'codigo_garantia': codigoGarantia,
       'firma_personaquefirma': persona,
@@ -113,9 +162,9 @@ class MyAccountRepository {
     return AnswerWithFilters(
       data: (res["data"]["status"] as bool)
           ? (res["data"]["datos"]["albaranes"] as List)
-              .map(Albaran.fromJson)
-              .toList()
-          : <Albaran>[],
+          .map(AlbaranISI.fromJson)
+          .toList()
+          : <AlbaranISI>[],
       filter: res["filters"],
     );
   }
@@ -137,10 +186,15 @@ class MyAccountRepository {
           '$BASE_API_URL/api/mi-cuenta/sat',
           body: filter?.toJson());
       if (res["data"] == null) {
-        return AnswerWithFilters(
-            data: (res["datos"]["intervenciones"] as List)
-                .map(Intervenciones.fromJson)
-                .toList());
+        List<Intervenciones> listData = [];
+        for (var action in (res["datos"]["intervenciones"] as List)) {
+          try{
+            listData.add(Intervenciones.fromJson(action));
+          }catch(e){
+            log('message');
+          }
+        }
+        return AnswerWithFilters(data: listData);
       } else {
         return AnswerWithFilters(
             data: (res["data"]["datos"]["intervenciones"] as List)

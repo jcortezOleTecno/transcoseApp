@@ -6,6 +6,7 @@ class SharedPreferencesLocal {
 
   static Future<void> configurePrefs() async {
     prefs = await SharedPreferences.getInstance();
+    veraneValidatedDevolucion = false;
   }
 
   static String get transcoseUrlDynamic => prefs.getString("transcoseUrlDynamic") ?? '';

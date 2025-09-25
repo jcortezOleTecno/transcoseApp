@@ -103,7 +103,7 @@ class LoginCubit extends Cubit<LoginState> {
     } catch (e) {
       log(e.toString());
       emit(
-        state.copyWith(status: FormStatus.error, msgError: e.toString()),
+        state.copyWith(status: FormStatus.error, msgError: e.toString().contains('<html>') ? 'El correo electrónico o la contraseña son incorrectos. Inténtalo de nuevo.' : e.toString()),
       );
     }
   }

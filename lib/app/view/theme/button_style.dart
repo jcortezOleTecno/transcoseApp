@@ -12,6 +12,7 @@ abstract class AppButtonStyle {
       ContainedCallToActionButtonStyles();
   static MyButtonStyles outlinedRegularStyles = OutlinedRegularButtonStyles();
   static MyButtonStyles outlinedBoldStyles = OutlinedBoldButtonStyles();
+  static MyButtonStyles outlinedBoldTransparentStyles = OutlinedBoldTransparentStyles();
   static MyButtonStyles linkStyles = LinkButtonStyles();
   static MyButtonStyles lightLinkStyles = LightLinkButtonStyles();
   static MyButtonStyles disabledStyles = DisabledButtonStyles();
@@ -25,6 +26,8 @@ abstract class AppButtonStyle {
         return containedCallToActionStyles;
       case MyButtonVariant.outlinedBold:
         return outlinedBoldStyles;
+      case MyButtonVariant.outlinedBoldTransparent:
+        return outlinedBoldTransparentStyles;
       case MyButtonVariant.outlinedRegular:
         return outlinedRegularStyles;
       case MyButtonVariant.link:
@@ -121,6 +124,28 @@ class OutlinedBoldButtonStyles extends MyButtonStyles {
       );
 }
 
+class OutlinedBoldTransparentStyles extends MyButtonStyles {
+  @override
+  EdgeInsets get inset => _padding;
+  @override
+  TextStyle get textStyle => const TextStyle(
+        color: AppColor.blue,
+        fontWeight: FontWeight.w700,
+        fontSize: 18,
+      );
+  @override
+  ButtonStyle get buttonStyle => ElevatedButton.styleFrom(
+        foregroundColor: AppColor.blue,
+        backgroundColor: Colors.transparent,
+        shape: semiRoundedShape.copyWith(
+          side: const BorderSide(
+            color: AppColor.blue,
+            width: 2.5,
+          ),
+        ),
+      );
+}
+
 class LinkButtonStyles extends MyButtonStyles {
   @override
   EdgeInsets get inset => _minimalPadding;
@@ -173,6 +198,7 @@ enum MyButtonVariant {
   containedCallToAction,
   outlinedRegular,
   outlinedBold,
+  outlinedBoldTransparent,
   link,
   lightLink,
   disabled

@@ -94,12 +94,8 @@ class HomeCubit extends Cubit<HomeState> {
     await Future.wait([
       _homeRepository.getHero().then((v) => hero = v),
       _homeRepository.getHeroButtons().then((v) => heroButtons = v),
-      _productsRepository
-          .getProductsCategories(limit: 6)
-          .then((v) => products = v),
-      _promotionsRepository
-          .getPromocionesCategories(limit: 3)
-          .then((v) => promotions = v),
+      _productsRepository.getProductsCategories(limit: 6).then((v) => products = v),
+      _promotionsRepository.getPromocionesCategories(limit: 3).then((v) => promotions = v),
       _servicesRepository.getServices().then((v) => services = v),
       _workShopsRepository.getWorkShops().then((v) => workShops = v),
       _noticesRepository.getNotices(limit: 3).then((v) => notices = v.news),

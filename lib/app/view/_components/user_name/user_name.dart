@@ -3,8 +3,10 @@ import 'package:vemare/app/data/local_data_repository.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
+
 class UserName extends StatelessWidget {
-  const UserName({super.key});
+  const UserName({this.style = AppTextStyle.defaultStyle,Key? key,}) : super(key: key);
+  final TextStyle style;
 
   @override
   Widget build(BuildContext context) {
@@ -12,12 +14,12 @@ class UserName extends StatelessWidget {
       children: [
         Text(
           LocalDataRepository().user!.name ?? '',
-          style: AppTextStyle.defaultStyle,
+          style: style,
         ),
         spacerXs,
         Text(
           LocalDataRepository().user!.lastname ?? '',
-          style: AppTextStyle.defaultStyle,
+          style: style,
         ),
       ],
     );

@@ -4,12 +4,14 @@ import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:nested_scroll_views/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:vemare/app/data/_base_api_url.dart';
 import 'package:vemare/app/data/brands_repository.dart';
 import 'package:vemare/app/data/campus_repository.dart';
 import 'package:vemare/app/data/header_repository.dart';
@@ -277,6 +279,7 @@ class _DialogEmailState extends State<_DialogEmail> {
   String? phone = '';
   String? province = '';
   String? city = '';
+  bool checkData = false;
 
   @override
   Widget build(BuildContext context) {
@@ -386,6 +389,52 @@ class _DialogEmailState extends State<_DialogEmail> {
                   });
                 },
               ),
+              spacerS,
+              SizedBox(
+                width: double.infinity,
+                child: const Text(
+                  'Protección de datos personales',
+                  style: AppTextStyle.h12StyleNeu40W700,textAlign: TextAlign.left,
+                ),
+              ),
+              const SizedBox(height: 2),
+              SizedBox(
+                width: double.infinity,
+                child: RichText(
+                  textAlign: TextAlign.left,
+                  text: TextSpan(
+                      text: 'Utilizaremos sus datos para gestionar sus compras online en base a las condiciones generales de contratación, gestionar los servicios prestados y realizar encuestas de satisfacción. Para más información sobre el tratamiento y sus derechos, consulte la ',
+                      style: AppTextStyle.h12StyleNeu40,
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'Política de Privacidad.',
+                          style: AppTextStyle.h12StyleBlue,
+                          recognizer: TapGestureRecognizer()..onTap = (){
+                            Navigator.push(context, MaterialPageRoute(builder:
+                                (BuildContext context) => WebViewGlobal(url: '$BASE_API_URL/politicas-de-privacidad',backActive: true,)));
+                          },
+                        ),
+                      ]
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.01,),
+                child: CheckboxListTile(
+                  onChanged: (value){ checkData = value!; setState(() {});},
+                  value: checkData,
+                  title: const Text(
+                    'Acepto el tratamiento de datos para gestionar la cuenta de usuario.',textAlign: TextAlign.left,),
+                  controlAffinity: ListTileControlAffinity.leading,
+                  activeColor: AppColor.white,
+                  contentPadding: EdgeInsets.zero,
+                  checkColor: AppColor.blue,
+                  checkboxShape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5)),
+
+                ),
+              ),
+              spacerS,
               MyButton(
                 onPressed: () => Navigator.pop(context),
                 text: "Cancelar",
@@ -395,13 +444,13 @@ class _DialogEmailState extends State<_DialogEmail> {
               spacerS,
               MyIconButton(
                 onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
+                  if (_formKey.currentState!.validate() && checkData) {
                     setState(() {
                       loading = true;
                     });
                     var resp = await getIt<HomeRepository>().contactForm(
                         email: email!, subject: asunto!, description: mensaje!,
-                    name: name!,phone: phone!,city: city!,province: province!);
+                        name: name!,phone: phone!,city: city!,province: province!);
                     setState(() {
                       loading = false;
                     });
@@ -410,12 +459,13 @@ class _DialogEmailState extends State<_DialogEmail> {
                 },
                 icon: loading
                     ? const SizedBox(
-                        height: 16,
-                        width: 16,
-                        child: CircularProgressIndicator())
+                    height: 16,
+                    width: 16,
+                    child: CircularProgressIndicator())
                     : const Icon(Icons.mail_outline),
                 text: loading ? "" : "Enviar",
               ),
+              spacerS,
             ],
           ),
         ),
@@ -494,7 +544,7 @@ class _BackgroundState extends State<_Background> {
                                 child: Text(
                                   '¡Bienvenido${LocalDataRepository().isLogged ? ', ${LocalDataRepository().user?.name ?? ''}!' : '!'}',
                                   style: AppTextStyle.homeStyle.copyWith(
-                                      color: Colors.white60,fontSize: 22
+                                      color: Colors.white,fontSize: 22
                                   ),
                                 ),
                               ),
@@ -510,7 +560,7 @@ class _BackgroundState extends State<_Background> {
                               MyHtml(
                                 text: state.hero[i].description ?? '',
                                 bodyFontSize: 22,
-                                color: Colors.white60,
+                                color: Colors.white,
                               ),
                               const MySpacer(height: 250),
                             ],

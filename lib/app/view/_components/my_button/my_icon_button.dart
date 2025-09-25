@@ -41,6 +41,8 @@ class MyIconButton extends StatelessWidget {
         break;
       case MyButtonVariant.outlinedBold:
         break;
+      case MyButtonVariant.outlinedBoldTransparent:
+        break;
       case MyButtonVariant.outlinedRegular:
         iconColor = AppColor.primary;
         break;

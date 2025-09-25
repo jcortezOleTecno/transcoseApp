@@ -11,6 +11,7 @@ import 'package:vemare/app/domain/model/enterprise.dart';
 import 'package:vemare/app/domain/model/user_data.dart';
 import 'package:vemare/app/domain/model/user_rol.dart';
 import 'package:vemare/app/domain/model/vemare_contacts.dart';
+import 'package:vemare/app/view/shared/notifications/push_notifications.dart';
 
 class AuthRepository {
   AuthRepository(this.apiClient);
@@ -22,7 +23,7 @@ class AuthRepository {
     final body = <String, dynamic>{
       'email': email,
       'password': password,
-      'device_id': '', //tokenFirebase ?? ''
+      'device_id': tokenFirebase ?? ''
     };
     final dynamic res = await apiClient.postRequest('$BASE_API_URL/api/login', body: body);
 
@@ -38,14 +39,14 @@ class AuthRepository {
     //       exists = true; x = user.permissions!.length;
     //     }
     //   }
-    //   SharedPreferencesLocal.transcoseAppDevolucionesPermission = exists;
+    //   SharedPreferencesLocal.veraneAppDevolucionesPermission = exists;
     // }
 
     try{
       final dynamic res = await apiClient.postRequest('$BASE_API_URL/api/validar-permiso', body: {
         "namePermission": 'Devoluciones'
       });
-      SharedPreferencesLocal.veraneValidatedDevolucion = res['validated'] ?? false;
+      //SharedPreferencesLocal.veraneValidatedDevolucion = res['validated'] ?? false;
     }catch(_){}
     try{
       final dynamic res = await apiClient.postRequest('$BASE_API_URL/api/validar-permiso', body: {
@@ -104,20 +105,20 @@ SUCCESS
 
   Future<List<UserRol>> getUserRoles() async {
     final dynamic res =
-        await apiClient.getRequest('$BASE_API_URL/api/user/roles');
+    await apiClient.getRequest('$BASE_API_URL/api/user/roles');
     return (res['data'] as List<dynamic>).map(UserRol.fromJson).toList();
   }
 
   Future<List<Enterprise>> getEnterprise() async {
     final dynamic res =
-        await apiClient.getRequest('$BASE_API_URL/api/user/enterprises');
+    await apiClient.getRequest('$BASE_API_URL/api/user/enterprises');
     return (res['data'] as List<dynamic>).map(Enterprise.fromJson).toList();
   }
 
   Future<List<Employee>> getEmployee() async {
     try {
       final dynamic res =
-          await apiClient.getRequest('$BASE_API_URL/api/user/employee');
+      await apiClient.getRequest('$BASE_API_URL/api/user/employee');
       return (res['data'] as List<dynamic>).map(Employee.fromJson).toList();
     } catch (e) {
       return <Employee>[];
@@ -131,15 +132,15 @@ SUCCESS
       user = UserData.fromJson(res['data']);
       LocalDataRepository().user = user;
 
-      if(user.permissions != null){
-        bool exists = false;
-        for(int x = 0; x < user.permissions!.length; x++){
-          if(user.permissions![x].id! == 14){
-            exists = true; x = user.permissions!.length;
-          }
-        }
-        SharedPreferencesLocal.transcoseAppDevolucionesPermission = exists;
-      }
+      // if(user.permissions != null){
+      //   bool exists = false;
+      //   for(int x = 0; x < user.permissions!.length; x++){
+      //     if(user.permissions![x].id! == 14){
+      //       exists = true; x = user.permissions!.length;
+      //     }
+      //   }
+      //   SharedPreferencesLocal.veraneAppDevolucionesPermission = exists;
+      // }
 
     }catch(e){
       log(e.toString());

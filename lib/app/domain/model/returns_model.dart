@@ -123,27 +123,37 @@ class ReturnsItemsModel {
     this.referencia,
     this.cantidad,
     this.descripcion,
+    this.motivoDevolucion,
+    this.estado,
   });
 
   String? referencia;
   int? cantidad;
   String? descripcion;
+  String? motivoDevolucion;
+  String? estado;
 
   factory ReturnsItemsModel.fromJson(dynamic json) => ReturnsItemsModel(
     referencia: json["referencia"] as String?,
     cantidad: json["cantidad"] as int?,
     descripcion: json["descripcion"] as String?,
+    motivoDevolucion: json["motivo_devolucion"] as String?,
+    estado: json["estado"] as String?,
   );
 
   Map<String, dynamic> toJson() => {
     "referencia": referencia,
     "cantidad": cantidad,
     "descripcion": descripcion,
+    "motivo_devolucion": motivoDevolucion,
+    "estado": estado,
   };
 
   String toFilter() => {
     "referencia": referencia,
     "cantidad": cantidad,
     "descripcion": descripcion,
+    "motivo_devolucion": motivoDevolucion,
+    "estado": estado,
   }.toString();
 }

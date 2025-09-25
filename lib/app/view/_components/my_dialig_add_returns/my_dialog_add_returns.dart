@@ -3,6 +3,9 @@ import 'dart:developer';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:vemare/app/domain/model/albaran_product_model.dart';
+import 'package:vemare/app/domain/utils/validators.dart';
+import 'package:vemare/app/domain/widgets_utils/textfield_general.dart';
+import 'package:vemare/app/view/_components/my_input/my_input.dart';
 import 'package:vemare/app/view/_components/no_result/no_result_table.dart';
 import '../../theme/button_style.dart';
 import '../../theme/color.dart';
@@ -70,7 +73,7 @@ Future<List<AlbaranProductModel>?> myDialogAddReturns({ required BuildContext co
                         children: [
                           if(seeError)...[
                             const Text('La cantidad agregada no puede ser menor a uno(1), ni superior a la cantidad del producto',
-                            style: AppTextStyle.nunitoSansError22,textAlign: TextAlign.center),
+                                style: AppTextStyle.nunitoSansError22,textAlign: TextAlign.center),
                           ],
                           MyButton(
                             onPressed: () {
@@ -218,17 +221,17 @@ class MyDataReturnsProductsAlbaran extends DataTableSource {
 
         !isEdit ? DataCell(Text(data[index].cantidad.toString(),textAlign: TextAlign.center,)) :
         DataCell(
-          TextFormField(
-            initialValue: dataDetails[data[index].referencia].toString(),
-            keyboardType: TextInputType.number,
-            onChanged: (value){
-              try{
-                if(value.isNotEmpty){
-                  dataDetails[data[index].referencia!] = int.parse(value);
-                }
-              }catch(_){}
-            },
-          )
+            TextFormField(
+              initialValue: dataDetails[data[index].referencia].toString(),
+              keyboardType: TextInputType.number,
+              onChanged: (value){
+                try{
+                  if(value.isNotEmpty){
+                    dataDetails[data[index].referencia!] = int.parse(value);
+                  }
+                }catch(_){}
+              },
+            )
         ),
 
 
@@ -251,4 +254,183 @@ class MyDataReturnsProductsAlbaran extends DataTableSource {
   }
 
   Map<String,int> get dataDetailsAll => dataDetails;
+}
+
+Future<bool?> myDialogDeleteProduct({ required BuildContext context}){
+  return showDialog(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return Dialog(
+              child: SizedBox(
+                width: double.infinity,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    spacerM,
+                    const SizedBox(
+                      width: double.infinity,
+                      child: Text('¿Estás seguro de que deseas eliminar este producto?',
+                          style: AppTextStyle.h2Style,textAlign: TextAlign.center),
+                    ),
+                    spacerS,
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 20),
+                      child: MyButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(true);
+                        },
+                        text: 'Eliminar ',
+                        width: double.infinity,
+                        disabled: false,
+                      ),
+                    ),
+                    spacerS,
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 20),
+                      child: MyButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(false);
+                        },
+                        text: 'Cancelar ',
+                        width: double.infinity,
+                        disabled: false,
+                      ),
+                    ),
+                    spacerM,
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      });
+}
+
+Future<Map<String,dynamic>?> myDialogSendProduct({ required BuildContext context}){
+
+  TextEditingController controller = TextEditingController();
+  TextEditingController controller2 = TextEditingController();
+
+  return showDialog(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return Dialog(
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      spacerM,
+                      const SizedBox(
+                        width: double.infinity,
+                        child: Text('¿Quieres modificar la dirección de tu devolución?',
+                            style: AppTextStyle.h2Style,textAlign: TextAlign.center),
+                      ),
+                      spacerS,
+                      // Container(
+                      //   width: double.infinity,
+                      //   margin: const EdgeInsets.symmetric(horizontal: 10),
+                      //   child: Text('Dirección de recogida',
+                      //       style: AppTextStyle.h2Style.copyWith(fontSize: 16),textAlign: TextAlign.left),
+                      // ),
+                      // Container(
+                      //   margin: const EdgeInsets.symmetric(horizontal: 10),
+                      //   child: TextFieldGeneral(
+                      //     textEditingController: controller2,
+                      //     initialValue: null,
+                      //     hintText: 'Escriba la dirección aquí...',
+                      //     sizeH: 100,
+                      //     sizeW: double.infinity,
+                      //   ),
+                      // ),
+                      MyInput(
+                        label: "Dirección de recogida",
+                        hintText: 'Escribe la dirección aquí...',
+                        variant: MyInputVariant.backgroundBlue,
+                        validator: validateData,
+                        controller: controller2,
+                      ),
+                      spacerS,
+                      // Container(
+                      //   width: double.infinity,
+                      //   margin: const EdgeInsets.symmetric(horizontal: 10),
+                      //   child: Text('Observaciones',
+                      //       style: AppTextStyle.h2Style.copyWith(fontSize: 16),textAlign: TextAlign.left),
+                      // ),
+                      MyInput(
+                        label: "Observaciones",
+                        variant: MyInputVariant.backgroundBlue,
+                        maxLines: 6,
+                        hintText: 'Escribe aquí...',
+                        textInputAction: TextInputAction.newline,
+                        inputType: TextInputType.multiline,
+                        validator: validateData,
+                        controller: controller,
+                      ),
+                      // Container(
+                      //   margin: const EdgeInsets.symmetric(horizontal: 10),
+                      //   child: TextFieldGeneral(
+                      //     textEditingController: controller,
+                      //     initialValue: null,
+                      //     sizeH: 100,
+                      //     sizeW: double.infinity,
+                      //     textInputType: TextInputType.multiline,
+                      //     maxLines: 4,
+                      //     hintText: 'Escriba aquí...',
+                      //   ),
+                      // ),
+                      spacerS,
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 0),
+                        child: MyButton(
+                          onPressed: () {
+                            Navigator.of(context).pop({
+                              'comment' : controller.text,
+                              'address' : controller2.text,
+                              'res' : true
+                            });
+                          },
+                          text: 'Finalizar devolución ',
+                          width: double.infinity,
+                          disabled: false,
+                          childCenter: Image.asset(
+                            'assets/icons/arrow_next.png',
+                            scale: 2,color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      spacerS,
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 0),
+                        child: MyButton(
+                          variant: MyButtonVariant.outlinedBold,
+                          onPressed: () {
+                            Navigator.of(context).pop({
+                              'comment' : '', 'res' : false
+                            });
+                          },
+                          text: 'Volver ',
+                          width: double.infinity,
+                          disabled: false,
+                        ),
+                      ),
+                      spacerM,
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      });
 }

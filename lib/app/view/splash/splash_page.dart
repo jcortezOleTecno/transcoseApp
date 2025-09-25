@@ -67,7 +67,7 @@ class _SplashPageState extends State<SplashPage> {
               spacerXL,
               const CircularProgressIndicator(
                 color: Colors.white,
-                strokeWidth: 6,
+                strokeWidth: 4,
               )
             ],
           ),

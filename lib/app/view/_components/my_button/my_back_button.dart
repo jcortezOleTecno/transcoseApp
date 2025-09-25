@@ -19,9 +19,9 @@ class MyBackButton extends StatelessWidget {
           'assets/icons/arrow_back.png',
           scale: 2,
         ),
-        label: const Text(
+        label: Text(
           'Volver',
-          style: AppTextStyle.linkStyle,
+          style: AppTextStyle.linkStyle.copyWith(fontSize: 20),
         ),
       ),
     );

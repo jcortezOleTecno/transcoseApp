@@ -5,7 +5,6 @@ import 'package:vemare/app/domain/model/filter.dart';
 import 'package:vemare/app/domain/model/months.dart';
 import 'package:vemare/app/domain/utils/months_list.dart';
 import 'package:vemare/app/domain/utils/year_list.dart';
-import 'package:vemare/app/view/theme/theme.dart';
 
 import '../../theme/button_style.dart';
 import '../../theme/color.dart';
@@ -74,19 +73,53 @@ Future<Filter?> myFilters(
                                     text: startDate == null
                                         ? 'Desde'
                                         : DateFormat.yMd('es')
-                                            .format(startDate!),
+                                        .format(startDate!),
                                     onPressed: () async {
                                       showRoundedDatePicker(
-                                        context: context,
-                                        initialDate: DateTime.now(),
-                                        firstDate:
-                                            DateTime(DateTime.now().year - 20),
-                                        lastDate: DateTime.now()
-                                            .add(const Duration(days: 1)),
-                                        locale: const Locale('es', 'ES'),
-                                        height: 340,
-                                        borderRadius: 16,
-                                        theme: AppTheme.light,
+                                          context: context,
+                                          initialDate: DateTime.now(),
+                                          firstDate: DateTime(DateTime.now().year - 20),
+                                          lastDate: DateTime.now().add(const Duration(days: 1)),
+                                          locale: const Locale('es', 'ES'),
+                                          height: 340,
+                                          borderRadius: 16,
+                                          styleYearPicker: MaterialRoundedYearPickerStyle(
+                                            textStyleYear: const TextStyle(fontSize: 16, color: AppColor.whiteF),
+                                          ),
+                                          styleDatePicker: MaterialRoundedDatePickerStyle(
+                                            textStyleDayButton: const TextStyle(fontSize: 26, color: Colors.white),
+                                            textStyleYearButton: const TextStyle(fontSize: 22,color: Colors.white,),
+                                            textStyleDayHeader: const TextStyle(fontSize: 18,color: AppColor.primary,),
+                                            textStyleMonthYearHeader: const TextStyle(fontSize: 22, color: AppColor.primary, fontWeight: FontWeight.bold),
+                                            colorArrowNext: AppColor.primary,
+                                            colorArrowPrevious: AppColor.primary,
+                                            textStyleButtonPositive: const TextStyle(fontSize: 18, color: AppColor.primary, fontWeight: FontWeight.bold),
+                                            textStyleButtonNegative: const TextStyle(fontSize: 18, color: AppColor.primary),
+
+                                            textStyleCurrentDayOnCalendar: const TextStyle(fontSize: 20, color: AppColor.primary, fontWeight: FontWeight.bold),
+                                            textStyleDayOnCalendar: const TextStyle(fontSize: 20, color: AppColor.primary),
+                                            textStyleDayOnCalendarSelected: const TextStyle(fontSize: 22, color: AppColor.whiteF, fontWeight: FontWeight.bold),
+                                            textStyleDayOnCalendarDisabled: TextStyle(fontSize: 20, color: AppColor.primary.withOpacity(0.1)),
+                                          ),
+                                          theme: ThemeData(
+                                              primaryColor: AppColor.primary,
+                                              colorScheme: const ColorScheme.light(
+                                                primary: AppColor.primary,
+                                                surface: AppColor.whiteF,
+                                                onSurface: AppColor.whiteF,
+                                                onPrimary: Colors.black,
+                                              ),
+                                              disabledColor: Colors.black,
+                                              dialogBackgroundColor: AppColor.whiteF, // Fondo del diálogo
+                                              dialogTheme: DialogTheme(
+                                                titleTextStyle: AppTextStyle.inputHintStyle.copyWith(color: AppColor.whiteF),
+                                                surfaceTintColor: AppColor.whiteF,
+                                                backgroundColor: AppColor.whiteF,
+                                                contentTextStyle: AppTextStyle.inputHintStyle.copyWith(color: AppColor.whiteF),
+                                                shadowColor: AppColor.whiteF,
+                                              )
+                                          ),
+                                          background: AppColor.whiteF
                                       ).then((date) {
                                         if (date != null) {
                                           setState(() {
@@ -110,20 +143,55 @@ Future<Filter?> myFilters(
                                     onPressed: startDate == null
                                         ? null
                                         : () {
-                                            showRoundedDatePicker(
-                                              context: context,
-                                              initialDate: startDate!,
-                                              firstDate: startDate!,
-                                              lastDate: DateTime.now()
-                                                  .add(const Duration(days: 1)),
-                                              locale: const Locale('es', 'ES'),
-                                              height: 340,
-                                              borderRadius: 16,
-                                              theme: AppTheme.light,
-                                            ).then((date) {
-                                              if (date != null) {
-                                                setState(() {
-                                                  endDate = date;
+                                      showRoundedDatePicker(
+                                        context: context,
+                                        initialDate: startDate!,
+                                        firstDate: startDate!,
+                                        lastDate: DateTime.now()
+                                            .add(const Duration(days: 1)),
+                                        locale: const Locale('es', 'ES'),
+                                        height: 340,
+                                        borderRadius: 16,
+                                        styleYearPicker: MaterialRoundedYearPickerStyle(
+                                          textStyleYear: const TextStyle(fontSize: 16, color: AppColor.whiteF),
+                                        ),
+                                        styleDatePicker: MaterialRoundedDatePickerStyle(
+                                          textStyleDayButton: const TextStyle(fontSize: 26, color: Colors.white),
+                                          textStyleYearButton: const TextStyle(fontSize: 22,color: Colors.white,),
+                                          textStyleDayHeader: const TextStyle(fontSize: 18,color: AppColor.primary,),
+                                          textStyleMonthYearHeader: const TextStyle(fontSize: 22, color: AppColor.primary, fontWeight: FontWeight.bold),
+                                          colorArrowNext: AppColor.primary,
+                                          colorArrowPrevious: AppColor.primary,
+                                          textStyleButtonPositive: const TextStyle(fontSize: 18, color: AppColor.primary, fontWeight: FontWeight.bold),
+                                          textStyleButtonNegative: const TextStyle(fontSize: 18, color: AppColor.primary),
+
+                                          textStyleCurrentDayOnCalendar: const TextStyle(fontSize: 20, color: AppColor.primary, fontWeight: FontWeight.bold),
+                                          textStyleDayOnCalendar: const TextStyle(fontSize: 20, color: AppColor.primary),
+                                          textStyleDayOnCalendarSelected: const TextStyle(fontSize: 22, color: AppColor.whiteF, fontWeight: FontWeight.bold),
+                                          textStyleDayOnCalendarDisabled: TextStyle(fontSize: 20, color: AppColor.primary.withOpacity(0.1)),
+                                        ),
+                                        theme: ThemeData(
+                                            primaryColor: AppColor.primary,
+                                            colorScheme: const ColorScheme.light(
+                                              primary: AppColor.primary,
+                                              surface: AppColor.whiteF,
+                                              onSurface: AppColor.whiteF,
+                                              onPrimary: Colors.black,
+                                            ),
+                                            disabledColor: Colors.black,
+                                            dialogBackgroundColor: AppColor.whiteF, // Fondo del diálogo
+                                            dialogTheme: DialogTheme(
+                                              titleTextStyle: AppTextStyle.inputHintStyle.copyWith(color: AppColor.whiteF),
+                                              surfaceTintColor: AppColor.whiteF,
+                                              backgroundColor: AppColor.whiteF,
+                                              contentTextStyle: AppTextStyle.inputHintStyle.copyWith(color: AppColor.whiteF),
+                                              shadowColor: AppColor.whiteF,
+                                            )
+                                        ),
+                                      ).then((date) {
+                                        if (date != null) {
+                                          setState(() {
+                                            endDate = date;
 
                                                   yearSelect = null;
                                                   monthsSelect = null;
@@ -374,28 +442,49 @@ Future<Filter?> myFilters(
 class ButtonFilter extends StatelessWidget {
   const ButtonFilter(
       {Key? key,
-      required this.textColor,
-      required this.onPressed,
-      required this.text})
+        required this.textColor,
+        required this.onPressed,
+        required this.text,
+        this.elevation = 2,
+        this.icon,
+        this.radiu = 4,
+        this.sizeHeight = 44,
+      })
       : super(key: key);
 
   final Color textColor;
   final String text;
   final void Function()? onPressed;
+  final double elevation;
+  final Widget? icon;
+  final double radiu;
+  final double sizeHeight;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
         child: MaterialButton(
-      onPressed: onPressed,
-      color: Colors.white,
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-      height: 44,
-      child: Align(
-          alignment: Alignment.centerLeft,
-          child: Text(text,
-              style: AppTextStyle.inputStyle.copyWith(color: textColor))),
-    ));
+          onPressed: onPressed,
+          color: Colors.white,
+          elevation: elevation,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radiu)),
+          height: sizeHeight,
+          child: icon == null ?
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(text,
+                style: AppTextStyle.inputStyle.copyWith(color: textColor)),
+          ) :
+          Row(
+            children: [
+              Expanded(
+                child: Text(text,
+                    style: AppTextStyle.inputStyle.copyWith(color: textColor)),
+              ),
+              icon!,
+            ],
+          ),
+        )
+    );
   }
 }

@@ -18,7 +18,7 @@ import '../my_dropdown_button/my_drop_down_button.dart';
 import '../my_spacer/my_spacer.dart';
 
 Future<FilterReturns?> myFiltersReturns(BuildContext context,
-  { required FilterReturns filterReturns,required List<String> listSituacion,required List<ReturnsStatusModel> listEstados,}){
+    { required FilterReturns filterReturns,required List<String> listSituacion,required List<ReturnsStatusModel> listEstados,}){
 
   String? yearSelect = filterReturns.anio;
   int? quarter = filterReturns.quarter;
@@ -164,21 +164,20 @@ Future<FilterReturns?> myFiltersReturns(BuildContext context,
                               // ),
                               dropdownItems: monthsList
                                   .map((item) => DropdownMenuItem(
-                                        value: item,
-                                        child: Text(
-                                          item.name,
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                          style: AppTextStyle.inputStyle,
-                                        ),
-                                      ))
+                                value: item,
+                                child: Text(
+                                  item.name,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: AppTextStyle.inputStyle,
+                                ),
+                              ))
                                   .toList(),
                               buttonWidth: double.infinity,
                               value: monthsSelect,
                               onChanged: (value) {
                                 setState(() {
                                   monthsSelect = value;
-                                  yearSelect = null;
                                   quarter = null;
                                   startDate = null;
                                   endDate = null;
@@ -194,22 +193,20 @@ Future<FilterReturns?> myFiltersReturns(BuildContext context,
                               hint: 'Selecciona un año',
                               dropdownItems: yearsList
                                   .map((item) => DropdownMenuItem(
-                                        value: item,
-                                        child: Text(
-                                          item,
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                          style: AppTextStyle.inputStyle,
-                                        ),
-                                      ))
+                                value: item,
+                                child: Text(
+                                  item,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: AppTextStyle.inputStyle,
+                                ),
+                              ))
                                   .toList(),
                               buttonWidth: double.infinity,
                               value: yearSelect,
                               onChanged: (value) {
                                 setState(() {
                                   yearSelect = value;
-                                  monthsSelect = null;
-                                  quarter = null;
                                   startDate = null;
                                   endDate = null;
                                 });
@@ -224,14 +221,14 @@ Future<FilterReturns?> myFiltersReturns(BuildContext context,
                               hint: 'Selecciona un trimestre',
                               dropdownItems: [1, 2, 3, 4]
                                   .map((item) => DropdownMenuItem(
-                                        value: item,
-                                        child: Text(
-                                          item.toString(),
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                          style: AppTextStyle.inputStyle,
-                                        ),
-                                      ))
+                                value: item,
+                                child: Text(
+                                  item.toString(),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: AppTextStyle.inputStyle,
+                                ),
+                              ))
                                   .toList(),
                               buttonWidth: double.infinity,
                               value: quarter,
@@ -239,7 +236,6 @@ Future<FilterReturns?> myFiltersReturns(BuildContext context,
                                 setState(() {
                                   quarter = value;
                                   monthsSelect = null;
-                                  yearSelect = null;
                                   startDate = null;
                                   endDate = null;
                                 });
@@ -261,14 +257,49 @@ Future<FilterReturns?> myFiltersReturns(BuildContext context,
                                       showRoundedDatePicker(
                                         context: context,
                                         initialDate: DateTime.now(),
-                                        firstDate:
-                                        DateTime(DateTime.now().year - 20),
-                                        lastDate: DateTime.now()
-                                            .add(const Duration(days: 1)),
+                                        firstDate: DateTime(DateTime.now().year - 20),
+                                        lastDate: DateTime.now().add(const Duration(days: 1)),
                                         locale: const Locale('es', 'ES'),
+                                        textNegativeButton: "Cancelar", // Texto en minúscula para el botón Cancelar
+                                        textPositiveButton: "Aceptar", // Texto en minúscula para el botón Aceptar
                                         height: 340,
                                         borderRadius: 16,
-                                        theme: AppTheme.light,
+                                        styleYearPicker: MaterialRoundedYearPickerStyle(
+                                          textStyleYear: const TextStyle(fontSize: 16, color: AppColor.whiteF),
+                                        ),
+                                        styleDatePicker: MaterialRoundedDatePickerStyle(
+                                          textStyleDayButton: const TextStyle(fontSize: 26, color: Colors.white),
+                                          textStyleYearButton: const TextStyle(fontSize: 22,color: Colors.white,),
+                                          textStyleDayHeader: const TextStyle(fontSize: 18,color: AppColor.primary,),
+                                          textStyleMonthYearHeader: const TextStyle(fontSize: 22, color: AppColor.primary, fontWeight: FontWeight.bold),
+                                          colorArrowNext: AppColor.primary,
+                                          colorArrowPrevious: AppColor.primary,
+                                          textStyleButtonPositive: const TextStyle(fontSize: 18, color: AppColor.primary, fontWeight: FontWeight.bold),
+                                          textStyleButtonNegative: const TextStyle(fontSize: 18, color: AppColor.primary),
+
+                                          textStyleCurrentDayOnCalendar: const TextStyle(fontSize: 20, color: AppColor.primary, fontWeight: FontWeight.bold),
+                                          textStyleDayOnCalendar: const TextStyle(fontSize: 20, color: AppColor.primary),
+                                          textStyleDayOnCalendarSelected: const TextStyle(fontSize: 22, color: AppColor.whiteF, fontWeight: FontWeight.bold),
+                                          textStyleDayOnCalendarDisabled: TextStyle(fontSize: 20, color: AppColor.primary.withOpacity(0.1)),
+                                        ),
+                                        theme: ThemeData(
+                                            primaryColor: AppColor.primary,
+                                            colorScheme: const ColorScheme.light(
+                                              primary: AppColor.primary,
+                                              surface: AppColor.whiteF,
+                                              onSurface: AppColor.whiteF,
+                                              onPrimary: Colors.black,
+                                            ),
+                                            disabledColor: Colors.black,
+                                            dialogBackgroundColor: AppColor.whiteF, // Fondo del diálogo
+                                            dialogTheme: DialogTheme(
+                                              titleTextStyle: AppTextStyle.inputHintStyle.copyWith(color: AppColor.whiteF),
+                                              surfaceTintColor: AppColor.whiteF,
+                                              backgroundColor: AppColor.whiteF,
+                                              contentTextStyle: AppTextStyle.inputHintStyle.copyWith(color: AppColor.whiteF),
+                                              shadowColor: AppColor.whiteF,
+                                            )
+                                        ),
                                       ).then((date) {
                                         if (date != null) {
                                           setState(() {
@@ -299,9 +330,46 @@ Future<FilterReturns?> myFiltersReturns(BuildContext context,
                                         lastDate: DateTime.now()
                                             .add(const Duration(days: 1)),
                                         locale: const Locale('es', 'ES'),
+                                        textNegativeButton: "Cancelar", // Texto en minúscula para el botón Cancelar
+                                        textPositiveButton: "Aceptar", // Texto en minúscula para el botón Aceptar
                                         height: 340,
                                         borderRadius: 16,
-                                        theme: AppTheme.light,
+                                        styleYearPicker: MaterialRoundedYearPickerStyle(
+                                          textStyleYear: const TextStyle(fontSize: 16, color: AppColor.whiteF),
+                                        ),
+                                        styleDatePicker: MaterialRoundedDatePickerStyle(
+                                          textStyleDayButton: const TextStyle(fontSize: 26, color: Colors.white),
+                                          textStyleYearButton: const TextStyle(fontSize: 22,color: Colors.white,),
+                                          textStyleDayHeader: const TextStyle(fontSize: 18,color: AppColor.primary,),
+                                          textStyleMonthYearHeader: const TextStyle(fontSize: 22, color: AppColor.primary, fontWeight: FontWeight.bold),
+                                          colorArrowNext: AppColor.primary,
+                                          colorArrowPrevious: AppColor.primary,
+                                          textStyleButtonPositive: const TextStyle(fontSize: 18, color: AppColor.primary, fontWeight: FontWeight.bold),
+                                          textStyleButtonNegative: const TextStyle(fontSize: 18, color: AppColor.primary),
+
+                                          textStyleCurrentDayOnCalendar: const TextStyle(fontSize: 20, color: AppColor.primary, fontWeight: FontWeight.bold),
+                                          textStyleDayOnCalendar: const TextStyle(fontSize: 20, color: AppColor.primary),
+                                          textStyleDayOnCalendarSelected: const TextStyle(fontSize: 22, color: AppColor.whiteF, fontWeight: FontWeight.bold),
+                                          textStyleDayOnCalendarDisabled: TextStyle(fontSize: 20, color: AppColor.primary.withOpacity(0.1)),
+                                        ),
+                                        theme: ThemeData(
+                                            primaryColor: AppColor.primary,
+                                            colorScheme: const ColorScheme.light(
+                                              primary: AppColor.primary,
+                                              surface: AppColor.whiteF,
+                                              onSurface: AppColor.whiteF,
+                                              onPrimary: Colors.black,
+                                            ),
+                                            disabledColor: Colors.black,
+                                            dialogBackgroundColor: AppColor.whiteF, // Fondo del diálogo
+                                            dialogTheme: DialogTheme(
+                                              titleTextStyle: AppTextStyle.inputHintStyle.copyWith(color: AppColor.whiteF),
+                                              surfaceTintColor: AppColor.whiteF,
+                                              backgroundColor: AppColor.whiteF,
+                                              contentTextStyle: AppTextStyle.inputHintStyle.copyWith(color: AppColor.whiteF),
+                                              shadowColor: AppColor.whiteF,
+                                            )
+                                        ),
                                       ).then((date) {
                                         if (date != null) {
                                           setState(() {
@@ -336,14 +404,14 @@ Future<FilterReturns?> myFiltersReturns(BuildContext context,
                                 }
                               }
                               final filter = FilterReturns(
-                                startDate: startDate,
-                                endDate: endDate,
-                                mes: monthsSelect?.id,
-                                anio: yearSelect,
-                                quarter: quarter,
-                                estado: codEstado,
-                                situacion: situacion,
-                                referencia: referencia
+                                  startDate: startDate,
+                                  endDate: endDate,
+                                  mes: monthsSelect?.id,
+                                  anio: yearSelect,
+                                  quarter: quarter,
+                                  estado: codEstado,
+                                  situacion: situacion,
+                                  referencia: referencia
                               );
                               Navigator.of(context).pop(filter);
                             },
@@ -363,8 +431,24 @@ Future<FilterReturns?> myFiltersReturns(BuildContext context,
                                 estado = null;
                                 referencia = null;
                                 situacion = null;
-
                               });
+                              String? codEstado;
+                              if(estado != null){
+                                for (var element in listEstados) {
+                                  if(element.nombre! == estado){ codEstado = element.codigoEstado.toString(); }
+                                }
+                              }
+                              final filter = FilterReturns(
+                                  startDate: startDate,
+                                  endDate: endDate,
+                                  mes: monthsSelect?.id,
+                                  anio: yearSelect,
+                                  quarter: quarter,
+                                  estado: codEstado,
+                                  situacion: situacion,
+                                  referencia: referencia
+                              );
+                              Navigator.of(context).pop(filter);
                             },
                             text: 'Borrar filtros',
                             variant: MyButtonVariant.outlinedBold,
@@ -389,9 +473,9 @@ Future<FilterReturns?> myFiltersReturns(BuildContext context,
 class ButtonFilter extends StatelessWidget {
   const ButtonFilter(
       {Key? key,
-      required this.textColor,
-      required this.onPressed,
-      required this.text})
+        required this.textColor,
+        required this.onPressed,
+        required this.text})
       : super(key: key);
 
   final Color textColor;
@@ -402,15 +486,15 @@ class ButtonFilter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
         child: MaterialButton(
-      onPressed: onPressed,
-      color: Colors.white,
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-      height: 44,
-      child: Align(
-          alignment: Alignment.centerLeft,
-          child: Text(text,
-              style: AppTextStyle.inputStyle.copyWith(color: textColor))),
-    ));
+          onPressed: onPressed,
+          color: Colors.white,
+          elevation: 2,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+          height: 44,
+          child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(text,
+                  style: AppTextStyle.inputStyle.copyWith(color: textColor))),
+        ));
   }
 }

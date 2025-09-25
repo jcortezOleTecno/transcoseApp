@@ -94,7 +94,7 @@ class _SplashInitialPageState extends State<SplashInitialPage> {
                 spacerXL,
                 const CircularProgressIndicator(
                   color: Colors.white,
-                  strokeWidth: 6,
+                  strokeWidth: 4,
                 )
               ],
             ),

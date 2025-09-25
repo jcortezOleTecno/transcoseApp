@@ -12,6 +12,7 @@ class MySearchInput extends StatelessWidget {
     this.fillColor = Colors.white,
     this.borderSideColor = Colors.black,
     this.borderCircular = 40.0,
+    this.controller,
   }) : super(key: key);
 
   final String? hintText;
@@ -22,12 +23,14 @@ class MySearchInput extends StatelessWidget {
   final Color fillColor;
   final Color borderSideColor;
   final double borderCircular;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 45,
       child: TextFormField(
+        controller: controller,
         onFieldSubmitted: onFieldSubmitted,
         initialValue: initialValue,
         onChanged: onChanged,
@@ -53,7 +56,7 @@ class MySearchInput extends StatelessWidget {
           isDense: true,
           // isCollapsed: true,
           contentPadding:
-              const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+          const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
           suffixIcon: GestureDetector(
             onTap: () {
               FocusScope.of(context).requestFocus(FocusNode());
@@ -64,6 +67,83 @@ class MySearchInput extends StatelessWidget {
             child: Image.asset(
               'assets/icons/searchIcon.png',
               scale: 2,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+class MySearchInputEdit extends StatelessWidget {
+  const MySearchInputEdit({
+    Key? key,
+    this.hintText,
+    this.onChanged,
+    this.onTap,
+    this.initialValue,
+    this.onFieldSubmitted,
+    this.fillColor = Colors.white,
+    this.borderSideColor = Colors.black,
+    this.borderCircular = 40.0,
+    this.controller,
+    this.sizeHeight = 55,
+  }) : super(key: key);
+
+  final String? hintText;
+  final String? initialValue;
+  final void Function(String)? onFieldSubmitted;
+  final void Function(String)? onChanged;
+  final void Function()? onTap;
+  final Color fillColor;
+  final Color borderSideColor;
+  final double borderCircular;
+  final TextEditingController? controller;
+  final double sizeHeight;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: sizeHeight,
+      child: TextFormField(
+        controller: controller,
+        onFieldSubmitted: onFieldSubmitted,
+        initialValue: initialValue,
+        onChanged: onChanged,
+        textInputAction: TextInputAction.search,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(borderCircular),
+            borderSide: BorderSide(color: borderSideColor, width: 1.0),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(borderCircular),
+            borderSide: BorderSide(color: borderSideColor, width: 1.0),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(borderCircular),
+            borderSide: BorderSide(color: borderSideColor, width: 1.0),
+          ),
+          filled: true,
+          fillColor: fillColor,
+          hintText: hintText,
+          hintStyle: AppTextStyle.inputHintStyle,
+          isDense: true,
+          contentPadding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+          suffixIcon: Container(
+            margin: EdgeInsets.only(right: 20),
+            child: GestureDetector(
+              onTap: () {
+                FocusScope.of(context).requestFocus(FocusNode());
+                if (onTap != null) {
+                  onTap!();
+                }
+              },
+              child: Image.asset(
+                'assets/icons/searchIcon.png',
+                scale: 2,
+              ),
             ),
           ),
         ),

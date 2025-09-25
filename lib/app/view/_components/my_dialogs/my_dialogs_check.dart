@@ -4,10 +4,11 @@ import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 
 Future<bool?> successDialog(
-  BuildContext context, {
-  required String title,
-  required String content,
-}) async {
+    BuildContext context, {
+      required String title,
+      required String content,
+      bool isError = false,
+    }) async {
   return await showDialog<bool>(
       context: context,
       builder: (context) {
@@ -19,17 +20,19 @@ Future<bool?> successDialog(
               mainAxisSize: MainAxisSize.min,
               children: [
                 spacerM,
-                Container(
-                  height: 50,
-                  width: 50,
-                  decoration: const BoxDecoration(
-                      shape: BoxShape.circle, color: Colors.white30),
-                  child: Image.asset(
-                    'assets/icons/check_success.png',
-                    scale: 1,
+                if(!isError)...[
+                  Container(
+                    height: 50,
+                    width: 50,
+                    decoration: const BoxDecoration(
+                        shape: BoxShape.circle, color: Colors.white30),
+                    child: Image.asset(
+                      'assets/icons/check_success.png',
+                      scale: 1,
+                    ),
                   ),
-                ),
-                spacerM,
+                  spacerM,
+                ],
                 Text(
                   title,
                   style: AppTextStyle.h1Style.copyWith(fontSize: 25),

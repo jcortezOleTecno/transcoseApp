@@ -10,7 +10,7 @@ import 'package:vemare/main.dart';
 import '../my_orders_page.dart';
 
 class MyDataOrders extends DataTableSource {
-  final List<Albaran> data;
+  final List<AlbaranISI> data;
   final String title;
 
   MyDataOrders(this.data, this.title);
@@ -18,39 +18,38 @@ class MyDataOrders extends DataTableSource {
   @override
   DataRow? getRow(int index) {
     return DataRow(
-        // onLongPress: () => navigator.pushNamed(
-        //       AlbaranDetailPage.route,
-        //       arguments: AlbaranDetailArg(albaran: data[index], title: title),
-        //     ),
+      // onLongPress: () => navigator.pushNamed(
+      //       AlbaranDetailPage.route,
+      //       arguments: AlbaranDetailArg(albaran: data[index], title: title),
+      //     ),
         cells: [
-          DataCell(Text(data[index].documento.toString())),
-          DataCell(Text(DateFormat.yMd('es').format(data[index].fecha!))),
-          DataCell(Text(data[index].contador ?? '')),
-          DataCell(Text(data[index].modoEntrega ?? '')),
-          DataCell(Text(data[index].almacen.toString())),
-          DataCell(Text(fmf
-              .copyWith(amount: data[index].totalImporte ?? 0.0)
-              .output
-              .symbolOnRight)),
+          DataCell(Text(data[index].albaran.toString())),
+          DataCell(Text(DateFormat.yMd('es').format(data[index].fecha))),
+          DataCell(Text(DateFormat.yMd('es').format(data[index].fechaDevolucion))),
+          DataCell(Text(data[index].total.toString())),
+          // DataCell(Text(fmf
+          //     .copyWith(amount: data[index].totalImporte ?? 0.0)
+          //     .output
+          //     .symbolOnRight)),
           DataCell(
             Row(
               children: [
-                StatusLabelWidget(data[index].facturado!.replaceAll(' ', '') == 'FACTURADO'),
+                StatusLabelWidget(data[index].estado.replaceAll(' ', '') == 'FACTURADO'),
                 spacerS,
-                ExpeditionButton(data[index]),
-                spacerS,
-                Expanded(
-                  child: IconButton(
-                      onPressed: () {
-                        navigator.pushNamed(
-                          AlbaranDetailPage.route,
-                          arguments: AlbaranDetailArg(
-                              albaran: data[index], title: title),
-                        );
-                      },
-                      icon:
-                          Image.asset('assets/icons/arrow_next.png', scale: 2)),
-                )
+                // ExpeditionButton(data[index]),
+                // spacerS,
+                // Expanded(
+                //   child: IconButton(
+                //       onPressed: () {
+                //         navigator.pushNamed(
+                //           AlbaranDetailPage.route,
+                //           arguments: AlbaranDetailArg(
+                //               albaran: data[index], title: title),
+                //         );
+                //       },
+                //       icon:
+                //           Image.asset('assets/icons/arrow_next.png', scale: 2)),
+                // )
               ],
             ),
           ),

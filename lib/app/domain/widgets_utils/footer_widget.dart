@@ -11,8 +11,9 @@ import 'package:vemare/app/view/login/login_page.dart';
 import 'package:vemare/app/view/theme/color.dart';
 import 'package:vemare/app/view/theme/text_style.dart';
 import 'package:vemare/app/view/work_with_us/work_with_us_home.dart';
-import 'package:vemare/app/view/work_with_us/work_with_us_page.dart';
 import 'package:vemare/main.dart';
+
+import 'package:clean_calendar/clean_calendar.dart';
 
 class Footer extends StatelessWidget {
   const Footer({Key? key}) : super(key: key);
@@ -275,6 +276,26 @@ class Footer extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+
+  Widget footerCalendar(){
+    return SizedBox(
+      width: double.infinity,
+      child: CleanCalendar(
+        weekdaysSymbol: const Weekdays(sunday: "l", monday: "m", tuesday: "m", wednesday: "j", thursday: "v", friday: "s", saturday: "d"),
+        monthsSymbol: const Months(january: "Enero", february: "Febrero", march: "Marzo", april: "Abril", may: "Mayo", june: "Junio", july: "Julio", august: "Agosto", september: "Septiembre", october: "Octubre", november: "Noviembre", december: "Diciembre"),
+        datesForStreaks: [
+          DateTime(2024, 1, 23),
+          DateTime(2024, 1, 24),
+        ],
+        selectedDates: [
+          DateTime(2024, 1, 23),
+          DateTime(2024, 1, 24),
+        ],
+
       ),
     );
   }

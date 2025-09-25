@@ -20,19 +20,19 @@ class Filter {
   });
 
   Map<String, dynamic> toJson() => {
-        "start_date": startDate != null
-            ? '${startDate?.month}/${startDate?.day}/${startDate?.year}'
-            : '',
-        "end_date": endDate != null
-            ? '${endDate?.month}/${endDate?.day}/${endDate?.year}'
-            : '',
-        "mes": month ?? '',
-        "anio": year ?? '',
-        "trimestre": quarter?.toString() ?? '',
-        "estado": status ?? '',
-        "estado_tramitacion": statusTram ?? '',
-        "estado_sustitucion": statusSust ?? '',
-      };
+    "start_date": startDate != null
+        ? '${startDate?.month}/${startDate?.day}/${startDate?.year}'
+        : '',
+    "end_date": endDate != null
+        ? '${endDate?.month}/${endDate?.day}/${endDate?.year}'
+        : '',
+    "mes": month ?? '',
+    "anio": year ?? '',
+    "trimestre": quarter?.toString() ?? '',
+    "estado": status ?? '',
+    "estado_tramitacion": statusTram ?? '',
+    "estado_sustitucion": statusSust ?? '',
+  };
 
   List<String> quantityFilter(){
     List<String> result = [];
@@ -72,8 +72,8 @@ class FilterReturns {
   });
 
   Map<String, dynamic> toJson() => {
-    "start_date": startDate != null ? '${startDate?.month}/${startDate?.day}/${startDate?.year}' : '',
-    "end_date": endDate != null ? '${endDate?.month}/${endDate?.day}/${endDate?.year}' : '',
+    "start_date": startDate != null ? '${startDate?.year}-${startDate?.month}-${startDate?.day}' : '',
+    "end_date": endDate != null ? '${endDate?.year}-${endDate?.month}-${endDate?.day}' : '',
     "estado": estado ?? '',
     "situacion": situacion ?? '',
     "trimestre": quarter?.toString() ?? '',
@@ -83,8 +83,8 @@ class FilterReturns {
   };
 
   Map<String, dynamic> toJsonName() => {
-    "start_date": startDate != null ? '${startDate?.month}/${startDate?.day}/${startDate?.year}' : '',
-    "end_date": endDate != null ? '${endDate?.month}/${endDate?.day}/${endDate?.year}' : '',
+    "start_date": startDate != null ? '${startDate?.day}/${startDate?.month}/${startDate?.year}' : '',
+    "end_date": endDate != null ? '${endDate?.day}/${endDate?.month}/${endDate?.year}' : '',
     "estado": estado ?? '',
     "situacion": situacion ?? '',
     "trimestre": quarter?.toString() ?? '',

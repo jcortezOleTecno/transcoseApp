@@ -1,21 +1,21 @@
-import 'package:data_table_2/data_table_2.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:vemare/app/data/contracts_repository.dart';
 import 'package:vemare/app/domain/model/returns_model.dart';
+import 'package:vemare/app/domain/utils/status_returns.dart';
 import 'package:vemare/app/domain/widgets_utils/footer_widget.dart';
-import 'package:vemare/app/view/_components/my_button/my_button.dart';
 import 'package:vemare/app/view/_components/my_button/my_icon_button.dart';
 import 'package:vemare/app/view/_components/my_filters/my_filters_returns.dart';
+import 'package:vemare/app/view/_components/my_filters_applied/my_filter_applied.dart';
 import 'package:vemare/app/view/_components/my_input/my_input_search.dart';
 import 'package:vemare/app/view/_components/my_shimmer/my_shimmer.dart';
 import 'package:vemare/app/view/_components/my_spacer/my_spacer.dart';
-import 'package:vemare/app/view/_components/no_result/no_result_table.dart';
-import 'package:vemare/app/view/_components/user_name/user_name.dart';
+import 'package:vemare/app/view/_components/progress_status/progress_status_widget.dart';
 import 'package:vemare/app/view/personal_area/my_orders/returns/providers/returns_provider.dart';
 import 'package:vemare/app/view/personal_area/my_orders/returns/widgets/returns_details.dart';
-import 'package:vemare/app/view/personal_area/my_orders/returns/widgets/returns_new_orders.dart';
 import 'package:vemare/app/view/personal_area/widgets/no_contracts.dart';
 import 'package:vemare/app/view/theme/button_style.dart';
 import 'package:vemare/app/view/theme/color.dart';
@@ -42,13 +42,14 @@ class ReturnsScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+                      padding: const EdgeInsets.fromLTRB(30, 10, 30, 30),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           spacerS,
-                          const Text('Mis pedidos de devolución', style: AppTextStyle.h2Style),
-                          const UserName(),
+                          //const Text('Mis pedidos de devolución', style: AppTextStyle.h2Style),
+                          Text('Mis Devoluciones', style: AppTextStyle.nunito80024.copyWith(fontSize: 26)),
+                          // const UserName(),
                           spacerS,
                           // MyButton(
                           //   onPressed: () async {
@@ -68,15 +69,67 @@ class ReturnsScreen extends StatelessWidget {
                               listEstados: provider.listStatusReturns,listSituacion: provider.listSituaReturns).then((filter) {
                                 if (filter != null) {
                                   provider.filterReturnsHttp(filterWidget: filter);
+                                }else{
+                                  provider.reset();
                                 }
                               });
                             },
                             text: provider.filter.quantityFilter().isNotEmpty ? 'Modificar filtros' : 'Aplicar filtros',
                             icon: Image.asset( 'assets/icons/Filtro.png', scale: 2,),
-                            variant: MyButtonVariant.outlinedBold,
+                            variant: MyButtonVariant.outlinedBoldTransparent,
                           ),
                           spacerS,spacerS,
-                          filterAplicados(provider: provider),
+                          SizedBox(
+                            width: double.infinity,
+                            child: Text('Estados de la devolución', style: AppTextStyle.h2Style.copyWith(fontWeight: FontWeight.bold,fontSize: 18),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          spacerS,spacerS,spacerS,
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 25),
+                            child: ProgressTracker(
+                              currentStep: 3,
+                              labels: const ['Solicitada', 'En gestión', 'Finalizada'],
+                            ),
+                          ),
+                          spacerS,spacerS,spacerS,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: Row(
+                                    children: [
+                                      Text('Devoluciones ', style: AppTextStyle.h2Style.copyWith(fontSize: 26)),
+                                      Container(
+                                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                                        child: const Text('|', style: AppTextStyle.nunito18),
+                                      ),
+                                      Text('${provider.dataPedidosFiltrado?.rowCount ?? 0} total', style: AppTextStyle.nunito18),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          spacerS,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 0),
+                            child: MySearchInput(
+                              hintText: 'Buscar por palabras claves...',
+                              onChanged: (value){
+                                provider.filtroReturns(value);
+                                provider.pageController!.jumpToPage(0);
+                              },
+                              fillColor: AppColor.whiteF,
+                              borderSideColor: AppColor.blue100,
+
+                            ),
+                          ),
+                          //filterAplicados(provider: provider),
                           if(provider.loadData)...[
                             spacerS,spacerS,
                             const SizedBox(
@@ -90,8 +143,8 @@ class ReturnsScreen extends StatelessWidget {
                               const NoExistWidget('pedidos',paddingTop: 40),
                               spacerM,spacerM,
                             ]else...[
-                              spacerS,spacerS,
-                              tablaPedidos(provider: provider),
+                              spacerS,
+                              tablaPedidos(provider: provider,context: context),
                             ],
                           ],
                         ],
@@ -112,7 +165,7 @@ class ReturnsScreen extends StatelessWidget {
       width: double.infinity,
       child: Container(
         color: Colors.white,
-        padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -150,50 +203,332 @@ class ReturnsScreen extends StatelessWidget {
     );
   }
 
-  Widget tablaPedidos({required ReturnsProvider provider}){
+  Widget tablaPedidos({required ReturnsProvider provider, required BuildContext context}){
 
     double hSize = 350;
-      if(provider.dataPedidosFiltrado!.rowCount <= 5){
-        if(provider.dataPedidosFiltrado!.rowCount > 2){
-          hSize = hSize + (20 * provider.dataPedidosFiltrado!.rowCount);
-        }
-      }else{
-        hSize = 500;
+    if(provider.dataPedidosFiltrado!.rowCount <= 5){
+      if(provider.dataPedidosFiltrado!.rowCount > 2){
+        hSize = hSize + (20 * provider.dataPedidosFiltrado!.rowCount);
       }
+    }else{
+      hSize = 500;
+    }
 
-      return SizedBox(
-        height: hSize,
-        child: Card(
-          margin: const EdgeInsets.only(bottom: 20),
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    spacerS,
-                    const Text('Devoluiciones',style: AppTextStyle.h3Style,),
-                    Text('${provider.dataPedidosFiltrado!.rowCount} Total'),
-                  ],
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          spacerS,
+          sectionTablaPedidos(context: context,provider: provider),
+          spacerS,
+        ],
+      ),
+    );
+  }
+
+  Widget sectionTablaPedidos({required BuildContext context, required ReturnsProvider provider}){
+    List<Widget> listW = [];
+    int itemsForPage = 6;
+    int totalPAge = (provider.listReturns.length / itemsForPage).ceil();
+
+    Size size = MediaQuery.of(context).size;
+
+    final startIndex = provider.currentPage * itemsForPage;
+    int endIndex = 0;
+    List<ReturnsModel> pageItems = [];
+    List<Widget> items = [];
+
+    endIndex = (startIndex + itemsForPage).clamp(0, provider.listReturns.length);
+    pageItems = provider.listReturns.sublist(startIndex, endIndex);
+
+    for(int x = 0; x < totalPAge; x++){ items.add(
+        Container(
+          width: 30, height: 30,
+          margin: const EdgeInsets.symmetric(horizontal: 2),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: ((provider.currentPage + 1) == (x + 1)) ? AppColor.primary : AppColor.white,
+              border: Border.all(color: ((provider.currentPage + 1) == (x + 1)) ? AppColor.primary : AppColor.blue300)
+          ),
+          child: Center(
+            child: Text('${x + 1}',
+                style: AppTextStyle.h1Style.copyWith(
+                    fontSize: 16,color: ((provider.currentPage + 1) == (x + 1)) ? AppColor.white : AppColor.blue300
+                )),
+          ),
+        )
+    ); }
+
+    for (var albaranElemt in pageItems) {
+      listW.add(
+          cardPedidos(
+            provider: provider,
+            returnsModel: albaranElemt,
+            context: context,
+          )
+      );
+      listW.add(const SizedBox(height: 10,));
+    }
+
+    double wiMin = 24 * (double.parse (((provider.listReturns.isNotEmpty ? (provider.listReturns.length / itemsForPage).ceil() : provider.listReturns.length / itemsForPage).ceil()).toString()) + 1);
+    if(wiMin >= size.width * 0.5){
+      wiMin = size.width * 0.2;
+    }
+
+    listW.add(
+        SizedBox(
+          width: double.infinity,
+          child: SingleChildScrollView(
+            //scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                InkWell(
+                  child: Icon(Icons.arrow_back_ios_new,
+                      size: 20,
+                      color: ((provider.currentPage > 0) ? AppColor.primary : AppColor.neutral40)),
+                  onTap: (){
+                    if(provider.currentPage > 0){
+                      provider.currentPage = provider.currentPage - 1;
+                      provider.pageController!.previousPage(duration: const Duration(milliseconds: 300), curve: Curves.ease);
+                    }
+                  },
                 ),
-              ),
-              spacerS,
-              Padding(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 15),
-                child: MySearchInput(
-                  hintText: 'Buscar por palabras claves...',
-                  onChanged: provider.filtroReturns,
-                  fillColor: AppColor.blue50,
-                  borderSideColor: AppColor.blue100,
+                spacerXs,
+                SizedBox(
+                  width: wiMin,
+                  height: 30,
+                  child: PageView(
+                    controller: provider.pageController,
+                    scrollDirection: Axis.horizontal,
+                    children: items,
+                  ),
                 ),
+                spacerXs,
+                InkWell(
+                  child: Icon(Icons.arrow_forward_ios,
+                      size: 20,
+                      color: ((provider.currentPage + 1) <= totalPAge) ? AppColor.primary : AppColor.neutral40),
+                  onTap: (){
+                    log('state.currentPage + 1 = ${provider.currentPage + 1}');
+                    log('totalPAge = $totalPAge');
+
+                    if((provider.currentPage + 1) < totalPAge){
+                      provider.pageController!.nextPage(duration: Duration(milliseconds: 300), curve: Curves.ease);
+                      provider.currentPage = provider.currentPage + 1;
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
+        )
+    );
+
+    listW.add(
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SizedBox(
+            width: double.infinity,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Mostrando ',
+                  style: AppTextStyle.nunito18.copyWith(fontSize: 16),
+                ),
+                Container(
+                  padding: const EdgeInsets.all(5.0),
+                  color: AppColor.whiteF,
+                  child: Center(
+                    child: Text(
+                      '   ${pageItems.length}   ',
+                      style: AppTextStyle.nunito18.copyWith(fontSize: 16,fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                Text(
+                  ' de ${provider.listReturns.length} resultados',
+                  style: AppTextStyle.nunito18.copyWith(fontSize: 16),
+                )
+              ],
+            ),
+          ),
+        )
+    );
+
+    return Column(
+      children: listW,
+    );
+  }
+
+  Widget cardPedidos({required ReturnsModel returnsModel, required BuildContext context, required ReturnsProvider provider }){
+
+    Size size = MediaQuery.of(context).size;
+
+    return Container(
+      width: size.width,
+      padding: EdgeInsets.symmetric(horizontal: size.width * 0.05,vertical: size.height * 0.02),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: AppColor.whiteF,
+      ),
+      child: Column(
+        children: [
+          SizedBox(
+            width: size.width,
+            child: Row(
+              children: [
+                Expanded(
+                  child: textCardAlbaran(context: context,titlte: 'Nº DE PEDIDO',subTitle: returnsModel.numeroDevolucion ?? ''),
+                ),
+                Expanded(
+                  child: textCardAlbaran(context: context,titlte: 'FECHA SOLICITUD',subTitle: (DateFormat.yMd('es').format(DateTime.parse(returnsModel.fechaSolicitud!)))),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: size.height * 0.02,),
+          SizedBox(
+            width: size.width,
+            child: Row(
+              children: [
+                Expanded(
+                  child: textCardAlbaran(context: context,titlte: 'FECHA DE CIERRE',subTitle: returnsModel.fechaCierre == null ? '' : (DateFormat.yMd('es').format(DateTime.parse(returnsModel.fechaCierre!))).toString()),
+                ),
+                Expanded(
+                  child: textCardAlbaran(context: context,titlte: 'ALMACÉN',subTitle: returnsModel.almacenGestion ?? ''),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: size.height * 0.02,),SizedBox(
+            width: size.width,
+            child: Row(
+              children: [
+                Expanded(
+                  child: textCardAlbaran(context: context,titlte: 'SITUACIÓN',subTitle: returnsModel.estado ?? 'Anulada',isStatus: true,provider: provider,cod: returnsModel.codigoDevolucion.toString()),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: size.height * 0.005,),
+        ],
+      ),
+    );
+  }
+
+  Widget textCardAlbaran({required String titlte, required String subTitle,required BuildContext context, bool isStatus = false,ReturnsProvider? provider,String cod = ''}){
+    Size size = MediaQuery.of(context).size;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        SizedBox(
+            width: size.width,
+            child: Text(titlte,style:
+            AppTextStyle.nunitoSans70014.copyWith(fontSize: 14),)
+        ),
+        SizedBox(height: size.height * 0.01,),
+        if(!isStatus)...[
+          SizedBox(
+              width: size.width,
+              child: Text(subTitle,style:
+              AppTextStyle.nunitoSans70014.copyWith(fontSize: 16,fontWeight: FontWeight.bold,color: AppColor.black),)
+          ),
+        ]else...[
+          SizedBox(
+            width: size.width,
+            child: Row(
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: size.height * 0.01,horizontal: size.width * 0.02),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: statusColorBg[subTitle] ?? AppColor.statusReturn2,
+                  ),
+                  child: Row(
+                    children: [
+                      Row(
+                        children: [
+                          Icon(Icons.circle,color: statusColorText[subTitle] ?? AppColor.statusReturnText2,size: size.height * 0.01),
+                          SizedBox(width: size.width * 0.01,),
+                          Text(statusTraduccion[subTitle] ?? 'En gestión',style: AppTextStyle.nunito18.copyWith(fontSize: 16,fontWeight: FontWeight.bold,color: statusColorText[subTitle] ?? AppColor.statusReturnText2)),
+                        ],
+                      ),
+
+                    ],
+                  ),
+                ),
+                Expanded(child: Container()),
+                InkWell(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder:
+                        (BuildContext context) => ReturnsDetails(
+                      codReturns: cod,
+                    )));
+                  },
+                  child: Image.asset(
+                    'assets/icons/arrow_next.png',
+                    scale: 2,color: AppColor.primary,
+                  ),
+                ),
+                SizedBox(width: size.width * 0.01,),
+              ],
+            ),
+          ),
+        ]
+      ],
+    );
+  }
+
+  Widget tablaPedidosOld({required ReturnsProvider provider}){
+
+    double hSize = 350;
+    if(provider.dataPedidosFiltrado!.rowCount <= 5){
+      if(provider.dataPedidosFiltrado!.rowCount > 2){
+        hSize = hSize + (20 * provider.dataPedidosFiltrado!.rowCount);
+      }
+    }else{
+      hSize = 500;
+    }
+
+    return SizedBox(
+      height: hSize,
+      child: Card(
+        margin: const EdgeInsets.only(bottom: 20),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding:
+              const EdgeInsets.symmetric(horizontal: 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  spacerS,
+                  const Text('Devoluiciones',style: AppTextStyle.h3Style,),
+                  Text('${provider.dataPedidosFiltrado!.rowCount} Total'),
+                ],
               ),
-              spacerS,
+            ),
+            spacerS,
+            Padding(
+              padding:
+              const EdgeInsets.symmetric(horizontal: 15),
+              child: MySearchInput(
+                hintText: 'Buscar por palabras claves...',
+                onChanged: provider.filtroReturns,
+                fillColor: AppColor.blue50,
+                borderSideColor: AppColor.blue100,
+              ),
+            ),
+            spacerS,
+            /*
               Expanded(
                 child: provider.dataPedidosFiltrado!.rowCount == 0 ? Container() : PaginatedDataTable2(
                   wrapInCard: false,
@@ -252,11 +587,13 @@ class ReturnsScreen extends StatelessWidget {
                   source: provider.dataPedidosFiltrado!,
                 ),
               ),
-            ],
-          ),
+
+               */
+          ],
         ),
-      );
-    }
+      ),
+    );
+  }
 
 }
 
