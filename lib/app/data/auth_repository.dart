@@ -46,7 +46,8 @@ class AuthRepository {
       final dynamic res = await apiClient.postRequest('$BASE_API_URL/api/validar-permiso', body: {
         "namePermission": 'Devoluciones'
       });
-      //SharedPreferencesLocal.veraneValidatedDevolucion = res['validated'] ?? false;
+      //TODO BLOQUEAR DEVOLUCION
+      SharedPreferencesLocal.veraneValidatedDevolucion = res['validated'] ?? false;
     }catch(_){}
     try{
       final dynamic res = await apiClient.postRequest('$BASE_API_URL/api/validar-permiso', body: {

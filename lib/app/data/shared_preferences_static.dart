@@ -6,7 +6,8 @@ class SharedPreferencesLocal {
 
   static Future<void> configurePrefs() async {
     prefs = await SharedPreferences.getInstance();
-    veraneValidatedDevolucion = false;
+    //TODO BLOQUEAR DEVOLUCION
+    //veraneValidatedDevolucion = false;
   }
 
   static String get transcoseUrlDynamic => prefs.getString("transcoseUrlDynamic") ?? '';

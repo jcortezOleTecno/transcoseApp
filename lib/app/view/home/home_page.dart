@@ -152,12 +152,13 @@ class _PageA extends StatelessWidget {
                 children: [
                   MyButton(
                     onPressed: () {
-                      if(!LocalDataRepository().isLogged){
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, LoginPage.route, (route) => false);
-                      }else{
-                        Navigator.pushNamed(context, PromotionsPage.route);
-                      }
+                      _callDialog(context,number: contacDefault ?? '');
+                      // if(!LocalDataRepository().isLogged){
+                      //   Navigator.pushNamedAndRemoveUntil(
+                      //       context, LoginPage.route, (route) => false);
+                      // }else{
+                      //   Navigator.pushNamed(context, PromotionsPage.route);
+                      // }
                     },
                     text: 'Hacer un pedido  ',
                     width: double.infinity,
@@ -257,6 +258,34 @@ class _PageA extends StatelessWidget {
           ),
         )
       ],
+    );
+  }
+
+  Future<dynamic> _callDialog(BuildContext context, {required String number}) {
+    return showCupertinoDialog(
+      context: context,
+      builder: (context) {
+        return CupertinoAlertDialog(
+          content: Text(
+            number,
+            // '${number.split('').getRange(0, 3).join()} ${number.split('').getRange(3, 6).join()} ${number.split('').getRange(6, 9).join()}',
+            style: AppTextStyle.h3Style,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () async {
+                Navigator.pop(context);
+                await launchUrlString('tel:$number');
+              },
+              child: const Text('Llamar'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

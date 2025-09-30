@@ -16,6 +16,7 @@ import 'package:vemare/app/domain/model/type_of_vehicle.dart';
 import 'package:vemare/app/domain/model/warranty.dart';
 import 'package:vemare/app/domain/model/we_help_you.dart';
 import 'package:vemare/app/domain/model/work_with_us.dart';
+import 'package:vemare/app/view/_components/qr/qr_lector/qr_lector.dart';
 import 'package:vemare/app/view/about_us/about_us_page.dart';
 import 'package:vemare/app/view/claims/claims_page.dart';
 import 'package:vemare/app/view/home/home_page.dart';
@@ -60,8 +61,10 @@ import 'package:vemare/app/view/personal_area/my_budget/my_budget/my_budget_page
 import 'package:vemare/app/view/personal_area/my_contracts/details/contract_detail.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/details_pmp/contract_pmp_detail.dart';
 import 'package:vemare/app/view/personal_area/my_contracts/page/my_contracts_page.dart';
+import 'package:vemare/app/view/personal_area/my_orders/bloc/my_orders_cubit.dart';
 import 'package:vemare/app/view/personal_area/my_orders/my_orders_page.dart';
 import 'package:vemare/app/view/personal_area/my_orders/orders_and_bills/albaran_details/albaran_detail.dart';
+import 'package:vemare/app/view/personal_area/my_orders/orders_and_bills/albaran_returns/AlbaranReturns.dart';
 import 'package:vemare/app/view/personal_area/my_orders/warranty/warranty_details/warranty_details_page.dart';
 import 'package:vemare/app/view/personal_area/my_trainigs_and_events/my_trainigs_and_events_page.dart';
 import 'package:vemare/app/view/pills/pills_page.dart';
@@ -465,6 +468,18 @@ abstract class AppRouter {
         return MaterialPageRoute<void>(
           settings: settings,
           builder: (_) => AvailableDestinationsFormationsPage.create(data!),
+        );
+      case AlbaranReturns.route:
+        final data = settings.arguments as Map<String,dynamic>;
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => AlbaranReturns(data: data),
+        );
+      case QrLector.route:
+        final data = settings.arguments as MyOrdersCubit;
+        return MaterialPageRoute<String?>(
+          settings: settings,
+          builder: (_) => QrLector(cubit: data),
         );
     /*case ShippingDataPage.route:
         final data = settings.arguments as ShoppingCarArgs?;

@@ -304,7 +304,7 @@ class ReturnsDetails extends StatelessWidget {
     bool existCasco = false;
     if(isCasco){
       for (var action in listLineas) {
-        if(action.referencia == refSt.replaceAll('CN', '').replaceAll('CV', '')){
+        if(action.referencia!.split(' - ')[0] == refSt.replaceAll('CN', '').replaceAll('CV', '')){
           existCasco = true;
         }
       }
