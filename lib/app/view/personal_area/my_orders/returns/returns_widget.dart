@@ -120,6 +120,7 @@ class ReturnsScreen extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 0),
                             child: MySearchInput(
                               hintText: 'Buscar por palabras claves...',
+                              controller: provider.controllerSearch,
                               onChanged: (value){
                                 provider.filtroReturns(value);
                                 provider.pageController!.jumpToPage(0);

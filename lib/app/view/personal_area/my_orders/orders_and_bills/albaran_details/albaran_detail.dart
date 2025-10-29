@@ -181,7 +181,11 @@ class AlbaranDetailPage extends StatelessWidget {
 
     List<Widget> listW = [];
 
-    for (var detailAlbaran in state.albaran!.lineas) {
+    List<LineasAlbaran> lineasList = state.albaran!.lineas;
+
+    lineasList.sort((a, b) => a.referencia.compareTo(b.referencia));
+
+    for (var detailAlbaran in lineasList) {
 
       listW.add(
           cardLineaAlbaran(linea: detailAlbaran,albaran: state.albaran!.albaran,listLineas: state.albaran!.lineas)

@@ -239,6 +239,9 @@ class MyOrdersCubit extends Cubit<MyOrdersState> {
     if(isCabecera){
       for (var element in state.ordersDetails![key]!) {
         updatedMap['$key${element.referencia}'] = valueCab;
+        if(element.cantidadTotal <= 0){
+          updatedMap['$key${element.referencia}'] = false;
+        }
       }
     }else{
       if(isCasco){

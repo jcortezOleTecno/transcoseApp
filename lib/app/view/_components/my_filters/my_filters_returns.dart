@@ -265,7 +265,7 @@ Future<FilterReturns?> myFiltersReturns(BuildContext context,
                                         height: 340,
                                         borderRadius: 16,
                                         styleYearPicker: MaterialRoundedYearPickerStyle(
-                                          textStyleYear: const TextStyle(fontSize: 16, color: AppColor.whiteF),
+                                          textStyleYear: const TextStyle(fontSize: 18, color: AppColor.primary),
                                         ),
                                         styleDatePicker: MaterialRoundedDatePickerStyle(
                                           textStyleDayButton: const TextStyle(fontSize: 26, color: Colors.white),
@@ -335,7 +335,7 @@ Future<FilterReturns?> myFiltersReturns(BuildContext context,
                                         height: 340,
                                         borderRadius: 16,
                                         styleYearPicker: MaterialRoundedYearPickerStyle(
-                                          textStyleYear: const TextStyle(fontSize: 16, color: AppColor.whiteF),
+                                          textStyleYear: const TextStyle(fontSize: 16, color: AppColor.primary),
                                         ),
                                         styleDatePicker: MaterialRoundedDatePickerStyle(
                                           textStyleDayButton: const TextStyle(fontSize: 26, color: Colors.white),

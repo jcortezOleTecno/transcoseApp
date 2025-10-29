@@ -374,7 +374,7 @@ class MyOrders extends StatelessWidget {
     }
 
     //DateTime dateDev = albaran.fecha.toUtc().add(Duration(days: dias)).toLocal();
-    DateTime utcDateTime = DateTime.utc(2025, 6, 3, 0, 0, 0);
+    DateTime utcDateTime = DateTime.utc(albaran.fecha.year, albaran.fecha.month, albaran.fecha.day, 0, 0, 0);
     DateTime dateDev = utcDateTime.add(Duration(days: dias));
 
     bool blockCheck = !isReturns;
@@ -812,7 +812,7 @@ class MyOrders extends StatelessWidget {
                     child: textCardAlbaran(context: context,titlte: 'REFERENCIA',subTitle: albaranDetails.referencia.replaceAll('CN', '').replaceAll('CV', '')),
                   ),
                   Expanded(
-                    child: textCardAlbaran(context: context,titlte: 'CANTIDAD',subTitle: cant >= 0 ? (cant).toString() : '0'),
+                    child: textCardAlbaran(context: context,titlte: '',subTitle: ''),
                   ),
                 ],
               ),
@@ -823,10 +823,10 @@ class MyOrders extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(
-                    child: textCardAlbaran(context: context,titlte: 'CANTIDAD DEVUELTA',subTitle: cantAbb.toString()),
+                    child: textCardAlbaran(context: context,titlte: 'CANTIDAD',subTitle: cant >= 0 ? (cant).toString() : '0'),
                   ),
                   Expanded(
-                    child: textCardAlbaran(context: context,titlte: '',subTitle: ''),
+                    child: textCardAlbaran(context: context,titlte: 'CANTIDAD DEVUELTA',subTitle: cantAbb.toString()),
                   ),
                 ],
               ),

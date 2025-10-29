@@ -295,7 +295,12 @@ class _AlbaranReturnsState extends State<AlbaranReturns> {
           Container(
             width: double.infinity,
             margin: const EdgeInsets.symmetric(horizontal: 20),
-            child: Text(subTitle,style: AppTextStyle.h3Style.copyWith(fontSize: 18),textAlign: TextAlign.left,),
+            child: Row(
+              children: [
+                Text('REFERENCIA  ',style: AppTextStyle.nunitoSans70012.copyWith(fontSize: 14),textAlign: TextAlign.left,),
+                Text(subTitle,style: AppTextStyle.h3Style.copyWith(fontSize: 18),textAlign: TextAlign.left,)
+              ],
+            ),
           )
         );
         listW.add(const SizedBox(height: 10,));

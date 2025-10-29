@@ -243,7 +243,18 @@ class ReturnsDetails extends StatelessWidget {
     for (var element in provider.listReturnsItems) {
       listW.add(cardItems(item: element,context: context,listLineas: provider.listReturnsItems));
       listW.add(spacerS);
-      listW.add(line);
+
+      bool isCasco = false;
+      for (var action in provider.listReturnsItems) {
+        String refSt = action.referencia!.split(' - ')[0];
+        if(element.referencia!.split(' - ')[0] == refSt.replaceAll('CN', '').replaceAll('CV', '')){
+          isCasco = true;
+        }
+      }
+
+      if(!isCasco){
+        listW.add(line);
+      }
       listW.add(spacerS);
     }
 

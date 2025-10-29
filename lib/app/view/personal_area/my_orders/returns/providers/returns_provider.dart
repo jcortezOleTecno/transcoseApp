@@ -36,6 +36,7 @@ class ReturnsProvider with ChangeNotifier{
 
   DataTableSource? dataPedidosFiltrado;
   PageController? pageController;
+  TextEditingController controllerSearch = TextEditingController();
 
   Future initialData() async {
 
@@ -84,6 +85,8 @@ class ReturnsProvider with ChangeNotifier{
     listReturnsOrigin = listReturns.map((e) => e).toList();
 
     dataPedidosFiltrado = MyDataReturns(data: listReturns,context: contextReturns);
+
+    filtroReturns(controllerSearch.text);
 
     currentPage = 0;
     notifyListeners();
